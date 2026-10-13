@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "ciRun": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38386227636",
+  "commit": "5d4a5d0bbe9db70ab29a5ab4358692337435d1e6",
+  "platform": "windows-x64",
+  "typecheck": "passed",
+  "unitTests": 61,
+  "realElectronFixtureTests": [
+    {
+      "name": "Exercise Windows close choice and native tray",
+      "scope": "real_electron_fixture_no_core_no_runtime",
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "name": "Preserve standalone window close",
+      "scope": "real_electron_fixture_no_core_no_runtime",
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0
+    },
+    {
+      "name": "Verify the isolated production bridge",
+      "scope": "real_electron_fixture_no_core_no_runtime",
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "skipped": 0
+    }
+  ],
+  "integratedProductUiAcceptance": "not_run",
+  "trueAgentRun": "not_run"
+}

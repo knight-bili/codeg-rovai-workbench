@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "channel": "automatic_acceptance",
+  "host": "real_native_binary",
+  "runtime": "not_started",
+  "productionMigration": "not_run",
+  "cases": [
+    {
+      "id": "no_session",
+      "status": "passed",
+      "http": 401
+    },
+    {
+      "id": "administrator_token_is_not_session",
+      "status": "passed",
+      "http": 401
+    },
+    {
+      "id": "bad_protocol_version",
+      "status": "passed",
+      "http": 409
+    },
+    {
+      "id": "valid_login",
+      "status": "passed",
+      "http": 200
+    },
+    {
+      "id": "session_capabilities",
+      "status": "passed",
+      "http": 200
+    },
+    {
+      "id": "admitted_read_operation",
+      "status": "passed",
+      "http": 200
+    },
+    {
+      "id": "unlisted_internal_operation",
+      "status": "passed",
+      "http": 400
+    },
+    {
+      "id": "unexpected_actor_field",
+      "status": "passed",
+      "http": 400
+    },
+    {
+      "id": "token_in_query_rejected",
+      "status": "passed",
+      "http": 400
+    },
+    {
+      "id": "foreign_origin_rejected",
+      "status": "passed",
+      "http": 403
+    },
+    {
+      "id": "first_event_requires_resync",
+      "status": "passed"
+    },
+    {
+      "id": "fresh_database_current_contract_and_integrity",
+      "status": "passed",
+      "contract": "v1.72",
+      "schema": 146
+    }
+  ],
+  "buildCommit": "9d1ad55eeb18c0bc359d6f575afe9a9936055040",
+  "ciRun": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38377262786",
+  "archiveSha256": "89ab5923f7a8a14d739e6bf04c4f752a8fdc870bae341988f8ccc1069d1b8a29",
+  "manifestVerifiedFiles": 213,
+  "scope": "source_host_protocol_and_fresh_database_not_integrated_product"
+}

@@ -1,0 +1,15 @@
+{
+  "kind":"design_fixture_not_a_production_migration",
+  "source":"codeg",
+  "sourceHost":"isolated-fixture-host",
+  "sourceRecord":{"folderId":1,"conversationId":7,"agentType":"codex","clientMessageId":"fixture-message-1"},
+  "intendedMapping":{"publicThreadRef":"rvcamp_01h47kvsy5fk1shh6w1g60eecf","idAllocation":"仅为合法格式的设计示例；生产导入使用Core创建命令返回的threadId，不复用此示例","scopeKeys":["sourceHost","agentType","conversationId"],"nativeSessionRef":"Runtime内部记录，不冒充公共Thread","worktreeCreatedAutomatically":false},
+  "cases":[
+    {"id":"first_import","expected":"创建来源映射及对应Core对象，来源文件不变","status":"not_run"},
+    {"id":"same_record_reimport","expected":"按来源scope和hash去重，不重复Thread或消息","status":"not_run"},
+    {"id":"same_integer_id_another_host","expected":"两个Host来源保持分离，不按整数ID合并","status":"not_run"},
+    {"id":"unknown_source_version","expected":"明确拒绝或隔离，保留原文件和快照","status":"not_run"},
+    {"id":"interrupted_commit","expected":"使用同一导入命令/记录核对结果，不盲重建对象","status":"not_run"},
+    {"id":"restore_rollback","expected":"一致性快照恢复到原版本，来源文件hash不变","status":"not_run"}
+  ]
+}

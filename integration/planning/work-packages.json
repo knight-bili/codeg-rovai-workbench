@@ -6,7 +6,8 @@
     "phase": "I00",
     "feature_ids": [],
     "acceptance": "主仓、固定 SHA、许可清单和一期完整待办可查；源仓不被改写，仓库中没有凭据。",
-    "status": "awaiting_customer_acceptance"
+    "status": "accepted",
+    "acceptance_basis": "客户授权自审通过后进入下一项，修正后的完整CI通过，PR50已合入"
   },
   {
     "id": "I00-T02",
@@ -15,7 +16,8 @@
     "phase": "I00",
     "feature_ids": [],
     "acceptance": "主仓、固定 SHA、许可清单和一期完整待办可查；源仓不被改写，仓库中没有凭据。",
-    "status": "awaiting_customer_acceptance"
+    "status": "accepted",
+    "acceptance_basis": "客户授权自审通过后进入下一项，修正后的完整CI通过，PR50已合入"
   },
   {
     "id": "I00-T03",
@@ -24,7 +26,8 @@
     "phase": "I00",
     "feature_ids": [],
     "acceptance": "主仓、固定 SHA、许可清单和一期完整待办可查；源仓不被改写，仓库中没有凭据。",
-    "status": "awaiting_customer_acceptance"
+    "status": "accepted",
+    "acceptance_basis": "客户授权自审通过后进入下一项，修正后的完整CI通过，PR50已合入"
   },
   {
     "id": "I01-T01",
@@ -33,7 +36,7 @@
     "phase": "I01",
     "feature_ids": [],
     "acceptance": "基线可启动、协议测试可复跑；各平台缺陷和外部依赖有负责人及修复任务，禁止把基线构建当成融合完成。",
-    "status": "not_started"
+    "status": "in_progress"
   },
   {
     "id": "I01-T02",
@@ -42,7 +45,7 @@
     "phase": "I01",
     "feature_ids": [],
     "acceptance": "基线可启动、协议测试可复跑；各平台缺陷和外部依赖有负责人及修复任务，禁止把基线构建当成融合完成。",
-    "status": "not_started"
+    "status": "in_progress"
   },
   {
     "id": "I01-T03",
@@ -51,7 +54,7 @@
     "phase": "I01",
     "feature_ids": [],
     "acceptance": "基线可启动、协议测试可复跑；各平台缺陷和外部依赖有负责人及修复任务，禁止把基线构建当成融合完成。",
-    "status": "not_started"
+    "status": "in_progress"
   },
   {
     "id": "I01-T04",
@@ -60,7 +63,7 @@
     "phase": "I01",
     "feature_ids": [],
     "acceptance": "基线可启动、协议测试可复跑；各平台缺陷和外部依赖有负责人及修复任务，禁止把基线构建当成融合完成。",
-    "status": "not_started"
+    "status": "in_progress"
   },
   {
     "id": "I02-T01",

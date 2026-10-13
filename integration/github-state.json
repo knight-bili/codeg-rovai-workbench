@@ -384,5 +384,12 @@
     "fallback": "私有仓 客户确认后人工合并 禁止自动合并"
   },
   "source_history_commits": 2842,
-  "product_tests": "未执行"
+  "product_tests": "未执行",
+  "i00": {
+    "status": "merged_after_authorized_self_review",
+    "pull_request": "https://github.com/knight-bili/codeg-rovai-workbench/pull/50",
+    "merge_commit": "9d1ad55eeb18c0bc359d6f575afe9a9936055040",
+    "full_ci": "success",
+    "self_review_fix_count": 3
+  }
 }

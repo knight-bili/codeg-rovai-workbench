@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "ciRun": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38382011684",
+  "ciWorkflowCommit": "77479307c503fc43fb7386f83f7d038f65db7c82",
+  "sourceCommit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+  "sourceArchive": "固定公开供体codeload ZIP；未改供体源码",
+  "platform": "windows-x64",
+  "scope": "source_server_build_and_authenticated_health_not_integrated_product",
+  "checks": {
+    "authenticatedHealth": "passed",
+    "runtime": "not_started",
+    "sourceServer": "real_native_binary",
+    "dataRoot": "isolated_fixture"
+  },
+  "artifactId": 11804622733,
+  "githubArtifactDigest": "sha256:bfb9f51d8d0387f9300e26a11113651af6a3af20e122254ba8b191bda8db87a3",
+  "downloadedBinarySha256": "eaa56dcf2c211c4b9c0b62e58914c193beb3888636e95835ff2c56a6ed688639",
+  "localBinaryExecution": "not_run",
+  "desktopUI": "not_run"
+}

@@ -1,0 +1,1947 @@
+{
+  "kind": "source_storage_snapshot_and_mapping_design_not_a_deployed_migration",
+  "sourceCodegCommit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+  "coreBuildCommit": "9d1ad55eeb18c0bc359d6f575afe9a9936055040",
+  "coreContract": "v1.72",
+  "coreSchema": 146,
+  "coreEvidence": "本次隔离空库，仅sqlite schema元数据，不含业务记录",
+  "sourceEntities": [
+    {
+      "sourceTable": "folder",
+      "sourcePath": "src-tauri/src/db/entities/folder.rs",
+      "sha256": "92098fc2307a6109f18545f035635b032bae88f0a1ead94f70885078a01316ff",
+      "fields": [
+        {
+          "name": "id",
+          "rustType": "i32"
+        },
+        {
+          "name": "name",
+          "rustType": "String"
+        },
+        {
+          "name": "path",
+          "rustType": "String"
+        },
+        {
+          "name": "git_branch",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "default_agent_type",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "last_opened_at",
+          "rustType": "DateTimeUtc"
+        },
+        {
+          "name": "created_at",
+          "rustType": "DateTimeUtc"
+        },
+        {
+          "name": "updated_at",
+          "rustType": "DateTimeUtc"
+        },
+        {
+          "name": "deleted_at",
+          "rustType": "Option<DateTimeUtc>"
+        },
+        {
+          "name": "is_open",
+          "rustType": "bool"
+        },
+        {
+          "name": "sort_order",
+          "rustType": "i32"
+        },
+        {
+          "name": "color",
+          "rustType": "String"
+        },
+        {
+          "name": "parent_id",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "kind",
+          "rustType": "FolderKind"
+        },
+        {
+          "name": "alias",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "group_id",
+          "rustType": "Option<i32>"
+        }
+      ],
+      "intendedOwner": "工程目录偏好与关联",
+      "mappingRule": "保留真实路径、根目录/Worktree归属和组，不能以路径冒充Core身份"
+    },
+    {
+      "sourceTable": "conversation",
+      "sourcePath": "src-tauri/src/db/entities/conversation.rs",
+      "sha256": "62be64cf00d7fd2658f84d60782f5b8db06069d8092fd3dc5013d90eeb5e1b97",
+      "fields": [
+        {
+          "name": "id",
+          "rustType": "i32"
+        },
+        {
+          "name": "folder_id",
+          "rustType": "i32"
+        },
+        {
+          "name": "title",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "title_locked",
+          "rustType": "bool"
+        },
+        {
+          "name": "agent_type",
+          "rustType": "String"
+        },
+        {
+          "name": "status",
+          "rustType": "ConversationStatus"
+        },
+        {
+          "name": "kind",
+          "rustType": "ConversationKind"
+        },
+        {
+          "name": "model",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "git_branch",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "external_id",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "parent_id",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "parent_tool_use_id",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "delegation_call_id",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "message_count",
+          "rustType": "i32"
+        },
+        {
+          "name": "created_at",
+          "rustType": "DateTimeUtc"
+        },
+        {
+          "name": "updated_at",
+          "rustType": "DateTimeUtc"
+        },
+        {
+          "name": "deleted_at",
+          "rustType": "Option<DateTimeUtc>"
+        },
+        {
+          "name": "pinned_at",
+          "rustType": "Option<DateTimeUtc>"
+        },
+        {
+          "name": "origin_cwd",
+          "rustType": "Option<String>"
+        }
+      ],
+      "intendedOwner": "Core公共Thread与其原生绑定",
+      "mappingRule": "legacy id/external_id/parent_id分别映射；不直接复制成Core私有conversation.id"
+    },
+    {
+      "sourceTable": "canvas_board",
+      "sourcePath": "src-tauri/src/db/entities/canvas_board.rs",
+      "sha256": "ae71a2ef6e6fa3548c50487d0707a6e90a173d3b321fb917262dbcc67b9e28eb",
+      "fields": [
+        {
+          "name": "id",
+          "rustType": "i32"
+        },
+        {
+          "name": "name",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "description",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "color",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "created_at",
+          "rustType": "DateTimeUtc"
+        },
+        {
+          "name": "updated_at",
+          "rustType": "DateTimeUtc"
+        }
+      ],
+      "intendedOwner": "Core既有迁移体系中的画板扩展",
+      "mappingRule": "只存画板元数据；不拥有Run状态"
+    },
+    {
+      "sourceTable": "canvas_node",
+      "sourcePath": "src-tauri/src/db/entities/canvas_node.rs",
+      "sha256": "24378e4f86ee6ea6a8b2ea1d4af8c3d83271294301a72382ef7daf51a16480dd",
+      "fields": [
+        {
+          "name": "id",
+          "rustType": "i32"
+        },
+        {
+          "name": "board_id",
+          "rustType": "i32"
+        },
+        {
+          "name": "kind",
+          "rustType": "CanvasNodeKind"
+        },
+        {
+          "name": "folder_id",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "folder_group_id",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "agent_type",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "conversation_id",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "member_ids",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "title",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "content",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "path",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "color",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "collapsed",
+          "rustType": "bool"
+        },
+        {
+          "name": "grid_columns",
+          "rustType": "i32"
+        },
+        {
+          "name": "grid_rows",
+          "rustType": "i32"
+        },
+        {
+          "name": "x",
+          "rustType": "f64"
+        },
+        {
+          "name": "y",
+          "rustType": "f64"
+        },
+        {
+          "name": "width",
+          "rustType": "f64"
+        },
+        {
+          "name": "height",
+          "rustType": "f64"
+        },
+        {
+          "name": "created_at",
+          "rustType": "DateTimeUtc"
+        },
+        {
+          "name": "updated_at",
+          "rustType": "DateTimeUtc"
+        }
+      ],
+      "intendedOwner": "画板节点扩展",
+      "mappingRule": "八种源节点保留；业务引用绑定Core身份，terminal只保存布局不复活旧PID"
+    },
+    {
+      "sourceTable": "work_task",
+      "sourcePath": "src-tauri/src/db/entities/work_task.rs",
+      "sha256": "3806fd0a85f96d55716f29193959bee82b5d675b9c0ec56f00be5948e9d3fe10",
+      "fields": [
+        {
+          "name": "id",
+          "rustType": "i32"
+        },
+        {
+          "name": "folder_id",
+          "rustType": "i32"
+        },
+        {
+          "name": "title",
+          "rustType": "String"
+        },
+        {
+          "name": "config",
+          "rustType": "String"
+        },
+        {
+          "name": "status",
+          "rustType": "WorkTaskStatus"
+        },
+        {
+          "name": "failure_reason",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "last_error",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "run_seq",
+          "rustType": "i32"
+        },
+        {
+          "name": "sort_order",
+          "rustType": "i32"
+        },
+        {
+          "name": "worktree_folder_id",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "conversation_id",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "connection_id",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "base_branch",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "base_sha",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "work_branch",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "merge_state",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "pending_merge",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "cleanup_state",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "verdict",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "result_summary",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "files_changed",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "additions",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "deletions",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "merge_commit",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "completion_kind",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "preflight",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "archived_at",
+          "rustType": "Option<DateTimeUtc>"
+        },
+        {
+          "name": "scheduled_at",
+          "rustType": "Option<DateTimeUtc>"
+        },
+        {
+          "name": "source_kind",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "source_key",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "source_meta",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "created_at",
+          "rustType": "DateTimeUtc"
+        },
+        {
+          "name": "updated_at",
+          "rustType": "DateTimeUtc"
+        },
+        {
+          "name": "started_at",
+          "rustType": "Option<DateTimeUtc>"
+        },
+        {
+          "name": "settled_at",
+          "rustType": "Option<DateTimeUtc>"
+        },
+        {
+          "name": "finished_at",
+          "rustType": "Option<DateTimeUtc>"
+        },
+        {
+          "name": "deleted_at",
+          "rustType": "Option<DateTimeUtc>"
+        }
+      ],
+      "intendedOwner": "统一Task/Mission与迁移来源记录",
+      "mappingRule": "状态和Worktree生命周期按已实现语义映射，不能直接互换状态字符串"
+    },
+    {
+      "sourceTable": "conversation_tag",
+      "sourcePath": "src-tauri/src/db/entities/conversation_tag.rs",
+      "sha256": "3705de3c0f58eeca67c8eb36f04292763518b27a274c6519af5b4f7dc3a3b66f",
+      "fields": [
+        {
+          "name": "id",
+          "rustType": "i32"
+        },
+        {
+          "name": "folder_id",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "name",
+          "rustType": "String"
+        },
+        {
+          "name": "color",
+          "rustType": "String"
+        },
+        {
+          "name": "sort_order",
+          "rustType": "i32"
+        },
+        {
+          "name": "created_at",
+          "rustType": "DateTimeUtc"
+        },
+        {
+          "name": "updated_at",
+          "rustType": "DateTimeUtc"
+        }
+      ],
+      "intendedOwner": "标签扩展",
+      "mappingRule": "保留全局/根工程scope；Worktree子目录沿用根scope"
+    },
+    {
+      "sourceTable": "conversation_tag_link",
+      "sourcePath": "src-tauri/src/db/entities/conversation_tag_link.rs",
+      "sha256": "10ca2afbcc85174bb5e562d362a49266f955bdd18a5851f0bbe5cfc8d8e59e8c",
+      "fields": [
+        {
+          "name": "conversation_id",
+          "rustType": "i32"
+        },
+        {
+          "name": "tag_id",
+          "rustType": "i32"
+        },
+        {
+          "name": "created_at",
+          "rustType": "DateTimeUtc"
+        }
+      ],
+      "intendedOwner": "标签与公共Thread关联扩展",
+      "mappingRule": "先取得来源Thread映射再创建关联，不用整数会话ID直接连接"
+    },
+    {
+      "sourceTable": "agent_setting",
+      "sourcePath": "src-tauri/src/db/entities/agent_setting.rs",
+      "sha256": "56cf6d317882f8674bca9d2bb5d87d960d1026769489affccfa4c425e922b3ef",
+      "fields": [
+        {
+          "name": "id",
+          "rustType": "i32"
+        },
+        {
+          "name": "agent_type",
+          "rustType": "String"
+        },
+        {
+          "name": "registry_id",
+          "rustType": "String"
+        },
+        {
+          "name": "enabled",
+          "rustType": "bool"
+        },
+        {
+          "name": "sort_order",
+          "rustType": "i32"
+        },
+        {
+          "name": "installed_version",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "env_json",
+          "rustType": "Option<String>"
+        },
+        {
+          "name": "model_provider_id",
+          "rustType": "Option<i32>"
+        },
+        {
+          "name": "created_at",
+          "rustType": "DateTimeUtc"
+        },
+        {
+          "name": "updated_at",
+          "rustType": "DateTimeUtc"
+        }
+      ],
+      "intendedOwner": "客户端Runtime默认偏好与Core队员配置的明确分界",
+      "mappingRule": "agent_type不是已创建队员身份；凭据不得写入夹具或日志"
+    }
+  ],
+  "coreTables": [
+    {
+      "table": "camp",
+      "columns": [
+        {
+          "name": "id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 1
+        },
+        {
+          "name": "title",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "name_origin",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "collaboration_mode",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "project_binding_kind",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "project_path",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "default_lead_agent_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "last_message_sequence",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "version",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "created_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "updated_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "activation_state",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "membership_generation",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "attachment_revision",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "deletion_operation_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "deletion_requested_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "deletion_attempt_count",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "deletion_next_attempt_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "deletion_last_error_code",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "deletion_attention_required",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "deletion_attention_revision",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "navigation_activity_sequence",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "navigation_activity_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "navigation_completion_sequence",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "last_delivery_sequence",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        }
+      ]
+    },
+    {
+      "table": "agent_profile",
+      "columns": [
+        {
+          "name": "uuid",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 1
+        },
+        {
+          "name": "id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "slug",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "display_name",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "accent",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_enabled",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "visual_state_json",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "created_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "updated_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "avatar_ref",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "default_capabilities_json",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "default_provider",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "default_model",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "profile_status",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "version",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "archived_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "handle",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "default_runtime_installation_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "default_model_selection_json",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "default_permission_config_json",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "member_order",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "removed_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "selected_runtime_adapter_kind",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "team_role",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "professional_responsibilities",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "personality_traits_json",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "working_principles",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "growth_topic",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_binding_revision",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "default_runtime_generation",
+          "sqlType": "INTEGER",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        }
+      ]
+    },
+    {
+      "table": "conversation",
+      "columns": [
+        {
+          "name": "id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 1
+        },
+        {
+          "name": "camp_id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "agent_id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "provider_override",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "model_override",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "action_permission_profile_ref",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "native_session_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "summary",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "summary_through_message_sequence",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "last_message_sequence",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "version",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "created_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "updated_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "native_adapter_installation_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "native_binding_compatibility_digest",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "native_binding_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "native_binding_generation",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "native_binding_secret_digest",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "last_accepted_public_boundary_sequence",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "native_charter_digest",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "native_collaboration_state_digest",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "native_installation_generation",
+          "sqlType": "INTEGER",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "native_session_compatibility_key",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "last_input_sequence",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "kind",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "ended_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "ended_reason",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "ended_binding_generation",
+          "sqlType": "INTEGER",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "native_workspace_fact_digest",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "mission_details_delivered_version",
+          "sqlType": "INTEGER",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        }
+      ]
+    },
+    {
+      "table": "agent_run",
+      "columns": [
+        {
+          "name": "id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 1
+        },
+        {
+          "name": "camp_turn_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "conversation_id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "task_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "trigger_conversation_message_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "input_ready_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "initial_camp_context_through_sequence",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "initial_conversation_context_through_sequence",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "responsibility_key",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "responsibility_generation",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "predecessor_agent_run_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "start_reason",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "purpose",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "completion_role",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "effective_config_json",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "workspace_json",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "status",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "wait_reason",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "wait_deadline_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "idempotency_key",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "automatic_retry_count",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "last_error_code",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "last_error_details_ref",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "manual_retry_allowed",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "retry_declined_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "execution_epoch",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_recovery_required",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "execution_lease_owner",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "execution_lease_expires_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "cancel_requested_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "cancel_reason_code",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "cancel_acknowledged_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "version",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "created_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "started_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "ended_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "final_conversation_message_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "final_camp_message_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "updated_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_adapter_kind",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_installation_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_reported_version",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_executable_fingerprint",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_capabilities_json",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_model_selection_json",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_permission_config_json",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_binding_compatibility_digest",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_executable_path",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_auth_scope",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_host_config_digest",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_protocol_version",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "invocation_kind",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "a2a_parent_agent_run_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "a2a_root_agent_run_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "a2a_depth",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "trigger_camp_message_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "permission_semantics",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_installation_generation",
+          "sqlType": "INTEGER",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_search_environment_generation",
+          "sqlType": "INTEGER",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_native_session_compatibility_key",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "starting_git_observation_json",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "ending_git_observation_json",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_compatibility_digest",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "trigger_message_delivery_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "trigger_delivery_generation",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "assignee_agent_id_at_admission",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_initial_reported_version",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_initial_executable_fingerprint",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_rebind_count",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "terminal_resolution_source",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "terminal_reason_code",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "skill_selection_snapshot_json",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "skill_selection_snapshot_digest",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "public_runtime_failure_json",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "runtime_observed_model_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "response_delivery",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "operation_policy",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "operation_policy_version",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "destination_conversation_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "camp_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "anchor_message_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "current_public_tail_sequence",
+          "sqlType": "INTEGER",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "workspace_preparing_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "execution_evidence_change_sequence",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "claim_previous_public_boundary_sequence",
+          "sqlType": "INTEGER",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "claim_has_additional_public_messages",
+          "sqlType": "INTEGER",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        }
+      ]
+    },
+    {
+      "table": "task",
+      "columns": [
+        {
+          "name": "id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 1
+        },
+        {
+          "name": "camp_id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "title",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "description",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "acceptance_criteria_json",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "status",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "assignee_agent_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "blocked_reason",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "completion_summary",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "cancel_reason",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "created_by_type",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "created_by_id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "source_agent_run_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "closed_by_type",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "closed_by_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "closed_by_agent_run_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "created_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "updated_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "closed_at",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        }
+      ]
+    },
+    {
+      "table": "mission",
+      "columns": [
+        {
+          "name": "id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 1
+        },
+        {
+          "name": "number",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "camp_id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "title",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "description",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "status",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "source_message_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "tags_json",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "source_attachments_json",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "details_version",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "created_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "updated_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        }
+      ]
+    },
+    {
+      "table": "mission_workspace",
+      "columns": [
+        {
+          "name": "id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 1
+        },
+        {
+          "name": "mission_id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "camp_id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "execution_host_id",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "source_directory",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "repository_root",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "git_common_dir",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "worktree_path",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "working_directory",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "base_branch",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "branch",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "base_sha",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "preparation_token",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "preparation_kind",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "generation",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "state",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "cleanup_command_id",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "cleanup_expected_branch_oid",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "cleanup_worktree_removed",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "cleanup_branch_removed",
+          "sqlType": "INTEGER",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "diagnostic",
+          "sqlType": "TEXT",
+          "notNull": false,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "created_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        },
+        {
+          "name": "updated_at",
+          "sqlType": "TEXT",
+          "notNull": true,
+          "primaryKeyOrder": 0
+        }
+      ]
+    }
+  ],
+  "publicThreadIdentity": "rvcamp_加26位Crockford Base32 UUIDv7，物理表camp",
+  "productionMigration": "not_run"
+}

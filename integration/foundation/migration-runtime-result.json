@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "channel": "automatic_acceptance",
+  "host": "real_native_binary",
+  "fixtureScope": "normalized_source_record_thread_shell_and_core_recovery",
+  "sourceCommit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+  "coreContract": "v1.72",
+  "coreSchema": 146,
+  "runtime": "not_started",
+  "productionLegacyDatabaseImport": "not_implemented",
+  "historicalMessagesImport": "not_run",
+  "cases": [
+    {
+      "id": "first_import",
+      "status": "passed",
+      "scope": "thread_shell_only",
+      "threadId": "rvcamp_01m4temcdpfb0vy3jy27p8s2yb"
+    },
+    {
+      "id": "same_record_reimport",
+      "status": "passed",
+      "sameThread": true,
+      "totalThreads": 1
+    },
+    {
+      "id": "same_integer_id_another_host",
+      "status": "passed",
+      "distinctThreads": true
+    },
+    {
+      "id": "unknown_source_version",
+      "status": "passed",
+      "rejectedBeforeCoreWrite": true
+    },
+    {
+      "id": "path_outside_fixture",
+      "status": "passed",
+      "rejectedBeforeCoreWrite": true
+    },
+    {
+      "id": "interrupted_commit",
+      "status": "passed",
+      "scope": "discarded_http_body_then_host_restart",
+      "recoveredFromCoreReceipt": true,
+      "totalThreads": 3
+    },
+    {
+      "id": "restore_rollback",
+      "status": "passed",
+      "databaseBytesRestoredBeforeReopen": true,
+      "totalThreads": 0,
+      "receiptState": "unknown"
+    },
+    {
+      "id": "source_fixture_unchanged",
+      "status": "passed",
+      "sourceHash": "f43bae309bb58daf8e0967c5527b6350e34227a2c4e999da3f61a48b316bfe4f"
+    },
+    {
+      "id": "no_runtime_started",
+      "status": "passed",
+      "agentRuns": 0,
+      "nativeSessionRestored": false
+    }
+  ],
+  "coreBuildCommit": "9d1ad55eeb18c0bc359d6f575afe9a9936055040",
+  "windowsAcl": "原生准备私有根；停机复制并保留逐项原DACL；目标根不放宽权限",
+  "workspaceAdmission": "使用workspaces.validate返回的规范路径"
+}

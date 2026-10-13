@@ -1,0 +1,284 @@
+{
+  "date": "2026-10-13",
+  "status": "source_baselines_passed_with_ci_job_warning",
+  "scope": "固定源码跨平台构建及可用源测试，不是融合MVP验收",
+  "roles": [
+    {
+      "role": "rovai-macos-arm64",
+      "sourceId": "rovai-ai",
+      "baselineCommit": "cc465dda562536b94f23787759e3206324baa29e",
+      "workflowCommit": "5b79843416f97bf040926817dade539872cfb91b",
+      "runUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38391085273",
+      "jobUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38391085273/job/115274763106",
+      "runnerOS": "macOS",
+      "runnerArch": "ARM64",
+      "startedAt": "2026-10-13T11:33:57Z",
+      "completedAt": "2026-10-13T11:40:59Z",
+      "executionMinutes": 7.03,
+      "stages": {
+        "toolchain": "passed",
+        "dependencies": "passed",
+        "compile": "passed",
+        "package": "passed",
+        "electron_fixtures": "passed"
+      },
+      "githubJobConclusion": "success",
+      "realDeviceAcceptance": "not_run",
+      "integratedProductAcceptance": "not_run",
+      "sourceQualification": "当前Rovai阶段骨架；固定源业务代码未变，另核对Git差异",
+      "electronFixtures": {
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0
+      },
+      "artifacts": [
+        {
+          "name": "rovai-preview.app.zip",
+          "bytes": 183157636,
+          "sha256": "4accaaa02656542eaeb92bf4d203cc0ac51fddf3e8a172acc36ab682922be4bb"
+        }
+      ]
+    },
+    {
+      "role": "rovai-macos-x64",
+      "sourceId": "rovai-ai",
+      "baselineCommit": "cc465dda562536b94f23787759e3206324baa29e",
+      "workflowCommit": "5b79843416f97bf040926817dade539872cfb91b",
+      "runUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38391085273",
+      "jobUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38391085273/job/115274763017",
+      "runnerOS": "macOS",
+      "runnerArch": "X64",
+      "startedAt": "2026-10-13T11:33:56Z",
+      "completedAt": "2026-10-13T11:53:19Z",
+      "executionMinutes": 19.38,
+      "stages": {
+        "toolchain": "passed",
+        "dependencies": "passed",
+        "compile": "passed",
+        "package": "passed",
+        "electron_fixtures": "passed"
+      },
+      "githubJobConclusion": "success",
+      "realDeviceAcceptance": "not_run",
+      "integratedProductAcceptance": "not_run",
+      "sourceQualification": "当前Rovai阶段骨架；固定源业务代码未变，另核对Git差异",
+      "electronFixtures": {
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0
+      },
+      "artifacts": [
+        {
+          "name": "rovai-preview.app.zip",
+          "bytes": 191797143,
+          "sha256": "fc5e77a637f6ab6c44b44910bdab10179199775d1faabc1262786bd379c5df4b"
+        }
+      ]
+    },
+    {
+      "role": "codeg-macos-arm64",
+      "sourceId": "codeg",
+      "baselineCommit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "workflowCommit": "5b79843416f97bf040926817dade539872cfb91b",
+      "runUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38391085273",
+      "jobUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38391085273/job/115274763243",
+      "runnerOS": "macOS",
+      "runnerArch": "ARM64",
+      "startedAt": "2026-10-13T11:33:57Z",
+      "completedAt": "2026-10-13T11:50:46Z",
+      "executionMinutes": 16.82,
+      "stages": {
+        "toolchain": "passed",
+        "dependencies": "passed",
+        "compile": "passed",
+        "package": "passed"
+      },
+      "githubJobConclusion": "success",
+      "realDeviceAcceptance": "not_run",
+      "integratedProductAcceptance": "not_run",
+      "downloadSource": {
+        "sourceId": "codeg",
+        "repository": "https://github.com/spacering-net/codeg",
+        "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+        "archiveSha256": "f43ef8f6de7c7ecd38c348d4bc5f734af99f858414b437e6d4ea5c7c71890f9c"
+      },
+      "binaryArchitecture": "arm64",
+      "artifacts": [
+        {
+          "name": "codeg-preview.app.zip",
+          "bytes": 114692835,
+          "sha256": "ac78b29dea9e39db8326389a35d04451eff10d6f0eb70c6b5380d11926802c8a"
+        }
+      ]
+    },
+    {
+      "role": "codeg-macos-x64",
+      "sourceId": "codeg",
+      "baselineCommit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "workflowCommit": "5b79843416f97bf040926817dade539872cfb91b",
+      "runUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38391085273",
+      "jobUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38391085273/job/115274763097",
+      "runnerOS": "macOS",
+      "runnerArch": "X64",
+      "startedAt": "2026-10-13T11:33:55Z",
+      "completedAt": "2026-10-13T13:03:55Z",
+      "executionMinutes": 90,
+      "stages": {
+        "toolchain": "passed",
+        "dependencies": "passed",
+        "compile": "passed",
+        "package": "passed"
+      },
+      "githubJobConclusion": "cancelled",
+      "realDeviceAcceptance": "not_run",
+      "integratedProductAcceptance": "not_run",
+      "ciJobWarning": [
+        "The job has exceeded the maximum execution time of 1h30m0s"
+      ],
+      "downloadSource": {
+        "sourceId": "codeg",
+        "repository": "https://github.com/spacering-net/codeg",
+        "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+        "archiveSha256": "f43ef8f6de7c7ecd38c348d4bc5f734af99f858414b437e6d4ea5c7c71890f9c"
+      },
+      "binaryArchitecture": "x86_64",
+      "artifacts": [
+        {
+          "name": "codeg-preview.app.zip",
+          "bytes": 111703075,
+          "sha256": "f39c12ac76e30efcf59192e2d7dc9a46b40424364b66fe83072a44c480978210"
+        }
+      ]
+    },
+    {
+      "role": "codeg-ios",
+      "sourceId": "codeg-ios",
+      "baselineCommit": "e2d75f918a64bc8a450216155cbc3ae4a820b0f1",
+      "workflowCommit": "5b79843416f97bf040926817dade539872cfb91b",
+      "runUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38391085273",
+      "jobUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38391085273/job/115274762854",
+      "runnerOS": "macOS",
+      "runnerArch": "ARM64",
+      "startedAt": "2026-10-13T11:33:57Z",
+      "completedAt": "2026-10-13T11:36:58Z",
+      "executionMinutes": 3.02,
+      "stages": {
+        "toolchain": "passed",
+        "compile_simulator": "passed",
+        "simulator_launch": "passed"
+      },
+      "githubJobConclusion": "success",
+      "realDeviceAcceptance": "not_run",
+      "integratedProductAcceptance": "not_run",
+      "downloadSource": {
+        "sourceId": "codeg-ios",
+        "repository": "https://github.com/xintaofei/codeg-ios",
+        "commit": "e2d75f918a64bc8a450216155cbc3ae4a820b0f1",
+        "archiveSha256": "62cb2c32875c654c45fe08ba8e79d4cbfb3f774b112c1309c0b573e493b1bf54"
+      },
+      "sourceUnitTests": "no_test_target",
+      "visualReview": "首屏Codeg Add Your Server已核查，含系统通知；只验证初次启动",
+      "device": "iPhone iOS26模拟器，未测试iPad",
+      "artifacts": [
+        {
+          "name": "codeg-simulator.app.zip",
+          "bytes": 21998777,
+          "sha256": "305429a729ee443686dcb7ae512de707578e05b608828e53312e1d58f6f59cfb"
+        },
+        {
+          "name": "startup.png",
+          "bytes": 454845,
+          "sha256": "d5713d21cbd53c65284257491cd1ea0845e7e89aa96ba6f606f1875e3e607ee0"
+        }
+      ]
+    },
+    {
+      "role": "codeg-android",
+      "sourceId": "codeg-android",
+      "baselineCommit": "33dba91b1522330fe519c27c4833066e35c9495e",
+      "workflowCommit": "b0856806d0f8f9d5d59488d407c3697bca048efa",
+      "runUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38401285968",
+      "jobUrl": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38401285968/job/115309445635",
+      "runnerOS": "Linux",
+      "runnerArch": "X64",
+      "startedAt": "2026-10-13T12:58:44Z",
+      "completedAt": "2026-10-13T13:06:34Z",
+      "executionMinutes": 7.83,
+      "stages": {
+        "toolchain": "passed",
+        "compile_and_unit_tests": "passed",
+        "emulator_launch": "passed"
+      },
+      "githubJobConclusion": "success",
+      "realDeviceAcceptance": "not_run",
+      "integratedProductAcceptance": "not_run",
+      "downloadSource": {
+        "sourceId": "codeg-android",
+        "repository": "https://github.com/xintaofei/codeg-android",
+        "commit": "33dba91b1522330fe519c27c4833066e35c9495e",
+        "archiveSha256": "4120250815e385beba1ceffc23037ce2c2731041c232daa6295ff829f139ecde"
+      },
+      "unitTests": {
+        "tests": 176,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "systemImage": "system-images;android-36;default;x86_64",
+      "sourceInstrumentedTests": "no_androidTest_cases",
+      "simulatorSystemRecovery": {
+        "systemUiAnrObserved": false,
+        "systemWaitTapped": false
+      },
+      "visualReview": "startup.png和startup.xml已人工核查Codeg首配页，无系统弹窗，仅验证安装启动首屏",
+      "artifacts": [
+        {
+          "name": "app-debug.apk",
+          "bytes": 67308851,
+          "sha256": "a931c70d1e4db86805b7c1e093865faaa7498b52b2553c9353e58963c9180e6e"
+        },
+        {
+          "name": "startup.png",
+          "bytes": 283115,
+          "sha256": "cfcf42b4912135e54683b34ce34e7a835ac2b22d84565d579e522d678e038066"
+        }
+      ]
+    }
+  ],
+  "history": [
+    {
+      "runId": 38390762574,
+      "result": "workflow_parse_failure",
+      "correction": "runner.temp移到运行步骤"
+    },
+    {
+      "runId": 38391085273,
+      "result": "overall_failure_android_failed_codeg_intel_job_cancelled",
+      "correction": "Codeg Intel构建、包、上传和收尾步骤均success，任务却cancelled；保留异常，不声称整个CI绿"
+    },
+    {
+      "runId": 38393571184,
+      "result": "android_emulator_disk_failure",
+      "correction": "源编译/176单测/lint通过；只重试Android"
+    },
+    {
+      "runId": 38396171258,
+      "result": "android_emulator_disk_failure_and_adb_path_missing",
+      "correction": "同API36标准AOSP镜像、显式platform-tools路径和提前工具检查"
+    },
+    {
+      "runId": 38399456358,
+      "result": "android_system_ui_anr_blocked_foreground",
+      "correction": "模拟器启动/安装/应用进程已通过；降低屏幕/内存，等待系统稳定；只识别系统UI弹窗并保留恢复证据"
+    }
+  ],
+  "acceptance": {
+    "fusionCases": 324,
+    "fusionCasesPassed": 0,
+    "fusionCaseStatus": "not_run",
+    "realDevices": "not_run",
+    "realAgentTurn": "not_run",
+    "productionMigration": "not_run",
+    "signedDistribution": "not_run"
+  }
+}

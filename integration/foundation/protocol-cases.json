@@ -1,0 +1,12 @@
+[
+  {"id":"no_session","path":"capabilities","method":"GET","auth":"none","expectedHttp":401},
+  {"id":"administrator_token_is_not_session","path":"capabilities","method":"GET","auth":"administrator","expectedHttp":401},
+  {"id":"bad_protocol_version","path":"login","method":"POST","auth":"none","body":{"protocolVersion":3,"administratorToken":"$administrator"},"expectedHttp":409},
+  {"id":"valid_login","path":"login","method":"POST","auth":"none","body":{"protocolVersion":4,"administratorToken":"$administrator"},"expectedHttp":200,"saveSession":true},
+  {"id":"session_capabilities","path":"capabilities","method":"GET","auth":"session","expectedHttp":200},
+  {"id":"admitted_read_operation","path":"request","method":"POST","auth":"session","body":{"operation":"missions.list","params":{}},"expectedHttp":200},
+  {"id":"unlisted_internal_operation","path":"request","method":"POST","auth":"session","body":{"operation":"internal.debug","params":{}},"expectedHttp":400},
+  {"id":"unexpected_actor_field","path":"request","method":"POST","auth":"session","body":{"operation":"missions.list","params":{},"actor":{"type":"system","component_id":"fixture"}},"expectedHttp":400},
+  {"id":"token_in_query_rejected","path":"capabilities?token=fixture","method":"GET","auth":"session","expectedHttp":400},
+  {"id":"foreign_origin_rejected","path":"capabilities","method":"GET","auth":"session","headers":{"Origin":"http://127.0.0.1:1"},"expectedHttp":403}
+]

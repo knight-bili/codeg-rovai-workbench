@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-13",
+  "scope": "resources_not_feature_acceptance",
+  "scheduleDates": "v4基准，仅扣周末；资源等待顺延，不是客户承诺提供日期",
+  "customerReply": "暂无，暂时搁浅稍后我会提供adb给你",
+  "interpretation": "客户明确先用GitHub编译/源测试/模拟器，Mac与移动真机运行后置，一期范围保留",
+  "resources": [
+    {
+      "id": "RES-WIN-BUILD",
+      "resource": "Windows本地MSVC链接器",
+      "status": "missing",
+      "owner": "研发",
+      "neededBefore": "本地原生完整构建",
+      "action": "保留CI原生编译路径；本地工具链变更需单独安排"
+    },
+    {
+      "id": "RES-MAC",
+      "resource": "Mac/Xcode26",
+      "status": "github_source_builds_passed_intel_ci_timeout_warning_real_device_deferred",
+      "owner": "研发负责GitHub构建；客户后续提供或确认真实Mac验收方式",
+      "neededBeforePhase": "I08",
+      "baselineDate": "2027-01-15",
+      "action": "GitHub标准macOS-26/26-intel验证两款源应用arm64/x64；本地Mac和真实设备交互另行验收"
+    },
+    {
+      "id": "RES-IOS",
+      "resource": "iPhone/iPad与iOS签名",
+      "status": "github_simulator_passed_real_device_deferred",
+      "owner": "研发负责云构建；客户提供真机及发布签名",
+      "neededBeforePhase": "I10",
+      "baselineDate": "2027-02-19",
+      "action": "Xcode26.6无开发者签名编译与iOS26模拟器启动；真机、发布签名后置，源无测试target不计单测通过"
+    },
+    {
+      "id": "RES-ANDROID",
+      "resource": "Android设备/ADB、SDK36、发布签名",
+      "status": "github_build_tests_simulator_passed_real_device_deferred",
+      "owner": "客户提供ADB；研发接入与核查SDK",
+      "neededBeforePhase": "I10",
+      "baselineDate": "2027-02-19",
+      "action": "GitHub Ubuntu24.04/JDK21/SDK36编译、源单测、lint和API36模拟器；客户指定ADB后补真机"
+    },
+    {
+      "id": "RES-LINUX",
+      "resource": "Linux原生构建与桌面验收环境",
+      "status": "not_provisioned",
+      "owner": "研发",
+      "neededBeforePhase": "I08",
+      "baselineDate": "2027-01-15",
+      "action": "安排隔离Linux环境并补Rovai桌面准入；当前无WSL发行版证据"
+    },
+    {
+      "id": "RES-OFFICE",
+      "resource": "OfficeCLI及实际文档样本",
+      "status": "not_on_path",
+      "owner": "研发安排安装方案；客户确认外部安装",
+      "neededBeforePhase": "I08",
+      "baselineDate": "2027-01-15",
+      "action": "先固定工具版本和许可，安装及实时预览另测"
+    },
+    {
+      "id": "RES-RUNTIME",
+      "resource": "各Runtime本机安装和测试认证",
+      "status": "not_admitted",
+      "owner": "研发核查，客户提供必要认证",
+      "neededBeforePhase": "I06",
+      "baselineDate": "2026-12-24",
+      "action": "逐项按21类Runtime及customACP矩阵登记，现有Codex会话不等于融合Runtime验证"
+    },
+    {
+      "id": "RES-CHANNEL",
+      "resource": "飞书/Lark/钉钉独立测试Bot和组织权限",
+      "status": "not_provided",
+      "owner": "客户提供；研发适配",
+      "neededBeforePhase": "I10",
+      "baselineDate": "2027-02-19",
+      "action": "在隔离账号和工作区验证；不使用个人日常凭据"
+    },
+    {
+      "id": "RES-FORGE",
+      "resource": "专用GitHub测试仓和受控写入身份",
+      "status": "not_provisioned",
+      "owner": "研发在Forge阶段安排",
+      "neededBeforePhase": "I07",
+      "baselineDate": "2027-01-05",
+      "action": "建立可销毁测试内容及Issues/PR夹具；主工程仓授权不作为任意第三方仓授权"
+    },
+    {
+      "id": "RES-SIGN",
+      "resource": "桌面/移动发布签名与分发",
+      "status": "not_purchased",
+      "owner": "客户决策，研发提供方案",
+      "neededBeforePhase": "I11",
+      "baselineDate": "2027-03-19",
+      "action": "在发布前确认分发渠道、证书与费用，当前不采购"
+    }
+  ],
+  "cloudBuildDecision": "2026-10-13已建立6项跨平台CI；编译/源测试/模拟器与真机验收分开登记，不自动正式签名或发布",
+  "cloudBuildEvidence": "cross-platform-result.json"
+}

@@ -277,6 +277,7 @@ pub fn delete(
 
 #[cfg(test)]
 pub(crate) fn downgrade_for_test(connection: &Connection) {
+    crate::db::downgrade_skill_pack_context_fixture(connection);
     if !connection.table_exists(None, "canvas_board").unwrap() {
         return;
     }

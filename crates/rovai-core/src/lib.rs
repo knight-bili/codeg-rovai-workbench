@@ -120,6 +120,7 @@ pub mod runtime_startup;
 mod runtime_thinking;
 pub mod single_chat;
 pub mod skill;
+pub(crate) mod skill_pack_delivery;
 pub mod skill_pack_installation;
 pub mod skill_pack_members;
 pub mod skill_projection;

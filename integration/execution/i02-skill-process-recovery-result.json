@@ -1,0 +1,148 @@
+{
+  "recordedAt": "2026-10-14T13:31:24.444Z",
+  "baseline": "8ddceddcd2047fd6aa20ca7c5112f471b287b218",
+  "status": "controlled_core_unknown_input_recovery_and_local_gates_passed_remaining_branches_pending",
+  "sourceHashes": {
+    "scripts/configure-product-runtime.mjs": "f091f019b21e6d66cad91f43e325558d808d96cb5c5cb7b58d62634c79ffa55c",
+    "scripts/lib/configure-product-runtime.test.mjs": "a76eef3a730fc6b93dfb390fdf520664e8027f60ec9e5fda04af2bd46998e911",
+    "scripts/fixtures/streaming-acp-runtime.mjs": "9d724adbb896a11aefc433612e71ed995c351257cc2210861cc96babb34f4fd7",
+    "scripts/fixtures/skill-recovery-runtime-launcher.rs": "11fe1ec435201424d5a2ba8a65353d64f8a62f1df951dc0c734de2ee1c8986f7",
+    "tools/integration/smoke-skill-pack-recovery.mjs": "efe3ac0fe09d5a7317c2cd9f21b8fe5b1f65e066fd4ffdf1c7aece6ca170d7f6"
+  },
+  "owner": "tools/integration/smoke-skill-pack-recovery.mjs",
+  "fixture": "work/i02/process-recovery-evidence/skill-recovery-KIFiVc",
+  "result": "work/i02/process-recovery-evidence/skill-recovery-KIFiVc/result.json",
+  "channel": "automatic_acceptance",
+  "isolation": "Fresh Windows native-private Core data root, explicit owned Skill Library/MCP, fake Home/Temp and restricted PATH; no daily credentials or provider CLI",
+  "artifacts": {
+    "host": {
+      "path": "work/i02/native-artifacts/core153-process-recovery-9640d9f48c94-91c547b4b77b/rovai-host.exe",
+      "sha256": "9640d9f48c940a4417f57cb70a753f66f3c38c56f09a9da10407b16718dd35ae"
+    },
+    "cli": {
+      "path": "work/i02/native-artifacts/core153-process-recovery-9640d9f48c94-91c547b4b77b/rovai.exe",
+      "sha256": "91c547b4b77bb4dd9cbd9f3b8f474cfab9031167099d2ef7efe044805b2522b3"
+    },
+    "launcher": {
+      "path": "work/i02/native-fixtures/skill-recovery-launcher.exe",
+      "sha256": "2e3ff0a1583686f145107af9f41fe5cedc37f212107dade8c3c2dcc2fece234f"
+    },
+    "scriptSha256": "9d724adbb896a11aefc433612e71ed995c351257cc2210861cc96babb34f4fd7"
+  },
+  "checks": [
+    {
+      "id": "isolated_real_core_started",
+      "status": "passed",
+      "pid": 152672,
+      "dataDir": "work/i02/process-recovery-evidence/skill-recovery-KIFiVc/formal/Core",
+      "skillRoot": "work/i02/process-recovery-evidence/skill-recovery-KIFiVc/formal/Core/managed-skill-library",
+      "mcpPath": "work/i02/process-recovery-evidence/skill-recovery-KIFiVc/formal/Core/mcp.json"
+    },
+    {
+      "id": "product_runtime_configured_with_owned_native_protocol_fixture",
+      "status": "passed"
+    },
+    {
+      "id": "real_core_frozen_blob_reached_controlled_acp",
+      "status": "passed",
+      "runId": "96ea5ed1-dc24-4ac6-b914-4430f38cf6e8",
+      "epoch": 1,
+      "manifestId": "568f34c8-989b-4583-a592-cd741f6a5de8",
+      "digest": "a4c777d4df03392f2b3fdab567448fbd0dbac61bc1bbe15bde6141144af98e10",
+      "runtimePid": 181788,
+      "disposition": "dispatched_native_confirmation_unknown"
+    },
+    {
+      "id": "uninstall_changed_live_choices_without_rewriting_frozen_input",
+      "status": "passed"
+    },
+    {
+      "id": "restarted_core_preserved_exact_blob_and_blocked_unknown_outcome_redispatch",
+      "status": "failed",
+      "oldCorePid": 152672,
+      "newCorePid": 153092,
+      "epoch": 1,
+      "waitReason": null,
+      "last_error_code": "accepted_input_outcome_unknown",
+      "delivery_status": "delivery_unknown",
+      "accepted_at": null
+    }
+  ],
+  "frozen": {
+    "bytes": 2025,
+    "sha256": "a4c777d4df03392f2b3fdab567448fbd0dbac61bc1bbe15bde6141144af98e10",
+    "beforeAfterExactlyEqual": true
+  },
+  "runtimeDisposition": "controlled_native_received_full_input; Core prepared+dispatch_started_at; accepted_at null; restart failed/accepted_input_outcome_unknown with delivery_unknown; no resend",
+  "helperRegression": {
+    "before": {
+      "passed": 5,
+      "failed": 3,
+      "log": "work/i02/skill-recovery-readiness-before.log"
+    },
+    "after": {
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "includesExistingComposerOwner": true,
+      "log": "work/i02/skill-recovery-readiness-after.log"
+    },
+    "change": "Accept current static installed_unverified binding for all adapters, retain the separate probe gate and needs_attention rejection"
+  },
+  "priorFailuresPreserved": [
+    "work/i02/skill-recovery-smoke-1.log",
+    "work/i02/skill-recovery-smoke-2.log",
+    "work/i02/skill-recovery-smoke-3.log",
+    "work/i02/skill-recovery-smoke-4.log",
+    "work/i02/skill-recovery-smoke-5.log",
+    "work/i02/skill-recovery-smoke-6.log"
+  ],
+  "boundary": "Process transport/unknown-outcome seam only. Lower Context owner retains input matrix; no production Runtime/manifest/permission changes or new Rust unit tests.",
+  "modelCalls": 0,
+  "remaining": [
+    "Confirmed active input process recovery on an acknowledging Runtime",
+    "Unaccepted-input process retry/epoch branch and remaining SP cases",
+    "Dedicated identity/budget SP12 real guide/tool/model gate and full platform/Runtime matrix"
+  ],
+  "validation": {
+    "staged": {
+      "status": "passed",
+      "checkedAt": "2026-10-14T13:45:01.412Z",
+      "plan": {
+        "route": "full",
+        "reason": "Rust source cannot be classified safely: scripts/fixtures/skill-recovery-runtime-launcher.rs",
+        "scripts": [
+          "test:rust:workspace-default"
+        ]
+      },
+      "executed": [
+        "test:rust:workspace-default"
+      ],
+      "sourceHashes": {
+        "scripts/fixtures/skill-recovery-runtime-launcher.rs": "11fe1ec435201424d5a2ba8a65353d64f8a62f1df951dc0c734de2ee1c8986f7"
+      },
+      "execution": "repository runStagedRustCheck plus mandatory pre-push workspace, with exact package-script cargo commands in isolated Windows SDK child environment"
+    },
+    "workspace": {
+      "passed": 501,
+      "failed": 0,
+      "ignored": 8,
+      "log": "work/i02/skill-recovery-staged.log",
+      "counting": "Final summary per Cargo target; nested helper not added"
+    },
+    "sourceHashesVerified": true,
+    "defaultStreamingFixture": {
+      "status": "passed",
+      "mode": "existing_default_fast_setup",
+      "nativeProtocolHandshake": true,
+      "originalFastSetupPreserved": true,
+      "newRecoveryModeAbsent": true,
+      "providerOrModelCalls": 0
+    },
+    "format": "passed:workspace and standalone launcher",
+    "documentationVersion": "passed",
+    "documentationGovernance": "passed",
+    "scaffold": "passed:81/48/324",
+    "foundation": "passed:161/10/6"
+  }
+}

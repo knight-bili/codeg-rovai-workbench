@@ -21,7 +21,7 @@ use crate::{
     },
     db::Database,
     platform::private_storage::{create_private_new_file, open_private_read_file},
-    skill::inspect_installed_pack_tree,
+    skill::{inspect_installed_pack_tree, inspect_installed_pack_tree_with_description},
 };
 
 pub(crate) const TABLE_SQL: &str = "CREATE TABLE skill_pack_installation (
@@ -151,6 +151,17 @@ pub struct SkillPackInstallationView {
     pub member_delivery_enabled: bool,
 }
 
+/// Internal source preparation only. The Run/candidate caller must independently
+/// check the receiving member's current choice before exposing this descriptor.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub(crate) struct SkillPackModelSource {
+    pub id: String,
+    pub name: String,
+    pub desc: String,
+    pub path: String,
+    pub source_version: String,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub(crate) struct Installation {
@@ -211,7 +222,80 @@ impl SkillPackStore {
     }
 
     pub fn list(&self, connection: &Connection) -> Result<Vec<SkillPackInstallationView>> {
-        self.views(&snapshot(connection)?)
+        let enabled = crate::current_input_skill::pack_context_enabled(connection)?;
+        let mut views = self.views(&snapshot(connection)?)?;
+        for view in &mut views {
+            view.member_delivery_enabled = enabled;
+        }
+        Ok(views)
+    }
+
+    /// Candidate paths are Core observations for preview only. Message ingress
+    /// accepts identity/name and resolves the receiving member again at prepare.
+    pub fn composer_candidates(
+        &self,
+        connection: &Connection,
+        camp_id: &str,
+    ) -> Result<(Vec<serde_json::Value>, Vec<String>)> {
+        let mut members = std::collections::BTreeMap::<String, Vec<String>>::new();
+        let mut statement = connection.prepare(
+            "SELECT choice.skill_id, choice.agent_id FROM member_skill_pack AS choice
+             JOIN camp_member AS cm ON cm.agent_id=choice.agent_id AND cm.camp_id=?1 AND cm.status='active'
+             JOIN agent_profile AS ap ON ap.id=cm.agent_id AND ap.profile_status<>'removed'
+             JOIN camp ON camp.id=cm.camp_id AND camp.activation_state='active' AND camp.deletion_operation_id IS NULL
+             ORDER BY choice.skill_id, choice.agent_id")?;
+        for row in statement.query_map([camp_id], |row| {
+            Ok((row.get::<_, String>(0)?, row.get::<_, String>(1)?))
+        })? {
+            let (id, member) = row?;
+            members.entry(id).or_default().push(member);
+        }
+        let catalog = crate::codeg_skill_catalog::list()?;
+        let mut candidates = Vec::new();
+        let mut errors = Vec::new();
+        for (id, member_ids) in members {
+            match self.model_source(connection, &id) {
+                Ok(Some(source)) => {
+                    let display_name = catalog
+                        .entries
+                        .iter()
+                        .find(|entry| entry.id == id)
+                        .map(|entry| &entry.display_name);
+                    let mut candidate = json!({"id":source.id,"name":source.name,
+                        "description":source.desc,"source":"pack","sourceScope":"installed",
+                        "entryPath":source.path,"memberIds":member_ids});
+                    if let Some(display_name) = display_name {
+                        candidate["displayName"] = serde_json::to_value(display_name)?;
+                    }
+                    candidates.push(candidate);
+                }
+                Ok(None) => errors.push(format!("pack:{id}:pack_not_installed")),
+                Err(_) => errors.push(format!("pack:{id}:pack_changed")),
+            }
+        }
+        Ok((candidates, errors))
+    }
+
+    pub(crate) fn model_source(
+        &self,
+        connection: &Connection,
+        skill_id: &str,
+    ) -> Result<Option<SkillPackModelSource>> {
+        let Some(row) = load(connection, skill_id)? else {
+            return Ok(None);
+        };
+        if row.status != "installed" {
+            return Ok(None);
+        }
+        let (content, unchanged, description) = self.inspect_details(&row)?;
+        ensure!(unchanged, "Installed Skill pack content changed");
+        Ok(Some(SkillPackModelSource {
+            id: format!("pack:{}", row.skill_id),
+            name: row.skill_id.clone(),
+            desc: description,
+            path: content.join("SKILL.md").to_string_lossy().into_owned(),
+            source_version: row.version()?,
+        }))
     }
 
     pub(crate) fn views(&self, rows: &[Installation]) -> Result<Vec<SkillPackInstallationView>> {
@@ -412,7 +496,7 @@ impl SkillPackStore {
             if !prepared.reused {
                 transaction.execute("INSERT INTO skill_pack_installation(skill_id,source_revision,source_digest,active_version,content_digest,status,generation,updated_at) VALUES(?1,?2,?3,?4,?5,?6,?7,?8) ON CONFLICT(skill_id) DO UPDATE SET source_revision=excluded.source_revision,source_digest=excluded.source_digest,active_version=excluded.active_version,content_digest=excluded.content_digest,status=excluded.status,generation=excluded.generation,updated_at=excluded.updated_at",params![row.skill_id,row.source_revision,row.source_digest,row.active_version,row.content_digest,row.status,row.generation,row.updated_at])?;
             }
-            Ok(CommandHandlerResult::applied(if prepared.reused {"skill_pack.already_current"}else{"skill_pack.installed"},json!({"skillId":row.skill_id,"version":row.version()?,"contentPath":content,"previousVersionRetained":previous.as_ref().is_some_and(|old|old.active_version!=row.active_version),"retainedVersion":previous.filter(|old|old.active_version!=row.active_version).map(|old|old.active_version),"memberDeliveryEnabled":false}),None))
+            Ok(CommandHandlerResult::applied(if prepared.reused {"skill_pack.already_current"}else{"skill_pack.installed"},json!({"skillId":row.skill_id,"version":row.version()?,"contentPath":content,"previousVersionRetained":previous.as_ref().is_some_and(|old|old.active_version!=row.active_version),"retainedVersion":previous.filter(|old|old.active_version!=row.active_version).map(|old|old.active_version),"memberDeliveryEnabled":crate::current_input_skill::pack_context_enabled(transaction)?}),None))
         })
     }
 
@@ -429,11 +513,16 @@ impl SkillPackStore {
             let Some(mut row)=current else {return Ok(CommandHandlerResult::rejected("skill_pack.not_installed",json!({})));};
             if row.status!="removed" {crate::skill_pack_members::clear_for_uninstall(transaction,&row.skill_id)?;row.status="removed".into();row.generation+=1;row.updated_at=chrono::Utc::now().to_rfc3339();
                 transaction.execute("UPDATE skill_pack_installation SET status='removed',generation=?2,updated_at=?3 WHERE skill_id=?1",params![row.skill_id,row.generation,row.updated_at])?;}
-            Ok(CommandHandlerResult::applied("skill_pack.uninstalled",json!({"skillId":row.skill_id,"version":row.version()?,"retainedContent":true,"memberDeliveryEnabled":false}),None))
+            Ok(CommandHandlerResult::applied("skill_pack.uninstalled",json!({"skillId":row.skill_id,"version":row.version()?,"retainedContent":true,"memberDeliveryEnabled":crate::current_input_skill::pack_context_enabled(transaction)?}),None))
         })
     }
 
     fn inspect(&self, row: &Installation) -> Result<(PathBuf, bool)> {
+        self.inspect_details(row)
+            .map(|(path, unchanged, _)| (path, unchanged))
+    }
+
+    fn inspect_details(&self, row: &Installation) -> Result<(PathBuf, bool, String)> {
         ensure!(
             Uuid::parse_str(&row.active_version)?.to_string() == row.active_version,
             "Invalid owned package version"
@@ -472,8 +561,9 @@ impl SkillPackStore {
                 && owner.content_digest == row.content_digest,
             "Skill package ownership cannot be confirmed"
         );
-        let observed = inspect_installed_pack_tree(&content, &row.skill_id)?;
-        Ok((content, observed == row.content_digest))
+        let (observed, description) =
+            inspect_installed_pack_tree_with_description(&content, &row.skill_id)?;
+        Ok((content, observed == row.content_digest, description))
     }
 }
 
@@ -638,12 +728,37 @@ mod tests {
         let interrupted_path = store.inspect(&interrupted.installation).unwrap().0;
         assert!(interrupted_path.exists());
         assert!(store.list(database.connection()).unwrap().is_empty());
+        assert!(
+            store
+                .model_source(database.connection(), "brainstorming")
+                .unwrap()
+                .is_none()
+        );
         // No commit simulates interruption after staging; retry must not adopt it.
         let committed = apply(&store, &mut database, &first);
         assert_eq!(committed.result.code, "skill_pack.installed");
         let initial = store.list(database.connection()).unwrap().remove(0);
         assert_eq!(initial.availability, "available");
         let initial_path = PathBuf::from(initial.content_path.as_ref().unwrap());
+        let model_source = store
+            .model_source(database.connection(), "brainstorming")
+            .unwrap()
+            .unwrap();
+        assert_eq!(model_source.id, "pack:brainstorming");
+        assert_eq!(model_source.name, "brainstorming");
+        assert_eq!(
+            model_source.desc,
+            crate::managed_skills::read_frontmatter(
+                &initial_path.join("SKILL.md"),
+                "brainstorming"
+            )
+            .unwrap()
+        );
+        assert_eq!(
+            model_source.path,
+            initial_path.join("SKILL.md").to_string_lossy()
+        );
+        assert_eq!(model_source.source_version, initial.version);
         assert_ne!(initial_path, interrupted_path);
         let versions_before = fs::read_dir(store.root.join("versions")).unwrap().count();
         assert!(apply(&store, &mut database, &first).replayed);
@@ -666,6 +781,11 @@ mod tests {
             fs::read_to_string(initial_path.join("SKILL.md")).unwrap()
         );
         fs::write(initial_path.join("SKILL.md"), &user_text).unwrap();
+        assert!(
+            store
+                .model_source(database.connection(), "brainstorming")
+                .is_err()
+        );
         assert_eq!(
             store.list(database.connection()).unwrap()[0].availability,
             "modified"
@@ -771,6 +891,12 @@ mod tests {
         assert!(current_path.exists());
         let removed = store.list(database.connection()).unwrap().remove(0);
         assert_eq!(removed.availability, "removed");
+        assert!(
+            store
+                .model_source(database.connection(), "brainstorming")
+                .unwrap()
+                .is_none()
+        );
         drop(database);
         let mut reopened = Database::open(&directory).unwrap();
         assert_eq!(

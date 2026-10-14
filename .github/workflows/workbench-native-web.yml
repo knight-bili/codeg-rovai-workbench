@@ -2,21 +2,19 @@ name: Workbench native Desktop and Web
 
 on:
   workflow_dispatch:
-  push:
-    branches: ['phase/**']
-    paths:
-      - '.github/workflows/workbench-native-web.yml'
-      - 'scripts/lib/host-web-live.test.mjs'
-      - 'scripts/lib/host-web-browser.mjs'
-      - 'crates/**'
-      - 'packages/contracts/**'
+    inputs:
+      arch:
+        description: macOS architecture (all at milestone acceptance)
+        type: choice
+        default: arm64
+        options: [arm64, x64, all]
 
 permissions:
   contents: read
 
 concurrency:
   group: workbench-native-web-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   native-web:
@@ -26,11 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - arch: arm64
-            runner: macos-26
-          - arch: x64
-            runner: macos-26-intel
+        include: ${{ fromJSON(inputs.arch == 'all' && '[{"arch":"arm64","runner":"macos-26"},{"arch":"x64","runner":"macos-26-intel"}]' || inputs.arch == 'x64' && '[{"arch":"x64","runner":"macos-26-intel"}]' || '[{"arch":"arm64","runner":"macos-26"}]') }}
     env:
       CARGO_BUILD_JOBS: 2
       NODE_OPTIONS: --max-old-space-size=3072
@@ -86,4 +80,4 @@ jobs:
             ${{ env.ROVAI_HOST_WEB_LIVE_OUTPUT }}/web-after-reauth.png
             ${{ env.ROVAI_HOST_WEB_LIVE_OUTPUT }}/gemini/*/result.json
           if-no-files-found: warn
-          retention-days: 3
+          retention-days: 1

@@ -11,6 +11,13 @@ last_updated: 2026-10-13
 
 # Rovai-ai v1.72：Lark 独立渠道
 
+## 技能包实际投递 r1 已获客户确认（2026-10-14）
+
+客户阅读前三页使用故事和完整研发附录后明确回复“符合预期，按对应 r1 继续实现”。
+确认的成员隔离、首次准备定版、消息选择、冻结恢复、更新卸载及旧输入兼容见
+[独立模型变更说明 r1](model-context-change-skill-pack-member-delivery.md)。来源/解析之后，实际Run输入、格式迁移、最终Blob恢复和候选/预览已接通并通过本地检查，详见[本轮自审](../../../integration/execution/i02-skill-delivery-context-result.json)；逐SP组合场景和真实Gate继续，
+专用模型身份及硬预算仍待提供，不把本确认解释成付费推理、main合入或发布授权。
+
 ## 融合期多画板基础（2026-10-14）
 
 I03在Core追加多画板创建、元数据修改、删除和一致快照，Schema152/Migration202保留原有技能包及成员选择。

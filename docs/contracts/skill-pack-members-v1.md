@@ -9,7 +9,7 @@ last_updated: 2026-10-14
 
 # Skill Pack Members v1
 
-本合同拥有技能包的队员选择保存与装卸交互，配合 [Skill Pack Installation v1](skill-pack-installation-v1.md)。当前选择不参与模型索引、结构化消息候选、Native 发现或权限计算；`memberDeliveryEnabled` 固定为 `false`。模型投递是待单独确认的变更，不能以配置保存替代真实使用。
+本合同拥有技能包的队员选择保存与装卸交互，配合 [Skill Pack Installation v1](skill-pack-installation-v1.md)。原配置切片不参与模型输入，返回`memberDeliveryEnabled:false`；客户确认r1后，由 [ContextManifest v34](context-manifest-evidence-v34.md)扩展独立包索引、候选和Run冻结，schema153起返回接通能力。选择仍不改变Native发现或工具权限；该能力标志和配置保存均不能替代实际模型读取资格。
 
 ## 保存与并发
 

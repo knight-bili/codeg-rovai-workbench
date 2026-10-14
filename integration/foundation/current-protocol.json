@@ -3,7 +3,7 @@
   "purpose": "当前融合工作树接口合同；固定来源与I01旧二进制证据保持原快照",
   "hostWebProtocolVersion": 4,
   "coreDataContractVersion": "v1.72",
-  "coreProjectionSchemaVersion": 152,
+  "coreProjectionSchemaVersion": 153,
   "canonicalWebOperations": [
     "missions.workspace.cleanup",
     "missions.cleanup.list",
@@ -204,9 +204,9 @@
     "qualification": "source_in_progress_not_runtime_qualified"
   },
   "evolution": {
-    "migration": 202,
-    "sourceProjectionSchemaVersion": 151,
-    "targetProjectionSchemaVersion": 152,
-    "reason": "Core多画板元数据及User生命周期；一致快照/修订CAS/首次结果与删除身份保留，不改变模型输入"
+    "migration": 203,
+    "sourceProjectionSchemaVersion": 152,
+    "targetProjectionSchemaVersion": 153,
+    "reason": "已确认技能包投递r1：接收队员定版、输入冻结和旧任务原字节恢复；多画板仍保留，来源基线不改写"
   }
 }

@@ -10,8 +10,9 @@ export interface ComposerSkillOption {
   name: string
   description: string
   origin: SkillOrigin
-  source?: 'toolbox' | 'native'
-  sourceScope?: 'user' | 'project'
+  source?: 'toolbox' | 'native' | 'pack'
+  sourceScope?: 'user' | 'project' | 'installed'
+  displayName?: Record<string, string>
   entryPath?: string
   memberIds?: string[]
 }
@@ -24,6 +25,7 @@ export function composerSkillsFromCandidates(candidates: ComposerSkillCandidates
     origin: 'official',
     source: skill.source,
     sourceScope: skill.sourceScope,
+    ...(skill.displayName ? { displayName: skill.displayName } : {}),
     entryPath: skill.entryPath,
     memberIds: skill.memberIds
   }))

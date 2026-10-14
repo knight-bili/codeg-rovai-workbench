@@ -2,6 +2,7 @@
 // Controlled ACP text stream for the isolated packaged-App metrics acceptance.
 // This impersonates a selected ACP executable only through an isolated test override.
 import { createInterface } from 'node:readline'
+import { appendFile } from 'node:fs/promises'
 
 const copilot = process.env.ROVAI_STREAMING_ACP_KIND === 'copilot-cli'
 if (process.argv.includes('--version')) {
@@ -18,6 +19,7 @@ const privateEvent = (type, data, extra = {}) => send({ method: 'github.com/copi
 const text = 'steady visible output '.repeat(4)
 const thought = 'V3_PRIVATE_REASONING_FIXTURE_かな🙂'
 let busy = false
+let heldPromptId = null
 
 for await (const line of createInterface({ input: process.stdin })) {
   let message
@@ -42,6 +44,25 @@ for await (const line of createInterface({ input: process.stdin })) {
       continue
     }
     busy = true
+    if (process.env.ROVAI_SKILL_RECOVERY_CAPTURE) {
+      await appendFile(process.env.ROVAI_SKILL_RECOVERY_CAPTURE, `${JSON.stringify({
+        pid: process.pid, parentPid: process.ppid, method: message.method,
+        requestId: message.id, params: message.params
+      })}\n`)
+      // The fixed Charter also names ROVAI_SKILL_PACKS. Hold the unique work
+      // item, never the preceding Bootstrap handshake.
+      if (JSON.stringify(message.params).includes('ROVAI_SKILL_RECOVERY_HELD_INPUT')) {
+        heldPromptId = message.id
+        update({ sessionUpdate: 'agent_message_chunk', content: {
+          type: 'text', text: 'Controlled input received; waiting for recovery injection.'
+        } })
+        continue
+      }
+      update({ sessionUpdate: 'agent_message_chunk', content: { type: 'text', text: 'Controlled bootstrap received.' } })
+      send({ id: message.id, result: { stopReason: 'end_turn' } })
+      busy = false
+      continue
+    }
     if (JSON.stringify(message.params).includes('ROVAI_STREAM_FAST_SETUP')) {
       update({ sessionUpdate: 'agent_message_chunk', content: { type: 'text', text: 'ROVAI_STREAM_FAST_READY' } })
       send({ id: message.id, result: { stopReason: 'end_turn' } })
@@ -96,6 +117,10 @@ for await (const line of createInterface({ input: process.stdin })) {
     }
     update({ sessionUpdate: 'agent_message_chunk', content: { type: 'text', text: 'ROVAI_QWEN_ACP_OK' } })
     send({ id: message.id, result: { stopReason: 'end_turn' } })
+    busy = false
+  } else if (message.method === 'session/cancel' && heldPromptId !== null) {
+    send({ id: heldPromptId, result: { stopReason: 'cancelled' } })
+    heldPromptId = null
     busy = false
   } else if (message.id != null) {
     send({ id: message.id, result: {} })

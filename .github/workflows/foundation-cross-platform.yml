@@ -1,23 +1,24 @@
 name: Foundation cross-platform
 
 on:
-  push:
-    branches: ['phase/i01-foundation']
-    paths:
-      - '.github/workflows/foundation-cross-platform.yml'
-      - 'tools/integration/ci-*.sh'
-      - 'tools/integration/fetch-locked-source.py'
-      - 'tools/integration/record-ci-stage.py'
   workflow_dispatch:
     inputs:
       target:
         description: Platform to validate
         type: choice
-        default: all
+        default: android
         options: [all, macos, ios, android]
+      upload_packages:
+        description: Upload rebuildable preview packages (off saves artifact storage)
+        type: boolean
+        default: false
 
 permissions:
   contents: read
+
+concurrency:
+  group: foundation-platform-${{ github.ref }}-${{ inputs.target }}
+  cancel-in-progress: true
 
 jobs:
   scope:
@@ -28,32 +29,16 @@ jobs:
       ios: ${{ steps.scope.outputs.ios }}
       android: ${{ steps.scope.outputs.android }}
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
-        with:
-          fetch-depth: 0
-          persist-credentials: false
       - id: scope
         env:
           REQUESTED_TARGET: ${{ inputs.target }}
-          BEFORE_SHA: ${{ github.event.before }}
         run: |
           python3 - <<'PY'
-          import os,re,subprocess
+          import os
           targets={'macos','ios','android'}
           requested=os.environ['REQUESTED_TARGET']
-          if requested:
-              selected=targets if requested=='all' else {requested}
-          else:
-              before=os.environ['BEFORE_SHA']
-              if not re.fullmatch(r'[0-9a-f]{40}',before) or before=='0'*40:
-                  selected=targets
-              else:
-                  paths=set(subprocess.check_output(['git','diff','--name-only',before,os.environ['GITHUB_SHA']],text=True).splitlines())
-                  scripts={f'tools/integration/ci-{name}.sh':name for name in targets}
-                  selected={name for p,name in scripts.items() if p in paths}
-                  shared={'tools/integration/fetch-locked-source.py','tools/integration/record-ci-stage.py'}
-                  if paths & shared or not selected:
-                      selected=targets
+          assert requested in targets | {'all'}, 'Unknown platform'
+          selected=targets if requested=='all' else {requested}
           with open(os.environ['GITHUB_OUTPUT'],'a') as output:
               for name in sorted(targets):output.write(f'{name}={str(name in selected).lower()}\n')
           print('Selected platforms: '+','.join(sorted(selected)))
@@ -66,7 +51,7 @@ jobs:
     timeout-minutes: ${{ matrix.app == 'codeg' && matrix.arch == 'x64' && 120 || 90 }}
     concurrency:
       group: foundation-macos-${{ github.ref }}-${{ matrix.app }}-${{ matrix.arch }}
-      cancel-in-progress: false
+      cancel-in-progress: true
     strategy:
       fail-fast: false
       matrix:
@@ -123,9 +108,20 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: foundation-${{ matrix.app }}-macos-${{ matrix.arch }}
-          path: ${{ env.FOUNDATION_CI_EVIDENCE }}
+          path: |
+            ${{ env.FOUNDATION_CI_EVIDENCE }}
+            !${{ env.FOUNDATION_CI_EVIDENCE }}/*.zip
+            !${{ env.FOUNDATION_CI_EVIDENCE }}/*.apk
           if-no-files-found: warn
-          retention-days: 3
+          retention-days: 1
+      - name: Preserve requested preview package
+        if: always() && inputs.upload_packages
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: foundation-${{ matrix.app }}-macos-${{ matrix.arch }}-package
+          path: ${{ env.FOUNDATION_CI_EVIDENCE }}/*.zip
+          if-no-files-found: warn
+          retention-days: 1
 
   ios:
     needs: scope
@@ -135,7 +131,7 @@ jobs:
     timeout-minutes: 40
     concurrency:
       group: foundation-ios-${{ github.ref }}
-      cancel-in-progress: false
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -151,9 +147,19 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: foundation-codeg-ios-simulator
-          path: ${{ env.FOUNDATION_CI_EVIDENCE }}
+          path: |
+            ${{ env.FOUNDATION_CI_EVIDENCE }}
+            !${{ env.FOUNDATION_CI_EVIDENCE }}/*.zip
           if-no-files-found: warn
-          retention-days: 3
+          retention-days: 1
+      - name: Preserve requested simulator package
+        if: always() && inputs.upload_packages
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: foundation-codeg-ios-simulator-package
+          path: ${{ env.FOUNDATION_CI_EVIDENCE }}/*.zip
+          if-no-files-found: warn
+          retention-days: 1
 
   android:
     needs: scope
@@ -163,7 +169,7 @@ jobs:
     timeout-minutes: 50
     concurrency:
       group: foundation-android-${{ github.ref }}
-      cancel-in-progress: false
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -183,6 +189,16 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: foundation-codeg-android
-          path: ${{ env.FOUNDATION_CI_EVIDENCE }}
+          path: |
+            ${{ env.FOUNDATION_CI_EVIDENCE }}
+            !${{ env.FOUNDATION_CI_EVIDENCE }}/*.apk
           if-no-files-found: warn
-          retention-days: 3
+          retention-days: 1
+      - name: Preserve requested APK
+        if: always() && inputs.upload_packages
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: foundation-codeg-android-package
+          path: ${{ env.FOUNDATION_CI_EVIDENCE }}/*.apk
+          if-no-files-found: warn
+          retention-days: 1

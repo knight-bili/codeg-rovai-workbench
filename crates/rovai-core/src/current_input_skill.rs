@@ -13,9 +13,35 @@ use crate::{
     skill_projection::PreparedSkillExposure,
 };
 
-pub const SKILL_SELECTION_SCHEMA_VERSION: i64 = 2;
-pub const CURRENT_INPUT_SKILL_RESOLUTION_SCHEMA_VERSION: i64 = 2;
-pub const EMPTY_SKILL_SELECTION_JSON: &str = r#"{"entries":[],"schemaVersion":2}"#;
+pub const SKILL_SELECTION_SCHEMA_VERSION: i64 = 3;
+pub const CURRENT_INPUT_SKILL_RESOLUTION_SCHEMA_VERSION: i64 = 3;
+pub const EMPTY_SKILL_SELECTION_JSON: &str = r#"{"entries":[],"schemaVersion":3}"#;
+pub(crate) const PACK_SKILL_SELECTION_SCHEMA_VERSION: i64 = 3;
+
+pub(crate) fn pack_context_enabled(connection: &Connection) -> Result<bool> {
+    let present: bool = connection.query_row(
+        "SELECT EXISTS(SELECT 1 FROM sqlite_schema WHERE type='table' AND name='schema_migration')",
+        [],
+        |row| row.get(0),
+    )?;
+    Ok(present
+        && connection.query_row(
+            "SELECT EXISTS(SELECT 1 FROM schema_migration WHERE version=203)",
+            [],
+            |row| row.get(0),
+        )?)
+}
+
+pub(crate) fn empty_selection(connection: &Connection) -> Result<SkillSelectionSnapshot> {
+    Ok(SkillSelectionSnapshot {
+        schema_version: if pack_context_enabled(connection)? {
+            3
+        } else {
+            2
+        },
+        entries: Vec::new(),
+    })
+}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -23,6 +49,7 @@ pub enum SkillSource {
     Rovai,
     Native,
     Legacy,
+    Pack,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -71,7 +98,7 @@ impl Serialize for SkillSelectionSnapshot {
             .entries
             .iter()
             .map(|entry| {
-                if self.schema_version == 2 {
+                if matches!(self.schema_version, 2 | 3) {
                     json!({
                         "skillId": entry.skill_id, "nameAtSend": entry.name_at_send,
                         "source": entry.source, "sourcePath": entry.source_path,
@@ -156,6 +183,9 @@ pub enum CurrentInputSkillOmissionReason {
     SourceMissing,
     SourceUnreadable,
     LegacyUnresolved,
+    PackNotSelected,
+    PackNotInstalled,
+    PackChanged,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize)]
@@ -169,6 +199,8 @@ pub struct CurrentInputSkillResolutionEntry {
     pub source: Option<SkillSource>,
     #[serde(default)]
     pub source_path: Option<String>,
+    #[serde(default)]
+    pub source_version: Option<String>,
     #[serde(default = "bool_true")]
     pub eligible_at_send: bool,
     #[serde(default)]
@@ -204,7 +236,7 @@ pub struct CurrentInputSkillResolution {
 
 impl Serialize for CurrentInputSkillResolution {
     fn serialize<S: Serializer>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error> {
-        if self.schema_version == 2 {
+        if matches!(self.schema_version, 2 | 3) {
             let entries: Vec<Value> = self
                 .entries
                 .iter()
@@ -214,13 +246,16 @@ impl Serialize for CurrentInputSkillResolution {
                         "source": entry.source, "sourcePath": entry.source_path,
                         "outcome": entry.outcome,
                     });
+                    if self.schema_version == 3 {
+                        value["sourceVersion"] = json!(entry.source_version);
+                    }
                     if let Some(reason) = entry.reason {
                         value["reason"] = json!(reason);
                     }
                     value
                 })
                 .collect();
-            json!({"schemaVersion": 2, "selectionSnapshotDigest": self.selection_snapshot_digest,
+            json!({"schemaVersion": self.schema_version, "selectionSnapshotDigest": self.selection_snapshot_digest,
                 "entries": entries})
             .serialize(serializer)
         } else {
@@ -287,6 +322,9 @@ pub(crate) fn projected_skill_links_for_claim(
     execution_root: &Path,
 ) -> Result<Vec<CurrentInputSkillLink>> {
     validate_selection_snapshot(selection)?;
+    if selection.schema_version == 3 {
+        anyhow::bail!("Pack Skill claim projection requires receiving-member preparation");
+    }
     if selection.schema_version == 2 {
         return Ok(selection
             .entries
@@ -371,6 +409,9 @@ pub fn freeze_skill_selection_with_messages(
         content.len() == message_indices.len(),
         "Skill selection message positions are incomplete"
     );
+    if pack_context_enabled(transaction)? {
+        return freeze_skill_selection_with_packs(transaction, content, message_indices);
+    }
     let v2_available: bool = transaction.query_row(
         "SELECT EXISTS(SELECT 1 FROM sqlite_master WHERE type='table' AND name='native_skill_reference')",
         [], |row| row.get(0)
@@ -433,6 +474,32 @@ fn freeze_skill_selection_v2(
     content: &[StructuredThreadMessageSegment],
     message_indices: &[usize],
 ) -> Result<SkillSelectionSnapshot> {
+    freeze_source_skill_selection(transaction, content, message_indices, 2)
+}
+
+pub(crate) fn freeze_skill_selection_with_packs(
+    transaction: &Transaction<'_>,
+    content: &[StructuredThreadMessageSegment],
+    message_indices: &[usize],
+) -> Result<SkillSelectionSnapshot> {
+    anyhow::ensure!(
+        content.len() == message_indices.len(),
+        "Skill selection message positions are incomplete"
+    );
+    freeze_source_skill_selection(
+        transaction,
+        content,
+        message_indices,
+        PACK_SKILL_SELECTION_SCHEMA_VERSION,
+    )
+}
+
+fn freeze_source_skill_selection(
+    transaction: &Transaction<'_>,
+    content: &[StructuredThreadMessageSegment],
+    message_indices: &[usize],
+    schema_version: i64,
+) -> Result<SkillSelectionSnapshot> {
     let mut seen = HashSet::new();
     let mut entries = Vec::new();
     let db_path: String = transaction.query_row("PRAGMA database_list", [], |row| row.get(2))?;
@@ -467,6 +534,10 @@ fn freeze_skill_selection_v2(
                     })
                     .flatten(),
             )
+        } else if schema_version == 3 && skill_id.starts_with("pack:") {
+            // The receiving member and installed version are resolved at first
+            // preparation. A message can never freeze a package path.
+            (SkillSource::Pack, None)
         } else if skill_id.starts_with("native:") {
             let registered: Option<(String, String, String)> = transaction.query_row(
                 "SELECT name, entry_path, canonical_path FROM native_skill_reference WHERE id = ?1",
@@ -496,7 +567,7 @@ fn freeze_skill_selection_v2(
         });
     }
     let snapshot = SkillSelectionSnapshot {
-        schema_version: 2,
+        schema_version,
         entries,
     };
     validate_selection_snapshot(&snapshot)?;
@@ -532,6 +603,10 @@ pub fn resolve_current_input_skills(
     if selection.canonical_digest()? != selection_digest {
         anyhow::bail!("AgentRun Skill selection snapshot digest is invalid");
     }
+    anyhow::ensure!(
+        selection.schema_version != 3,
+        "Pack Skill resolution requires receiving-member preparation"
+    );
     if selection.schema_version == 2 {
         return resolve_current_input_skills_v2(
             connection,
@@ -566,6 +641,7 @@ pub fn resolve_current_input_skills(
             first_segment_index: selected.first_segment_index,
             source: None,
             source_path: None,
+            source_version: None,
             eligible_at_send: selected.eligible_at_send,
             send_omission_reason: selected.omission_reason,
             run_availability: availability,
@@ -692,10 +768,68 @@ fn resolve_current_input_skills_v2(
     selection_digest: &str,
     adapter_kind: AdapterKind,
 ) -> Result<PreparedCurrentInputSkillResolution> {
+    resolve_source_skills(connection, selection, selection_digest, adapter_kind, None)
+}
+
+pub(crate) fn resolve_current_input_skills_with_packs(
+    connection: &Connection,
+    selection: &SkillSelectionSnapshot,
+    selection_digest: &str,
+    adapter_kind: AdapterKind,
+    receiving_agent_id: &str,
+    packs: &crate::skill_pack_delivery::PreparedMemberSkillPacks,
+) -> Result<PreparedCurrentInputSkillResolution> {
+    validate_selection_snapshot(selection)?;
+    packs.ensure_member(receiving_agent_id)?;
+    anyhow::ensure!(
+        selection.schema_version == PACK_SKILL_SELECTION_SCHEMA_VERSION
+            && selection.canonical_digest()? == selection_digest,
+        "Pack Skill selection snapshot is inconsistent"
+    );
+    resolve_source_skills(
+        connection,
+        selection,
+        selection_digest,
+        adapter_kind,
+        Some(packs),
+    )
+}
+
+fn resolve_source_skills(
+    connection: &Connection,
+    selection: &SkillSelectionSnapshot,
+    selection_digest: &str,
+    adapter_kind: AdapterKind,
+    packs: Option<&crate::skill_pack_delivery::PreparedMemberSkillPacks>,
+) -> Result<PreparedCurrentInputSkillResolution> {
     let mut entries = Vec::with_capacity(selection.entries.len());
     let mut links = Vec::new();
     for selected in &selection.entries {
-        let result = resolve_v2_source(connection, selected, adapter_kind)?;
+        let mut source_version = None;
+        let result = if selected.source == Some(SkillSource::Pack) {
+            use crate::skill_pack_delivery::PackUnavailable;
+            match packs
+                .context("Pack Skill resolution requires receiving-member preparation")?
+                .source(&selected.skill_id)
+            {
+                Ok(source) if source.name == selected.name_at_send => {
+                    source_version = Some(source.source_version.clone());
+                    Ok(source.path.clone())
+                }
+                Ok(_) => Err(CurrentInputSkillOmissionReason::SourceMissing),
+                Err(reason) => Err(match reason {
+                    PackUnavailable::NotSelected => {
+                        CurrentInputSkillOmissionReason::PackNotSelected
+                    }
+                    PackUnavailable::NotInstalled => {
+                        CurrentInputSkillOmissionReason::PackNotInstalled
+                    }
+                    PackUnavailable::Changed => CurrentInputSkillOmissionReason::PackChanged,
+                }),
+            }
+        } else {
+            resolve_v2_source(connection, selected, adapter_kind)?
+        };
         let (outcome, reason, path) = match result {
             Ok(path) => (
                 CurrentInputSkillResolutionOutcome::Available,
@@ -721,7 +855,12 @@ fn resolve_current_input_skills_v2(
             name_at_send: selected.name_at_send.clone(),
             first_segment_index: selected.first_segment_index,
             source: selected.source,
-            source_path: selected.source_path.clone(),
+            source_path: if selected.source == Some(SkillSource::Pack) {
+                path.clone()
+            } else {
+                selected.source_path.clone()
+            },
+            source_version,
             eligible_at_send: true,
             send_omission_reason: None,
             run_availability: RunSkillAvailabilityView::Missing,
@@ -735,7 +874,7 @@ fn resolve_current_input_skills_v2(
         });
     }
     let resolution = CurrentInputSkillResolution {
-        schema_version: 2,
+        schema_version: selection.schema_version,
         selection_snapshot_digest: selection_digest.to_owned(),
         skill_exposure_digest: String::new(),
         entries,
@@ -759,6 +898,9 @@ fn resolve_v2_source(
     };
     if source == SkillSource::Legacy {
         return Ok(Err(Reason::LegacyUnresolved));
+    }
+    if source == SkillSource::Pack {
+        return Ok(Err(Reason::SourceMissing));
     }
     let Some(path) = selected.source_path.as_deref() else {
         return Ok(Err(Reason::SourceMissing));
@@ -813,9 +955,52 @@ fn resolve_v2_source(
                 return Ok(Err(Reason::SourceMissing));
             }
         }
-        SkillSource::Legacy => unreachable!(),
+        SkillSource::Legacy | SkillSource::Pack => unreachable!(),
     }
     Ok(Ok(path.to_owned()))
+}
+
+/// The delivery preview already froze these facts with its payload. Recovery
+/// validates that frozen selection instead of consulting today's installations.
+pub(crate) fn resolution_from_frozen(
+    value: &Value,
+    selection: &SkillSelectionSnapshot,
+    selection_digest: &str,
+) -> Result<PreparedCurrentInputSkillResolution> {
+    anyhow::ensure!(
+        selection.schema_version == 3,
+        "Frozen pack resolution requires Selection3"
+    );
+    let digest = canonical_json_digest(value)?;
+    let resolution = validate_persisted_resolution(
+        &serde_json::to_string(value)?,
+        &digest,
+        selection,
+        selection_digest,
+        "",
+    )?;
+    let links = resolution
+        .entries
+        .iter()
+        .zip(&selection.entries)
+        .filter(|(entry, _)| entry.outcome == CurrentInputSkillResolutionOutcome::Available)
+        .map(|(entry, selected)| {
+            Ok(CurrentInputSkillLink {
+                name: selected.name_at_send.clone(),
+                path: entry
+                    .source_path
+                    .clone()
+                    .context("Frozen available Skill has no path")?,
+                skill_id: Some(selected.skill_id.clone()),
+                message_index: Some(selected.first_message_index),
+            })
+        })
+        .collect::<Result<Vec<_>>>()?;
+    Ok(PreparedCurrentInputSkillResolution {
+        resolution,
+        digest,
+        links,
+    })
 }
 
 pub fn validate_persisted_resolution(
@@ -825,8 +1010,19 @@ pub fn validate_persisted_resolution(
     selection_digest: &str,
     exposure_digest: &str,
 ) -> Result<CurrentInputSkillResolution> {
-    let resolution: CurrentInputSkillResolution = serde_json::from_str(resolution_json)
+    validate_selection_snapshot(selection)?;
+    let value: Value = serde_json::from_str(resolution_json)
         .context("Stored ContextManifest Current Input Skill resolution is invalid")?;
+    let resolution: CurrentInputSkillResolution = serde_json::from_value(value.clone())
+        .context("Stored ContextManifest Current Input Skill resolution is invalid")?;
+    if value["entries"].as_array().is_some_and(|entries| {
+        entries.iter().any(|entry| {
+            (resolution.schema_version < 3 && entry.get("sourceVersion").is_some())
+                || (resolution.schema_version == 3 && entry.get("sourceVersion").is_none())
+        })
+    }) {
+        anyhow::bail!("Stored Skill resolution source-version field has the wrong schema");
+    }
     if resolution.schema_version != selection.schema_version
         || resolution.selection_snapshot_digest != selection_digest
         || (resolution.schema_version == 1 && resolution.skill_exposure_digest != exposure_digest)
@@ -837,24 +1033,66 @@ pub fn validate_persisted_resolution(
     if resolution.entries.len() != selection.entries.len() {
         anyhow::bail!("Stored ContextManifest Current Input Skill resolution is incomplete");
     }
-    if resolution.schema_version == 2 {
+    if resolution.schema_version < 3
+        && resolution
+            .entries
+            .iter()
+            .any(|entry| entry.source_version.is_some() || entry.source == Some(SkillSource::Pack))
+    {
+        anyhow::bail!("Stored legacy Skill resolution has package-only fields");
+    }
+    if matches!(resolution.schema_version, 2 | 3) {
         for (entry, selected) in resolution.entries.iter().zip(&selection.entries) {
+            let pack = resolution.schema_version == 3 && entry.source == Some(SkillSource::Pack);
+            let path_and_version_match = if pack {
+                match entry.outcome {
+                    CurrentInputSkillResolutionOutcome::Available => {
+                        entry.source_path.as_deref().is_some_and(|path| {
+                            Path::new(path).is_absolute()
+                                && Path::new(path)
+                                    .file_name()
+                                    .is_some_and(|name| name == "SKILL.md")
+                        }) && entry
+                            .source_version
+                            .as_deref()
+                            .is_some_and(|version| !version.is_empty())
+                    }
+                    CurrentInputSkillResolutionOutcome::Unavailable => {
+                        entry.source_path.is_none() && entry.source_version.is_none()
+                    }
+                    _ => false,
+                }
+            } else {
+                entry.source_path == selected.source_path && entry.source_version.is_none()
+            };
+            let valid_reason = if pack {
+                matches!(
+                    entry.reason,
+                    Some(
+                        CurrentInputSkillOmissionReason::SourceMissing
+                            | CurrentInputSkillOmissionReason::PackNotSelected
+                            | CurrentInputSkillOmissionReason::PackNotInstalled
+                            | CurrentInputSkillOmissionReason::PackChanged
+                    )
+                )
+            } else {
+                matches!(
+                    entry.reason,
+                    Some(
+                        CurrentInputSkillOmissionReason::SourceMissing
+                            | CurrentInputSkillOmissionReason::SourceUnreadable
+                            | CurrentInputSkillOmissionReason::LegacyUnresolved
+                    )
+                )
+            };
             if entry.skill_id != selected.skill_id
                 || entry.name_at_send != selected.name_at_send
                 || entry.source != selected.source
-                || entry.source_path != selected.source_path
-                || !matches!(
-                    (entry.outcome, entry.reason),
-                    (CurrentInputSkillResolutionOutcome::Available, None)
-                        | (
-                            CurrentInputSkillResolutionOutcome::Unavailable,
-                            Some(
-                                CurrentInputSkillOmissionReason::SourceMissing
-                                    | CurrentInputSkillOmissionReason::SourceUnreadable
-                                    | CurrentInputSkillOmissionReason::LegacyUnresolved
-                            )
-                        )
-                )
+                || !path_and_version_match
+                || !((entry.outcome == CurrentInputSkillResolutionOutcome::Available
+                    && entry.reason.is_none())
+                    || (entry.outcome == CurrentInputSkillResolutionOutcome::Unavailable
+                        && valid_reason))
             {
                 anyhow::bail!("Stored ContextManifest Skill source resolution is inconsistent");
             }
@@ -994,7 +1232,7 @@ fn load_skill_state(
 }
 
 fn validate_selection_snapshot(snapshot: &SkillSelectionSnapshot) -> Result<()> {
-    if !matches!(snapshot.schema_version, 1 | 2) {
+    if !matches!(snapshot.schema_version, 1 | 2 | 3) {
         anyhow::bail!("unsupported AgentRun Skill selection snapshot version");
     }
     let mut seen = HashSet::new();
@@ -1012,7 +1250,10 @@ fn validate_selection_snapshot(snapshot: &SkillSelectionSnapshot) -> Result<()> 
             || previous_position.is_some_and(|previous| position <= previous)
             || (snapshot.schema_version == 1
                 && entry.eligible_at_send == entry.omission_reason.is_some())
-            || (snapshot.schema_version == 2
+            || (snapshot.schema_version < 3 && entry.source == Some(SkillSource::Pack))
+            || (entry.source == Some(SkillSource::Pack)
+                && (!entry.skill_id.starts_with("pack:") || entry.source_path.is_some()))
+            || (matches!(snapshot.schema_version, 2 | 3)
                 && (entry.source.is_none()
                     || !entry.eligible_at_send
                     || entry.omission_reason.is_some()
@@ -1098,6 +1339,19 @@ mod tests {
             EMPTY_SKILL_SELECTION_JSON
         );
         assert_eq!(snapshot.canonical_digest().unwrap().len(), 64);
+        // Supporting v3 must preserve the original v1/v2 canonical bytes.
+        for version in [1, 2, 3] {
+            let json = format!("{{\"entries\":[],\"schemaVersion\":{version}}}");
+            let snapshot: SkillSelectionSnapshot = serde_json::from_str(&json).unwrap();
+            assert_eq!(snapshot.canonical_json_and_digest().unwrap().0, json);
+        }
+        for json in [
+            r#"{"entries":[{"eligibleAtSend":true,"firstSegmentIndex":0,"nameAtSend":"review-pr","skillId":"legacy-id"}],"schemaVersion":1}"#,
+            r#"{"entries":[{"firstMessageIndex":0,"firstSegmentIndex":0,"nameAtSend":"brainstorming","skillId":"pack:brainstorming","source":"legacy","sourcePath":null}],"schemaVersion":2}"#,
+        ] {
+            let snapshot: SkillSelectionSnapshot = serde_json::from_str(json).unwrap();
+            assert_eq!(snapshot.canonical_json_and_digest().unwrap().0, json);
+        }
     }
 
     #[test]

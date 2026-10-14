@@ -1252,6 +1252,12 @@ export type CurrentInputSkillOmissionReason =
   | 'exposure_not_ready'
   | 'exposure_group_incompatible'
   | 'skill_file_unavailable'
+  | 'source_missing'
+  | 'source_unreadable'
+  | 'legacy_unresolved'
+  | 'pack_not_selected'
+  | 'pack_not_installed'
+  | 'pack_changed'
 
 export type RunSkillAvailabilityView =
   | { state: 'missing' }
@@ -1263,7 +1269,7 @@ export type RunSkillAvailabilityView =
       matchingGroupKeys: string[]
     }
 
-export interface CurrentInputSkillResolutionEntry {
+export interface LegacyCurrentInputSkillResolutionEntry {
   skillId: string
   nameAtSend: string
   firstSegmentIndex: number
@@ -1279,12 +1285,29 @@ export interface CurrentInputSkillResolutionEntry {
   deliveredViaGroupKey?: string
 }
 
-export interface CurrentInputSkillResolution {
+export interface LegacyCurrentInputSkillResolution {
   schemaVersion: 1
   selectionSnapshotDigest: string
   skillExposureDigest: string
-  entries: CurrentInputSkillResolutionEntry[]
+  entries: LegacyCurrentInputSkillResolutionEntry[]
 }
+
+export interface SourceCurrentInputSkillResolutionEntry {
+  skillId: string
+  nameAtSend: string
+  source: 'rovai' | 'native' | 'legacy' | 'pack'
+  sourcePath: string | null
+  outcome: 'available' | 'unavailable'
+  reason?: CurrentInputSkillOmissionReason
+}
+
+export type CurrentInputSkillResolutionEntry = LegacyCurrentInputSkillResolutionEntry
+  | SourceCurrentInputSkillResolutionEntry
+  | (SourceCurrentInputSkillResolutionEntry & { sourceVersion: string | null })
+
+export type CurrentInputSkillResolution = LegacyCurrentInputSkillResolution
+  | { schemaVersion: 2; selectionSnapshotDigest: string; entries: Array<Omit<SourceCurrentInputSkillResolutionEntry, 'source'> & { source: 'rovai' | 'native' | 'legacy' }> }
+  | { schemaVersion: 3; selectionSnapshotDigest: string; entries: Array<SourceCurrentInputSkillResolutionEntry & { sourceVersion: string | null }> }
 
 export interface ThreadMessageView {
   missionStart?: {missionId: string; title: string; description: string}
@@ -3571,7 +3594,7 @@ export interface SkillPackInstallationView {
   availability: 'available' | 'modified' | 'unavailable' | 'removed'
   contentPath: string | null
   retainedContent: boolean
-  memberDeliveryEnabled: false
+  memberDeliveryEnabled: boolean
 }
 
 export interface SkillPackMembersView {
@@ -3579,7 +3602,7 @@ export interface SkillPackMembersView {
   installed: boolean
   memberIds: string[]
   version: string
-  memberDeliveryEnabled: false
+  memberDeliveryEnabled: boolean
 }
 
 export interface SetSkillPackMembersCommand {
@@ -3592,8 +3615,9 @@ export interface ComposerSkillCandidate {
   id: string
   name: string
   description: string
-  source: 'toolbox' | 'native'
-  sourceScope?: 'user' | 'project'
+  source: 'toolbox' | 'native' | 'pack'
+  sourceScope?: 'user' | 'project' | 'installed'
+  displayName?: Record<string, string>
   entryPath: string
   memberIds: string[]
 }

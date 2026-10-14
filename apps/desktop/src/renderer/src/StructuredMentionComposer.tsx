@@ -65,7 +65,7 @@ import {
   recoverComposerClipboardDocument,
   type ComposerLocalStatus
 } from './composer-document'
-import { UiText, uiAttribute } from './interface-language'
+import { UiText, uiAttribute, getInterfaceLanguage } from './interface-language'
 
 const EMPTY_SKILLS: readonly ComposerSkillOption[] = []
 
@@ -183,13 +183,14 @@ export function structuredSkillOptions(
   query: string
 ): ComposerSkillOption[] {
   const normalizedQuery = query.trim().toLocaleLowerCase('zh-CN')
-  const filtered = normalizedQuery ? skills.filter((skill) => `${skill.name}\n${skill.description}`
+  const filtered = normalizedQuery ? skills.filter((skill) => `${skill.name}\n${Object.values(skill.displayName ?? {}).join('\n')}\n${skill.description}`
     .toLocaleLowerCase('zh-CN')
     .includes(normalizedQuery)) : skills
   // The typeahead indexes this array for Arrow/Enter. Match the menu's visual groups.
   return [
     ...filtered.filter((skill) => skill.source === 'toolbox'),
-    ...filtered.filter((skill) => skill.source !== 'toolbox')
+    ...filtered.filter((skill) => skill.source === 'pack'),
+    ...filtered.filter((skill) => skill.source !== 'toolbox' && skill.source !== 'pack')
   ]
 }
 
@@ -755,7 +756,8 @@ export function renderSkillMenu(
 ): JSX.Element {
   const sections = [
     { label:uiAttribute("工具箱"), entries: options.map((option, index) => ({ option, index })).filter(({ option }) => option.source === 'toolbox') },
-    { label: 'Skills', entries: options.map((option, index) => ({ option, index })).filter(({ option }) => option.source !== 'toolbox') }
+    { label:uiAttribute("技能包"), entries: options.map((option, index) => ({ option, index })).filter(({ option }) => option.source === 'pack') },
+    { label: 'Skills', entries: options.map((option, index) => ({ option, index })).filter(({ option }) => option.source !== 'toolbox' && option.source !== 'pack') }
   ].filter(({ entries }) => entries.length > 0)
   return <div id={menuId} className="mention-menu skill-picker-menu structured-skill-menu"
     role="listbox" aria-label={uiAttribute("选择 Skill")}>
@@ -771,17 +773,17 @@ export function renderSkillMenu(
             {section.entries.map(({ option, index }) => <button type="button" role="option" id={`${menuId}-option-${index}`}
               key={`skill:${option.id}`} data-skill-name={option.name}
               aria-selected={selectedIndex === index}
-              aria-label={`/${option.name}${uiAttribute('，')}${option.source === 'toolbox' ? uiAttribute("工具箱") : option.sourceScope === 'project' ? uiAttribute("项目 Skill") : uiAttribute("用户 Skill")}${option.memberIds?.length ? uiAttribute("，关联队员：{0}", members.filter((member) => option.memberIds?.includes(member.agentId)).map((member) => member.displayName).join(uiAttribute('、'))) : ''}`}
+              aria-label={`/${option.name}${uiAttribute('，')}${option.source === 'pack' ? uiAttribute("技能包") : option.source === 'toolbox' ? uiAttribute("工具箱") : option.sourceScope === 'project' ? uiAttribute("项目 Skill") : uiAttribute("用户 Skill")}${option.memberIds?.length ? uiAttribute("，关联队员：{0}", members.filter((member) => option.memberIds?.includes(member.agentId)).map((member) => member.displayName).join(uiAttribute('、'))) : ''}`}
               className={selectedIndex === index ? 'active' : ''}
               onMouseMove={() => setHighlightedIndex(index)}
               onMouseDown={(event) => event.preventDefault()}
               onClick={() => selectIndex(index)}>
               <SkillIdentityMark skillId={option.id} name={option.name} size="compact" />
               <span className="skill-picker-copy">
-                <strong>/{option.name}</strong>
+                <strong>{option.displayName?.[getInterfaceLanguage()] ?? option.displayName?.en ?? `/${option.name}`}</strong>
                 <small>{option.description}</small>
               </span>
-              {option.memberIds && <span className="skill-picker-member-count" title={`${option.source === 'toolbox' ? uiAttribute("已配置此 Skill 的队员") : uiAttribute("在以下队员的环境中发现")}${uiAttribute('：')}${members.filter((member) => option.memberIds?.includes(member.agentId)).map((member) => member.displayName).join(uiAttribute('、'))}`}>{option.memberIds.slice(0, 3).map((id) => {
+              {option.memberIds && <span className="skill-picker-member-count" title={`${option.source === 'toolbox' || option.source === 'pack' ? uiAttribute("已配置此 Skill 的队员") : uiAttribute("在以下队员的环境中发现")}${uiAttribute('：')}${members.filter((member) => option.memberIds?.includes(member.agentId)).map((member) => member.displayName).join(uiAttribute('、'))}`}>{option.memberIds.slice(0, 3).map((id) => {
                 const member = members.find((candidate) => candidate.agentId === id)
                 return member ? <MemberAvatar key={id} agentId={id} avatarRef={member.avatarRef ?? null} displayName={member.displayName} size="execution" decorative /> : null
               })}{option.memberIds.length > 3 && <small>+{option.memberIds.length - 3}</small>}</span>}

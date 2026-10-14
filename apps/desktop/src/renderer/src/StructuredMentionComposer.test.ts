@@ -141,6 +141,16 @@ describe('StructuredMentionComposer V2', () => {
     expect(structuredSkillOptions(skills, 'agent')).toEqual([skills[0]])
     expect(structuredSkillOptions(skills, '并行')).toEqual([skills[1]])
     expect(structuredSkillOptions(skills, '')).toEqual(skills)
+    const pack = { ...skills[0], id: 'pack:brainstorming', name: 'brainstorming',
+      source: 'pack' as const, sourceScope: 'installed' as const,
+      displayName: { 'zh-CN': '头脑风暴', en: 'Brainstorming' } }
+    expect(structuredSkillOptions([pack], '头脑')).toEqual([pack])
+    expect(structuredSkillOptions([pack], 'brainstorming')[0].name).toBe('brainstorming')
+    const markup = renderToStaticMarkup(renderSkillMenu('pack-menu', 'ready', [pack],
+      members, [], false, false, undefined, 0, () => undefined, () => undefined))
+    expect(markup).toContain('头脑风暴')
+    expect(markup).toContain('技能包')
+    expect(markup).toContain('data-skill-name="brainstorming"')
   })
 
   it('uses a stable refresh failure state and English Skill menu labels', async () => {
@@ -164,6 +174,8 @@ describe('StructuredMentionComposer V2', () => {
     const native = { ...skills[0], source: 'native' as const }
     const toolbox = { ...skills[1], source: 'toolbox' as const }
     expect(structuredSkillOptions([native, toolbox], '')).toEqual([toolbox, native])
+    const pack = { ...skills[0], id: 'pack:brainstorming', source: 'pack' as const }
+    expect(structuredSkillOptions([native, pack, toolbox], '')).toEqual([toolbox, pack, native])
   })
 
   it('keeps the generic Enter handler limited to composition and line-break rules', () => {

@@ -9,7 +9,7 @@ last_updated: 2026-10-14
 
 # Skill Pack Installation v1
 
-本合同拥有一期 I02-T03 的显式安装、刷新修复与卸载。来源与静态预览继续由 [Codeg Skill Packs v1](codeg-skill-packs-v1.md) 拥有；模型、工具箱与原生来源身份仍由 [Skills Rebuild v2](skills-rebuild-v2.md) 拥有。当前安装不向成员投递、不加入消息候选、不创建原生 CLI 链接，也不恢复旧 Library 的数据库权威。
+本合同拥有一期 I02-T03 的显式安装、刷新修复与卸载。来源与静态预览继续由 [Codeg Skill Packs v1](codeg-skill-packs-v1.md) 拥有；工具箱与原生来源身份仍由 [Skills Rebuild v2](skills-rebuild-v2.md) 拥有。安装本身不默认选择队员、不创建原生CLI链接，也不恢复旧Library数据库权威。客户确认r1后的独立包候选、成员索引和首次Run冻结由 [ContextManifest v34](context-manifest-evidence-v34.md)扩展；memberDeliveryEnabled只表示Core输入能力，不表示模型已读取。
 
 ## 数据与文件
 
@@ -41,7 +41,7 @@ Migration200 从 v1.72/schema149 升级150，在同一事务创建 `skill_pack_i
 
 未存在行的 `expectedVersion` 为 `absent`；已存在或已卸载行使用安装列表返回的 opaque `version`，客户端不能用文件时间推算。卸载把当前行改为 `removed`，保留文件和审计结果；重开不重新启用，重新安装需使用卸载后的观察版本。卸载不遍历原版本，归属损坏或含外部链接不导致删除外部目录。
 
-列表返回 `skillId/sourceRevision/status/version/availability/contentPath/retainedContent/memberDeliveryEnabled`。`availability` 为 `available`、`modified`、`unavailable` 或 `removed`；内容路径仅在归属和普通文件树可验证时返回。普通用户改动的树可为 `modified`；缺失、非法 frontmatter、链接或归属不明为 `unavailable`。列表不创建目录、不修复或写回状态。`retainedContent` 表达保留策略，`memberDeliveryEnabled` 当前固定 `false`，不代表 Native 或模型已读取指南。
+列表返回 `skillId/sourceRevision/status/version/availability/contentPath/retainedContent/memberDeliveryEnabled`。`availability` 为 `available`、`modified`、`unavailable` 或 `removed`；内容路径仅在归属和普通文件树可验证时返回。普通用户改动的树可为 `modified`；缺失、非法 frontmatter、链接或归属不明为 `unavailable`。列表不创建目录、不修复或写回状态。`retainedContent` 表达保留策略，`memberDeliveryEnabled`按schema203输入能力返回，不代表Native或模型已读取指南。原命令结果按首次回执原样重放，不因升级改写旧false值。
 
 可安装来源只有已嵌入的28份固定指南。未知 ID 或 OfficeCLI 的外部声明返回 `skill_pack.source_not_bundled`；来源版本不一致返回 `skill_pack.source_changed`；观察版本不一致返回 `skill_pack.version_conflict`。不下载包、不安装 Python/Node 环境或执行脚本；OfficeCLI、市场、自定义创作及成员投递仍继续实施。
 

@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "repository": "knight-bili/codeg-rovai-workbench",
+  "status": "public_standard_runner_verified_core_repair_passed",
+  "customer_authorization": "允许公开：先检查仓库及历史中的敏感内容和许可，再转换公开；发现问题先处理",
+  "visibility_before": "PRIVATE",
+  "visibility_after": "PUBLIC",
+  "anonymous_read": true,
+  "billing_settings_modified": false,
+  "account_billing_and_hard_budget": "not_verified_no_user_billing_scope",
+  "mvp_scope_reduced": false,
+  "pre_public_audit": {
+    "auditedHead": "a532697656049d91947e46b9cda8d52260384fd2",
+    "tool": "gitleaks 8.30.1 checksum verified",
+    "commits": 1948,
+    "includesAllOriginBranchesTagsAndClosedPr49": true,
+    "findings": 15,
+    "confirmedSecrets": 0,
+    "triage": {
+      "gitOrFileDigests": 7,
+      "syntheticCurlTestTokens": 3,
+      "syntheticFilePreviewToken": 1,
+      "idempotencyCreationKeys": 2,
+      "localStorageKey": 1,
+      "privateKeyDetectorStringConstants": 1
+    },
+    "sensitiveCredentialDatabaseDocumentPaths": 0,
+    "runMetadata": 156,
+    "downloadableLogs": 154,
+    "unavailableLogs": 2,
+    "downloadableLogSecrets": 0,
+    "issuePrReviewTextSecrets": 0,
+    "retainedLicenseHashes": 12
+  },
+  "storage": {
+    "artifactsBefore": 18,
+    "bytesBefore": 849700340,
+    "artifactsBackedUp": 18,
+    "allGithubArchiveDigestsVerified": true,
+    "artifactsAfter": 0,
+    "localBackupDirectory": "work/ci-free-20261014/artifacts",
+    "cacheBytesObserved": 627350595
+  },
+  "workflow_changes": {
+    "heavyChecks": "manual_select_platform_all_at_milestones",
+    "duplicatePushScaffoldRemoved": true,
+    "standardHostedRunnersOnly": true,
+    "foundationPackageUploadDefault": false,
+    "changedArtifactRetentionDays": 1,
+    "allOriginalTestCommandsPreserved": true,
+    "allPlatformOptionsPreserved": true
+  },
+  "validation": {
+    "checkedAt": "2026-10-14T09:43:18.646Z",
+    "workflowsParsed": 10,
+    "existingCommandsPreserved": true,
+    "scenarioCombinations": 10,
+    "retainedLicenseHashes": 12,
+    "rootLicensePreserved": true,
+    "allPlatformMatricesPreserved": true,
+    "actionlint": "1.7.12 passed (shellcheck and pyflakes unavailable)",
+    "documentationUnitTests": {
+      "passed": 10,
+      "failed": 0
+    },
+    "documentationVersion": "passed",
+    "documentationGovernance": "passed",
+    "scaffold": "passed: 81 source clusters / 48 work packages / 324 scenarios",
+    "foundationProtocol": "passed after current snapshot 152 to 153 correction",
+    "artifactUploads": 16,
+    "allArtifactUploadsRetentionDays": 1
+  },
+  "local_audit_directory": "work/ci-free-20261014",
+  "implementation": "CI config and current protocol snapshot only; uncommitted Context test expansion is excluded",
+  "checked_at": "2026-10-14T13:31:24.441Z",
+  "cloud_validation": {
+    "checkedAt": "2026-10-14T09:51:18.331Z",
+    "commit": "725512b25f2e1a01adc411817129cb8c2d374a59",
+    "standardPublicRunner": true,
+    "scaffold": {
+      "id": 38543657903,
+      "url": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38543657903",
+      "conclusion": "success"
+    },
+    "core": {
+      "id": 38543710547,
+      "url": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38543710547",
+      "status": "completed",
+      "conclusion": "failure",
+      "formatAndAllTargets": "passed",
+      "defaultWorkspace": "passed",
+      "extendedDatabase": {
+        "passed": 98,
+        "failed": 12,
+        "ignored": 0
+      },
+      "failureLog": "work/ci-free-20261014/core-linux-failed.log",
+      "nextAction": "修复历史夹具和格式识别检查并保留全部用例重跑；不提高支出上限"
+    },
+    "followUp": "原失败保留；修复提交63fc52b4的新Linux运行成功，110项包含原12失败与Unix专属用例。本次不代表全部Runtime/平台或MVP资格",
+    "latestScaffold": {
+      "id": 38574781228,
+      "commit": "679650fa65c4e96b32bf75e8e5c95ef0a999a498",
+      "conclusion": "success",
+      "url": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38574781228"
+    },
+    "coreRepair": {
+      "checkedAt": "2026-10-14T13:31:24.441Z",
+      "id": 38564836044,
+      "commit": "63fc52b4c13ad12754ba75c2c25cb0c6f0e6697a",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38564836044",
+      "standardPublicRunner": true,
+      "platform": "linux",
+      "database": {
+        "passed": 110,
+        "failed": 0,
+        "ignored": 0
+      },
+      "unixOnlyExecuted": true,
+      "allOriginal12FailuresPassed": true,
+      "formatAndAllTargets": "passed",
+      "defaultWorkspace": "passed",
+      "log": "work/i02/db153-linux-success.log"
+    }
+  },
+  "local_database_repair": {
+    "evidence": "i02-db153-regression-repair-result.json",
+    "windowsDatabase": {
+      "passed": 109,
+      "failed": 0,
+      "ignored": 0
+    },
+    "workspace": {
+      "passed": 501,
+      "failed": 0,
+      "ignored": 8
+    },
+    "productionUnchanged": true,
+    "linuxStatus": "passed:110/0/0 including original12 and Unix-only test"
+  }
+}

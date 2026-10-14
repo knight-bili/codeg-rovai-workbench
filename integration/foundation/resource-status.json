@@ -96,5 +96,14 @@
     }
   ],
   "cloudBuildDecision": "2026-10-13已建立6项跨平台CI；编译/源测试/模拟器与真机验收分开登记，不自动正式签名或发布",
-  "cloudBuildEvidence": "cross-platform-result.json"
+  "cloudBuildEvidence": "cross-platform-result.json",
+  "cloudBuildAccessResolution": {
+    "date": "2026-10-14",
+    "repositoryVisibility": "public",
+    "standardRunnerProbe": "execution_verified_core_extended_failures_owned_by_development",
+    "evidence": "../execution/ci-free-result.json",
+    "policy": "../ci-cost-policy.md",
+    "accountBudgetModified": false,
+    "realDevices": "still_required_at_acceptance"
+  }
 }

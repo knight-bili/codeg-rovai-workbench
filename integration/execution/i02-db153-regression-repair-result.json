@@ -1,0 +1,132 @@
+{
+  "recordedAt": "2026-10-14T12:26:54.175Z",
+  "status": "windows_and_linux_database_regressions_passed",
+  "baseline": "aa5e85bf533512c155d210679c3c18594583dcdc",
+  "source": {
+    "crates/rovai-core/src/db.rs": {
+      "sha256": "b0d12f66609a894ceeb2cd45680f20e5527cdb15a018860cd2e28854a5163290",
+      "productionAndSharedHelpersUnchanged": true,
+      "functionAndConditionalRosterUnchanged": true
+    },
+    "crates/rovai-core/src/db_member_environment.rs": {
+      "sha256": "9d81ded48c23404ffde8aa5dbb205ef82cd0693fba40875ef3a5e926ff8a4450",
+      "productionAndSharedHelpersUnchanged": true,
+      "functionAndConditionalRosterUnchanged": true
+    }
+  },
+  "changeScope": "Test fixtures and assertions only; production, source matching, migration code, test names and cfg/ignore attributes unchanged",
+  "causes": [
+    "Historical fixtures built new Selection3 rows before pretending to be old sources",
+    "Current schema tests queried retired v33 guards or historical SQL catalogs",
+    "Explicit bootstrap test chain stopped at202 instead of current203"
+  ],
+  "fixes": [
+    "Downgrade the empty fixture before business rows; preserve refusal to discard new snapshots",
+    "Use current admission/current v34 constraints after upgrade, keep historical matching strict",
+    "Complete explicit bootstrap chain through203; preserve rejection of new legacy inputs"
+  ],
+  "validation": {
+    "windowsDatabase": {
+      "passed": 109,
+      "failed": 0,
+      "ignored": 0,
+      "features": "extended-tests",
+      "filter": "db::",
+      "log": "work/i02/db153-fixture-full-db.log"
+    },
+    "originalLinuxFailures": {
+      "count": 12,
+      "allCoveredAndPassedOnWindows": true,
+      "names": [
+        "db::member_environment::tests::retirement_needs_no_old_ciphertext_or_key_and_preserves_member_configuration",
+        "db::tests::current_schema_contains_required_contract_objects",
+        "db::tests::current_schema_uses_delivery_first_multi_input_agent_runs",
+        "db::tests::database_contract_preflight_admits_current_and_rejects_future_store",
+        "db::tests::run_bootstrap_migration_keeps_audit_and_rolls_back_its_schema_change",
+        "db::tests::v100_backfills_stable_catalog_and_terminalizes_old_nonterminal_runs",
+        "db::tests::v111_upgrades_current_main_v110_and_keeps_zero_attempt_cancellation_terminal",
+        "db::tests::v163_requeues_unfrozen_public_work_and_retires_the_legacy_run_placeholder",
+        "db::tests::v172_preserves_historical_context_rows_and_gates_new_writes",
+        "db::tests::v95_invalidates_native_session_context_and_nonterminal_runs",
+        "db::tests::v98_invalidates_profile_v3_context_and_preserves_public_messages",
+        "db::tests::v99_preserves_legacy_evidence_classifies_unfinished_work_and_backfills_only_published_attachments"
+      ]
+    },
+    "platformDifference": {
+      "windows": 109,
+      "linux": 110,
+      "unixOnly": [
+        "db::tests::v107_quarantine_moves_owned_directories_without_following_links"
+      ],
+      "linuxStatus": "passed:110/0/0"
+    },
+    "staged": {
+      "status": "passed",
+      "checkedAt": "2026-10-14T12:25:53.705Z",
+      "plan": {
+        "route": "full",
+        "reason": "Rust source cannot be classified safely: crates/rovai-core/src/db_member_environment.rs",
+        "scripts": [
+          "test:rust:workspace-default"
+        ]
+      },
+      "executed": [
+        "test:rust:workspace-default"
+      ],
+      "sourceHashes": {
+        "crates/rovai-core/src/db.rs": "b0d12f66609a894ceeb2cd45680f20e5527cdb15a018860cd2e28854a5163290",
+        "crates/rovai-core/src/db_member_environment.rs": "9d81ded48c23404ffde8aa5dbb205ef82cd0693fba40875ef3a5e926ff8a4450"
+      },
+      "execution": "repository runStagedRustCheck plus mandatory pre-push workspace, with exact package-script cargo commands in isolated Windows SDK child environment",
+      "log": "work/i02/db153-fixture-staged.log",
+      "workspace": {
+        "passed": 501,
+        "failed": 0,
+        "ignored": 8
+      },
+      "counting": "Final summary per Cargo target; nested child helper summary excluded"
+    },
+    "finalGates": {
+      "format": "passed",
+      "documentationVersion": "passed",
+      "documentationGovernance": "passed",
+      "scaffold": "passed:81/48/324",
+      "foundation": "passed:161operations/10http/6migration-design",
+      "logPrefix": "work/i02/db153-"
+    },
+    "cloud": {
+      "checkedAt": "2026-10-14T13:31:24.441Z",
+      "id": 38564836044,
+      "commit": "63fc52b4c13ad12754ba75c2c25cb0c6f0e6697a",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38564836044",
+      "standardPublicRunner": true,
+      "platform": "linux",
+      "database": {
+        "passed": 110,
+        "failed": 0,
+        "ignored": 0
+      },
+      "unixOnlyExecuted": true,
+      "allOriginal12FailuresPassed": true,
+      "formatAndAllTargets": "passed",
+      "defaultWorkspace": "passed",
+      "log": "work/i02/db153-linux-success.log"
+    }
+  },
+  "remaining": [
+    "I02 process boundary and remaining SP matrix; real model SP12 with dedicated identity/budget"
+  ],
+  "failureLogsPreserved": [
+    "work/i02/db153-current-schema-before.log",
+    "work/i02/db153-fixture-repair-legacy-1.log",
+    "work/ci-free-20261014/core-linux-failed.log"
+  ],
+  "synchronization": {
+    "commit": "63fc52b4c13ad12754ba75c2c25cb0c6f0e6697a",
+    "pr": 54,
+    "remoteAndFetchVerified": true,
+    "method": "Git push with per-command OpenSSL/HTTP1.1/32MiB buffer; no global configuration changed"
+  }
+}

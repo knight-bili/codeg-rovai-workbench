@@ -188,6 +188,7 @@ mod tests {
     #[test]
     fn retirement_needs_no_old_ciphertext_or_key_and_preserves_member_configuration() {
         let (mut database, root) = crate::test_support::seeded_runtime_database_fast();
+        downgrade_skill_pack_context_fixture(database.connection());
         let kind = crate::agent_profile::AdapterKind::CodexCli;
         crate::member_environment::prepare(
             database.connection(),

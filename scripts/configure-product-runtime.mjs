@@ -1,4 +1,7 @@
 export async function configureProductRuntime(request, adapterKind, agentIds) {
+  // Member bindings are statically installed_unverified; probe evidence and the
+  // actual execution gate remain separate from that binding status.
+  const acceptedMemberReadiness = ['ready', 'installed_unverified']
   const allowsExecutionDeferredVerification = ['trae-cn-cli', 'opencode-cli'].includes(adapterKind)
   const acceptedSnapshotStates = allowsExecutionDeferredVerification
     ? ['ready', 'light_ready', 'installed_unverified'] : ['ready']
@@ -35,17 +38,13 @@ export async function configureProductRuntime(request, adapterKind, agentIds) {
       }
       resolved = await request('members.get', { agentId })
       if (resolved.runtimeConfiguration?.adapterKind === adapterKind
-          && (resolved.runtimeReadiness?.status === 'ready'
-            || (allowsExecutionDeferredVerification
-              && resolved.runtimeReadiness?.status === 'installed_unverified'))) {
+          && acceptedMemberReadiness.includes(resolved.runtimeReadiness?.status)) {
         break
       }
       await new Promise((resolveWait) => setTimeout(resolveWait, 250))
     }
     if (resolved?.runtimeConfiguration?.adapterKind !== adapterKind
-        || (resolved?.runtimeReadiness?.status !== 'ready'
-          && (!allowsExecutionDeferredVerification
-            || resolved?.runtimeReadiness?.status !== 'installed_unverified'))) {
+        || !acceptedMemberReadiness.includes(resolved?.runtimeReadiness?.status)) {
       throw new Error(`Product Runtime was not resolved: ${JSON.stringify({
         adapterKind,
         agentId,

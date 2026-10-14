@@ -289,4 +289,4 @@ jobs:
           name: rovai-macos-signed
           path: dist/release/*
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1

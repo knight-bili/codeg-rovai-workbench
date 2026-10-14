@@ -1,0 +1,181 @@
+{
+  "recordedAt": "2026-10-14T11:53:40.027Z",
+  "status": "deterministic_recovery_matrix_expanded_full_r1_still_in_progress",
+  "baseline": "4aa7e51b6c2f815a88f47348269deef9030fff03",
+  "branch": "phase/i02-skill-delivery",
+  "source": {
+    "path": "crates/rovai-core/src/context.rs",
+    "sha256": "3cc5ac1391dece1cad82f5dce7397723a6c99bd04cdea562568e17040e821fd9",
+    "stagedBytesMatch": true,
+    "productionLogicChanged": false
+  },
+  "owner": {
+    "name": "context::slow_tests::skill_pack_context_freezes_versions_and_recovers_original_bytes",
+    "passed": 1,
+    "failed": 0,
+    "log": "work/i02/skill-delivery-matrix-owner-final.log"
+  },
+  "checks": {
+    "stagedRoute": {
+      "route": "library",
+      "reason": "staged changes affect only the library target",
+      "scripts": [
+        "check:rust",
+        "test:rust:lib"
+      ]
+    },
+    "scripts": [
+      "check:rust",
+      "test:rust:lib",
+      "test:rust:workspace-default"
+    ],
+    "allTargetCheck": "passed",
+    "library": {
+      "targets": [
+        {
+          "target": "Running unittests src\\lib.rs (target\\debug\\deps\\rovai_core-c4f7c42457a4f192.exe)",
+          "result": {
+            "passed": 454,
+            "failed": 0,
+            "ignored": 8
+          }
+        }
+      ],
+      "passed": 454,
+      "failed": 0,
+      "ignored": 8
+    },
+    "workspace": {
+      "targets": [
+        {
+          "target": "Running unittests src\\lib.rs (target\\debug\\deps\\rovai_core-77fb358c18c89611.exe)",
+          "result": {
+            "passed": 454,
+            "failed": 0,
+            "ignored": 8
+          }
+        },
+        {
+          "target": "Running unittests src\\bin\\rovai.rs (target\\debug\\deps\\rovai-b323072396ae6c88.exe)",
+          "result": {
+            "passed": 33,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "target": "Running unittests src\\main.rs (target\\debug\\deps\\rovai_core-00beb36196cc8b4c.exe)",
+          "result": {
+            "passed": 0,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "target": "Running unittests src\\lib.rs (target\\debug\\deps\\rovai_host-3dd729d920b8aabe.exe)",
+          "result": {
+            "passed": 3,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "target": "Running unittests src\\main.rs (target\\debug\\deps\\rovai_host-d2e0b1a537d16431.exe)",
+          "result": {
+            "passed": 0,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "target": "Running unittests src\\bin\\rovai-server.rs (target\\debug\\deps\\rovai_server-d86b94bf01930636.exe)",
+          "result": {
+            "passed": 0,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "target": "Running unittests src\\lib.rs (target\\debug\\deps\\rovai_web-4927aa17ec9b1cf9.exe)",
+          "result": {
+            "passed": 11,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "target": "Doc-tests rovai_core",
+          "result": {
+            "passed": 0,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "target": "Doc-tests rovai_host",
+          "result": {
+            "passed": 0,
+            "failed": 0,
+            "ignored": 0
+          }
+        },
+        {
+          "target": "Doc-tests rovai_web",
+          "result": {
+            "passed": 0,
+            "failed": 0,
+            "ignored": 0
+          }
+        }
+      ],
+      "passed": 501,
+      "failed": 0,
+      "ignored": 8
+    },
+    "counting": "Use the final Cargo summary per target; nested helper summaries excluded. Suites overlap and are not acceptance-case totals."
+  },
+  "addedEvidence": [
+    {
+      "scenario": "SP08",
+      "scope": "Database::open plus production mark_for_recovery/claim_agent_run",
+      "proved": "Execution epoch increases; same Manifest id, final Blob bytes and digest after uninstall/reopen; no current-config reconstruction",
+      "remaining": "Real Core process restart and Runtime acceptance boundary still require an isolated process fixture; real model is separate SP12"
+    },
+    {
+      "scenario": "SP09",
+      "scope": "Legacy Selection2 rows before Migration203, serializer and reopen",
+      "proved": "Public29/Profile9/RunFacts7 and public33/Profile10/RunFacts9 retain version, omissions, true user mention and exact bytes; original public32 coverage remains",
+      "remaining": "Other historical28/input variants and full source/runtime matrix remain explicitly required"
+    },
+    {
+      "scenario": "SP05/SP06/SP11",
+      "scope": "Retained public A2A preflight/dispatch/claim/materialization",
+      "proved": "Separate historical CampTurn/direct root/message rows; frozen input prepared with receiver-selected pack is identical after uninstall; non-batch29/Profile7/RunFacts6; modern batch input is never relabelled",
+      "remaining": "All pre/post-preparation update races and modern/public/single-chat combinations still need their exact scenario evidence"
+    }
+  ],
+  "nonClaims": [
+    "No real Runtime or model turn",
+    "No full SP01-SP12 completion",
+    "No I02 or MVP completion",
+    "Database reopen is not a Core process restart"
+  ],
+  "cloudRegression": {
+    "run": 38543710547,
+    "status": "failed",
+    "dbTests": {
+      "passed": 98,
+      "failed": 12
+    },
+    "reason": "Historical schema fixtures and current format recognition need investigation and repair; not account billing",
+    "nextAction": "Retain complete test set, repair actual cause, rerun locally then on public standard runner"
+  },
+  "failureLogsPreserved": [
+    "work/i02/skill-delivery-matrix-owner-1.log",
+    "work/i02/skill-delivery-matrix-owner-3.log",
+    "work/i02/skill-delivery-matrix-owner-5.log",
+    "work/i02/skill-delivery-matrix-owner-6.log",
+    "work/i02/skill-delivery-matrix-owner-7.log",
+    "work/i02/skill-delivery-matrix-staged-route-1.log"
+  ]
+}

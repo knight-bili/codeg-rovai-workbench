@@ -52,4 +52,4 @@ jobs:
             dist/windows-release-manifest.json
             dist/windows-verification-report.txt
           if-no-files-found: error
-          retention-days: 3
+          retention-days: 1

@@ -11,9 +11,15 @@ last_updated: 2026-10-12
 
 ## Rust 测试准入与退役门槛
 
+技能包Context153/203迁移新增扩展owner `db::skill_pack_context::tests::migration_is_atomic_and_preserves_existing_authorities`，拥有三表约束/新默认值/收据的同事务切换、失败时恢复及既有结果和Blob保留。安装/成员owner只加自己的表，不拥有RunInput、Manifest和Run默认值，不能代替这一边界；复用既有私有SQLite模板，不启动模型。最低命令为 `cargo test -p rovai-core --features extended-tests --lib db::skill_pack_context`。实际有内容的旧/新Run恢复与输入预算由Context owner继续验证；结构通过不能替代最终Blob或真实Runtime资格。
+
+Windows更新交接回归复用 `rovai-host::server_updates::install::tests::handoff_requires_settlement_then_runs_the_new_program_with_original_arguments`：本机完整回归与同一二进制的定向执行均曾因进程退出后的短暂目录占用报拒绝访问。目录切换增加有上限的Windows重试后，持续占用及旧目录/候选保留继续由原 `directory_switch_restores_old_program_on_failure_and_retains_it_on_success` 拥有，扩展真实不共享删除的句柄负例；不新增测试或另建进程fixture。最小命令 `cargo test -p rovai-host --lib`。Unix路径仍直接执行一次重命名；不能把本机结果当作Unix更新资格。
+
+技能包模型来源准备复用 `skill_pack_installation::tests::version_publication_preserves_edits_fences_stale_commits_and_replays_across_reopen`，增加独立pack身份、实际路径、安装观察版本及完整YAML description断言。成员来源索引和Selection/Resolution v3解析复用下列成员持久化owner：验证A/B隔离、空索引、完整说明、身份去重及消息位置、伪造路径/名称/版本拒绝、三类遗漏、更新换版本及旧文件保留、重开和重装不恢复选择；不另建SQLite或Runtime fixture。原 `current_input_skill::tests::empty_selection_digest_is_stable` 继续拥有空选择的旧版本规范字节，完整YAML标量仍由原 `managed_skills::tests::frontmatter_preserves_yaml_scalar_value_in_model_index` 拥有。最低命令为 `cargo test -p rovai-core --features extended-tests --lib skill_pack` 和 `cargo test -p rovai-core --lib current_input_skill`。本批生产claim仍为v2、输入仍28/33，尚未验证最终Blob物化/恢复，也不授予实际模型资格。
+
 融合多画板新增扩展 owner `canvas_board::tests::board_migration_and_command_lifecycle_preserve_replay_and_atomic_snapshot`，拥有151→152加表与收据原子性、元数据边界、User作用域、CAS、结果失败回滚、一致读取、重开与删除后历史回放。现有成员/安装owner不拥有画板身份或修订，不能替代；复用已有私有SQLite模板而不另造Runtime。最低命令先 `cargo test -p rovai-core --features extended-tests --lib canvas_board -- --list`，再去掉 `--list` 执行。节点、PTY和真实模型不在此owner的资格范围。
 
-融合技能包成员选择由新增扩展 owner `skill_pack_members::tests::migration_and_member_choices_survive_reopen_and_uninstall_fences_old_replay` 拥有。它覆盖150→151建表/收据原子性、无默认成员、真实成员校验、陈旧观察拒绝、首次结果回放、更新保留选择、卸载事务回滚及重装不恢复选择。旧工具箱只有固定五项且不关联可卸载版本，不能证明新表与安装事务的交互；需要真实SQLite及私有文件fixture。最低命令先 `cargo test -p rovai-core --features extended-tests --lib skill_pack -- --list` 确认新增owner，再执行同一过滤；重复重开与回放用于证明持久化和旧命令不重新赋值。模型输入与成员实际投递由待确认的独立方案拥有，此测试不授予运行资格。
+融合技能包成员选择由新增扩展 owner `skill_pack_members::tests::migration_and_member_choices_survive_reopen_and_uninstall_fences_old_replay` 拥有。它覆盖150→151建表/收据原子性、无默认成员、真实成员校验、陈旧观察拒绝、首次结果回放、更新保留选择、卸载事务回滚及重装不恢复选择。旧工具箱只有固定五项且不关联可卸载版本，不能证明新表与安装事务的交互；需要真实SQLite及私有文件fixture。最低命令先 `cargo test -p rovai-core --features extended-tests --lib skill_pack -- --list` 确认新增owner，再执行同一过滤；重复重开与回放用于证明持久化和旧命令不重新赋值。模型输入与成员实际投递由已获人类确认的独立r1方案拥有，当前仍待实际Run、最终Blob和真实Gate验证，此测试不授予运行资格。
 
 融合技能包固定来源由新增纯函数 owner `codeg_skill_catalog::tests::catalog_preserves_pinned_sources_and_bounds_content_reads` 拥有。原先没有固定 Codeg 目录与嵌入资源，原生发现和旧 Revision owner 处理可变路径/数据库，无法验证这一来源的 Git 摘要、9 项 Office 外部依赖和跨包预览边界。该 owner 不建 SQLite、Home 或 Runtime，最低命令为 `cargo test -p rovai-core --lib codeg_skill_catalog::tests::catalog_preserves_pinned_sources_and_bounds_content_reads -- --exact`；Core/HTTP seam 由隔离 smoke 单独验证，不重复纯函数矩阵。
 
@@ -1494,6 +1500,54 @@ Rust 复用原 owner 并保持所有仍有效的保护：
 `failed_session_replacement`、`uncertain_input_acknowledgement`、`session_header_scan`、`manual_native_session_restart`。
 PR 默认层仍为 `cargo test --workspace`；Renderer 复用 `SingleChatPanel.test.ts`、`App.test.ts` 与 typecheck。
 不新增真实模型调用、常驻验证进程或永久禁用测试。
+
+## 融合期技能包模型投递测试准入（2026-10-14）
+
+新增慢层 owner `context::slow_tests::skill_pack_context_freezes_versions_and_recovers_original_bytes`，
+拥有 Selection3、公开34/Profile10/RunFacts9、完整包索引与消息局部链接的一致性、最终Blob、
+卸载保留、候选撤下和生产重开后逐字恢复。安装与成员 owner 没有实际Run/ContextManifest，
+不能发现索引和消息链接引用不同版本、恢复时重读当前配置等问题；这里复用既有隔离Context fixture，
+不启动模型或外部Runtime，不以测试结果声称模型已读取指南。
+
+同一 owner 补验正式 `mark_for_recovery` / `claim_agent_run` 推进执行轮次后仍复用原 Manifest 和 Blob，
+以及公开29/9/7与33/10/9的历史输入升级、实际序列化和重开恢复。保留的旧公开 A2A 投递使用
+独立历史 CampTurn、已结束的 direct 根任务和对应消息夹具，再走生产 preflight、dispatch、领取及
+物化流程；卸载后逐字比较准备时冻结的输入。不能将现代 batch 任务改成旧任务，也不重启已退役 Gather。
+
+最小命令：`cargo test -p rovai-core --features slow-tests --lib skill_pack_context_freezes`。
+旧公开格式使用升级前schema152 fixture生成真实旧Selection2/输入，再走原升级链；不能删除新格式
+约束或把新Run改成旧身份来消除失败。Renderer扩展既有候选搜索/菜单owner，保留稳定英文发送名、
+中文显示名、来源与相关成员。完整默认层仍执行 `cargo test --workspace`。
+
+Schema153 的数据库回归继续复用现有 owner。旧来源夹具必须在创建业务任务前退回旧格式，
+保留禁止丢弃 Selection3 行的检查，不能将已生成的新任务改写成旧快照。当前数据库测试检查
+当前准入、v34 插入约束和实际业务列，不要求历史 v163/v174 的 SQL 目录匹配当前新增格式；
+旧来源匹配器和生产准入不放宽。显式重演 bootstrap 升级链时执行到203，拒绝新插入旧输入的
+断言使用当前约束原因。完整 `db::` 扩展在 Windows 为109项；Linux 多一项现有的 Unix
+目录/符号链接隔离测试，必须在 Linux 实跑，不能以 Windows 数量替代跨平台资格。
+
+## 融合期技能包进程恢复验收（2026-10-14）
+
+`tools/integration/smoke-skill-pack-recovery.mjs` 拥有真实 Host/Core 进程到受控 ACP 的运输与恢复边界，
+不重复 Context owner 的输入矩阵。独立数据根、Skill Library、MCP、Home 和临时目录中使用生产 API
+安装、选择成员和发送任务；受控程序记录实际输入并保持执行。Qwen 的原生接受确认在请求返回时产生，
+本次覆盖已发出、确认未知的分支：卸载包后硬停止 Core，再由真实 Core 重启恢复，检查同一 Manifest、
+Blob 字节与摘要和执行代次；当前恢复合同要求 `failed`、`accepted_input_outcome_unknown`
+与 `delivery_unknown` 保留，不能沿用旧 smoke 的 waiting/recovery_blocked 期望或盲目重发。明确确认后仍在执行的分支待补；
+没有真实模型或指南工具读取，不授予 SP12 或跨平台资格。
+
+最低入口为 `node tools/integration/smoke-skill-pack-recovery.mjs <Host绝对路径> <fixture-launcher绝对路径> <证据根绝对路径>`。
+Host 旁必须有同版 bundled `rovai` CLI；两者先由当前源码构建并复制到隔离产物目录。
+launcher 由 `rustc scripts/fixtures/skill-recovery-runtime-launcher.rs -o <fixture-launcher绝对路径>`
+构建（Windows 需已配置 MSVC/SDK）。它只把原参数交给隔离 Node fixture，Windows 隐藏子进程窗口。
+`streaming-acp-runtime.mjs` 仅在 smoke 设置 `ROVAI_SKILL_RECOVERY_CAPTURE` 时记录/保持输入，
+其他既有流式验收模式保持原行为；不调用供应商 CLI、网络或模型。失败夹具和诊断保留供复核。
+
+最低成本 helper owner 为 `scripts/lib/configure-product-runtime.test.mjs`。修复前，Qwen/Codex 的
+有效静态成员绑定一直返回当前 `installed_unverified`，旧 helper 却反复等待 `ready` 并重写成员。
+表驱动回归要求首次绑定即结束，并保留独立 probe 状态和 needs_attention 的拒绝；配置成功不能
+推导真实执行资格。最小命令 `node --test scripts/lib/configure-product-runtime.test.mjs scripts/lib/create-configured-camp.test.mjs`。
+无新增 Rust 单元测试函数、永久忽略或模型调用；较低层数据库重开无法证明这里的实际进程边界。
 
 ## 融合期 OpenClaw Gateway 测试准入（2026-10-14）
 

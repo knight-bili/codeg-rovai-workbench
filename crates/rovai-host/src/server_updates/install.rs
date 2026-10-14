@@ -417,12 +417,32 @@ fn program(name: &str) -> String {
     format!("{name}{}", if cfg!(windows) { ".exe" } else { "" })
 }
 fn switch_directory(root: &Path, incoming: &Path, backup: &Path) -> Result<()> {
-    fs::rename(root, backup).context("move current Server program to backup")?;
-    if let Err(error) = fs::rename(incoming, root) {
-        fs::rename(backup, root).context("restore program after failed switch")?;
+    rename_program_directory(root, backup).context("move current Server program to backup")?;
+    if let Err(error) = rename_program_directory(incoming, root) {
+        rename_program_directory(backup, root).context("restore program after failed switch")?;
         return Err(error).context("activate prepared Server program");
     }
     Ok(())
+}
+
+fn rename_program_directory(source: &Path, destination: &Path) -> std::io::Result<()> {
+    let mut retries = 0;
+    loop {
+        match fs::rename(source, destination) {
+            // Windows can briefly retain image/scanner handles after the process
+            // has signalled exit. Keep permanent denial observable and bounded;
+            // the surrounding update lock and rollback still own the switch.
+            Err(error)
+                if cfg!(windows)
+                    && matches!(error.raw_os_error(), Some(5 | 32 | 33))
+                    && retries < 20 =>
+            {
+                retries += 1;
+                std::thread::sleep(std::time::Duration::from_millis(100));
+            }
+            result => return result,
+        }
+    }
 }
 fn copy_tree(source: &Path, target: &Path) -> Result<()> {
     fs::create_dir(target)?;
@@ -464,6 +484,22 @@ mod tests {
         assert!(!backup.exists());
         fs::create_dir(&incoming).unwrap();
         fs::write(incoming.join("version"), "new").unwrap();
+        #[cfg(windows)]
+        {
+            use std::os::windows::fs::OpenOptionsExt;
+            // A retained reader without delete sharing must still block the
+            // bounded retry and preserve both directories for a later attempt.
+            let retained = fs::OpenOptions::new()
+                .read(true)
+                .share_mode(1)
+                .open(root.join("version"))
+                .unwrap();
+            assert!(switch_directory(&root, &incoming, &backup).is_err());
+            assert_eq!(fs::read_to_string(root.join("version")).unwrap(), "old");
+            assert_eq!(fs::read_to_string(incoming.join("version")).unwrap(), "new");
+            assert!(!backup.exists());
+            drop(retained);
+        }
         switch_directory(&root, &incoming, &backup).unwrap();
         assert_eq!(fs::read_to_string(root.join("version")).unwrap(), "new");
         assert_eq!(fs::read_to_string(backup.join("version")).unwrap(), "old");

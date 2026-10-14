@@ -374,7 +374,7 @@ jobs:
           name: rovai-server-archive-${{ matrix.target }}-${{ github.sha }}
           path: out/server/releases/${{ matrix.target }}/
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
       - name: Observe native managed Runtime file boundary
         # Single-Owner trusted Host: keep same-UID observations as risk evidence,
         # not a strong-isolation release gate. Workspace access must still work.
@@ -389,7 +389,7 @@ jobs:
           name: rovai-server-boundary-${{ matrix.target }}-${{ github.sha }}
           path: out/server-evidence/${{ matrix.target }}.json
           if-no-files-found: warn
-          retention-days: 3
+          retention-days: 1
 
       - name: Upload native preview package
         if: always()
@@ -398,7 +398,7 @@ jobs:
           name: rovai-server-preview-${{ matrix.target }}-${{ github.sha }}
           path: out/server/${{ matrix.target }}/
           if-no-files-found: error
-          retention-days: 3
+          retention-days: 1
 
   server-linux-os:
     name: Linux Server OS / ${{ matrix.os }}
@@ -430,6 +430,7 @@ jobs:
           name: rovai-server-os-${{ matrix.os }}-${{ github.sha }}
           path: out/server-evidence/${{ matrix.os }}.json
           if-no-files-found: error
+          retention-days: 1
 
   server-linux-debian:
     name: Linux Server OS / Debian 12 VM
@@ -454,6 +455,7 @@ jobs:
           name: rovai-server-os-debian-12-${{ github.sha }}
           path: out/server-evidence/debian-12.json
           if-no-files-found: error
+          retention-days: 1
 
   server-release-draft:
     name: Assemble unified draft Release with native Server assets

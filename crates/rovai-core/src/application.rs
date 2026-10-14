@@ -9550,6 +9550,24 @@ impl Core {
                 let mut candidates = BTreeMap::<String, Value>::new();
                 let mut member_sets = BTreeMap::<String, BTreeSet<String>>::new();
                 let mut errors = Vec::<String>::new();
+                {
+                    let database = self.database.lock().await;
+                    let store =
+                        rovai_core::skill_pack_installation::SkillPackStore::new(&self.data_dir)?;
+                    let (packs, pack_errors) =
+                        store.composer_candidates(database.connection(), &params.camp_id)?;
+                    errors.extend(pack_errors);
+                    for pack in packs {
+                        let id = pack["id"]
+                            .as_str()
+                            .context("Pack candidate has no identity")?
+                            .to_owned();
+                        let members: Vec<String> =
+                            serde_json::from_value(pack["memberIds"].clone())?;
+                        member_sets.entry(id.clone()).or_default().extend(members);
+                        candidates.insert(id, pack);
+                    }
+                }
                 let managed =
                     rovai_core::managed_skills::ManagedSkills::for_data_dir(&self.data_dir)?;
                 if let Err(error) = managed.sync() {

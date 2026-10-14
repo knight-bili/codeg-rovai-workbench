@@ -129,7 +129,9 @@ pub fn list(connection: &Connection) -> Result<Vec<SkillPackMembersView>> {
                     &members,
                 )?,
                 member_ids: members,
-                member_delivery_enabled: false,
+                member_delivery_enabled: crate::current_input_skill::pack_context_enabled(
+                    connection,
+                )?,
             })
         })
         .collect()
@@ -164,7 +166,7 @@ pub fn set_members(
             transaction.execute("INSERT INTO member_skill_pack(skill_id,agent_id,updated_at) VALUES(?1,?2,?3)",params![command.skill_id,member_id,now])?;
         }
         let desired=desired.into_iter().collect::<Vec<_>>();
-        Ok(CommandHandlerResult::applied("skill_pack.members.updated",json!({"skillId":command.skill_id,"memberIds":desired,"version":version(source.as_ref().map(|(version,_)|version.as_str()),&desired)?,"memberDeliveryEnabled":false}),None))
+        Ok(CommandHandlerResult::applied("skill_pack.members.updated",json!({"skillId":command.skill_id,"memberIds":desired,"version":version(source.as_ref().map(|(version,_)|version.as_str()),&desired)?,"memberDeliveryEnabled":crate::current_input_skill::pack_context_enabled(transaction)?}),None))
     })
 }
 
@@ -199,7 +201,15 @@ pub(crate) fn downgrade_for_test(connection: &Connection) {
 mod tests {
     use super::*;
     use crate::{
+        agent_profile::AdapterKind,
+        camp_content::StructuredThreadMessageSegment,
         command::ActorRef,
+        current_input_skill::{
+            CurrentInputSkillOmissionReason as Reason, SkillSource, freeze_skill_selection,
+            freeze_skill_selection_with_packs, resolve_current_input_skills,
+            resolve_current_input_skills_with_packs, validate_persisted_resolution,
+        },
+        skill_pack_delivery::{PackUnavailable, PreparedMemberSkillPacks},
         skill_pack_installation::{
             InstallBeginning, InstallSkillPackCommand, SkillPackStore, UninstallSkillPackCommand,
         },
@@ -269,9 +279,118 @@ mod tests {
         assert!(schema_matches(database.connection()).unwrap());
         let store = SkillPackStore::new(&directory).unwrap();
         install(&mut database, &store, "absent");
+        let mentions = [
+            ("pack:brainstorming", "brainstorming"),
+            ("pack:brainstorming", "brainstorming"),
+            ("native:brainstorming", "brainstorming"),
+            ("rovai:brainstorming", "brainstorming"),
+            ("pack:missing", "missing"),
+        ]
+        .map(|(id, name)| StructuredThreadMessageSegment::SkillMention {
+            skill_id: id.into(),
+            name_at_send: name.into(),
+        });
+        let transaction = database.connection_mut().transaction().unwrap();
+        let selection =
+            freeze_skill_selection_with_packs(&transaction, &mentions, &[0, 1, 1, 1, 2]).unwrap();
+        let old_selection =
+            freeze_skill_selection(&transaction, &mentions, AdapterKind::CodexCli).unwrap();
+        transaction.commit().unwrap();
+        assert_eq!(selection.schema_version, 3);
+        assert_eq!(selection.entries.len(), 4);
+        assert_eq!(selection.entries[0].source, Some(SkillSource::Pack));
+        assert!(selection.entries[0].source_path.is_none());
+        assert_eq!(
+            (
+                selection.entries[1].first_message_index,
+                selection.entries[1].first_segment_index
+            ),
+            (1, 1)
+        );
+        assert_eq!(old_selection.schema_version, 2);
+        assert_eq!(old_selection.entries[0].source, Some(SkillSource::Legacy));
+        let old_exposure_snapshot = crate::skill_projection::SkillExposureSnapshot {
+            schema_version: 2,
+            skills: vec![],
+        };
+        let old_exposure = crate::skill_projection::PreparedSkillExposure {
+            digest: canonical_json_digest(&serde_json::to_value(&old_exposure_snapshot).unwrap())
+                .unwrap(),
+            snapshot: old_exposure_snapshot,
+        };
+        let old_resolved = resolve_current_input_skills(
+            database.connection(),
+            &old_selection,
+            &old_selection.canonical_digest().unwrap(),
+            &old_exposure,
+            AdapterKind::CodexCli,
+        )
+        .unwrap();
+        assert_eq!(
+            old_resolved.resolution.entries[0].reason,
+            Some(Reason::LegacyUnresolved)
+        );
+        let old_json = serde_json::to_value(&old_resolved.resolution).unwrap();
+        assert!(
+            old_json["entries"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .all(|entry| entry.get("sourceVersion").is_none())
+        );
+        let resolve = |database: &Database, packs: &PreparedMemberSkillPacks| {
+            resolve_current_input_skills_with_packs(
+                database.connection(),
+                &selection,
+                &selection.canonical_digest().unwrap(),
+                AdapterKind::CodexCli,
+                "agent_1",
+                packs,
+            )
+            .unwrap()
+        };
         let empty = list(database.connection()).unwrap().remove(0);
         assert!(empty.member_ids.is_empty());
         assert!(!empty.member_delivery_enabled);
+        let prepare = |database: &Database, member: &str| {
+            PreparedMemberSkillPacks::prepare(
+                database.connection(),
+                &directory,
+                member,
+                [
+                    "pack:brainstorming",
+                    "pack:missing",
+                    "pack:../../outside",
+                    "native:brainstorming",
+                ],
+            )
+            .unwrap()
+        };
+        let unselected = prepare(&database, "agent_1");
+        assert_eq!(
+            unselected.source("pack:brainstorming"),
+            Err(PackUnavailable::NotSelected)
+        );
+        assert_eq!(
+            unselected.source("pack:missing"),
+            Err(PackUnavailable::NotInstalled)
+        );
+        assert_eq!(
+            unselected.source("pack:../../outside"),
+            Err(PackUnavailable::NotInstalled)
+        );
+        assert_eq!(
+            unselected.source("native:brainstorming"),
+            Err(PackUnavailable::NotSelected)
+        );
+        assert_eq!(
+            unselected.section().unwrap(),
+            "[ROVAI_SKILL_PACKS]\nCurrent for this run; replaces any earlier Rovai Skill Packs.\n{\"skills\":[]}\n[/ROVAI_SKILL_PACKS]"
+        );
+        assert_eq!(
+            resolve(&database, &unselected).resolution.entries[0].reason,
+            Some(Reason::PackNotSelected)
+        );
         let first = envelope(SetSkillPackMembersCommand {
             skill_id: "brainstorming".into(),
             member_ids: vec!["agent_1".into(), "agent_1".into()],
@@ -295,6 +414,158 @@ mod tests {
             list(database.connection()).unwrap()[0].member_ids,
             ["agent_1"]
         );
+        let selected = prepare(&database, "agent_1");
+        let original_source = selected.source("pack:brainstorming").unwrap();
+        assert_eq!(original_source.name, "brainstorming");
+        assert_eq!(selected.sources().count(), 1);
+        let resolved = resolve(&database, &selected);
+        assert_eq!(resolved.links.len(), 1);
+        assert_eq!(resolved.links[0].path, original_source.path);
+        assert_eq!(
+            resolved.links[0].skill_id.as_deref(),
+            Some("pack:brainstorming")
+        );
+        assert_eq!(resolved.resolution.schema_version, 3);
+        assert_eq!(
+            resolved.resolution.entries[0].source_path.as_deref(),
+            Some(original_source.path.as_str())
+        );
+        assert_eq!(
+            resolved.resolution.entries[0].source_version.as_deref(),
+            Some(original_source.source_version.as_str())
+        );
+        assert_eq!(
+            resolved.resolution.entries[1].reason,
+            Some(Reason::SourceMissing)
+        );
+        assert_eq!(
+            resolved.resolution.entries[2].reason,
+            Some(Reason::SourceMissing)
+        );
+        assert_eq!(
+            resolved.resolution.entries[3].reason,
+            Some(Reason::PackNotInstalled)
+        );
+        let resolution_json = serde_json::to_string(&resolved.resolution).unwrap();
+        let parsed = validate_persisted_resolution(
+            &resolution_json,
+            &resolved.digest,
+            &selection,
+            &selection.canonical_digest().unwrap(),
+            "unused-for-v3",
+        )
+        .unwrap();
+        assert_eq!(serde_json::to_string(&parsed).unwrap(), resolution_json);
+        // A recomputed digest must not admit a relative path or version fields
+        // on a different source; the closed source contract still applies.
+        for (index, field, value) in [
+            (0, "sourcePath", json!("relative/SKILL.md")),
+            (0, "sourceVersion", json!(null)),
+            (1, "sourceVersion", json!(original_source.source_version)),
+            (1, "reason", json!("pack_not_selected")),
+            (0, "reason", json!("legacy_unresolved")),
+        ] {
+            let mut forged = serde_json::to_value(&resolved.resolution).unwrap();
+            forged["entries"][index][field] = value;
+            assert!(
+                validate_persisted_resolution(
+                    &forged.to_string(),
+                    &canonical_json_digest(&forged).unwrap(),
+                    &selection,
+                    &selection.canonical_digest().unwrap(),
+                    ""
+                )
+                .is_err()
+            );
+        }
+        let mut forged_selection = selection.clone();
+        forged_selection.entries[0].source_path = Some(original_source.path.clone());
+        assert!(forged_selection.canonical_digest().is_err());
+        forged_selection.entries[0].source_path = None;
+        forged_selection.schema_version = 2;
+        assert!(forged_selection.canonical_digest().is_err());
+        let mut wrong_name = selection.clone();
+        wrong_name.entries[0].name_at_send = "review-pr".into();
+        let wrong = resolve_current_input_skills_with_packs(
+            database.connection(),
+            &wrong_name,
+            &wrong_name.canonical_digest().unwrap(),
+            AdapterKind::CodexCli,
+            "agent_1",
+            &selected,
+        )
+        .unwrap();
+        assert!(wrong.links.is_empty());
+        assert_eq!(
+            wrong.resolution.entries[0].reason,
+            Some(Reason::SourceMissing)
+        );
+        assert!(
+            resolve_current_input_skills_with_packs(
+                database.connection(),
+                &selection,
+                &selection.canonical_digest().unwrap(),
+                AdapterKind::CodexCli,
+                "agent_2",
+                &selected
+            )
+            .is_err()
+        );
+        let mut old_with_package_field = old_json.clone();
+        old_with_package_field["entries"][0]["sourceVersion"] = json!(null);
+        assert!(
+            validate_persisted_resolution(
+                &old_with_package_field.to_string(),
+                &old_resolved.digest,
+                &old_selection,
+                &old_selection.canonical_digest().unwrap(),
+                ""
+            )
+            .is_err()
+        );
+        let mut missing_version_field = serde_json::to_value(&resolved.resolution).unwrap();
+        missing_version_field["entries"][1]
+            .as_object_mut()
+            .unwrap()
+            .remove("sourceVersion");
+        assert!(
+            validate_persisted_resolution(
+                &missing_version_field.to_string(),
+                &resolved.digest,
+                &selection,
+                &selection.canonical_digest().unwrap(),
+                ""
+            )
+            .is_err()
+        );
+        let section = selected.section().unwrap();
+        let index: serde_json::Value =
+            serde_json::from_str(section.lines().nth(2).unwrap()).unwrap();
+        assert_eq!(
+            index,
+            json!({"skills":[{"id":"pack:brainstorming","name":"brainstorming","desc":original_source.desc,"path":original_source.path}]})
+        );
+        assert_eq!(
+            prepare(&database, "agent_2").source("pack:brainstorming"),
+            Err(PackUnavailable::NotSelected)
+        );
+        let transaction = database.connection_mut().transaction().unwrap();
+        assert_eq!(
+            PreparedMemberSkillPacks::prepare(
+                &transaction,
+                &directory,
+                "agent_1",
+                [
+                    "pack:brainstorming",
+                    "pack:missing",
+                    "pack:../../outside",
+                    "native:brainstorming"
+                ]
+            )
+            .unwrap(),
+            selected
+        );
+        transaction.commit().unwrap();
         let mut stale = first.clone();
         stale.command_id = uuid::Uuid::new_v4().to_string();
         stale.payload.member_ids = vec![];
@@ -307,6 +578,7 @@ mod tests {
         assert_eq!(set_members(&mut database, &replay).unwrap().result, applied);
         drop(database);
         let mut database = Database::open(&directory).unwrap();
+        assert_eq!(prepare(&database, "agent_1"), selected);
         assert_eq!(
             list(database.connection()).unwrap()[0].member_ids,
             ["agent_1"]
@@ -320,7 +592,36 @@ mod tests {
             "broken local frontmatter",
         )
         .unwrap();
+        assert_eq!(
+            prepare(&database, "agent_1").source("pack:brainstorming"),
+            Err(PackUnavailable::Changed)
+        );
+        assert_eq!(
+            resolve(&database, &prepare(&database, "agent_1"))
+                .resolution
+                .entries[0]
+                .reason,
+            Some(Reason::PackChanged)
+        );
         install(&mut database, &store, &active.version);
+        assert_eq!(
+            resolve(&database, &prepare(&database, "agent_1"))
+                .links
+                .len(),
+            1
+        );
+        let updated_sources = prepare(&database, "agent_1");
+        let updated_source = updated_sources.source("pack:brainstorming").unwrap();
+        assert_ne!(original_source.path, updated_source.path);
+        assert_ne!(
+            original_source.source_version,
+            updated_source.source_version
+        );
+        assert_eq!(updated_source.desc, original_source.desc);
+        assert_eq!(
+            std::fs::read_to_string(&original_source.path).unwrap(),
+            "broken local frontmatter"
+        );
         assert_eq!(
             list(database.connection()).unwrap()[0].member_ids,
             ["agent_1"]
@@ -366,9 +667,18 @@ mod tests {
                 .member_ids
                 .is_empty()
         );
+        assert_eq!(
+            prepare(&database, "agent_1").source("pack:brainstorming"),
+            Err(PackUnavailable::NotInstalled)
+        );
+        assert!(Path::new(&updated_source.path).is_file());
         let removed = store.list(database.connection()).unwrap().remove(0);
         install(&mut database, &store, &removed.version);
         assert_eq!(set_members(&mut database, &replay).unwrap().result, applied);
+        assert_eq!(
+            prepare(&database, "agent_1").source("pack:brainstorming"),
+            Err(PackUnavailable::NotSelected)
+        );
         assert!(
             list(database.connection()).unwrap()[0]
                 .member_ids
@@ -376,6 +686,10 @@ mod tests {
         );
         drop(database);
         let reopened = Database::open(&directory).unwrap();
+        assert_eq!(
+            prepare(&reopened, "agent_1").source("pack:brainstorming"),
+            Err(PackUnavailable::NotSelected)
+        );
         assert!(
             list(reopened.connection()).unwrap()[0]
                 .member_ids

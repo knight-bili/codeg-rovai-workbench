@@ -362,6 +362,10 @@ fn toolbox_members_version(member_ids: &[String]) -> Result<String> {
 pub fn read_frontmatter(path: &Path, expected_name: &str) -> Result<String> {
     let content =
         fs::read_to_string(path).with_context(|| format!("cannot read {}", path.display()))?;
+    parse_frontmatter_content(&content, expected_name)
+}
+
+pub(crate) fn parse_frontmatter_content(content: &str, expected_name: &str) -> Result<String> {
     let mut lines = content.split_inclusive('\n');
     ensure!(
         lines
@@ -508,6 +512,21 @@ mod tests {
             "第一行\nsecond \\\\ line\n"
         );
         assert!(read_frontmatter(&path, "review-duo").is_err());
+        // Package entry capture uses the full bounded file, not the 128 KiB UI
+        // preview limit. This also verifies multiline/Unicode JSON round trips.
+        let description = "中文 \"quoted\" \\ path\n".repeat(10_000);
+        let content = format!(
+            "---\nname: campfire\ndescription: {}\n---\n# Body\n",
+            serde_json::to_string(&description).unwrap()
+        );
+        fs::write(&path, &content).unwrap();
+        let (_, captured) =
+            crate::skill::inspect_installed_pack_tree_with_description(&root, "campfire").unwrap();
+        assert_eq!(captured, description);
+        assert_eq!(
+            parse_frontmatter_content(&content, "campfire").unwrap(),
+            description
+        );
         fs::remove_dir_all(root).unwrap();
     }
 

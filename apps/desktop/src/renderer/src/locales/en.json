@@ -3722,6 +3722,8 @@
   "仅复制所选草稿到当前标签，原记录仍保留。旧附件需要重新选择。": "Copy only the selected draft to this tab. The original is kept. Select attachments again.",
   "没有可恢复的草稿。": "No saved drafts are available.",
   "技能包": "Skill packs",
+  "选择哪些队员可以使用。新任务准备时确定技能版本，旧任务保留原内容。": "Choose which teammates may use these packs. New tasks freeze the skill version during preparation; existing tasks keep their original content.",
+  "勾选后用于队员的新任务；取消选择不改写旧任务。": "Enable for the teammate's new tasks. Deselecting does not rewrite existing tasks.",
   "原生 Skills": "Native Skills",
   "Skills 来源": "Skills sources",
   "查看原生 Skills 或管理技能包。": "Browse native Skills or manage skill packs.",

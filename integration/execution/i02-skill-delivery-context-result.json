@@ -1,0 +1,152 @@
+{
+  "recordedAt": "2026-10-14T08:52:41.062Z",
+  "status": "local_input_chain_verified_additional_matrix_and_real_gate_pending",
+  "baseline": "2621ff5efb3b91a9556d7b69b9fc8b3ed120e5ea",
+  "branch": "phase/i02-skill-delivery",
+  "summary": [
+    "队员选择已接入新任务准备；索引与消息引用采用同一具体版本。",
+    "卸载撤下新候选和预览，旧任务保留冻结字节与旧文件。",
+    "中文显示与搜索保留英文发送身份，超限拒绝而不静默删指南。"
+  ],
+  "confirmation": {
+    "revision": 1,
+    "humanReply": "符合预期，按对应 r1 继续实现",
+    "artifactsUnchanged": true
+  },
+  "implementation": {
+    "databaseSchema": 153,
+    "migration": 203,
+    "selection": 3,
+    "resolution": 3,
+    "public": {
+      "manifest": 34,
+      "profile": 10,
+      "runFacts": 9
+    },
+    "nonBatch": {
+      "manifest": 29,
+      "profile": 7,
+      "runFacts": 6
+    },
+    "bootstrap": 5,
+    "charter": 22,
+    "bindingCompatibility": 16,
+    "candidatesConnected": true,
+    "controlledPreviewConnected": true,
+    "indexAndLinksSharePreparation": true,
+    "transactionRecheck": true,
+    "frozenBlobRecovery": true,
+    "noSecondSnapshotAuthority": true
+  },
+  "validation": {
+    "defaultWorkspace": {
+      "passed": 501,
+      "failed": 0,
+      "ignored": 8,
+      "log": "work/i02/skill-delivery-context-staged-verified.log",
+      "route": {
+        "route": "full",
+        "reason": "Rust source cannot be classified safely: crates/rovai-core/src/db_skill_pack_context.rs",
+        "scripts": [
+          "test:rust:workspace-default"
+        ]
+      },
+      "ignoredExplanation": "7个子进程helper和1个人工Antigravity真实Runtime用例"
+    },
+    "contextMigrationAndCanvas": {
+      "passed": 56,
+      "failed": 0,
+      "ignored": 0,
+      "log": "work/i02/skill-delivery-context-related-final.log"
+    },
+    "skillPackOwners": {
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "log": "work/i02/skill-delivery-context-pack-owners-2.log"
+    },
+    "renderer": {
+      "passed": 16,
+      "failed": 0,
+      "log": "work/i02/skill-delivery-context-renderer-final.log"
+    },
+    "nativeUi": {
+      "passed": 19,
+      "failed": 0,
+      "evidence": "work/i02/skill-delivery-native-evidence/members-lIEIfs/result.json",
+      "fromSchema": 150,
+      "toSchema": 153,
+      "runCount": 0,
+      "manifestCount": 0,
+      "modelInference": false,
+      "wholeWorkbench": false,
+      "nativeDiscoveryFixture": true
+    },
+    "typecheck": "passed",
+    "format": "passed",
+    "documentationGates": "passed",
+    "sourceHashes": {
+      "apps/desktop/src/renderer/src/SkillPackMembersEditor.tsx": "a08bfedf2dd934a8c158a073bb1fdb5e715e2fde5e70af31f89983f565a57e25",
+      "apps/desktop/src/renderer/src/SkillPackSettings.tsx": "16abc3bd6b6b16c0403adade32c128953f1d320aaa56352caf4efc44d342279d",
+      "apps/desktop/src/renderer/src/StructuredMentionComposer.test.ts": "78e479955d0157938afe8b62356d3e0cdd57717dcc1ef739765c4ab8d53e00db",
+      "apps/desktop/src/renderer/src/StructuredMentionComposer.tsx": "12719a6eb63cb3ae39ea1ac9d876b10d17cee61aa7365a6ec1f3f37c33c23517",
+      "apps/desktop/src/renderer/src/composer-skill-picker.ts": "01e4cc0216edc4582cb531d2d57071d7b28ffb6a6b49b3cdd0ce420ccb76422f",
+      "apps/desktop/src/renderer/src/locales/en.json": "ff2006a11834b956730c39dc065eb1ca11e976612c1585ff4d0e61add69cb89f",
+      "crates/rovai-core/src/application.rs": "141713374848832b7ddc5b51a934cd4757acf235154d433c1a1e7a9db7759679",
+      "crates/rovai-core/src/canvas_board.rs": "3c5b04d216032c5ef2826b36f6422d2436ffb11d4f13b2ff19084d9542977375",
+      "crates/rovai-core/src/context.rs": "3e8a0b091f0b5f3f9beb65996eb2458bcfad53ea754ac407cd550f0c9c4e4761",
+      "crates/rovai-core/src/context_contract.rs": "d69fc337182fdab43feb84435c852ca92bf9a4ae57b9e532cb73ad350ccd736c",
+      "crates/rovai-core/src/current_input_skill.rs": "12e1b93c340dcc715cc0f8f911f8ff210e47e2d6c8aa051abd3f2c2c261fca71",
+      "crates/rovai-core/src/db.rs": "7a2d5701c932f0d6ce580219334836636aa6debf07fb93f3c7fa02a05951f76b",
+      "crates/rovai-core/src/db_skill_pack_context.rs": "f26a5a1400c8238552035fbff6170dfe446193ea812eb1171aaaa750ed985dd2",
+      "crates/rovai-core/src/delivery_queue.rs": "8d7ddc35d9ee164b68188c89fcb41093d2681979080e1cb3614cc166270ce27d",
+      "crates/rovai-core/src/file_preview_authority.rs": "85f7898d5c4f6a3dd3f324b3b6c86130c20d69e36ec8725ecad6d741c21d0e5a",
+      "crates/rovai-core/src/skill_pack_delivery.rs": "f029148f6a488547a14691144f73015c1aa24057f55a59098b235c7823ba7690",
+      "crates/rovai-core/src/skill_pack_installation.rs": "87e431eb3e89a3dcb4c5c19b8c74d54ec7e71565cbd1af951842ff302de07d0b",
+      "crates/rovai-core/src/skill_pack_members.rs": "cd07c1ded1f4db364f3a8897ee9ac6de5565a6db5fd86986a669019ddbd0d9e6",
+      "docs/README.md": "5d749880f159d088ce881e8b2c6cc6b750d7449087d8861c681b91dce3fe8f94",
+      "docs/architecture/skills.md": "a189b40f257b72f111927b2b7dcb270ae469d44bad9e5e8ff3fcbb087d1fbc24",
+      "docs/contracts/README.md": "6da8ea2eeb899d990b8a365821ded961ea6eac677fe84933c23a2a1f2d45853e",
+      "docs/contracts/context-manifest-evidence-v34.md": "8a0c13f8aaf890570803ef3dadc72e78907eeaa3386ff851baefac59ea7bfaf8",
+      "docs/contracts/skill-pack-installation-v1.md": "4e9f11ada55e87ff81df8c8a0f5d81f1dad778d75f714929461e1f998c18db13",
+      "docs/contracts/skill-pack-members-v1.md": "d26f166eb6fbea458b8fb045d8302569bd74dd75035061a6051cc908152fe233",
+      "docs/development/testing.md": "f97f1164991d61bc4900426f8ce1e6458251c0dbcdccba7c452bbc2a556e25a8",
+      "docs/ui/components/skills-settings.md": "356bb8f3041a26bd2758d67197a59595102fcb376185129a81cc3788c1132f87",
+      "packages/contracts/src/index.ts": "7d394ce06d153ef13e9d24414b8542e81a18a280b2113f76158bff1a1c2559bc",
+      "tools/integration/smoke-skill-pack-members.mjs": "57020fa6d2d0f18b04fd44756d29aa57155ab50d3037949fd0823ac639302ff0"
+    }
+  },
+  "artifact": {
+    "sha256": "772f23fa681e436da036ad54a783328122ae4027b63b6a4c6f1baf77c2238666",
+    "path": "work/i02/native-artifacts/core153-skill-delivery-772f23fa681e/rovai-host.exe"
+  },
+  "selfReview": {
+    "checks": [
+      "旧公开29与新非批次29使用Run类型、Profile和RunFacts组合区分。",
+      "迁移重建失败回滚、恢复外键，旧回执和Blob保持。",
+      "受管文件损坏、未选和卸载分别解析；不可接受客户端路径。",
+      "原接受/未知接收与compaction控制分支保留。",
+      "完整输入超限不写Manifest；预算放宽后保留必需索引。"
+    ],
+    "fixedDuringValidation": [
+      "迁移提取旧guard的括号边界错误。",
+      "版本升级后历史测试需在旧schema创建Run再升级，不能篡改新Run身份。",
+      "Windows路径断言按JSON转义比较。",
+      "旧测试升级链补上203；当前格式断言更新至34。",
+      "本地UI脚本的Windows根目录准备依赖保留。"
+    ],
+    "failedAndInterruptedLogsRetained": true
+  },
+  "qualification": {
+    "r1Complete": false,
+    "sp12": "not_run_dedicated_identity_and_hard_budget_required",
+    "fullTwelveScenarioMatrix": "in_progress_do_not_infer_complete_from_aggregate_counts",
+    "runtimeAndPlatformMatrix": "not_run_for_current_fusion",
+    "wholeMvp": "in_progress"
+  },
+  "next": [
+    "补齐r1逐SP跨Run、旧公开29及epoch/冻结Delivery等精确场景的证据矩阵。",
+    "专用测试身份与硬预算到位后执行真实指南读取Gate；不自动付费。",
+    "持续推进I03八类节点、业务绑定、布局和交互PTY，以及I02剩余与I04-I12全部范围。"
+  ]
+}

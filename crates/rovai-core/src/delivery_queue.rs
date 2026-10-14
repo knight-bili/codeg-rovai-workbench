@@ -13,8 +13,8 @@ use crate::{
     },
     context_contract::PUBLIC_CAMP_BATCH_CONTEXT_MANIFEST_VERSION,
     current_input_skill::{
-        SkillSelectionSnapshot, freeze_skill_selection_with_messages,
-        projected_skill_links_for_claim,
+        SkillSelectionSnapshot, empty_selection, freeze_skill_selection_with_messages,
+        projected_skill_links_for_claim, resolve_current_input_skills_with_packs,
     },
     db::Database,
     runtime::{AgentRunWorkspace, runtime_cleanup_blocked_since_connection},
@@ -451,7 +451,7 @@ pub fn claim_waiting_delivery_batches(database: &mut Database, limit: i64) -> Re
                         &serde_json::json!({"runtimeConfigurationFailure": blocker.payload}),
                         workspace.as_ref(),
                         None,
-                        &SkillSelectionSnapshot::default(),
+                        &empty_selection(&transaction)?,
                         if waiting[0].continuation_source_run_id.is_some() {
                             &waiting
                         } else {
@@ -724,12 +724,51 @@ fn select_batch_prefix(
             &batch_message_indices,
             runtime.adapter_kind,
         )?;
-        let skill_links = projected_skill_links_for_claim(
-            transaction,
-            &skill_selection,
-            runtime.adapter_kind,
-            execution_root,
-        )?;
+        let pack_preparation = if skill_selection.schema_version == 3 {
+            let data_dir = std::path::Path::new(
+                transaction
+                    .path()
+                    .context("Core database path is unavailable")?,
+            )
+            .parent()
+            .context("Core data directory is unavailable")?;
+            Some(
+                crate::skill_pack_delivery::PreparedMemberSkillPacks::prepare(
+                    transaction,
+                    data_dir,
+                    agent_id,
+                    skill_selection
+                        .entries
+                        .iter()
+                        .map(|entry| entry.skill_id.as_str()),
+                )?,
+            )
+        } else {
+            None
+        };
+        let pack_bytes = pack_preparation
+            .as_ref()
+            .map(|packs| packs.section().map(|section| section.len() + 2))
+            .transpose()?
+            .unwrap_or(0);
+        let skill_links = if let Some(packs) = &pack_preparation {
+            resolve_current_input_skills_with_packs(
+                transaction,
+                &skill_selection,
+                &skill_selection.canonical_digest()?,
+                runtime.adapter_kind,
+                agent_id,
+                packs,
+            )?
+            .links
+        } else {
+            projected_skill_links_for_claim(
+                transaction,
+                &skill_selection,
+                runtime.adapter_kind,
+                execution_root,
+            )?
+        };
         let message_ids = waiting[..count]
             .iter()
             .map(|delivery| delivery.message_id.clone())
@@ -752,7 +791,9 @@ fn select_batch_prefix(
         )?;
         let hint_bytes =
             public_history_hint(previous_public_boundary, has_additional_public_messages).len();
-        if serialized_batch_run_input_len(&run_input)?.saturating_add(hint_bytes)
+        if serialized_batch_run_input_len(&run_input)?
+            .saturating_add(hint_bytes)
+            .saturating_add(pack_bytes)
             > max_payload_bytes
         {
             return Ok(match previous_selection {
@@ -941,7 +982,11 @@ fn insert_batch_run(
                 delivery.message_id,
                 delivery.sequence,
                 delivery.content_digest,
-                PUBLIC_CAMP_BATCH_CONTEXT_MANIFEST_VERSION,
+                if skill_selection.schema_version == 3 {
+                    PUBLIC_CAMP_BATCH_CONTEXT_MANIFEST_VERSION
+                } else {
+                    33
+                },
                 delivery.default_recipient_display_name,
             ],
         )?;

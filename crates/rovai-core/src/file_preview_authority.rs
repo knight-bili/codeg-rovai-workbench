@@ -80,6 +80,24 @@ pub fn resolve_skill_preview_source(
             return Ok(None);
         }
         path
+    } else if let Some(id) = skill_id.strip_prefix("pack:") {
+        let selected: bool = database.connection().query_row(
+            "SELECT EXISTS(SELECT 1 FROM member_skill_pack AS choice
+             JOIN camp_member AS cm ON cm.agent_id=choice.agent_id AND cm.camp_id=?1 AND cm.status='active'
+             JOIN agent_profile AS ap ON ap.id=cm.agent_id AND ap.profile_status<>'removed'
+             WHERE choice.skill_id=?2)", params![camp_id, id], |row| row.get(0))?;
+        if !selected {
+            return Ok(None);
+        }
+        let store = crate::skill_pack_installation::SkillPackStore::new(data_dir)?;
+        let source = match store.model_source(database.connection(), id) {
+            Ok(Some(source)) => source,
+            _ => return Ok(None),
+        };
+        Path::new(&source.path)
+            .parent()
+            .context("Skill pack entry has no directory")?
+            .to_path_buf()
     } else if skill_id.starts_with("native:") {
         let record: Option<(String, String, String, String, String)> = database.connection().query_row(
             "SELECT name, entry_path, canonical_path, source_scope, adapter_kind FROM native_skill_reference WHERE id = ?1",

@@ -1,0 +1,182 @@
+{
+  "recordedAt": "2026-10-14T07:36:49.959Z",
+  "status": "local_preparation_verified_run_delivery_in_progress",
+  "baseline": "4ece845b8c1e1689c6faf2f5a11a1c4da776f416",
+  "branch": "phase/i02-skill-delivery",
+  "scope": "已确认r1的内部来源、成员准备及Selection/Resolution3解析；未激活生产投递",
+  "confirmation": {
+    "revision": 1,
+    "humanReply": "符合预期，按对应 r1 继续实现",
+    "confirmedAt": "2026-10-14T06:22:03Z",
+    "artifactsUnchanged": true
+  },
+  "implementation": {
+    "independentPackIdentity": true,
+    "receivingMemberFence": true,
+    "fullYamlFromSameInspectedBytes": true,
+    "boundedEntryCaptureBytes": 10485760,
+    "unchangedPreviewLimitBytes": 131072,
+    "selectionResolutionDecoder": 3,
+    "liveSelectionWriter": 2,
+    "liveNonBatchFormatter": 28,
+    "livePublicFormatter": 33,
+    "databaseSchema": 152,
+    "migration": 202,
+    "candidatesConnected": false,
+    "previewConnected": false,
+    "runDeliveryConnected": false,
+    "finalBlobRecoveryVerified": false,
+    "actualRuntimeGuideReadingVerified": false
+  },
+  "verification": {
+    "workspace": {
+      "passed": 501,
+      "failed": 0,
+      "ignored": 8,
+      "targets": [
+        {
+          "target": "Running unittests src\\lib.rs (target\\debug\\deps\\rovai_core-77fb358c18c89611.exe)",
+          "passed": 454,
+          "failed": 0,
+          "ignored": 8
+        },
+        {
+          "target": "Running unittests src\\bin\\rovai.rs (target\\debug\\deps\\rovai-b323072396ae6c88.exe)",
+          "passed": 33,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "target": "Running unittests src\\main.rs (target\\debug\\deps\\rovai_core-00beb36196cc8b4c.exe)",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "target": "Running unittests src\\lib.rs (target\\debug\\deps\\rovai_host-3dd729d920b8aabe.exe)",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "target": "Running unittests src\\main.rs (target\\debug\\deps\\rovai_host-d2e0b1a537d16431.exe)",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "target": "Running unittests src\\bin\\rovai-server.rs (target\\debug\\deps\\rovai_server-d86b94bf01930636.exe)",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "target": "Running unittests src\\lib.rs (target\\debug\\deps\\rovai_web-4927aa17ec9b1cf9.exe)",
+          "passed": 11,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "target": "Doc-tests rovai_core",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "target": "Doc-tests rovai_host",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "target": "Doc-tests rovai_web",
+          "passed": 0,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "log": "work/i02/skill-delivery-staged-resumed.log"
+    },
+    "extendedSkillPackOwners": {
+      "passed": 3,
+      "failed": 0,
+      "log": "work/i02/skill-delivery-verified-pack-owners.log"
+    },
+    "allTargets": "passed",
+    "documentation": "passed",
+    "sourceHashes": {
+      "crates/rovai-core/src/current_input_skill.rs": "06db5e2d776618afa6741542fb6ad1c6d207e01c76bb99ca3d0c7e2bbf090d0b",
+      "crates/rovai-core/src/lib.rs": "0ac0196af1f19ea576f878d56f1b8b97675a81d99b50e66cf7d7238bb554f7b3",
+      "crates/rovai-core/src/managed_skills.rs": "b331ffaa1d18180e0ade60a8e2209f255fea9ccaef55f29556128a27407fa04f",
+      "crates/rovai-core/src/skill.rs": "929691aa6c157ac1562f0013a9d6a5537e8b1f10921d2fd743c2cc8ed717c7b2",
+      "crates/rovai-core/src/skill_pack_delivery.rs": "6f48050141b8147ba2f29acc3aef9447b17391b5cebc47f3b684899744475330",
+      "crates/rovai-core/src/skill_pack_installation.rs": "de8b94efd1c844c3d9ce2857620815ed9674d7d6e4d2f3aaffd097d748dab4ea",
+      "crates/rovai-core/src/skill_pack_members.rs": "e9d78316ae320014e997f902b33042b7e9ed101adcc3ee3b7ca014f6f302bfdd",
+      "crates/rovai-host/src/server_updates/install.rs": "10667b5f9829cee9cfff75582aee58e420cbbe87f66daeb5826048bac6aa39cd"
+    },
+    "protectedLiveSources": [
+      {
+        "file": "crates/rovai-core/src/context.rs",
+        "gitBlob": "039203743c07afc772a96bc5b43fd7115fd08fe2",
+        "sha256": "2adc3d625fe2e0027e37e02b284c1a8a22e0d5559544d83b7b82ea12c03df184"
+      },
+      {
+        "file": "crates/rovai-core/src/context_contract.rs",
+        "gitBlob": "d1717150b2c494ae0a3a9567b75135d4edaa8031",
+        "sha256": "0bd5b2539bc06080452a7bb651945fcb0816d3f2b9312e6ebf737a15aac8570c"
+      },
+      {
+        "file": "crates/rovai-core/src/db.rs",
+        "gitBlob": "b28250a3062d4c2c8cc8b496225573acb45605f4",
+        "sha256": "12fc720c7128e6e87f0565e323fcf6febb51e0caded521358fc9f59b3a466973"
+      },
+      {
+        "file": "crates/rovai-core/src/delivery_queue.rs",
+        "gitBlob": "b03d736b115e72ee221a635d3c78265247e62480",
+        "sha256": "b0eb80220b72b9002ed7a4240c9b550bbad545af771df45b585bd8f94bfce20a"
+      },
+      {
+        "file": "crates/rovai-core/src/single_chat.rs",
+        "gitBlob": "d8b8ce5d23d8161e7a828ee2aede19e6b410ac37",
+        "sha256": "098d540d33d36983ffbbbcb929af1bb08c74ff602f65600a14e5728f9ed28e8e"
+      },
+      {
+        "file": "crates/rovai-core/src/application.rs",
+        "gitBlob": "c0eae1cdf94e4d32aa043a5964d4fae3ddc82a3d",
+        "sha256": "8bcfc2a78a3e20be9422482fccc1d3d9261d42254d7fc1b77176990dd6c5ded2"
+      }
+    ],
+    "ignored": "7 subprocess helpers and 1 manual Antigravity real-Runtime test; ignored tests do not grant runtime qualification"
+  },
+  "compatibilityRepair": {
+    "file": "crates/rovai-host/src/server_updates/install.rs",
+    "before": "完整回归和同一二进制定向运行均复现Windows目录替换拒绝访问",
+    "after": "只对Windows 5/32/33增加至多20次100ms间隔重试；持续占用仍失败并保留目录；Unix保持单次重命名",
+    "maxAdditionalDelayMs": 2000,
+    "owner": "existing Host directory-switch and handoff owners",
+    "newTestFunctions": 0,
+    "initialFailureLog": "work/i02/skill-delivery-final-workspace.log",
+    "abortedRunsDoNotCountAsPassed": true
+  },
+  "acceptance": {
+    "SP01": "partial_internal_index_only",
+    "SP02": "partial_member_preparation_and_resolution",
+    "SP03": "partial_identity_and_closed_source_fields",
+    "SP04": "partial_modified_content",
+    "SP05": "partial_version_source_only",
+    "SP06": "partial_configuration_preparation",
+    "SP07": "configuration_owner_verified_not_full_run_acceptance",
+    "SP08": "not_run_final_blob_recovery",
+    "SP09": "partial_v1_v2_canonical_bytes_not_formatter_migration",
+    "SP10": "partial_full_unicode_description_not_payload_budget",
+    "SP11": "not_run_new_run_context",
+    "SP12": "not_run_dedicated_identity_and_budget_required"
+  },
+  "next": [
+    "接通候选和受控预览",
+    "接通34/29格式、实际UTF8预算与首次准备",
+    "追加153/203迁移并验证旧输入、最终Blob恢复和幂等",
+    "专用身份/硬预算到位后补真实Gate"
+  ],
+  "overallMvp": "in_progress_81_source_clusters_48_work_packages_324_acceptance_cases_preserved"
+}

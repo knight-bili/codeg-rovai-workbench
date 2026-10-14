@@ -8,7 +8,7 @@ last_updated: 2026-10-14
 
 User 的主称呼、结构化提及及冻结恢复见 [User Naming v1](user-naming-v1.md)。
 
-公开命名与历史合同的关系见 [Thread Naming v1](thread-naming-v1.md)；当前模型与 CLI 版本见 [ContextManifest v33](context-manifest-evidence-v33.md)、[Built-in Tool Transport v37](builtin-tool-transport-v37.md)。
+公开命名与历史合同的关系见 [Thread Naming v1](thread-naming-v1.md)；当前模型与 CLI 版本见 [ContextManifest v34](context-manifest-evidence-v34.md)、[Built-in Tool Transport v37](builtin-tool-transport-v37.md)。
 
 本目录保存跨版本、字段级且可由测试直接验证的接口合同。[Version Decisions](../decisions/README.md)解释为什么选择某个边界，
 Architecture 解释组件如何组成，Version 概览记录交付范围；它们都不复制本目录的完整 wire shape。
@@ -47,7 +47,8 @@ Architecture 解释组件如何组成，Version 概览记录交付范围；它�
 ## 模型消息 Mention
 
 - [Message Mentions v1（当前）](message-mentions-v1.md)：公开 batch 输入和 read 共用的目标身份投影。
-- [ContextManifest v33（当前）](context-manifest-evidence-v33.md)：新 Run Mention 字段、原版本恢复和现有预算/摘要。
+- [ContextManifest v34（当前）](context-manifest-evidence-v34.md)：独立包索引、Selection/Resolution3、新公开34与非批次29、原版本冻结恢复。
+- [ContextManifest v33（历史）](context-manifest-evidence-v33.md)：新 Run Mention 字段及原版本恢复，由v34扩展包来源。
 - [Camp History v12（当前）](camp-history-v12.md)：三种 read 的 mentions、旧回执和 Agent Output 10；Transport/CLI 36 不变。
 
 ## 生命周期

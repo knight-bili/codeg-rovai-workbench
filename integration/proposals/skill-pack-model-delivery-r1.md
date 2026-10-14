@@ -1,15 +1,18 @@
 ---
 document_type: implementation-proposal
-status: pending_confirmation
+status: confirmed_for_implementation
 revision: 1
-confirmation_status: pending
+confirmation_status: confirmed
+confirmed_revision: 1
+confirmed_by: User
+confirmed_at: 2026-10-14T06:22:03Z
 implementation_status: not_started_model_delivery
 date: 2026-10-14
 ---
 
 # 技能包队员投递变更方案
 
-待确认版本 r1
+r1 已确认；完整模型变更说明及确认记录见 [当前版本正式文件](../../docs/versions/v1.72/model-context-change-skill-pack-member-delivery.md)。下文保留原提案时的状态说明与前后合同。
 
 本方案对应完整一期 I02-T03 的模型输入部分。请确认是否按 r1 接通技能包的队员使用、会话选择、输入冻结与恢复。安装和成员选择保存已独立开发；当前实际投递尚未接入。本方案不改变一期的81来源簇、48工作包、324验收场景及 I00 至 I12 终点，其他模块继续按 v4 推进。
 

@@ -64,8 +64,8 @@
     {
       "id": "INPUT-GITHUB-CI",
       "required_for": "Mac/Linux及GitHub原生验证",
-      "need": "核查GitHub账户付款或Actions支出限制；由客户处理账号与费用决定后补运行",
-      "status": "deferred_account_billing",
+      "need": "公开标准运行机已实际完成Linux Core验证，数据库110项（含原12失败和Unix专属）全通过；无需客户提高额度。账号历史账单和硬预算仍未核实",
+      "status": "resolved_public_runner_and_core_linux_verified",
       "evidence": {
         "head": "e2963ef0d59989d16d32fffc03d19925dd75de85",
         "run": 38500616853,
@@ -73,7 +73,7 @@
         "annotation": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings",
         "steps": 0
       },
-      "software_workaround": "已找到本机E盘现有MSVC，通过VS子进程开发环境进行Windows编译/迁移测试；Mac/Linux仍待补，不自动购买或修改账户额度，不重复调度被拒作业",
+      "software_workaround": "继续本机Windows与公开仓库标准运行机；保留Mac和移动编译入口，不采购、不修改账户额度，不用编译代替真机验收",
       "prior_evidence": [
         {
           "head": "2797a000756d0640a02db0e4e60d10a879f046b6",
@@ -81,23 +81,45 @@
           "checkRun": 115516171718,
           "annotation": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings"
         }
-      ]
+      ],
+      "resolution": {
+        "policy": "integration/ci-cost-policy.md",
+        "evidence": "integration/execution/ci-free-result.json",
+        "publicVerified": true,
+        "accountBudgetModified": false,
+        "accountBudgetVerified": false,
+        "realCloudProbe": "runner_executed_scaffold_passed_core_repair_all_steps_passed",
+        "runs": [
+          38543657903,
+          38543710547,
+          38564836044
+        ]
+      }
     },
     {
       "id": "INPUT-SKILL-DELIVERY-R1",
       "required_for": "I02-T03技能包实际模型输入",
-      "status": "customer_requested_story_based_explanation_before_confirmation",
-      "need": "阅读9页Word/PDF后明确确认按r1实施；确认输入语义及本地实现，专用模型身份/硬额度另补",
+      "status": "confirmed",
+      "need": "客户已阅读12页故事及完整研发附录并确认对应r1；本地实施继续，专用模型身份及硬额度另补",
       "proposal": "integration/proposals/skill-pack-model-delivery-r1.md",
       "revision": 1,
-      "confirmation_status": "pending",
+      "confirmation_status": "confirmed",
       "governance": "docs/development/model-context-change-governance.md:49-56",
       "outputs": [
         "I02_技能包模型投递变更方案_r1_待确认.docx",
         "I02_技能包模型投递变更方案_r1_待确认.pdf"
       ],
-      "software_workaround": "配置保存已完成；不等待该项，继续I03及其他独立研发；禁止自动代确认",
-      "feedback": "客户看不懂技术术语，要求调整为有使用故事的说明后再确认；不是确认实施"
+      "software_workaround": "r1无需再次确认；继续来源、实际Run投递和恢复实施，真实Gate等待专用身份及预算，不自动付费",
+      "feedback": "原技术稿被要求改为使用故事；客户随后阅读客户确认版并明确同意按对应r1实施",
+      "confirmed_revision": 1,
+      "confirmed_by": "User",
+      "confirmed_at": "2026-10-14T06:22:03Z",
+      "human_reply": "符合预期，按对应 r1 继续实现",
+      "customer_reading_outputs": [
+        "I02_技能包怎么用_客户确认版_r1.docx",
+        "I02_技能包怎么用_客户确认版_r1.pdf"
+      ],
+      "formal_statement": "docs/versions/v1.72/model-context-change-skill-pack-member-delivery.md"
     }
   ]
 }

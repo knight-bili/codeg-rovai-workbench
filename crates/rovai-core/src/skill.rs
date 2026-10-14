@@ -1026,6 +1026,7 @@ impl SkillLibraryService {
             preview: Some(ContentCapture {
                 path: path.clone(),
                 bytes: Vec::new(),
+                limit: MAX_SKILL_PREVIEW_BYTES,
             }),
             ..CandidateCollector::default()
         };
@@ -2857,12 +2858,43 @@ fn inspect_candidate_tree(source: &Path, expected_name: &str) -> Result<Candidat
 /// The new installed-pack store reuses only the no-follow, bounded tree reader;
 /// it does not use the historical Library tables, revisions or projections.
 pub(crate) fn inspect_installed_pack_tree(source: &Path, expected_name: &str) -> Result<String> {
+    inspect_installed_pack_tree_with_description(source, expected_name).map(|(digest, _)| digest)
+}
+
+pub(crate) fn inspect_installed_pack_tree_with_description(
+    source: &Path,
+    expected_name: &str,
+) -> Result<(String, String)> {
     validate_skill_name(expected_name)?;
-    let mut collector = CandidateCollector::default();
+    let mut collector = CandidateCollector {
+        preview: Some(ContentCapture {
+            path: "SKILL.md".into(),
+            bytes: Vec::new(),
+            limit: MAX_SKILL_FILE_BYTES as usize,
+        }),
+        ..CandidateCollector::default()
+    };
     inspect_candidate_node(source, Path::new(""), 0, &mut collector)?;
-    crate::managed_skills::read_frontmatter(&source.join("SKILL.md"), expected_name)?;
+    let skill = collector
+        .records
+        .iter()
+        .find(|record| record.path == "SKILL.md")
+        .context("Skill package must contain a regular SKILL.md")?;
+    let bytes = &collector
+        .preview
+        .as_ref()
+        .expect("entry capture is present")
+        .bytes;
+    anyhow::ensure!(
+        bytes.len() as u64 == skill.size,
+        "Skill entry capture is incomplete"
+    );
+    // Parse the exact bytes that contributed to the tree digest. Do not reopen
+    // the path after its ownership/type/integrity inspection.
+    let text = std::str::from_utf8(bytes).context("SKILL.md must be valid UTF-8 text")?;
+    let description = crate::managed_skills::parse_frontmatter_content(text, expected_name)?;
     collector.records.sort_by(|a, b| a.path.cmp(&b.path));
-    Ok(digest_records(&collector.records))
+    Ok((digest_records(&collector.records), description))
 }
 
 fn candidate_snapshot(
@@ -3129,13 +3161,14 @@ const MAX_SKILL_PREVIEW_BYTES: usize = 128 * 1024;
 struct ContentCapture {
     path: String,
     bytes: Vec<u8>,
+    limit: usize,
 }
 impl CandidateCollector {
     fn capture_content(&mut self, relative: &Path, bytes: &[u8]) {
         if let Some(preview) = &mut self.preview
             && preview.path == relative.to_string_lossy().replace('\\', "/")
         {
-            let remaining = MAX_SKILL_PREVIEW_BYTES.saturating_sub(preview.bytes.len());
+            let remaining = preview.limit.saturating_sub(preview.bytes.len());
             preview
                 .bytes
                 .extend_from_slice(&bytes[..bytes.len().min(remaining)]);

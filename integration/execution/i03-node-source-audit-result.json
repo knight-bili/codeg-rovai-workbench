@@ -1,0 +1,130 @@
+{
+  "recordedAt": "2026-10-14T13:59:39.505Z",
+  "status": "pinned_source_audited_implementation_pending",
+  "donor": {
+    "repository": "https://github.com/spacering-net/codeg",
+    "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "workingHeadObserved": "f4b4410ac55a92d297dbb124bb74604c919d1ab0",
+    "readMethod": "git show pinned commit; donor checkout/branch/files untouched"
+  },
+  "sources": [
+    {
+      "path": "src-tauri/src/db/entities/canvas_node.rs",
+      "gitBlob": "42eedf2d776b72b01b89b6dcac9125f065bd45ad",
+      "sha256": "ad1c7ed50c9759942f264fe763117f4d5ad2f0729398ac7ab7dce8740e016f01",
+      "bytes": 4717
+    },
+    {
+      "path": "src-tauri/src/models/canvas.rs",
+      "gitBlob": "51ce3791a0f26e914546f9643d1af28e5da69cce",
+      "sha256": "d8a40b63b0dfe9591729919a8c3fa134b1f54d7f02517c3ff6443403e75101c1",
+      "bytes": 5946
+    },
+    {
+      "path": "src-tauri/src/db/service/canvas_service.rs",
+      "gitBlob": "a1774780b800f4f6c11f0bc71e676fa22ec5f62c",
+      "sha256": "ffa14011bae20196bdb97a6be595ed0e24b701875f322ff8ced0bf64cc1b6c62",
+      "bytes": 58817
+    },
+    {
+      "path": "src-tauri/src/commands/canvas.rs",
+      "gitBlob": "ca92d4293fa87255931d614cdb2429c360da2727",
+      "sha256": "4050e992334d62491c9c8cafded67e848d89b61c98f98129c9bb8fd282a07892",
+      "bytes": 92466
+    },
+    {
+      "path": "src/stores/canvas-store.ts",
+      "gitBlob": "2593c14de5c8fcce474ca959012ffab7308f17ab",
+      "sha256": "4d7257c4a3ac1407b0eff5844d6be11d647440cae8dec918d5dd8e02a5d8f300",
+      "bytes": 15062
+    },
+    {
+      "path": "src/lib/canvas-view-storage.ts",
+      "gitBlob": "320d14dc62c42f083e6c956ced98b4e18e95de06",
+      "sha256": "2d2b3882bce4b4244c889b92088d5bc82eb23c8929e2a672b4ab7da7fd614891",
+      "bytes": 13742
+    }
+  ],
+  "nodeKinds": [
+    "folder",
+    "group",
+    "agent",
+    "conversation",
+    "custom",
+    "note",
+    "file",
+    "terminal"
+  ],
+  "nodeFields": [
+    "id",
+    "board_id",
+    "kind",
+    "folder_id",
+    "folder_group_id",
+    "agent_type",
+    "conversation_id",
+    "member_ids",
+    "title",
+    "content",
+    "path",
+    "color",
+    "collapsed",
+    "grid_columns",
+    "grid_rows",
+    "x",
+    "y",
+    "width",
+    "height",
+    "created_at",
+    "updated_at"
+  ],
+  "sourceOperations": [
+    "get_revision",
+    "snapshot",
+    "parse_member_ids",
+    "create_node",
+    "group_into_region",
+    "update_node",
+    "move_nodes",
+    "detach_member",
+    "delete_node",
+    "delete_nodes",
+    "prune_for_conversations",
+    "list_boards",
+    "create_board",
+    "update_board",
+    "delete_board"
+  ],
+  "requiredOperationsVerified": [
+    "snapshot",
+    "create_node",
+    "group_into_region",
+    "update_node",
+    "move_nodes",
+    "detach_member",
+    "delete_node",
+    "delete_nodes",
+    "prune_for_conversations",
+    "list_boards",
+    "create_board",
+    "update_board",
+    "delete_board"
+  ],
+  "preservedBoundaries": [
+    "All eight node kinds and their interaction scope remain in I03",
+    "Geometry/grid/collapse and one-board node identity are shared Core facts",
+    "Curated Thread order and group/detach/batch gestures remain atomic",
+    "Mission/Task/Thread/member bindings resolve current Core objects; no copied business status",
+    "File paths require current grants; terminal launch intent is not PTY identity",
+    "Client viewport/selection/drafts stay scoped to Core identity and board",
+    "Codeg global LWW event replay adapts to Core CAS/invalidation/snapshot authority"
+  ],
+  "existingCore": {
+    "implemented": "Canvas board metadata lifecycle only",
+    "graphPersistence": "not_implemented",
+    "interactiveCanvas": "not_implemented",
+    "interactivePty": "not_implemented"
+  },
+  "next": "Implement the typed eight-kind node/graph contract, Core persistence and command snapshots before UI and PTY; preserve full I03-T01/T02/T03 scope",
+  "qualification": "Source audit only; no node API/runtime/UI acceptance claim"
+}

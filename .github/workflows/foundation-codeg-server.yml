@@ -1,9 +1,6 @@
 name: Codeg source baseline
 
 on:
-  push:
-    branches: ['phase/i01-foundation']
-    paths: ['.github/workflows/foundation-codeg-server.yml']
   workflow_dispatch:
 
 permissions:
@@ -87,4 +84,4 @@ jobs:
             ${{ env.CODEG_DONOR }}/src-tauri/target/debug/codeg-server.exe
             ${{ env.CODEG_DONOR }}/baseline-health.json
           if-no-files-found: error
-          retention-days: 3
+          retention-days: 1

@@ -11,10 +11,10 @@
     "phase_two": "一期完整融合交付后才开始自主新增"
   },
   "authorization": "客户要求持续自动推进；本项目阶段提交、推送及草稿PR自动执行；main合并与正式发布仍由客户控制",
-  "current_branch": "phase/i03-canvas",
-  "base_branch": "phase/i02-workbench",
-  "current_task": "I03-T01/I03-T03",
-  "current_slice": "多画板Core与实际HTTP已验，按客户反馈重写技能投递说明后继续八类节点",
+  "current_branch": "phase/i02-skill-delivery",
+  "base_branch": "phase/i03-canvas",
+  "current_task": "I03-T01",
+  "current_slice": "I02未知输入进程恢复切片已验证并同步679650fa（workspace501/0/8、helper10/0、进程5项）；完整I02未验收。继续I03八类节点Core图模型与持久化，固定源码已核对。",
   "stages": {
     "I00": "accepted",
     "I01": "source_evidence_ready_pending_customer_acceptance",
@@ -33,14 +33,15 @@
   },
   "customer_dependencies": "customer-todos.json",
   "next_queue": [
-    "完成多画板生命周期/迁移/HTTP真实验证并提交阶段分支和草稿PR",
-    "移植八类节点、几何/分组/布局和画布交互；接现有业务对象及文件/终端权限",
-    "I02模型投递r1等待客户确认，其他Runtime与工作台补验继续；不改变模型来源",
-    "I04至I12及BUF完整推进，所有未补资源保留客户待办"
+    "按锁定Codeg aff1e6c源码实现八类节点的typed contract、Core图持久化、CAS命令及一致快照，再接UI；不能只交付元数据或缩减节点。",
+    "继续I03业务绑定、几何布局/分组与客户端视口，最后接真实临时PTY及关闭/删除生命周期。",
+    "I02其余SP场景保留：依现行Accepted Input Recovery v8区分未发送、明确拒绝、已接受和未知，不预设所有Core硬重启都自动重放；冻结之后的发送前窗口需找真实边界验证。",
+    "专用测试身份与硬预算到位后执行SP12真实指南/工具Gate及完整Runtime/平台矩阵；不自动付费。",
+    "继续I02剩余、I04–I12与BUF全部既定范围，未补齐必需验收不得标MVP完成。"
   ],
   "completion_rule": "必需实现和验证全部完成后交客户验收；待办未补齐或场景未验收不标记目标完成",
   "fusion_acceptance": "not_run",
-  "current_slice_status": "multi_board_Core_lifecycle_and_HTTP_verified_nodes_UI_pending",
+  "current_slice_status": "i03_pinned_node_sources_audited_core_graph_implementation_next",
   "evidence": "i02-navigation-result.json",
   "live_evidence": "i02-core148-live-result.json",
   "legacy_evidence": "i02-legacy-draft-result.json",
@@ -56,7 +57,18 @@
   "skill_catalog_evidence": "i02-skill-catalog-result.json",
   "skill_install_evidence": "i02-skill-install-result.json",
   "system_goal_status": "active",
-  "system_goal_verified_at": "2026-10-14T05:33:04.371Z",
+  "system_goal_verified_at": "2026-10-14T11:55:24.829Z",
   "skill_members_evidence": "i02-skill-members-result.json",
-  "canvas_boards_evidence": "i03-canvas-boards-result.json"
+  "canvas_boards_evidence": "i03-canvas-boards-result.json",
+  "skill_delivery_preparation_evidence": "i02-skill-delivery-preparation-result.json",
+  "skill_delivery_context_evidence": "i02-skill-delivery-context-result.json",
+  "ci_cost_policy": "integration/ci-cost-policy.md",
+  "ci_access_evidence": "ci-free-result.json",
+  "ci_access_status": "public_runner_verified_windows_and_linux_database_regression_passed",
+  "ci_next_action": "run38564836044已success且110项和Unix日志核对；后续按里程碑免费标准runner验证，不重复调度已完成运行",
+  "skill_delivery_matrix_evidence": "i02-skill-delivery-matrix-result.json",
+  "database_regression_repair_evidence": "i02-db153-regression-repair-result.json",
+  "skill_process_recovery_evidence": "i02-skill-process-recovery-result.json",
+  "skill_process_recovery_source_commit": "679650fa65c4e96b32bf75e8e5c95ef0a999a498",
+  "canvas_node_source_audit_evidence": "i03-node-source-audit-result.json"
 }

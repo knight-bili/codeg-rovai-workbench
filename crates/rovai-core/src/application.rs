@@ -2413,6 +2413,9 @@ struct Core {
     qoder_cli: AcpCliRuntimeAdapter,
     codebuddy_cli: AcpCliRuntimeAdapter,
     qwen_code: AcpCliRuntimeAdapter,
+    gemini_cli: AcpCliRuntimeAdapter,
+    hermes_cli: AcpCliRuntimeAdapter,
+    open_claw_cli: AcpCliRuntimeAdapter,
     trae_cn_cli: AcpCliRuntimeAdapter,
     cursor_agent: AcpCliRuntimeAdapter,
     kimi_code_cli: AcpCliRuntimeAdapter,
@@ -2768,6 +2771,9 @@ fn runtime_display_name(kind: AdapterKind) -> &'static str {
         AdapterKind::QoderCli => "Qoder CLI",
         AdapterKind::CodebuddyCli => "CodeBuddy CLI",
         AdapterKind::QwenCode => "Qwen Code",
+        AdapterKind::GeminiCli => "Gemini CLI",
+        AdapterKind::HermesCli => "Hermes Agent",
+        AdapterKind::OpenClawCli => "OpenClaw",
         AdapterKind::TraeCnCli => "TRAE CLI",
         AdapterKind::CursorAgent => "Cursor Agent",
         AdapterKind::KimiCodeCli => "Kimi Code",
@@ -5611,6 +5617,27 @@ impl Core {
             return Some(AgentRunRuntime::Acp(runtime));
         }
         if let Some(runtime) = self
+            .gemini_cli
+            .get_agent_run(agent_run_id, execution_epoch)
+            .await
+        {
+            return Some(AgentRunRuntime::Acp(runtime));
+        }
+        if let Some(runtime) = self
+            .hermes_cli
+            .get_agent_run(agent_run_id, execution_epoch)
+            .await
+        {
+            return Some(AgentRunRuntime::Acp(runtime));
+        }
+        if let Some(runtime) = self
+            .open_claw_cli
+            .get_agent_run(agent_run_id, execution_epoch)
+            .await
+        {
+            return Some(AgentRunRuntime::Acp(runtime));
+        }
+        if let Some(runtime) = self
             .trae_cn_cli
             .get_agent_run(agent_run_id, execution_epoch)
             .await
@@ -5772,6 +5799,9 @@ impl Core {
             self.qoder_cli.shutdown_all(),
             self.codebuddy_cli.shutdown_all(),
             self.qwen_code.shutdown_all(),
+            self.gemini_cli.shutdown_all(),
+            self.hermes_cli.shutdown_all(),
+            self.open_claw_cli.shutdown_all(),
             self.trae_cn_cli.shutdown_all(),
             self.cursor_agent.shutdown_all(),
             self.kimi_code_cli.shutdown_all(),
@@ -5797,6 +5827,9 @@ impl Core {
                 self.qoder_cli.shutdown_all(),
                 self.codebuddy_cli.shutdown_all(),
                 self.qwen_code.shutdown_all(),
+                self.gemini_cli.shutdown_all(),
+                self.hermes_cli.shutdown_all(),
+                self.open_claw_cli.shutdown_all(),
                 self.trae_cn_cli.shutdown_all(),
                 self.cursor_agent.shutdown_all(),
                 self.kimi_code_cli.shutdown_all(),
@@ -5825,6 +5858,9 @@ impl Core {
             rovai_core::agent_profile::AdapterKind::QoderCli => Some(&self.qoder_cli),
             rovai_core::agent_profile::AdapterKind::CodebuddyCli => Some(&self.codebuddy_cli),
             rovai_core::agent_profile::AdapterKind::QwenCode => Some(&self.qwen_code),
+            rovai_core::agent_profile::AdapterKind::GeminiCli => Some(&self.gemini_cli),
+            rovai_core::agent_profile::AdapterKind::HermesCli => Some(&self.hermes_cli),
+            rovai_core::agent_profile::AdapterKind::OpenClawCli => Some(&self.open_claw_cli),
             rovai_core::agent_profile::AdapterKind::TraeCnCli => Some(&self.trae_cn_cli),
             rovai_core::agent_profile::AdapterKind::CursorAgent => Some(&self.cursor_agent),
             rovai_core::agent_profile::AdapterKind::KimiCodeCli => Some(&self.kimi_code_cli),
@@ -9259,6 +9295,81 @@ impl Core {
                 let database = self.database.lock().await;
                 Ok(serde_json::to_value(self.skill_library.list(&database)?)?)
             }
+            "skillPacks.list" => Ok(serde_json::to_value(
+                rovai_core::codeg_skill_catalog::list()?,
+            )?),
+            "skillPacks.read" => {
+                let params = serde_json::from_value(request.params.clone())?;
+                Ok(serde_json::to_value(
+                    rovai_core::codeg_skill_catalog::read(&params)?,
+                )?)
+            }
+            "skillPacks.installations.list" => {
+                let store =
+                    rovai_core::skill_pack_installation::SkillPackStore::new(&self.data_dir)?;
+                let rows = {
+                    let database = self.database.lock().await;
+                    rovai_core::skill_pack_installation::snapshot(database.connection())?
+                };
+                Ok(serde_json::to_value(
+                    tokio::task::spawn_blocking(move || store.views(&rows)).await??,
+                )?)
+            }
+            "skillPacks.install" => {
+                use rovai_core::skill_pack_installation::{
+                    InstallBeginning, InstallSkillPackCommand, SkillPackStore,
+                };
+                let params: UserCommandParams<InstallSkillPackCommand> =
+                    serde_json::from_value(request.params.clone())?;
+                let envelope = user_command_envelope(params.command_id, params.command);
+                let store = SkillPackStore::new(&self.data_dir)?;
+                let beginning = {
+                    let mut database = self.database.lock().await;
+                    store.begin_install(&mut database, &envelope)?
+                };
+                let execution = match beginning {
+                    InstallBeginning::Complete(execution) => execution,
+                    InstallBeginning::Prepare(plan) => {
+                        let preparing_store = store.clone();
+                        let prepared =
+                            tokio::task::spawn_blocking(move || preparing_store.prepare(plan))
+                                .await??;
+                        let mut database = self.database.lock().await;
+                        store.commit_install(&mut database, &envelope, prepared)?
+                    }
+                };
+                Ok(serde_json::to_value(execution.result)?)
+            }
+            "skillPacks.uninstall" => {
+                let params: UserCommandParams<
+                    rovai_core::skill_pack_installation::UninstallSkillPackCommand,
+                > = serde_json::from_value(request.params.clone())?;
+                let store =
+                    rovai_core::skill_pack_installation::SkillPackStore::new(&self.data_dir)?;
+                let mut database = self.database.lock().await;
+                let execution = store.uninstall(
+                    &mut database,
+                    &user_command_envelope(params.command_id, params.command),
+                )?;
+                Ok(serde_json::to_value(execution.result)?)
+            }
+            "skillPacks.members.list" => {
+                let database = self.database.lock().await;
+                Ok(serde_json::to_value(rovai_core::skill_pack_members::list(
+                    database.connection(),
+                )?)?)
+            }
+            "skillPacks.members.set" => {
+                let params: UserCommandParams<
+                    rovai_core::skill_pack_members::SetSkillPackMembersCommand,
+                > = serde_json::from_value(request.params.clone())?;
+                let mut database = self.database.lock().await;
+                let execution = rovai_core::skill_pack_members::set_members(
+                    &mut database,
+                    &user_command_envelope(params.command_id, params.command),
+                )?;
+                Ok(serde_json::to_value(execution.result)?)
+            }
             "toolbox.list" => {
                 let managed =
                     rovai_core::managed_skills::ManagedSkills::for_data_dir(&self.data_dir)?;
@@ -11787,6 +11898,9 @@ impl Core {
             | rovai_core::agent_profile::AdapterKind::QoderCli
             | rovai_core::agent_profile::AdapterKind::CodebuddyCli
             | rovai_core::agent_profile::AdapterKind::QwenCode
+            | rovai_core::agent_profile::AdapterKind::GeminiCli
+            | rovai_core::agent_profile::AdapterKind::HermesCli
+            | rovai_core::agent_profile::AdapterKind::OpenClawCli
             | rovai_core::agent_profile::AdapterKind::TraeCnCli
             | rovai_core::agent_profile::AdapterKind::CursorAgent
             | rovai_core::agent_profile::AdapterKind::KimiCodeCli
@@ -17862,6 +17976,9 @@ impl Core {
             | rovai_core::agent_profile::AdapterKind::QoderCli
             | rovai_core::agent_profile::AdapterKind::CodebuddyCli
             | rovai_core::agent_profile::AdapterKind::QwenCode
+            | rovai_core::agent_profile::AdapterKind::GeminiCli
+            | rovai_core::agent_profile::AdapterKind::HermesCli
+            | rovai_core::agent_profile::AdapterKind::OpenClawCli
             | rovai_core::agent_profile::AdapterKind::TraeCnCli
             | rovai_core::agent_profile::AdapterKind::CursorAgent
             | rovai_core::agent_profile::AdapterKind::KimiCodeCli
@@ -18803,6 +18920,27 @@ async fn run_core(
             rovai_core::agent_profile::AdapterKind::TraeCnCli,
             acp_tx.clone(),
             data_dir.join("runtime/trae-cn"),
+            runtime_fleet.clone(),
+            CompactionDetectorPolicy::Disabled,
+        ),
+        gemini_cli: AcpCliRuntimeAdapter::deferred(
+            AdapterKind::GeminiCli,
+            acp_tx.clone(),
+            data_dir.join("runtime/gemini"),
+            runtime_fleet.clone(),
+            CompactionDetectorPolicy::Disabled,
+        ),
+        hermes_cli: AcpCliRuntimeAdapter::deferred(
+            AdapterKind::HermesCli,
+            acp_tx.clone(),
+            data_dir.join("runtime/hermes"),
+            runtime_fleet.clone(),
+            CompactionDetectorPolicy::Disabled,
+        ),
+        open_claw_cli: AcpCliRuntimeAdapter::deferred(
+            AdapterKind::OpenClawCli,
+            acp_tx.clone(),
+            data_dir.join("runtime/openclaw"),
             runtime_fleet.clone(),
             CompactionDetectorPolicy::Disabled,
         ),
@@ -26852,6 +26990,27 @@ mod tests {
                 AdapterKind::TraeCnCli,
                 acp_tx.clone(),
                 data_dir.join("runtime/trae-cn"),
+                runtime_fleet.clone(),
+                CompactionDetectorPolicy::Disabled,
+            )?,
+            gemini_cli: AcpCliRuntimeAdapter::new(
+                AdapterKind::GeminiCli,
+                acp_tx.clone(),
+                data_dir.join("runtime/gemini"),
+                runtime_fleet.clone(),
+                CompactionDetectorPolicy::Disabled,
+            )?,
+            hermes_cli: AcpCliRuntimeAdapter::new(
+                AdapterKind::HermesCli,
+                acp_tx.clone(),
+                data_dir.join("runtime/hermes"),
+                runtime_fleet.clone(),
+                CompactionDetectorPolicy::Disabled,
+            )?,
+            open_claw_cli: AcpCliRuntimeAdapter::new(
+                AdapterKind::OpenClawCli,
+                acp_tx.clone(),
+                data_dir.join("runtime/openclaw"),
                 runtime_fleet.clone(),
                 CompactionDetectorPolicy::Disabled,
             )?,

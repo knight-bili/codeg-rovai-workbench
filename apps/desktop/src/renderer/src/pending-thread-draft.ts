@@ -1,6 +1,6 @@
 import type { ThreadComposerDraftView } from '@contracts'
 import type { ThreadClient } from './camp-client'
-import { saveLocalThreadComposerDraft } from './camp-composer-local-store'
+import { saveLocalThreadComposerDraft, threadComposerDraftStorage } from './camp-composer-local-store'
 
 export function hasPendingThreadDraftInput(draft: ThreadComposerDraftView): boolean {
   return Boolean(draft.body.trim() || draft.attachments.length || draft.quotes.length || draft.replyIntent)
@@ -17,9 +17,9 @@ export class PendingThreadDraftPersistence {
   private readonly acknowledged = new Map<string, boolean>()
 
   constructor(
-    private readonly client: Pick<ThreadClient, 'request'>,
+    private readonly client: Pick<ThreadClient, 'request' | 'editingRecovery'>,
     private readonly save = (draft: ThreadComposerDraftView): void => {
-      const storage = window.localStorage
+      const storage = threadComposerDraftStorage(this.client.editingRecovery) ?? window.localStorage
       if (!storage) throw new Error('Local draft storage is unavailable')
       saveLocalThreadComposerDraft(draft, storage)
     }

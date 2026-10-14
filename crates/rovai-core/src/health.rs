@@ -1570,6 +1570,9 @@ async fn acp_probe_at(
             | AdapterKind::QoderCli
             | AdapterKind::CodebuddyCli
             | AdapterKind::QwenCode
+            | AdapterKind::GeminiCli
+            | AdapterKind::HermesCli
+            | AdapterKind::OpenClawCli
             | AdapterKind::TraeCnCli
             | AdapterKind::GrokBuild
             | AdapterKind::DeepseekHarness
@@ -2716,6 +2719,12 @@ pub fn configure_acp_command(
         AdapterKind::QwenCode => {
             command.arg("--acp");
         }
+        AdapterKind::GeminiCli => {
+            command.args(["--acp", "--skip-trust"]);
+        }
+        AdapterKind::HermesCli | AdapterKind::OpenClawCli => {
+            command.arg("acp");
+        }
         AdapterKind::TraeCnCli => {
             command.args(["acp", "serve"]);
         }
@@ -2944,13 +2953,35 @@ fn acp_required_capabilities(kind: AdapterKind) -> Vec<String> {
     .map(str::to_string)
     .collect::<Vec<_>>();
     capabilities.push(
-        if matches!(kind, AdapterKind::KiroCli | AdapterKind::GrokBuild) {
+        if matches!(
+            kind,
+            AdapterKind::KiroCli
+                | AdapterKind::GrokBuild
+                | AdapterKind::GeminiCli
+                | AdapterKind::HermesCli
+        ) {
             "session.set_model"
         } else {
             "session.set_config_option"
         }
         .to_string(),
     );
+    if kind == AdapterKind::HermesCli {
+        capabilities.push("session.set_mode".to_string());
+        capabilities.push("session.load".to_string());
+    }
+    if kind == AdapterKind::OpenClawCli {
+        capabilities.retain(|capability| capability != "session.set_config_option");
+        capabilities.extend(
+            [
+                "gateway.models.list",
+                "gateway.sessions.patch",
+                "gateway.session_identity.strict",
+            ]
+            .into_iter()
+            .map(str::to_owned),
+        );
+    }
     capabilities
 }
 
@@ -3704,6 +3735,9 @@ pub fn find_adapter(kind: AdapterKind) -> Option<PathBuf> {
             &["ROVAI_QWEN_BIN", "HORIZONWARD_QWEN_BIN", "LUMEN_QWEN_BIN"][..],
             "qwen",
         ),
+        AdapterKind::GeminiCli => (&["ROVAI_GEMINI_BIN"][..], "gemini"),
+        AdapterKind::HermesCli => (&["ROVAI_HERMES_BIN"][..], "hermes"),
+        AdapterKind::OpenClawCli => (&["ROVAI_OPENCLAW_BIN"][..], "openclaw"),
         AdapterKind::TraeCnCli => (
             &[
                 "ROVAI_TRAE_CN_BIN",
@@ -3768,6 +3802,125 @@ mod native_home_probe_tests;
 
 #[cfg(all(test, unix, feature = "extended-tests"))]
 mod claude_catalog_tests;
+
+#[cfg(all(test, feature = "extended-tests"))]
+mod launch_policy_tests {
+    use super::*;
+
+    #[test]
+    fn additive_acp_launch_shapes_match_the_verified_cli_contracts() {
+        for (version, v1) in [
+            ("1.18.32", true),
+            ("opencode v1.99.1", true),
+            ("2.0.26", false),
+            ("opencode v2.99.1-preview.2", false),
+        ] {
+            let mut command = Command::new("/selected/opencode");
+            configure_acp_command(&mut command, AdapterKind::OpencodeCli, false, Some(version))
+                .unwrap();
+            let args = command
+                .as_std()
+                .get_args()
+                .map(|a| a.to_string_lossy().to_string())
+                .collect::<Vec<_>>();
+            if v1 {
+                assert_eq!(args, ["acp", "--log-level", "ERROR"]);
+            } else {
+                assert_eq!(args, ["acp", "--log-level", "error"]);
+            }
+        }
+        for pure in ["0", "1"] {
+            let mut command = Command::new("/selected/opencode");
+            command.env("OPENCODE_PURE", pure);
+            configure_acp_command(
+                &mut command,
+                AdapterKind::OpencodeCli,
+                false,
+                Some("1.18.32"),
+            )
+            .unwrap();
+            assert!(!command.as_std().get_args().any(|arg| arg == "--pure"));
+            assert_eq!(
+                command
+                    .as_std()
+                    .get_envs()
+                    .find(|(key, _)| *key == "OPENCODE_PURE")
+                    .and_then(|(_, value)| value),
+                Some(std::ffi::OsStr::new(pure))
+            );
+        }
+        for version in [
+            None,
+            Some("unknown"),
+            Some("0.0.0-next"),
+            Some("3.0.0"),
+            Some("2.0.bad"),
+        ] {
+            let mut command = Command::new("/selected/opencode");
+            assert!(
+                configure_acp_command(&mut command, AdapterKind::OpencodeCli, false, version)
+                    .is_err()
+            );
+            assert_eq!(command.as_std().get_args().count(), 0);
+        }
+        let arguments = |kind| {
+            let mut command = Command::new("/usr/bin/true");
+            configure_acp_command(&mut command, kind, false, None).unwrap();
+            command
+                .as_std()
+                .get_args()
+                .map(|value| value.to_string_lossy().to_string())
+                .collect::<Vec<_>>()
+        };
+        assert_eq!(arguments(AdapterKind::QoderCli), ["--acp"]);
+        assert_eq!(arguments(AdapterKind::CodebuddyCli), ["--acp"]);
+        assert_eq!(arguments(AdapterKind::QwenCode), ["--acp"]);
+        assert_eq!(arguments(AdapterKind::GeminiCli), ["--acp", "--skip-trust"]);
+        assert_eq!(arguments(AdapterKind::HermesCli), ["acp"]);
+        assert_eq!(arguments(AdapterKind::TraeCnCli), ["acp", "serve"]);
+        assert_eq!(arguments(AdapterKind::CursorAgent), ["acp"]);
+        assert_eq!(arguments(AdapterKind::KimiCodeCli), ["acp"]);
+        assert_eq!(arguments(AdapterKind::CommandCodeCli), ["acp"]);
+        assert_eq!(arguments(AdapterKind::ClineCli), ["--acp"]);
+        assert_eq!(
+            crate::command_code_acp::native_mcp_names("\nNo MCP servers configured\n").unwrap(),
+            BTreeSet::new()
+        );
+        assert_eq!(crate::command_code_acp::native_mcp_names("MCP Servers\n NAME TYPE SCOPE AUTH STATUS\n native stdio user - enabled\n disabled http project x disabled\n Total: 2 servers\n").unwrap(),
+            BTreeSet::from(["native".to_owned(), "disabled".to_owned()]));
+        for invalid in [
+            "NAME TYPE SCOPE AUTH STATUS\nnative stdio project x enabled",
+            "NAME TYPE SCOPE AUTH STATUS\nTotal: 9 servers",
+            "unknown format",
+            "\x1b[31mNo MCP servers configured",
+        ] {
+            assert!(crate::command_code_acp::native_mcp_names(invalid).is_err());
+        }
+        assert_eq!(
+            arguments(AdapterKind::GrokBuild),
+            ["--no-auto-update", "agent", "--no-leader", "stdio"]
+        );
+        assert_eq!(
+            arguments(AdapterKind::KiroCli),
+            ["acp", "--agent", KIRO_ADDITIVE_AGENT_NAME]
+        );
+        let mut trusted_kiro = Command::new("/usr/bin/true");
+        configure_acp_command(&mut trusted_kiro, AdapterKind::KiroCli, true, None).unwrap();
+        assert_eq!(
+            trusted_kiro
+                .as_std()
+                .get_args()
+                .map(|value| value.to_string_lossy().to_string())
+                .collect::<Vec<_>>(),
+            [
+                "acp",
+                "--agent",
+                KIRO_ADDITIVE_AGENT_NAME,
+                "--trust-all-tools"
+            ]
+        );
+    }
+}
 
 #[cfg(all(test, unix, feature = "extended-tests"))]
 mod tests {
@@ -4045,118 +4198,6 @@ while IFS= read -r ignored; do :; done
             !antigravity_required_capabilities()
                 .iter()
                 .any(|capability| capability == "output.stream_json")
-        );
-    }
-
-    #[test]
-    fn additive_acp_launch_shapes_match_the_verified_cli_contracts() {
-        for (version, v1) in [
-            ("1.18.32", true),
-            ("opencode v1.99.1", true),
-            ("2.0.26", false),
-            ("opencode v2.99.1-preview.2", false),
-        ] {
-            let mut command = Command::new("/selected/opencode");
-            configure_acp_command(&mut command, AdapterKind::OpencodeCli, false, Some(version))
-                .unwrap();
-            let args = command
-                .as_std()
-                .get_args()
-                .map(|a| a.to_string_lossy().to_string())
-                .collect::<Vec<_>>();
-            if v1 {
-                assert_eq!(args, ["acp", "--log-level", "ERROR"]);
-            } else {
-                assert_eq!(args, ["acp", "--log-level", "error"]);
-            }
-        }
-        for pure in ["0", "1"] {
-            let mut command = Command::new("/selected/opencode");
-            command.env("OPENCODE_PURE", pure);
-            configure_acp_command(
-                &mut command,
-                AdapterKind::OpencodeCli,
-                false,
-                Some("1.18.32"),
-            )
-            .unwrap();
-            assert!(!command.as_std().get_args().any(|arg| arg == "--pure"));
-            assert_eq!(
-                command
-                    .as_std()
-                    .get_envs()
-                    .find(|(key, _)| *key == "OPENCODE_PURE")
-                    .and_then(|(_, value)| value),
-                Some(std::ffi::OsStr::new(pure))
-            );
-        }
-        for version in [
-            None,
-            Some("unknown"),
-            Some("0.0.0-next"),
-            Some("3.0.0"),
-            Some("2.0.bad"),
-        ] {
-            let mut command = Command::new("/selected/opencode");
-            assert!(
-                configure_acp_command(&mut command, AdapterKind::OpencodeCli, false, version)
-                    .is_err()
-            );
-            assert_eq!(command.as_std().get_args().count(), 0);
-        }
-        let arguments = |kind| {
-            let mut command = Command::new("/usr/bin/true");
-            configure_acp_command(&mut command, kind, false, None).unwrap();
-            command
-                .as_std()
-                .get_args()
-                .map(|value| value.to_string_lossy().to_string())
-                .collect::<Vec<_>>()
-        };
-        assert_eq!(arguments(AdapterKind::QoderCli), ["--acp"]);
-        assert_eq!(arguments(AdapterKind::CodebuddyCli), ["--acp"]);
-        assert_eq!(arguments(AdapterKind::QwenCode), ["--acp"]);
-        assert_eq!(arguments(AdapterKind::TraeCnCli), ["acp", "serve"]);
-        assert_eq!(arguments(AdapterKind::CursorAgent), ["acp"]);
-        assert_eq!(arguments(AdapterKind::KimiCodeCli), ["acp"]);
-        assert_eq!(arguments(AdapterKind::CommandCodeCli), ["acp"]);
-        assert_eq!(arguments(AdapterKind::ClineCli), ["--acp"]);
-        assert_eq!(
-            crate::command_code_acp::native_mcp_names("\nNo MCP servers configured\n").unwrap(),
-            BTreeSet::new()
-        );
-        assert_eq!(crate::command_code_acp::native_mcp_names("MCP Servers\n NAME TYPE SCOPE AUTH STATUS\n native stdio user - enabled\n disabled http project x disabled\n Total: 2 servers\n").unwrap(),
-            BTreeSet::from(["native".to_owned(), "disabled".to_owned()]));
-        for invalid in [
-            "NAME TYPE SCOPE AUTH STATUS\nnative stdio project x enabled",
-            "NAME TYPE SCOPE AUTH STATUS\nTotal: 9 servers",
-            "unknown format",
-            "\x1b[31mNo MCP servers configured",
-        ] {
-            assert!(crate::command_code_acp::native_mcp_names(invalid).is_err());
-        }
-        assert_eq!(
-            arguments(AdapterKind::GrokBuild),
-            ["--no-auto-update", "agent", "--no-leader", "stdio"]
-        );
-        assert_eq!(
-            arguments(AdapterKind::KiroCli),
-            ["acp", "--agent", KIRO_ADDITIVE_AGENT_NAME]
-        );
-        let mut trusted_kiro = Command::new("/usr/bin/true");
-        configure_acp_command(&mut trusted_kiro, AdapterKind::KiroCli, true, None).unwrap();
-        assert_eq!(
-            trusted_kiro
-                .as_std()
-                .get_args()
-                .map(|value| value.to_string_lossy().to_string())
-                .collect::<Vec<_>>(),
-            [
-                "acp",
-                "--agent",
-                KIRO_ADDITIVE_AGENT_NAME,
-                "--trust-all-tools"
-            ]
         );
     }
 

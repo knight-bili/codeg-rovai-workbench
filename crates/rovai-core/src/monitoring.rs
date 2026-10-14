@@ -2109,6 +2109,14 @@ fn eligible_mask(runtime: AdapterKind, _runtime_version: Option<&str>) -> i64 {
         }
         AdapterKind::KimiCodeCli => full_tokens & !ELIGIBLE_REASONING_OUTPUT,
         AdapterKind::CursorAgent => 0,
+        AdapterKind::GeminiCli => ELIGIBLE_PROMPT_INPUT_TOTAL | ELIGIBLE_OUTPUT,
+        AdapterKind::OpenClawCli => 0,
+        AdapterKind::HermesCli => {
+            ELIGIBLE_PROMPT_INPUT_TOTAL
+                | ELIGIBLE_OUTPUT
+                | ELIGIBLE_CACHE_READ
+                | ELIGIBLE_REASONING_OUTPUT
+        }
     }
 }
 
@@ -3646,13 +3654,39 @@ pub fn parse_acp_usage_message(
         return Vec::new();
     }
     let usage = params
-        .pointer(if adapter_kind == AdapterKind::CommandCodeCli {
-            "/result/_meta/usage"
-        } else {
-            "/result/usage"
+        .pointer(match adapter_kind {
+            AdapterKind::CommandCodeCli => "/result/_meta/usage",
+            AdapterKind::GeminiCli => "/result/_meta/quota/token_count",
+            _ => "/result/usage",
         })
         .unwrap_or(&Value::Null);
     let (dialect_id, input_semantics, fields) = match adapter_kind {
+        AdapterKind::HermesCli => (
+            "hermes-acp-session-usage-v1",
+            RuntimeInputSemantics::Unknown,
+            RuntimeUsageFields {
+                input_tokens: integer_at_any(usage, &["/inputTokens", "/input_tokens"]),
+                output_tokens: integer_at_any(usage, &["/outputTokens", "/output_tokens"]),
+                cache_read_input_tokens: integer_at_any(
+                    usage,
+                    &["/cachedReadTokens", "/cached_read_tokens"],
+                ),
+                reasoning_output_tokens: integer_at_any(
+                    usage,
+                    &["/thoughtTokens", "/thought_tokens"],
+                ),
+                ..Default::default()
+            },
+        ),
+        AdapterKind::GeminiCli => (
+            "gemini-acp-prompt-quota-v1",
+            RuntimeInputSemantics::CacheInclusiveTotal,
+            RuntimeUsageFields {
+                input_tokens: integer_at_any(usage, &["/input_tokens"]),
+                output_tokens: integer_at_any(usage, &["/output_tokens"]),
+                ..Default::default()
+            },
+        ),
         AdapterKind::OpencodeCli => {
             // V2 separates reasoning from output and both cache buckets from
             // input. totalTokens covers this root prompt, not delegated Sessions.
@@ -3726,7 +3760,10 @@ pub fn parse_acp_usage_message(
         ),
         _ => return Vec::new(),
     };
-    let cost = if adapter_kind == AdapterKind::OpencodeCli {
+    let cost = if matches!(
+        adapter_kind,
+        AdapterKind::OpencodeCli | AdapterKind::HermesCli
+    ) {
         None
     } else {
         let currency = string_at_any(usage, &["/cost/currency"]);
@@ -3746,11 +3783,26 @@ pub fn parse_acp_usage_message(
         identity_suffix: "terminal_usage".to_string(),
         dialect_id: dialect_id.to_string(),
         source: "runtime_result".to_string(),
-        scope: "turn".to_string(),
-        counter_mode: RuntimeUsageCounterMode::Delta,
+        scope: if adapter_kind == AdapterKind::HermesCli {
+            "session"
+        } else {
+            "turn"
+        }
+        .to_string(),
+        counter_mode: if adapter_kind == AdapterKind::HermesCli {
+            // Hermes PromptResponse copies AIAgent.session_* counters, not this
+            // prompt's increment. Missing Run baselines must remain unknown.
+            RuntimeUsageCounterMode::Cumulative
+        } else {
+            RuntimeUsageCounterMode::Delta
+        },
         input_semantics,
         native_session_id: string_at_any(params, &["/sessionId"]),
-        native_turn_id: string_at_any(params, &["/turnId", "/promptId"]),
+        native_turn_id: if adapter_kind == AdapterKind::HermesCli {
+            None
+        } else {
+            string_at_any(params, &["/turnId", "/promptId"])
+        },
         fields,
         cost,
         context_model_id: None,
@@ -5112,6 +5164,44 @@ mod tests {
 
     #[test]
     fn runtime_parsers_emit_sparse_usage_without_antigravity_inference() {
+        for (usage, input, output) in [
+            (
+                json!({"inputTokens":100,"outputTokens":12,"cachedReadTokens":40,"thoughtTokens":2}),
+                100,
+                12,
+            ),
+            (
+                json!({"input_tokens":150,"output_tokens":20,"cached_read_tokens":50,"thought_tokens":3}),
+                150,
+                20,
+            ),
+        ] {
+            let parsed = parse_acp_usage_message(
+                AdapterKind::HermesCli,
+                Some("0.21.6"),
+                "rovai/acp_prompt_completed",
+                &json!({"sessionId":"hermes-root","promptId":"current-prompt","result":{"usage":usage}}),
+            );
+            assert_eq!(parsed.len(), 1);
+            assert_eq!(parsed[0].counter_mode, RuntimeUsageCounterMode::Cumulative);
+            assert_eq!(parsed[0].scope, "session");
+            assert_eq!(parsed[0].native_turn_id, None);
+            assert_eq!(parsed[0].fields.input_tokens, Some(input));
+            assert_eq!(parsed[0].fields.output_tokens, Some(output));
+            assert_eq!(parsed[0].fields.cache_write_input_tokens, None);
+            assert_eq!(parsed[0].cost, None);
+        }
+        let gemini = parse_acp_usage_message(
+            AdapterKind::GeminiCli,
+            Some("0.60.0"),
+            "rovai/acp_prompt_completed",
+            &json!({"sessionId":"root", "promptId":"gemini-prompt", "result":{"_meta":{"quota":{"token_count":{"input_tokens":100,"output_tokens":12}}}}}),
+        );
+        assert_eq!(gemini.len(), 1);
+        assert_eq!(gemini[0].fields.input_tokens, Some(100));
+        assert_eq!(gemini[0].fields.output_tokens, Some(12));
+        assert_eq!(gemini[0].fields.cache_read_input_tokens, None);
+        assert_eq!(gemini[0].cost, None);
         let root_prompt = json!({"sessionId":"root", "promptId":"prompt-1", "result":{"usage":{
             "inputTokens":100,"cachedReadTokens":40,"cachedWriteTokens":20,
             "outputTokens":10,"thoughtTokens":5,"totalTokens":175}}});

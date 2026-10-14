@@ -1,7 +1,7 @@
 ---
 document_type: contracts-index
 authority: protocol-contract-routing
-last_updated: 2026-10-13
+last_updated: 2026-10-14
 ---
 
 # 长期接口合同
@@ -12,6 +12,10 @@ User 的主称呼、结构化提及及冻结恢复见 [User Naming v1](user-nami
 
 本目录保存跨版本、字段级且可由测试直接验证的接口合同。[Version Decisions](../decisions/README.md)解释为什么选择某个边界，
 Architecture 解释组件如何组成，Version 概览记录交付范围；它们都不复制本目录的完整 wire shape。
+
+## 融合Runtime
+
+一期新增Runtime合同见[Gemini Runtime v1](gemini-runtime-v1.md)、[Hermes Runtime v1](hermes-runtime-v1.md)与[OpenClaw Runtime v1](openclaw-runtime-v1.md)；实现和真实资格按融合执行证据核实。
 
 ## 用户主动继续
 
@@ -525,6 +529,9 @@ Architecture 解释组件如何组成，Version 概览记录交付范围；它�
 | [Message Delivery v2 (historical)](message-delivery-v2.md) | `forward | return` 冻结边、target lineage、caller continuation，以及 v1 queue/attempt/recovery/settlement |
 | [Message Delivery v1 (historical)](message-delivery-v1.md) | 无 caller-return 分类的 recipient queue、dispatch attempt、waitCondition、retry/cancel 与 settlement |
 | [Skills Rebuild v2（当前）](skills-rebuild-v2.md) | 继承 v1；Windows 诊断与显式清理无 observation 的固定名称旧项目入口 |
+| [Codeg Skill Packs v1（融合）](codeg-skill-packs-v1.md) | 固定专家/科研/Office/UI/自定义来源目录、依赖边界与 Core/HTTP 只读内容预览；安装及投递继续实施 |
+| [Skill Pack Installation v1（融合）](skill-pack-installation-v1.md) | Core安装状态与私有版本、显式刷新/卸载、改动保留、观察版本和SQLite发布边界；成员投递继续实施 |
+| [Skill Pack Members v1（融合）](skill-pack-members-v1.md) | Core保存队员选择、安装版本观察与卸载原子清空；配置不等于模型投递 |
 | [Skills Rebuild v1（历史）](skills-rebuild-v1.md) | 受管平台/工具箱、队员配置、原生发现、Selection/Resolution v2、动态索引与旧来源恢复 |
 | [Run Input Skill Links v2（历史）](current-input-skill-links-v2.md) | 旧 Library/Exposure 的 Structured Skill Mention 与 per-message `RUN_INPUT.messages[].skills` |
 | [Current Input Skill Links v1（历史）](current-input-skill-links-v1.md) | Direct Run send-time snapshot 与 optional sibling `CURRENT_INPUT.skills[{name,path}]` |

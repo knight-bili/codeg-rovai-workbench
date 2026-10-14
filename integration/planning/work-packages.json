@@ -81,7 +81,7 @@
       "R07"
     ],
     "acceptance": "队员、配置、技能和 MCP 能实际进入一次运行；源配置修改由显式用户动作触发，重新打开应用后配置一致。",
-    "status": "not_started"
+    "status": "in_progress"
   },
   {
     "id": "I02-T02",
@@ -99,7 +99,7 @@
       "R07"
     ],
     "acceptance": "队员、配置、技能和 MCP 能实际进入一次运行；源配置修改由显式用户动作触发，重新打开应用后配置一致。",
-    "status": "not_started"
+    "status": "in_progress"
   },
   {
     "id": "I02-T03",
@@ -117,7 +117,7 @@
       "R07"
     ],
     "acceptance": "队员、配置、技能和 MCP 能实际进入一次运行；源配置修改由显式用户动作触发，重新打开应用后配置一致。",
-    "status": "not_started"
+    "status": "in_progress"
   },
   {
     "id": "I03-T01",

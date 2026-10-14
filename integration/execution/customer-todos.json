@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "policy": "客户允许先登记待办并推进独立工作；不削减范围或假通过，最后补齐必要验收",
+  "items": [
+    {
+      "id": "INPUT-MAC",
+      "resource": "RES-MAC",
+      "required_for": "I08及平台最终验收",
+      "need": "实际Mac的权限、硬件和安装交互验收方式",
+      "status": "deferred",
+      "software_workaround": "GitHub两款双架构源码编译已验证",
+      "current_fusion_qualification": "not_run_source_baseline_only"
+    },
+    {
+      "id": "INPUT-IOS",
+      "resource": "RES-IOS",
+      "required_for": "I10及原生移动最终验收",
+      "need": "iPhone/iPad实际安装、触控、后台和网络验收设备",
+      "status": "deferred",
+      "software_workaround": "iPhone模拟器源码构建及启动已验证，iPad和真机未验收",
+      "current_fusion_qualification": "not_run_source_baseline_only"
+    },
+    {
+      "id": "INPUT-ANDROID",
+      "resource": "RES-ANDROID",
+      "required_for": "I10及原生移动最终验收",
+      "need": "客户指定可使用的ADB连接及实际设备",
+      "status": "deferred",
+      "software_workaround": "API36 AOSP模拟器源码构建/176单测/启动已验证，不使用旧ADB设备",
+      "current_fusion_qualification": "not_run_source_baseline_only"
+    },
+    {
+      "id": "INPUT-RUNTIME",
+      "resource": "RES-RUNTIME",
+      "required_for": "I02首次真实运行及I04/I06/I12完整准入",
+      "need": "研发先核实本机可用Runtime；缺少的独立测试认证/模型额度由客户补齐",
+      "status": "deferred_dedicated_test_identity",
+      "software_workaround": "本机盘点及三种新增Runtime隔离安装/无推理协议已完成；继续本地合同和生命周期，完整真实模型需要专用测试身份/额度，不读取日常凭据"
+    },
+    {
+      "id": "INPUT-CHANNEL",
+      "resource": "RES-CHANNEL",
+      "required_for": "I10渠道端到端验收",
+      "need": "飞书/Lark/钉钉的专用测试组织、Bot及客户授权身份",
+      "status": "deferred",
+      "software_workaround": "先实现共用合同和隔离运输测试，不使用个人日常凭据"
+    },
+    {
+      "id": "INPUT-SIGN",
+      "resource": "RES-SIGN",
+      "required_for": "I11正式分发",
+      "need": "桌面/移动发布签名、Apple分发账号和费用决策",
+      "status": "deferred",
+      "software_workaround": "先开发预览包及模拟器验证，不采购或发布"
+    },
+    {
+      "id": "INPUT-ACCEPTANCE",
+      "required_for": "main阶段合入及I12客户最终验收",
+      "need": "客户验收阶段PR与最终MVP",
+      "status": "deferred",
+      "software_workaround": "按依赖建立阶段分支和草稿PR继续开发；保持main人工验收控制"
+    },
+    {
+      "id": "INPUT-GITHUB-CI",
+      "required_for": "Mac/Linux及GitHub原生验证",
+      "need": "核查GitHub账户付款或Actions支出限制；由客户处理账号与费用决定后补运行",
+      "status": "deferred_account_billing",
+      "evidence": {
+        "head": "e2963ef0d59989d16d32fffc03d19925dd75de85",
+        "run": 38500616853,
+        "checkRun": 115646431364,
+        "annotation": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings",
+        "steps": 0
+      },
+      "software_workaround": "已找到本机E盘现有MSVC，通过VS子进程开发环境进行Windows编译/迁移测试；Mac/Linux仍待补，不自动购买或修改账户额度，不重复调度被拒作业",
+      "prior_evidence": [
+        {
+          "head": "2797a000756d0640a02db0e4e60d10a879f046b6",
+          "run": 38461101658,
+          "checkRun": 115516171718,
+          "annotation": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings"
+        }
+      ]
+    },
+    {
+      "id": "INPUT-SKILL-DELIVERY-R1",
+      "required_for": "I02-T03技能包实际模型输入",
+      "status": "pending_after_complete_proposal_presented",
+      "need": "阅读9页Word/PDF后明确确认按r1实施；确认输入语义及本地实现，专用模型身份/硬额度另补",
+      "proposal": "integration/proposals/skill-pack-model-delivery-r1.md",
+      "revision": 1,
+      "confirmation_status": "pending",
+      "governance": "docs/development/model-context-change-governance.md:49-56",
+      "outputs": [
+        "I02_技能包模型投递变更方案_r1_待确认.docx",
+        "I02_技能包模型投递变更方案_r1_待确认.pdf"
+      ],
+      "software_workaround": "配置保存已完成；不等待该项，继续I03及其他独立研发；禁止自动代确认"
+    }
+  ]
+}

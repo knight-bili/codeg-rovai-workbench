@@ -1,0 +1,1288 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/spacering-net/codeg",
+  "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "sourcePath": "LICENSE",
+      "mode": "100644",
+      "blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "path": "LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "sourcePath": "src-tauri/experts/experts.toml",
+      "mode": "100644",
+      "blob": "728372c7accbf0e171715b5cb1da6ccb26249c5c",
+      "path": "experts/experts.toml",
+      "bytes": 21238,
+      "sha256": "88abf22cf9eda40671aa004367d85196ea4fa5d7475c9678bb33a170515d5800"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/brainstorming/scripts/frame-template.html",
+      "mode": "100644",
+      "blob": "f540bb8a4f88107e2b37b2871a4c1a55a3b6f720",
+      "path": "experts/skills/brainstorming/scripts/frame-template.html",
+      "bytes": 8094,
+      "sha256": "6a8a4e58bd6a44b904e2e3c57de774481d909204597e1498de53f1b2fecc4c4e"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/brainstorming/scripts/helper.js",
+      "mode": "100644",
+      "blob": "e11d26489ce248f37af3e4dd01ddec6a4e88287f",
+      "path": "experts/skills/brainstorming/scripts/helper.js",
+      "bytes": 5615,
+      "sha256": "43c6d69954a46ec34a2a262bcc62a9a7e83e839c739f199cb72646d397c686e3"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/brainstorming/scripts/server.cjs",
+      "mode": "100644",
+      "blob": "a828b35af64d5c64ca68b9ec78473999ce698874",
+      "path": "experts/skills/brainstorming/scripts/server.cjs",
+      "bytes": 25693,
+      "sha256": "2d2961ea8d11f56c5f4c3a1a68d22709efa5d7601a2246d8c880774e7e9e8412"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/brainstorming/scripts/start-server.sh",
+      "mode": "100755",
+      "blob": "016a8e4870142ce2adbe81a021d8b6b9073e7618",
+      "path": "experts/skills/brainstorming/scripts/start-server.sh",
+      "bytes": 6908,
+      "sha256": "a4e5ae84275bcaacd2f84345afeabe59cf7b00ba080e123da7cc1fb226f12847"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/brainstorming/scripts/stop-server.sh",
+      "mode": "100755",
+      "blob": "7cacfe9440043f7a46eac555cd835fad0769c425",
+      "path": "experts/skills/brainstorming/scripts/stop-server.sh",
+      "bytes": 3263,
+      "sha256": "0b5ccbbd57f62d3ed88993f7940b5ee0e5c0fc9b21c550c623da4f6292e47daf"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/brainstorming/SKILL.md",
+      "mode": "100644",
+      "blob": "b56a3b5ed6ea0d6216501e0e401ecb00a1b4675f",
+      "path": "experts/skills/brainstorming/SKILL.md",
+      "bytes": 15456,
+      "sha256": "74edf03ea6d24ef53db48677b93558d14a979bdf052ca3f57ecdca0c66791608"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/brainstorming/spec-document-reviewer-prompt.md",
+      "mode": "100644",
+      "blob": "60993129de3c445efeff53987b5297dc1acf3eb1",
+      "path": "experts/skills/brainstorming/spec-document-reviewer-prompt.md",
+      "bytes": 1747,
+      "sha256": "95a0a195de9d984be2fffa95bab16fc8c563bc296a9cfc5e9c29cb3ece0d7457"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/brainstorming/visual-companion.md",
+      "mode": "100644",
+      "blob": "c145e64388d4441710da016ea665fed5699e2e91",
+      "path": "experts/skills/brainstorming/visual-companion.md",
+      "bytes": 13383,
+      "sha256": "77eb44a4ec3408bb3dafb872288ecd94beb8cf21da4f2bafa54fd08255d7808b"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/dispatching-parallel-agents/SKILL.md",
+      "mode": "100644",
+      "blob": "3fa091b348bbe0a18eaa0e17e9092c97f7005cbe",
+      "path": "experts/skills/dispatching-parallel-agents/SKILL.md",
+      "bytes": 6078,
+      "sha256": "1968923066f3b707eb01d1992cdf4c42284c3855f70253b9cd5000ff45fca13c"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/executing-plans/SKILL.md",
+      "mode": "100644",
+      "blob": "b51d97d2cc4c2ecc5eabecf27e499aa8c933efac",
+      "path": "experts/skills/executing-plans/SKILL.md",
+      "bytes": 2305,
+      "sha256": "c4c3d8b628c51114cd165fb8246fe02744cd8be180032328391252e653028d9b"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/finishing-a-development-branch/SKILL.md",
+      "mode": "100644",
+      "blob": "fa8aecaf8813f1b19d19996f7957d1b0121f2d9c",
+      "path": "experts/skills/finishing-a-development-branch/SKILL.md",
+      "bytes": 7781,
+      "sha256": "8db5a922b242dd4e1bf824cb91c13b3e8d8e8a86d6ceaf7f0774eb9cce909d65"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/receiving-code-review/SKILL.md",
+      "mode": "100644",
+      "blob": "950da7b74bf6dbed6b8726d12ddadd65a9f5fda7",
+      "path": "experts/skills/receiving-code-review/SKILL.md",
+      "bytes": 6203,
+      "sha256": "091df1629510af1b92fc4abd6f96732ebedb4cb2c0f3457e8f2740b0504a2438"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/requesting-code-review/code-reviewer.md",
+      "mode": "100644",
+      "blob": "b898cb982e8a368e847d31136ac106001173b1d5",
+      "path": "experts/skills/requesting-code-review/code-reviewer.md",
+      "bytes": 5669,
+      "sha256": "5eca5fcfd48a50e0a526ce5ffd64bf625d6b81bb46d11795274dae451fe6ffd4"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/requesting-code-review/SKILL.md",
+      "mode": "100644",
+      "blob": "fa4f2f9965591d6d8a7ef4ad47e6ba4d5ac344d0",
+      "path": "experts/skills/requesting-code-review/SKILL.md",
+      "bytes": 2956,
+      "sha256": "d71cc01ba56d2325cf8af5f7c11837819b63ecd57de0bfdb812f7f3ff7751df8"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/subagent-driven-development/implementer-prompt.md",
+      "mode": "100644",
+      "blob": "5c8ecd61fba036263bf88d0af24d47125780efa0",
+      "path": "experts/skills/subagent-driven-development/implementer-prompt.md",
+      "bytes": 6335,
+      "sha256": "81dd9d5a3fb0b09b96b5829f03b9796842f3199ef7591d1ba1c2db2a515f64d0"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/subagent-driven-development/re-review-prompt.md",
+      "mode": "100644",
+      "blob": "ad74b10b30762affc44173f8ec3228d2877f372f",
+      "path": "experts/skills/subagent-driven-development/re-review-prompt.md",
+      "bytes": 4756,
+      "sha256": "db0d5849478bc79cbde97b9b2cf0e58b50be8b8ed18464b0252c2bf27b6440a6"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/subagent-driven-development/scripts/review-package",
+      "mode": "100755",
+      "blob": "31852e2abbeb9a41084f67a9f2ef3cfc3378bce9",
+      "path": "experts/skills/subagent-driven-development/scripts/review-package",
+      "bytes": 1469,
+      "sha256": "fac3d4bd7f94369e8037b9ead2a8a502dca6ab333902b560b9455dbb3c450ebe"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/subagent-driven-development/scripts/sdd-workspace",
+      "mode": "100755",
+      "blob": "4e2d16802ecaa23eb9a682663e4c356c4aa5a656",
+      "path": "experts/skills/subagent-driven-development/scripts/sdd-workspace",
+      "bytes": 1586,
+      "sha256": "95a09d9d3983ad1aafd093ca72b4587946dea885c6e302caa02a779a2f911c31"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/subagent-driven-development/scripts/task-brief",
+      "mode": "100755",
+      "blob": "612e14a1ee7ca9c0078d896325935759a1827c24",
+      "path": "experts/skills/subagent-driven-development/scripts/task-brief",
+      "bytes": 1158,
+      "sha256": "d6954ef7841c7da3d77373e6ff5118b3f2f2e998606fd95d33e6527851bce044"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/subagent-driven-development/SKILL.md",
+      "mode": "100644",
+      "blob": "aac35b91c07af15eca580a205eb0c894b86e87c8",
+      "path": "experts/skills/subagent-driven-development/SKILL.md",
+      "bytes": 32339,
+      "sha256": "8dd1b8e698edec3700c6d89517dbe96febd3bacd3f6ea21c1a3569c62ea104b5"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/subagent-driven-development/task-reviewer-prompt.md",
+      "mode": "100644",
+      "blob": "ce796948232b6ae5fb65fd2d1f2f864530201a2e",
+      "path": "experts/skills/subagent-driven-development/task-reviewer-prompt.md",
+      "bytes": 9021,
+      "sha256": "eea23e33ec570c3041f40e9569fa711d61b8029f9eecf908345138aa1c6e61ab"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/systematic-debugging/condition-based-waiting-example.ts",
+      "mode": "100644",
+      "blob": "703a06b653160d060bbf46ab5c6e0cd7446bd592",
+      "path": "experts/skills/systematic-debugging/condition-based-waiting-example.ts",
+      "bytes": 5054,
+      "sha256": "40ae5ebe497fdf310200e43fe986552546d0a22837c0d39e855db1cfd33eb88e"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/systematic-debugging/condition-based-waiting.md",
+      "mode": "100644",
+      "blob": "70994f777c586f7d4c43033aac34c7cf0da6688b",
+      "path": "experts/skills/systematic-debugging/condition-based-waiting.md",
+      "bytes": 3516,
+      "sha256": "e89fec8400d6cd50f43407cec9fab50976ba4d55d0ec2eb51c0bd68036b54c26"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/systematic-debugging/CREATION-LOG.md",
+      "mode": "100644",
+      "blob": "9aa03092809feaf93c9bfa985252f6f1c9624692",
+      "path": "experts/skills/systematic-debugging/CREATION-LOG.md",
+      "bytes": 4257,
+      "sha256": "c24733a5b1821bd6bed1fc950261f0b9f4e90097e0bbb96459d8179713730789"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/systematic-debugging/defense-in-depth.md",
+      "mode": "100644",
+      "blob": "e2483354dc2b62478a2624e34ca18bc0efe887b2",
+      "path": "experts/skills/systematic-debugging/defense-in-depth.md",
+      "bytes": 3650,
+      "sha256": "1e175fb86fc357e58c6aebf5441e481e1b7868b4380c0456b63a17eefbd18ba7"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/systematic-debugging/find-polluter.sh",
+      "mode": "100755",
+      "blob": "985f5d08ccf8a3f2d40739cfcaf4413bb24bf1cb",
+      "path": "experts/skills/systematic-debugging/find-polluter.sh",
+      "bytes": 1986,
+      "sha256": "dd7b8f13c4cc2a24b33ff87b18da9248f3e1c80a085c3316224f69ff0fa5c43c"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/systematic-debugging/root-cause-tracing.md",
+      "mode": "100644",
+      "blob": "12ef5222e24e19ab92172b82b69ef1b0c30d9bfa",
+      "path": "experts/skills/systematic-debugging/root-cause-tracing.md",
+      "bytes": 5316,
+      "sha256": "6b0622269e098ca1399e123e553fd385f0b6412d88ef0e9c4f5a8ea9cf1cec7b"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/systematic-debugging/SKILL.md",
+      "mode": "100644",
+      "blob": "095d194ac041502905f15b01d22d294fb94db8b2",
+      "path": "experts/skills/systematic-debugging/SKILL.md",
+      "bytes": 9465,
+      "sha256": "808fc5717aa88ad65efff312b11c186294d3e6ee301afb584e2f86599b137787"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/systematic-debugging/test-academic.md",
+      "mode": "100644",
+      "blob": "23a6ed7a2044e0c44d74c3101406140f4851aa41",
+      "path": "experts/skills/systematic-debugging/test-academic.md",
+      "bytes": 653,
+      "sha256": "fe2ba480d78ac0d686dc025f41c2a32a43d642bf533f91b0c6053a04d35d6486"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/systematic-debugging/test-pressure-1.md",
+      "mode": "100644",
+      "blob": "8d13b467e4a98abfffd12161cbc3c418021d6023",
+      "path": "experts/skills/systematic-debugging/test-pressure-1.md",
+      "bytes": 1900,
+      "sha256": "0b6a915db0054577819834c79be9eb614e97bddba10d73768e1fbe91cfed048a"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/systematic-debugging/test-pressure-2.md",
+      "mode": "100644",
+      "blob": "2d2315ec8a24ca872bc80d2f4056468ba051462a",
+      "path": "experts/skills/systematic-debugging/test-pressure-2.md",
+      "bytes": 2283,
+      "sha256": "b2030aeffba07050e8ad573ddf87486457c4a016a786bb326235bebd856f2016"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/systematic-debugging/test-pressure-3.md",
+      "mode": "100644",
+      "blob": "89734b86fdc756488df315d53e5c3ac2d3752cd8",
+      "path": "experts/skills/systematic-debugging/test-pressure-3.md",
+      "bytes": 2692,
+      "sha256": "96b50a52e2c7989c9cf20fb752c47c1e9a3a70dc362f8f7989f8f5b64dac7708"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/test-driven-development/SKILL.md",
+      "mode": "100644",
+      "blob": "4320d8879a639d0536c2239bb80c9d7257ad8947",
+      "path": "experts/skills/test-driven-development/SKILL.md",
+      "bytes": 9015,
+      "sha256": "bf1b8216e523851a411e91d429a7c1c2a173e79d88957bc78e348218d50edd54"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/test-driven-development/writing-good-tests.md",
+      "mode": "100644",
+      "blob": "d3c4482fd30b4f9084bb61545fe73939a7502c28",
+      "path": "experts/skills/test-driven-development/writing-good-tests.md",
+      "bytes": 8268,
+      "sha256": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/using-git-worktrees/SKILL.md",
+      "mode": "100644",
+      "blob": "1381dacb3516b94382dd6ec736ede21ee8ede2b3",
+      "path": "experts/skills/using-git-worktrees/SKILL.md",
+      "bytes": 6813,
+      "sha256": "8cfb86f121269e8f7f12361e6795c4f6738828340e28964c9229d365666c9edd"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/using-superpowers/references/antigravity-tools.md",
+      "mode": "100644",
+      "blob": "2e1eac90534af6e1f27df4e18410be8a7b442448",
+      "path": "experts/skills/using-superpowers/references/antigravity-tools.md",
+      "bytes": 1495,
+      "sha256": "4880f6de3da4e32f9659ebe7a72b9e0ebfff04e028c2ed96173f86d0387a04c0"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/using-superpowers/references/codex-tools.md",
+      "mode": "100644",
+      "blob": "e4488fb224bb0fa0a33e9ac7dc961174e9f0c150",
+      "path": "experts/skills/using-superpowers/references/codex-tools.md",
+      "bytes": 4762,
+      "sha256": "1a38ad9b188c393052f58d95657a1c35ea6aafc8b5a27f198f3922912f70bbe7"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/using-superpowers/references/gemini-tools.md",
+      "mode": "100644",
+      "blob": "b01b65238a50981aeed22ae52ee20f8b55d16b42",
+      "path": "experts/skills/using-superpowers/references/gemini-tools.md",
+      "bytes": 4598,
+      "sha256": "62b9157bcb0ee3c6784e3d0da0798ddfa5872f9e0c34bea48f3079dabea71965"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/using-superpowers/references/hermes-tools.md",
+      "mode": "100644",
+      "blob": "0f1fa57bc1b495462e75c6ce11e798245a34987e",
+      "path": "experts/skills/using-superpowers/references/hermes-tools.md",
+      "bytes": 1964,
+      "sha256": "e2185c976a3c87503910e05e2aea58cc89bc8e569bb624b93df9958ac47a9190"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/using-superpowers/references/pi-tools.md",
+      "mode": "100644",
+      "blob": "0c1f21713a45255ece4144fd2fee353e4ed4f90e",
+      "path": "experts/skills/using-superpowers/references/pi-tools.md",
+      "bytes": 1242,
+      "sha256": "703dbc83d23ecab9c6f388460c38abc482e9dee2fe6772a8c7a255152ad3a4d5"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/using-superpowers/SKILL.md",
+      "mode": "100644",
+      "blob": "7ab2eb678f649c8befb94512359ee0b6e9a9a9a4",
+      "path": "experts/skills/using-superpowers/SKILL.md",
+      "bytes": 3108,
+      "sha256": "30f2ab78e20ddc27ee7158ae8d4a2abe161c360981c7cc3548070913142d3dc3"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/verification-before-completion/SKILL.md",
+      "mode": "100644",
+      "blob": "7d45333cc4a49c57a80df6c1fe2fa777a207afbc",
+      "path": "experts/skills/verification-before-completion/SKILL.md",
+      "bytes": 3646,
+      "sha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/writing-plans/plan-document-reviewer-prompt.md",
+      "mode": "100644",
+      "blob": "1c12c1d6180395262d7150bdb12a9a90efc9cfa0",
+      "path": "experts/skills/writing-plans/plan-document-reviewer-prompt.md",
+      "bytes": 1713,
+      "sha256": "aa728b96aad603c8be28875a4305637f6c984aa81ffcadcb13e743202fa2a0c7"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/writing-plans/SKILL.md",
+      "mode": "100644",
+      "blob": "f74605bfa9af7a3fb7e4ad7f17750a86a9b0d728",
+      "path": "experts/skills/writing-plans/SKILL.md",
+      "bytes": 7053,
+      "sha256": "48508f44bbfd7d24b029fbf3a314f3cd14c9615599059366e922f47b8dc08cf2"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/writing-skills/anthropic-best-practices.md",
+      "mode": "100644",
+      "blob": "15ea9eae223d9081b602618849791c07a7758f3d",
+      "path": "experts/skills/writing-skills/anthropic-best-practices.md",
+      "bytes": 46197,
+      "sha256": "217629b356c09c9bd11017c9788e8fc654ca1b32c92d4a51cd490e16dd65e59a"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+      "mode": "100644",
+      "blob": "47881fc85bd6c01b32b84d52ed9a0c73c8d6a089",
+      "path": "experts/skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+      "bytes": 5423,
+      "sha256": "0b379a3415e185d3c434b3ad283d8aa132f3022c2a4f210f168865b5986bcef0"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/writing-skills/graphviz-conventions.dot",
+      "mode": "100644",
+      "blob": "3509e2f028cacaa8118cbc8c80025efb089ec28e",
+      "path": "experts/skills/writing-skills/graphviz-conventions.dot",
+      "bytes": 5970,
+      "sha256": "e2890a593c91370e384b42f2f67b1a6232c9e69dddea7891a0c1c46d7b20b694"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/writing-skills/package.json",
+      "mode": "100644",
+      "blob": "3dbc1ca591c0557e35b6004aeba250e6a70b56e3",
+      "path": "experts/skills/writing-skills/package.json",
+      "bytes": 23,
+      "sha256": "3ca9d4afd21425087cf31893b8f9f63c81b0b8408db5e343ca76e5f8aa26ab9a"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/writing-skills/persuasion-principles.md",
+      "mode": "100644",
+      "blob": "9756416a59600b70ecca4044e0919ee7d4a37b21",
+      "path": "experts/skills/writing-skills/persuasion-principles.md",
+      "bytes": 5901,
+      "sha256": "a51bc9bf75189ea73a27b3fb504a2fdfdb966fb1f7f1cdf03203230a216ccc03"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/writing-skills/render-graphs.js",
+      "mode": "100755",
+      "blob": "59e74b54e8538ff0a358d05c770479b3eb8484aa",
+      "path": "experts/skills/writing-skills/render-graphs.js",
+      "bytes": 4968,
+      "sha256": "c7f412cc629461c4d10287e668731874c0497707023e3e3f74a5355eb2cee196"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/writing-skills/SKILL.md",
+      "mode": "100644",
+      "blob": "f33f39f523c8a3ae2ec0eaf365a524571df8ff3d",
+      "path": "experts/skills/writing-skills/SKILL.md",
+      "bytes": 26360,
+      "sha256": "d34db5c8aed6a4e0440132bd0613aace70a693ec7819d5637ad77481d8e10d1b"
+    },
+    {
+      "sourcePath": "src-tauri/experts/skills/writing-skills/testing-skills-with-subagents.md",
+      "mode": "100644",
+      "blob": "a5acfeac86f34c7bc625d064e10c8a2f8180b696",
+      "path": "experts/skills/writing-skills/testing-skills-with-subagents.md",
+      "bytes": 12558,
+      "sha256": "c711346852c911b24a84aa161e0cff06a4cd7f4e2fa9e9c0a266cead5afcbade"
+    },
+    {
+      "sourcePath": "src-tauri/genui/ui-render/SKILL.md",
+      "mode": "100644",
+      "blob": "3d0f89e945bec05a2608c9b717d477ab22f31f7f",
+      "path": "genui/ui-render/SKILL.md",
+      "bytes": 28775,
+      "sha256": "46bc09a16dc1f2d09f21004f0891a630ff5010f642b975d82f82be113330daff"
+    },
+    {
+      "sourcePath": "src-tauri/science/NOTICE.md",
+      "mode": "100644",
+      "blob": "464ec2185a2ca11db8989d691c24f1feb4f397d7",
+      "path": "science/NOTICE.md",
+      "bytes": 1940,
+      "sha256": "715518f8a545eb1acbb1840960e71d1eb3e3783aed7e7c720f157c73469d244e"
+    },
+    {
+      "sourcePath": "src-tauri/science/science.toml",
+      "mode": "100644",
+      "blob": "039ce4cd3d9add8e72aad21334657af38b0d011c",
+      "path": "science/science.toml",
+      "bytes": 23429,
+      "sha256": "652f66b3e864b77110f0a7984bbb74936744ea437b3d8a16251c55184528439b"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/assets/bibtex_template.bib",
+      "mode": "100644",
+      "blob": "fb6464f72e91a631ac1f54513843040c2013a6f0",
+      "path": "science/skills/citation-management/assets/bibtex_template.bib",
+      "bytes": 9201,
+      "sha256": "bf03cc646e6bc6aaba85d632b8e25b26c2830419892f3c17a7d844805d3a721e"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/assets/citation_checklist.md",
+      "mode": "100644",
+      "blob": "f5a735cbf446f6b18c2ce10b9708690ec585591e",
+      "path": "science/skills/citation-management/assets/citation_checklist.md",
+      "bytes": 10348,
+      "sha256": "305ff79e25b2654f1a5dc2163c03e7ab14e6c9578b1ea0f2d30f97195578d2c6"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/references/bibtex_formatting.md",
+      "mode": "100644",
+      "blob": "1fd22feb3b873eb3a3e0a2782e224bde0429d8c0",
+      "path": "science/skills/citation-management/references/bibtex_formatting.md",
+      "bytes": 19286,
+      "sha256": "89fde5b4e04112ee62dcfe086780f000906681ec7b102c094c875c3656eaed6f"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/references/citation_validation.md",
+      "mode": "100644",
+      "blob": "ea0c21ee90866742bc07416d835e9613a6e35fbd",
+      "path": "science/skills/citation-management/references/citation_validation.md",
+      "bytes": 17749,
+      "sha256": "d939acabd521d010898a975ff36db92689c9d155df4e365980d65a4478930dd0"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/references/google_scholar_search.md",
+      "mode": "100644",
+      "blob": "d55dd8dd7bc9125925c5017e8b510ec6675960b4",
+      "path": "science/skills/citation-management/references/google_scholar_search.md",
+      "bytes": 17045,
+      "sha256": "494df9be29bebca6aa4d64ebc442e945b1aa934a4e58e47ae5422069ee3f86d4"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/references/metadata_extraction.md",
+      "mode": "100644",
+      "blob": "bbf2d96681983b5698bf8e336ba6a8222c787d34",
+      "path": "science/skills/citation-management/references/metadata_extraction.md",
+      "bytes": 19182,
+      "sha256": "aa8be4ac76c6e274ce5ef2f034c6578e0f263baf71f030a0f2eeb92fcd810b45"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/references/pubmed_search.md",
+      "mode": "100644",
+      "blob": "5ea97bd2ec98933519d0825ca282fd365beeb3f9",
+      "path": "science/skills/citation-management/references/pubmed_search.md",
+      "bytes": 17735,
+      "sha256": "f25e7adf200fee05f83e3434e1a08b6ec25d1ee2563a19325b94e443ff7cde59"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/scripts/doi_to_bibtex.py",
+      "mode": "100644",
+      "blob": "c0294e3dc15fa345782545250c65b23fc2310f7e",
+      "path": "science/skills/citation-management/scripts/doi_to_bibtex.py",
+      "bytes": 6299,
+      "sha256": "45dbdbc365e63c65dc7e32945186122dd1cd7cb003ca5fbe103876952b4d9171"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/scripts/extract_metadata.py",
+      "mode": "100755",
+      "blob": "8e9d076cc93e475782c04841b02ef8139411a1bb",
+      "path": "science/skills/citation-management/scripts/extract_metadata.py",
+      "bytes": 20794,
+      "sha256": "85bd98dca384591518e043d070330749cb66418d5c261918c1e5d8bc59fd620c"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/scripts/format_bibtex.py",
+      "mode": "100755",
+      "blob": "31a4d73c889b4748e9da6e6d5778d0913e761b2d",
+      "path": "science/skills/citation-management/scripts/format_bibtex.py",
+      "bytes": 11444,
+      "sha256": "98bf59c0a6d28596bc6663089c33111a21cb4f9b127785013e0c8117c6311b41"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/scripts/generate_schematic_ai.py",
+      "mode": "100644",
+      "blob": "5217075320b2a1be2c519578075cd1b257afbf1f",
+      "path": "science/skills/citation-management/scripts/generate_schematic_ai.py",
+      "bytes": 32647,
+      "sha256": "0e1708bc163eab7e4440ae7d9d61ed1cd123bdc401499d46cb3df30f1b9f349c"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/scripts/generate_schematic.py",
+      "mode": "100644",
+      "blob": "6843e0a198acd8a632da349b6de1665dfc40fe20",
+      "path": "science/skills/citation-management/scripts/generate_schematic.py",
+      "bytes": 5146,
+      "sha256": "a426ae30ed9185f250245f35c868e6f8aae6096e94a4b8392283dc05f089c041"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/scripts/search_google_scholar.py",
+      "mode": "100755",
+      "blob": "94a4e02b993922289a4148b1dd396f63062b3d8b",
+      "path": "science/skills/citation-management/scripts/search_google_scholar.py",
+      "bytes": 8982,
+      "sha256": "4ba851118596e316c809c5a089542112aa48bfe4d105ec5841d7ba528316798b"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/scripts/search_pubmed.py",
+      "mode": "100755",
+      "blob": "3b307bc85fbdb8721f3b6173bc16b7f1e4e38ab6",
+      "path": "science/skills/citation-management/scripts/search_pubmed.py",
+      "bytes": 12832,
+      "sha256": "5533733bc4edd0e203488a83c89c0200c4845f194e215fca0907220402eb6d97"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/scripts/validate_citations.py",
+      "mode": "100755",
+      "blob": "ba764faf6f090e46dfedb536c4c11e14d6b43180",
+      "path": "science/skills/citation-management/scripts/validate_citations.py",
+      "bytes": 27168,
+      "sha256": "8a0aaef801ef400692f0e3d642e4edb96086c6b72a85d27c720c0711b5d926a6"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/citation-management/SKILL.md",
+      "mode": "100644",
+      "blob": "fbdb1f0d6d45d6f0245a764d4246e8c29c68d64f",
+      "path": "science/skills/citation-management/SKILL.md",
+      "bytes": 40872,
+      "sha256": "f71c03433a2cdb746106778299f7e58b048b9d38c737e6b9f9b73876b4183c7d"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/experimental-design/references/design_types.md",
+      "mode": "100644",
+      "blob": "f52ebc832b1a87e9bcbebfe5e06ab3ac0f3e4eef",
+      "path": "science/skills/experimental-design/references/design_types.md",
+      "bytes": 7323,
+      "sha256": "8c00ac63142f91db9e010082d491b0af25019aba0f161c72497a5df2c6ff8c55"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/experimental-design/references/factorial_and_doe.md",
+      "mode": "100644",
+      "blob": "5f0574bb11385c349eee77395904754246cd5265",
+      "path": "science/skills/experimental-design/references/factorial_and_doe.md",
+      "bytes": 7073,
+      "sha256": "2db506065a0fd36b699ad70063ce6a099055b9e676efc36790e098ed43319e0e"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/experimental-design/references/randomization_and_blocking.md",
+      "mode": "100644",
+      "blob": "9c9e15e06fe30b9a7f1e9c7c761df6eb86d54d23",
+      "path": "science/skills/experimental-design/references/randomization_and_blocking.md",
+      "bytes": 6360,
+      "sha256": "b4298ef74a5c744fa986507e158fa48044f0c762c3b404c0a0b063a0dbac3dca"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/experimental-design/references/sequential_and_adaptive.md",
+      "mode": "100644",
+      "blob": "7574996c69bbd761fa8fe27148a84eea8cff76ba",
+      "path": "science/skills/experimental-design/references/sequential_and_adaptive.md",
+      "bytes": 5488,
+      "sha256": "bfffc806da8d84116535c4fd2f3b50f94e16e7addd38cca0b502c19df368b475"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/experimental-design/scripts/doe_designs.py",
+      "mode": "100644",
+      "blob": "fcb558f69dd6d860d446eeeb5b8733e142571dc5",
+      "path": "science/skills/experimental-design/scripts/doe_designs.py",
+      "bytes": 7762,
+      "sha256": "d9ffd07852dc131a2138fe67b584ed5ebad6ea41b66e4bca77e08b0086943f7b"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/experimental-design/scripts/randomization.py",
+      "mode": "100644",
+      "blob": "8f340eeb2080eeef94af85d2fe0265df3303f3f3",
+      "path": "science/skills/experimental-design/scripts/randomization.py",
+      "bytes": 7046,
+      "sha256": "f0cf8bf7ba27a3381366b9cf03e30506d34a70670537d046e851c340187060f8"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/experimental-design/SKILL.md",
+      "mode": "100644",
+      "blob": "88ca761056ac84392d79933e3bc2714e15086fef",
+      "path": "science/skills/experimental-design/SKILL.md",
+      "bytes": 13071,
+      "sha256": "14b3f343c247709ed689e791f35d4c25c51552cc8bd4dedc3064e66b0cc21d96"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/exploratory-data-analysis/assets/report_template.md",
+      "mode": "100644",
+      "blob": "de0e80795a5f3bd09416cdafe724bbd5dd958cae",
+      "path": "science/skills/exploratory-data-analysis/assets/report_template.md",
+      "bytes": 3488,
+      "sha256": "e8642c95363957e5eb5afbc29ac3c6774732c680363752323f40cd969ebc1865"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/exploratory-data-analysis/references/bioinformatics_genomics_formats.md",
+      "mode": "100644",
+      "blob": "346717dd46836046bdefd608caf6d90719f991ff",
+      "path": "science/skills/exploratory-data-analysis/references/bioinformatics_genomics_formats.md",
+      "bytes": 21163,
+      "sha256": "31f2c6efd23ab9bffa6f17856e01cde88a09f9ce98e23e142b9321287a4f8a93"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/exploratory-data-analysis/references/chemistry_molecular_formats.md",
+      "mode": "100644",
+      "blob": "16d5becfbbd501f042c4b27e1d41e1bd2d062b48",
+      "path": "science/skills/exploratory-data-analysis/references/chemistry_molecular_formats.md",
+      "bytes": 22029,
+      "sha256": "2610e118a9cab1306f8d12147491db55c1999e198711726c7d2e4bb5410fe140"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/exploratory-data-analysis/references/general_scientific_formats.md",
+      "mode": "100644",
+      "blob": "1a440df7971c971c2311b9410164a6e840c79cfe",
+      "path": "science/skills/exploratory-data-analysis/references/general_scientific_formats.md",
+      "bytes": 15287,
+      "sha256": "58c292bef8703102fc3b92662f529207435ddabdb12eae5a662e8d0de52d925c"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/exploratory-data-analysis/references/microscopy_imaging_formats.md",
+      "mode": "100644",
+      "blob": "1cc6e0b767c60e8b9463fd27b197f4c7e9920e41",
+      "path": "science/skills/exploratory-data-analysis/references/microscopy_imaging_formats.md",
+      "bytes": 18549,
+      "sha256": "86ae339bed1d1a04804e26dc34ca6e8c05e97e887f287f67f00df5edd7298395"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/exploratory-data-analysis/references/proteomics_metabolomics_formats.md",
+      "mode": "100644",
+      "blob": "dacc77a16a03da74cdae0f8074b100439d297a0d",
+      "path": "science/skills/exploratory-data-analysis/references/proteomics_metabolomics_formats.md",
+      "bytes": 15543,
+      "sha256": "d1c26264f453972562c399a0f723a7962448d067fd653e949e3840c5de525990"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/exploratory-data-analysis/references/spectroscopy_analytical_formats.md",
+      "mode": "100644",
+      "blob": "d7c8823854db8ea7e93bb8b7e5b766a826f2ac5d",
+      "path": "science/skills/exploratory-data-analysis/references/spectroscopy_analytical_formats.md",
+      "bytes": 18073,
+      "sha256": "05e519f099fd94374887d88f5b63f72427cb3a133fcec309bea4c76a8ffc95a1"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/exploratory-data-analysis/scripts/eda_analyzer.py",
+      "mode": "100755",
+      "blob": "7bac709754e9dc0ad751fddb3c84017770302396",
+      "path": "science/skills/exploratory-data-analysis/scripts/eda_analyzer.py",
+      "bytes": 21318,
+      "sha256": "fe1600db3d62bff0c2bc7cf638b4640c3464c2cc8fe1fa4c00bcd0291dca0470"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/exploratory-data-analysis/SKILL.md",
+      "mode": "100644",
+      "blob": "c99cef401ed806dced82ec8654a8b2da2ce56bc2",
+      "path": "science/skills/exploratory-data-analysis/SKILL.md",
+      "bytes": 14336,
+      "sha256": "600ce47d3cc960b320d5447e4fbf2e76bccd4748cb47bab4bdeb57b9fa587bc7"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/hypothesis-generation/assets/FORMATTING_GUIDE.md",
+      "mode": "100644",
+      "blob": "82b0737635bb69f7298a0532c72a90622b481cf5",
+      "path": "science/skills/hypothesis-generation/assets/FORMATTING_GUIDE.md",
+      "bytes": 19304,
+      "sha256": "bb5ebc0f46afaf000ec0d8a91f2d3388cd2c4a836d5ad9997acef0d0a7298897"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/hypothesis-generation/assets/hypothesis_generation.sty",
+      "mode": "100644",
+      "blob": "6515d4b6d7578242dab37bb5b5234106a41237f0",
+      "path": "science/skills/hypothesis-generation/assets/hypothesis_generation.sty",
+      "bytes": 7625,
+      "sha256": "423b9a41cf0e67860b5cdd73ac9b4264bdb1241d2896ee0bc1ccb7f710fdec4a"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/hypothesis-generation/assets/hypothesis_report_template.tex",
+      "mode": "100644",
+      "blob": "e54a2d0a1cb2243b249e5e9c49117001e6261fa2",
+      "path": "science/skills/hypothesis-generation/assets/hypothesis_report_template.tex",
+      "bytes": 20148,
+      "sha256": "7a50e244eb7f16898c65ea892b2d2c5784661a5a6e27950daa366e6891a4fb8a"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/hypothesis-generation/references/experimental_design_patterns.md",
+      "mode": "100644",
+      "blob": "484043a437d4f9b46538665f64df483c0b9b9f4a",
+      "path": "science/skills/hypothesis-generation/references/experimental_design_patterns.md",
+      "bytes": 14208,
+      "sha256": "c625281acf21123be76d6d8f829737cdda0b71646762e4a6eab96d01ba1bded1"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/hypothesis-generation/references/hypothesis_quality_criteria.md",
+      "mode": "100644",
+      "blob": "3ba8761757b089c5c6335e97c4a28ccf5bd87fbd",
+      "path": "science/skills/hypothesis-generation/references/hypothesis_quality_criteria.md",
+      "bytes": 8051,
+      "sha256": "be9e67528305e4e6ad3731c97f804173e843cf235fcac16cb10f8a8b982de08f"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/hypothesis-generation/references/literature_search_strategies.md",
+      "mode": "100644",
+      "blob": "427820fc59933c959fc147d1c1181184e309be38",
+      "path": "science/skills/hypothesis-generation/references/literature_search_strategies.md",
+      "bytes": 20277,
+      "sha256": "ff637b4cef2bf36a277e1ac48d55dcb6ac2737e537a185ff935c76bf7a2dd422"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/hypothesis-generation/scripts/generate_schematic_ai.py",
+      "mode": "100644",
+      "blob": "5217075320b2a1be2c519578075cd1b257afbf1f",
+      "path": "science/skills/hypothesis-generation/scripts/generate_schematic_ai.py",
+      "bytes": 32647,
+      "sha256": "0e1708bc163eab7e4440ae7d9d61ed1cd123bdc401499d46cb3df30f1b9f349c"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/hypothesis-generation/scripts/generate_schematic.py",
+      "mode": "100644",
+      "blob": "6843e0a198acd8a632da349b6de1665dfc40fe20",
+      "path": "science/skills/hypothesis-generation/scripts/generate_schematic.py",
+      "bytes": 5146,
+      "sha256": "a426ae30ed9185f250245f35c868e6f8aae6096e94a4b8392283dc05f089c041"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/hypothesis-generation/SKILL.md",
+      "mode": "100644",
+      "blob": "c13ca1773bf99933973d92db6a163be55a442bbc",
+      "path": "science/skills/hypothesis-generation/SKILL.md",
+      "bytes": 14222,
+      "sha256": "71ca3106e95812efe8a81cb78e55954b633d466e362aa91087da1b910d2ff1e5"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/paper-lookup/references/arxiv.md",
+      "mode": "100644",
+      "blob": "480dc667c27af5c8e84c37f1cad1bfc4b5f902c8",
+      "path": "science/skills/paper-lookup/references/arxiv.md",
+      "bytes": 5181,
+      "sha256": "08a442139e36b2a600ca12a53b2dc1489d3b10973e41ac7b5efdc7de5c322bfd"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/paper-lookup/references/biorxiv.md",
+      "mode": "100644",
+      "blob": "0785e6c9ed95f4feb8ed348f8a314b3dc3686d6b",
+      "path": "science/skills/paper-lookup/references/biorxiv.md",
+      "bytes": 3629,
+      "sha256": "b290d0ec60098f5b645093851e2c05ed4e2e9005c59169cc0967ab4464940abc"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/paper-lookup/references/core.md",
+      "mode": "100644",
+      "blob": "dc6edec36c254d4e7ba025e257a68380dcf0e925",
+      "path": "science/skills/paper-lookup/references/core.md",
+      "bytes": 3969,
+      "sha256": "f1dcb49a99431393efacd2a80b17092561be1e3054fe173aa387c1b6009c1402"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/paper-lookup/references/crossref.md",
+      "mode": "100644",
+      "blob": "a1bef0067ba2e38aaa41eb98f9c016d22b561f2a",
+      "path": "science/skills/paper-lookup/references/crossref.md",
+      "bytes": 5080,
+      "sha256": "036a6419086426a97ada3360b1ee2a4c8fa3051d98320a8881fbabf3fe65ec68"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/paper-lookup/references/medrxiv.md",
+      "mode": "100644",
+      "blob": "10a46a002f90feec56fc96e45606ecde80d694c2",
+      "path": "science/skills/paper-lookup/references/medrxiv.md",
+      "bytes": 3554,
+      "sha256": "3ca26b2e8a30c7a770b7ef6072c03e094f2b2973aa35556d1afb54733e78cfc1"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/paper-lookup/references/openalex.md",
+      "mode": "100644",
+      "blob": "3f2ea3a0c20fe7f44d06fa5b7975a5c663693ebc",
+      "path": "science/skills/paper-lookup/references/openalex.md",
+      "bytes": 5143,
+      "sha256": "df4a8b86174c37e07a3691f5fa627f8cb61cd60587ce1723a6608058547bda08"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/paper-lookup/references/pmc.md",
+      "mode": "100644",
+      "blob": "7d6f407a7a43eda8a7b14f720321bfeee52a6759",
+      "path": "science/skills/paper-lookup/references/pmc.md",
+      "bytes": 3860,
+      "sha256": "8df064b95cffa87549c7a6a9d0b1518a7151c20541e385ca37baf57c71d84127"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/paper-lookup/references/pubmed.md",
+      "mode": "100644",
+      "blob": "c86a19ab7b0c1feecaf3186416e8beedb4bb025c",
+      "path": "science/skills/paper-lookup/references/pubmed.md",
+      "bytes": 3939,
+      "sha256": "7f8650a8c47a435a83e346c147d166f31f3574c4696050d64a03cea790d7fc6f"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/paper-lookup/references/semantic-scholar.md",
+      "mode": "100644",
+      "blob": "c960e813527f4b2ac44b574dcb37d6f85797bd4e",
+      "path": "science/skills/paper-lookup/references/semantic-scholar.md",
+      "bytes": 6098,
+      "sha256": "61a92ed728d3a0421ddf0e7430b025bfe3764816b1fff71bb77b8860d670936d"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/paper-lookup/references/unpaywall.md",
+      "mode": "100644",
+      "blob": "988028fbfea3a6bcecd36f006af0ffee1c92e8fe",
+      "path": "science/skills/paper-lookup/references/unpaywall.md",
+      "bytes": 3795,
+      "sha256": "97d95863b2a73837070f48e1bf93ea3c2e920b1564eb7e5ac4ab4167ae77d4f1"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/paper-lookup/SKILL.md",
+      "mode": "100644",
+      "blob": "e633abd4449fc40406b3df2c1923c6eb058bbead",
+      "path": "science/skills/paper-lookup/SKILL.md",
+      "bytes": 14755,
+      "sha256": "03b623807cd7337a069bbf7d6021a89a50fd08f7d029868a0eea0b5453541978"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/peer-review/references/common_issues.md",
+      "mode": "100644",
+      "blob": "ec648c2059270cfb8dea887ad2e4b5b8e51d0fa5",
+      "path": "science/skills/peer-review/references/common_issues.md",
+      "bytes": 19321,
+      "sha256": "9015c3263a0f586aa74d976f3c0c5b31a78549879651d1ecdfdcf7b13065115b"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/peer-review/references/reporting_standards.md",
+      "mode": "100644",
+      "blob": "0d995b9d0c9ef2575330dc98c9beae656135d65f",
+      "path": "science/skills/peer-review/references/reporting_standards.md",
+      "bytes": 10200,
+      "sha256": "ea29ba0a90d3e0735f4603c7c7918a8fba20fcd35b26c201cb7fd312de66b6ed"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/peer-review/scripts/generate_schematic_ai.py",
+      "mode": "100644",
+      "blob": "5217075320b2a1be2c519578075cd1b257afbf1f",
+      "path": "science/skills/peer-review/scripts/generate_schematic_ai.py",
+      "bytes": 32647,
+      "sha256": "0e1708bc163eab7e4440ae7d9d61ed1cd123bdc401499d46cb3df30f1b9f349c"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/peer-review/scripts/generate_schematic.py",
+      "mode": "100644",
+      "blob": "6843e0a198acd8a632da349b6de1665dfc40fe20",
+      "path": "science/skills/peer-review/scripts/generate_schematic.py",
+      "bytes": 5146,
+      "sha256": "a426ae30ed9185f250245f35c868e6f8aae6096e94a4b8392283dc05f089c041"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/peer-review/SKILL.md",
+      "mode": "100644",
+      "blob": "2d8c80edbf187784a13d03cd81bd0d21085f5c96",
+      "path": "science/skills/peer-review/SKILL.md",
+      "bytes": 23783,
+      "sha256": "0244a7dec25e29694612f802b3896dbef908f59393c33c5a5b42c72eac615c95"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scholar-evaluation/references/evaluation_framework.md",
+      "mode": "100644",
+      "blob": "f1170c0848c9943090abf88e6ddaf9d02dde0235",
+      "path": "science/skills/scholar-evaluation/references/evaluation_framework.md",
+      "bytes": 19950,
+      "sha256": "0f771d994c048869a0b9fd33354d1e5fafa29e18108986137ec946ad37fea906"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scholar-evaluation/scripts/calculate_scores.py",
+      "mode": "100644",
+      "blob": "e705b84e390c0009fe1e7bbd78aebf85e2076fb7",
+      "path": "science/skills/scholar-evaluation/scripts/calculate_scores.py",
+      "bytes": 11551,
+      "sha256": "7d50b0daec81f76581c9151adb1bf60521b11ea09542957677bb6b22fbac7f58"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scholar-evaluation/scripts/generate_schematic_ai.py",
+      "mode": "100644",
+      "blob": "5217075320b2a1be2c519578075cd1b257afbf1f",
+      "path": "science/skills/scholar-evaluation/scripts/generate_schematic_ai.py",
+      "bytes": 32647,
+      "sha256": "0e1708bc163eab7e4440ae7d9d61ed1cd123bdc401499d46cb3df30f1b9f349c"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scholar-evaluation/scripts/generate_schematic.py",
+      "mode": "100644",
+      "blob": "6843e0a198acd8a632da349b6de1665dfc40fe20",
+      "path": "science/skills/scholar-evaluation/scripts/generate_schematic.py",
+      "bytes": 5146,
+      "sha256": "a426ae30ed9185f250245f35c868e6f8aae6096e94a4b8392283dc05f089c041"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scholar-evaluation/SKILL.md",
+      "mode": "100644",
+      "blob": "9d85511e02d9a9f5955f405587193c1249a3bd4c",
+      "path": "science/skills/scholar-evaluation/SKILL.md",
+      "bytes": 12633,
+      "sha256": "821e0d16faf6839b4dd40ac9c99549b8dcabf8586e0b71210de3779294d20dbe"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-brainstorming/references/brainstorming_methods.md",
+      "mode": "100644",
+      "blob": "152773eeec504ab283cac03d04c0d549e8d9a173",
+      "path": "science/skills/scientific-brainstorming/references/brainstorming_methods.md",
+      "bytes": 12065,
+      "sha256": "454b88e568cc55cd0e3f409fc7b9c04606815a4084eefcf442c65890583465ab"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-brainstorming/SKILL.md",
+      "mode": "100644",
+      "blob": "8b7cc0c8dd1b43fd8bbc3096652684b7e4e4a5ce",
+      "path": "science/skills/scientific-brainstorming/SKILL.md",
+      "bytes": 8199,
+      "sha256": "18c93210712a0e65c6936411d2b3d8532bbe92c3f2d40050edd25356a1da22c2"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-critical-thinking/references/common_biases.md",
+      "mode": "100644",
+      "blob": "23d67a2f7f4a43c588f689321b9b65238066729f",
+      "path": "science/skills/scientific-critical-thinking/references/common_biases.md",
+      "bytes": 11093,
+      "sha256": "99f608c86075f1a1ab115a1cf4ecd54fe482266cb5e47761172894f21829f6cf"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-critical-thinking/references/evidence_hierarchy.md",
+      "mode": "100644",
+      "blob": "7d638eb9d25e0088e7b9ef5d41dd3c730e52a125",
+      "path": "science/skills/scientific-critical-thinking/references/evidence_hierarchy.md",
+      "bytes": 13648,
+      "sha256": "e58b6fbbd080938719c1c1ed08acb3b4c056e12e8ed9ef2ff250b8e9ebf9b74c"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-critical-thinking/references/experimental_design.md",
+      "mode": "100644",
+      "blob": "c278b2d8d24d808a876bc82a29083b14872ea4a9",
+      "path": "science/skills/scientific-critical-thinking/references/experimental_design.md",
+      "bytes": 16107,
+      "sha256": "99023cfb10e455349f5e57fff75d34f80f3bba8842c48f5385ad7d0586f01b11"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-critical-thinking/references/logical_fallacies.md",
+      "mode": "100644",
+      "blob": "7b9e7492138c21398bb43f0273b4f2caf8be73c9",
+      "path": "science/skills/scientific-critical-thinking/references/logical_fallacies.md",
+      "bytes": 18014,
+      "sha256": "7911abe82bc05c8f513591e9b00572f21e5a631783cc00cd9dbf644b5eae28ce"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-critical-thinking/references/scientific_method.md",
+      "mode": "100644",
+      "blob": "ae43f9a0761d31324bdbb7a72a8a26b05e7b17a5",
+      "path": "science/skills/scientific-critical-thinking/references/scientific_method.md",
+      "bytes": 6100,
+      "sha256": "09e709bdc7919a2b21825175aff5e0f9c26117a02ec654bfdb347fc8fa7ad0b7"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-critical-thinking/references/statistical_pitfalls.md",
+      "mode": "100644",
+      "blob": "727366d4c56f41898613136029cec31527fc2bb1",
+      "path": "science/skills/scientific-critical-thinking/references/statistical_pitfalls.md",
+      "bytes": 15726,
+      "sha256": "c525ed590c36eef9dfca95c9c8bc2ab3e228e9247aa476a2c2ddcf07ffc62172"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-critical-thinking/SKILL.md",
+      "mode": "100644",
+      "blob": "386fc7c9b6e764b7d0b7310a0c2d5649b978cc0f",
+      "path": "science/skills/scientific-critical-thinking/SKILL.md",
+      "bytes": 23571,
+      "sha256": "bca80d1de7c49f400a235a7b1618e76362bd676e3ec7eaa99705dbddf560eac3"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-schematics/references/best_practices.md",
+      "mode": "100644",
+      "blob": "e6033b3393d0cd45f4f1dc07ce50cdd0faa1577e",
+      "path": "science/skills/scientific-schematics/references/best_practices.md",
+      "bytes": 16026,
+      "sha256": "e0aff6abab3db84a3635f5393d098e41920667188e0aa861580379a81d597f64"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-schematics/references/QUICK_REFERENCE.md",
+      "mode": "100644",
+      "blob": "f03c528009c024347fedc280c74503a0008b09b0",
+      "path": "science/skills/scientific-schematics/references/QUICK_REFERENCE.md",
+      "bytes": 4784,
+      "sha256": "db831243ea2542e70972cd8f798325a48725c4319848506d41c3e20b44a2694a"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-schematics/references/README.md",
+      "mode": "100644",
+      "blob": "bb7f6320a3ec813bb8f82bd5f8f904ca9d2f03af",
+      "path": "science/skills/scientific-schematics/references/README.md",
+      "bytes": 8676,
+      "sha256": "6b030ae4ff615634ff9ab0802b47e70c2a999b892d144977dcddc8eecf6ffa7d"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-schematics/scripts/example_usage.sh",
+      "mode": "100755",
+      "blob": "2e638d929adc3180eba1e8659263581e1c076b4d",
+      "path": "science/skills/scientific-schematics/scripts/example_usage.sh",
+      "bytes": 3052,
+      "sha256": "e6502a1538edf947cef7819eccb39d0ffdb89e3e24832368f4f7f44d2c43c8e1"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-schematics/scripts/generate_schematic_ai.py",
+      "mode": "100644",
+      "blob": "5217075320b2a1be2c519578075cd1b257afbf1f",
+      "path": "science/skills/scientific-schematics/scripts/generate_schematic_ai.py",
+      "bytes": 32647,
+      "sha256": "0e1708bc163eab7e4440ae7d9d61ed1cd123bdc401499d46cb3df30f1b9f349c"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-schematics/scripts/generate_schematic.py",
+      "mode": "100644",
+      "blob": "6843e0a198acd8a632da349b6de1665dfc40fe20",
+      "path": "science/skills/scientific-schematics/scripts/generate_schematic.py",
+      "bytes": 5146,
+      "sha256": "a426ae30ed9185f250245f35c868e6f8aae6096e94a4b8392283dc05f089c041"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-schematics/SKILL.md",
+      "mode": "100644",
+      "blob": "d630b9b316c20f1fa450e712f2878f2adaaf3e3d",
+      "path": "science/skills/scientific-schematics/SKILL.md",
+      "bytes": 24137,
+      "sha256": "d8d1d9dc913d17e740bc97c9f33107eedd3864ebbe43ad1f6a574a08d586f0e3"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-visualization/assets/color_palettes.py",
+      "mode": "100644",
+      "blob": "be4f0e984b5b8cc5a23609d9dde631e9964de2f2",
+      "path": "science/skills/scientific-visualization/assets/color_palettes.py",
+      "bytes": 5754,
+      "sha256": "ffea28da930406ecb11bbeaebfc530dfac40b772827a7653f449cb3b0bb35309"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-visualization/assets/nature.mplstyle",
+      "mode": "100644",
+      "blob": "bd8386d560533710774644b4de032ef39ddc72f9",
+      "path": "science/skills/scientific-visualization/assets/nature.mplstyle",
+      "bytes": 1449,
+      "sha256": "05b5cab4b5286cd812ff3ceba31845c08baa083d77382df05ec100383e4ff040"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-visualization/assets/presentation.mplstyle",
+      "mode": "100644",
+      "blob": "d435fef765d023b098d9e407a570d9c81660bb40",
+      "path": "science/skills/scientific-visualization/assets/presentation.mplstyle",
+      "bytes": 1309,
+      "sha256": "a47167d633cd0695bc428a42ed4e790a69f90d0204ed560bae6902785ba2b823"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-visualization/assets/publication.mplstyle",
+      "mode": "100644",
+      "blob": "fe224c40cf66be553cd44930cee90d3259f02b66",
+      "path": "science/skills/scientific-visualization/assets/publication.mplstyle",
+      "bytes": 1474,
+      "sha256": "38244036fb563bdf50b6b15ac927ae62afa3a8f6acf03ec5c9b317adad9c5a14"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-visualization/references/color_palettes.md",
+      "mode": "100644",
+      "blob": "293270af74608a2cf06b68c64b4db98be9dd2c72",
+      "path": "science/skills/scientific-visualization/references/color_palettes.md",
+      "bytes": 9861,
+      "sha256": "4d9ec64478dee9fc8de43fbde9983a413520c436099b0c560b21eadec572270b"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-visualization/references/journal_requirements.md",
+      "mode": "100644",
+      "blob": "2256fe14ed83dd1ae14c95039b966daddb3c0898",
+      "path": "science/skills/scientific-visualization/references/journal_requirements.md",
+      "bytes": 9533,
+      "sha256": "69157b820c78e9bca299ea6f7dcb49624ea778ec3ed619a98e82c3b60e6dc782"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-visualization/references/matplotlib_examples.md",
+      "mode": "100644",
+      "blob": "637cdd2373ac47d2662feeff3c12666a5d2a1a23",
+      "path": "science/skills/scientific-visualization/references/matplotlib_examples.md",
+      "bytes": 18103,
+      "sha256": "d9195bb8c1b80f235495ac8a63e86fef0462e99cc2cc7d5d244818bfe5ee08cf"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-visualization/references/publication_guidelines.md",
+      "mode": "100644",
+      "blob": "d61f59117cc45be700bb36dcbad464af5b9b7b43",
+      "path": "science/skills/scientific-visualization/references/publication_guidelines.md",
+      "bytes": 8556,
+      "sha256": "c8430dfe7d374edc771c55a0d9c6e1f07ab803f16321d21941835e93944da2d1"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-visualization/scripts/figure_export.py",
+      "mode": "100644",
+      "blob": "0a643ff2d221223397cd756cbad11a6da6a62dbb",
+      "path": "science/skills/scientific-visualization/scripts/figure_export.py",
+      "bytes": 10904,
+      "sha256": "542f604c2a4dc642c055b24ef26b9e9e808616a33fde0cd2154c975dc83318d0"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-visualization/scripts/style_presets.py",
+      "mode": "100644",
+      "blob": "f6b154657a7a868eb92d3caceadf10bbd3c9da23",
+      "path": "science/skills/scientific-visualization/scripts/style_presets.py",
+      "bytes": 12199,
+      "sha256": "3a4163c6aaaf6792665cf890ab497a2b5070c0ed0adfa524fcaee5262a3f1792"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/scientific-visualization/SKILL.md",
+      "mode": "100644",
+      "blob": "b267ca61daba1840d3c5e26fd06aef2b1f5906ba",
+      "path": "science/skills/scientific-visualization/SKILL.md",
+      "bytes": 25496,
+      "sha256": "d63d0d42d93cd4417b0d0bffe69184dca070fc7db50f199fd17a7240499a8e6a"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-analysis/references/assumptions_and_diagnostics.md",
+      "mode": "100644",
+      "blob": "62bf447ac3214f262e10b220cd232c8956a3c121",
+      "path": "science/skills/statistical-analysis/references/assumptions_and_diagnostics.md",
+      "bytes": 12350,
+      "sha256": "b8fdccb2d2f160c78bd11415e30c50a0dea755f046e936b8c85b23333d1b47f8"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-analysis/references/bayesian_statistics.md",
+      "mode": "100644",
+      "blob": "2a1a84b3cfd55e570858eb99075f63ed3a8a3d5b",
+      "path": "science/skills/statistical-analysis/references/bayesian_statistics.md",
+      "bytes": 20655,
+      "sha256": "c6b994b512c38009f26aed3913884aa85fef2bdcefd8a9858b124deed3a05f70"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-analysis/references/effect_sizes_and_power.md",
+      "mode": "100644",
+      "blob": "ad9381138becdcf6b22508ac8f657e1421a5ca39",
+      "path": "science/skills/statistical-analysis/references/effect_sizes_and_power.md",
+      "bytes": 18413,
+      "sha256": "6de003ff25fe3613322f5cfbd4d042327b17a381c034bc2dbbe068212ecce732"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-analysis/references/reporting_standards.md",
+      "mode": "100644",
+      "blob": "59b685ad88985c40ff3abba1cbd52514e7a66551",
+      "path": "science/skills/statistical-analysis/references/reporting_standards.md",
+      "bytes": 20239,
+      "sha256": "6854623fb5e8080e7d02b6c713ee44cb4a4cf03757d97840764118af54137a88"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-analysis/references/test_selection_guide.md",
+      "mode": "100644",
+      "blob": "25e7ccb1e203134c2074de8bb2fca2a5c340a47d",
+      "path": "science/skills/statistical-analysis/references/test_selection_guide.md",
+      "bytes": 5077,
+      "sha256": "64f5d93f87d83431b767a24d6b32c0ed82f2cbd32b1bd07476b49b5ac6a858a5"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-analysis/scripts/assumption_checks.py",
+      "mode": "100644",
+      "blob": "6c477f392b375fb795846cd0254214abf6800be4",
+      "path": "science/skills/statistical-analysis/scripts/assumption_checks.py",
+      "bytes": 20282,
+      "sha256": "3fabf359ab0128bbfc498dadb53a4782431cde473c0a6681ea7298a605757018"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-analysis/SKILL.md",
+      "mode": "100644",
+      "blob": "2226712818a853acfa9a247a4fc4f49e1583758b",
+      "path": "science/skills/statistical-analysis/SKILL.md",
+      "bytes": 19962,
+      "sha256": "159dcdebac5202fb331cbed9b4c54600d1e045a8c30b5a6d169c518440f43171"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-power/references/closed_form_recipes.md",
+      "mode": "100644",
+      "blob": "2289457d87657f6e36d391d5b5684604508aaac8",
+      "path": "science/skills/statistical-power/references/closed_form_recipes.md",
+      "bytes": 6809,
+      "sha256": "6194841e8477d027cae631c557a90826cd4d613d98e98749e6f40714a1da3b0b"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-power/references/effect_sizes.md",
+      "mode": "100644",
+      "blob": "f82a54d69b9fbf09db3146cc3209de4cd79b3226",
+      "path": "science/skills/statistical-power/references/effect_sizes.md",
+      "bytes": 4919,
+      "sha256": "19f243ac6aeacfbbb7a83a1e621dc5a8248b98278499c4efd34db412d2c964db"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-power/references/simulation_based_power.md",
+      "mode": "100644",
+      "blob": "05f3be3fed80562dd08aca7f6c4c578eab4bbe5c",
+      "path": "science/skills/statistical-power/references/simulation_based_power.md",
+      "bytes": 5684,
+      "sha256": "5841de90e01a4e4617ce84c9ced9791f1ca3b3e0727c80f73f3ea5b9f339b469"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-power/scripts/power.py",
+      "mode": "100644",
+      "blob": "27949e444b4654837da5b4cb55f2234eae4c18a9",
+      "path": "science/skills/statistical-power/scripts/power.py",
+      "bytes": 12490,
+      "sha256": "4bb073160c59469eed4398eee0fa3c6686c1df1c2ebf7bdddfe7853d7c94914c"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-power/scripts/simulate_power.py",
+      "mode": "100644",
+      "blob": "8b55b3763cf8ce4c891fd049d5b947ea2087567e",
+      "path": "science/skills/statistical-power/scripts/simulate_power.py",
+      "bytes": 8009,
+      "sha256": "a3eb6fefe1af0aa9d67fe8762efab47df13a0ff57a35480a59c0fc4e18c404df"
+    },
+    {
+      "sourcePath": "src-tauri/science/skills/statistical-power/SKILL.md",
+      "mode": "100644",
+      "blob": "fee7d10337287c286e124ec9ea00f1bb4c131395",
+      "path": "science/skills/statistical-power/SKILL.md",
+      "bytes": 14392,
+      "sha256": "40f9c8bd0cc940b775fa834b401f7244a3e4bf09ff1a9fe5f1c22d87b355a194"
+    },
+    {
+      "sourcePath": "src-tauri/src/commands/office_tools.rs",
+      "mode": "100644",
+      "blob": "fdcd08b5ed8f083f51fc80798913df4c6d5ef2b7",
+      "path": "source-inputs/office_tools.rs",
+      "bytes": 72018,
+      "sha256": "0c61a9155883fb7f8221fcd7c81612097af6936876ee7c735dab1441dc6cb587"
+    }
+  ]
+}

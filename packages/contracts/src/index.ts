@@ -36,6 +36,9 @@ export type AdapterKind =
   | 'qoder-cli'
   | 'codebuddy-cli'
   | 'qwen-code'
+  | 'gemini-cli'
+  | 'hermes-cli'
+  | 'openclaw-cli'
   | 'trae-cn-cli'
   | 'cursor-agent'
   | 'kimi-code-cli'
@@ -3514,6 +3517,77 @@ export interface ToolboxSkillView {
   sourceError: string | null
 }
 
+export type SkillPackFamily = 'experts' | 'science' | 'office' | 'ui' | 'custom'
+
+export interface SkillPackEntry {
+  id: string
+  family: SkillPackFamily
+  category: string
+  icon: string | null
+  sortOrder: number
+  displayName: Record<string, string>
+  description: Record<string, string>
+  featured: boolean
+  accent: string | null
+  needsKey: boolean
+  needsEnv: boolean
+  sourcePath: string
+  sourceUrl: string
+  contentSource: 'embedded' | 'officecli'
+  requiredCapability: 'officecli' | 'generative_ui_renderer' | null
+  loadId: string | null
+}
+
+export interface SkillPackCatalogView {
+  schemaVersion: 1
+  repository: string
+  commit: string
+  families: Array<{ family: SkillPackFamily; sourceKind: 'embedded' | 'officecli' | 'user_authored' }>
+  entries: SkillPackEntry[]
+  notices: Array<{ name: string; sourceUrl: string; content: string }>
+}
+
+export interface ReadSkillPackParams {
+  skillId: string
+  path?: string
+}
+
+export interface InstallSkillPackCommand {
+  skillId: string
+  sourceRevision: string
+  expectedVersion: string
+}
+
+export interface UninstallSkillPackCommand {
+  skillId: string
+  expectedVersion: string
+}
+
+export interface SkillPackInstallationView {
+  skillId: string
+  sourceRevision: string
+  status: 'installed' | 'removed'
+  version: string
+  availability: 'available' | 'modified' | 'unavailable' | 'removed'
+  contentPath: string | null
+  retainedContent: boolean
+  memberDeliveryEnabled: false
+}
+
+export interface SkillPackMembersView {
+  skillId: string
+  installed: boolean
+  memberIds: string[]
+  version: string
+  memberDeliveryEnabled: false
+}
+
+export interface SetSkillPackMembersCommand {
+  skillId: string
+  memberIds: string[]
+  expectedVersion: string
+}
+
 export interface ComposerSkillCandidate {
   id: string
   name: string
@@ -4125,6 +4199,13 @@ export type CoreMethod =
   | 'skills.list'
   | 'skills.get'
   | 'toolbox.list'
+  | 'skillPacks.list'
+  | 'skillPacks.read'
+  | 'skillPacks.installations.list'
+  | 'skillPacks.install'
+  | 'skillPacks.uninstall'
+  | 'skillPacks.members.list'
+  | 'skillPacks.members.set'
   | 'toolbox.read'
   | 'toolbox.setMembers'
   | 'nativeSkills.list'

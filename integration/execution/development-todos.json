@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "policy": "研发可修问题由研发继续处理，不列为客户资源阻塞",
+  "items": [
+    {
+      "id": "DEV-HOST-WEB-LIVE-API",
+      "task": "I01-T03/I02-T01",
+      "status": "native_Mac_startup_failure_diagnostics_added_retry_pending",
+      "file": "scripts/lib/host-web-live.test.mjs:52",
+      "problem": "Mac x64源码编译通过，但真实Desktop启动等待ready失败；已补安全Supervisor取证，下一次按错误码修复；ARM取消未运行断言",
+      "owner": "研发",
+      "evidence": "i02-native-fixture-repair-result.json：38447189169/115468536548，native-test.log已下载；不扩大timeout或放宽断言假通过"
+    },
+    {
+      "id": "DEV-WEB-LEGACY-DRAFT-RECOVERY",
+      "task": "I02-T01/I12兼容整改",
+      "status": "normal_exit_recovery_verified_attachment_and_crash_pending",
+      "file": "apps/desktop/src/renderer/src/camp-composer-local-store.ts",
+      "problem": "旧版显式恢复、正常浏览器退出后公共正文恢复及真实quota已验证；真实旧附件、异常退出与全平台仍需补齐",
+      "owner": "研发",
+      "evidence": "i02-draft-restart-result.json：完整生产流程19检查，关闭进程后两份各自存在、明确选一份、真实quota保留及重试通过；旧版实际数据5项保持"
+    },
+    {
+      "id": "DEV-WAITING-DELIVERY-WITHDRAWAL",
+      "task": "I02-T01/I12",
+      "status": "pending_controlled_runtime_fixture",
+      "problem": "真实等待投递的撤回成功路径需受控Runtime保持领取前窗口，不能用execution:null阅读记录或直接SQL注入代替",
+      "evidence": "live-lyFUxH受控试验出现1条failed Run；拒绝路径19项通过；成功路径未运行",
+      "owner": "研发"
+    },
+    {
+      "id": "DEV-CORE-RUNTIME-UNION",
+      "task": "I02-T02",
+      "status": "catalog_21_source_integrated_runtime_parity_and_qualification_pending",
+      "problem": "Core21种/schema151；三种新增来源接入目录与差异控制面，完整实际运行、原生兼容和四平台资格仍须补齐",
+      "evidence": "i02-openclaw-core-result.json；不以本地元数据或编译替代执行",
+      "owner": "研发"
+    },
+    {
+      "id": "DEV-HERMES-PROJECT-SKILLS-TRUST",
+      "task": "I02-T02/I10",
+      "status": "pending_native_trust_integration_and_actual_discovery",
+      "problem": "原生工程Skills需要skills.trusted_project_dirs，不能把目录投影当真实发现；补作用域内信任交互和原生验证",
+      "owner": "研发",
+      "evidence": "固定agent/skill_utils.py与hermes-runtime-v1.md"
+    },
+    {
+      "id": "DEV-HERMES-CROSS-RUN-USAGE",
+      "task": "I02-T02/I08",
+      "status": "pending_native_session_baseline_ownership",
+      "problem": "原生每个Prompt返回session累计；已防止误作增量与按Prompt拆checkpoint，仍需实现/验证跨Run归属基线及恢复，未给历史消耗补零",
+      "owner": "研发",
+      "evidence": "固定agent/turn_finalizer.py及Core累计parser；真实资格未授予"
+    },
+    {
+      "id": "DEV-OPENCLAW-GATEWAY-COMPATIBILITY",
+      "task": "I02-T02/I10",
+      "work": [
+        "Core管理的独立Gateway状态/配置/认证与生命周期；不得接管日常Gateway",
+        "原生模型目录与显式模型冻结的受控Gateway兼容，保留Provider路由",
+        "把思考强度与权限分开；原生批准及Core授权都须保留",
+        "固定发行docs/tools/mcp.md给出Gateway mcp.servers；在隔离配置内验证这条原生路径，冻结Core授权，不向ACP发送非空mcpServers，不削减一期工具范围",
+        "双层Session身份、重放、取消恢复、用量及四平台实际验证"
+      ],
+      "status": "source_and_native_gateway_control_verified_full_parity_pending",
+      "owner": "研发",
+      "problem": "配对进程/模型权限/精确键接入并通过原生控制面；完整AcpHost、原生身份导入、Gateway MCP/Bootstrap/工具/Usage及平台资格仍待实施验证",
+      "evidence": "i02-openclaw-core-result.json"
+    },
+    {
+      "id": "DEV-OPENCLAW-NATIVE-PROFILE",
+      "task": "I02-T02/I12",
+      "status": "legacy_roster_fixed_auth_owner_design_active",
+      "problem": "已修复历史list导入与规范Agent身份；认证库/原生owner/OAuth复制约束及SecretRef来源已查明，完整隔离认证导入、多Agent选择、include/环境解析仍须实现；不能把只读调研当导入完成",
+      "owner": "研发",
+      "evidence": "i02-openclaw-session-result.json"
+    },
+    {
+      "id": "DEV-OPENCLAW-ACP-HOST",
+      "task": "I02-T02/I04/I12",
+      "status": "native_ACP_Host_Fleet_warm_cold_verified_full_Core_deep_probe_pending",
+      "problem": "正式Adapter/Fleet/ACP路径已验新建/暖复用/冷Host恢复/缺失绑定拒绝及双进程清理；业务数据库/Core进程重启、Bootstrap与活动执行仍未验",
+      "owner": "研发",
+      "evidence": "i02-openclaw-session-result.json"
+    },
+    {
+      "id": "DEV-OPENCLAW-MCP-SKILLS-USAGE",
+      "task": "I02-T03/I08/I12",
+      "status": "pending_implementation_and_validation",
+      "problem": "原生Gateway stdio/HTTP MCP、同名覆盖、真实工具授权/输出、Skills发现/更新和Usage增量归属需实际验证，不补零；仍属一期",
+      "owner": "研发",
+      "evidence": "i02-openclaw-core-result.json"
+    },
+    {
+      "id": "DEV-SKILL-PACK-LIFECYCLE",
+      "task": "I02-T03/I08/I12",
+      "status": "member_configuration_verified_model_delivery_pending_r1_confirmation",
+      "owner": "研发",
+      "problem": "来源目录、安装/刷新/卸载、生产设置与队员配置保存已验；模型投递r1待确认后实施；自定义/导入、MCP市场、OfficeCLI、科研与UI渲染及历史GC继续研发",
+      "evidence": "i02-skill-members-result.json"
+    }
+  ]
+}

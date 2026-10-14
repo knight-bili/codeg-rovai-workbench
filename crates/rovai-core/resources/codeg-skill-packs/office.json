@@ -1,0 +1,137 @@
+[
+  {
+    "id": "officecli-pptx",
+    "loadId": "pptx",
+    "category": "presentations",
+    "icon": "Presentation",
+    "sortOrder": 10,
+    "displayName": {
+      "en": "Presentation",
+      "zh-CN": "演示文稿"
+    },
+    "description": {
+      "en": "Generic presentations — board reviews, sales decks, all-hands",
+      "zh-CN": "通用演示文稿——评审、销售汇报、全员大会"
+    }
+  },
+  {
+    "id": "officecli-pitch-deck",
+    "loadId": "pitch-deck",
+    "category": "presentations",
+    "icon": "Rocket",
+    "sortOrder": 20,
+    "displayName": {
+      "en": "Pitch Deck",
+      "zh-CN": "融资路演"
+    },
+    "description": {
+      "en": "Fundraising pitch decks — Seed, Series A–C, SAFE, convertible",
+      "zh-CN": "融资路演 PPT——种子轮、A–C 轮、SAFE、可转换票据"
+    }
+  },
+  {
+    "id": "morph-ppt",
+    "loadId": "morph-ppt",
+    "category": "presentations",
+    "icon": "Clapperboard",
+    "sortOrder": 30,
+    "displayName": {
+      "en": "Morph Animation PPT",
+      "zh-CN": "Morph 动画 PPT"
+    },
+    "description": {
+      "en": "Cinematic Morph-animated presentations",
+      "zh-CN": "电影级 Morph 过渡动画演示文稿"
+    }
+  },
+  {
+    "id": "morph-ppt-3d",
+    "loadId": "morph-ppt-3d",
+    "category": "presentations",
+    "icon": "Box",
+    "sortOrder": 40,
+    "displayName": {
+      "en": "3D Morph PPT",
+      "zh-CN": "3D Morph PPT"
+    },
+    "description": {
+      "en": "3D Morph with GLB models and camera moves",
+      "zh-CN": "3D Morph + GLB 模型 + 镜头运动"
+    }
+  },
+  {
+    "id": "officecli-docx",
+    "loadId": "word",
+    "category": "documents",
+    "icon": "FileText",
+    "sortOrder": 50,
+    "displayName": {
+      "en": "Word Document",
+      "zh-CN": "Word 文档"
+    },
+    "description": {
+      "en": "Reports, letters, memos, proposals",
+      "zh-CN": "报告、信件、备忘录、提案"
+    }
+  },
+  {
+    "id": "officecli-academic-paper",
+    "loadId": "academic-paper",
+    "category": "documents",
+    "icon": "GraduationCap",
+    "sortOrder": 60,
+    "displayName": {
+      "en": "Academic Paper",
+      "zh-CN": "学术论文"
+    },
+    "description": {
+      "en": "Journal/thesis with citations, equations, cross-refs",
+      "zh-CN": "期刊论文——引用、公式、交叉引用"
+    }
+  },
+  {
+    "id": "officecli-xlsx",
+    "loadId": "excel",
+    "category": "spreadsheets",
+    "icon": "FileSpreadsheet",
+    "sortOrder": 70,
+    "displayName": {
+      "en": "Excel Workbook",
+      "zh-CN": "Excel 工作簿"
+    },
+    "description": {
+      "en": "Generic workbooks, formulas, pivots, trackers",
+      "zh-CN": "通用工作簿——公式、数据透视表、追踪表"
+    }
+  },
+  {
+    "id": "officecli-financial-model",
+    "loadId": "financial-model",
+    "category": "spreadsheets",
+    "icon": "TrendingUp",
+    "sortOrder": 80,
+    "displayName": {
+      "en": "Financial Model",
+      "zh-CN": "财务模型"
+    },
+    "description": {
+      "en": "3-statement, DCF, LBO, scenarios, projections",
+      "zh-CN": "三大报表、DCF、LBO、情景分析、预测"
+    }
+  },
+  {
+    "id": "officecli-data-dashboard",
+    "loadId": "data-dashboard",
+    "category": "spreadsheets",
+    "icon": "BarChart3",
+    "sortOrder": 90,
+    "displayName": {
+      "en": "Data Dashboard",
+      "zh-CN": "数据仪表盘"
+    },
+    "description": {
+      "en": "CSV/tabular data → KPI/analytics Excel dashboards",
+      "zh-CN": "CSV/表格数据 → KPI/分析 Excel 仪表盘"
+    }
+  }
+]

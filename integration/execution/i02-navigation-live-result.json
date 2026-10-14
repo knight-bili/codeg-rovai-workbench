@@ -1,0 +1,693 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "task": "I02-T01",
+  "status": "passed",
+  "scope": "production_web_real_host_navigation_and_recorded_messages_no_runtime",
+  "source": {
+    "parentCommit": "06f8bb649e600d8f3d42ed296e071a40f90ab597",
+    "testedWorkingTreeChanges": [
+      {
+        "file": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+        "sha256": "5d7ca16be17fd3e0f961cd97c24eb0e7814cd8a6a8ca7290ade79441d89dba40"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+        "sha256": "81ef864bae600ccce55d257a02be6b32dd97eb082a25c51ff308ed710afc1fc9"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/camp-client.tsx",
+        "sha256": "bd671efc342f476cf4e6b976061e0dfb88f21fb72067addd353595aa165cf0dc"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/camp-composer-local-store.ts",
+        "sha256": "b5a94c8a23342e7de00567b6b295fff6ec6bf7cd713ce5577696d0a8afc03b8a"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/pending-thread-draft.ts",
+        "sha256": "4ab6df9f88d7e3c89d89cac0e432e11a5ad4f8b48303aec91f2424e27078783f"
+      },
+      {
+        "file": "apps/web/src/editing-recovery.ts",
+        "sha256": "42812ad7ba9ab972bdc97d0d42a5d85ada598b69999b45efc4405b29dd0223b0"
+      },
+      {
+        "file": "apps/web/src/camp-adapter.ts",
+        "sha256": "a3c711c50adb13b1005727ec58ff296c2f52c96c98a0cc9c3e3173ed5ecd3c06"
+      },
+      {
+        "file": "scripts/lib/host-web-browser.mjs",
+        "sha256": "dedd8e99a0584f58242b8c68016d5d537f1cb9dd12226fca9879015acbcad9e0"
+      },
+      {
+        "file": "scripts/lib/host-web-live.test.mjs",
+        "sha256": "61c3bcbee9d969bb076c3685c72378e2bd93867b244df8fd09300603f6462f52"
+      },
+      {
+        "file": "tools/integration/smoke-workbench-live.mjs",
+        "sha256": "a402a72f07e3218158a0289adfe065729ad4ecabcd0449fc250e39ffa8f4be37"
+      }
+    ],
+    "coreBinary": {
+      "sha256": "d568695fc2530c3631a9cfdee563088ae068dad6f144e5f4c95538708f2d62cb",
+      "buildCommit": "9d1ad55eeb18c0bc359d6f575afe9a9936055040",
+      "ciRun": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38377262786",
+      "contract": "v1.72",
+      "schema": 146,
+      "protocol": 4
+    },
+    "webBundles": [
+      {
+        "file": "assets/apl-B4CMkyY2.js",
+        "sha256": "f242eda34c4a72bd8e51c278934ec62fe4804f129733e27d0441e1dc8bbc07a9"
+      },
+      {
+        "file": "assets/asciiarmor-Df11BRmG.js",
+        "sha256": "a4f24c2097052635b21234f8995ea0bc9aa6eb4627e9aad3d4c7da5fb3eb9321"
+      },
+      {
+        "file": "assets/asn1-EdZsLKOL.js",
+        "sha256": "ae03ba33f00f6d244c134c98deb75db9ef27894ed42661b6b96cf897561e1bab"
+      },
+      {
+        "file": "assets/asterisk-B-8jnY81.js",
+        "sha256": "47dfc80fb04e1d00d31d9f5286c817e3a75d012bc8c88b97585ea4776a4761c7"
+      },
+      {
+        "file": "assets/brainfuck-C4LP7Hcl.js",
+        "sha256": "de73a71178f148e59b5a6d7ca989842599d46d92836517bad1ddf005a968ab4e"
+      },
+      {
+        "file": "assets/clike-B9uivgTg.js",
+        "sha256": "362289d801a4f7b5abb548e9220660731b08cf3e00989bb8462ebed73bf28e96"
+      },
+      {
+        "file": "assets/clojure-BMjYHr_A.js",
+        "sha256": "498a60106d02e5d91242032d01e8c02c8405cc0dd2d089d69f55eab8e78d1a20"
+      },
+      {
+        "file": "assets/cmake-BQqOBYOt.js",
+        "sha256": "754963f9ba8388c27113791b9da35a6291f5784fd853027081091ae4b9018ca7"
+      },
+      {
+        "file": "assets/cobol-CWcv1MsR.js",
+        "sha256": "b5708cea6e07765d16bd3cea07d4a10a3672636bbc45ce2d2646c9f1833a4372"
+      },
+      {
+        "file": "assets/coffeescript-S37ZYGWr.js",
+        "sha256": "140d96ba54d87483b611e343940304fd55d851a31289ffb6b9ab1a2c8b4793a2"
+      },
+      {
+        "file": "assets/commonlisp-DBKNyK5s.js",
+        "sha256": "5ab53180afeb19f45f2adb48571c37465b9b697129377d2745eb0948ee8add01"
+      },
+      {
+        "file": "assets/crystal-SjHAIU92.js",
+        "sha256": "66127e5531035963dfda0a8bc314538018e1205865fa9371da29ddc850b3fd7b"
+      },
+      {
+        "file": "assets/css-BnMrqG3P.js",
+        "sha256": "aa3e47bd7d7e6f2b9aed7b342b7d6aa059ff6e770c86d64cb0eaf97b403ec98a"
+      },
+      {
+        "file": "assets/cypher-C_CwsFkJ.js",
+        "sha256": "4a2a3e7313e1339de833d287d518acc97046ddd16fb244a28b34f15f01f01b4b"
+      },
+      {
+        "file": "assets/d-pRatUO7H.js",
+        "sha256": "7d17f349f6b8da47c4e024e6646b867bcae32da8f1262291e93eb551f2d6f15d"
+      },
+      {
+        "file": "assets/diff-DbItnlRl.js",
+        "sha256": "100f04b4d542403a267b0beed52abb489c507eb75bd1cff9e11447af2dbf9eda"
+      },
+      {
+        "file": "assets/dockerfile-BKs6k2Af.js",
+        "sha256": "95f163ab68a8f7365d9a168beafab67b4eaaf73ed8a051cad2bbb445d3dbd208"
+      },
+      {
+        "file": "assets/dtd-DF_7sFjM.js",
+        "sha256": "e107c8a82ea6a638f3350669326809c15eb5e227e6dae8d8dd41ca139cd522ee"
+      },
+      {
+        "file": "assets/dylan-DwRh75JA.js",
+        "sha256": "9b7382fd95169a9a2b34765109c2bf6c7ae30b3dd0bd62759b04a49c3d394acc"
+      },
+      {
+        "file": "assets/ebnf-CDyGwa7X.js",
+        "sha256": "ef22ca54434ab2be0f6ed0dc36b246cdcfa507556fed7a847d77064c5fb1c0ef"
+      },
+      {
+        "file": "assets/ecl-Cabwm37j.js",
+        "sha256": "af42e9e8b926913548f8cf9d90bbe9ea829ced5b235a49d8b59e4f8010113fc1"
+      },
+      {
+        "file": "assets/eiffel-CnydiIhH.js",
+        "sha256": "6a7536ca49edb77b3af0b9a68caeb900aa05f71ae09babb95591fa4699ccb07f"
+      },
+      {
+        "file": "assets/elm-vLlmbW-K.js",
+        "sha256": "649698475e1b2b949f3af3c199a7e4cb72dbc4e51a111984437689b8893865ad"
+      },
+      {
+        "file": "assets/erlang-BNw1qcRV.js",
+        "sha256": "8a3a9b30601fc689347511fed678378f5db855c49743cbf971043e1c10b19fed"
+      },
+      {
+        "file": "assets/factor-kuTfRLto.js",
+        "sha256": "c3f0ab8713e16d718edae2753adce49b7d87b3ee36d3a529db49e4c7ae209335"
+      },
+      {
+        "file": "assets/fcl-Kvtd6kyn.js",
+        "sha256": "685d86c935fa25d282da3444b211803edf318f1723b0e3db5a665ec50db10151"
+      },
+      {
+        "file": "assets/file-find.worker-DSvO_8r-.js",
+        "sha256": "794df13b2e577288ba4b18071b291baa29a3dc5d9dfb3a61600e741374b326e3"
+      },
+      {
+        "file": "assets/forth-Ffai-XNe.js",
+        "sha256": "f6680528a050997990fd2eac73d2fee5e3c5432b34aaf52fe1fdc2f984db261b"
+      },
+      {
+        "file": "assets/fortran-DYz_wnZ1.js",
+        "sha256": "91936d3b97248972ef6db720395a5f811a4f560a34920d60ebcf3add475162b1"
+      },
+      {
+        "file": "assets/gas-Bneqetm1.js",
+        "sha256": "548fd06740ff7e7e6dab57021f454462c6899e78043f5d70e1902e4ca7c317a0"
+      },
+      {
+        "file": "assets/gherkin-heZmZLOM.js",
+        "sha256": "75d36502feb18a52191c195ac7fd3b5f7e57a29b6e73ae30422815efc689fc81"
+      },
+      {
+        "file": "assets/groovy-D9Dt4D0W.js",
+        "sha256": "6912e83a4950c0e255f200359253bfb636344600ab03ad7178aaa166041fb79e"
+      },
+      {
+        "file": "assets/haskell-Cw1EW3IL.js",
+        "sha256": "b47ca38b34ea1f8fb65c1f4f1043277796f6437c9852bad46a7c6cf1445d6f20"
+      },
+      {
+        "file": "assets/haxe-H-WmDvRZ.js",
+        "sha256": "3754ffb01bd31420d626dd6139d4fc5b12f58485c5779552a99710740ee0f5da"
+      },
+      {
+        "file": "assets/http-DBlCnlav.js",
+        "sha256": "269060ee11376e85e7b8d4c7dd15c014fe4b755289a85d084d125a2615488e75"
+      },
+      {
+        "file": "assets/idl-BEugSyMb.js",
+        "sha256": "24a7719ff1d38588f4889f8d0f6bca90690f58436a048ef8e3c644aabf1aaffd"
+      },
+      {
+        "file": "assets/index-0K-_A-ak.js",
+        "sha256": "3f33d14bd1d0427b9b8fac7245f588c05acb57f0272cd0a04c877656007920b6"
+      },
+      {
+        "file": "assets/index-0moHAU1m.js",
+        "sha256": "3de1fc5c2bb30f8d2ff85f1b335a6021bea43456272361071e6c7cb9d003d913"
+      },
+      {
+        "file": "assets/index-3dWRWMyY.css",
+        "sha256": "a6dd53eb132f34d2bb72d5aec104abd64ae8be901448f45512af6122b15d860c"
+      },
+      {
+        "file": "assets/index-8aeMYEgS.js",
+        "sha256": "8ed9c67f93f3b639962c2432055438d31187318ff5e31e44247ee2be53c17c0b"
+      },
+      {
+        "file": "assets/index-B31juifc.js",
+        "sha256": "b40a86baa7249c907f160702c94f75710beed046f44ddf4e70db36796321f407"
+      },
+      {
+        "file": "assets/index-B99Z3eVZ.js",
+        "sha256": "c627e34c2967eec42416549b50258de5115ea88b069daadeaee942474d21aee7"
+      },
+      {
+        "file": "assets/index-BFh3bC3M.js",
+        "sha256": "6394bbbff47148d600afebcd9f826619ba82ad460827e9215e1cc99401751353"
+      },
+      {
+        "file": "assets/index-BWHZORUG.js",
+        "sha256": "67c5604df3ca335ed430666a86cc392cad7fba6f5f2e7332c655245332d760bc"
+      },
+      {
+        "file": "assets/index-Bcnwylxe.js",
+        "sha256": "5c3fcf11be181fa5e9d7e16845b8320700286d99ec3752f567bceae8d66f74dd"
+      },
+      {
+        "file": "assets/index-Bk0P5t1B.js",
+        "sha256": "de07f281306b173ebf729a183b71774c317601950ce1d6ebd59a17df9ffda1e1"
+      },
+      {
+        "file": "assets/index-BnjebzSW.js",
+        "sha256": "e4f856f58ab750f5b758ae77d02e80d4461fe0e780ab41cbbfdc7194e30fcb65"
+      },
+      {
+        "file": "assets/index-BqeNRjuZ.js",
+        "sha256": "3b6af82625423a2fe347dbf20521b459b5b5b20ca9d64d414c406913946749a3"
+      },
+      {
+        "file": "assets/index-ClK-FErR.js",
+        "sha256": "246378b5de5b8768afaba3f959664f06953fcfef86990faca39eeb70c93a1276"
+      },
+      {
+        "file": "assets/index-CzwQLe8p.js",
+        "sha256": "44a730ac8b1b871efd21c41a99a1e8d1686f54a2f553ca63e4b9b6f281618419"
+      },
+      {
+        "file": "assets/index-DwBP2byi.js",
+        "sha256": "5ae37368de1943a8809a525d9bb7d59f931f7311461085cabc1f81446c726564"
+      },
+      {
+        "file": "assets/index-HMJ1Pe7g.js",
+        "sha256": "eab62a88fa64a1523526013c11f87ea5513992af61c8763f6daf700468351481"
+      },
+      {
+        "file": "assets/index-Hf-RIFZU.js",
+        "sha256": "4d1414867bbf352b902140b18ade1e1221dee11f09c705469ab4940224aa9e39"
+      },
+      {
+        "file": "assets/index-MmsW8nIE.js",
+        "sha256": "57b50cd73f4e4ceeb8d235fc74c815e8ef61650d7666a8e34ad84cdc690debf8"
+      },
+      {
+        "file": "assets/index-aIC7f-T1.js",
+        "sha256": "5e66a844860ca4ea5123f0785ce3a66075756a39e1394c082b5aafd74938671f"
+      },
+      {
+        "file": "assets/index-f0ofvDmo.js",
+        "sha256": "d5a48a69ef6d159f0b1eb0885cf5abb85132b14785815cc5b1aacf0c8db2483d"
+      },
+      {
+        "file": "assets/index-gI8UvIpH.js",
+        "sha256": "063b85b015eb2a4f51b2cdd3601e40ab3211fb1cf8c52951bd4ad45c55d4cde7"
+      },
+      {
+        "file": "assets/index-gR65D_1F.js",
+        "sha256": "789ed27658706baac64b1ff7eea33d8955d3f1fa381c71e42a725d0e72176fb2"
+      },
+      {
+        "file": "assets/index-mhXsqAth.js",
+        "sha256": "0431cc1e0296d3143acdf5510e7d544e6060cbece8b72f60b2a289439f3a921b"
+      },
+      {
+        "file": "assets/index-oNyn8KyU.js",
+        "sha256": "c439a757e0b7ac753e95f6c883c8305701e2a54de00240992d70029225b80187"
+      },
+      {
+        "file": "assets/javascript-iXu5QeM3.js",
+        "sha256": "182fdca66238d12ed737c8fd2d3f5a4bfec8d6559889f9c79117a1caab05d649"
+      },
+      {
+        "file": "assets/julia-DuME0IfC.js",
+        "sha256": "9c693e030ec08a516cdbb591c88c08c69a6525445481ba74a899961e8704b9d6"
+      },
+      {
+        "file": "assets/livescript-BwQOo05w.js",
+        "sha256": "63b490e7cca07ce077a7c204e930a01413d0d5e18064eed03b1e662e01c22103"
+      },
+      {
+        "file": "assets/lua-VAEuO923.js",
+        "sha256": "ad18df7e84403433d3dc6847268b41d31e2bdb44e293ce5b147af333a9f456a7"
+      },
+      {
+        "file": "assets/mathematica-DTrFuWx2.js",
+        "sha256": "d3613780e5d57d3809324863462a59a54fb9b83f31e223d59f504a77b04dc495"
+      },
+      {
+        "file": "assets/mbox-CNhZ1qSd.js",
+        "sha256": "19086bb5a8b00d893a7b6aceea1d06a0cc34c24bdb053031f880cb1bb1994ced"
+      },
+      {
+        "file": "assets/mirc-CjQqDB4T.js",
+        "sha256": "76ae2e410f90b453529c367ac69d476e5fb516964c0bf8ffb2676d875b8522b4"
+      },
+      {
+        "file": "assets/mllike-CXdrOF99.js",
+        "sha256": "0bf60c6883fe103d813759f1b69baa46af8b5dc0b502aae492c247838a5d8784"
+      },
+      {
+        "file": "assets/modelica-Dc1JOy9r.js",
+        "sha256": "03c2e8fe9a47723c0e6eb8a2394543d7e2bdddace7770b4ae9c54005d6ae4be9"
+      },
+      {
+        "file": "assets/mscgen-BA5vi2Kp.js",
+        "sha256": "f0e7bd8988241778eac8d6093bee63f099bcd957994a35c58979ff33f5a137cc"
+      },
+      {
+        "file": "assets/mumps-BT43cFF4.js",
+        "sha256": "1eee059f667d792d74620cbb7e83406488e209e548c7de0f880cd8830d97a58f"
+      },
+      {
+        "file": "assets/nginx-DdIZxoE0.js",
+        "sha256": "67487e9c0fa87bca9b8e9be91aad97fca8b610627731156b4ae44116a2b33b36"
+      },
+      {
+        "file": "assets/nsis-LY0VT_u5.js",
+        "sha256": "8b617c3eef35cf5d07d8423a492c648445de80a2cd5b4a3b234c4f7723b554c0"
+      },
+      {
+        "file": "assets/ntriples-BfvgReVJ.js",
+        "sha256": "46bcf88e08c9250fac68671aa5bb4b5314a3ff62c487736825f6bdc41f02392b"
+      },
+      {
+        "file": "assets/octave-Ck1zUtKM.js",
+        "sha256": "2050e71c70081d414f73ab9b72ccf17a7319d311d6aba18193ba050705d661e9"
+      },
+      {
+        "file": "assets/oz-BzwKVEFT.js",
+        "sha256": "930fe68084255ef156188a29a640431ca0f276d323ce07241b92f1b678390777"
+      },
+      {
+        "file": "assets/pascal--L3eBynH.js",
+        "sha256": "19eb54c507f12be735989dcfebb5dc2f7a139777cdd71665896fb4bd287f89ca"
+      },
+      {
+        "file": "assets/perl-CdXCOZ3F.js",
+        "sha256": "195216883cd9274b5414861746c3ca02f4df013330b91440c785561fbc188f37"
+      },
+      {
+        "file": "assets/pig-CevX1Tat.js",
+        "sha256": "8a443e606edc2da2658abe26c048af2a468c4f3244434957fe11320a15938043"
+      },
+      {
+        "file": "assets/powershell-CFHJl5sT.js",
+        "sha256": "5eef7d073bc36b86d7cfd0804c38c091931f20dadc61b176ca2d70ce6bb488d2"
+      },
+      {
+        "file": "assets/properties-C78fOPTZ.js",
+        "sha256": "5b083077fe05a0376e6ca5536d04fb555ba72e848b7a8ba2cd8a7236a3a5d6b9"
+      },
+      {
+        "file": "assets/protobuf-ChK-085T.js",
+        "sha256": "872320ac45a7915b0f7aed71325ae2adb105b51cadd2a6fc74b65f5a552791ae"
+      },
+      {
+        "file": "assets/pug-DeIclll2.js",
+        "sha256": "803a888b8468015a2133ca30b67d5ad7d18a7b67e0715cbb8b0fb5426f790d20"
+      },
+      {
+        "file": "assets/puppet-DMA9R1ak.js",
+        "sha256": "c614d78e96603483b265bdb548e7cdd7a54a68df8b7a3556829d7b7ea874eb4e"
+      },
+      {
+        "file": "assets/python-BuPzkPfP.js",
+        "sha256": "ac31cf70d1ebf5ecde918d2284e736615fab53442c2b3c230bfa83f85f806d78"
+      },
+      {
+        "file": "assets/q-pXgVlZs6.js",
+        "sha256": "c4828fd3608a4a8a9b322b6e5653aea3b21aa2556267680d5d27520796320fd9"
+      },
+      {
+        "file": "assets/r-B6wPVr8A.js",
+        "sha256": "e32bc0fe55b99eb76ad25438a9c224ee4ae4d9ed482e95c40af328e44ea70a64"
+      },
+      {
+        "file": "assets/rpm-CTu-6PCP.js",
+        "sha256": "60f8f25323f47996c1e5a299f87f42de42bd6c13a584733c4fe3d71ec48ba65a"
+      },
+      {
+        "file": "assets/ruby-BK5aLJev.js",
+        "sha256": "003bfbd0b73d57a22d46969602d1965e571385dfe26883e8b874a100a8acdf36"
+      },
+      {
+        "file": "assets/sas-B4kiWyti.js",
+        "sha256": "f8c7889fa764fc5a840cbe7010e1d9f931865efee9d4c510425d62b0ac84075d"
+      },
+      {
+        "file": "assets/scheme-C41bIUwD.js",
+        "sha256": "7ddaa1a5f63ea49d2ba6007ee977de4495644082218253d0c107f7b6865ce8fe"
+      },
+      {
+        "file": "assets/shell-CjFT_Tl9.js",
+        "sha256": "b4da8a11db1127e003f10a94ff707474af1392051c41f1e0ef78152e9bd0ea95"
+      },
+      {
+        "file": "assets/sieve-C3Gn_uJK.js",
+        "sha256": "e30edd162cbd37962e7e62440bf9835dad2bb1234288486f24ad4e4940fd1e8f"
+      },
+      {
+        "file": "assets/simple-mode-GW_nhZxv.js",
+        "sha256": "8ae187bd3b7d02dbf9bd195a73c4c8635c67a557825c91a00ef476d4e1113db2"
+      },
+      {
+        "file": "assets/smalltalk-CnHTOXQT.js",
+        "sha256": "6fea82ec5301f1b147fda0b2e757be2c8dd8b4792c74dac06261c07718290762"
+      },
+      {
+        "file": "assets/solr-DehyRSwq.js",
+        "sha256": "c4f3f72687c813db9a8a676f52b958aec08292b294aade4f43ee53222bafb2cd"
+      },
+      {
+        "file": "assets/sparql-DkYu6x3z.js",
+        "sha256": "35e5e4f888aac0249bb3570ac5f07f7dbb45cef40eb8444ec2a3a0772776d0f0"
+      },
+      {
+        "file": "assets/spreadsheet-BCZA_wO0.js",
+        "sha256": "44d7acba2c5b735fbda1649b9845fbb6de24821882d2a34682bc726c1925bb03"
+      },
+      {
+        "file": "assets/sql-D0XecflT.js",
+        "sha256": "de179cb192745a50f178503fd65ae5ff2488f34b4d421de85961a1207930a125"
+      },
+      {
+        "file": "assets/stex-C3f8Ysf7.js",
+        "sha256": "bee5f7a433d45272561fef44f62f4c354b7c849efbadfe2143da5595ce0c1537"
+      },
+      {
+        "file": "assets/stylus-B533Al4x.js",
+        "sha256": "352405ae3d7bbf0dfcd087d128510cb3cd5f4763bc2e58136e069c7e915be77e"
+      },
+      {
+        "file": "assets/swift-BzpIVaGY.js",
+        "sha256": "6fdd63ef4febc2aaff6b39553ef9b5d60a76a59a4ddfedbbd260b0ebded352f9"
+      },
+      {
+        "file": "assets/tcl-DVfN8rqt.js",
+        "sha256": "dd357643696c69931e253fb64d0cd3911ac609616448c3197958a821dcbbbd08"
+      },
+      {
+        "file": "assets/textile-CnDTJFAw.js",
+        "sha256": "0f2de1a421c605520b0c8b876bd124369085c5fb7f13b12c9dfbcc60bd27c394"
+      },
+      {
+        "file": "assets/tiddlywiki-DO-Gjzrf.js",
+        "sha256": "0bf0e719c5c34298e72e308cd6be69ca63680a0bf538086adf4939a16f41aa8a"
+      },
+      {
+        "file": "assets/tiki-DGYXhP31.js",
+        "sha256": "3bdc3135821a80ff86d40c2d4fbae733f59b7dcf86a43a2367a17d1df5cb1b80"
+      },
+      {
+        "file": "assets/toml-Bm5Em-hy.js",
+        "sha256": "b7f8416bfb193fea056e2ea29ac97d5569055b02829786fae1f23d619a3b08d6"
+      },
+      {
+        "file": "assets/troff-wAsdV37c.js",
+        "sha256": "8e77af30b3dfad9e8c5fb316df448139905aeb2ec55ed63970c1c5f1e43758cd"
+      },
+      {
+        "file": "assets/ttcn-CfJYG6tj.js",
+        "sha256": "09fd86d60a4bf3f39f56146b8444dab213087d567f3685f91b810499020f5255"
+      },
+      {
+        "file": "assets/ttcn-cfg-B9xdYoR4.js",
+        "sha256": "8d367f5c728e0a125912df85cc96c61e1bd2616e3617535c70783494e6361653"
+      },
+      {
+        "file": "assets/turtle-B1tBg_DP.js",
+        "sha256": "7aee24b54c788eb05f03336ac595622a7e26d5a51d7d175fc95b12bd139f948a"
+      },
+      {
+        "file": "assets/vb-CmGdzxic.js",
+        "sha256": "a6d39b887d52687053a94f7fd6438d9e193c78735e36ec0d7585ab54873e0e3a"
+      },
+      {
+        "file": "assets/vbscript-BuJXcnF6.js",
+        "sha256": "6ca48951cc338f55899631cf06bae1f31e0ab9068225eb7a1c4a2bcbe35b1693"
+      },
+      {
+        "file": "assets/velocity-D8B20fx6.js",
+        "sha256": "a83193ff3101931e7df5a8e2c0fcd29d4b9db08d1464e270efdcfd589ad3dc17"
+      },
+      {
+        "file": "assets/verilog-C6RDOZhf.js",
+        "sha256": "51f07eed339c5f2fb36a10c69b0311f6888e5b93694ac2ba8527da651317091d"
+      },
+      {
+        "file": "assets/vhdl-lSbBsy5d.js",
+        "sha256": "9e808646c19567daf6856e0e835ea01b94fc38e4b8529c526872ecf587041256"
+      },
+      {
+        "file": "assets/webidl-ZXfAyPTL.js",
+        "sha256": "bce47d0d06b098cede3bbb8ffee3d534c1cd85610afe7463f579e357037a3bd2"
+      },
+      {
+        "file": "assets/xquery-DzFWVndE.js",
+        "sha256": "c98f053278244c215c51c68f20cc352f038a2fd3c99436400785a6d36a9853bd"
+      },
+      {
+        "file": "assets/yacas-BJ4BC0dw.js",
+        "sha256": "5f69a3c388a14c26bd6060c2eddb3970b6e3e8a40fc6419ce705783685526bf5"
+      },
+      {
+        "file": "assets/z80-Hz9HOZM7.js",
+        "sha256": "af74ec9a00d4224b94ceb13fc87cac85fadc218e26b64a2d6e4f7e47a8fede01"
+      }
+    ]
+  },
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/155.0.8059.39",
+    "revision": "@3ff7ac5a9224be9156d7f8703a06e22890aafd34",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+    "jsVersion": "15.5.35.20"
+  },
+  "checks": [
+    {
+      "id": "real_core_fixture_created",
+      "status": "passed",
+      "threads": 2,
+      "activation": "active",
+      "messages": 0,
+      "runtimeConfigured": false
+    },
+    {
+      "id": "current_message_contract_records_eight_messages_and_replays_once",
+      "status": "passed",
+      "recordedMessages": 8,
+      "execution": null
+    },
+    {
+      "id": "production_web_authenticated_no_desktop_mock",
+      "status": "passed"
+    },
+    {
+      "id": "real_project_A_home_scoped_and_canonical",
+      "status": "passed"
+    },
+    {
+      "id": "real_project_B_home",
+      "status": "passed"
+    },
+    {
+      "id": "production_history_back_forward",
+      "status": "passed"
+    },
+    {
+      "id": "production_reload_restores_project",
+      "status": "passed"
+    },
+    {
+      "id": "late_real_A_response_does_not_replace_B",
+      "status": "passed"
+    },
+    {
+      "id": "missing_directory_keeps_previous_home_and_history",
+      "status": "passed"
+    },
+    {
+      "id": "restored_directory_retry_clears_error",
+      "status": "passed"
+    },
+    {
+      "id": "production_browser_restart_restores_current_project",
+      "status": "passed",
+      "login": "restored"
+    },
+    {
+      "id": "production_thread_renders_real_recorded_messages",
+      "status": "passed"
+    },
+    {
+      "id": "same_browser_tabs_keep_unsent_text_private_and_restore_after_reload",
+      "status": "passed"
+    },
+    {
+      "id": "browser_process_restart_keeps_two_separate_body_snapshots",
+      "status": "passed"
+    },
+    {
+      "id": "explicit_previous_editor_restore_copies_one_snapshot_without_merging",
+      "status": "passed"
+    },
+    {
+      "id": "actual_browser_quota_preserves_input_and_previous_snapshot_then_retries",
+      "status": "passed"
+    },
+    {
+      "id": "record_only_message_has_no_delivery_or_withdraw_ui",
+      "status": "passed"
+    },
+    {
+      "id": "ineligible_withdrawal_rejected_and_keeps_publication_and_client_drafts",
+      "status": "passed"
+    },
+    {
+      "id": "isolated_database_integrity_and_zero_agent_runs",
+      "status": "passed"
+    }
+  ],
+  "screenshot": {
+    "file": "I02_工程首页_真实Core验收.png",
+    "sha256": "1890f15b33d3be7dc4c2b056b9258bdf27fcd328cf2b6896218a62adf1efbf5a",
+    "review": "已核查重新打开后的稳定页面；当前工程、高亮和工程内对话一致，无其他工程对话"
+  },
+  "threadScreenshot": {
+    "file": "I02_对话消息_真实Core验收.png",
+    "sha256": "b019cea190ced3ac4b46c16d78201cbe75731f7f347369dbbd4e2dac24b26d2d",
+    "review": "八条受控用户消息能在生产Thread读取；execution:null阅读记录没有投递/Turn/Run；无等待处理或撤回UI，未启动AI运行"
+  },
+  "regression": {
+    "files": 6,
+    "passed": 33,
+    "failed": 0
+  },
+  "typecheck": "passed",
+  "webBuild": "passed",
+  "electronCodeBuild": "passed",
+  "selfReview": {
+    "isolation": "独立Windows私有Core根/技能/MCP/浏览器；未使用日常数据",
+    "authority": "合法Core API创建两条空Thread，未直接写库；无第二业务权威",
+    "race": "仅延迟真实Core响应；等待A/B响应完成后检查最后意图",
+    "filesystem": "先保存README快照，只移除本次造出的空工程目录，随后还原",
+    "database": {
+      "integrity": "ok",
+      "agentRuns": 0
+    },
+    "browserLifecycle": "正常退出浏览器后以同一独立配置重新打开，等待工程对话投影加载"
+  },
+  "correctedFailures": [
+    {
+      "stage": "directory_retry",
+      "before": "成功进入后仍显示目录缺失错误",
+      "after": "重新进入工程时清除旧错误，原失败断言通过"
+    },
+    {
+      "stage": "browser_restart_driver",
+      "before": "验收工具强制终止浏览器可能丢失未落盘的最新偏好",
+      "after": "改用Browser.close正常退出，重新打开验证通过"
+    },
+    {
+      "stage": "same_browser_tab_drafts",
+      "before": "标签B能读取标签A的I02_TAB_A_UNSENT文字，原断言确切失败",
+      "after": "Web文字接入既有编辑身份恢复存储，两个标签分别输入和刷新后保持私有；清理、Pending保存和发送回执也沿同一存储"
+    }
+  ],
+  "limits": {
+    "realAgent": "not_run",
+    "customerAcceptance": "not_run",
+    "fusionAcceptanceCases": "not_run",
+    "desktopProcessRestart": "not_run",
+    "hostProcessRestart": "not_run",
+    "draftBrowserProcessRestart": "passed_normal_exit_explicit_one_copy_restore",
+    "abruptCrash": "not_run",
+    "nativeMacFixture": "按当前客户端快照和阅读记录无撤回改写，退役SQL/Pending已移除；完整Mac夹具与等待投递撤回成功尚未运行",
+    "unscopedWebLegacyDraft": "显式恢复已验证，见i02-legacy-draft-result.json；实际旧附件尚未验证",
+    "productStage": "I02-T01仍实施中",
+    "captureFailures": "此前采集/等待问题保留工作日志，只引用完整成功的一轮"
+  }
+}

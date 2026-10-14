@@ -10,6 +10,7 @@ export function CapabilityDeleteDialog({
   description,
   busy,
   error,
+  actionLabels,
   onCancel,
   onConfirm
 }: {
@@ -18,6 +19,7 @@ export function CapabilityDeleteDialog({
   description: string
   busy: boolean
   error: string | null
+  actionLabels?: { confirm: string; busy: string }
   onCancel(): void
   onConfirm(): void
 }): React.JSX.Element {
@@ -55,7 +57,7 @@ export function CapabilityDeleteDialog({
               <button ref={cancel} className="quiet-button" type="button" disabled={busy}><UiText zh={"取消"} /></button>
             </Dialog.Close>
             <button className="danger-button" type="button" disabled={busy} onClick={onConfirm}>
-              {busy ? uiAttribute("正在删除…") : uiAttribute("确认删除")}
+              {busy ? uiAttribute(actionLabels?.busy ?? "正在删除…") : uiAttribute(actionLabels?.confirm ?? "确认删除")}
             </button>
           </AppDialogFooter>
         </AppDialogContent>

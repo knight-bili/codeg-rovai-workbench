@@ -162,6 +162,7 @@ export function ThreadNavigation({
   onSettingsBack = () => undefined,
   onOpenProject,
   onSelectProject = () => undefined,
+  onOpenProjectHome,
   onCreateInProject = () => undefined,
   onThread,
   onTogglePin = () => undefined,
@@ -210,6 +211,7 @@ export function ThreadNavigation({
   onSettingsBack?(): void
   onOpenProject(): void
   onSelectProject?(project: ProjectNavigationGroup | null): void
+  onOpenProjectHome?(project: ProjectNavigationGroup): void
   onCreateInProject?(project: ProjectNavigationGroup | null): void
   onThread(thread: NavigationThreadTarget): void
   onTogglePin?(kind: NavigationPin['kind'], targetKey: string, thread?: NavigationThreadItem): void | Promise<void>
@@ -500,6 +502,7 @@ export function ThreadNavigation({
                 onCollapseThreads={() => collapseGroupThreads(groupKey)}
                 onToggleExpanded={() => toggleProjectGroup(groupKey)}
                 onSelectProject={() => onSelectProject(project)}
+                onOpenProjectHome={onOpenProjectHome ? () => onOpenProjectHome(project) : undefined}
                 onCreate={() => onCreateInProject(project)}
                 onTogglePin={project.projectPath === shellOnlyProjectPath
                   ? undefined
@@ -546,6 +549,7 @@ export function ThreadNavigation({
                 onCollapseThreads={() => collapseGroupThreads(groupKey)}
                 onToggleExpanded={() => toggleProjectGroup(groupKey)}
                 onSelectProject={() => onSelectProject(project)}
+                onOpenProjectHome={onOpenProjectHome ? () => onOpenProjectHome(project) : undefined}
                 onCreate={() => onCreateInProject(project)}
                 onTogglePin={project.projectPath === shellOnlyProjectPath
                   ? undefined
@@ -946,6 +950,7 @@ function ThreadGroup({
   onCollapseThreads,
   onToggleExpanded,
   onSelectProject,
+  onOpenProjectHome,
   onCreate,
   onTogglePin,
   onRemoveProject,
@@ -978,6 +983,7 @@ function ThreadGroup({
   onCollapseThreads(): void
   onToggleExpanded(): void
   onSelectProject(): void
+  onOpenProjectHome?(): void
   onCreate(): void
   onTogglePin?(): void
   onRenameProject?(): void
@@ -997,6 +1003,7 @@ function ThreadGroup({
   const projectMenuItems: SidebarActionMenuItem[] = pinTargetKey
     ? [{ key: 'new-chat', label: projectMenuLabels[0], icon: 'square-pen', onSelect: onCreate, disabled: createDisabled }]
     : []
+  if (onOpenProjectHome) projectMenuItems.unshift({ key: 'open-project-home', label: uiAttribute('进入工程'), icon: 'reveal', onSelect: onOpenProjectHome })
   if (onTogglePin) {
     projectMenuItems.push({
       key: 'toggle-pin',

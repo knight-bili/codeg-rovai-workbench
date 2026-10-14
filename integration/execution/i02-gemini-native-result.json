@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "task": "I02-T02",
+  "status": "native_bootstrap_and_unauthenticated_rejection_verified_Core_port_pending",
+  "scope": "real_pinned_Gemini_native_ACP_initialize_and_unauthenticated_rejection",
+  "source": {
+    "upstreamRepository": "https://github.com/google-gemini/gemini-cli",
+    "upstreamTag": "v0.60.0",
+    "upstreamCommit": "733edcb597ce690ac2e2fe3b3b3690b60a4c8f27",
+    "npm": {
+      "version": "0.60.0",
+      "nodeEngines": ">=20",
+      "integrity": "sha512-bp6aLytN+beto8sTHIzMyK5Y6Ry5mMZrBdNGx3EiAjqIpS99B8c/Elha6xyYRIabgFs0Q75/xDauNRAqHGY34w==",
+      "integrityEvidence": "独立安装的package-lock值与官方registry metadata一致；不是全目录逐文件校验",
+      "tarball": "https://registry.npmjs.org/@google/gemini-cli/-/gemini-cli-0.60.0.tgz"
+    },
+    "executableSha256": "fdff028b293149897b948a23b5d8da9e622127182a523be46d82cf267e7816f2",
+    "probe": {
+      "file": "tools/integration/smoke-gemini-acp.mjs",
+      "sha256": "e3a2ce94657f086a67d11617527cc44fe851d98a60cae1701cddc8bf309ccc29"
+    },
+    "inspectedFiles": [
+      {
+        "file": "acpRpcDispatcher.ts",
+        "sha256": "0efad1ad0db341802cc27710a5d5ab522666f3cd1a229faece8094a81a992660"
+      },
+      {
+        "file": "acpSessionManager.ts",
+        "sha256": "63e38dfcfe035a317acc9e2943810b765e7403ecb6383597633394e8ff214f1e"
+      },
+      {
+        "file": "acpSession.ts",
+        "sha256": "f21c78e7edc1b17972b3d3a94ea507788fcc67fdd1bb0fe857cb97218be63e3b"
+      },
+      {
+        "file": "acpUtils.ts",
+        "sha256": "3683efd817485ca2772429864d211fbfe4ff0ac48342d445bd616743c1c693bd"
+      },
+      {
+        "file": "storage.ts",
+        "sha256": "8c11ace1206a2e379b80b591db3d4d66d654dc677d46adfb66fbf8d2e895dc05"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "id": "pinned_version",
+      "status": "passed"
+    },
+    {
+      "id": "real_initialize_protocol_and_product_identity",
+      "status": "passed"
+    },
+    {
+      "id": "loadSession_advertised_not_execution_verified",
+      "status": "passed"
+    },
+    {
+      "id": "API_key_auth_method_advertised",
+      "status": "passed"
+    },
+    {
+      "id": "unauthenticated_session_rejected_without_success_result",
+      "status": "passed"
+    },
+    {
+      "id": "stdout_machine_JSON_only",
+      "status": "passed"
+    }
+  ],
+  "observedProtocol": {
+    "protocolVersion": 1,
+    "authMethods": [
+      {
+        "id": "oauth-personal",
+        "name": "Log in with Google",
+        "description": "Log in with your Google account"
+      },
+      {
+        "id": "gemini-api-key",
+        "name": "Gemini API key",
+        "description": "Use an API key with Gemini Developer API",
+        "_meta": {
+          "api-key": {
+            "provider": "google"
+          }
+        }
+      },
+      {
+        "id": "vertex-ai",
+        "name": "Vertex AI",
+        "description": "Use an API key with Vertex AI GenAI API"
+      },
+      {
+        "id": "gateway",
+        "name": "AI API Gateway",
+        "description": "Use a custom AI API Gateway",
+        "_meta": {
+          "gateway": {
+            "protocol": "google",
+            "restartRequired": "false"
+          }
+        }
+      }
+    ],
+    "agentInfo": {
+      "name": "gemini-cli",
+      "title": "Gemini CLI",
+      "version": "0.60.0"
+    },
+    "agentCapabilities": {
+      "loadSession": true,
+      "promptCapabilities": {
+        "image": true,
+        "audio": true,
+        "embeddedContext": true
+      },
+      "mcpCapabilities": {
+        "http": true,
+        "sse": true
+      }
+    }
+  },
+  "rejection": {
+    "code": -32000,
+    "message": "Gemini API key is missing or not configured."
+  },
+  "selfReview": {
+    "transport": "真实固定版本CLI，通过stdio JSON-RPC，不模拟ACP响应",
+    "authority": "未启动Core、未创建Run或第二业务数据库；此项仅为移植前的原生协议证据",
+    "isolation": "独立npm安装、workspace、GEMINI_CLI_HOME和系统settings；只继承运行所需操作系统变量，强制使用独立文件凭据存储，未使用操作系统凭据库或客户凭据",
+    "authentication": "故意空认证的拒绝场景，不表示客户现有账号不可用",
+    "lifecycle": "stdin关闭后真实进程退出码0；不作为session/cancel或Run停止通过",
+    "claims": "advertised loadSession/MCP/图片音频能力只记录宣告，未经真实会话验证；不作为模型/恢复/工具资格"
+  },
+  "CorePort": {
+    "kindToAdd": "gemini-cli",
+    "nativeArgs": [
+      "--acp",
+      "--skip-trust"
+    ],
+    "models": "从已认证session/new或session/load的models.availableModels/currentModelId映射，不从initialize宣告虚构目录",
+    "permissions": [
+      "default",
+      "auto_edit",
+      "yolo",
+      "plan仅在native mode目录实际提供时"
+    ],
+    "authMethods": [
+      "oauth-personal",
+      "gemini-api-key",
+      "vertex-ai",
+      "gateway"
+    ],
+    "environment": [
+      "GEMINI_CLI_HOME",
+      "GEMINI_CLI_SYSTEM_SETTINGS_PATH",
+      "GEMINI_FORCE_FILE_STORAGE",
+      "GEMINI_API_KEY",
+      "GOOGLE_GEMINI_BASE_URL",
+      "GEMINI_MODEL"
+    ],
+    "owners": [
+      "agent_profile::AdapterKind",
+      "AgentRuntimeAdapterRegistry::resolve_runtime/acp_capability_snapshot",
+      "health::configure_acp_command",
+      "acp::prepare_private_host_config/configure_runtime_command",
+      "member_environment/runtime_startup",
+      "packages/contracts及共享成员页面"
+    ]
+  },
+  "limits": {
+    "CoreAdapter": "not_implemented",
+    "modelInference": "not_run",
+    "authenticatedModelCatalog": "not_run",
+    "streaming": "not_run",
+    "cancellation": "not_run",
+    "resume": "not_run",
+    "skillMcp": "not_run",
+    "fusionAcceptance": "not_run"
+  }
+}

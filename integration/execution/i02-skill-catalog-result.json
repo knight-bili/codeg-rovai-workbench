@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14T02:17:52.085Z",
+  "task": "I02-T03",
+  "status": "fixed_catalog_and_real_Core_HTTP_preview_verified_install_and_delivery_pending",
+  "source": {
+    "parent": "ff642cd6f88350b04906086da55e4a55456de9f4",
+    "repository": "https://github.com/spacering-net/codeg",
+    "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "filesVerified": 160,
+    "bytes": 1875625,
+    "manifest": "crates/rovai-core/resources/codeg-skill-packs/manifest.json",
+    "upstreamExpertLicenseAudit": {
+      "repository": "https://github.com/obra/superpowers",
+      "tag": "v6.3.0",
+      "commit": "b36e0829c6d0140e93cfef2ca599b1b07d4a7797",
+      "filesCompared": 52,
+      "byteIdentical": 51,
+      "differences": [
+        {
+          "path": "experts/skills/writing-skills/package.json",
+          "codegBlob": "3dbc1ca591c0557e35b6004aeba250e6a70b56e3",
+          "upstreamBlob": null
+        }
+      ],
+      "license": {
+        "sourceUrl": "https://github.com/obra/superpowers/blob/b36e0829c6d0140e93cfef2ca599b1b07d4a7797/LICENSE",
+        "blob": "abf0390320aa14406af7a520b9b0739fdda9bf08",
+        "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+        "bytes": 1070
+      },
+      "qualification": "upstream_content_comparison_and_license_retention_only_no_script_execution"
+    },
+    "implementationFiles": [
+      {
+        "file": "crates/rovai-core/src/codeg_skill_catalog.rs",
+        "sha256": "4fb00df838a1460e296888dbc62c2165a071f99d97610b1753a549efaaf2bd7f"
+      },
+      {
+        "file": "crates/rovai-core/src/application.rs",
+        "sha256": "f245572e0001029d9995121086c8ddb3ce866b31b1eeeb87af56b09b3af9c71b"
+      },
+      {
+        "file": "crates/rovai-core/src/lib.rs",
+        "sha256": "5a4c1ab7dcb6e71eb59bd1372d4048fe5570ad5642bff9c7355e4accfe466af0"
+      },
+      {
+        "file": "crates/rovai-web/src/operations.rs",
+        "sha256": "559c88816dde41a033efc37896440e975bb50884d661e79e58a310a49dd0b207"
+      },
+      {
+        "file": "packages/contracts/src/index.ts",
+        "sha256": "2dbabb7ca820b33f54ad7ecaa4c0398d3d0497510c30068eeb2dd0f59732a3d7"
+      },
+      {
+        "file": "tools/integration/import-codeg-skill-catalog.mjs",
+        "sha256": "14a2995c9c13566bb15430359fee4086e1737abdb9e4d07ac5be41cf513d4adf"
+      },
+      {
+        "file": "tools/integration/smoke-skill-pack-catalog.mjs",
+        "sha256": "c9a74c2749fcc5017a6384b3819d63dd918d16445130cd451e2d9d12b122e635"
+      },
+      {
+        "file": "docs/contracts/codeg-skill-packs-v1.md",
+        "sha256": "c08b4bc6f24f2e4b5bb4c9b086647742b4c0c471a152a53eb7f7ed0ac8416ae0"
+      }
+    ]
+  },
+  "catalog": {
+    "families": [
+      "experts",
+      "science",
+      "office",
+      "ui",
+      "custom"
+    ],
+    "entries": 37,
+    "experts": 14,
+    "science": 13,
+    "OfficeExternalDefinitions": 9,
+    "embeddedUiGuide": 1,
+    "staticSkillGuides": 28,
+    "customInstancesNotInvented": true,
+    "notices": 3,
+    "sourceBytesPreserved": true
+  },
+  "APIs": {
+    "operations": [
+      "skillPacks.list",
+      "skillPacks.read"
+    ],
+    "CoreAndHostWebSameAuthority": true,
+    "currentWebOperations": 163,
+    "sourceWebOperationsRemain161": true,
+    "projectionSchema": 149,
+    "databaseMigrationAdded": false,
+    "modelContextChanged": false
+  },
+  "checked": {
+    "pureOwner": {
+      "passed": 1,
+      "failed": 0,
+      "log": "work/i02/skill-catalog-unit-final.log"
+    },
+    "webOwners": {
+      "passed": 11,
+      "failed": 0,
+      "log": "work/i02/skill-catalog-web-unit.log"
+    },
+    "workspaceAllTargets": {
+      "status": "passed",
+      "log": "work/i02/skill-catalog-all-targets-final.log"
+    },
+    "typecheck": {
+      "status": "passed",
+      "log": "work/i02/skill-catalog-typecheck-final.log"
+    },
+    "HostBuild": {
+      "status": "passed",
+      "log": "work/i02/skill-catalog-host-build-final.log"
+    },
+    "realCoreHTTP": {
+      "checks": 9,
+      "evidence": "work/i02/skill-catalog-native-evidence/catalog-WtY24N/result.json",
+      "sha256": "0766995e3048b220984e596b97ce88bfe990fba921eee19aefd43528536742ae",
+      "CoreRestart": true,
+      "noAgentRun": true,
+      "fakeHomeEmpty": true,
+      "schema": 149,
+      "scope": "真实Core与HTTP目录/预览、登录边界、原文一致、Office外部依赖及跨包拒绝；无UI/Runtime执行"
+    },
+    "docsAndBaseDiff": "passed",
+    "foundationSourceAndCurrentProtocolConsistency": "passed",
+    "scaffold": "81/324/48/21/157 unchanged"
+  },
+  "preservedFailures": [
+    {
+      "log": "work/i02/skill-catalog-unit.log",
+      "reason": "测试曾引用供体并不存在的scientific-writing，目录和28指南检查已通过，但该断言失败；改为固定来源实际scientific-brainstorming后最终1项通过"
+    }
+  ],
+  "limits": {
+    "installationUpdateUninstall": "pending_implementation",
+    "memberAssignmentAndActualRun": "not_run",
+    "marketplaceAndMCP": "pending",
+    "OfficeCLI": "not_integrated",
+    "generativeUiRenderer": "not_integrated",
+    "customAuthoring": "not_integrated",
+    "fourPlatformQualification": "not_granted",
+    "schema149WorkbenchUI": "not_run",
+    "latestWorkbenchUIHistoricalSchema": 148,
+    "full324FusionAcceptance": "not_run",
+    "defaultWorkspaceFullSuite": "not_repeated_for_this_slice"
+  },
+  "next": [
+    "实现Core拥有的显式安装/更新/卸载和来源/所有权/改动备份；不恢复旧Revision作为新索引",
+    "接入按成员选择、冻结实际输入和原生发现验证；Office、科研环境及UI渲染能力分别验收",
+    "继续MCP扫描/市场/安装与21Runtime授权投递；OpenClaw认证、Hermes信任/计量及T01待办继续研发",
+    "独立推进I03至I12，外部账号/设备/签名/付款资源保持客户待办，不削减一期范围"
+  ]
+}

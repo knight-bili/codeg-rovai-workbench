@@ -1,0 +1,337 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "task": "I02-T02",
+  "status": "local_Rust_compile_and_regressions_verified_native_qualification_pending",
+  "scope": "Gemini_Core_catalog_ACP_models_permissions_Skills_MCP_mapping_and_schema147",
+  "source": [
+    {
+      "file": "crates/rovai-core/src/agent_profile.rs",
+      "sha256": "93c7fb14fd8d86581b3500fe044d0ec9543323c4f2886e39c3441e48a47afcce"
+    },
+    {
+      "file": "crates/rovai-core/src/agent_runtime_adapter.rs",
+      "sha256": "424f94426ca9fb8e9d95173665ee3584c7fecbbafcd6ca239e4c4fdcddcfc86d"
+    },
+    {
+      "file": "crates/rovai-core/src/acp.rs",
+      "sha256": "93a54a7f0570ee22298123d2fa212eb4c231a28ee49d83183e3523ff7de9ca90"
+    },
+    {
+      "file": "crates/rovai-core/src/health.rs",
+      "sha256": "58f34d7ef18ca648f13e7ae1ba7af2e55fb13a50379f540d71dd6fea76010f65"
+    },
+    {
+      "file": "crates/rovai-core/src/db.rs",
+      "sha256": "f7b12c376c0f383d800637ca18a7d56acd3f65ae1c60e5ce671e4293d5af357e"
+    },
+    {
+      "file": "crates/rovai-core/src/native_skills.rs",
+      "sha256": "8009bafc3ea0fb50e1512cbc1f6f845aadcbf524d187489847dbc3496c42ba08"
+    },
+    {
+      "file": "crates/rovai-core/src/context.rs",
+      "sha256": "bedb480481cf8170e4dcfdf8412b4740daf9371eac6f78566a1e26ba6b9a8e62"
+    },
+    {
+      "file": "crates/rovai-core/src/monitoring.rs",
+      "sha256": "d00459a7baccbecc065dcd41bbc456a74b5c9f4bfdbf7cf3e9cd6f0d848d8d9c"
+    },
+    {
+      "file": "crates/rovai-core/src/compaction.rs",
+      "sha256": "5165ea7c37cff29435a53157cf4dd7ddd234192537b45ab80bdd8f28bfb65c77"
+    },
+    {
+      "file": "crates/rovai-core/src/runtime_platform_admission.rs",
+      "sha256": "6e2488fd98e3b3b522ac597b3537c9ba2573fb41b5b32605c0974c43adc0dda4"
+    },
+    {
+      "file": "packages/contracts/src/index.ts",
+      "sha256": "fbc55fec1038a913b16e43568d7c6173fadf6448244137e0606d678c8cd41548"
+    },
+    {
+      "file": "apps/desktop/src/renderer/src/MemberRuntimeParameters.tsx",
+      "sha256": "8f0e2ae3825303bafb3c2e8b6d6fd9f87b91230bcc1614207b3842c3ba5f1cee"
+    },
+    {
+      "file": "apps/desktop/src/renderer/src/runtime-products.ts",
+      "sha256": "4a046f32601c9db2ffe426ed9727d07e2be9766e811aa613bcab00a1c65f2e5c"
+    },
+    {
+      "file": "crates/rovai-core/src/application.rs",
+      "sha256": "69f41b1fc83ba68c5abc89e66c17d01d3fdaffdf4e39cb55d991fc185bd02462"
+    },
+    {
+      "file": "crates/rovai-core/src/runtime_failure.rs",
+      "sha256": "f452287439306d935ba45608aa722dce3f2ed12841fa2c39cf2d0687bf8c20e0"
+    },
+    {
+      "file": "crates/rovai-core/src/skill.rs",
+      "sha256": "48b66dc8c04174f91676156adbdb38ee32565fd7bd9d843ace84e563e67ea292"
+    },
+    {
+      "file": "crates/rovai-core/src/managed_process.rs",
+      "sha256": "be4bfa582b41273eed7f5c5e24c4ca8ab17805368169dc9782a855cf02125a53"
+    },
+    {
+      "file": "crates/rovai-core/src/managed_process/windows.rs",
+      "sha256": "74c3b022483dca206632d9e94670618ac939565a44dd4cc6821045b4f0ef5c38"
+    },
+    {
+      "file": "crates/rovai-core/src/runtime_activity_mapping.rs",
+      "sha256": "2cae17fef4f84b416cec69e5e5dba40054756b2e5136ba26e364937d26820d5a"
+    }
+  ],
+  "implemented": {
+    "kind": "gemini-cli",
+    "CoreCatalog": 19,
+    "sourceUnion": 21,
+    "nativeArgs": [
+      "--acp",
+      "--skip-trust"
+    ],
+    "nativeModelSelection": "--model",
+    "modelCatalog": "认证后session.models",
+    "permissions": "native modes；不虚构plan",
+    "mcp": "ACP additive/RovaiWins映射；真实工具未验证",
+    "skills": ".gemini/skills及.agents/skills；GEMINI_CLI_HOME作用域",
+    "usage": "_meta.quota.token_count输入/输出；未知缓存/金额保持缺失",
+    "migration": {
+      "id": 197,
+      "sourceSchema": 146,
+      "targetSchema": 147,
+      "closedSetTables": 7,
+      "existingData": "七表逐列快照、receipt失败回滚、外键恢复、成功迁移与重开保持已验证；不等于客户生产库升级验收"
+    },
+    "contract": "docs/contracts/gemini-runtime-v1.md",
+    "remainingAdapters": [
+      "hermes",
+      "open_claw"
+    ],
+    "lifecycle": "Core专用ACP实例、Runtime检查、精确Run查找/终止和双退出路径均已接入源码"
+  },
+  "checked": {
+    "typecheck": "passed",
+    "parameterTests": {
+      "files": 2,
+      "passed": 38,
+      "failed": 0
+    },
+    "webExecutionWebDesktopCodeBuild": "passed",
+    "cargoFormat": "passed_after_fix",
+    "workflowActionlint": "passed",
+    "docsGovernance": "passed",
+    "planningAndProtocolConsistency": "passed",
+    "localRust": {
+      "workspaceCompile": {
+        "status": "passed",
+        "command": "cargo check --workspace --all-targets",
+        "log": "work/i02/gemini-core-current-workspace-check-final.log"
+      },
+      "gemini": {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0,
+        "log": "work/i02/gemini-local-sdk-targeted-tests.log"
+      },
+      "catalogMigration": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0,
+        "log": "work/i02/gemini-local-sdk-catalog-regression-repair.log"
+      },
+      "registry": {
+        "passed": 27,
+        "failed": 0,
+        "ignored": 0,
+        "log": "work/i02/gemini-local-sdk-registry-tests.log"
+      },
+      "currentExtended": {
+        "passed": 32,
+        "failed": 0,
+        "ignored": 0,
+        "log": "work/i02/gemini-core-current-extended-final.log"
+      },
+      "repairedWindowsOwners": {
+        "ordinaryEnvironment": {
+          "passed": 18,
+          "failed": 0,
+          "ignored": 0,
+          "log": "work/i02/windows-initial-failures-retest.log"
+        },
+        "VSAndSdkEnvironment": {
+          "passed": 18,
+          "failed": 0,
+          "ignored": 0,
+          "log": "work/i02/windows-initial-failures-sdk-env-retest.log"
+        }
+      },
+      "workspaceDefault": {
+        "status": "passed",
+        "passed": 499,
+        "failed": 0,
+        "ignored": 8,
+        "log": "work/i02/gemini-core-current-workspace-final.log",
+        "testThreads": 4,
+        "ignoredReason": "8项既有子进程辅助入口，不是产品功能跳过"
+      }
+    }
+  },
+  "selfReview": {
+    "authority": "没有Codeg第二套执行/数据库；Core继续管理Run、权限与Session",
+    "persistence": "七表原CHECK拒绝新Kind，加入原子迁移及新schema读写屏障；历史I01/schema146证据不改写",
+    "catalog": "plan仅在native实际提供；丢失/重复/未知mode拒绝Ready",
+    "qualification": "Gemini四平台均未赋予运行资格；六项native bootstrap不等于模型/停止/恢复/MCP",
+    "nativeStartup": "Mac实际仍initializing_authority/no error，首个ready观察由通用12s改为独立60s；仍只接受ready，其余交互预算不变",
+    "nativeModelMethod": "固定Gemini dispatcher支持session/set_model；Core原走通用set_config_option已修。既有Unix会话owner补原生方法与无回退矩阵，Unix执行仍须CI恢复后补齐",
+    "windowsEnvironment": "保留显式overlay非法键拒绝、大小写与drive current-directory检查；过滤仅继承的=ExitCode，未修改全局环境",
+    "testRelocation": "保留原有ACP批准和启动参数owner及全部既有case；纯测试移出Unix-only模块。Windows已实际执行，无0-test假通过"
+  },
+  "RustTestAdmission": {
+    "existingOwnersExtended": [
+      "成员最大权限默认值",
+      "Skills来源矩阵",
+      "Native ACP启动参数",
+      "平台资格闭集",
+      "稀疏Usage parser"
+    ],
+    "newOwners": [
+      {
+        "name": "gemini_catalog_uses_native_modes_without_inventing_plan_or_platform_qualification",
+        "tier": "pure registry owner; existing module uses extended-tests",
+        "why": "新产品native条件模式、重复/未知拒绝及资格边界；已有Host权限变更owner不拥有这些失败语义"
+      },
+      {
+        "name": "gemini_runtime_schema_146_upgrade_preserves_all_rows_and_rolls_back_atomically",
+        "tier": "extended SQLite",
+        "why": "新schema146->147七表迁移、receipt rollback/FK及重开；旧catalog owner先退役mission/continuation结构，不适合当该精确来源夹具",
+        "assertions": "七表每列逐值快照；故障注入失败回滚；外键恢复；成功与重开保持原值"
+      }
+    ]
+  },
+  "nativeMacPrior": {
+    "runId": 38452306276,
+    "x64": "源码构建/Gemini6通过；Desktop启动ready未完成",
+    "snapshot": {
+      "state": "starting",
+      "phase": "initializing_authority",
+      "lastError": null
+    },
+    "arm64": "cancelled/assertions not_run"
+  },
+  "limits": {
+    "RustCompile": "passed_local_windows_workspace_all_targets",
+    "RustTests": "local_default_and_targeted_passed_cross_platform_pending",
+    "nativeMacReady": "not_passed",
+    "actualModel": "not_run",
+    "cancellation": "not_run",
+    "resume": "not_run",
+    "MCP": "not_run",
+    "abruptCrash": "not_run",
+    "customerAcceptance": "not_run",
+    "full324FusionCases": "not_run",
+    "unixModelWireRegression": "not_run_GitHub_billing_pending"
+  },
+  "failureHistory": [
+    {
+      "commit": "9c7b8275a212ef7c3d30cf2f8b7282c08e3008b8",
+      "CoreRun": 38459992330,
+      "linuxJob": 115512371151,
+      "macRun": 38459992249,
+      "armJob": 115512371757,
+      "stage": "compile",
+      "errors": 10,
+      "causes": [
+        "BTreeSet未导入",
+        "GEMINI_CLI_HOME根Path到PathBuf未转换",
+        "缺少Core模型检查与ACP实例/查找/关闭/终止分发",
+        "缺少协议、权限和用户错误/Skills标签分支"
+      ],
+      "action": "补齐已发现类型及生产生命周期接入；仍须新编译与迁移执行验证"
+    },
+    {
+      "id": "windows_runtime_catalog_fixture_path",
+      "stage": "targeted_existing_regression",
+      "error": "projectPath must be a non-empty absolute path",
+      "source": "crates/rovai-core/src/db.rs: runtime_catalog_migrations_preserve_rows_and_roll_back_with_their_receipts",
+      "cause": "既有夹具将项目目录写死为Unix /tmp",
+      "action": "使用该隔离夹具已有绝对临时目录；不删除测试或放宽业务校验",
+      "retest": "passed",
+      "log": "work/i02/gemini-local-sdk-catalog-regression-repair.log"
+    },
+    {
+      "id": "windows_default_regressions",
+      "first": {
+        "passed": 434,
+        "failed": 18,
+        "ignored": 8
+      },
+      "second": {
+        "passed": 436,
+        "failed": 16,
+        "ignored": 8
+      },
+      "log": "work/i02/gemini-local-sdk-workspace-tests.log",
+      "causes": [
+        "运行活动目录缺Gemini",
+        "继承的Windows =ExitCode进入受管进程环境校验"
+      ],
+      "fixes": [
+        "活动映射长度引用ALL，加入保守run_level/unknown边界",
+        "只过滤继承的已确认shell bookkeeping，显式非法键仍拒绝"
+      ],
+      "final": {
+        "passed": 499,
+        "failed": 0,
+        "ignored": 8,
+        "scope": "完整Windows workspace",
+        "log": "work/i02/gemini-core-current-workspace-final.log"
+      }
+    }
+  ],
+  "localCompiler": {
+    "status": "check_passed",
+    "developmentEnvironment": "现有VS2022与工作区NuGet SDK，仅子进程环境",
+    "linker": "E:/software/encoding/studio/.net/ide/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/link.exe",
+    "operation": "cargo check --workspace --all-targets",
+    "log": "work/i02/gemini-core-current-workspace-check-final.log",
+    "currentStage": "compile_check_completed; runtime_qualification_not_granted",
+    "sdk": [
+      {
+        "package": "Microsoft.Windows.SDK.CPP",
+        "version": "10.0.26100.9169",
+        "bytes": 160512239,
+        "hashAlgorithm": "SHA512",
+        "packageHash": "MqsFt32HBBS/8VDK3Z0SlLFqWtm4wwZjZ8laUqJGRw6iboobY7LV7CZXjzs1xPzhbZNQEkGpvid/6+ajttO8Sg==",
+        "verified": true,
+        "source": "https://api.nuget.org/v3-flatcontainer/microsoft.windows.sdk.cpp/10.0.26100.9169/microsoft.windows.sdk.cpp.10.0.26100.9169.nupkg",
+        "scope": "workspace_tools_only"
+      },
+      {
+        "package": "Microsoft.Windows.SDK.CPP.x64",
+        "version": "10.0.26100.9169",
+        "bytes": 53001499,
+        "hashAlgorithm": "SHA512",
+        "packageHash": "d8D2Bw+8GYiZOHR8JTdCB5IlXeliIyPNy6/Bc37R4HIaN3z3L2XMy+bi2rcXIvR/7gMfW7v4KRDhgpIGnvKA6g==",
+        "verified": true,
+        "source": "https://api.nuget.org/v3-flatcontainer/microsoft.windows.sdk.cpp.x64/10.0.26100.9169/microsoft.windows.sdk.cpp.x64.10.0.26100.9169.nupkg",
+        "scope": "workspace_tools_only"
+      }
+    ],
+    "wrapper": "work/i02/run-core-local.cmd",
+    "qualification": "只证明本机编译与测试；Gemini真实模型、停止、恢复及MCP仍未验证",
+    "executedFixedWrapper": "work/i02/run-core-local-checkpoint-02.cmd",
+    "fixedWrapperSha256": "4f3646a848606f843ac90f4257dafa0083e4955f877165dbb1682962f0881f5c"
+  },
+  "githubBilling": {
+    "run": 38461101658,
+    "checkRun": 115516171718,
+    "status": "job_not_started",
+    "reason": "近期付款失败或支出限制，GitHub注释未进一步区分；源码编译未执行",
+    "customerTodo": "INPUT-GITHUB-CI"
+  },
+  "localExecutionNotes": [
+    "一次运行中修改启动批处理触发追加回归；旧两轮失败日志完整保留。后续使用固定脚本副本，最终全量日志独立记录",
+    "报告只统计外层suite，排除输出中重复的子进程helper结果，不把499与32相加作为独立验收数量"
+  ]
+}

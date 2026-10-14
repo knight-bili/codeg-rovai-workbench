@@ -341,7 +341,8 @@ impl MainThreadMigrationSource {
 }
 
 pub(crate) const CURRENT_DATA_CONTRACT_VERSION: &str = "v1.72";
-pub(crate) const CURRENT_PROJECTION_SCHEMA_VERSION: i64 = 146;
+pub(crate) const CURRENT_PROJECTION_SCHEMA_VERSION: i64 = 151;
+const CURRENT_SCHEMA_MIGRATION_VERSION: i64 = 201;
 const V147_MIGRATION_SOURCE_DATA_CONTRACT_VERSION: &str = "v1.54";
 const V147_MIGRATION_SOURCE_PROJECTION_SCHEMA_VERSION: i64 = 96;
 const V145_MIGRATION_SOURCE_DATA_CONTRACT_VERSION: &str = "v1.53";
@@ -837,7 +838,7 @@ impl CurrentMigrationState {
             let mut previous = *self;
             previous.v196 = false;
             return contract == CURRENT_DATA_CONTRACT_VERSION
-                && schema == CURRENT_PROJECTION_SCHEMA_VERSION
+                && schema == 146
                 && self.v195
                 && previous.admits("v1.72", 145, classifier);
         }
@@ -2944,7 +2945,8 @@ fn connection_has_admissible_data_contract(connection: &Connection) -> rusqlite:
         .ok()
         .and_then(Option::as_ref)
         .is_some_and(|(contract, schema, _)| {
-            contract == CURRENT_DATA_CONTRACT_VERSION && matches!(schema, 145 | 146)
+            contract == CURRENT_DATA_CONTRACT_VERSION
+                && matches!(schema, 145 | 146 | 147 | 148 | 149 | 150 | 151)
         })
     {
         return Ok(matches!(
@@ -3351,12 +3353,19 @@ pub(crate) fn classify_database_contract(
     // Current databases do not re-prove every historical migration's SQL text.
     // Older layouts retain their migration-specific source recognition below.
     if marker.contract_version == CURRENT_DATA_CONTRACT_VERSION
-        && matches!(marker.projection_schema_version, 145 | 146)
+        && matches!(
+            marker.projection_schema_version,
+            145 | 146 | 147 | 148 | 149 | 150 | 151
+        )
     {
-        let expected_migration = if marker.projection_schema_version == 146 {
-            196
-        } else {
-            195
+        let expected_migration = match marker.projection_schema_version {
+            151 => CURRENT_SCHEMA_MIGRATION_VERSION,
+            150 => 200,
+            149 => 199,
+            148 => 198,
+            147 => 197,
+            146 => 196,
+            _ => 195,
         };
         let completed: bool = connection.query_row(
             "SELECT EXISTS(SELECT 1 FROM schema_migration WHERE version=?1)",
@@ -3366,8 +3375,22 @@ pub(crate) fn classify_database_contract(
         let valid = completed
             && marker.classifier_version == V147_CLASSIFIER_VERSION
             && simplification::current_structure_matches(connection)?
-            && (marker.projection_schema_version != 146
-                || simplification::schema_matches(connection)?);
+            && (marker.projection_schema_version < 146
+                || simplification::schema_matches(connection)?)
+            && (marker.projection_schema_version < 147
+                || gemini_runtime_schema_matches(connection)?)
+            && (marker.projection_schema_version != 147
+                || added_runtime_schema_matches(connection, "hermes-cli", "hermes", false)?)
+            && (marker.projection_schema_version < 148
+                || hermes_runtime_schema_matches(connection)?)
+            && (marker.projection_schema_version >= 149
+                || added_runtime_schema_matches(connection, "openclaw-cli", "openclaw", false)?)
+            && (marker.projection_schema_version < 149
+                || openclaw_runtime_schema_matches(connection)?)
+            && (marker.projection_schema_version < 150
+                || crate::skill_pack_installation::schema_matches(connection)?)
+            && (marker.projection_schema_version < 151
+                || crate::skill_pack_members::schema_matches(connection)?);
         return Ok(if !valid {
             DatabaseContractClassification::Unknown(Some(marker))
         } else if marker.projection_schema_version == CURRENT_PROJECTION_SCHEMA_VERSION {
@@ -4973,6 +4996,100 @@ fn rewrite_command_code_runtime_closed_sets(tx: &Transaction<'_>, reverse: bool)
     Ok(())
 }
 
+fn gemini_runtime_schema_matches(connection: &Connection) -> rusqlite::Result<bool> {
+    added_runtime_schema_matches(connection, "gemini-cli", "gemini", true)
+}
+
+fn hermes_runtime_schema_matches(connection: &Connection) -> rusqlite::Result<bool> {
+    added_runtime_schema_matches(connection, "hermes-cli", "hermes", true)
+}
+
+fn openclaw_runtime_schema_matches(connection: &Connection) -> rusqlite::Result<bool> {
+    added_runtime_schema_matches(connection, "openclaw-cli", "openclaw", true)
+}
+
+fn added_runtime_schema_matches(
+    connection: &Connection,
+    runtime_kind: &str,
+    skill_group: &str,
+    present: bool,
+) -> rusqlite::Result<bool> {
+    for (tables, token) in [
+        (&DSH_RUNTIME_TABLES[..], format!("'{runtime_kind}'")),
+        (&DSH_SKILL_TABLES[..], format!("'{skill_group}'")),
+    ] {
+        for table in tables {
+            let sql: Option<String> = connection
+                .query_row(
+                    "SELECT sql FROM sqlite_master WHERE type='table' AND name=?1",
+                    [table],
+                    |row| row.get(0),
+                )
+                .optional()?;
+            if sql.is_none_or(|sql| sql.contains(&token) != present) {
+                return Ok(false);
+            }
+        }
+    }
+    Ok(true)
+}
+
+fn rewrite_gemini_runtime_closed_sets(tx: &Transaction<'_>, reverse: bool) -> Result<()> {
+    rewrite_added_runtime_closed_sets(tx, reverse, "gemini-cli", "gemini")
+}
+
+fn rewrite_hermes_runtime_closed_sets(tx: &Transaction<'_>, reverse: bool) -> Result<()> {
+    rewrite_added_runtime_closed_sets(tx, reverse, "hermes-cli", "hermes")
+}
+
+fn rewrite_openclaw_runtime_closed_sets(tx: &Transaction<'_>, reverse: bool) -> Result<()> {
+    rewrite_added_runtime_closed_sets(tx, reverse, "openclaw-cli", "openclaw")
+}
+
+fn rewrite_added_runtime_closed_sets(
+    tx: &Transaction<'_>,
+    reverse: bool,
+    runtime_kind: &str,
+    skill_group: &str,
+) -> Result<()> {
+    let triggers = {
+        let mut statement = tx.prepare("SELECT name,sql FROM sqlite_master WHERE type='trigger' AND sql IS NOT NULL ORDER BY name")?;
+        statement
+            .query_map([], |row| {
+                Ok((row.get::<_, String>(0)?, row.get::<_, String>(1)?))
+            })?
+            .collect::<rusqlite::Result<Vec<_>>>()?
+    };
+    for (name, _) in &triggers {
+        tx.execute_batch(&format!("DROP TRIGGER \"{}\"", name.replace('"', "\"\"")))?;
+    }
+    for (tables, old, expanded) in [
+        (
+            &DSH_RUNTIME_TABLES[..],
+            "'command-code-cli'",
+            format!("'command-code-cli', '{runtime_kind}'"),
+        ),
+        (
+            &DSH_SKILL_TABLES[..],
+            "'command_code'",
+            format!("'command_code', '{skill_group}'"),
+        ),
+    ] {
+        for table in tables {
+            expand_closed_set(
+                tx,
+                table,
+                if reverse { expanded.as_str() } else { old },
+                if reverse { old } else { expanded.as_str() },
+            )?;
+        }
+    }
+    for (_, sql) in triggers {
+        tx.execute_batch(&sql)?;
+    }
+    Ok(())
+}
+
 fn dsh_runtime_v157_schema_matches(connection: &Connection) -> rusqlite::Result<bool> {
     for (tables, token) in [
         (&DSH_RUNTIME_TABLES[..], "'deepseek-harness'"),
@@ -6509,6 +6626,7 @@ fn run_bootstrap_schema_matches(connection: &Connection) -> rusqlite::Result<boo
 
 #[cfg(test)]
 pub(crate) fn downgrade_run_bootstrap_for_test(connection: &Connection) {
+    crate::skill_pack_installation::downgrade_for_test(connection);
     if !connection
         .query_row(
             "SELECT EXISTS(SELECT 1 FROM schema_migration WHERE version=195)",
@@ -6523,6 +6641,10 @@ pub(crate) fn downgrade_run_bootstrap_for_test(connection: &Connection) {
         .execute_batch("PRAGMA foreign_keys=OFF;")
         .unwrap();
     let tx = connection.unchecked_transaction().unwrap();
+    // Synthetic older sources cannot retain later fusion CHECK catalogs.
+    rewrite_openclaw_runtime_closed_sets(&tx, true).unwrap();
+    rewrite_hermes_runtime_closed_sets(&tx, true).unwrap();
+    rewrite_gemini_runtime_closed_sets(&tx, true).unwrap();
     let table = "native_session_bootstrap_evidence";
     let mut schema: String = tx
         .query_row(
@@ -8945,6 +9067,21 @@ impl Database {
             if !self.schema_migration_applied(196)? {
                 migration_step!("migration_196", simplification::migrate(self));
             }
+            if !self.schema_migration_applied(197)? {
+                migration_step!("migration_197", self.migrate_gemini_runtime());
+            }
+            if !self.schema_migration_applied(198)? {
+                migration_step!("migration_198", self.migrate_hermes_runtime());
+            }
+            if !self.schema_migration_applied(199)? {
+                migration_step!("migration_199", self.migrate_openclaw_runtime());
+            }
+            if !self.schema_migration_applied(200)? {
+                migration_step!("migration_200", self.migrate_skill_pack_installations());
+            }
+            if !self.schema_migration_applied(201)? {
+                migration_step!("migration_201", self.migrate_skill_pack_members());
+            }
             if let Err(error) =
                 crate::notification::maintain_notification_episode_retention(self.connection())
             {
@@ -9752,11 +9889,243 @@ impl Database {
         if !self.schema_migration_applied(196)? {
             migration_step!("migration_196", simplification::migrate(self));
         }
+        if !self.schema_migration_applied(197)? {
+            migration_step!("migration_197", self.migrate_gemini_runtime());
+        }
+        if !self.schema_migration_applied(198)? {
+            migration_step!("migration_198", self.migrate_hermes_runtime());
+        }
+        if !self.schema_migration_applied(199)? {
+            migration_step!("migration_199", self.migrate_openclaw_runtime());
+        }
+        if !self.schema_migration_applied(200)? {
+            migration_step!("migration_200", self.migrate_skill_pack_installations());
+        }
+        if !self.schema_migration_applied(201)? {
+            migration_step!("migration_201", self.migrate_skill_pack_members());
+        }
         if let Err(error) =
             crate::notification::maintain_notification_episode_retention(self.connection())
         {
             eprintln!("Notification Episode startup retention failed: {error:#}");
         }
+        Ok(())
+    }
+
+    fn migrate_gemini_runtime(&mut self) -> Result<()> {
+        self.connection.execute_batch("PRAGMA foreign_keys=OFF;")?;
+        let result = (|| -> Result<()> {
+            let tx = self
+                .connection
+                .transaction_with_behavior(TransactionBehavior::Immediate)?;
+            anyhow::ensure!(
+                matches!(classify_database_contract(&tx)?,
+                DatabaseContractClassification::SupportedMigrationSource(ref marker)
+                    if marker.contract_version == "v1.72" && marker.projection_schema_version == 146),
+                "Gemini runtime migration requires v1.72/schema 146"
+            );
+            let tables = DSH_RUNTIME_TABLES
+                .iter()
+                .chain(DSH_SKILL_TABLES.iter())
+                .copied()
+                .collect::<Vec<_>>();
+            let counts = tables
+                .iter()
+                .map(|table| {
+                    tx.query_row(&format!("SELECT COUNT(*) FROM \"{table}\""), [], |row| {
+                        row.get::<_, i64>(0)
+                    })
+                })
+                .collect::<rusqlite::Result<Vec<_>>>()?;
+            rewrite_gemini_runtime_closed_sets(&tx, false)?;
+            anyhow::ensure!(
+                gemini_runtime_schema_matches(&tx)?,
+                "Gemini runtime closed sets are incomplete"
+            );
+            for (table, count) in tables.iter().zip(counts) {
+                anyhow::ensure!(
+                    tx.query_row(&format!("SELECT COUNT(*) FROM \"{table}\""), [], |row| row
+                        .get::<_, i64>(
+                        0
+                    ))? == count,
+                    "Gemini runtime migration changed existing {table} rows"
+                );
+            }
+            tx.execute_batch("INSERT INTO schema_migration(version,applied_at) VALUES(197,datetime('now')); UPDATE rovai_data_contract SET projection_schema_version=147,updated_at=datetime('now') WHERE singleton=1;")?;
+            validate_migration_foreign_keys(&tx, &tables)?;
+            anyhow::ensure!(
+                matches!(
+                    classify_database_contract(&tx)?,
+                    DatabaseContractClassification::Current(ref marker) | DatabaseContractClassification::SupportedMigrationSource(ref marker) if marker.projection_schema_version == 147
+                ),
+                "Gemini runtime schema admission failed"
+            );
+            tx.commit()?;
+            Ok(())
+        })();
+        let foreign_keys = self.connection.execute_batch("PRAGMA foreign_keys=ON;");
+        result?;
+        foreign_keys?;
+        Ok(())
+    }
+
+    fn migrate_hermes_runtime(&mut self) -> Result<()> {
+        self.connection.execute_batch("PRAGMA foreign_keys=OFF;")?;
+        let result = (|| -> Result<()> {
+            let tx = self
+                .connection
+                .transaction_with_behavior(TransactionBehavior::Immediate)?;
+            anyhow::ensure!(
+                matches!(classify_database_contract(&tx)?,
+                DatabaseContractClassification::SupportedMigrationSource(ref marker)
+                    if marker.contract_version == "v1.72" && marker.projection_schema_version == 147),
+                "Hermes runtime migration requires v1.72/schema 147"
+            );
+            let tables = DSH_RUNTIME_TABLES
+                .iter()
+                .chain(DSH_SKILL_TABLES.iter())
+                .copied()
+                .collect::<Vec<_>>();
+            let counts = tables
+                .iter()
+                .map(|table| {
+                    tx.query_row(&format!("SELECT COUNT(*) FROM \"{table}\""), [], |row| {
+                        row.get::<_, i64>(0)
+                    })
+                })
+                .collect::<rusqlite::Result<Vec<_>>>()?;
+            rewrite_hermes_runtime_closed_sets(&tx, false)?;
+            anyhow::ensure!(
+                hermes_runtime_schema_matches(&tx)?,
+                "Hermes runtime closed sets are incomplete"
+            );
+            for (table, count) in tables.iter().zip(counts) {
+                anyhow::ensure!(
+                    tx.query_row(&format!("SELECT COUNT(*) FROM \"{table}\""), [], |row| row
+                        .get::<_, i64>(
+                        0
+                    ))? == count,
+                    "Hermes runtime migration changed existing {table} rows"
+                );
+            }
+            tx.execute_batch("INSERT INTO schema_migration(version,applied_at) VALUES(198,datetime('now')); UPDATE rovai_data_contract SET projection_schema_version=148,updated_at=datetime('now') WHERE singleton=1;")?;
+            validate_migration_foreign_keys(&tx, &tables)?;
+            anyhow::ensure!(
+                matches!(
+                    classify_database_contract(&tx)?,
+                    DatabaseContractClassification::Current(ref marker) | DatabaseContractClassification::SupportedMigrationSource(ref marker) if marker.projection_schema_version == 148
+                ),
+                "Hermes runtime schema admission failed"
+            );
+            tx.commit()?;
+            Ok(())
+        })();
+        let foreign_keys = self.connection.execute_batch("PRAGMA foreign_keys=ON;");
+        result?;
+        foreign_keys?;
+        Ok(())
+    }
+
+    fn migrate_skill_pack_installations(&mut self) -> Result<()> {
+        let transaction = self
+            .connection
+            .transaction_with_behavior(TransactionBehavior::Immediate)?;
+        anyhow::ensure!(
+            matches!(classify_database_contract(&transaction)?,
+            DatabaseContractClassification::SupportedMigrationSource(ref marker)
+                if marker.contract_version=="v1.72" && marker.projection_schema_version==149),
+            "Skill package migration requires v1.72/schema149"
+        );
+        transaction.execute_batch(crate::skill_pack_installation::TABLE_SQL)?;
+        transaction.execute_batch("INSERT INTO schema_migration(version,applied_at) VALUES(200,datetime('now')); UPDATE rovai_data_contract SET projection_schema_version=150,updated_at=datetime('now') WHERE singleton=1;")?;
+        anyhow::ensure!(
+            matches!(
+                classify_database_contract(&transaction)?,
+                DatabaseContractClassification::Current(ref marker) | DatabaseContractClassification::SupportedMigrationSource(ref marker)
+                    if marker.projection_schema_version == 150
+            ),
+            "Skill package migration schema admission failed"
+        );
+        transaction.commit()?;
+        Ok(())
+    }
+
+    pub(crate) fn migrate_skill_pack_members(&mut self) -> Result<()> {
+        let tx = self
+            .connection
+            .transaction_with_behavior(TransactionBehavior::Immediate)?;
+        anyhow::ensure!(
+            matches!(classify_database_contract(&tx)?,
+            DatabaseContractClassification::SupportedMigrationSource(ref marker) if marker.contract_version=="v1.72" && marker.projection_schema_version==150),
+            "Skill package member choices require v1.72/schema150"
+        );
+        tx.execute_batch(crate::skill_pack_members::TABLE_SQL)?;
+        tx.execute_batch("INSERT INTO schema_migration VALUES(201,datetime('now')); UPDATE rovai_data_contract SET projection_schema_version=151,updated_at=datetime('now') WHERE singleton=1;")?;
+        anyhow::ensure!(
+            matches!(
+                classify_database_contract(&tx)?,
+                DatabaseContractClassification::Current(_)
+            ),
+            "Skill package member schema admission failed"
+        );
+        tx.commit()?;
+        Ok(())
+    }
+
+    fn migrate_openclaw_runtime(&mut self) -> Result<()> {
+        self.connection.execute_batch("PRAGMA foreign_keys=OFF;")?;
+        let result = (|| -> Result<()> {
+            let tx = self
+                .connection
+                .transaction_with_behavior(TransactionBehavior::Immediate)?;
+            anyhow::ensure!(
+                matches!(classify_database_contract(&tx)?,
+                DatabaseContractClassification::SupportedMigrationSource(ref marker)
+                    if marker.contract_version == "v1.72" && marker.projection_schema_version == 148),
+                "OpenClaw runtime migration requires v1.72/schema 148"
+            );
+            let tables = DSH_RUNTIME_TABLES
+                .iter()
+                .chain(DSH_SKILL_TABLES.iter())
+                .copied()
+                .collect::<Vec<_>>();
+            let counts = tables
+                .iter()
+                .map(|table| {
+                    tx.query_row(&format!("SELECT COUNT(*) FROM \"{table}\""), [], |row| {
+                        row.get::<_, i64>(0)
+                    })
+                })
+                .collect::<rusqlite::Result<Vec<_>>>()?;
+            rewrite_openclaw_runtime_closed_sets(&tx, false)?;
+            anyhow::ensure!(
+                openclaw_runtime_schema_matches(&tx)?,
+                "OpenClaw runtime closed sets are incomplete"
+            );
+            for (table, count) in tables.iter().zip(counts) {
+                anyhow::ensure!(
+                    tx.query_row(&format!("SELECT COUNT(*) FROM \"{table}\""), [], |row| row
+                        .get::<_, i64>(
+                        0
+                    ))? == count,
+                    "OpenClaw runtime migration changed existing {table} rows"
+                );
+            }
+            tx.execute_batch("INSERT INTO schema_migration(version,applied_at) VALUES(199,datetime('now')); UPDATE rovai_data_contract SET projection_schema_version=149,updated_at=datetime('now') WHERE singleton=1;")?;
+            validate_migration_foreign_keys(&tx, &tables)?;
+            anyhow::ensure!(
+                matches!(
+                    classify_database_contract(&tx)?,
+                    DatabaseContractClassification::Current(ref marker) | DatabaseContractClassification::SupportedMigrationSource(ref marker) if marker.projection_schema_version == 149
+                ),
+                "OpenClaw runtime schema admission failed"
+            );
+            tx.commit()?;
+            Ok(())
+        })();
+        let foreign_keys = self.connection.execute_batch("PRAGMA foreign_keys=ON;");
+        result?;
+        foreign_keys?;
         Ok(())
     }
 
@@ -39451,6 +39820,229 @@ mod tests {
     use super::*;
 
     #[test]
+    fn skill_pack_migration_preserves_receipts_and_rolls_back_its_table() {
+        use crate::command::{ActorRef, CommandEnvelope};
+        use crate::skill_pack_installation::{InstallSkillPackCommand, SkillPackStore};
+        let directory =
+            std::env::temp_dir().join(format!("rovai-skill-pack-migration-{}", Uuid::new_v4()));
+        let mut database = Database::open(&directory).unwrap();
+        let command = CommandEnvelope {
+            command_id: Uuid::new_v4().to_string(),
+            actor: ActorRef::User {
+                user_id: "local_user".into(),
+            },
+            camp_id: None,
+            expected_versions: Vec::new(),
+            execution_epoch: None,
+            payload: InstallSkillPackCommand {
+                skill_id: "brainstorming".into(),
+                source_revision: "stale-source".into(),
+                expected_version: "absent".into(),
+            },
+        };
+        SkillPackStore::new(&directory)
+            .unwrap()
+            .begin_install(&mut database, &command)
+            .unwrap();
+        crate::skill_pack_members::downgrade_for_test(database.connection());
+        database.connection().execute_batch("DROP TABLE skill_pack_installation; DELETE FROM schema_migration WHERE version=200; UPDATE rovai_data_contract SET projection_schema_version=149 WHERE singleton=1;").unwrap();
+        assert!(matches!(
+            classify_database_contract(database.connection()).unwrap(),
+            DatabaseContractClassification::SupportedMigrationSource(_)
+        ));
+        database.connection().execute_batch("CREATE TRIGGER reject_package_migration BEFORE INSERT ON schema_migration WHEN NEW.version=200 BEGIN SELECT RAISE(ABORT,'injected receipt failure'); END;").unwrap();
+        assert!(database.migrate_skill_pack_installations().is_err());
+        assert!(!crate::skill_pack_installation::schema_matches(database.connection()).unwrap());
+        assert!(!database.schema_migration_applied(200).unwrap());
+        assert!(
+            matches!(classify_database_contract(database.connection()).unwrap(),DatabaseContractClassification::SupportedMigrationSource(ref marker) if marker.projection_schema_version==149)
+        );
+        database
+            .connection()
+            .execute_batch("DROP TRIGGER reject_package_migration;")
+            .unwrap();
+        database.migrate_skill_pack_installations().unwrap();
+        database.migrate_skill_pack_members().unwrap();
+        assert!(connection_has_current_data_contract(database.connection()).unwrap());
+        assert!(database.schema_migration_applied(200).unwrap());
+        assert!(
+            crate::command::DomainCommandGateway
+                .replay_if_recorded(&database, &command)
+                .unwrap()
+                .is_some()
+        );
+        drop(database);
+        let reopened = Database::open(&directory).unwrap();
+        assert!(connection_has_current_data_contract(reopened.connection()).unwrap());
+        reopened
+            .connection()
+            .execute_batch("ALTER TABLE skill_pack_installation ADD COLUMN unexpected TEXT")
+            .unwrap();
+        assert!(matches!(
+            classify_database_contract(reopened.connection()).unwrap(),
+            DatabaseContractClassification::Unknown(_)
+        ));
+    }
+
+    // Both exact deployed sources use the same seven-table rebuild boundary.
+    #[test]
+    fn runtime_catalog_upgrades_preserve_values_and_roll_back_receipts() {
+        type Rewrite = fn(&Transaction<'_>, bool) -> Result<()>;
+        type Migrate = fn(&mut Database) -> Result<()>;
+        type Matches = fn(&Connection) -> rusqlite::Result<bool>;
+        for (source_schema, target_schema, receipt, rewrite, migrate, schema_matches) in [
+            (
+                146,
+                147,
+                197,
+                rewrite_gemini_runtime_closed_sets as Rewrite,
+                Database::migrate_gemini_runtime as Migrate,
+                gemini_runtime_schema_matches as Matches,
+            ),
+            (
+                147,
+                148,
+                198,
+                rewrite_hermes_runtime_closed_sets as Rewrite,
+                Database::migrate_hermes_runtime as Migrate,
+                hermes_runtime_schema_matches as Matches,
+            ),
+            (
+                148,
+                149,
+                199,
+                rewrite_openclaw_runtime_closed_sets as Rewrite,
+                Database::migrate_openclaw_runtime as Migrate,
+                openclaw_runtime_schema_matches as Matches,
+            ),
+        ] {
+            let (mut database, directory) = crate::test_support::seeded_runtime_database();
+            crate::skill_pack_installation::downgrade_for_test(database.connection());
+            database
+                .connection()
+                .execute_batch("PRAGMA foreign_keys=OFF;")
+                .unwrap();
+            {
+                let tx = database.connection().unchecked_transaction().unwrap();
+                if source_schema < 148 {
+                    rewrite_openclaw_runtime_closed_sets(&tx, true).unwrap();
+                }
+                if source_schema == 146 {
+                    rewrite_hermes_runtime_closed_sets(&tx, true).unwrap();
+                }
+                rewrite(&tx, true).unwrap();
+                tx.execute_batch(&format!("DELETE FROM schema_migration WHERE version>={receipt}; UPDATE rovai_data_contract SET projection_schema_version={source_schema} WHERE singleton=1;")).unwrap();
+                tx.commit().unwrap();
+            }
+            database
+                .connection()
+                .execute_batch("PRAGMA foreign_keys=ON;")
+                .unwrap();
+            let snapshot = |connection: &Connection| {
+                DSH_RUNTIME_TABLES
+                    .iter()
+                    .chain(DSH_SKILL_TABLES.iter())
+                    .map(|table| {
+                        let mut columns = connection
+                            .prepare(&format!("PRAGMA table_info('{table}')"))
+                            .unwrap();
+                        let names = columns
+                            .query_map([], |row| row.get::<_, String>(1))
+                            .unwrap()
+                            .collect::<rusqlite::Result<Vec<_>>>()
+                            .unwrap();
+                        let order = names
+                            .iter()
+                            .map(|name| format!("\"{}\"", name.replace('"', "\"\"")))
+                            .collect::<Vec<_>>()
+                            .join(",");
+                        let mut query = connection
+                            .prepare(&format!("SELECT * FROM \"{table}\" ORDER BY {order}"))
+                            .unwrap();
+                        let count = query.column_count();
+                        query
+                            .query_map([], |row| {
+                                (0..count)
+                                    .map(|index| row.get::<_, rusqlite::types::Value>(index))
+                                    .collect::<rusqlite::Result<Vec<_>>>()
+                            })
+                            .unwrap()
+                            .collect::<rusqlite::Result<Vec<_>>>()
+                            .unwrap()
+                    })
+                    .collect::<Vec<_>>()
+            };
+
+            let before = snapshot(database.connection());
+            assert!(
+                matches!(classify_database_contract(database.connection()).unwrap(),
+                DatabaseContractClassification::SupportedMigrationSource(ref marker) if marker.projection_schema_version==source_schema)
+            );
+            if source_schema >= 147 {
+                database
+                    .connection()
+                    .execute_batch("PRAGMA foreign_keys=OFF;")
+                    .unwrap();
+                {
+                    let tx = database.connection().unchecked_transaction().unwrap();
+                    rewrite(&tx, false).unwrap();
+                    assert!(
+                        matches!(
+                            classify_database_contract(&tx).unwrap(),
+                            DatabaseContractClassification::Unknown(_)
+                        ),
+                        "an older marker must not admit the next unreceipted Runtime catalog"
+                    );
+                    tx.rollback().unwrap();
+                }
+                database
+                    .connection()
+                    .execute_batch("PRAGMA foreign_keys=ON;")
+                    .unwrap();
+                assert_eq!(snapshot(database.connection()), before);
+            }
+            database.connection().execute_batch(&format!("CREATE TEMP TRIGGER reject_runtime_receipt BEFORE INSERT ON schema_migration WHEN NEW.version={receipt} BEGIN SELECT RAISE(ABORT,'runtime catalog rollback fixture'); END;")).unwrap();
+            assert!(
+                migrate(&mut database)
+                    .unwrap_err()
+                    .to_string()
+                    .contains("runtime catalog rollback fixture")
+            );
+            assert_eq!(snapshot(database.connection()), before);
+            assert!(!schema_matches(database.connection()).unwrap());
+            assert!(!database.schema_migration_applied(receipt).unwrap());
+            assert_eq!(
+                database
+                    .connection()
+                    .query_row("PRAGMA foreign_keys", [], |row| row.get::<_, i64>(0))
+                    .unwrap(),
+                1
+            );
+            database
+                .connection()
+                .execute_batch("DROP TRIGGER reject_runtime_receipt;")
+                .unwrap();
+            migrate(&mut database).unwrap();
+            assert_eq!(snapshot(database.connection()), before);
+            assert!(
+                matches!(classify_database_contract(database.connection()).unwrap(),
+                DatabaseContractClassification::Current(ref marker) | DatabaseContractClassification::SupportedMigrationSource(ref marker)
+                if marker.projection_schema_version==target_schema)
+            );
+            drop(database);
+            let reopened = Database::open(&directory).unwrap();
+            assert_eq!(snapshot(reopened.connection()), before);
+            assert!(reopened.schema_migration_applied(receipt).unwrap());
+            assert!(
+                matches!(classify_database_contract(reopened.connection()).unwrap(),
+                DatabaseContractClassification::Current(ref marker) if marker.projection_schema_version==CURRENT_PROJECTION_SCHEMA_VERSION)
+            );
+            drop(reopened);
+            std::fs::remove_dir_all(directory).unwrap();
+        }
+    }
+
+    #[test]
     fn session_context_migration_upgrades_schema_127_and_rolls_back_atomically() {
         let directory =
             std::env::temp_dir().join(format!("rovai-context-migration-{}", Uuid::new_v4()));
@@ -40008,6 +40600,7 @@ mod tests {
     }
 
     fn fresh_schema_database_v170_at(directory: &Path) -> Database {
+        crate::platform::private_storage::prepare_private_directory(directory).unwrap();
         STOP_BEFORE_TASK_VERSIONLESS_MIGRATION_FOR_TEST
             .with(|flag| {
                 flag.set(true);
@@ -41240,9 +41833,10 @@ mod tests {
             let (mut database, directory) = crate::test_support::seeded_runtime_database();
             user_anchors::downgrade_for_test(database.connection());
             let native_description = if version == 186 {
+                let project_path = directory.to_string_lossy();
                 let created = crate::mission::MissionService::default().create(&mut database, &crate::command::CommandEnvelope {
                     command_id: "main-185-migration".into(), actor: crate::command::ActorRef::User{user_id:"local_user".into()}, camp_id:None, expected_versions:vec![],execution_epoch:None,
-                    payload: serde_json::from_value(serde_json::json!({"title":"Preserved", "descriptionContent":[{"kind":"text","text":"literal @名字\n"},{"kind":"member_mention","agentId":"agent_1"}], "projectPath":"/tmp", "projectBindingKind":"directory", "memberAgentIds":["agent_1"], "defaultLeadAgentId":"agent_1"})).unwrap(),
+                    payload: serde_json::from_value(serde_json::json!({"title":"Preserved", "descriptionContent":[{"kind":"text","text":"literal @名字\n"},{"kind":"member_mention","agentId":"agent_1"}], "projectPath":project_path, "projectBindingKind":"directory", "memberAgentIds":["agent_1"], "defaultLeadAgentId":"agent_1"})).unwrap(),
                 }).unwrap();
                 let id = created.result.payload["missionId"]
                     .as_str()
@@ -41709,9 +42303,9 @@ mod tests {
             ),
             ("v1.68/schema 122 before Skills rebuild", "v1.68", 122, 172),
             (
-                "current",
+                "v1.72/schema 146 before Gemini catalog",
                 CURRENT_DATA_CONTRACT_VERSION,
-                CURRENT_PROJECTION_SCHEMA_VERSION,
+                146,
                 196,
             ),
             (
@@ -42844,6 +43438,11 @@ mod tests {
             .unwrap();
         database.migrate_run_bootstrap_evidence().unwrap();
         simplification::migrate(&mut database).unwrap();
+        database.migrate_gemini_runtime().unwrap();
+        database.migrate_hermes_runtime().unwrap();
+        database.migrate_openclaw_runtime().unwrap();
+        database.migrate_skill_pack_installations().unwrap();
+        database.migrate_skill_pack_members().unwrap();
         assert!(connection_has_current_data_contract(database.connection()).unwrap());
         database.connection().execute_batch("DROP INDEX native_session_bootstrap_binding_idx;
             CREATE UNIQUE INDEX native_session_bootstrap_binding_idx ON native_session_bootstrap_evidence(native_binding_id,native_binding_generation)").unwrap();
@@ -42914,6 +43513,7 @@ mod tests {
     fn database_contract_preflight_admits_current_and_rejects_future_store() {
         let directory =
             std::env::temp_dir().join(format!("rovai-current-contract-smoke-{}", Uuid::new_v4()));
+        crate::platform::private_storage::prepare_private_directory(&directory).unwrap();
         let database = crate::test_support::fresh_schema_database_fast_at(&directory);
         let state = load_current_migration_state(database.connection())
             .expect("current migration markers should load");
@@ -42927,7 +43527,9 @@ mod tests {
             .expect("current contract marker should load");
 
         assert_eq!(state, migration_state_through(196));
-        assert!(state.admits(&contract, schema, &classifier));
+        assert_eq!(schema, CURRENT_PROJECTION_SCHEMA_VERSION);
+        // The historical receipt walker stops at 196; current admission owns later catalogs.
+        assert!(state.admits(&contract, 146, &classifier));
         assert!(has_admissible_data_contract(
             &directory.join("rovai.sqlite")
         ));
@@ -42962,7 +43564,10 @@ mod tests {
                 }
                 "old_receipts" => {
                     connection
-                        .execute("DELETE FROM schema_migration WHERE version<195", [])
+                        .execute(
+                            "DELETE FROM schema_migration WHERE version<?1",
+                            [CURRENT_SCHEMA_MIGRATION_VERSION],
+                        )
                         .unwrap();
                 }
                 "optional_usage" => {
@@ -42979,7 +43584,10 @@ mod tests {
                 }
                 "current_receipt" => {
                     connection
-                        .execute("DELETE FROM schema_migration WHERE version=196", [])
+                        .execute(
+                            "DELETE FROM schema_migration WHERE version=?1",
+                            [CURRENT_SCHEMA_MIGRATION_VERSION],
+                        )
                         .unwrap();
                 }
                 _ => unreachable!(),
@@ -43013,10 +43621,11 @@ mod tests {
             .unwrap();
         database
             .connection()
-            .execute_batch(
-                "DELETE FROM schema_migration WHERE version<196;
+            .execute_batch(&format!(
+                "DELETE FROM schema_migration WHERE version<{};
              DROP TABLE runtime_usage_run_summary;",
-            )
+                CURRENT_SCHEMA_MIGRATION_VERSION
+            ))
             .unwrap();
         drop(database);
         // Exercise the production opening seam: missing historical receipts
@@ -45475,6 +46084,9 @@ mod tests {
                     | SkillDeliveryGroupKey::Dsh
                     | SkillDeliveryGroupKey::Cline
                     | SkillDeliveryGroupKey::CommandCode
+                    | SkillDeliveryGroupKey::Gemini
+                    | SkillDeliveryGroupKey::Hermes
+                    | SkillDeliveryGroupKey::OpenClaw
             )
         }) {
             for (skill_id, revision_id) in [
@@ -45693,6 +46305,9 @@ mod tests {
                     | SkillDeliveryGroupKey::Dsh
                     | SkillDeliveryGroupKey::Cline
                     | SkillDeliveryGroupKey::CommandCode
+                    | SkillDeliveryGroupKey::Gemini
+                    | SkillDeliveryGroupKey::Hermes
+                    | SkillDeliveryGroupKey::OpenClaw
             )
         }) {
             for (skill_id, revision_id) in [
@@ -45876,6 +46491,9 @@ mod tests {
                     | SkillDeliveryGroupKey::Dsh
                     | SkillDeliveryGroupKey::Cline
                     | SkillDeliveryGroupKey::CommandCode
+                    | SkillDeliveryGroupKey::Gemini
+                    | SkillDeliveryGroupKey::Hermes
+                    | SkillDeliveryGroupKey::OpenClaw
             )
         }) {
             for (skill_id, revision_id) in [
@@ -46237,6 +46855,9 @@ mod tests {
                     | SkillDeliveryGroupKey::Dsh
                     | SkillDeliveryGroupKey::Cline
                     | SkillDeliveryGroupKey::CommandCode
+                    | SkillDeliveryGroupKey::Gemini
+                    | SkillDeliveryGroupKey::Hermes
+                    | SkillDeliveryGroupKey::OpenClaw
             )
         }) {
             for (skill_id, revision_id) in [
@@ -46779,7 +47400,7 @@ mod tests {
             "SELECT sql FROM sqlite_schema WHERE type = 'table' AND name = 'adapter_installation'",
             [], |row| row.get(0)
         ).unwrap();
-        assert!(!adapter_schema.contains("'pi'"));
+        assert!(!adapter_schema.contains("'pi'"), "{adapter_schema}");
         database
             .connection()
             .execute_batch("DROP TRIGGER reject_pi_receipt")
@@ -49270,7 +49891,11 @@ mod tests {
 
     #[test]
     fn legacy_feishu_migration_marker_collision_reconciles_without_quarantine() {
-        let (database, directory) = crate::test_support::seeded_runtime_database();
+        let directory =
+            std::env::temp_dir().join(format!("rovai-legacy-feishu-private-{}", Uuid::new_v4()));
+        crate::platform::private_storage::prepare_private_directory(&directory).unwrap();
+        let database = crate::test_support::fresh_schema_database_at(&directory);
+        crate::agent_profile::configure_test_runtime(&database, &["agent_1", "agent_2", "agent_3"]);
         database
             .connection()
             .execute("DELETE FROM schema_migration WHERE version = 115", [])

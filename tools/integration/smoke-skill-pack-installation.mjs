@@ -1,0 +1,70 @@
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+import {createHash,randomUUID} from 'node:crypto';
+import {mkdir,mkdtemp,realpath,readFile,writeFile,readdir,symlink} from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {DatabaseSync} from 'node:sqlite';
+import {launchHost} from '../../scripts/lib/host-test-client.mjs';
+import {coreDataDirectoryArguments} from '../../scripts/lib/runtime-camp-files-root.mjs';
+
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
+const [previousBinary,binary,ui,evidenceRoot]=process.argv.slice(2);
+assert([previousBinary,binary,ui,evidenceRoot].every(value=>value && path.isAbsolute(value)),'Provide absolute schema149 Host, current Host, Web UI and evidence paths');
+await mkdir(evidenceRoot,{recursive:true});const fixture=await realpath(await mkdtemp(path.join(evidenceRoot,'install-')));
+const home=path.join(fixture,'fake-home'),temp=path.join(fixture,'tmp');await mkdir(home);await mkdir(temp);
+const env={};for(const [key,value] of Object.entries(process.env))if(['PATH','SYSTEMROOT','WINDIR','COMSPEC','PATHEXT'].includes(key.toUpperCase()))env[key]=value;
+Object.assign(env,{HOME:home,USERPROFILE:home,APPDATA:path.join(home,'AppData/Roaming'),LOCALAPPDATA:path.join(home,'AppData/Local'),XDG_CONFIG_HOME:path.join(home,'.config'),XDG_DATA_HOME:path.join(home,'.local/share'),XDG_STATE_HOME:path.join(home,'.local/state'),TEMP:temp,TMP:temp,ROVAI_BUNDLED_SKILLS_ROOT:path.join(root,'skills')});
+const formal=path.join(fixture,'formal');const dataDir=process.platform==='win32'?JSON.parse(execFileSync(previousBinary,['--prepare-windows-data-root',formal],{env,encoding:'utf8',windowsHide:true})).core:formal;
+const skillRoot=path.join(dataDir,'skills'),mcp=path.join(dataDir,'mcp.json');
+const checks=[];let host,call;let stage='old_Core';
+const record=(id,detail={})=>{checks.push({id,status:'passed',...detail});console.log(JSON.stringify({stage:id,passed:checks.length}));};
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+const startup=async()=>{let timer;const started=Date.now();try{await Promise.race([host.ready,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Isolated Core startup exceeded 60 seconds')),60000);})]);return Date.now()-started;}finally{clearTimeout(timer);}};
+const start=async executable=>{
+  host=launchHost(executable,[...coreDataDirectoryArguments(dataDir,{homeDirectory:home}),'--skill-library-root',skillRoot,'--mcp-config-path',mcp],{cwd:root,env,windowsHide:true});const startupMs=await startup();console.log(JSON.stringify({stage:'isolated_Core_ready',startupMs}));
+  const web=await host.request('host.web.start',{listen:'127.0.0.1:0',uiDirectory:ui});assert(web.origin.startsWith('http://127.0.0.1:'));
+  const login=await fetch(`${web.origin}/api/v1/login`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({protocolVersion:4,administratorToken:web.administratorToken}),signal:AbortSignal.timeout(15000)});assert.equal(login.status,200);const token=(await login.json()).token;assert(token);
+  call=async(operation,params={})=>{const response=await fetch(`${web.origin}/api/v1/request`,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({operation,params}),signal:AbortSignal.timeout(15000)});assert.equal(response.status,200,operation);const payload=await response.json();assert.equal(payload.error,null,JSON.stringify({operation,error:payload.error}));return payload.result;};
+};
+const close=async()=>{await host.close();host=undefined;};
+const applied=(result,code)=>{assert.equal(result.status,'applied');if(code)assert.equal(result.code,code);};
+const database=fn=>{const db=new DatabaseSync(path.join(dataDir,'rovai.sqlite'),{readOnly:true});try{return fn(db);}finally{db.close();}};
+try {
+  await start(previousBinary);
+  const oldCommand={commandId:randomUUID(),command:{skillName:'member-studio',memberIds:[],expectedVersion:'stale-proof'}};
+  const oldReceipt=await call('toolbox.setMembers',oldCommand);assert.equal(oldReceipt.code,'toolbox.members.conflict');
+  await close();database(db=>{assert.equal(db.prepare('SELECT projection_schema_version AS n FROM rovai_data_contract WHERE singleton=1').get().n,149);});record('real_schema149_command_receipt_seeded');
+  stage='upgrade';await start(binary);assert.deepEqual(await call('toolbox.setMembers',oldCommand),oldReceipt);record('real_149_to_150_upgrade_keeps_command_receipt');
+  const catalog=await call('skillPacks.list');const entries=catalog.entries.filter(entry=>entry.contentSource==='embedded');assert.equal(entries.length,28);
+  assert.deepEqual(await call('skillPacks.installations.list'),[]);record('upgrade_does_not_auto_install');
+  const install=(skillId,expectedVersion,commandId=randomUUID())=>call('skillPacks.install',{commandId,command:{skillId,sourceRevision:catalog.commit,expectedVersion}});
+  const originalCommandId=randomUUID();const first=await install('brainstorming','absent',originalCommandId);applied(first,'skill_pack.installed');
+  const initial=(await call('skillPacks.installations.list'))[0];assert.equal(initial.availability,'available');assert.equal(initial.memberDeliveryEnabled,false);assert(initial.contentPath.startsWith(dataDir+path.sep));
+  const original=await call('skillPacks.read',{skillId:'brainstorming'});assert.equal(await readFile(path.join(initial.contentPath,'SKILL.md'),'utf8'),original.content);record('explicit_install_writes_exact_owned_source');
+  const notices=JSON.parse(await readFile(path.join(path.dirname(initial.contentPath),'THIRD_PARTY_NOTICES.json'),'utf8'));assert.equal(notices.length,3);record('installed_version_keeps_notices');
+  const rootVersions=path.join(dataDir,'skill-packs/versions');const countBefore=(await readdir(rootVersions)).length;
+  assert.deepEqual(await install('no-such-skill','bad',originalCommandId),first);assert.equal((await readdir(rootVersions)).length,countBefore);record('same_commandId_replays_without_filesystem_write');
+  applied(await install('brainstorming',initial.version),'skill_pack.already_current');assert.equal((await readdir(rootVersions)).length,countBefore);record('new_command_keeps_healthy_current_version');
+  const stale=await install('brainstorming','absent');assert.equal(stale.code,'skill_pack.version_conflict');assert.equal((await readdir(rootVersions)).length,countBefore);record('stale_client_cannot_overwrite');
+  const office=await install('officecli-pptx','absent');assert.equal(office.code,'skill_pack.source_not_bundled');assert.equal((await readdir(rootVersions)).length,countBefore);record('Office_requires_actual_external_content');
+  const userText=original.content+'\nUser change kept by the integration fixture.\n';await writeFile(path.join(initial.contentPath,'SKILL.md'),userText);
+  assert.equal((await call('skillPacks.installations.list'))[0].availability,'modified');applied(await install('brainstorming',initial.version),'skill_pack.installed');
+  let current=(await call('skillPacks.installations.list'))[0];assert.notEqual(current.contentPath,initial.contentPath);assert.equal(current.availability,'available');assert.equal(await readFile(path.join(initial.contentPath,'SKILL.md'),'utf8'),userText);assert.equal(await readFile(path.join(current.contentPath,'SKILL.md'),'utf8'),original.content);record('explicit_refresh_preserves_user_edits_in_old_version');
+  const foreign=path.join(fixture,'foreign');await mkdir(foreign);const foreignText='Foreign directory must be retained unchanged.';await writeFile(path.join(foreign,'sentinel.txt'),foreignText);
+  await symlink(foreign,path.join(current.contentPath,'foreign-link'),process.platform==='win32'?'junction':'dir');
+  assert.equal((await call('skillPacks.installations.list'))[0].availability,'unavailable');record('linked_child_refuses_package_availability');
+  const uninstallCommand={commandId:randomUUID(),command:{skillId:'brainstorming',expectedVersion:current.version}};
+  const removed=await call('skillPacks.uninstall',uninstallCommand);applied(removed,'skill_pack.uninstalled');assert.equal(removed.payload.retainedContent,true);assert.equal(await readFile(path.join(foreign,'sentinel.txt'),'utf8'),foreignText);record('uninstall_does_not_traverse_or_delete_retained_tree');
+  const removedView=(await call('skillPacks.installations.list'))[0];assert.equal(removedView.availability,'removed');
+  stage='restart_removed';await close();await start(binary);assert.equal((await call('skillPacks.installations.list'))[0].version,removedView.version);assert.deepEqual(await call('skillPacks.uninstall',uninstallCommand),removed);record('uninstall_and_replay_survive_Core_restart');
+  applied(await install('brainstorming',removedView.version),'skill_pack.installed');record('reinstall_publishes_new_version');
+  stage='all_bundled_sources';
+  for(const entry of entries.filter(entry=>entry.id!=='brainstorming')){const result=await install(entry.id,'absent');applied(result,'skill_pack.installed');}
+  const installed=await call('skillPacks.installations.list');assert.equal(installed.length,28);assert(installed.every(entry=>entry.availability==='available' && !entry.memberDeliveryEnabled));record('all_28_embedded_sources_install_and_validate',{entries:28});
+  await close();database(db=>{assert.equal(db.prepare('SELECT projection_schema_version AS n FROM rovai_data_contract WHERE singleton=1').get().n,150);assert.equal(db.prepare('SELECT count(*) AS n FROM schema_migration WHERE version=200').get().n,1);assert.equal(db.prepare("SELECT count(*) AS n FROM skill_pack_installation WHERE status='installed'").get().n,28);assert.equal(db.prepare('SELECT count(*) AS n FROM agent_run').get().n,0);assert.equal(Object.values(db.prepare('PRAGMA integrity_check').get())[0],'ok');});record('schema150_receipt_200_integrity_and_zero_AgentRun');
+  if(process.platform==='win32')assert.deepEqual(await readdir(home),[]);for(const name of ['.codeg','.claude','.codex']){const names=await readdir(home);assert(!names.includes(name));}record('native_user_skill_configurations_untouched');
+  const result={status:'passed',task:'I02-T03',scope:'real_old_and_new_Core_HTTP_installation_lifecycle_no_runtime_execution',checks,fixture,dataDir,sourceCommit:catalog.commit,previousHostSha256:sha(await readFile(previousBinary)),currentHostSha256:sha(await readFile(binary)),schema:150,migration:200,installed:28,retainedUserEdits:true,retainedForeignDirectory:true,memberDelivery:false,modelInference:false,UI:false,OfficeCLI:false,generativeUiRenderer:false};
+  await writeFile(path.join(fixture,'result.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({status:'passed',checks:checks.length,evidence:path.join(fixture,'result.json')}));
+} catch(error) {await writeFile(path.join(fixture,'failure.json'),JSON.stringify({status:'failed',stage,checks,error:String(error),fixture},null,2)+'\n');throw error;}
+finally {if(host)await close();}

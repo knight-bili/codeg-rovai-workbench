@@ -1,0 +1,325 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14T01:41:43.859Z",
+  "task": "I02-T02",
+  "status": "native_Core_ACP_Host_Fleet_and_legacy_roster_verified_full_parity_pending",
+  "source": {
+    "parent": "1595fb6bf120ec6321a26dd64b69886abbfea885",
+    "officialVersion": "2026.9.8",
+    "officialCommit": "fc23bc864e4553c2d215e479eeec47b67a0bf943",
+    "sourceFilesVerified": 142,
+    "additionalFiles": [
+      {
+        "path": "src/agents/auth-profiles/sqlite.ts",
+        "sha1": "826f3b02a9dad37df2e774d2ea364f8d3ff53be5",
+        "sha256": "f28fbc201a6cada7dcb94c4422d0644fc6a711c08be2855be7e5bfa2f7e28c40"
+      },
+      {
+        "path": "src/agents/auth-profiles/sqlite-read.ts",
+        "sha1": "a13b42e7ee1a97182682f5a5128b16ccb5348871",
+        "sha256": "0899d6809d08f4b1f17288c8538ee5a860585dd9f84c72eb34e7099ffc6e515f"
+      },
+      {
+        "path": "src/agents/auth-profiles/sqlite-json.ts",
+        "sha1": "20296ebd6b97d21dbcc8ea927a3d2ad3249eed52",
+        "sha256": "8d3428cb89eaf4ed757eca2b4c809775161cdd235dc6e80a06253efe27845eb9"
+      },
+      {
+        "path": "src/agents/auth-profiles/persisted.ts",
+        "sha1": "5377ef22abe8275a591e8553e2e9d544853282e2",
+        "sha256": "c5db03fa66e97bec6abcd084bb12e0c8d4e9a8790293ad91e35eaa4744779c7d"
+      },
+      {
+        "path": "src/agents/auth-profiles/portability.ts",
+        "sha1": "b3add8ff75026242b9da271e6da4fc7d041d7795",
+        "sha256": "b5a37b2b83489165e3e765926e8f668ececd32e9210970d90c66603e80f53078"
+      },
+      {
+        "path": "src/agents/auth-profiles/clone.ts",
+        "sha1": "aa054d3b83a711f19873aae71e480b04bad5a134",
+        "sha256": "5c19a60bf1071f8ad38ad6fa8927f514fd2dacc746114151154f9ae23fedae5f"
+      },
+      {
+        "path": "src/agents/auth-profiles/store.ts",
+        "sha1": "afd978ae102141aca954b07bde0717d58a15c97c",
+        "sha256": "d12217bdd7e37c5d7da887bfe0d6768cbc099108395fe9fefb16fa98e393796d"
+      },
+      {
+        "path": "src/agents/auth-profiles/types.ts",
+        "sha1": "7f33b117887d89fff1707e21c8347470865f0613",
+        "sha256": "ce0ad402c9c9db35349006d8f97b4750c94746864c8fdbe0537912d9ea92b766"
+      },
+      {
+        "path": "src/agents/auth-profiles/constants.ts",
+        "sha1": "ff2c3b0a978e2b66ef35b5970dc43d89898fba06",
+        "sha256": "e42b56d41407558429057eae563a9187b66fb0a818b258b791344144687ec4cf"
+      },
+      {
+        "path": "src/agents/auth-profiles/paths.ts",
+        "sha1": "8d5850e6e671f774342136813190a237a2048c72",
+        "sha256": "24a5a234cf18075aedecc32f775d3c2f7c65d4c21e3fb58440828c8e1fcc8ff3"
+      },
+      {
+        "path": "src/agents/auth-profiles/shared-store-scope.ts",
+        "sha1": "5c131d632c88f2a3bbbe4babb834462742e9800f",
+        "sha256": "0230562882b7d8b9d8667af8d478d172ba6fc47b2e9fe4055f386910273f7076"
+      },
+      {
+        "path": "src/config/agent-store-source.ts",
+        "sha1": "12892d0874df5666fcb3efa9d9f946048d67abd3",
+        "sha256": "6839e770b363e60e276c576d8dcfdac60323c63aa1bcffbaeacd7420dab51772"
+      },
+      {
+        "path": "src/config/includes.ts",
+        "sha1": "8ddcbf55819652693f44a396a7ef147bf8014324",
+        "sha256": "c0c4cf7704274c9c1032287d342cd757b3f65e4901ea6d99d46098cd660afadb"
+      },
+      {
+        "path": "src/config/env-substitution.ts",
+        "sha1": "c3922bb8927239ee1296f0a79a6cd98b12998ef5",
+        "sha256": "07ee0a70470e8d83dd93ad43a0c097ae742b4937fc9076c87467afeb6ecb5d36"
+      },
+      {
+        "path": "src/config/types.auth.ts",
+        "sha1": "8a243f8be30aa648d1e4d0711672a49c2d3d1c90",
+        "sha256": "dc8c195931ff90dd0d18b8bb414357adf00769ffe5f43788876c206438297431"
+      },
+      {
+        "path": "src/agents/auth-profiles/path-resolve.ts",
+        "sha1": "f188c17d53a3695e13da63b9b3bb3e03ad672aff",
+        "sha256": "8e4b58384544b7d27709829f64b3f054c166abab907e1cd038153fe976127f04"
+      },
+      {
+        "path": "src/agents/auth-profiles/shared-store-bootstrap.ts",
+        "sha1": "1d76f38b92fe777e24d07ef8eb57fc3ccdad4ec5",
+        "sha256": "3164b20e996c87e5665f5a98cd3f81bc1790f3eefecc68e17d499aa3f5efe18a"
+      },
+      {
+        "path": "src/state/openclaw-agent-db.ts",
+        "sha1": "9356406a08a68c4f16fee38db6aa7d0f8e078ddd",
+        "sha256": "4dff4d59295f80db7ae8e8e3046ee5b44faae2baea519e066eea9195190473fc"
+      },
+      {
+        "path": "src/state/openclaw-agent-db-schema-helpers.ts",
+        "sha1": "bcda0d9f456c0f3028979bf12604dfeaf574e13d",
+        "sha256": "8709dfda90c1da9e287f251eaf58a894853115cd24864f95b72b238a3226c697"
+      },
+      {
+        "path": "src/state/openclaw-state-db.ts",
+        "sha1": "8880f0ec96a3be98fac83ca51c2cd4453739eaa6",
+        "sha256": "8f4f7a1a7cecb4d4e4ab9b762e85785ed1476d66bc195ef8f157efdc7871704c"
+      },
+      {
+        "path": "src/agents/agent-scope-config.ts",
+        "sha1": "7d5c1bb00f6ca1fc1927dd65f67dd96ea84225b0",
+        "sha256": "97afbaa31c3014db8ac76550907e25b60b449052aee03a7591917391c768b245"
+      },
+      {
+        "path": "src/config/io.read-helpers.ts",
+        "sha1": "0278c11b3a730edeaa376067daf2e261221f665d",
+        "sha256": "cfa678ea0c477dac15029e25c353939a9976fb9253d5dde66a3de7c9f0e0079e"
+      },
+      {
+        "path": "src/agents/auth-profiles/store-runtime.ts",
+        "sha1": "5d0e0c1e535dd3f76f85e96a634cc1fc8c5b98b5",
+        "sha256": "c3bee582c3beb2a25612403d63482900210cd231253c08046b2134fdd4fce2ff"
+      },
+      {
+        "path": "src/cli/config-cli.ts",
+        "sha1": "a2059bae3ecb92c39ab7929acb9c30985c322337",
+        "sha256": "f0e905664ce334198f3550ff0ac03f6c96db1b2ac6875f8b971e14b9869f4396"
+      },
+      {
+        "path": "src/cli/config-cli-runner.ts",
+        "sha1": "f05d166393ffc77ceb8ba9042c5b8b755dd228a7",
+        "sha256": "4bf78da01e67291965a0d9aa1551abb71ea4228b5c94de36b9c3cc0839c049c6"
+      },
+      {
+        "path": "src/cli/config-output-mode.ts",
+        "sha1": "2a9e013bbe4e9e4ba7fa803fce6a108df7f8cd64",
+        "sha256": "a7138b0044bd4c0dfef159a0d61caee155ffa26038970b8e161900f34b080f9b"
+      },
+      {
+        "path": "src/commands/models/auth-credential-import.ts",
+        "sha1": "54fcad76f7093af3f8be36bd5347607641084703",
+        "sha256": "3fb99b39d50bafde9ff02988dcd251b67eb00c57dcdbf5b3eb063bbac0bbf705"
+      },
+      {
+        "path": "src/commands/models/auth.ts",
+        "sha1": "964c619ad9609b033842961a3f1d8d8c6b94a28f",
+        "sha256": "e6ba7721dcdbbdccd69b249fe464b95a9c0839ff3a84a00b160a2d9684effeac"
+      },
+      {
+        "path": "src/commands/models/auth-api-key.ts",
+        "sha1": "3c093683ca2b8b664dc68afc06510d1558089329",
+        "sha256": "1e07f9f30f2c325efa11c0e86fea9954b447991042f6675a9c28f038f416687c"
+      },
+      {
+        "path": "src/commands/models/auth-manual-input.ts",
+        "sha1": "45e6e034b3b491321b493c82b6ede187b80fd20e",
+        "sha256": "d7083720c62da100b9db21ee737335aa7978d5f168203f63ec1210148e65cac3"
+      },
+      {
+        "path": "src/agents/auth-profiles/shared-main-dir.ts",
+        "sha1": "b0b1195ef7f6b5e7b40c23b150308786c37165bf",
+        "sha256": "a5100cedf6772b58ceaf324d5342aec72d61189a655721601b04e95e99401a28"
+      },
+      {
+        "path": "src/state/openclaw-state-db.paths.ts",
+        "sha1": "626c0b52f1ce7fd1c1f5b9b15ece66acab580138",
+        "sha256": "e3169d4e1f8df9b1bec5572bb20158c5800d135d26341b2af0920f73a06d95e1"
+      },
+      {
+        "path": "src/agents/agent-scope.ts",
+        "sha1": "6d53a864daadbb0e18d355c0fb40111c52f39081",
+        "sha256": "ef187176518fe241b49b205693cd70dc877e61fabe65e720013b0cf31f43beb7"
+      },
+      {
+        "path": "src/routing/session-key.ts",
+        "sha1": "3d546fa842bb4e71f437eedba43a63a0974d974f",
+        "sha256": "f581697b1bde74523a78aa3cdea5fd4b11e73374544b1471c0af6c489bf90899"
+      },
+      {
+        "path": "src/agents/agent-roster.ts",
+        "sha1": "80ec55d6f24ac7a7bd7e82b442433e1ce05b1203",
+        "sha256": "392abed0a3553a3591813bed5c31bddeb98a2d4a62930c1d307d07bfb650a952"
+      },
+      {
+        "path": "packages/normalization-core/src/agent-id.ts",
+        "sha1": "80c54499aa96196e49538000d60d59d1e91fe711",
+        "sha256": "111d17050ea5854bb0343ee2987cd9d2e63506ec132a1d4fb39555d112dc8094"
+      },
+      {
+        "path": "src/agents/auth-profiles/legacy-oauth-ref.ts",
+        "sha1": "44dc2baaa1ee736f5d0936c80dd4c8a6915dacf5",
+        "sha256": "02d975db7f5e0c7a8605993f13a7707ec63e6b95672cf9e525a03eaa88ca4ed0"
+      },
+      {
+        "path": "src/agents/auth-profiles/inherited-store.ts",
+        "sha1": "3600602d4d5da4516fe31f9d5b28f79e719f03ac",
+        "sha256": "c68a6f11efe46a84dd49a7ab5d647ef08b10f2bd1ef6b7043eccdb992bb0e6d6"
+      },
+      {
+        "path": "src/agents/auth-profiles/oauth-manager.ts",
+        "sha1": "0198aaf792f762728362a99775cc8c9f5eabaa68",
+        "sha256": "de0908f3a9fb44608593e9bbd8450b8eab0aed3b253bb0b8e8a31f2562644095"
+      },
+      {
+        "path": "src/agents/auth-profiles/oauth.ts",
+        "sha1": "4dbb02703c8fe6bde197f9ef6a018772a3849da4",
+        "sha256": "e198b54699afa5f18a0e7164b109ce97ae25b2cf11b5602e017da06723f13793"
+      },
+      {
+        "path": "src/agents/auth-profiles/oauth-identity.ts",
+        "sha1": "27736e21d450e9afd5d5b4ac3e6fb0df437aacc5",
+        "sha256": "17c592c56a297a1ef0e436b0acd8d60f2015e4585d86a656380162e321f1be91"
+      },
+      {
+        "path": "src/agents/auth-profiles/candidate-stores.ts",
+        "sha1": "ff8a732deffe97be7f9bb5d88c89c8ff3cd3315f",
+        "sha256": "e0f7e487442d611f1880ad3704b4a7d0a5272efa4339386b030bebdf4c9726e1"
+      },
+      {
+        "path": "src/agents/auth-profiles/ownership.ts",
+        "sha1": "006e0ded6da9b79897bdaec986a4372675a548e0",
+        "sha256": "4c787f48e4756faa17f89c37e4655fce642c85fe7822574e0661cff86a7ab70a"
+      }
+    ],
+    "implementationFiles": [
+      {
+        "file": "crates/rovai-core/src/openclaw_gateway.rs",
+        "sha256": "7eed72c23aa4c97f27ef2b41b9c764562c5e024a54373d4a41462c3f5f9b3945"
+      },
+      {
+        "file": "tools/integration/smoke-openclaw-core-gateway.mjs",
+        "sha256": "8416856de6365b6bc78f1140c09a7e5dfa1b09bae73c4b44da654eb06815b314"
+      },
+      {
+        "file": "docs/contracts/openclaw-runtime-v1.md",
+        "sha256": "a469b855080c26afa51ffb612281a7b48fb619dea75f82640710708dfbd75c1d"
+      },
+      {
+        "file": "docs/development/testing.md",
+        "sha256": "2054e9bd45d749728e882c51c8b2c742e1c116075f1fef389a15a5d1d3c41baf"
+      }
+    ],
+    "schema": 149,
+    "catalogAdapters": 21
+  },
+  "changes": [
+    "历史agents.list只在Core受管理副本转为规范entries；保留原文件、名称、模型和有效Agent配置，不凭空创建main",
+    "规范大小写、声明ID与不透明Binding ID分别验证；重复规范身份、双重roster、缺失id、歧义与越界拒绝",
+    "扩展原有外部Native owner，经过真实Adapter/Fleet/ACP Host路径核实新建、暖复用、管理器和Native进程重建后的精确恢复与缺失Binding拒绝"
+  ],
+  "checked": {
+    "native": {
+      "status": "passed",
+      "evidence": "work/i02/openclaw-roster-acp-evidence/core-gateway-8w6CIc/result.json",
+      "scope": "正式Core ACP Host/Fleet及Gateway/ACP原生子进程；无Core业务数据库、无prompt、无模型推理",
+      "actualCapabilitiesFromInitialize": true,
+      "allPairedProcessesReaped": true,
+      "builtinCliInvoked": false,
+      "coldHostRecreated": true,
+      "coldSessionIdPreserved": true,
+      "missingBindingRejected": true,
+      "newSession": true,
+      "promptSent": false,
+      "warmHostReused": true,
+      "nativeSourceConfigurationUnchanged": true,
+      "metadataPOSTs": 0
+    },
+    "rosterPureOwner": {
+      "passed": 1,
+      "log": "work/i02/openclaw-roster-current-unit.log"
+    },
+    "permissionContinuationPlatformRegression": {
+      "passed": 5,
+      "failed": 0,
+      "log": "work/i02/openclaw-roster-targeted.log"
+    },
+    "workspaceAllTargetsCompile": {
+      "status": "passed",
+      "log": "work/i02/openclaw-roster-all-targets.log"
+    },
+    "documentationBaseGovernance": "passed",
+    "noNewRustOwners": true,
+    "defaultWorkspaceFullSuite": "not_repeated_this_slice_prior1595fb6b_500_passes",
+    "databaseMigration": "unchanged_149_prior1595fb6b_evidence_retained"
+  },
+  "failures": [
+    {
+      "evidence": "work/i02/openclaw-roster-acp-evidence/core-gateway-Be5664/result.json",
+      "diagnosis": "work/i02/openclaw-roster-native-diagnosis.log",
+      "reason": "Native读取兼容层接受list，但启动校验明确Unrecognized key list且要求entries；不能只以TypeScript类型或纯函数当实际可启动证据",
+      "fix": "只转换私有配置，保留源配置字节；真实Native与完整Host路径重验通过"
+    },
+    {
+      "evidence": "work/i02/openclaw-profile-roster-unit.log",
+      "reason": "首次定向命令同时使用短名和exact，实际匹配0项，不计作测试通过",
+      "fix": "以完整owner名重新运行；最终1项及5项回归均真实执行"
+    }
+  ],
+  "sourcePolicyFindings": {
+    "authStorage": "Agent SQLite auth_profile_store/store_json与共享SQLite config_machine_state/authProfiles.store，不能为导入认证而复制整库",
+    "oauth": "Native默认不复制OAuth刷新材料，并保留copyToAgents及setup约束；owner/继承/锁机制需继续核实并使用，不能新造第二刷新者",
+    "sharedScope": "OPENCLAW_AGENT_DIR只重定位shared-main，shared state-db路径及跨Agent OAuth刷新锁仍由STATE_DIR派生，不能把一个路径覆盖当成已实现隔离认证",
+    "secretRefs": "LegacyOAuthRef只是特定旧Codex凭据引用，不是任意跨状态根OAuth代理",
+    "configuration": "config get经过原生脱敏，不能拿来当无损秘密配置导出；$include/环境与SecretRef完整解析仍未实施"
+  },
+  "limits": {
+    "realAuthentication": "not_run",
+    "fullAuthenticationImport": "pending_implementation",
+    "CoreProcessAndBusinessDatabaseRestart": "not_run",
+    "actualModelAndTools": "not_run",
+    "BootstrapInputAndReplay": "not_run",
+    "MCPActualTools": "not_run",
+    "usageCost": "not_run",
+    "fourPlatformQualification": "not_granted",
+    "full324FusionAcceptance": "not_run"
+  },
+  "next": [
+    "实现隔离原生认证来源/完整配置解析与显式多Agent选择，沿原生owner/继承/刷新锁规则，先用合成SQLite与假认证夹具验证，不读日常凭据",
+    "将现有配对Host证明接入真实深检和Core业务绑定/重启，保留模型、工具和批准的独立证据要求",
+    "推进I02-T03 Skills/MCP来源、安装更新卸载及科研/Office/生成式卡片，继续不依赖客户资源的实现"
+  ]
+}

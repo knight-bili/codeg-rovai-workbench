@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { NavigationShell } from '../../../apps/desktop/src/renderer/src/NavigationShell'
 import { WindowsApplicationMenu } from '../../../apps/desktop/src/renderer/src/WindowsApplicationMenu'
 import { ThreadNavigation } from '../../../apps/desktop/src/renderer/src/ThreadNavigation'
+import { QuickChatWorkspace } from '../../../apps/desktop/src/renderer/src/ThreadWorkspace'
 import { createDesktopNavigation, type NavigationTarget } from '../../../apps/desktop/src/renderer/src/desktop-navigation'
 import { WindowDragStrip } from '../../../apps/desktop/src/renderer/src/App'
 import { navigationThreadReadState } from '../../../apps/desktop/src/renderer/src/navigation-unread'
@@ -51,6 +52,7 @@ const navigationPins = [{
 }] satisfies NavigationPin[]
 function Content(): React.JSX.Element { renders++; return <div style={{ paddingTop: 60 }}><textarea aria-label="保留的草稿" defaultValue="未发送内容" /></div> }
 function Fixture(): React.JSX.Element {
+  const [projectHome, setProjectHome] = useState(false)
   const [threadReadStates, setReadStates] = useState<Record<string, NavigationThreadReadState>>({})
   const [running, setRunning] = useState(true)
   useEffect(() => {
@@ -72,7 +74,7 @@ function Fixture(): React.JSX.Element {
   document.documentElement.dataset.rovaiPlatform = browser ? 'browser' : platform
   document.documentElement.dataset.rovaiSurface = browser ? 'web' : 'desktop'
   Object.assign(window, { navigationTest: {
-    renders: () => renders, setSettings, setPlatform, setDisabled, setBrowser, navigation, target, actions, setRunning,
+    renders: () => renders, setSettings, setPlatform, setDisabled, setBrowser, navigation, target, actions, setRunning, setProjectHome,
     threadReadStates, preferences,
     projectPreferences: browserPreferences('project-concurrency-fixture', { request: async () => undefined } as unknown as ConsoleClient).preferences.navigationPreferences,
     hostNavigation: (direction: 'back' | 'forward') => navigationListeners.forEach(listener => listener(direction)),
@@ -84,13 +86,20 @@ function Fixture(): React.JSX.Element {
       navigation={{ ...navigationSnapshot, projects: navigationSnapshot.projects.map(project => ({ ...project,
         recentThreads: [{ ...runningCamp, marker: running ? 'loading' : 'none' }] })) }}
       pins={navigationPins} activeThreadId={pinnedCamp.id} pendingMemoryCount={0} threadReadStates={threadReadStates}
+      currentProjectKey={projectHome && target.kind === 'quick_chat' && target.projectPath ? 'directory:' + target.projectPath : 'quick-chat'}
       onNewConversation={() => { actions.push('new-chat') }} onMembers={noop} onMemory={noop} onSettings={() => setSettings(true)} onSettingsBack={() => setSettings(false)}
       onCreateInProject={() => { actions.push('new-chat') }} onRenameProject={async () => undefined}
       onOpenProject={noop} onThread={() => { actions.push('open-thread') }} onRemoveProject={async () => undefined} onRename={async () => undefined} onDelete={async () => undefined} onError={error => { throw error }}
+      onOpenProjectHome={projectHome ? project => { void navigation.push({ kind: 'quick_chat', projectPath: project.projectPath }) } : undefined}
       onRevealProject={browser ? undefined : async project => { actions.push('reveal:' + project.projectPath) }}
       onProjectPathCopied={() => { actions.push('copied-path') }}
       onSetThreadUnread={async (thread, unread) => { await preferences.setThreadReadState(thread.id, navigationThreadReadState(thread, unread, threadReadStates[thread.id])) }} />
-    <WindowDragStrip page={settings ? 'settings' : 'compose'} /><main className={`content task-content ${settings ? 'settings-content' : 'compose-content'}`}><Content /></main>
+    <WindowDragStrip page={settings ? 'settings' : 'compose'} /><main className={`content task-content ${settings ? 'settings-content' : 'compose-content'}`}>
+      <div hidden={projectHome}><Content /></div>
+      {projectHome && <QuickChatWorkspace agents={[]} project={target.kind === 'quick_chat' && target.projectPath ? navigationSnapshot.projects[0] : null}
+        recentThreads={target.kind === 'quick_chat' && target.projectPath ? [runningCamp] : [ordinaryCamp]}
+        onOpenThread={thread => { actions.push('project-thread:' + thread.id) }} onNewConversation={() => { actions.push('project-new-chat') }} onOpenMembers={noop} onOpenRuntimeSettings={noop} />}
+    </main>
   </NavigationShell></>
 }
 createRoot(document.getElementById('root')!).render(<Fixture />)

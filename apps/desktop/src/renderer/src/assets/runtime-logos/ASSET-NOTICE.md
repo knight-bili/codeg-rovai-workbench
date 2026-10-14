@@ -1,5 +1,9 @@
 # Runtime Logo Asset Notice
 
+`gemini-cli.svg` 来自固定 Codeg 源码的 `docs/images/agents/gemini-cli.svg`，
+提交 `aff1e6c278453ed8d0b96a5f664edcdca621aa3f`，字节保持不变。
+Codeg 的 Apache-2.0 许可与 NOTICE 已保留在 `integration/licenses/`；该图标用于标识原产品。
+
 The runtime product logos in this directory come from
 [`@lobehub/icons-static-svg`](https://www.npmjs.com/package/@lobehub/icons-static-svg) version
 `1.94.0`. The source project is [Lobe Icons](https://github.com/lobehub/lobe-icons).
@@ -59,3 +63,15 @@ SOFTWARE.
 Product names and logos remain trademarks or brand assets of their respective
 rights holders. Their inclusion identifies compatible runtime products and
 does not transfer ownership of those marks to Rovai AI.
+
+Hermes Agent: `hermes-agent.svg` is copied without changes from
+`spacering-net/codeg` commit `aff1e6c278453ed8d0b96a5f664edcdca621aa3f`,
+`docs/images/agents/hermes-agent.svg` (Codeg MIT license retained in
+`integration/licenses/codeg/`). SHA256:
+`f660a2312f42c1d9d21daa5c7dfe1d666901030a42a469edc014678314d0ec8a`.
+The monochrome glyph uses Rovai's existing theme-colored Runtime mask.
+
+OpenClaw: `openclaw.svg` is copied without changes from Codeg commit
+`aff1e6c278453ed8d0b96a5f664edcdca621aa3f`,
+`docs/images/agents/openclaw.svg` (Codeg MIT license retained in
+`integration/licenses/codeg/`). Source Git blob SHA256: `8deb2ad95bb75d9ff2236e166174eae74343d52bef98637211b45e05af57ac2f`.

@@ -26,7 +26,7 @@ last_updated: 2026-10-12
 | Product Runtime Availability | Core 对某一 Product Runtime 的 discovery、静态身份或 deep-verification snapshot | light ready、checking、legacy installed unverified、ready、needs login、not installed、incompatible、transient failure 等当前机器状态 | 新产品身份、把静态可尝试误作深检 Ready 或静默 Runtime fallback |
 | Settings Runtime Preview Catalog | Renderer 内受审查的静态 presentation rows | Runtime 设置页中的名称、图标、`待支持`文案和 disabled 状态 | Contracts、Core request、数据库、成员选择、诊断、Probe、AgentRun 或支持数量 |
 
-Product Runtime Catalog 当前包含十八种已实现 Adapter。Preview 与它不是“同一目录的另一种状态”；
+固定Rovai来源包含十八种Adapter；融合期Product Runtime Catalog扩展为二十一种，新增Gemini、Hermes与OpenClaw均保持四平台NotQualified。源码接入不表示真实模型、工具、恢复或平台资格通过；合同见[Gemini](../contracts/gemini-runtime-v1.md)、[Hermes](../contracts/hermes-runtime-v1.md)与[OpenClaw](../contracts/openclaw-runtime-v1.md)。Preview 与它不是“同一目录的另一种状态”；
 Renderer 当前不展示 Settings Preview row。DeepSeek Harness 通过官方 ACP profile 接入；macOS arm64、macOS x64、
 Windows x64 与 Linux x64 分别绑定平台专属证据并取得 qualified。
 产品目录的机器可判数量、全量检查、诊断分母和

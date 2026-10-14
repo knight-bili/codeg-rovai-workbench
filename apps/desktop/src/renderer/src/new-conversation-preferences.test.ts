@@ -29,6 +29,10 @@ describe('new conversation preferences', () => {
       .toEqual({ kind: 'directory', projectPath: '/repo' })
     expect(parseCurrentProject(JSON.stringify({ kind: 'directory', projectPath: '' })))
       .toEqual({ kind: 'quick_chat' })
+    expect(parseCurrentProject(JSON.stringify({ kind: 'directory', projectPath: '../other-project' })))
+      .toEqual({ kind: 'quick_chat' })
+    expect(parseCurrentProject(JSON.stringify({ kind: 'directory', projectPath: '/repo/../other-project' })))
+      .toEqual({ kind: 'quick_chat' })
   })
 
   it('derives the current Project from a Thread without coupling it to disclosure state', () => {

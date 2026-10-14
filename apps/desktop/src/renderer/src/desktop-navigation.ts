@@ -8,7 +8,8 @@ export type MemoryNavigationTarget = {
   search?: string
 }
 
-export type NavigationTarget = Exclude<RestorableLocation, { kind: 'memory' }>
+export type NavigationTarget = Exclude<RestorableLocation, { kind: 'memory' | 'quick_chat' }>
+  | { kind: 'quick_chat'; projectPath?: string | null }
   | MemoryNavigationTarget
   | { kind: 'settings'; section: SettingsSection; overview?: true }
   | { kind: 'automations' }
@@ -27,6 +28,7 @@ export const MAX_NAVIGATION_ENTRIES = 50
 export function sameNavigationDestination(a: NavigationTarget, b: NavigationTarget): boolean {
   if (a.kind !== b.kind) return false
   switch (a.kind) {
+    case 'quick_chat': return b.kind === 'quick_chat' && (a.projectPath ?? null) === (b.projectPath ?? null)
     case 'camp': return b.kind === 'camp' && a.threadId === b.threadId
     case 'settings': return b.kind === 'settings' && a.section === b.section && a.overview === b.overview
     case 'members': return b.kind === 'members' && a.agentId === b.agentId && a.tab === b.tab

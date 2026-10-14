@@ -1,4 +1,5 @@
 import type { NavigationHistory, NavigationState, NavigationTarget } from '../../desktop/src/renderer/src/desktop-navigation'
+import { isProjectPath } from '../../desktop/src/shared/navigation-preferences-model'
 
 // The browser owns traversal. This is a projection for button availability,
 // refresh and guarded popstate recovery, never a second independently moving stack.
@@ -110,7 +111,8 @@ function isTarget(value: unknown): value is NavigationTarget {
   if (!value || typeof value !== 'object') return false
   const target = value as Record<string, unknown>
   switch (target.kind) {
-    case 'quick_chat': case 'automations': case 'missions': return true
+    case 'quick_chat': return target.projectPath === undefined || target.projectPath === null || isProjectPath(target.projectPath)
+    case 'automations': case 'missions': return true
     case 'camp': return typeof target.threadId === 'string'
     case 'members': return (target.agentId === null || typeof target.agentId === 'string') && ['identity', 'runtime', 'skills', 'mcp'].includes(String(target.tab))
     case 'memory': return target.memoryId === null || typeof target.memoryId === 'string'

@@ -10,12 +10,31 @@ import { SkillIdentityMark } from './SkillIdentityMark'
 import { SafeMarkdown } from './SafeMarkdown'
 import { skillReadingContent } from './SkillContentPreview'
 import { SkillFileNavigation } from './SkillFileNavigation'
+import { SkillPackSettings } from './SkillPackSettings'
 import { adapterLabel, VISIBLE_PRODUCT_RUNTIMES } from './runtime-products'
 import { readErrorMessage } from './error-message'
 import './rebuilt-skills-settings.css'
-import { UiText, uiAttribute } from './interface-language'
+import { UiText, uiAttribute, useInterfaceLanguage } from './interface-language'
 
-export function NativeSkillsSettings(): React.JSX.Element {
+export function NativeSkillsSettings({ agents = [] }: { agents?: AgentProfile[] } = {}): React.JSX.Element {
+  useInterfaceLanguage()
+  const id = useId()
+  const [source, setSource] = useState<'native' | 'packages'>('native')
+  return <div className="rebuilt-skills-page">
+    <header className="rebuilt-skills-header"><div><h1>Skills</h1><p><UiText zh="查看原生 Skills 或管理技能包。" /></p></div></header>
+    <div className="skills-source-tabs" role="tablist" aria-label={uiAttribute('Skills 来源')} onKeyDown={event => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+      event.preventDefault()
+      const next = source === 'native' ? 'packages' : 'native'
+      setSource(next)
+      document.getElementById(`${id}-${next}`)?.focus()
+    }}>{(['native', 'packages'] as const).map(key => <button key={key} id={`${id}-${key}`} type="button" role="tab" aria-selected={source === key} aria-controls={`${id}-${key}-panel`} tabIndex={source === key ? 0 : -1} onClick={() => setSource(key)}>{key === 'native' ? uiAttribute('原生 Skills') : uiAttribute('技能包')}</button>)}</div>
+    <div id={`${id}-native-panel`} className="skills-source-content" role="tabpanel" aria-labelledby={`${id}-native`} hidden={source !== 'native'}><NativeSkillLibrary /></div>
+    <div id={`${id}-packages-panel`} className="skills-source-content" role="tabpanel" aria-labelledby={`${id}-packages`} hidden={source !== 'packages'}><SkillPackSettings agents={agents} /></div>
+  </div>
+}
+
+function NativeSkillLibrary(): React.JSX.Element {
   const id = useId()
   const { root, compact, separator } = useCapabilitySplitter('rovai.native-skills-list-width.v1', `${id}-list ${id}-detail`)
   const client = useThreadClient()
@@ -76,9 +95,6 @@ export function NativeSkillsSettings(): React.JSX.Element {
     catch (reason) { setContentError(readErrorMessage(reason)) }
   }
   return <div className="rebuilt-skills-page">
-    <header className="rebuilt-skills-header">
-      <div><h1>Skills</h1><p><UiText zh={"查看各智能体的 Skills。"} /></p></div>
-    </header>
     <div className="rebuilt-runtime-bar"><span><UiText zh={"智能体"} /></span>
       <Menu.Root>
         <Menu.Trigger asChild><button className="member-runtime-picker rebuilt-runtime-trigger" type="button" aria-label={uiAttribute("选择智能体，当前为 {0}", String(adapterLabel(runtime)))}><RuntimeGlyph kind={runtime} /><span>{adapterLabel(runtime)}</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg></button></Menu.Trigger>

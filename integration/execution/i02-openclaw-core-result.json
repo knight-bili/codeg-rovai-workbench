@@ -1,0 +1,758 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "task": "I02-T02",
+  "status": "source_and_native_control_plane_verified_full_runtime_parity_pending",
+  "source": {
+    "parent": "16e9d327b33fa1cf000e4dc508a7959d300a4c6d",
+    "officialVersion": "2026.9.8",
+    "officialCommit": "fc23bc864e4553c2d215e479eeec47b67a0bf943",
+    "files": [
+      {
+        "path": "node-version.mjs",
+        "sha1": "94a6790e30943cf6eb675fcc188db51e25d3b907",
+        "sha256": "dfe6682632f769468297d877e2eab95212113cb37a7bdf5268795a838e49b26d"
+      },
+      {
+        "path": "package.json",
+        "sha1": "c6c541f4bef550c707abd61417bc5a782da16db2",
+        "sha256": "508fad0420913c21e6a3e370f39fb07c35511adf464d958136e69b4f5a34c429"
+      },
+      {
+        "path": "src/acp/approval-classifier.ts",
+        "sha1": "39b6205caf021735212fa9f7cde18c1100b83756",
+        "sha256": "e632d8e220d7690fe85620d9284435b29040311e95da1030d6e8baa4f0594798"
+      },
+      {
+        "path": "src/acp/client-helpers.ts",
+        "sha1": "34dd9d9367d36b27d3c98622955f67fa50e442db",
+        "sha256": "b379e5d5831c07aacc7bca594c07f272203b707e139e9454a972a639380cb7de"
+      },
+      {
+        "path": "src/acp/client.ts",
+        "sha1": "b5276a7715aa4e3a103208519237ce48f76e83b5",
+        "sha256": "8e0ccd842bb5922d4fe09a40a1c7c4977fc9beeb6d0d081ffbaf0733661de370"
+      },
+      {
+        "path": "src/acp/commands.ts",
+        "sha1": "f7e1811842417e1fb620cea317a2b7b96ea6410b",
+        "sha256": "0d9dade29dbfab3ac42c1351273da18d45de33755eb551e04bc859927aa16768"
+      },
+      {
+        "path": "src/acp/control-plane/active-turns.test-support.ts",
+        "sha1": "f293db9f914d0863ca77a0014625663d219edb0a",
+        "sha256": "a823ad513dc479be514913a9141e3f6550e637b9c6a667ae7cdea16b73cbe5a7"
+      },
+      {
+        "path": "src/acp/control-plane/active-turns.ts",
+        "sha1": "67f483ec447ee5cf4ab3c66672ba5c1a612866c2",
+        "sha256": "315e0f7b0ebf0cab43295e4b6c6a02d627fda37484826e1625ce0207a284f881"
+      },
+      {
+        "path": "src/acp/control-plane/manager.accepted-turns.ts",
+        "sha1": "2e3fe7e85deb13f976b36381c7b7711eae50aa92",
+        "sha256": "365be1639286cf3fcfe2586a5d1585e48670c217217028fe94dc133dee3ebbb1"
+      },
+      {
+        "path": "src/acp/control-plane/manager.backend-failover.ts",
+        "sha1": "d54b98e99ff1beb75a2c64805fe94c26c1cd250a",
+        "sha256": "2c2da4d7f882c7fb1c2d5d2336d98621ca6e5ca5fd636a13d03d299adc4c123e"
+      },
+      {
+        "path": "src/acp/control-plane/manager.cancel-session.ts",
+        "sha1": "15558dfa63fb0727814a89eea2d4ca0b82d6e28d",
+        "sha256": "d25c89915730be647bc90b078985e3ff30efbd858390339f48b2cdfa7ccbd10f"
+      },
+      {
+        "path": "src/acp/control-plane/manager.cancel-session.worker.test-support.ts",
+        "sha1": "ef1de28ff682047806d7e898caacc584332c2077",
+        "sha256": "84cf8b0f6a504a7f0d7f44e220c5fe6da75288145399fefb50d9db6ae25f2bae"
+      },
+      {
+        "path": "src/acp/control-plane/manager.close-session.ts",
+        "sha1": "94bf42b72f095c9463cc88bda3147dc33c952e30",
+        "sha256": "aec92caff04a549699c447d95c2eb44786a92c426326f95255aa3fd560742e84"
+      },
+      {
+        "path": "src/acp/control-plane/manager.core.ts",
+        "sha1": "f47484710748a9ecb549ef6043202160007a542b",
+        "sha256": "8aca8bb176a3270228cddd554e1955423049fbd00eb9d8241703b04fda68d890"
+      },
+      {
+        "path": "src/acp/control-plane/manager.identity-reconcile.ts",
+        "sha1": "681d609bd6e0320e93f41f7ab7415f7be050a26c",
+        "sha256": "3adf9934716c2f68a0e50c79ffa69e25b8147a3e3c2a193f350928d4310bf98d"
+      },
+      {
+        "path": "src/acp/control-plane/manager.initialize-session.ts",
+        "sha1": "3caad976c63c78da7ee200a2dc80149fa5c9fcfe",
+        "sha256": "4d219a234121f62f7105a212b3a7cb5fe2453b2e9d8cfbb671655cf03f98db9b"
+      },
+      {
+        "path": "src/acp/control-plane/manager.lifecycle.ts",
+        "sha1": "13b38f83d4b8337fd8d42a416f50f9a3f513ca66",
+        "sha256": "49f8d2b1548986d2db3c00f32a7ac9e639c36ddf0d88dd59782de0bee98ca323"
+      },
+      {
+        "path": "src/acp/control-plane/manager.reset-controls.ts",
+        "sha1": "9072d000fafc7d62ae9c306d70a7a1e0dbda8482",
+        "sha256": "e84a2059c329e608ffe6812e9da3ecb083b3818cf9b80eda97a5ea9602a1d64e"
+      },
+      {
+        "path": "src/acp/control-plane/manager.runtime-controls.ts",
+        "sha1": "4ff9fb203da75c87da9675c8141f07086c787c3b",
+        "sha256": "84cdc548248f898964ed0b3b7bd99609ec948d1068611fa0cf1448cdd0a34499"
+      },
+      {
+        "path": "src/acp/control-plane/manager.runtime-handle-cache.ts",
+        "sha1": "6c136594fcf0fc6597715a07e6c01cb13834c88b",
+        "sha256": "4a0ec3962f417d7c902876af313c9fcfa1896ad553c1552da6c4af3665d0c46d"
+      },
+      {
+        "path": "src/acp/control-plane/manager.runtime-handle-ensure.ts",
+        "sha1": "da397b07adbc4231b9d5b3b8bb33162dd0b20ef4",
+        "sha256": "93a51bb38dfb76779d09634ca08d103d03db4391b1fad0d58b4fe8fa72d67535"
+      },
+      {
+        "path": "src/acp/control-plane/manager.runtime-options-commands.ts",
+        "sha1": "ae91dfb833af600d51795c9225b18d3587f56a59",
+        "sha256": "56165de3517e306dfce7064d20faa10046d05e72a42c6cbae4f3a4d45928a5ef"
+      },
+      {
+        "path": "src/acp/control-plane/manager.runtime-owner.ts",
+        "sha1": "fd20bfbe586c542d1f9f7f20dd9eadaab2052527",
+        "sha256": "73b9206cfccaac3b51ce6ef3a812b7228589385afbdae2257514af339713fce3"
+      },
+      {
+        "path": "src/acp/control-plane/manager.runtime-resume-state.ts",
+        "sha1": "5a7c57815d87e92f6339d46fb3648115fe62093c",
+        "sha256": "5520d92b91c8c2334d0278be0003a7b9aa734623406123d392b6e7c6ba448703"
+      },
+      {
+        "path": "src/acp/control-plane/manager.startup-identity-reconcile.ts",
+        "sha1": "488a149cb8d6738a68a411af42a74d76fab2de9c",
+        "sha256": "f8863d9261597bd66f1b50e4d9f9504639bbeed4a4d3debef2304e236106c44e"
+      },
+      {
+        "path": "src/acp/control-plane/manager.status.ts",
+        "sha1": "077143daa5d58dd985992e34d2fbce58b9023da7",
+        "sha256": "4adc6e27f2c788a3cedf9ed37fc6acdd5f79a318979b99d80b1b798532151f45"
+      },
+      {
+        "path": "src/acp/control-plane/manager.test-helpers.ts",
+        "sha1": "0440b0c0ae3f09bd4627828216881558c2d9a6d8",
+        "sha256": "95baa54d9b937b427000aaafc0ce90940b794f769dfaf8665c14d6e78545f1c9"
+      },
+      {
+        "path": "src/acp/control-plane/manager.ts",
+        "sha1": "499c764222270de21cf3a86cd14c3c32cd263c46",
+        "sha256": "2b01b91cfc50b9c70b69fdc10c367ec67016780b03908c0ee19a585516d5b6df"
+      },
+      {
+        "path": "src/acp/control-plane/manager.turn-runner.ts",
+        "sha1": "aee608ef8fa1dccef76e9cb73bff5791f241c6d5",
+        "sha256": "c8976a4f962dc8cbdb2b4e2953200e8152337f2a0ba20d40082da7ea5a4d216d"
+      },
+      {
+        "path": "src/acp/control-plane/manager.turn-stream.ts",
+        "sha1": "40ade66519f539ef41ff26ac96be4a2a86024cc7",
+        "sha256": "b93728cfa471668223785ee03968978fc9e0b1dd701b991b480cbe591a04ee93"
+      },
+      {
+        "path": "src/acp/control-plane/manager.turn-timeout.ts",
+        "sha1": "1e69f33288283e0571e8609bbb8a7d222dbb6052",
+        "sha256": "c11193813cfb41035401d7ecbeb2a9152135b0daf1c2680ff1aa5d51633fe97c"
+      },
+      {
+        "path": "src/acp/control-plane/manager.types.ts",
+        "sha1": "1ba299fdc45fe2236456e845be422fb6e98f28f6",
+        "sha256": "f70f50483ac61adc3904f60a2ed47f4195fc2c148967192cfd858679f63e10ff"
+      },
+      {
+        "path": "src/acp/control-plane/manager.utils.ts",
+        "sha1": "891a2fe2db0a2a46bba2290380fe0428cb836b6a",
+        "sha256": "1e41b4a97751398d06efc31149099de764a4624aeecb34868528329b90eb342f"
+      },
+      {
+        "path": "src/acp/control-plane/runtime-options.ts",
+        "sha1": "7ecac2c36010a93eadf751bd50119e5d22e62408",
+        "sha256": "d5d7cf6a365d8fa10e645e2d73e47abf4b7040695eb23639667efb54ce2d0580"
+      },
+      {
+        "path": "src/acp/control-plane/session-actor-queue.ts",
+        "sha1": "55c65e65284f4cf6aff2fcdb1eebc8489e4dac10",
+        "sha256": "3a6ece2b2a139b609e99254cb03470e63eff960bffed0010170ceb5b63f4275c"
+      },
+      {
+        "path": "src/acp/control-plane/spawn.ts",
+        "sha1": "f43850f86f916d4ec4463735cfb44bbf375150cd",
+        "sha256": "8f0a3423ff4f2eeb448400dfeed4d497a54ef6c59c8c4d14de531b932be83897"
+      },
+      {
+        "path": "src/acp/conversation-id.ts",
+        "sha1": "a81b643bd2654afcaa6e0606a3c5eeed0270f524",
+        "sha256": "a056ef0ce9194925f288d200eb83cb2112d0f66d58aee65d2b5fe8835ceb7f65"
+      },
+      {
+        "path": "src/acp/event-ledger-bytes.ts",
+        "sha1": "7d7726d141dab708276fa4c4d252b632bb55a201",
+        "sha256": "751e87d6f6fafb6e536c9facb94d260c8bf6b26f07071cea4ad28d344fbc953a"
+      },
+      {
+        "path": "src/acp/event-ledger.test-support.ts",
+        "sha1": "84dc259c263a09fc8b2a712412332c9ab994b3c5",
+        "sha256": "d74a10ff1504a38c51fa05f7313726d3e2e241eb77a0c3401aac4640520ba248"
+      },
+      {
+        "path": "src/acp/event-ledger.ts",
+        "sha1": "c8e76e5583d16a3cb5138419bc0996bd0a3c18e9",
+        "sha256": "99c6ff95ceb63d0dcf50a317f851c76c0670041d1279af0a955b3b4d453eac1c"
+      },
+      {
+        "path": "src/acp/event-ledger.types.ts",
+        "sha1": "4a0a3e39841607d84c9451ad7e75459d12613dc7",
+        "sha256": "fa619bb60d76748fec7bf4b15e3524a9a3a3855cd093dae1bca5d2ff409016e7"
+      },
+      {
+        "path": "src/acp/event-mapper.ts",
+        "sha1": "7a5ae64d76e445d0f54abc5b704b8dbff9a715fd",
+        "sha256": "fa2d7d8f0cd7ccf0c885bf34c01217debdffa1d6d364ed0e5851fecad979e9c6"
+      },
+      {
+        "path": "src/acp/permission-relay.ts",
+        "sha1": "c9610cade6170168ef61df8b83c48f22a103df3c",
+        "sha256": "95b5d2fca83eea29ab19648c0276bdf9ed6a613c043a338997d93471a5578173"
+      },
+      {
+        "path": "src/acp/persistent-bindings.lifecycle.ts",
+        "sha1": "cd95458d54f9d7a1eb9736de0d5f825c28ce9a0e",
+        "sha256": "5bd0044341d56197aef83b9a84a944ba7fb3918e2fe314eaccaf17a5133a2685"
+      },
+      {
+        "path": "src/acp/persistent-bindings.resolve.ts",
+        "sha1": "cca236bab8810e3429816e9e901fa13e7c3e2f23",
+        "sha256": "e97ba3018fb3f62a86805c93a8004005d5db450f831f5f449dc748deb7dc28e7"
+      },
+      {
+        "path": "src/acp/persistent-bindings.types.ts",
+        "sha1": "47fa45e5e91219539cf3d28d8913e9715a0a9d0e",
+        "sha256": "2d86bf5ce378744788bfa171cb1a7d1a77a5a646716840836111cafecca8beb1"
+      },
+      {
+        "path": "src/acp/policy.ts",
+        "sha1": "1ad78daeee9d1ca93a0b27374532a89f265fccd5",
+        "sha256": "d057f47525ac879412db111ad6b27e6a0f12c91701c21ac8db2f0b465ef8c8ff"
+      },
+      {
+        "path": "src/acp/runtime/availability.ts",
+        "sha1": "96277dad2b5c00a4f316c8f183b88b52e1ba2a5c",
+        "sha256": "5beb5f2d091f0ba9323c496bc127cc0ca389210e40cb6d621c412559707c7890"
+      },
+      {
+        "path": "src/acp/runtime/errors.ts",
+        "sha1": "a261ba83b81a709c95c7fc647380d6463f5b97d9",
+        "sha256": "5675c785e18d098ff043dfe4c9eaaab241816e5fa94cbf2b51b03e3c80a99487"
+      },
+      {
+        "path": "src/acp/runtime/registry.ts",
+        "sha1": "699e8b529e12453cf32ad092a4fdb6fda5865c05",
+        "sha256": "5703c02ebafd8f42436be0c57dc9b85988100302b83fccb207efd4196358b52e"
+      },
+      {
+        "path": "src/acp/runtime/session-control-owner.ts",
+        "sha1": "1eb0dfae8581b42698158762f584b6698b455160",
+        "sha256": "81f02a33884df7d5eedf095146c224796e48e3b8d294dae6e0b3c9914afb3011"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-control.ts",
+        "sha1": "a7dbe850f28e34132e49a8ae5e689b02c1e2d4c2",
+        "sha256": "ee3ee40c43139de28ffca0188481eb921b532bda0c5f3d52de08f16d3881cc2b"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-control.types.ts",
+        "sha1": "317dffd1b37442831d042ef28540a18d04764f45",
+        "sha256": "b3f9d0b2e20f3f0779eb3157ae939b5e14745c4b285c65fad0396bfb11fda027"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-doctor.ts",
+        "sha1": "ce4ad65e93b82f33e22758fe9f195582741fcb42",
+        "sha256": "71e91315bc9c09d5f0bfe2f204d7413764c2723ea0382f9c3a68fab40877ed30"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-entry.kernel.ts",
+        "sha1": "71227341744532a3269a667a7a67c6258d954c06",
+        "sha256": "e6a8fe36b82be07f0bb6b4911e14be6a5ea09894060f79f08c9557917f987b77"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-entry.ts",
+        "sha1": "7a5fe2af17a0bdfcb4ff33f1734d096ca56b7da1",
+        "sha256": "aa9a25697539ce468f98d80cdb437f0f4f4075e8f9a65cf1d1796f5a43ee0a38"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-entry.types.ts",
+        "sha1": "4e3b4b2405fdab3d5a6636c512289102ed99099e",
+        "sha256": "df47c5f048e218a9f221fd8d661088de72de9343a73c869d4262659fb2f2aa9a"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-entry.worker.ts",
+        "sha1": "ccaff079e7e82f15245ad23db141e301ac27f5da",
+        "sha256": "904839fa969685ab8e12acf8ebb860f3fa48d094b39353fae7357ae48b6c2516"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-keys.ts",
+        "sha1": "8c5d3c8d1ae755cda56fb5c83d469f6be97606e7",
+        "sha256": "98a723601bc004abc9278d802a030e63c34b52642aadc97f52d98bd3ae1cbe0f"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-legacy-cleanup.ts",
+        "sha1": "2d62f289e23c789ee547132302f02b2ee9b770d9",
+        "sha256": "34d1ebfd6e97a2635d9d6cb3eb37ad004e69929fc2219d6841eceb3b24350d05"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-list.ts",
+        "sha1": "1d77c42a474588d2901f83c61960446570472dcd",
+        "sha256": "60a22957f815da57748414c8f29c8bdb7a1b337da1a7729fcd016f2019b9e39e"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-process.test-support.ts",
+        "sha1": "815641a7f7697cdad12a4680564e4e45920abf5f",
+        "sha256": "ab9cc0817de34028647259603046a3094f1dc35f61df6e42160df9d9f6b2c5f7"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-read-context.ts",
+        "sha1": "3556c9d7c32e432ab6cac263ab1ba2bda627f402",
+        "sha256": "01871166c6ea379e3dfece2c4edf76bd24d1ca0d3ce4f207d4a3fe053147ddd9"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-read.ts",
+        "sha1": "d022e7027a0fd3f4c386b32c68b43435b3038149",
+        "sha256": "dc3e267ae88d08076e833766f1222254ab2b543de3dea8c3a46db47f8a08462a"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-readonly.ts",
+        "sha1": "e2486ac5eb0e0f77dd51c22e45a40ae10446d4cb",
+        "sha256": "9261a4bfa40ef12fedf0ed7912f98771cf24ebd8f6e94ec02f7a218b15069fb1"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-source.worker.ts",
+        "sha1": "6e80292a31e5300323d37e4791f62083c8bb65d6",
+        "sha256": "8fe2ff27c788ef4373c48762ee56e95267494b0bb2ca48aedcadcd0df49d955e"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-store.ts",
+        "sha1": "b44b53dad49b9e6ea2dbc5cef1da2620ad145167",
+        "sha256": "cd4f673af74b1c45c6e8fe4656b444c4af6abb80fb8814464841dc71fc660c1c"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-write.kernel.ts",
+        "sha1": "93231ee807f1e4e4e7a3de7a62ff2d4f11d42141",
+        "sha256": "f7741de973422162e0226d86e9a8ac8a14fcdd078e690f8bea7518c27d6b8f10"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-write.native.ts",
+        "sha1": "c11acf717e533f5a1c670ab74353a0a31a3563e1",
+        "sha256": "4119af6a560e777c23d157ff66b3e9315cc997791ba20e8fe60f7a3750f389d6"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-write.ts",
+        "sha1": "75595c4c2a2eb50175de3095aaf44ad79209dbf4",
+        "sha256": "4bad186db9a69e07195642a10add176d474784784eb52b9937ee5ba3c3952520"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-write.types.ts",
+        "sha1": "06583662cc70dc80cbd967244d6108eac78d9a3e",
+        "sha256": "5866e38600fac4dcece388d7b9b51d393ee235071df69f866d22f36ecbb392ad"
+      },
+      {
+        "path": "src/acp/runtime/session-meta-write.worker.ts",
+        "sha1": "c22a96da5f04cce2894f36ca433af70ca5091cd9",
+        "sha256": "bd5930a9787fc2bc8fc796fd0dabdcbc95cdca18dfbe052c4129978a2fc592fc"
+      },
+      {
+        "path": "src/acp/runtime/session-meta.test-support.ts",
+        "sha1": "f6411636df8c273572f543d8ab8930fe8416fb78",
+        "sha256": "13251b0833cb4de5b90be3edb93a6eb69a22175fcf1834913fd694029bb967fd"
+      },
+      {
+        "path": "src/acp/runtime/session-meta.ts",
+        "sha1": "3a2dbd90b8e4e2b1e5c1ded8d77366cab4badfc2",
+        "sha256": "2909f78ceb5ea9632a591cee2032c93d85d7ce0a892a89537c87ac3d1fe5d255"
+      },
+      {
+        "path": "src/acp/secret-file.ts",
+        "sha1": "6bb063d9d01781d1686ca161ef6b7de7914fcfe2",
+        "sha256": "21c94fd9c571665ef1a0b5dac17f94e08868c4b3bbb08ee47e46fb9e109c3153"
+      },
+      {
+        "path": "src/acp/server.ts",
+        "sha1": "776e4d8da1a9141cc160eba133dc219e63b314c4",
+        "sha256": "fe6eda6c4057c724ff08c694b773a50b05ed4f0c7c9c284423fac862bfeee89e"
+      },
+      {
+        "path": "src/acp/session-mapper.ts",
+        "sha1": "2bfa1a6af635e4eef7e68033b4b6bdfa98dc788a",
+        "sha256": "f7c147f008b73c647e86624a0110f127d46e1025ff299c0a04ac9768c8883671"
+      },
+      {
+        "path": "src/acp/session-new-ordering.ts",
+        "sha1": "4f17807469cc847e404bedc2153f85bb47200c05",
+        "sha256": "475f52f855a434cfa974c2f9c1edee54deb17f496fd957e8d4b0462ea3987c0d"
+      },
+      {
+        "path": "src/acp/tool-status.ts",
+        "sha1": "219c214b0d1008be32026c170d5f3b53a05b667f",
+        "sha256": "54bc1e180a5b34f882059dbe672b92d54609bf20081fa7406868596bfb095725"
+      },
+      {
+        "path": "src/acp/translator.agent-events.ts",
+        "sha1": "d2d08bfa6242ed2ff0a87364ea21e081f45a30ce",
+        "sha256": "af47c6ad781d95d057b53bc6e0a73dd7839bbb4298b9bfc3dce7395f33e28dd1"
+      },
+      {
+        "path": "src/acp/translator.bridge-test-helpers.ts",
+        "sha1": "5713f63b78dcb9930f80f96775d56764e315875e",
+        "sha256": "595cf8263cab68e8ba5490a0164e364bda5578c6b09d7a23ee2e3d4f004be3ea"
+      },
+      {
+        "path": "src/acp/translator.disconnects.ts",
+        "sha1": "a919a81df6f855ed56951c6a8a5f5ff51e7abd08",
+        "sha256": "16159101716804c60883842a8325dd5b1cb8e3387cd2f4961d0f525d60ad99f8"
+      },
+      {
+        "path": "src/acp/translator.presentation.ts",
+        "sha1": "1402c8a1960eac25da439382faa2cca8698d2689",
+        "sha256": "e2bc54cc69c2d40939d89afef7cfa572f4f21418def6163427499703c946b851"
+      },
+      {
+        "path": "src/acp/translator.prompt-harness.test-support.ts",
+        "sha1": "708a0a610b1e6bb17f331f57f0ab8ef1e1243424",
+        "sha256": "dbef89bd8bdd824d197c1edd32c6b1677d80e9fe631548b5e7c57b4b2dc75a5d"
+      },
+      {
+        "path": "src/acp/translator.prompt-state.ts",
+        "sha1": "b6cac08e69ce13b5012aab9b06ae458fbb9eb543",
+        "sha256": "3bdfa172a5583136153d853c4ded14d38769cb2ca6243609beb0ed5da2911811"
+      },
+      {
+        "path": "src/acp/translator.prompt-stream.ts",
+        "sha1": "0952a3983cb1e998a80e6fb8c40bc9cbea7b8850",
+        "sha256": "9a610be2a53221ae7b2aef3e625036bd40634a5b51edabf869ea07e58b364463"
+      },
+      {
+        "path": "src/acp/translator.replay.ts",
+        "sha1": "84631761bd58e91d429daf1a0f1c7af39351fe63",
+        "sha256": "cb24fb31f6b9fb30296d91a70d0735fdc1a3135a395fac399f3c908038a8bb81"
+      },
+      {
+        "path": "src/acp/translator.session-lifecycle.ts",
+        "sha1": "b777cacf55f20d4e77a85f6a882a45b24babe91d",
+        "sha256": "fc83b76d688634b5164f25ce80e247191df15c94b44735a2c7c099ec7bfd49f7"
+      },
+      {
+        "path": "src/acp/translator.session-list.ts",
+        "sha1": "2ae38d07fc23c111b8a9cbe5b35ff9124118d8e8",
+        "sha256": "6c7cb037754c05654b3b4de400072be0ac6b8789c4404f4c7fe385f5b372a596"
+      },
+      {
+        "path": "src/acp/translator.session-state.ts",
+        "sha1": "376d4aee85df1008e896ff966ec93b734a49a9b5",
+        "sha256": "23a26cef710e25e56f80872f11c860a330de5f9b5e2e4afe1bec3d0151c82128"
+      },
+      {
+        "path": "src/acp/translator.session-updates.ts",
+        "sha1": "c1a769829737eefc4c1afcf5c7a08fb493f76484",
+        "sha256": "af04466be942731e0ef3e3ff3b310f37f2ea1caca45e50f985c72f0f307dffb2"
+      },
+      {
+        "path": "src/acp/translator.test-helpers.ts",
+        "sha1": "43170044320818fcc7293a756c080049dc774117",
+        "sha256": "d7b0ffc58dae1bbc8ab0ae0e4da12e735e13f903b1fcc5a6089e37b78ebc3fe0"
+      },
+      {
+        "path": "src/acp/translator.ts",
+        "sha1": "dcfb0aafad134a5aa7cfcd0cd180e03cd312d690",
+        "sha256": "99b4898061243f01979711305d8b4b5dc826d588a518aefc5a87461768601425"
+      },
+      {
+        "path": "src/acp/types.ts",
+        "sha1": "d77035c38a5aa32f5e896aba01b045cd810bf138",
+        "sha256": "3432bed24cad5c5f850a004816a951bbee86d37d41616598f950e26959e116ec"
+      },
+      {
+        "path": "packages/gateway-protocol/src/schema/sessions.ts",
+        "sha1": "7f5dfb6d42891df331e174b6362ea60cfbbe9ce0",
+        "sha256": "7014054a4e37984af066a813b978b08bc66ec2653f3b9206cc931512deb32118"
+      },
+      {
+        "path": "src/config/paths.ts",
+        "sha1": "8e03800360843b0bdf92fd97a0c76514ecf395ad",
+        "sha256": "dbafa6f79971548526740d750d78083fd09a11909e7fd5705339005e1abc06c9"
+      },
+      {
+        "path": "src/config/types.mcp.ts",
+        "sha1": "8a391a4a489ef6240830b5177ace69febc8abeca",
+        "sha256": "cc034f82e9e172e81dcf619715de8e367911b9d183bc3f5eb6a1493ae1e5d92c"
+      },
+      {
+        "path": "src/config/types.models.ts",
+        "sha1": "86c2140e781b3cd1c56486ca0348265e9a10be45",
+        "sha256": "6d00e8ec771f1963069b30d4ebd02cc8e25b4bed59da9f1b6d5849992c30d022"
+      },
+      {
+        "path": "src/gateway/server-methods/models.ts",
+        "sha1": "ac78063fbc606f2e459086b92eef7a017d3fde6d",
+        "sha256": "446efc792c1e715f990a4bea04acf5040685c55ef385dc8b70945fd6506d1136"
+      }
+    ],
+    "publishedBuildInfo": {
+      "version": "2026.9.8",
+      "commit": "fc23bc864e4553c2d215e479eeec47b67a0bf943",
+      "builtAt": "2026-10-02T18:22:33.858Z",
+      "buildId": "2026.9.8-release-fc23bc864e45-2026-10-02T18-22-33.858Z"
+    },
+    "npmGitHead": null,
+    "publishedBuildInfoMatchesTag": true,
+    "node": {
+      "version": "24.21.0",
+      "globalEnvironmentChanged": false
+    },
+    "logo": {
+      "file": "apps/desktop/src/renderer/src/assets/runtime-logos/openclaw.svg",
+      "sha256": "8deb2ad95bb75d9ff2236e166174eae74343d52bef98637211b45e05af57ac2f",
+      "gitBlobMatchesFixedSource": true
+    },
+    "implementationFiles": [
+      {
+        "file": "crates/rovai-core/src/openclaw_gateway.rs",
+        "sha256": "6463ec27f7dae9de483c433e319cbb81c0dbf41d2697c95f978dc4e2eac901f9"
+      },
+      {
+        "file": "crates/rovai-core/src/acp.rs",
+        "sha256": "d15a75f0f8cd34eea13e75d6c4d297e1c17a60014e04e8e0fb0be7f372369de4"
+      },
+      {
+        "file": "crates/rovai-core/src/agent_profile.rs",
+        "sha256": "8bddd4b62eba98672cf96988c9011b5a4dda8fc71b89b60b12ea1570c41339fa"
+      },
+      {
+        "file": "crates/rovai-core/src/agent_runtime_adapter.rs",
+        "sha256": "13845a195caf3515c7f7612dcd661003a35f1fd211f2e5b7709772009c16d743"
+      },
+      {
+        "file": "crates/rovai-core/src/application.rs",
+        "sha256": "d0b12a1f4d17235159adec149188297565fa591808379c8c9990e72e5905b65e"
+      },
+      {
+        "file": "crates/rovai-core/src/db.rs",
+        "sha256": "8823998d5cb40299b5ca75f0ceaa255e5fb7195c0b7751e4f77a015dbc58a553"
+      },
+      {
+        "file": "crates/rovai-core/src/health.rs",
+        "sha256": "6299161923139e1c1bea95011bf77215bcbe62d7fd23c19a957a3f9ceb2d811b"
+      },
+      {
+        "file": "crates/rovai-core/src/runtime_probe_process.rs",
+        "sha256": "1abd2e63838b077693f227285caf8b16ac51d03a998576041e3a37940850dfa5"
+      },
+      {
+        "file": "crates/rovai-core/src/runtime_discovery_windows.rs",
+        "sha256": "b4418760e325f1065c08b9121b1215f5a70ed08532bf9299a5b2b87b306681c3"
+      },
+      {
+        "file": "crates/rovai-core/src/runtime_platform_admission.rs",
+        "sha256": "3ae4c11c8944fa028f068167347a8dcbcb1af6dc367f59a16a79e55a11a9ba68"
+      },
+      {
+        "file": "crates/rovai-core/src/monitoring.rs",
+        "sha256": "24c80cef01aa7b6254b26999470599b3ab1cf1a686a13a7e719a94dab0b5b6d6"
+      },
+      {
+        "file": "crates/rovai-core/src/native_skills.rs",
+        "sha256": "6f5b035b8c1b4adfa8c6b1a1e88f68d1dabdd1ac550a0a643f2fe07cd6edb0e0"
+      },
+      {
+        "file": "packages/contracts/src/index.ts",
+        "sha256": "686c3198f42bb69455cf3c10ac6f9dff629a39d8767403657af4c21a5926acff"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/MemberRuntimeParameters.tsx",
+        "sha256": "8420e8b62006722b76c3409a0fe7344c89a548a5c2860be4256e42e3beb95d84"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/MemberRuntimeParameters.test.ts",
+        "sha256": "c52cd5c0c6dbd15b76d3e68c1234e734b330abda820f091f4fcbe4f14ba8aaf8"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/runtime-products.ts",
+        "sha256": "fdc12628fcacd9015d950adaa578fb85079f7ef61ac2704eaa7b44e30dc1bf18"
+      },
+      {
+        "file": "docs/contracts/openclaw-runtime-v1.md",
+        "sha256": "1104859c63b67e28f69f5d0378180c2ccb620aa6067a12206e07f4cc7e2f510b"
+      },
+      {
+        "file": "tools/integration/smoke-openclaw-core-gateway.mjs",
+        "sha256": "1a9f7eefaa0007e21b70a76fca29088b355d2abb91ccd2bdde6de58ba7fa081e"
+      }
+    ]
+  },
+  "change": {
+    "catalogAdapters": 21,
+    "fixedRovaiAdapters": 18,
+    "addedKinds": [
+      "gemini-cli",
+      "hermes-cli",
+      "openclaw-cli"
+    ],
+    "schema": 149,
+    "migration": 199,
+    "sourceSchema": 148,
+    "architecture": "既有Fleet拥有配对Gateway/ACP；绑定私有持久状态；Core仍为唯一业务、Run和数据库权威",
+    "model": "官方models.list/sessions.patch并核对完整Provider/模型及Session键；不调用未实现的ACP set_model",
+    "permission": "Gateway原生四种权限；Core只读覆盖；ACP thinking独立，不自动批准敏感请求",
+    "MCP": "Session字段始终空数组；私有Gateway配置映射，实际调用仍待验证",
+    "nativeProfile": "拒绝直接挂接既有agentDir，隔离认证导入仍须实施；四平台不授予资格"
+  },
+  "checked": {
+    "workspaceCompile": {
+      "status": "passed",
+      "log": "work/i02/openclaw-core-final-check.log"
+    },
+    "workspace": {
+      "passed": 500,
+      "failed": 0,
+      "ignored": 8,
+      "log": "work/i02/openclaw-core-workspace.log"
+    },
+    "databaseExtended": {
+      "status": "106_full_suite_passes_plus_one_repaired_owner_verified_by_targeted_retest",
+      "successfullyVerifiedDistinctOwners": 107,
+      "fullSuite": {
+        "passed": 106,
+        "failed": 1,
+        "log": "work/i02/openclaw-database-extended-first.log"
+      },
+      "repair": {
+        "owner": "db::tests::run_bootstrap_migration_keeps_audit_and_rolls_back_its_schema_change",
+        "status": "passed",
+        "log": "work/i02/openclaw-core-targeted.log"
+      },
+      "fullSuiteRepeatedAfterFixtureOnlyFix": false
+    },
+    "targeted": {
+      "passed": 51,
+      "failed": 0,
+      "ignored": 0,
+      "log": "work/i02/openclaw-core-targeted.log"
+    },
+    "boundedProcess": {
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "log": "work/i02/openclaw-bounded-process.log"
+    },
+    "parameterTests": {
+      "passed": 38,
+      "failed": 0,
+      "log": "work/i02/openclaw-member-vitest.log"
+    },
+    "typecheck": "passed",
+    "webExecutionWebDesktopCodeBuild": "passed",
+    "docsGovernanceAndBaseDiff": "passed",
+    "planningProtocolConsistency": "passed",
+    "nativeACP": {
+      "passed": 11,
+      "evidence": "work/i02/openclaw-gateway-native-evidence/gateway-0ywtO3/result.json",
+      "scope": "native_gateway_and_ACP_with_local_model_metadata_fixture_no_Core_no_prompt_no_inference",
+      "realModelMetadata": false,
+      "modelInference": false
+    },
+    "nativeCoreGateway": {
+      "passed": 1,
+      "evidence": "work/i02/openclaw-core-native-tool-evidence/core-gateway-sme0hF/result.json",
+      "scope": "Core受管理Gateway真实控制面和进程树；未经过完整AcpHost或Core AgentRun",
+      "permissions": [
+        "read-only",
+        "guarded"
+      ],
+      "processTreeReaped": true,
+      "modelPOSTs": 0,
+      "CoreAgentRun": false,
+      "modelInference": false
+    },
+    "workbench": {
+      "schema": 148,
+      "checks": 19,
+      "evidence": "i02-core148-live-result.json",
+      "current149LiveWorkbench": "not_run"
+    }
+  },
+  "testAdmission": {
+    "newIndependentRustOwners": 2,
+    "ordinary": "Gateway配置与精确确认安全边界；纯JSON，无DB/进程",
+    "manualExternal": "带明确资源前置ignore的真实NativeGateway owner；已手动执行并通过",
+    "existingOwnersExtended": [
+      "原生模式/四平台资格/Skill组/serde线值",
+      "原生精确恢复与不新建降级",
+      "Windows npm入口/145KiB包清单/额外命令拒绝",
+      "七表Runtime/Skills精确146/147/148来源、receipt回滚与149重开",
+      "有界共享进程输出、超时与清理"
+    ]
+  },
+  "selfReview": {
+    "authority": "不引入Codeg第二执行层或私有Gateway池；进程由Fleet Host统一收敛",
+    "credentials": "Gateway独立随机凭据只存私有文件和冻结环境，argv/公开输出脱敏；原生日常可写会话目录禁止直接挂接",
+    "shutdown": "并行尝试Gateway/ACP/终端清理，不能因一个失败而跳过其他进程",
+    "windows": "保留通用批处理argv拒绝；官方npm模板/包身份校验后用Node直接传JSON，并冻结shim/script摘要",
+    "database": "最新预检149/199与旧来源严格识别，未放宽生产旧库或删除活跃保护",
+    "honesty": "原生元数据、源码与19项148工作台不能升级为真实模型、149工作台或融合MVP验收"
+  },
+  "failureHistory": [
+    {
+      "stage": "first_native_Core",
+      "evidence": "work/i02/openclaw-core-native-evidence/core-gateway-zHFbmJ/result.json",
+      "fix": "保留产品npm入口，不能把LaunchSpec.application()的cmd.exe误作原生程序"
+    },
+    {
+      "stage": "native_Core_JSON_argv",
+      "evidence": "work/i02/openclaw-core-native-evidence/core-gateway-FMJBvs/result.json",
+      "fix": "不放宽cmd安全门；复用已知npm模板校验后直连Node传JSON"
+    },
+    {
+      "stage": "native_Core_package_manifest",
+      "evidence": [
+        "work/i02/openclaw-core-native-evidence/core-gateway-D9wnog/result.json",
+        "work/i02/openclaw-core-native-evidence/core-gateway-RCoH2b/result.json"
+      ],
+      "fix": "官方OpenClaw清单145254字节，使用专用256KiB有界读取并加入大清单回归；Codex64KiB边界不变"
+    },
+    {
+      "stage": "expanded_database_regression",
+      "evidence": "work/i02/openclaw-database-extended-first.log",
+      "failedOwner": "db::tests::run_bootstrap_migration_keeps_audit_and_rolls_back_its_schema_change",
+      "fix": "旧Bootstrap夹具在148就断言最新；补跑199到149，保持全部回滚/FK/唯一约束保护，不放宽生产识别"
+    }
+  ],
+  "limits": {
+    "realAuthentication": "not_run",
+    "actualModel": "not_run",
+    "fullCoreAcpHost": "not_run",
+    "CoreRestartRecovery": "not_run",
+    "bootstrap": "pending",
+    "MCPActualTool": "pending",
+    "SkillsActualDiscovery": "pending",
+    "activityCancellation": "pending",
+    "detailedUsageCost": "pending_no_synthetic_zero",
+    "complexNativeProfile": "pending_isolated_import_includes_SecretRef_OAuth_multiagent",
+    "gatewayDeepProbe": "pending",
+    "fourPlatformQualification": "not_granted",
+    "full324FusionCases": "not_run",
+    "customerAcceptance": "not_run"
+  },
+  "next": [
+    "继续OpenClaw隔离原生身份导入、配对AcpHost深检/冷恢复，补MCP、Bootstrap与真实工具合同",
+    "I02-T03融合Skills/MCP来源、安装/更新/卸载与专家包；不依赖真实设备的部分继续",
+    "补Hermes原生Skills信任和跨Run计量归属；真实模型凭据列客户资源待办",
+    "GitHub额度恢复后补Mac/Linux与移动编译/原生测试，不重复触发被账单拒绝的作业"
+  ]
+}

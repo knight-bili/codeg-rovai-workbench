@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-13",
+  "task": "I02-T01",
+  "slice": "project_home_navigation",
+  "status": "component_and_real_host_navigation_verified_task_in_progress",
+  "unitTests": {
+    "passed": 41,
+    "failed": 0
+  },
+  "nativeComponentFixture": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "host": "isolated_electron_offscreen_win32",
+    "core": "not_started",
+    "runtime": "not_started"
+  },
+  "screenshots": [
+    {
+      "name": "project-home-day.png",
+      "sha256": "5b831ab8fb5dfbb8ced58adde2f66dff90e99e9b4e369cb8bacf25b347745504"
+    },
+    {
+      "name": "project-home-night.png",
+      "sha256": "dc84e24975d58cf187b928e35f6b417917566327b0cdc16213060939c3123ac9"
+    }
+  ],
+  "visualReview": "双主题已核查，当前工程高亮、工程名/路径与最近对话一致",
+  "typecheck": "passed",
+  "webBuild": "passed",
+  "executionWebBuild": "passed",
+  "electronCodeBuild": "passed",
+  "liveCoreNavigation": {
+    "status": "passed",
+    "checks": 19,
+    "evidence": "i02-navigation-live-result.json",
+    "runtime": "not_started"
+  },
+  "realAgent": "not_run",
+  "fusionAcceptanceCases": "not_run",
+  "selfReview": {
+    "history": "不同工程不去重，后退/前进保留路径",
+    "path": "Core核实后采用规范路径，存储路径准入校验",
+    "race": "提交前检查最新导航意图，失败/取代不提交工程偏好",
+    "authority": "无第二业务数据库/Thread/Run；Core公共RestorableLocation未扩展",
+    "errorRecovery": "目录恢复后成功进入，旧错误已清除；失败时不改变历史",
+    "draftIsolation": "真实同浏览器双标签先复现串读，再验证各自输入与刷新恢复；原生Desktop沿原本机存储"
+  },
+  "failures": [
+    {
+      "kind": "windows_hidden_fixture",
+      "result": "旧悬停淡入断言失败",
+      "fix": "测试窗口离屏渲染，不放宽断言或修改生产窗口"
+    },
+    {
+      "kind": "baseline_probe",
+      "result": "原始夹具在折叠场景后100秒超时",
+      "limit": "不是同一失败断言稳定复现"
+    }
+  ],
+  "currentRegression": {
+    "files": 6,
+    "passed": 33,
+    "failed": 0
+  }
+}

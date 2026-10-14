@@ -1379,6 +1379,7 @@ pub(crate) struct AcpHost {
     client_terminal_bridge: Option<AcpClientTerminalBridge>,
     host_instance_id: String,
     child: Mutex<ManagedProcess>,
+    openclaw_gateway: Option<crate::openclaw_gateway::OpenClawGateway>,
     stdin: Mutex<Box<dyn AsyncWrite + Unpin + Send>>,
     pending: Mutex<HashMap<u64, PendingRpc>>,
     next_id: AtomicU64,
@@ -1624,6 +1625,20 @@ impl AcpHost {
         if let Some(config) = &builtin_tools {
             config.configure_command(&mut command)?;
         }
+        let openclaw_gateway = if frozen_runtime.adapter_kind == AdapterKind::OpenClawCli {
+            Some(
+                crate::openclaw_gateway::OpenClawGateway::start(
+                    &mut command,
+                    cwd,
+                    private_runtime_dir,
+                    None,
+                    external_mcp_servers,
+                )
+                .await?,
+            )
+        } else {
+            None
+        };
         let ephemeral_config = configure_runtime_command(
             &mut command,
             workspace,
@@ -1761,6 +1776,7 @@ impl AcpHost {
             client_terminal_bridge,
             host_instance_id,
             child: Mutex::new(child),
+            openclaw_gateway,
             stdin: Mutex::new(stdin),
             pending: Mutex::new(HashMap::new()),
             next_id: AtomicU64::new(1),
@@ -2300,6 +2316,9 @@ impl AcpHost {
                     return;
                 };
                 if !host.is_alive() {
+                    if host.alive.load(Ordering::Acquire) {
+                        host.handle_exit().await;
+                    }
                     return;
                 }
                 let exited = {
@@ -3498,6 +3517,11 @@ impl AcpHost {
     }
 
     fn redact_text(&self, text: &str) -> String {
+        let owned = self
+            .openclaw_gateway
+            .as_ref()
+            .map(|gateway| gateway.redact_text(text));
+        let text = owned.as_deref().unwrap_or(text);
         self.credential_redactor
             .as_ref()
             .map_or_else(|| text.to_owned(), |redactor| redactor.text(text))
@@ -3521,6 +3545,10 @@ impl AcpHost {
 
     pub(crate) fn is_alive(&self) -> bool {
         self.alive.load(Ordering::Acquire)
+            && self
+                .openclaw_gateway
+                .as_ref()
+                .is_none_or(|gateway| gateway.is_alive())
     }
 
     pub(crate) fn opencode_version_for_program(&self, identity: &str) -> Option<String> {
@@ -3596,7 +3624,13 @@ impl AcpHost {
 
     pub(crate) async fn force_reap_until(&self, deadline: tokio::time::Instant) -> bool {
         self.alive.store(false, Ordering::Release);
-        let (host_reaped, terminals_reaped) = tokio::join!(
+        let (gateway_reaped, host_reaped, terminals_reaped) = tokio::join!(
+            async {
+                match &self.openclaw_gateway {
+                    Some(gateway) => gateway.force_reap_until(deadline).await,
+                    None => true,
+                }
+            },
             async {
                 let Ok(mut child) = tokio::time::timeout_at(deadline, self.child.lock()).await
                 else {
@@ -3630,7 +3664,7 @@ impl AcpHost {
             Ok(child) => self.confirm_native_cleanup(&child, deadline).await,
             Err(_) => false,
         };
-        host_reaped && terminals_reaped && native_groups_reaped
+        gateway_reaped && host_reaped && terminals_reaped && native_groups_reaped
     }
 
     async fn confirm_native_cleanup(
@@ -3744,6 +3778,9 @@ impl AcpHost {
 
     pub(crate) async fn shutdown_and_reap(&self) {
         self.alive.store(false, Ordering::Release);
+        if let Some(gateway) = &self.openclaw_gateway {
+            gateway.shutdown().await;
+        }
         self.release_all_client_terminals().await;
         let mut child = self.child.lock().await;
         let ownership_captured = self.capture_native_descendants(&mut child).is_ok();
@@ -4209,6 +4246,18 @@ impl AcpSessionPermissions {
     fn from_frozen(frozen: &FrozenAgentRuntimeConfig) -> Result<Self> {
         let values = &frozen.permissions.values;
         let mode = match frozen.adapter_kind {
+            AdapterKind::OpenClawCli => Some(
+                values["permission_mode"]
+                    .as_str()
+                    .filter(|mode| crate::openclaw_gateway::PERMISSION_MODES.contains(mode))
+                    .context("OpenClaw requires native Gateway permission_mode")?,
+            ),
+            AdapterKind::HermesCli => Some(
+                values["permission_mode"]
+                    .as_str()
+                    .filter(|mode| matches!(*mode, "default" | "accept_edits" | "dont_ask"))
+                    .context("Hermes Runtime requires valid permission_mode")?,
+            ),
             AdapterKind::KimiCodeCli => Some(
                 values["permission_mode"]
                     .as_str()
@@ -4289,6 +4338,18 @@ fn select_acp_session_continuation(
     if existing_session_id.is_none() {
         return AcpSessionContinuation::New;
     }
+    if adapter_kind == AdapterKind::HermesCli {
+        // Native resume invents a new Session when its ID is absent.
+        // A changed capability response must still fail through strict load.
+        return AcpSessionContinuation::HistoryRestore;
+    }
+    if adapter_kind == AdapterKind::OpenClawCli {
+        return if capabilities.can_resume {
+            AcpSessionContinuation::Resume
+        } else {
+            AcpSessionContinuation::HistoryRestore
+        };
+    }
     if capabilities.can_resume {
         return AcpSessionContinuation::Resume;
     }
@@ -4307,11 +4368,33 @@ fn history_restore_allowed(adapter_kind: AdapterKind) -> bool {
             | AdapterKind::QoderCli
             | AdapterKind::CodebuddyCli
             | AdapterKind::QwenCode
+            | AdapterKind::GeminiCli
+            | AdapterKind::HermesCli
+            | AdapterKind::OpenClawCli
             | AdapterKind::TraeCnCli
             | AdapterKind::KimiCodeCli
             | AdapterKind::CommandCodeCli
             | AdapterKind::ClineCli
     )
+}
+
+fn validate_acp_restored_session_result(kind: AdapterKind, result: &Value) -> Result<()> {
+    if kind == AdapterKind::HermesCli {
+        // Native load_session returns None for an absent ID; its SDK emits {}.
+        // Missing metadata cannot acknowledge a binding or release replay.
+        anyhow::ensure!(
+            result
+                .get("models")
+                .and_then(Value::as_object)
+                .is_some_and(|models| !models.is_empty())
+                && result
+                    .get("modes")
+                    .and_then(Value::as_object)
+                    .is_some_and(|modes| !modes.is_empty()),
+            "Hermes strict load did not confirm an existing native Session"
+        );
+    }
+    Ok(())
 }
 
 fn validate_new_session_native_rules(
@@ -4391,6 +4474,10 @@ pub(crate) fn build_acp_resume_session_params(
 
 impl AcpRuntime {
     pub(crate) fn redact_output(&self, value: &Value) -> Value {
+        if self.host.openclaw_gateway.is_some() {
+            return serde_json::from_str(&self.host.redact_text(&value.to_string()))
+                .unwrap_or(Value::Null);
+        }
         self.host
             .credential_redactor
             .as_ref()
@@ -4518,6 +4605,14 @@ impl AcpRuntime {
         external_mcp_servers: &BTreeMap<String, McpServerDefinition>,
         new_session_native_rules: Option<&str>,
     ) -> Result<String> {
+        if self.host.adapter_kind == AdapterKind::OpenClawCli {
+            anyhow::ensure!(
+                model_options
+                    .as_object()
+                    .is_some_and(|options| options.is_empty()),
+                "OpenClaw native model options require verified Gateway mapping before use"
+            );
+        }
         let cwd = acp_protocol_path(&self.execution_root);
         let run_tmp = self
             .host
@@ -4537,6 +4632,7 @@ impl AcpRuntime {
                 | AdapterKind::GrokBuild
                 | AdapterKind::ClineCli
                 | AdapterKind::CommandCodeCli
+                | AdapterKind::OpenClawCli
         ) {
             external_mcp_servers
                 .iter()
@@ -4605,7 +4701,7 @@ impl AcpRuntime {
                     "session/load"
                 };
                 let result = loop {
-                    let params = if method == "session/resume" {
+                    let mut params = if method == "session/resume" {
                         build_acp_resume_session_params(
                             self.host.adapter_kind,
                             existing_session_id,
@@ -4624,12 +4720,26 @@ impl AcpRuntime {
                         }
                         params
                     };
+                    if let Some(gateway) = &self.host.openclaw_gateway {
+                        gateway.configure_session_request(&mut params, true);
+                    }
                     match self
                         .host
                         .rpc_with_timeout(method, params, ACP_HISTORY_RESTORE_TIMEOUT)
                         .await
                     {
-                        Ok(result) => break result,
+                        Ok(result) => {
+                            if let Err(error) = validate_acp_restored_session_result(
+                                self.host.adapter_kind,
+                                &result,
+                            ) {
+                                self.host
+                                    .unbind_session(existing_session_id, &self.owner)
+                                    .await;
+                                return Err(error.context(AcpSessionRestoreError));
+                            }
+                            break result;
+                        }
                         Err(error) => {
                             // -32601 on this exact restore request means the advertised
                             // method is unavailable. Try an advertised, supported load
@@ -4680,13 +4790,16 @@ impl AcpRuntime {
                 (existing_session_id.to_string(), true)
             }
             AcpSessionContinuation::New => {
-                let params = build_acp_new_session_params(
+                let mut params = build_acp_new_session_params(
                     self.host.adapter_kind,
                     &cwd,
                     &mcp_servers,
                     &additional_directories,
                     new_session_native_rules,
                 );
+                if let Some(gateway) = &self.host.openclaw_gateway {
+                    gateway.configure_session_request(&mut params, false);
+                }
                 let result = self.host.rpc("session/new", params).await?;
                 *self.session_result.write().await = Some(result.clone());
                 let session_id = result
@@ -4701,6 +4814,27 @@ impl AcpRuntime {
             && let Some(result) = self.host.session_result(&session_id).await
         {
             *self.session_result.write().await = Some(result);
+        }
+        if let Some(gateway) = &self.host.openclaw_gateway {
+            let configured = self
+                .session_permissions
+                .mode
+                .as_deref()
+                .context("OpenClaw frozen permission mode missing")?;
+            let permission = if self.workspace_access == "read_only" {
+                "read-only"
+            } else {
+                configured
+            };
+            let selected = (model_source != "runtime_default").then_some(model);
+            let models = gateway
+                .configure_session(permission, selected, existing_session_id.is_some())
+                .await?;
+            self.session_result
+                .write()
+                .await
+                .as_mut()
+                .context("OpenClaw native Session result missing")?["models"] = models;
         }
         let session_result = self.session_result.read().await.clone();
         self.host
@@ -4809,7 +4943,9 @@ impl AcpRuntime {
                     model_options,
                 )?;
             }
-            if self.host.adapter_kind == AdapterKind::CodebuddyCli
+            if self.host.adapter_kind == AdapterKind::OpenClawCli {
+                // The owned Gateway already confirmed this exact Provider/model route.
+            } else if self.host.adapter_kind == AdapterKind::CodebuddyCli
                 && model.starts_with("custom-local:")
                 && acp_runtime_model_id_from_session(session_result).as_deref() == Some(model)
             {
@@ -4817,7 +4953,10 @@ impl AcpRuntime {
                 // CodeBuddy omits it from set_config_option's built-in choices.
             } else if matches!(
                 self.host.adapter_kind,
-                AdapterKind::KiroCli | AdapterKind::GrokBuild
+                AdapterKind::KiroCli
+                    | AdapterKind::GrokBuild
+                    | AdapterKind::GeminiCli
+                    | AdapterKind::HermesCli
             ) {
                 self.set_model(&session_id, model).await?;
             } else {
@@ -4856,7 +4995,7 @@ impl AcpRuntime {
         if model_source == "explicit"
             && matches!(
                 self.host.adapter_kind,
-                AdapterKind::KiroCli | AdapterKind::GrokBuild
+                AdapterKind::KiroCli | AdapterKind::GrokBuild | AdapterKind::HermesCli
             )
             && model_options
                 .as_object()
@@ -4870,7 +5009,7 @@ impl AcpRuntime {
         if model_source == "explicit"
             && !matches!(
                 self.host.adapter_kind,
-                AdapterKind::KiroCli | AdapterKind::GrokBuild
+                AdapterKind::KiroCli | AdapterKind::GrokBuild | AdapterKind::HermesCli
             )
             && let Some(options) = model_options.as_object()
         {
@@ -4894,12 +5033,24 @@ impl AcpRuntime {
             self.set_config_option(&session_id, "mode", effective)
                 .await?;
         }
-        if self.host.adapter_kind == AdapterKind::CommandCodeCli {
-            let mode = self
-                .session_permissions
-                .mode
-                .as_deref()
-                .context("Command Code native mode missing")?;
+        if matches!(
+            self.host.adapter_kind,
+            AdapterKind::CommandCodeCli | AdapterKind::HermesCli
+        ) {
+            let mode = self.session_permissions.mode.as_deref().with_context(|| {
+                format!("{} native mode missing", self.host.adapter_kind.as_str())
+            })?;
+            if self.host.adapter_kind == AdapterKind::HermesCli {
+                let session = self.session_result.read().await;
+                anyhow::ensure!(
+                    session
+                        .as_ref()
+                        .and_then(|session| session.pointer("/modes/availableModes"))
+                        .and_then(Value::as_array)
+                        .is_some_and(|modes| modes.iter().any(|value| value["id"] == mode)),
+                    "Hermes selected native mode is unavailable in the active Session"
+                );
+            }
             self.host
                 .rpc(
                     "session/set_mode",
@@ -4957,10 +5108,13 @@ impl AcpRuntime {
     pub async fn session_capabilities(&self) -> AcpSessionCapabilities {
         let initialize = self.host.initialize_result.read().await;
         AcpSessionCapabilities {
-            can_resume: initialize
-                .as_ref()
-                .and_then(|value| value.pointer("/agentCapabilities/sessionCapabilities/resume"))
-                .is_some_and(Value::is_object),
+            can_resume: self.host.adapter_kind != AdapterKind::HermesCli
+                && initialize
+                    .as_ref()
+                    .and_then(|value| {
+                        value.pointer("/agentCapabilities/sessionCapabilities/resume")
+                    })
+                    .is_some_and(Value::is_object),
             can_load_history: self.host.adapter_kind != AdapterKind::GrokBuild
                 && initialize
                     .as_ref()
@@ -5687,6 +5841,21 @@ impl AcpCliRuntimeAdapter {
         }
         #[cfg(target_os = "macos")]
         ManagedProcess::recover_descendants(&self.private_runtime_dir.join("owned-processes"))?;
+        #[cfg(target_os = "macos")]
+        if kind == AdapterKind::OpenClawCli {
+            let bindings = self.private_runtime_dir.join("bindings");
+            if bindings.exists() {
+                for entry in std::fs::read_dir(bindings)? {
+                    let entry = entry?;
+                    if entry.file_type()?.is_dir() {
+                        ManagedProcess::recover_descendants(&entry.path().join("owned-processes"))?;
+                        ManagedProcess::recover_descendants(
+                            &entry.path().join("gateway-owned-processes"),
+                        )?;
+                    }
+                }
+            }
+        }
         if matches!(
             kind,
             AdapterKind::CopilotCli
@@ -5748,7 +5917,20 @@ impl AcpCliRuntimeAdapter {
         let spawn_builtin_tools = builtin_tools.clone();
         let spawn_external_mcp_servers = external_mcp_servers.clone();
         let spawn_attachment_access_root = attachment_access_root.to_path_buf();
-        let spawn_private_runtime_dir = self.private_runtime_dir.clone();
+        let spawn_private_runtime_dir = if self.kind == AdapterKind::OpenClawCli {
+            anyhow::ensure!(
+                !native_binding_id.is_empty()
+                    && native_binding_id
+                        .bytes()
+                        .all(|c| c.is_ascii_alphanumeric() || c == b'-' || c == b'_'),
+                "OpenClaw binding identity is invalid"
+            );
+            self.private_runtime_dir
+                .join("bindings")
+                .join(native_binding_id)
+        } else {
+            self.private_runtime_dir.clone()
+        };
         let spawn_incoming = self.incoming.clone();
         let spawn_compaction_policy = self.compaction_detector_policy;
         let compatibility = RuntimeCompatibilityKey::member_session(
@@ -5757,7 +5939,10 @@ impl AcpCliRuntimeAdapter {
             Some(native_binding_id),
             runtime_compatibility_digest,
         );
-        if self.kind == AdapterKind::DeepseekHarness {
+        if matches!(
+            self.kind,
+            AdapterKind::DeepseekHarness | AdapterKind::OpenClawCli
+        ) {
             // DSH persists exact Sessions but holds a native lock while the
             // previous Host owns them. Reap obsolete idle Hosts before resume;
             // an active Host retires at its normal Run boundary, and the
@@ -6217,6 +6402,42 @@ fn configure_runtime_command(
         .as_object()
         .context("ACP permission configuration must be an object")?;
     match runtime.adapter_kind {
+        AdapterKind::OpenClawCli => {} // The paired Gateway prepared the exact ACP endpoint.
+        AdapterKind::HermesCli => {
+            anyhow::ensure!(
+                !(permission_semantics == PermissionSemantics::CoreEnforcedV1
+                    && workspace.access == "read_only"),
+                "Hermes has no native read-only mode for a legacy Core-enforced workspace"
+            );
+            health::configure_acp_command(
+                command,
+                runtime.adapter_kind,
+                false,
+                runtime.reported_version.as_deref(),
+            )?;
+        }
+        AdapterKind::GeminiCli => {
+            let configured = values
+                .get("approval_mode")
+                .and_then(Value::as_str)
+                .context("Gemini CLI requires approval_mode")?;
+            health::configure_acp_command(
+                command,
+                runtime.adapter_kind,
+                false,
+                runtime.reported_version.as_deref(),
+            )?;
+            let read_only = permission_semantics == PermissionSemantics::CoreEnforcedV1
+                && workspace.access == "read_only";
+            command
+                .arg("--approval-mode")
+                .arg(if read_only { "plan" } else { configured });
+            if runtime.model.source != "runtime_default" {
+                command.arg("--model").arg(&runtime.model.model_id);
+            }
+            // Gemini merges ACP session MCP entries into its native config;
+            // it does not use Qwen's --mcp-config launch option.
+        }
         AdapterKind::CommandCodeCli => {
             crate::command_code_acp::configure_host(
                 command,
@@ -7513,7 +7734,7 @@ pub fn automatically_allows_permission_requests(
         AdapterKind::CodebuddyCli | AdapterKind::GrokBuild => {
             permissions["permission_mode"] == "bypassPermissions"
         }
-        AdapterKind::QwenCode => permissions["approval_mode"] == "yolo",
+        AdapterKind::QwenCode | AdapterKind::GeminiCli => permissions["approval_mode"] == "yolo",
         AdapterKind::ClineCli => {
             permissions["mode"] == "act" && permissions["auto_approve"] == "true"
         }
@@ -7525,6 +7746,8 @@ pub fn automatically_allows_permission_requests(
         | AdapterKind::AntigravityApp
         | AdapterKind::DeepseekHarness
         | AdapterKind::ZcodeApp
+        | AdapterKind::HermesCli
+        | AdapterKind::OpenClawCli
         | AdapterKind::CommandCodeCli => false,
     }
 }
@@ -8517,6 +8740,285 @@ mod route_policy_tests {
             AdapterKind::KiroCli,
             &mcp_request
         ));
+    }
+
+    #[test]
+    fn acp_bypass_modes_auto_allow_protocol_permission_requests() {
+        let automatic = [
+            (
+                AdapterKind::ClineCli,
+                json!({"mode":"act","auto_approve":"true"}),
+            ),
+            (AdapterKind::OpencodeCli, json!({"permission": "allow"})),
+            (AdapterKind::CopilotCli, json!({"allow_all": "on"})),
+            (AdapterKind::KiroCli, json!({"trust_all_tools": "on"})),
+            (
+                AdapterKind::QoderCli,
+                json!({"permission_mode": "bypass_permissions"}),
+            ),
+            (
+                AdapterKind::CodebuddyCli,
+                json!({"permission_mode": "bypassPermissions"}),
+            ),
+            (AdapterKind::QwenCode, json!({"approval_mode": "yolo"})),
+            (AdapterKind::GeminiCli, json!({"approval_mode": "yolo"})),
+            (
+                AdapterKind::TraeCnCli,
+                json!({"permission_mode": "bypass_permissions"}),
+            ),
+            (
+                AdapterKind::CursorAgent,
+                json!({"execution_mode": "agent", "approval_policy": "force"}),
+            ),
+            (AdapterKind::KimiCodeCli, json!({"permission_mode": "yolo"})),
+            (
+                AdapterKind::GrokBuild,
+                json!({"permission_mode": "bypassPermissions"}),
+            ),
+        ];
+        for (adapter_kind, permissions) in automatic {
+            assert!(
+                automatically_allows_permission_requests(adapter_kind, &permissions),
+                "{} bypass mode must not create a second Core authorization",
+                adapter_kind.as_str()
+            );
+        }
+
+        let interactive = [
+            (
+                AdapterKind::ClineCli,
+                json!({"mode":"act","auto_approve":"false"}),
+            ),
+            (
+                AdapterKind::ClineCli,
+                json!({"mode":"plan","auto_approve":"true"}),
+            ),
+            (
+                AdapterKind::DeepseekHarness,
+                json!({"approval_policy": "ask"}),
+            ),
+            // Native `never` rejects escalation; it is not an ACP bypass mode.
+            (
+                AdapterKind::DeepseekHarness,
+                json!({"approval_policy": "never"}),
+            ),
+            (AdapterKind::OpencodeCli, json!({"permission": "ask"})),
+            (AdapterKind::CopilotCli, json!({"allow_all": "off"})),
+            (AdapterKind::KiroCli, json!({"trust_all_tools": "off"})),
+            (AdapterKind::QoderCli, json!({"permission_mode": "default"})),
+            (
+                AdapterKind::CodebuddyCli,
+                json!({"permission_mode": "default"}),
+            ),
+            (AdapterKind::QwenCode, json!({"approval_mode": "default"})),
+            (AdapterKind::GeminiCli, json!({"approval_mode": "default"})),
+            (AdapterKind::HermesCli, json!({"permission_mode":"default"})),
+            (
+                AdapterKind::HermesCli,
+                json!({"permission_mode":"accept_edits"}),
+            ),
+            (
+                AdapterKind::HermesCli,
+                json!({"permission_mode":"dont_ask"}),
+            ),
+            (
+                AdapterKind::GeminiCli,
+                json!({"approval_mode": "auto_edit"}),
+            ),
+            (AdapterKind::GeminiCli, json!({"approval_mode": "plan"})),
+            (
+                AdapterKind::TraeCnCli,
+                json!({"permission_mode": "default"}),
+            ),
+            (
+                AdapterKind::CursorAgent,
+                json!({"execution_mode": "agent", "approval_policy": "default"}),
+            ),
+            (
+                AdapterKind::KimiCodeCli,
+                json!({"permission_mode": "default"}),
+            ),
+            (
+                AdapterKind::GrokBuild,
+                json!({"permission_mode": "default"}),
+            ),
+        ];
+        for (adapter_kind, permissions) in interactive {
+            assert!(
+                !automatically_allows_permission_requests(adapter_kind, &permissions),
+                "{} interactive mode must preserve its ACP permission request",
+                adapter_kind.as_str()
+            );
+        }
+    }
+    #[test]
+    fn continuation_prefers_same_host_then_resume_then_history_restore() {
+        let load_only = AcpSessionCapabilities {
+            can_resume: false,
+            can_load_history: true,
+        };
+        let resume_and_load = AcpSessionCapabilities {
+            can_resume: true,
+            can_load_history: true,
+        };
+
+        assert_eq!(
+            select_acp_session_continuation(
+                AdapterKind::TraeCnCli,
+                true,
+                Some("session-1"),
+                load_only,
+            ),
+            AcpSessionContinuation::ReuseSameHost
+        );
+        assert_eq!(
+            select_acp_session_continuation(
+                AdapterKind::TraeCnCli,
+                false,
+                Some("session-1"),
+                resume_and_load,
+            ),
+            AcpSessionContinuation::Resume
+        );
+        assert_eq!(
+            select_acp_session_continuation(
+                AdapterKind::TraeCnCli,
+                false,
+                Some("session-1"),
+                load_only,
+            ),
+            AcpSessionContinuation::HistoryRestore
+        );
+        assert_eq!(
+            select_acp_session_continuation(
+                AdapterKind::CopilotCli,
+                false,
+                Some("session-1"),
+                load_only,
+            ),
+            AcpSessionContinuation::HistoryRestore
+        );
+        assert_eq!(
+            select_acp_session_continuation(
+                AdapterKind::KimiCodeCli,
+                false,
+                Some("session-1"),
+                resume_and_load,
+            ),
+            AcpSessionContinuation::Resume
+        );
+        assert_eq!(
+            select_acp_session_continuation(
+                AdapterKind::KimiCodeCli,
+                false,
+                Some("session-1"),
+                load_only,
+            ),
+            AcpSessionContinuation::HistoryRestore
+        );
+        assert_eq!(
+            select_acp_session_continuation(
+                AdapterKind::CommandCodeCli,
+                false,
+                Some("session-1"),
+                load_only,
+            ),
+            AcpSessionContinuation::HistoryRestore
+        );
+        assert_eq!(
+            select_acp_session_continuation(
+                AdapterKind::GrokBuild,
+                false,
+                Some("session-1"),
+                load_only,
+            ),
+            AcpSessionContinuation::New
+        );
+        assert_eq!(
+            select_acp_session_continuation(
+                AdapterKind::GrokBuild,
+                false,
+                Some("session-1"),
+                resume_and_load,
+            ),
+            AcpSessionContinuation::Resume
+        );
+        assert_eq!(
+            select_acp_session_continuation(AdapterKind::TraeCnCli, false, None, resume_and_load,),
+            AcpSessionContinuation::New
+        );
+        for kind in [
+            AdapterKind::GeminiCli,
+            AdapterKind::HermesCli,
+            AdapterKind::OpenClawCli,
+        ] {
+            assert_eq!(
+                select_acp_session_continuation(kind, false, Some("existing"), load_only),
+                AcpSessionContinuation::HistoryRestore
+            );
+            assert_eq!(
+                select_acp_session_continuation(kind, false, None, load_only),
+                AcpSessionContinuation::New
+            );
+            assert_eq!(
+                select_acp_session_continuation(kind, true, Some("existing"), resume_and_load),
+                AcpSessionContinuation::ReuseSameHost
+            );
+        }
+        for capabilities in [
+            resume_and_load,
+            AcpSessionCapabilities {
+                can_resume: true,
+                can_load_history: false,
+            },
+            AcpSessionCapabilities::default(),
+        ] {
+            assert_eq!(
+                select_acp_session_continuation(
+                    AdapterKind::HermesCli,
+                    false,
+                    Some("existing"),
+                    capabilities
+                ),
+                AcpSessionContinuation::HistoryRestore,
+                "Hermes cannot invent a replacement binding through native resume"
+            );
+        }
+        for absent in [
+            Value::Null,
+            json!({}),
+            json!({"models":{}}),
+            json!({"modes":{}}),
+            json!({"models":{},"modes":{}}),
+        ] {
+            assert!(validate_acp_restored_session_result(AdapterKind::HermesCli, &absent).is_err());
+        }
+        assert!(
+            validate_acp_restored_session_result(
+                AdapterKind::HermesCli,
+                &json!({"models":{"currentModelId":"provider:model"},"modes":{"currentModeId":"default"}})
+            )
+            .is_ok()
+        );
+        assert!(validate_acp_restored_session_result(AdapterKind::GeminiCli, &json!({})).is_ok());
+        assert_eq!(
+            select_acp_session_continuation(
+                AdapterKind::OpenClawCli,
+                false,
+                Some("existing"),
+                AcpSessionCapabilities::default()
+            ),
+            AcpSessionContinuation::HistoryRestore
+        );
+        assert_eq!(
+            select_acp_session_continuation(
+                AdapterKind::OpenClawCli,
+                false,
+                Some("existing"),
+                resume_and_load
+            ),
+            AcpSessionContinuation::Resume
+        );
     }
 }
 
@@ -11863,7 +12365,12 @@ while IFS= read -r ignored; do :; done
 
     #[tokio::test]
     async fn real_acp_session_catalog_rejects_a_missing_explicit_model_without_fallback() {
-        for configuration_rejected in [false, true] {
+        for (adapter_kind, configuration_rejected) in [
+            (AdapterKind::TraeCnCli, false),
+            (AdapterKind::TraeCnCli, true),
+            (AdapterKind::GeminiCli, false),
+            (AdapterKind::GeminiCli, true),
+        ] {
             let root = std::env::temp_dir().join(format!(
                 "rovai-acp-live-model-validation-{}",
                 uuid::Uuid::new_v4()
@@ -11872,17 +12379,32 @@ while IFS= read -r ignored; do :; done
             let executable = root.join("traecli");
             make_executable(
                 &executable,
-                r#"#!/bin/sh
+                &r#"#!/bin/sh
 IFS= read -r initialize || exit 1
 printf '%s\n' '{"jsonrpc":"2.0","id":1,"result":{"protocolVersion":1,"agentCapabilities":{}}}'
 IFS= read -r session || exit 1
 printf '%s\n' '{"jsonrpc":"2.0","id":2,"result":{"modes":{"currentModeId":"default","availableModes":[{"id":"default","name":"Default"}]},"sessionId":"session-live-model","models":{"currentModelId":"trae-default","availableModels":[{"modelId":"trae-default","name":"TRAE Default"}]}}}'
 IFS= read -r configuration || exit 1
-printf '%s\n' '{"jsonrpc":"2.0","id":3,"error":{"code":-32602,"message":"configuration refused after successful resume"}}'
+case "$configuration" in
+    *'__NATIVE_MODEL_METHOD__'*) printf '%s\n' '{"jsonrpc":"2.0","id":3,"error":{"code":-32602,"message":"configuration refused after successful resume"}}' ;;
+    *) printf '%s\n' '{"jsonrpc":"2.0","id":3,"error":{"code":-32601,"message":"wrong native model method"}}' ;;
+esac
 while IFS= read -r ignored; do :; done
-"#,
+"#
+                .replace(
+                    "__NATIVE_MODEL_METHOD__",
+                    if adapter_kind == AdapterKind::GeminiCli {
+                        "session/set_model"
+                    } else {
+                        "session/set_config_option"
+                    },
+                ),
             );
-            let frozen = frozen_trae_runtime(&executable);
+            let mut frozen = frozen_trae_runtime(&executable);
+            frozen.adapter_kind = adapter_kind;
+            if adapter_kind == AdapterKind::GeminiCli {
+                frozen.permissions.values = json!({"approval_mode": "yolo"});
+            }
             let workspace =
                 AgentRunWorkspace::runtime_managed_path(root.to_string_lossy().to_string());
             let (incoming, _receiver) = mpsc::unbounded_channel();
@@ -13545,104 +14067,6 @@ while IFS= read -r ignored; do :; done
     }
 
     #[test]
-    fn continuation_prefers_same_host_then_resume_then_history_restore() {
-        let load_only = AcpSessionCapabilities {
-            can_resume: false,
-            can_load_history: true,
-        };
-        let resume_and_load = AcpSessionCapabilities {
-            can_resume: true,
-            can_load_history: true,
-        };
-
-        assert_eq!(
-            select_acp_session_continuation(
-                AdapterKind::TraeCnCli,
-                true,
-                Some("session-1"),
-                load_only,
-            ),
-            AcpSessionContinuation::ReuseSameHost
-        );
-        assert_eq!(
-            select_acp_session_continuation(
-                AdapterKind::TraeCnCli,
-                false,
-                Some("session-1"),
-                resume_and_load,
-            ),
-            AcpSessionContinuation::Resume
-        );
-        assert_eq!(
-            select_acp_session_continuation(
-                AdapterKind::TraeCnCli,
-                false,
-                Some("session-1"),
-                load_only,
-            ),
-            AcpSessionContinuation::HistoryRestore
-        );
-        assert_eq!(
-            select_acp_session_continuation(
-                AdapterKind::CopilotCli,
-                false,
-                Some("session-1"),
-                load_only,
-            ),
-            AcpSessionContinuation::HistoryRestore
-        );
-        assert_eq!(
-            select_acp_session_continuation(
-                AdapterKind::KimiCodeCli,
-                false,
-                Some("session-1"),
-                resume_and_load,
-            ),
-            AcpSessionContinuation::Resume
-        );
-        assert_eq!(
-            select_acp_session_continuation(
-                AdapterKind::KimiCodeCli,
-                false,
-                Some("session-1"),
-                load_only,
-            ),
-            AcpSessionContinuation::HistoryRestore
-        );
-        assert_eq!(
-            select_acp_session_continuation(
-                AdapterKind::CommandCodeCli,
-                false,
-                Some("session-1"),
-                load_only,
-            ),
-            AcpSessionContinuation::HistoryRestore
-        );
-        assert_eq!(
-            select_acp_session_continuation(
-                AdapterKind::GrokBuild,
-                false,
-                Some("session-1"),
-                load_only,
-            ),
-            AcpSessionContinuation::New
-        );
-        assert_eq!(
-            select_acp_session_continuation(
-                AdapterKind::GrokBuild,
-                false,
-                Some("session-1"),
-                resume_and_load,
-            ),
-            AcpSessionContinuation::Resume
-        );
-        assert_eq!(
-            select_acp_session_continuation(AdapterKind::TraeCnCli, false, None, resume_and_load,),
-            AcpSessionContinuation::New
-        );
-    }
-
-    #[test]
     fn history_restore_budget_rejects_events_bytes_and_elapsed_time_independently() {
         assert!(
             replay_budget_violation(
@@ -14019,100 +14443,6 @@ while IFS= read -r ignored; do :; done
             approval_result(&request, "reject").expect("denial should map"),
             json!({"outcome": {"outcome": "selected", "optionId": "reject"}})
         );
-    }
-
-    #[test]
-    fn acp_bypass_modes_auto_allow_protocol_permission_requests() {
-        let automatic = [
-            (
-                AdapterKind::ClineCli,
-                json!({"mode":"act","auto_approve":"true"}),
-            ),
-            (AdapterKind::OpencodeCli, json!({"permission": "allow"})),
-            (AdapterKind::CopilotCli, json!({"allow_all": "on"})),
-            (AdapterKind::KiroCli, json!({"trust_all_tools": "on"})),
-            (
-                AdapterKind::QoderCli,
-                json!({"permission_mode": "bypass_permissions"}),
-            ),
-            (
-                AdapterKind::CodebuddyCli,
-                json!({"permission_mode": "bypassPermissions"}),
-            ),
-            (AdapterKind::QwenCode, json!({"approval_mode": "yolo"})),
-            (
-                AdapterKind::TraeCnCli,
-                json!({"permission_mode": "bypass_permissions"}),
-            ),
-            (
-                AdapterKind::CursorAgent,
-                json!({"execution_mode": "agent", "approval_policy": "force"}),
-            ),
-            (AdapterKind::KimiCodeCli, json!({"permission_mode": "yolo"})),
-            (
-                AdapterKind::GrokBuild,
-                json!({"permission_mode": "bypassPermissions"}),
-            ),
-        ];
-        for (adapter_kind, permissions) in automatic {
-            assert!(
-                automatically_allows_permission_requests(adapter_kind, &permissions),
-                "{} bypass mode must not create a second Core authorization",
-                adapter_kind.as_str()
-            );
-        }
-
-        let interactive = [
-            (
-                AdapterKind::ClineCli,
-                json!({"mode":"act","auto_approve":"false"}),
-            ),
-            (
-                AdapterKind::ClineCli,
-                json!({"mode":"plan","auto_approve":"true"}),
-            ),
-            (
-                AdapterKind::DeepseekHarness,
-                json!({"approval_policy": "ask"}),
-            ),
-            // Native `never` rejects escalation; it is not an ACP bypass mode.
-            (
-                AdapterKind::DeepseekHarness,
-                json!({"approval_policy": "never"}),
-            ),
-            (AdapterKind::OpencodeCli, json!({"permission": "ask"})),
-            (AdapterKind::CopilotCli, json!({"allow_all": "off"})),
-            (AdapterKind::KiroCli, json!({"trust_all_tools": "off"})),
-            (AdapterKind::QoderCli, json!({"permission_mode": "default"})),
-            (
-                AdapterKind::CodebuddyCli,
-                json!({"permission_mode": "default"}),
-            ),
-            (AdapterKind::QwenCode, json!({"approval_mode": "default"})),
-            (
-                AdapterKind::TraeCnCli,
-                json!({"permission_mode": "default"}),
-            ),
-            (
-                AdapterKind::CursorAgent,
-                json!({"execution_mode": "agent", "approval_policy": "default"}),
-            ),
-            (
-                AdapterKind::KimiCodeCli,
-                json!({"permission_mode": "default"}),
-            ),
-            (
-                AdapterKind::GrokBuild,
-                json!({"permission_mode": "default"}),
-            ),
-        ];
-        for (adapter_kind, permissions) in interactive {
-            assert!(
-                !automatically_allows_permission_requests(adapter_kind, &permissions),
-                "{} interactive mode must preserve its ACP permission request",
-                adapter_kind.as_str()
-            );
-        }
     }
 
     #[test]

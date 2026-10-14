@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14T05:33:04.305Z",
+  "task": "I02-T03",
+  "status": "member_configuration_verified_model_delivery_pending_r1_confirmation",
+  "source": {
+    "parent": "01f242ca3980ac12059102d6bc5dbb0d1cbd20d2",
+    "implementationFiles": [
+      {
+        "file": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+        "sha256": "e010098737f49d76e8af3923130a24d7163b40a5b8f76c7a5eb410e111444017",
+        "gitBlob": "37a59dff35d7fb00cbd003046ee0ed872d2a0c7c"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/RebuiltSkillsSettings.tsx",
+        "sha256": "a223befe3c9d91d261256400b7891970760b1395e44bb38582787238b2baf252",
+        "gitBlob": "a38ea5253878ca0a990d729f5a9b62900dbe4a0c"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/SkillPackSettings.tsx",
+        "sha256": "8f455f61148f8aa3a5e47ef4855ccb3d339faf35aeecc663bc2a8124e8ea7b07",
+        "gitBlob": "3547bf8e4ffb193eb7e23ee869111c90bad6f72b"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/locales/en.json",
+        "sha256": "546e8ed4ea82620612561c8901597bd29f15dd76b7620e495a3f92fb170f9f24",
+        "gitBlob": "47d8986f22c8ae0a8dc3234751f5e185a6bf750b"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/rebuilt-skills-settings.css",
+        "sha256": "9041360510191a10c5db22ad6f649a7f7986251ee4b0109d2d22c4cd0c10bbb0",
+        "gitBlob": "05e208d69e65e6d7dcaae83650206b5fd7348d1e"
+      },
+      {
+        "file": "crates/rovai-core/src/application.rs",
+        "sha256": "0f5c0756bae0cdef9fd9f5b8f4fa4efff691475e530aa76962b6eb7cc7530522",
+        "gitBlob": "7cb52702f7e420109bc33669635d46a116d26afe"
+      },
+      {
+        "file": "crates/rovai-core/src/db.rs",
+        "sha256": "55775cb0e8d2eeadf2b8280b6f7613022c65962692184de17cc506bb2b75208a",
+        "gitBlob": "d3d6f894454df6d8e6d2a5d54a572bfbfe0bd594"
+      },
+      {
+        "file": "crates/rovai-core/src/lib.rs",
+        "sha256": "73b1b2bf57d05107c69a913dd46ccbbdb92e34ff0c9166ef5bb634b430ce061c",
+        "gitBlob": "54476f3cb75ae74e1e7302cf835e5ff84df630ea"
+      },
+      {
+        "file": "crates/rovai-core/src/skill_pack_installation.rs",
+        "sha256": "d10ab40aeefd80d426c8426b02102e8c15942bcf225011e53ed191a703a5e4a6",
+        "gitBlob": "66e61f595df65a800343a3fd42851bf43f1989f2"
+      },
+      {
+        "file": "crates/rovai-host/Cargo.toml",
+        "sha256": "1c5c67569a1c98ca1f8d79cc791a0dc1064e81104ccf7f98d04262176203ef55",
+        "gitBlob": "5c6fa604ecd5b5cc27c67114040a9e0b3ae110c3"
+      },
+      {
+        "file": "crates/rovai-host/src/server_updates/install.rs",
+        "sha256": "fde0ae6cfe3d86ceb9f17c3caafdf8ee4a63e647e87278dee52cef12cadf6f92",
+        "gitBlob": "ad7df40a1c072d889c7ff769a5d43558ce26b859"
+      },
+      {
+        "file": "crates/rovai-web/src/operations.rs",
+        "sha256": "e9c128bf0c74a69993211287d4db01a5af3bb49aa9bfc4966b31efd32b1f795a",
+        "gitBlob": "d3bcb7faa063b5377fbf739f2953cea98141a307"
+      },
+      {
+        "file": "docs/architecture/skills.md",
+        "sha256": "31499603aadbfa823e2a30c6226635a054f2d50b095651989d72f63edb8944d0",
+        "gitBlob": "be40a35ed0b8231c9712694ce4368710865ed384"
+      },
+      {
+        "file": "docs/contracts/README.md",
+        "sha256": "f2549e786145f7aa0ff4f9b6ce92763c88062ceef86741d848ccd229fd134f95",
+        "gitBlob": "c5f6b51329019406d1e39c9134cc51a2c75a2f25"
+      },
+      {
+        "file": "docs/development/testing.md",
+        "sha256": "4b57bf4b43f7915af0b3ae5c6d74ece1bb8de67c664645f090e0cbf4240b09e5",
+        "gitBlob": "647b0a82aa84fec55311fabe0c7bfc5750ef1de5"
+      },
+      {
+        "file": "docs/ui/components/skills-settings.md",
+        "sha256": "eec0cc4763b9ca7356ff15470a1494bf5e9e548c3c1b528276e3234e56650748",
+        "gitBlob": "5da873a816526406619df7ba10a8aaa54ba552d8"
+      },
+      {
+        "file": "docs/versions/v1.72/README.md",
+        "sha256": "9a7a076ac72f4d9e5c710ca7ec8758261259bb9386b8b3e98ae9d772b20f94e4",
+        "gitBlob": "3cddf7a682377d2535c3eb3fca02034ffbe54b57"
+      },
+      {
+        "file": "integration/foundation/current-protocol.json",
+        "sha256": "366d8d0b865d23c6ac3be7f3bc56c1fd115fe2088e6c6462ada7bb60570ef6e1",
+        "gitBlob": "f6aadf1f6082db48c8abc83c3b9d5a898766a1ca"
+      },
+      {
+        "file": "packages/contracts/src/index.ts",
+        "sha256": "8ef51e74833f11359b558ecf14807014b18daaa392f2d872ec675cc21209a454",
+        "gitBlob": "15e59f39bbda23a254f14fbc30d1826849aa00cb"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/SkillPackMembersEditor.tsx",
+        "sha256": "a8929ecc8ae8a83ab03f84437d11859b961d4e1c57c1219f6f7eac1fce80a879",
+        "gitBlob": "c0ec17930c54f72f4aff3ef4be4e019d45c2d721"
+      },
+      {
+        "file": "crates/rovai-core/src/skill_pack_members.rs",
+        "sha256": "5debcbf5c0e8ccb3e288bf24519afb4283af2ce9cdf68c039691d2912d5eed15",
+        "gitBlob": "dfc825bbad1fb90a3c51a3e2acfad42eb9289086"
+      },
+      {
+        "file": "docs/contracts/skill-pack-members-v1.md",
+        "sha256": "905d582107f26f45633d80a56536e6fd516ac64170a2dd9cc5c6a52230aa4d52",
+        "gitBlob": "06bd60d781449d4857faa3865e01532b6c4e274c"
+      },
+      {
+        "file": "integration/proposals/skill-pack-model-delivery-r1.md",
+        "sha256": "eac99b8ca647e349361cf872f99827088d9bcd684be3b4b989ee48c0b3b6f082",
+        "gitBlob": "4d291a5c8ae8fdedfd17876ab5196fa6c311fb5a"
+      },
+      {
+        "file": "tools/integration/smoke-skill-pack-members.mjs",
+        "sha256": "60a038a3d76b086a85c948a8a0c14cdfd73481902339a150f4c59c08b7f4f910",
+        "gitBlob": "ec3d466099afc3105a766b62cd112cd002b91531"
+      }
+    ],
+    "unchangedModelSources": [
+      {
+        "file": "crates/rovai-core/src/context.rs",
+        "sha256": "2adc3d625fe2e0027e37e02b284c1a8a22e0d5559544d83b7b82ea12c03df184"
+      },
+      {
+        "file": "crates/rovai-core/src/current_input_skill.rs",
+        "sha256": "a9f462bde50cdb62cb76822c5d0ffbe58f188d4823ca340b589a50dfef403c17"
+      },
+      {
+        "file": "crates/rovai-core/src/context_contract.rs",
+        "sha256": "0bd5b2539bc06080452a7bb651945fcb0816d3f2b9312e6ebf737a15aac8570c"
+      },
+      {
+        "file": "crates/rovai-core/src/managed_skills.rs",
+        "sha256": "49e76bb99eaaf3723ebe7c56fb361b4c20e68c1c5be0cc18983a901a4f86954b"
+      }
+    ]
+  },
+  "implementation": {
+    "schema": 151,
+    "migration": 201,
+    "authority": "Rovai Core SQLite",
+    "newAPIs": [
+      "skillPacks.members.list",
+      "skillPacks.members.set"
+    ],
+    "canonicalWebOperations": 168,
+    "table": "member_skill_pack",
+    "defaultChoices": false,
+    "configurationCAS": true,
+    "firstResultReplay": true,
+    "uninstallClearsAtomically": true,
+    "updatePreservesChoices": true,
+    "reinstallRestoresChoices": false,
+    "memberDelivery": false,
+    "modelInference": false
+  },
+  "checks": {
+    "workspace": {
+      "passed": 501,
+      "failedRemaining": 0,
+      "ignored": 8,
+      "singleFullRerun": false,
+      "composition": "Core454 + CLI33 from initial workspace; repaired Host3 and independent Web11",
+      "initial": [
+        {
+          "status": "ok",
+          "passed": 454,
+          "failed": 0,
+          "ignored": 8,
+          "filtered": 0,
+          "log": "work/i02/skill-members-workspace.log"
+        },
+        {
+          "status": "ok",
+          "passed": 33,
+          "failed": 0,
+          "ignored": 0,
+          "filtered": 0,
+          "log": "work/i02/skill-members-workspace.log"
+        },
+        {
+          "status": "FAILED",
+          "passed": 2,
+          "failed": 1,
+          "ignored": 0,
+          "filtered": 0,
+          "log": "work/i02/skill-members-workspace.log"
+        }
+      ],
+      "host": {
+        "status": "ok",
+        "passed": 3,
+        "failed": 0,
+        "ignored": 0,
+        "filtered": 0,
+        "log": "work/i02/skill-members-host-regression-fixed.log"
+      },
+      "web": {
+        "status": "ok",
+        "passed": 11,
+        "failed": 0,
+        "ignored": 0,
+        "filtered": 0,
+        "log": "work/i02/skill-members-web-regression.log"
+      },
+      "ignoredReason": "7 subprocess helpers and 1 manual Antigravity real-Runtime smoke"
+    },
+    "extendedOwners": {
+      "status": "ok",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 948,
+      "log": "work/i02/skill-members-owners-first.log"
+    },
+    "HTTPAndUI": {
+      "passed": 19,
+      "evidence": "work/i02/skill-members-native-evidence/members-L1HdYz/result.json",
+      "checksByKind": {
+        "HTTP": 9,
+        "UI": 10
+      },
+      "upgrade": "real 150 -> 151",
+      "realRoster": true,
+      "nativeDiscoveryFixture": true,
+      "wholeWorkbench": false,
+      "zeroAgentRun": true,
+      "zeroContextManifest": true
+    },
+    "typecheck": "passed",
+    "localeTests": 4,
+    "allTargets": "passed",
+    "format": "passed",
+    "documentation": "passed",
+    "webBuild": "passed",
+    "foundation": "passed",
+    "scaffold": "passed"
+  },
+  "artifact": {
+    "schema": 151,
+    "binary": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i02\\native-artifacts\\core151-skill-members-ba9b4b5524eb\\rovai-host.exe",
+    "sha256": "ba9b4b5524eb4d538b78bf537fff556f98fd63741e7be935f285c6962628ae96"
+  },
+  "modelProposal": {
+    "path": "integration/proposals/skill-pack-model-delivery-r1.md",
+    "revision": 1,
+    "confirmation_status": "pending",
+    "implementation_status": "not_started_model_delivery",
+    "documents": {
+      "status": "passed",
+      "artifact_id": "SKILL-DELIVERY-R1",
+      "confirmation_status": "pending",
+      "model_delivery_implemented": false,
+      "pages": 9,
+      "source_chunks_verified": 200,
+      "visual_QA": {
+        "pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "status": "passed",
+        "method": "DOCX rendered with installed LibreOffice, all PNG pages visually reviewed; short code groups and final self-review kept together"
+      },
+      "outputs": [
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I02_技能包模型投递变更方案_r1_待确认.docx",
+          "sha256": "8f447045d56bb6fe27a7a88740a60c34f586d5fd4776c48841a42f9a01a3ef0f"
+        },
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I02_技能包模型投递变更方案_r1_待确认.pdf",
+          "sha256": "dad69529c035a6d9540da52c80cbfa22f227ae717310edc862cad297cc39e938"
+        }
+      ]
+    },
+    "governance": "docs/development/model-context-change-governance.md:49-56"
+  },
+  "limitations": [
+    "成员选择仅配置保存；模型索引、消息选择和真实技能读取尚未接入",
+    "生产Skills组件使用真实Core包API及真实成员名单，原生发现为空夹具；完整schema151工作台未验收",
+    "I02整体和324融合场景未完成，三种新增Runtime的平台及真实模型资格仍待验证",
+    "自定义创作/导入、MCP市场安装、OfficeCLI、科研环境及生成式卡片保持一期研发范围",
+    "旧版本/未提交目录保留，历史引用GC尚未实施"
+  ],
+  "preservedFailures": [
+    {
+      "log": "work/i02/skill-members-typecheck-first.log",
+      "reason": "AgentProfile实际主键为agentId，已修复"
+    },
+    {
+      "log": "work/i02/skill-members-typecheck-02.log",
+      "reason": "遗漏共享CoreMethod两个新增成员方法，已补齐"
+    },
+    {
+      "log": "work/i02/skill-members-foundation.log",
+      "reason": "证据协议新方法顺序倒置，生成器已修正"
+    },
+    {
+      "log": "work/i02/skill-members-native-first.log",
+      "reason": "联合测试误假设空初始队员；保留4个默认队员，按真实姓名取2个新增ID后通过"
+    },
+    {
+      "log": "work/i02/skill-members-workspace.log",
+      "reason": "Host既有测试只等回执，未等子进程退出；Windows程序目录仍被占用"
+    },
+    {
+      "log": "work/i02/skill-members-host-regression.log",
+      "reason": "串行复现同一竞态；原测试新增PID回执及仅SYNCHRONIZE进程句柄等待，修复后3项通过，生产更新器未改"
+    }
+  ],
+  "next": [
+    "等待客户阅读完整r1后确认模型输入变更；未确认不修改模型实现/Schema/当前合同",
+    "继续I03无限画布及其他不依赖确认的研发",
+    "客户补专用模型身份与硬额度、GitHub付款/额度；设备/签名/渠道后补"
+  ]
+}

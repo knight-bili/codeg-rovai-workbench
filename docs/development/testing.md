@@ -11,6 +11,12 @@ last_updated: 2026-10-12
 
 ## Rust 测试准入与退役门槛
 
+融合技能包成员选择由新增扩展 owner `skill_pack_members::tests::migration_and_member_choices_survive_reopen_and_uninstall_fences_old_replay` 拥有。它覆盖150→151建表/收据原子性、无默认成员、真实成员校验、陈旧观察拒绝、首次结果回放、更新保留选择、卸载事务回滚及重装不恢复选择。旧工具箱只有固定五项且不关联可卸载版本，不能证明新表与安装事务的交互；需要真实SQLite及私有文件fixture。最低命令先 `cargo test -p rovai-core --features extended-tests --lib skill_pack -- --list` 确认新增owner，再执行同一过滤；重复重开与回放用于证明持久化和旧命令不重新赋值。模型输入与成员实际投递由待确认的独立方案拥有，此测试不授予运行资格。
+
+融合技能包固定来源由新增纯函数 owner `codeg_skill_catalog::tests::catalog_preserves_pinned_sources_and_bounds_content_reads` 拥有。原先没有固定 Codeg 目录与嵌入资源，原生发现和旧 Revision owner 处理可变路径/数据库，无法验证这一来源的 Git 摘要、9 项 Office 外部依赖和跨包预览边界。该 owner 不建 SQLite、Home 或 Runtime，最低命令为 `cargo test -p rovai-core --lib codeg_skill_catalog::tests::catalog_preserves_pinned_sources_and_bounds_content_reads -- --exact`；Core/HTTP seam 由隔离 smoke 单独验证，不重复纯函数矩阵。
+
+显式安装新增两个扩展 owner：`skill_pack_installation::tests::version_publication_preserves_edits_fences_stale_commits_and_replays_across_reopen` 拥有私有文件树与SQLite指针之间的发布、竞争、收据失败回滚、改动保留和重开；旧Library不参与此状态，不能复用其导入fixture。`db::tests::skill_pack_migration_preserves_receipts_and_rolls_back_its_table` 拥有新的149→150加表及收据事务、旧结果保留和结构拒绝。最低命令先用 `cargo test -p rovai-core --features extended-tests --lib skill_pack -- --list` 确认两项，再去掉 `--list` 执行；预备两次用于证明旧观察版本无法覆盖新提交，不是重复相同happy path。真实HTTP seam使用 `tools/integration/smoke-skill-pack-installation.mjs`，不能替代实际成员/模型投递。
+
 Send 文件输入改动先运行 `cargo test -p rovai-core --bin rovai send_file_`，再运行
 `pnpm test:send-input-file`。后者构建当前 CLI，以隔离临时目录和本地 IPC 夹具验证请求传递、
 业务拒绝不降级、输入失败零 IPC、继承 stdin 不阻塞和 Unix FIFO/设备/权限拒绝；不启动 Core 或模型。
@@ -1486,3 +1492,31 @@ Rust 复用原 owner 并保持所有仍有效的保护：
 `failed_session_replacement`、`uncertain_input_acknowledgement`、`session_header_scan`、`manual_native_session_restart`。
 PR 默认层仍为 `cargo test --workspace`；Renderer 复用 `SingleChatPanel.test.ts`、`App.test.ts` 与 typecheck。
 不新增真实模型调用、常驻验证进程或永久禁用测试。
+
+## 融合期 OpenClaw Gateway 测试准入（2026-10-14）
+
+新增最低层纯配置 owner `openclaw_gateway::tests::gateway_configuration_and_acknowledgement_keep_the_owned_scope`，
+拥有双层原生身份、Gateway权限/模型确认及受管配置的独立安全边界。原共享ACP测试不经过Gateway确认，
+不能发现canonical键指向其他绑定、权限未生效或模型路由被替换；纯JSON即可复现，无需数据库或外部进程。
+最小命令：`cargo test -p rovai-core --lib gateway_configuration_and_acknowledgement_keep_the_owned_scope`。
+
+真实进程 owner `openclaw_gateway::managed_native_gateway_freezes_routes_and_reaps_its_process_tree`位于
+`extended-tests`，带明确外部Runtime隔离前置的ignore，使用手动指定的私有fixture和本地模型元数据。
+它验证实际npm入口、Gateway模型/权限控制和退出收敛，普通函数无法证明Windows shim/Node参数传输、
+原生响应及进程树是否真正退出。修复前真实npm入口误用cmd.exe，JSON参数又被安全检查拒绝；继而发现
+固定发行包145KiB的package manifest超出Codex专用64KiB上限。没有放宽通用批处理argv检查。
+最小命令：准备独立`ROVAI_OPENCLAW_SMOKE_ROOT/BIN/NODE_DIR`后运行
+`cargo test -p rovai-core --features extended-tests --lib openclaw_gateway::managed_native_gateway_freezes_routes_and_reaps_its_process_tree -- --exact --ignored`。
+不读取日常Home、不运行模型，不以该项替代完整AcpHost/Core AgentRun或平台资格。
+
+目录/权限、技能分组、精确恢复、Windows入口拒绝及迁移来源矩阵扩展原owner；保留旧输入和活跃测试。
+Windows入口owner补全本地/全局npm目录、145KiB manifest及额外命令拒绝，数据库owner覆盖146/147/148
+三种精确来源、逐值保留、receipt回滚和149重开，不增加平行数据库fixture。
+
+Windows Server 更新交接继续扩展原 owner `handoff_requires_settlement_then_runs_the_new_program_with_original_arguments`，不新增或跳过测试。重启回执先于子进程退出，Windows 仍可能占用程序目录；测试读取独立 PID 回执，通过仅含 SYNCHRONIZE 权限的进程句柄等待真实退出，再检查目录切换及清理。保留 EOF 拒绝、占用失败回退、最终新程序启动、原参数和数据目录不变的断言；此修复只修改测试，不改变生产更新行为。最小命令：`cargo test -p rovai-host --lib`。
+
+配对Host补验继续扩展同一个外部Runtime owner，不增加Rust测试函数：以真实Native初始化返回的capabilities，
+通过正式Adapter/Fleet/ACP路径建立Session、复用暖Host，再销毁并重建管理器，以同一持久Binding和Session ID
+恢复冷Host；另一个缺失Binding必须拒绝恢复。停止后核对Fleet收敛，不发送prompt、不调用Builtin CLI，
+不能将管理器重建等同完整Core进程/业务数据库重启。配置owner增加历史`agents.list`、规范ID冲突和多Agent
+拒绝，Native fixture采用带大小写的唯一原生Agent，并检查源配置字节未变，复现修复前凭空增加main/双重roster的错误。

@@ -333,7 +333,10 @@ mod tests {
                         }
                         AdapterKind::CursorAgent
                         | AdapterKind::ClineCli
-                        | AdapterKind::CommandCodeCli => {
+                        | AdapterKind::CommandCodeCli
+                        | AdapterKind::GeminiCli
+                        | AdapterKind::HermesCli
+                        | AdapterKind::OpenClawCli => {
                             assert_eq!(
                                 admission.status(),
                                 RuntimePlatformAdmissionStatus::NotQualified
@@ -418,6 +421,9 @@ mod tests {
                     | AdapterKind::CommandCodeCli
                     | AdapterKind::ZcodeApp
                     | AdapterKind::DeepseekHarness
+                    | AdapterKind::GeminiCli
+                    | AdapterKind::HermesCli
+                    | AdapterKind::OpenClawCli
             ) {
                 assert!(admission.is_qualified());
                 assert!(admission.allows_runtime_use());
@@ -475,7 +481,10 @@ mod tests {
         for runtime_kind in AdapterKind::ALL.into_iter().filter(|kind| {
             !matches!(
                 kind,
-                AdapterKind::CursorAgent
+                AdapterKind::GeminiCli
+                    | AdapterKind::HermesCli
+                    | AdapterKind::OpenClawCli
+                    | AdapterKind::CursorAgent
                     | AdapterKind::ClineCli
                     | AdapterKind::CommandCodeCli
                     | AdapterKind::Pi

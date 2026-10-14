@@ -258,6 +258,7 @@ mod tests {
                 ["API_KEY"],
             "fixture-secret"
         );
+        drop(file);
         drop(database);
         std::fs::remove_dir_all(root).unwrap();
     }

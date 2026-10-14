@@ -636,6 +636,13 @@ fn append_microsoft_crt_argument(output: &mut Vec<u16>, argument: &[u16]) {
     output.push(b'"' as u16);
 }
 
+pub(super) fn inherit_environment_key(key: &OsStr) -> bool {
+    // cmd.exe's exit bookkeeping is inherited by VS developer shells; it is
+    // not a Runtime setting. Explicit command overlays still fail validation.
+    !key.to_str()
+        .is_some_and(|key| key.eq_ignore_ascii_case("=ExitCode"))
+}
+
 fn serialize_environment(
     environment: &std::collections::BTreeMap<OsString, OsString>,
 ) -> Result<Vec<u16>> {
@@ -918,5 +925,16 @@ mod tests {
             OsString::from("value"),
         )]);
         assert!(serialize_environment(&invalid).is_err());
+        for key in ["=ExitCode", "=exitcode"] {
+            assert!(!inherit_environment_key(OsStr::new(key)));
+            let explicit = std::collections::BTreeMap::from([(
+                OsString::from(key),
+                OsString::from("00000001"),
+            )]);
+            assert!(serialize_environment(&explicit).is_err());
+        }
+        for key in ["=C:", "Path", "ROVAI=INJECTED"] {
+            assert!(inherit_environment_key(OsStr::new(key)));
+        }
     }
 }

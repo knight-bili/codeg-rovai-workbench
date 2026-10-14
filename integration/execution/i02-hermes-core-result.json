@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "task": "I02-T02",
+  "status": "Windows_source_and_safe_native_bootstrap_verified_session_qualification_pending",
+  "scope": "Hermes_Core_catalog_native_modes_strict_load_Migration198_and_shared_clients",
+  "source": {
+    "codegCommit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "officialCommit": "818c13be1dc4fd28987e1e881a9408224afd4535",
+    "bridgeVersion": "0.21.6",
+    "python": "3.14",
+    "uv": "0.12.13",
+    "audit": "i02-hermes-source-result.json",
+    "files": [
+      {
+        "file": "apps/desktop/src/renderer/src/MemberRuntimeParameters.test.ts",
+        "sha256": "b503cde5a813063dea688475618a94884ad2dadad505c10201bd1093f8b37458"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/MemberRuntimeParameters.tsx",
+        "sha256": "48939d2ed154cc65b793bec847e1360911f7a21d54dc91f3aba72f57b9001c39"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/MemberRuntimePicker.tsx",
+        "sha256": "a00c2a38a3c34f8939462180cbe9b9313a09ac99b0358bd381b6544934c512db"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/OnboardingFlow.tsx",
+        "sha256": "d863d64ac8ee1f5e3cdf5aa224d2a9cba69167d651802a653d5a815ac09e7c87"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/assets/runtime-logos/ASSET-NOTICE.md",
+        "sha256": "0976cd89d699f4c27b943e3c0da2be27ed068ce7347f2a01e51dd5c62df5a79b"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/runtime-products.ts",
+        "sha256": "dd830ceafe9a0cdd161b7474cb51badbed09364ace57b4c2c7773edb30e277a0"
+      },
+      {
+        "file": "crates/rovai-core/src/acp.rs",
+        "sha256": "44b582c35c9c858244bcb7f14f45357969be55874208cbeb182bced9b05d237c"
+      },
+      {
+        "file": "crates/rovai-core/src/agent_profile.rs",
+        "sha256": "882f495cb3528c87a1d255217f9b6f2249b543c4726ed9bed836161e3cb9f719"
+      },
+      {
+        "file": "crates/rovai-core/src/agent_runtime_adapter.rs",
+        "sha256": "4790ba7c18c71778b61fd91c92c207407cd2dbb54dce192fa4d75544586fd63e"
+      },
+      {
+        "file": "crates/rovai-core/src/application.rs",
+        "sha256": "78a6dbf5a4788a858b17d5ed97b769048dc81142d03223fcc6e952b9b582a0ad"
+      },
+      {
+        "file": "crates/rovai-core/src/compaction.rs",
+        "sha256": "001c63d7eacefd8a17e4bf56bacdc000ca217705fb96ce726a97c4377fb6445b"
+      },
+      {
+        "file": "crates/rovai-core/src/context.rs",
+        "sha256": "db928c90e724b1d2cfb9ebcdd15f2c9ba65fec96b2818b8ab57687dbd438c897"
+      },
+      {
+        "file": "crates/rovai-core/src/db.rs",
+        "sha256": "36efa6bb3ef3869491f653113fdb2e54209084dd133061f7ebd9578c6fbeecd6"
+      },
+      {
+        "file": "crates/rovai-core/src/db_member_environment.rs",
+        "sha256": "f94da8ec7123a9f3357be7f387253ac9ded52f49bcef6b6ec6599f9095c53040"
+      },
+      {
+        "file": "crates/rovai-core/src/db_mission_description.rs",
+        "sha256": "e4bf4c096acf8567b183a83a8f8f4fddcb86f0a52c1340ef64ea7bd7e56f80cf"
+      },
+      {
+        "file": "crates/rovai-core/src/db_simplification.rs",
+        "sha256": "fa8a7e339d4082817281227f05a41e649c7f6185558edb8e8ac1cf6fd4aabff3"
+      },
+      {
+        "file": "crates/rovai-core/src/health.rs",
+        "sha256": "c7c14df8e77f37ed546ba03c9ac84ec82683bdd09342588a2b7c45e7b45c179a"
+      },
+      {
+        "file": "crates/rovai-core/src/monitoring.rs",
+        "sha256": "d95e9597682f8620c08a4037c9e374853ffdfd08b9e4110958068356fd0cb5ac"
+      },
+      {
+        "file": "crates/rovai-core/src/native_skills.rs",
+        "sha256": "3b04cbf5b48e802dc745c12161ec389796114f2475714239071f00594d1730be"
+      },
+      {
+        "file": "crates/rovai-core/src/runtime_activity_mapping.rs",
+        "sha256": "418f97f69832921fa2a43255e06e648fa2fab030f3125a590c044dce6f56ff9b"
+      },
+      {
+        "file": "crates/rovai-core/src/runtime_failure.rs",
+        "sha256": "455d4f8dac4f5871bd3fa1d59221387f9f5f4c230b13694f1558add0660df287"
+      },
+      {
+        "file": "crates/rovai-core/src/runtime_platform_admission.rs",
+        "sha256": "5c5140f45a745eea2f2a2ace4edc8882521f3a71e695eaaf41640e3d7534f848"
+      },
+      {
+        "file": "crates/rovai-core/src/skill.rs",
+        "sha256": "1e306147eb4d36fce32ceb4f222df5af6f698e6372c32bd3c0b2eb8013c6ea17"
+      },
+      {
+        "file": "docs/contracts/README.md",
+        "sha256": "8500376ad65f48d810400820141dce439d16b0da7a291f4624f4cdcdfe85cd1a"
+      },
+      {
+        "file": "docs/runtime-activity/registry.md",
+        "sha256": "98d6ae7c1dc2bc73ee7ed3ca24abc3b727a8758e829cb69bfaf490e2dc48e9c3"
+      },
+      {
+        "file": "docs/versions/v1.72/README.md",
+        "sha256": "7a79b03f2145c47121062eb66d33cc339f1cb388bb196d9bbe905da7e6e14d6f"
+      },
+      {
+        "file": "integration/execution/i02-runtime-port.md",
+        "sha256": "2e9a39435d3a41097492626c94d0e16a75c31701c114a18e1d92fdb6c0512f38"
+      },
+      {
+        "file": "packages/contracts/src/index.ts",
+        "sha256": "df02f9691f6d18ccd3246b30c20581e86a2e4a635bda49aa354f93ab5739599c"
+      },
+      {
+        "file": "tools/integration/smoke-gemini-acp.mjs",
+        "sha256": "d6eb8dc0ff3b8b35d6002ace38207a03a9868aa7ee5a7c908e49b1054e752ec8"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/assets/runtime-logos/hermes-agent.svg",
+        "sha256": "f660a2312f42c1d9d21daa5c7dfe1d666901030a42a469edc014678314d0ec8a"
+      },
+      {
+        "file": "docs/contracts/hermes-runtime-v1.md",
+        "sha256": "0bfe84912088ea906711fdea0fa98d7035453cf2f6dcfa1c854149ac5157e4e2"
+      },
+      {
+        "file": "tools/integration/smoke-hermes-acp.mjs",
+        "sha256": "723372c5d538578f4d4c6c85f7ec674253bd17982c835cfabb7179607dd3b9fc"
+      }
+    ],
+    "logo": {
+      "file": "apps/desktop/src/renderer/src/assets/runtime-logos/hermes-agent.svg",
+      "gitBlobMatchesFixedSource": true,
+      "sha256": "f660a2312f42c1d9d21daa5c7dfe1d666901030a42a469edc014678314d0ec8a",
+      "lineEndings": "repository_LF"
+    }
+  },
+  "implemented": {
+    "kind": "hermes-cli",
+    "catalogAdapters": 20,
+    "fullSourceUnion": 21,
+    "remainingPort": [
+      "open_claw"
+    ],
+    "authority": "rovai-core",
+    "lifecycle": "专用ACP实例、产品发现、精确Run查找/终止及双退出路径",
+    "launch": [
+      "hermes",
+      "acp"
+    ],
+    "nativeModel": "session/set_model；保持原始Provider路由ID",
+    "permissions": {
+      "field": "permission_mode",
+      "scope": "session",
+      "modes": [
+        "default",
+        "accept_edits",
+        "dont_ask"
+      ],
+      "default": "dont_ask",
+      "sensitiveRequests": "保留全部原生批准，不自动允许"
+    },
+    "restore": "同Host复用；既有ID使用strict load，拒绝SDK空响应，不借native resume隐式创建",
+    "skills": "HERMES_HOME/skills；工程.hermes/skills与.agents/skills受原生信任控制；DocumentationOnly",
+    "usage": "原生session累计，scope=session/无prompt checkpoint分裂；输入语义Unknown，缺Run基线不补零/不归历史总量为新消耗",
+    "mcp": "原生additive映射，实际工具资格待验证",
+    "migration": {
+      "receipt": 198,
+      "source": 147,
+      "target": 148,
+      "tables": 7,
+      "previous": "197仍拥有146->147",
+      "guard": "147不接受未提交receipt的Hermes闭集；原子保留/rollback/FK/reopen"
+    }
+  },
+  "checked": {
+    "workspaceCompile": {
+      "status": "passed",
+      "log": "work/i02/hermes-core-check-after-db.log"
+    },
+    "workspace": {
+      "passed": 499,
+      "failed": 0,
+      "ignored": 8,
+      "log": "work/i02/hermes-core-workspace-after-db.log"
+    },
+    "extended": {
+      "passed": 48,
+      "failed": 0,
+      "ignored": 0,
+      "log": "work/i02/hermes-core-targeted-after-db.log"
+    },
+    "databaseExtended": {
+      "status": "106_full_suite_passes_plus_failed_fixture_repair_verified_by_targeted_owner",
+      "successfullyVerifiedDistinctOwners": 107,
+      "fullSuite": {
+        "passed": 106,
+        "failed": 1,
+        "log": "work/i02/hermes-all-db-extended-tests-final.log"
+      },
+      "repair": {
+        "owner": "db::tests::legacy_feishu_migration_marker_collision_reconciles_without_quarantine",
+        "status": "passed",
+        "log": "work/i02/hermes-core-targeted-after-db.log",
+        "fix": "Windows合成迁移库目录先设置私有所有权；不放宽生产ACL"
+      },
+      "fullSuiteRepeatedAfterFinalFixtureFix": false
+    },
+    "parameterTests": {
+      "passed": 37,
+      "failed": 0,
+      "files": 1,
+      "log": "work/i02/hermes-member-vitest.log"
+    },
+    "typecheck": "passed",
+    "webExecutionWebDesktopCodeBuild": "passed",
+    "docsGovernance": "passed",
+    "planningProtocolConsistency": "passed",
+    "native": {
+      "passed": 9,
+      "failed": 0,
+      "evidence": "work/i02/hermes-native-evidence/hermes-acp-thkPuj/result.json",
+      "Core": "not_started",
+      "successfulSession": "not_created",
+      "nativeSessionRows": 0,
+      "integrity": "ok",
+      "EOF": 0,
+      "modelInference": "not_run"
+    }
+  },
+  "selfReview": {
+    "sourceTrust": "固定社区桥接与官方tag提交一致；原生工具链/uv缓存/Python/venv均工作区隔离安装，未继承认证配置",
+    "permissions": "dont_ask不等同全部允许；Session实际模式缺失/重复/未知拒绝Ready，旧强制只读不伪装支持",
+    "restore": "实测Python None经SDK序列化为空对象{}；Core先验证原生models/modes才确认绑定并释放重放；嵌套models/modes空对象同样拒绝，扩展既有恢复owner",
+    "schema": "复用七表重建与既有owner覆盖146/147两个精确来源；旧夹具去除新闭集后再降版，不放宽生产准入；扩展回归修正真实旧库预检遗漏与Windows隔离夹具，107个DB owner均有通过证据（106全量＋最后1项修复复测），保留两次失败日志",
+    "usage": "源码turn_finalizer复制session_*总量，避免误作delta；会话基线不能按Prompt拆分，跨Run完整归属仍研发待办",
+    "UI": "Codeg原SVG字节保留，Hermes使用既有主题mask；共享产品/原生模式页，未引入第二执行引擎"
+  },
+  "testAdmission": {
+    "newIndependentRustOwners": 0,
+    "extendedOwners": [
+      "原生模式与资格闭集（保留Gemini全部case并补Hermes）",
+      "精确146/147升级逐值保留、receipt回滚与最新重开",
+      "批准与恢复选择；纯恢复owner移出Unix-only，全部旧case保留",
+      "Native启动参数、稀疏累计Usage、平台证据与旧迁移来源"
+    ]
+  },
+  "failureHistory": [
+    {
+      "stage": "compile",
+      "error": "new Hermes kind missing explicit ACP permission-auto-allow arm",
+      "fix": "明确false并增加三模式敏感请求矩阵"
+    },
+    {
+      "stage": "extended",
+      "passed": 39,
+      "failed": 1,
+      "error": "旧catalog夹具包含新的Hermes闭集，旧标记与结构不一致",
+      "fix": "先还原至固定旧来源闭集再执行历史迁移；生产准入不放宽"
+    },
+    {
+      "stage": "default",
+      "passed": 450,
+      "failed": 2,
+      "errors": [
+        "Pending Draft旧来源夹具仍含新闭集",
+        "Mac资格正向矩阵未排除未获资格Hermes"
+      ],
+      "fix": "修夹具来源及矩阵期望；Hermes保持四平台未授予资格"
+    },
+    {
+      "stage": "nativeProbe",
+      "error": "将Python None误预计为wire null，实际SDK为{}",
+      "evidence": "work/i02/hermes-native-evidence/hermes-acp-VbvYIx/result.json",
+      "fix": "按真实wire检查空对象，实际查库0会话；Core提前拒绝空恢复确认"
+    },
+    {
+      "stage": "expanded_database_regression",
+      "initial": {
+        "passed": 71,
+        "failed": 36,
+        "log": "work/i02/hermes-all-db-extended-tests.log"
+      },
+      "second": {
+        "passed": 106,
+        "failed": 1,
+        "log": "work/i02/hermes-all-db-extended-tests-final.log"
+      },
+      "fixes": [
+        "补实际预检入口147/148，历史receipt walker仍止于146",
+        "共用旧库逆向还原移除融合闭集；四个旧Skills矩阵排除未部署Runtime",
+        "旧简化与Bootstrap迁移夹具对齐当前升级链",
+        "Windows夹具使用原生绝对路径/私有目录并关闭文件句柄"
+      ],
+      "finalFailedOwnerRetest": {
+        "owner": "db::tests::legacy_feishu_migration_marker_collision_reconciles_without_quarantine",
+        "status": "passed",
+        "log": "work/i02/hermes-core-targeted-after-db.log",
+        "fix": "Windows合成迁移库目录先设置私有所有权；不放宽生产ACL"
+      }
+    },
+    {
+      "stage": "final_failed_database_owner_retest",
+      "passed": 47,
+      "failed": 1,
+      "log": "work/i02/hermes-core-targeted-after-db-first.log",
+      "error": "已存在的普通克隆目录由管理员组所有，生产私有目录函数正确拒绝更改所有者",
+      "fix": "该owner改为先创建私有新根，再克隆并配置与原seeded模板相同的三Agent；最终48通过"
+    }
+  ],
+  "limits": {
+    "actualModel": "not_run",
+    "successfulSession": "not_run",
+    "streaming": "not_run",
+    "stopResume": "not_run",
+    "MCP": "not_run",
+    "SkillsTrust": "not_run",
+    "crossRunUsageAttribution": "pending_implementation_and_validation",
+    "UnixModelWireRegression": "not_run_GitHub_billing_pending",
+    "fourPlatformQualification": "not_granted",
+    "full324FusionCases": "not_run",
+    "customerAcceptance": "not_run"
+  },
+  "next": [
+    "已锁定OpenClaw2026.9.8/隔离Node24.21及94源文件，继续Core受管理Gateway、模型冻结与Gateway级MCP兼容",
+    "补Hermes原生Skills信任、跨Run用量基线及Core真实Session/工具生命周期",
+    "恢复CI后补Unix/Mac新源码与原生ready；取得开发身份后执行真实模型资格"
+  ]
+}

@@ -1,4 +1,5 @@
 import { isNewConversationMemberAvailable } from './new-conversation-availability'
+import { isProjectPath } from '../../shared/navigation-preferences-model'
 import type {
   AgentProfile,
   GeneralPreferencesSnapshot,
@@ -50,8 +51,7 @@ export function parseCurrentProject(value: string | null): CurrentProject {
     }
     if (
       record.kind === 'directory'
-      && typeof record.projectPath === 'string'
-      && record.projectPath.length > 0
+      && isProjectPath(record.projectPath)
       && Object.keys(record).length === 2
     ) {
       return { kind: 'directory', projectPath: record.projectPath }

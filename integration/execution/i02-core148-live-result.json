@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "task": "I02-T01",
+  "status": "passed",
+  "scope": "schema148_real_host_and_production_web_no_model",
+  "source": {
+    "commit": "16e9d327b33fa1cf000e4dc508a7959d300a4c6d",
+    "CoreBinary": {
+      "path": "work/i02/native-artifacts/core148/rovai-host.exe",
+      "sha256": "06d3917aec0bf520ada65ba7db824ee1ef56af64d63774dd1516a3e984fcb728",
+      "contract_version": "v1.72",
+      "projection_schema_version": 148,
+      "hostWebProtocol": 4
+    },
+    "webIndexSha256": "53d28ed1367c965ee03ec111d4226f92b78128d6dc2d4d9b3af396e3208a768e",
+    "assetCacheSha256": "450ccf40f8340f54a835e582d54b81334128827f38f9094933651ba45bde81bc"
+  },
+  "checked": {
+    "cases": 19,
+    "checks": [
+      {
+        "id": "real_core_fixture_created",
+        "status": "passed",
+        "threads": 2,
+        "activation": "active",
+        "messages": 0,
+        "runtimeConfigured": false
+      },
+      {
+        "id": "current_message_contract_records_eight_messages_and_replays_once",
+        "status": "passed",
+        "recordedMessages": 8,
+        "execution": null
+      },
+      {
+        "id": "production_web_authenticated_no_desktop_mock",
+        "status": "passed"
+      },
+      {
+        "id": "real_project_A_home_scoped_and_canonical",
+        "status": "passed"
+      },
+      {
+        "id": "real_project_B_home",
+        "status": "passed"
+      },
+      {
+        "id": "production_history_back_forward",
+        "status": "passed"
+      },
+      {
+        "id": "production_reload_restores_project",
+        "status": "passed"
+      },
+      {
+        "id": "late_real_A_response_does_not_replace_B",
+        "status": "passed"
+      },
+      {
+        "id": "missing_directory_keeps_previous_home_and_history",
+        "status": "passed"
+      },
+      {
+        "id": "restored_directory_retry_clears_error",
+        "status": "passed"
+      },
+      {
+        "id": "production_browser_restart_restores_current_project",
+        "status": "passed",
+        "login": "restored"
+      },
+      {
+        "id": "production_thread_renders_real_recorded_messages",
+        "status": "passed"
+      },
+      {
+        "id": "same_browser_tabs_keep_unsent_text_private_and_restore_after_reload",
+        "status": "passed"
+      },
+      {
+        "id": "browser_process_restart_keeps_two_separate_body_snapshots",
+        "status": "passed"
+      },
+      {
+        "id": "explicit_previous_editor_restore_copies_one_snapshot_without_merging",
+        "status": "passed"
+      },
+      {
+        "id": "actual_browser_quota_preserves_input_and_previous_snapshot_then_retries",
+        "status": "passed"
+      },
+      {
+        "id": "record_only_message_has_no_delivery_or_withdraw_ui",
+        "status": "passed"
+      },
+      {
+        "id": "ineligible_withdrawal_rejected_and_keeps_publication_and_client_drafts",
+        "status": "passed"
+      },
+      {
+        "id": "isolated_database_integrity_and_zero_agent_runs",
+        "status": "passed"
+      }
+    ],
+    "migrationReceipts": [
+      197,
+      198
+    ],
+    "agentRuns": 0,
+    "integrity": "ok",
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/155.0.8059.39",
+      "revision": "@3ff7ac5a9224be9156d7f8703a06e22890aafd34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "jsVersion": "15.5.35.20"
+    },
+    "screenshotsReviewed": [
+      "project-B-real-host.png",
+      "saved-draft-picker.png"
+    ]
+  },
+  "isolation": {
+    "dataDir": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i02\\core148-live-evidence\\live-T54zpi\\formal\\Core",
+    "skillRoot": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i02\\core148-live-evidence\\live-T54zpi\\formal\\Core\\skills",
+    "mcpConfigPath": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i02\\core148-live-evidence\\live-T54zpi\\formal\\Core\\mcp.json",
+    "browserProfile": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i02\\core148-live-evidence\\live-T54zpi\\formal\\Core\\acceptance-browser",
+    "dailyData": false
+  },
+  "limits": {
+    "realRuntime": "not_run",
+    "modelInference": "not_run",
+    "waitingDeliveryWithdrawSuccess": "not_verified",
+    "fullFusion324Cases": "not_run",
+    "customerAcceptance": "not_run"
+  },
+  "evidence": "work/i02/core148-live-evidence/live-T54zpi/evidence"
+}

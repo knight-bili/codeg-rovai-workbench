@@ -5,6 +5,20 @@ const thread = (threadId: string): NavigationTarget => ({ kind: 'camp', threadId
 const create = () => createDesktopNavigation(async (_target, transaction) => { transaction.commit() })
 
 describe('window navigation history', () => {
+  it('keeps project homes distinct and restores their project through Back and Forward', async () => {
+    const navigation = create()
+    const first = { kind: 'quick_chat', projectPath: '/work/first' } as NavigationTarget
+    const second = { kind: 'quick_chat', projectPath: '/work/second' } as NavigationTarget
+    navigation.reset(first)
+    expect(await navigation.push(second)).toBe(true)
+    expect(navigation.getSnapshot().entries).toEqual([first, second])
+    expect(await navigation.push(second)).toBe(false)
+    await navigation.back()
+    expect(navigation.getSnapshot().entries[navigation.getSnapshot().index]).toEqual(first)
+    await navigation.forward()
+    expect(navigation.getSnapshot().entries[navigation.getSnapshot().index]).toEqual(second)
+  })
+
   it('keeps one initial page and only ignores the current destination', async () => {
     const navigation = create()
     navigation.reset(thread('A'))

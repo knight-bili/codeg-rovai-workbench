@@ -14,8 +14,8 @@ const root = resolve(import.meta.dirname, '../..')
 const chrome = process.env.ROVAI_REVIEW_CHROME ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 // Owns the real native entry + browser shared-page seam. The component fixture
 // cannot detect bootstrap/reauth remounts or IPC/HTTP editor ownership mistakes.
-// Records use execution:null. The pending-return case seeds one needs_repair row
-// only in the isolated database so no Runtime can launch; execution/approval has a separate smoke.
+// Reading records use execution:null and have no delivery or withdrawal right.
+// No Runtime is configured and no retired Core rows are inserted.
 test('actual Desktop and browser share Camp geometry while three drafts and reauthentication stay independent', { timeout: 240_000 }, async t => {
   if (process.platform !== 'darwin') { t.skip('This native Desktop acceptance currently requires macOS; no other platform qualification claimed.'); return }
   try { await access(chrome) } catch { t.skip('A local Chrome binary is required for actual browser acceptance.'); return }
@@ -30,13 +30,16 @@ test('actual Desktop and browser share Camp geometry while three drafts and reau
   try {
     desktop = await launchBrowser('desktop', userData)
     await desktop.wait(`Boolean(window.rovai?.request)`)
-    await desktop.wait(`window.rovai.supervisor.getSnapshot().then(s=>s.fullCoreState==='ready')`)
+    // Fresh Debug authority initialization was still progressing at the old
+    // generic 12s UI deadline on CI. Keep the ready predicate, but give this
+    // startup boundary its own bounded observation window.
+    await desktop.wait(`window.rovai.supervisor.getSnapshot().then(s=>s.fullCoreState==='ready')`, 60_000)
     const request = (method, params = {}) => desktop.evaluate(`window.rovai.request(${JSON.stringify(method)},${JSON.stringify(params)})`)
     const info = await request('app.info'); assert.ok(info.dataDir.startsWith(userData)); console.log(JSON.stringify({ stage: 'desktop-ready', data: info.dataDir }))
     stage = 'native onboarding'
     await desktop.evaluate(`(async()=>{const api=window.rovai.onboarding;let s=await api.get();if(s.status==='uninitialized')s=await api.showWelcome();if(s.status==='in_progress'&&s.step==='welcome')s=await api.completeWelcome();if(s.status==='in_progress'&&s.step==='member'){await api.selectMember('luoke');s=await api.completeMemberSelection()}if(s.status==='in_progress'&&s.step==='runtime')s=await api.deferRuntimeSetup();return s.status})()`)
     await desktop.evaluate(`window.__beforeAcceptanceReload=true`)
-    await desktop.send('Page.reload')
+    await desktop.reload()
     await desktop.wait(`window.__beforeAcceptanceReload!==true && document.querySelector('.unified-sidebar')!==null`)
     stage = 'seed shared Camp'
     await desktop.evaluate(`window.rovai.appearance.setPreference('day')`)
@@ -45,13 +48,14 @@ test('actual Desktop and browser share Camp geometry while three drafts and reau
     await writeFile(join(projectPath, 'guide.md'), '# Images\n\n![Inline fixture](./inline.png)\n\n[Child guide](./child.md#details)')
     await writeFile(join(projectPath, 'child.md'), '# Details\n\nCHILD_GUIDE_MARKER')
     await writeFile(join(projectPath, 'inline.png'), Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==', 'base64'))
-    const projectWorkspace = { projectPath, name: 'owner-project' } // Fixture path; actual browser inspection below uses HTTP/Core.
-    const created = await request('camps.create', { commandId: crypto.randomUUID(), name: 'Desktop and Web live parity', workspace: projectWorkspace, memberAgentIds: [profiles[0].agentId], defaultLeadAgentId: profiles[0].agentId, collaborationMode: 'peer' })
+    const projectWorkspace = await request('workspaces.inspect', { path: projectPath })
+    const created = await request('threads.create', { commandId: crypto.randomUUID(), name: 'Desktop and Web live parity', workspace: { projectPath: projectWorkspace.projectPath }, memberAgentIds: [profiles[0].agentId], defaultLeadAgentId: profiles[0].agentId, collaborationMode: 'peer' })
     assert.equal(created.status, 'applied', JSON.stringify(created)); const threadId = created.payload.threadId
     for (let i = 1; i <= 8; i++) {
-      const draft = await request('camp.composerDraft.get', { threadId })
-      const saved = await request('camp.composerDraft.save', { threadId, expectedRevision: draft.revision, content: { version: 2, segments: [{ kind: 'text', text: `Controlled Host record ${i}.\n\n**Shared production Camp** preserves message structure and reading position.\n\n\`commandId\` belongs to Rust Host.\n\n${i === 1 ? '[Preview guide](./guide.md#images)' : ''}` }] } })
-      await request('camp.messages.send', { commandId: crypto.randomUUID(), threadId, draftRevision: saved.revision, execution: null })
+      const sent = await request('thread.messages.send', { commandId: crypto.randomUUID(), threadId,
+        content: { version: 2, segments: [{ kind: 'text', text: `Controlled Host record ${i}.\n\n**Shared production Camp** preserves message structure and reading position.\n\n\`commandId\` belongs to Rust Host.\n\n${i === 1 ? '[Preview guide](./guide.md#images)' : ''}` }] },
+        sourceAttachments: [], quotes: [], replyToThreadMessageId: null, execution: null })
+      assert.equal(sent.commandResult.status, 'applied', JSON.stringify(sent))
     }
     const choose = async browser => {
       console.log(JSON.stringify({ stage: 'show acceptance surface', surface: browser === desktop ? 'desktop' : 'browser', visibility: await browser.evaluate('document.visibilityState') }))
@@ -221,49 +225,27 @@ test('actual Desktop and browser share Camp geometry while three drafts and reau
     second = await launchBrowser('web', join(fixture, 'chrome-b')); await second.send('Page.navigate', { url: started.origin }); await login(second, started.administratorToken); await choose(second)
     assert.equal(await second.evaluate(`document.querySelector('[contenteditable=true]').textContent`), '')
     await type(second, 'Browser B independent draft.')
+    const readDraft = browser => browser.evaluate(`(()=>{const key='rovai.camp-composer-draft.v1:'+${JSON.stringify(threadId)};if(window.rovai)return {store:'desktop_local',scope:'desktop',value:localStorage.getItem(key)};const copies=Object.keys(localStorage).filter(key=>key.startsWith('rovai.web.thread-drafts.v1:')).map(key=>JSON.parse(localStorage.getItem(key))).filter(copy=>copy.entries[key]);if(copies.length!==1)throw Error('Expected one verified browser body store');return {store:'web_editor_snapshot',scope:copies[0].scope,value:copies[0].entries[key].value}})()`)
+    const editors = [desktop, web, second]
+    const texts = ['Desktop draft remains independent.', 'Browser A draft survives reauthentication.', 'Browser B independent draft.']
+    for (let index = 0; index < editors.length; index++) await editors[index].wait(`document.querySelector('[contenteditable=true]').textContent===${JSON.stringify(texts[index])}`)
     await pause(1500)
-    const db = new DatabaseSync(join(info.dataDir, 'rovai.sqlite'), { readOnly: true })
-    const rows = db.prepare('select client_id,structured_content_json,revision from camp_composer_draft where camp_id=?').all(threadId); db.close()
-    assert.equal(rows.length, 3, JSON.stringify(rows)); assert.equal(new Set(rows.map(r => r.client_id)).size, 3)
-    for (const text of ['Desktop draft remains independent.', 'Browser A draft survives reauthentication.', 'Browser B independent draft.']) assert.ok(rows.some(r => r.structured_content_json.includes(text)))
-    stage = 'Web pending return to the current client Draft'
-    // Seed a canonical repair item without a Run. The production shared page,
-    // HTTP authorization, Core transaction and subsequent Draft read are real.
-    const pendingId = crypto.randomUUID()
-    const returnedText = 'Pending input returned to Browser A.'
-    const pendingContent = JSON.stringify({ version: 2, segments: [{ kind: 'text', text: returnedText }] })
-    const seed = new DatabaseSync(join(info.dataDir, 'rovai.sqlite'))
-    let pendingSource, othersBefore
-    try {
-      pendingSource = seed.prepare('select * from camp_composer_draft where camp_id=? and client_id<>? and source_attachments_json<>?').get(threadId, 'desktop', '[]')
-      assert.ok(pendingSource, 'the uploaded browser Draft must exist before withdrawal')
-      othersBefore = seed.prepare('select client_id,structured_content_json,source_attachments_json,quotes_json,revision from camp_composer_draft where camp_id=? and client_id<>? order by client_id').all(threadId, pendingSource.client_id)
-      seed.prepare(`insert into pending_camp_input(id,camp_id,enqueue_sequence,structured_content_json,source_attachments_json,quotes_json,execution_json,user_id,state,last_attempt_error_code,client_id,created_at,updated_at)
-        values(?,?,1,?,?,?,'null','local_user','needs_repair','attachment_missing','desktop',?,?)`)
-        .run(pendingId, threadId, pendingContent, pendingSource.source_attachments_json, pendingSource.quotes_json, new Date().toISOString(), new Date().toISOString())
-    } finally { seed.close() }
-    await web.evaluate(`window.dispatchEvent(new Event('focus'))`)
-    const pendingEdit = `document.querySelector('.pending-input-row .pending-input-edit')`
-    await web.wait(`Boolean(${pendingEdit}) && !${pendingEdit}.disabled`)
-    await web.click(pendingEdit)
-    await web.wait(`document.querySelector('[contenteditable=true]')?.textContent===${JSON.stringify(returnedText)} && document.querySelector('.pending-input-row')===null`)
+    const localDrafts = await Promise.all(editors.map(readDraft))
+    assert.equal(new Set(localDrafts.map(draft => draft.scope)).size, 3)
+    localDrafts.forEach((draft, index) => assert.equal(JSON.parse(draft.value).body, texts[index]))
+    stage = 'record-only publication is not withdrawable'
+    assert.equal(await web.evaluate(`document.querySelectorAll('.user-message-withdraw').length`), 0)
+    assert.equal(await web.evaluate(`document.querySelectorAll('.user-message-receipt-row').length`), 0)
     assert.equal(await web.evaluate(`window.__acceptedComposer===document.querySelector('[contenteditable=true]')`), true)
-    assert.equal(await desktop.evaluate(`document.querySelector('[contenteditable=true]').textContent`), 'Desktop draft remains independent.')
-    assert.equal(await second.evaluate(`document.querySelector('[contenteditable=true]').textContent`), 'Browser B independent draft.')
-    const afterReturn = new DatabaseSync(join(info.dataDir, 'rovai.sqlite'), { readOnly: true })
-    try {
-      const restored = afterReturn.prepare('select * from camp_composer_draft where camp_id=? and client_id=?').get(threadId, pendingSource.client_id)
-      assert.equal(restored.source_attachments_json, pendingSource.source_attachments_json)
-      assert.equal(restored.quotes_json, pendingSource.quotes_json)
-      assert.ok(restored.revision > pendingSource.revision)
-      assert.equal(afterReturn.prepare('select state from pending_camp_input where id=?').get(pendingId).state, 'cancelled')
-      assert.deepEqual(afterReturn.prepare('select client_id,structured_content_json,source_attachments_json,quotes_json,revision from camp_composer_draft where camp_id=? and client_id<>? order by client_id').all(threadId, pendingSource.client_id), othersBefore)
-    } finally { afterReturn.close() }
-    const repairUpload = join(fixture, 'pending-repair.txt')
-    await writeFile(repairUpload, 'Attached after returning to the ordinary Composer.\n')
+    for (let index = 0; index < editors.length; index++) {
+      assert.equal(await editors[index].evaluate(`document.querySelector('[contenteditable=true]').textContent`), texts[index])
+      assert.equal((await readDraft(editors[index])).value, localDrafts[index].value)
+    }
+    const repairUpload = join(fixture, 'independent-input.txt')
+    await writeFile(repairUpload, 'Attached while independent client input remains unchanged.\n')
     await web.setFiles('.conversation-controls .composer-file-input', [repairUpload])
     await web.wait(`document.querySelectorAll('.composer-attachment-card .attachment-open:not(:disabled)').length===2`)
-    await web.capture(join(output, 'web-pending-return.png'))
+    await web.capture(join(output, 'web-independent-input.png'))
     stage = 'private browser editors and attachments'
     const privateFile = join(fixture, 'private-browser.md')
     await writeFile(privateFile, '# Private attachment\n\nPRIVATE_BROWSER_ATTACHMENT')
@@ -298,19 +280,28 @@ test('actual Desktop and browser share Camp geometry while three drafts and reau
     await web.click(`document.querySelector('[aria-label="收起单聊"]')`)
     await second.click(`document.querySelector('[aria-label="收起单聊"]')`)
     assert.equal(await web.evaluate(`window.__acceptedComposer===document.querySelector('[contenteditable=true]')`), true)
-    assert.equal(await web.evaluate(`document.querySelector('[contenteditable=true]').textContent`), returnedText)
+    assert.equal(await web.evaluate(`document.querySelector('[contenteditable=true]').textContent`), texts[1])
     assert.equal(await web.evaluate('typeof window.rovai'), 'undefined')
     assert.deepEqual(desktop.errors, []); assert.deepEqual(web.errors, []); assert.deepEqual(second.errors, [])
     await web.capture(join(output, 'web-after-reauth.png'))
-    const evidence = { stage: 'managed-desktop-web-passed', simulation: false, realRuntime: false, desktopFocusEmulated: true, threadId, geometry: await geometry(web), draftOwners: rows.map(r => r.client_id === 'desktop' ? 'desktop' : 'web'), sameComposerAfterReauth: true, nativeBridgeInBrowser: false,
+    const evidence = { stage: 'managed-desktop-web-passed', simulation: false, realRuntime: false, desktopFocusEmulated: true, threadId, geometry: await geometry(web), draftOwners: localDrafts.map(draft => draft.store), sameComposerAfterReauth: true, nativeBridgeInBrowser: false,
       ownerModel: { desktopSettingsStart: true, pendingPortAppliesOnlyOnNextStart: true, stopWithoutConfirmation: true, copiedAddressAndToken: true, copyIconFeedbackWithoutPageNotice: true, tokenReadableBeforeStartAndAfterStop: true, tokenPreservedOnRestart: true, actualInterfaceAddress: true, nonLoopbackOrigin: !started.origin.includes('127.0.0.1'), directoryPickerWithoutPreauthorization: true, sameMachineBrowsers: true, secondPhysicalDevice: false },
       management: { notificationPreferenceSavedThroughUi: true, monitoringReadAndDownload: true, relativeMarkdownImageAndChild: true, diagnosticsReadAndDownload: true, channelNativeCapabilityExplicit: true, memoryCreateReviseRetire: true, automationCreateClose: true, mcpCreate: true, skillDirectoryImport: true, builtinPortraitAndManagedAvatarUpload: true, taskCreateUpdateCancel: true, privateDraftAndAttachmentIsolation: true, privateReauthenticationPreservesEditor: true },
-      mainSync: { browserGeneralPreferences: true, nativeWindowControlsAbsent: true, browserZoomExplicit: true, previewSelectAllScoped: true, finalLineQuoteAccepted: true, pendingReturnScopedToCurrentClient: true, pendingAttachmentsAddedInComposer: true, pendingFixture: 'one needs_repair row in isolated database; no Runtime' } }
+      mainSync: { browserGeneralPreferences: true, nativeWindowControlsAbsent: true, browserZoomExplicit: true, previewSelectAllScoped: true, finalLineQuoteAccepted: true, recordOnlyHasNoWithdrawal: true, allClientDraftBytesPreserved: true, attachmentAddedToIndependentInput: true, waitingDeliveryWithdrawal: 'not_run_requires_controlled_Runtime', fixture: 'legal records and local drafts; no direct Core writes' } }
     await desktop.evaluate(`window.rovai.hostWeb.stop()`)
     assert.ok((await request('app.info')).dataDir)
+    const db = new DatabaseSync(join(info.dataDir, 'rovai.sqlite'), { readOnly: true })
+    try { assert.equal(db.prepare('select count(*) n from agent_run').get().n, 0); assert.equal(Object.values(db.prepare('pragma integrity_check').get())[0], 'ok') }
+    finally { db.close() }
     await writeFile(join(output, 'desktop-web-live.json'), JSON.stringify({ ...evidence, coreAliveAfterWebStop: true }, null, 2))
     console.log(JSON.stringify({ ...evidence, coreAliveAfterWebStop: true }))
   } catch (error) {
+    if (desktop && stage === 'native startup') {
+      const startup = await desktop.evaluate(`window.rovai.supervisor.getSnapshot().then(s=>({schemaVersion:s.schemaVersion,runtimeMode:s.runtimeMode,fullCoreState:s.fullCoreState,authorityKind:s.authorityState.kind,startupPhase:s.startupPhase,lastErrorCode:s.lastError?.code??null,subsystems:s.coreSubsystems.map(item=>({id:item.id,state:item.state,errorCode:item.error?.code??null}))}))`).catch(() => null)
+      await writeFile(join(output, 'desktop-startup-state.json'), JSON.stringify({ stage, snapshot: startup }, null, 2))
+      await desktop.capture(join(output, 'desktop-startup-failure.png')).catch(() => undefined)
+      console.log(JSON.stringify({ stage, startup }))
+    }
     if (web) await web.capture(join(output, 'web-failure.png')).catch(() => undefined)
     throw new Error(`Live acceptance at ${stage}: ${error.message}`, { cause: error })
   } finally {

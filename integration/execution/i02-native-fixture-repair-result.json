@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "task": "I02-T01",
+  "status": "native_Mac_startup_failure_diagnostics_added_retry_pending",
+  "files": [
+    {
+      "file": "scripts/lib/host-web-live.test.mjs",
+      "sha256": "6b9a149711789ee66b5beb17a8e1aa133eba42674bfebea40726d162023436f7"
+    },
+    {
+      "file": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+      "sha256": "81ef864bae600ccce55d257a02be6b32dd97eb082a25c51ff308ed710afc1fc9"
+    },
+    {
+      "file": "tools/integration/smoke-workbench-live.mjs",
+      "sha256": "a402a72f07e3218158a0289adfe065729ad4ecabcd0449fc250e39ffa8f4be37"
+    },
+    {
+      "file": ".github/workflows/workbench-native-web.yml",
+      "sha256": "41177d868f1b16858d92c409f536d6ff905d2087cbb35d593d98c364436bbbdb"
+    }
+  ],
+  "changes": [
+    "移除退役Core public草稿与未公开Pending的直接SQL写入",
+    "Desktop及两个Web编辑身份按当前客户端快照检查独立正文",
+    "阅读记录无投递时不显示等待/撤回；拒绝命令保持消息及所有草稿",
+    "保留重新认证DOM身份、附件、管理页、文件预览引用及双主题断言",
+    "启动失败时采集仅含状态/阶段/错误码的Supervisor快照和启动页，保持ready断言与原超时预算",
+    "双Mac工作流同时执行独立Gemini初始化/空认证拒绝探测；只上传无凭据result"
+  ],
+  "passed": {
+    "liveCoreProductionWebChecks": 19,
+    "readingRecordAgentRuns": 0,
+    "databaseIntegrity": "ok",
+    "typecheck": true,
+    "webExecutionWebDesktopCodeBuild": true,
+    "nativeScriptSyntax": true,
+    "workflowYamlParsing": true,
+    "actionlintWorkflowSemantics": true
+  },
+  "selfReview": "回执不能仅由寻址成员推导；当前可撤回资格或真实Turn/Run才支撑状态。合法Core API建数据，最后SQL只读核查。没有用旧表注入、假Run或宽松断言使测试通过。",
+  "beforeFailures": [
+    {
+      "id": "execution_null_is_not_queued",
+      "result": "recall_state=ineligible且Principal delivery为0",
+      "action": "纠正旧证据中的等待投递表述"
+    },
+    {
+      "id": "delivery_claim_race",
+      "fixture": "live-lyFUxH",
+      "result": "正式发布被快速领取；数据库真实出现1条failed Run，未获得可撤回等待窗口",
+      "actualInference": "not_verified",
+      "action": "等待状态撤回正向场景保留研发待办，不能记为真实AI通过"
+    },
+    {
+      "id": "workflow_context_invalid",
+      "githubRun": 38446490275,
+      "result": "GitHub未创建作业即失败；actionlint复现job env中runner上下文不可用",
+      "action": "在执行步骤使用RUNNER_TEMP并经GITHUB_ENV传递；修正版actionlint通过",
+      "reference": "https://docs.github.com/en/actions/reference/workflows-and-actions/contexts"
+    }
+  ],
+  "limits": {
+    "nativeMacSuite": "not_run_CI_pending",
+    "waitingDeliveryWithdrawalSuccess": "not_run",
+    "realRuntime": "not_run",
+    "customerAcceptance": "not_run",
+    "fullFusionCases": "not_run"
+  },
+  "githubWorkflow": ".github/workflows/workbench-native-web.yml",
+  "liveEvidence": "i02-navigation-live-result.json",
+  "screenshots": [
+    {
+      "file": "I02_阅读记录撤回拒绝验证.png",
+      "sha256": "8e76b8d96706f712f3f68e5890ad27d89a3fdb36576107ec7d7dc4d908e2cd47",
+      "review": "无待处理回执和撤回按钮，容量错误后的草稿仍在输入框"
+    }
+  ],
+  "nativeMacCI": {
+    "runId": 38447189169,
+    "head": "1292c8883e3ac5453c6bfd9ed4477258723fc65c",
+    "x64": {
+      "jobId": 115468536548,
+      "sourceBuild": "passed",
+      "fixture": "failed",
+      "stage": "native startup",
+      "failure": "fullCoreState ready等待超时；原日志无Supervisor状态，尚不能确定Core原因"
+    },
+    "arm64": {
+      "jobId": 115468537049,
+      "status": "cancelled",
+      "assertions": "not_run",
+      "cancellationReason": "not_established"
+    }
+  }
+}

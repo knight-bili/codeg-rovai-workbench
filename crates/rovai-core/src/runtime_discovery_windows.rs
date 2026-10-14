@@ -179,6 +179,62 @@ pub(crate) fn classify_package_manager_cmd_shim(
     known_package_manager_shim_template(&shim, &target)
 }
 
+/// Resolve only the official package-manager OpenClaw JS entry. Control JSON
+/// must reach Node directly; passing it through cmd.exe is intentionally denied.
+pub(crate) fn inspect_openclaw_cmd_shim(shim_path: &Path) -> Option<PathBuf> {
+    if !shim_path
+        .file_name()?
+        .to_str()?
+        .eq_ignore_ascii_case("openclaw.cmd")
+    {
+        return None;
+    }
+    let metadata = fs::symlink_metadata(shim_path).ok()?;
+    if !metadata.is_file() || metadata.file_attributes() & FILE_ATTRIBUTE_REPARSE_POINT != 0 {
+        return None;
+    }
+    let shim_root = shim_path.parent()?.canonicalize().ok()?;
+    let shim = read_bounded_utf8(shim_path, MAX_CODEX_SHIM_BYTES)?
+        .replace("\r\n", "\n")
+        .replace('\r', "\n");
+    let target = unique_node_entrypoint_target(&shim)?;
+    // npm may append an empty line after its exact template.
+    let normalized = format!("{}\n", shim.trim_end_matches('\n'));
+    known_package_manager_shim_template(&normalized, &target)?;
+    let target = target.replace(r"\\", r"\");
+    let entry = if target == r"%dp0%\..\openclaw\openclaw.mjs" && shim_root.file_name()? == ".bin" {
+        let modules = shim_root.parent()?;
+        if modules.file_name()? != "node_modules" {
+            return None;
+        }
+        let entry = modules.join("openclaw/openclaw.mjs").canonicalize().ok()?;
+        if !path_is_within(&entry, modules) {
+            return None;
+        }
+        entry
+    } else {
+        let entry = resolve_shim_entrypoint(&shim_root, &target)?;
+        if !path_is_within(&entry, &shim_root) {
+            return None;
+        }
+        entry
+    };
+    if entry.file_name()? != "openclaw.mjs" || !entry.is_file() {
+        return None;
+    }
+    let package_root = entry.parent()?;
+    if package_root.file_name()? != "openclaw" {
+        return None;
+    }
+    // The fixed OpenClaw package publishes a 145 KiB exports manifest.
+    let package: serde_json::Value =
+        read_json_bounded(&package_root.join("package.json"), 256 * 1024)?;
+    if package["name"] != "openclaw" || package["bin"]["openclaw"] != "openclaw.mjs" {
+        return None;
+    }
+    Some(entry)
+}
+
 fn read_registry_string(root: HKEY, subkey: &str, value_name: &str) -> Option<OsString> {
     let subkey = wide_null(subkey);
     let value_name = wide_null(value_name);
@@ -406,7 +462,7 @@ fn unique_node_entrypoint_target(shim: &str) -> Option<String> {
     for quoted in shim.split('"').skip(1).step_by(2) {
         let normalized = quoted.replace('/', "\\");
         let lower = normalized.to_ascii_lowercase();
-        if !lower.ends_with(".js")
+        if !(lower.ends_with(".js") || lower.ends_with(".mjs"))
             || (!lower.contains(r"\node_modules\")
                 && !lower.starts_with(r"%dp0%\")
                 && !lower.starts_with(r"%~dp0\"))
@@ -872,6 +928,38 @@ mod tests {
             fixture.executable.canonicalize().unwrap(),
             arbitrary.canonicalize().unwrap()
         );
+
+        let package = root.join("node_modules/openclaw");
+        fs::create_dir_all(&package).unwrap();
+        fs::write(package.join("openclaw.mjs"), "// isolated package fixture").unwrap();
+        fs::write(package.join("package.json"),serde_json::to_vec(&json!({"name":"openclaw","bin":{"openclaw":"openclaw.mjs"},"exportsFixture":"x".repeat(145_000)})).unwrap()).unwrap();
+        let local = root.join("node_modules/.bin");
+        fs::create_dir_all(&local).unwrap();
+        for (directory, target) in [
+            (&root, r"%dp0%\node_modules\openclaw\openclaw.mjs"),
+            (&local, r"%dp0%\\..\\openclaw\\openclaw.mjs"),
+        ] {
+            let shim = directory.join("openclaw.cmd");
+            let content = npm_current_shim(target);
+            fs::write(&shim, &content).unwrap();
+            assert_eq!(
+                inspect_openclaw_cmd_shim(&shim),
+                Some(package.join("openclaw.mjs").canonicalize().unwrap())
+            );
+            fs::write(&shim, format!("{content}echo unexpected\r\n")).unwrap();
+            assert_eq!(inspect_openclaw_cmd_shim(&shim), None);
+        }
+        fs::write(
+            package.join("package.json"),
+            r#"{"name":"other","bin":{"openclaw":"openclaw.mjs"}}"#,
+        )
+        .unwrap();
+        fs::write(
+            local.join("openclaw.cmd"),
+            npm_current_shim(r"%dp0%\..\openclaw\openclaw.mjs"),
+        )
+        .unwrap();
+        assert_eq!(inspect_openclaw_cmd_shim(&local.join("openclaw.cmd")), None);
 
         fs::remove_dir_all(root).unwrap();
     }

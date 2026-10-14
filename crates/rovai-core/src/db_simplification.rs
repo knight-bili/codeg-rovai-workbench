@@ -202,6 +202,7 @@ mod tests {
         let directory =
             std::env::temp_dir().join(format!("rovai-simplification-{}", Uuid::new_v4()));
         let mut database = crate::test_support::fresh_schema_database_fast_at(&directory);
+        crate::skill_pack_installation::downgrade_for_test(database.connection());
         let store = crate::managed_blob::ManagedBlobStore::new(&directory);
         let blob = store
             .put_bytes(&mut database, b"frozen input\n", "text/plain", "sensitive")
@@ -211,6 +212,9 @@ mod tests {
             .execute_batch("PRAGMA foreign_keys=OFF")
             .unwrap();
         let tx = database.connection().unchecked_transaction().unwrap();
+        rewrite_openclaw_runtime_closed_sets(&tx, true).unwrap();
+        rewrite_hermes_runtime_closed_sets(&tx, true).unwrap();
+        rewrite_gemini_runtime_closed_sets(&tx, true).unwrap();
         tx.execute_batch("ALTER TABLE event_log DROP COLUMN command_client_id;")
             .unwrap();
         for (table, columns) in [
@@ -259,7 +263,7 @@ mod tests {
             &[],
         )
         .unwrap();
-        tx.execute_batch("DELETE FROM schema_migration WHERE version=196;
+        tx.execute_batch("DELETE FROM schema_migration WHERE version>=196;
             UPDATE rovai_data_contract SET projection_schema_version=145;
             INSERT INTO event_log(event_id,event_type,command_id,command_type,actor_type,actor_id,request_digest,request_digest_version,result_status,result_code,result_payload_json,payload_json,created_at)
             VALUES('legacy-result','command.result','legacy-command','legacy.operation','user','test-user','old-digest',1,'rejected','legacy.code','{\"reason\":\"original\"}','{}','2026-10-01');").unwrap();

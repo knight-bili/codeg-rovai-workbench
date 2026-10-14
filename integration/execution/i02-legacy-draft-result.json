@@ -1,0 +1,191 @@
+{
+  "date": "2026-10-14",
+  "status": "passed",
+  "scope": "production_web_explicit_legacy_recovery_actual_pre_fix_fixture",
+  "checks": [
+    {
+      "id": "actual_pre_fix_profile_offers_explicit_recovery_without_auto_copy",
+      "status": "passed"
+    },
+    {
+      "id": "new_input_prevents_legacy_replacement_and_keeps_original",
+      "status": "passed"
+    },
+    {
+      "id": "explicit_restore_copies_to_verified_editor_and_preserves_original_bytes",
+      "status": "passed"
+    },
+    {
+      "id": "restored_editor_survives_reload",
+      "status": "passed"
+    },
+    {
+      "id": "owned_database_integrity_and_zero_agent_runs",
+      "status": "passed"
+    }
+  ],
+  "originalSha256": "87e00de62da67f10b357ebf84eb9ac4fb8c870712814ca909f0cf7005f316bd8",
+  "originalPreserved": true,
+  "realAgent": "not_run",
+  "sourceFixture": "live-juRekH",
+  "sourcePreFixFailure": "same_browser_tab_drafts",
+  "screenshots": [
+    {
+      "file": "legacy-offer.png",
+      "sha256": "e51681767f0ab439022ec410d29b01aa78ad459148ad90ddc310806fc75a09e6"
+    },
+    {
+      "file": "legacy-restored.png",
+      "sha256": "e28dd2bcb3a0d8d0971349dd85e1499924f632b9d7ebeba331571ab8d6abfa33"
+    }
+  ],
+  "closedBrowserDraftRecovery": "not_run",
+  "customerAcceptance": "not_run",
+  "schema_version": 1,
+  "task": "I02-T01",
+  "source": {
+    "parentCommit": "08c4220702fde9ebb677be6b5fcd0ea9ab7c5318",
+    "files": [
+      {
+        "file": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+        "sha256": "99fd56df7d2fa752fbc1a2283f185a6137b17ca6de8c42da898b60133f7354f4"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/camp-composer-local-store.ts",
+        "sha256": "648de10fcb699e49995a294788924d8d6ab010d9dc8b34a5445969d51a4d7631"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/styles.css",
+        "sha256": "453b3f6cb8c99c1640ebc01a4245041662bb644b0dc51cca9dbc2637a31648e8"
+      },
+      {
+        "file": "scripts/lib/host-web-browser.mjs",
+        "sha256": "dedd8e99a0584f58242b8c68016d5d537f1cb9dd12226fca9879015acbcad9e0"
+      },
+      {
+        "file": "tools/integration/smoke-legacy-draft.mjs",
+        "sha256": "ff0a3dd3654fe09040941d628160ea08896dcdce748903945cf74669df142af8"
+      }
+    ],
+    "webIndexSha256": "5121c098a5fb9a34b4e8f26d38ece3e47b8e7bbd50b2f1753c01625cbfd53579",
+    "uiBundle": [
+      {
+        "file": "index-08J69z7u.js",
+        "sha256": "e31dbe232fe1bd49711e5fa0e3afb29bfedc10e74c4c6e3067a5d8fd7a76c254"
+      },
+      {
+        "file": "index-7x65ipM4.js",
+        "sha256": "b4f63f8252c40e0dda102ae104fdc95fadcf42a120d4f189672b4fc9988f28c8"
+      },
+      {
+        "file": "index-B3vvUv4Z.js",
+        "sha256": "0aa1b82c3003f62b497925520b68c5e6090f62e74f2c34d82c614010eeb0d845"
+      },
+      {
+        "file": "index-BaQhTv6C.js",
+        "sha256": "bbda7c46804f723f43f448a920b792df01eb70a73f62064b5d74e4f3f4d087b2"
+      },
+      {
+        "file": "index-BUGG0Gw3.js",
+        "sha256": "ec57a1fe259512f5362f45bd40feb7b2275a9805da0026c04937341beed879cc"
+      },
+      {
+        "file": "index-Bw_qWTC7.js",
+        "sha256": "8d94a56889a362db5819e7129b601603e94a95a6ed03604113750dd09578834b"
+      },
+      {
+        "file": "index-B_sjUskM.js",
+        "sha256": "e8d09448d00571c65c2a36a76e8ac678ea3a39c5771d3ade90a28bc7c4c413ba"
+      },
+      {
+        "file": "index-C0KLte2f.js",
+        "sha256": "7ca12facba749f9589cb94c776e6bfd705d9777f90dfb8dd788a064152b8dcac"
+      },
+      {
+        "file": "index-Ca0Jp3m1.js",
+        "sha256": "d670e646ab4195062156878e0a5210f9a7b4493a08fe0d5268334efe029199e2"
+      },
+      {
+        "file": "index-CD1J9XEZ.js",
+        "sha256": "bd4983760d8686734c57d0bc6da69e995d2807b825184bf49a9056c2d08c1e7c"
+      },
+      {
+        "file": "index-CFkIbJrx.js",
+        "sha256": "688497534d3609b9025b65846772e3a4f0dd78604f00be9d9ad042d370002229"
+      },
+      {
+        "file": "index-CsdFQU_1.js",
+        "sha256": "7305ef7884944503792290f6e9ec268e538694a3def0daa7b93c5842b1f60180"
+      },
+      {
+        "file": "index-CTgI0yfe.js",
+        "sha256": "26eb41136572ae53fb1456c10ee24a175c1d354fe3730d63c2f843168a1e1550"
+      },
+      {
+        "file": "index-CZEnorFv.js",
+        "sha256": "d6dac19b2737c5a5f59570e9e71d83171b7128b1abe217105f0fb97078d893b0"
+      },
+      {
+        "file": "index-DPYDd7D3.js",
+        "sha256": "8e4862367cb46c7f305594ace4f5f00fdcdf61dacc309f580520b9cabf632a02"
+      },
+      {
+        "file": "index-DrawQNN_.js",
+        "sha256": "c0eaab96c66d5534bcfd53125e0277f0926daad064e711498cc79e9c06855d74"
+      },
+      {
+        "file": "index-drZA9Uth.js",
+        "sha256": "ccbe7c5db0e53a2e56984befcc93e301feb9189fbd3761f9bfffbcab3c4229fa"
+      },
+      {
+        "file": "index-eBUH_U2C.js",
+        "sha256": "ad4208f23c6a27752cc4cdaa0d04094afb687de4d12e3a98b5ab22cd61b67c56"
+      },
+      {
+        "file": "index-LXvN9lsg.js",
+        "sha256": "d80fd2daa5e2ea59cd252b79759d6ebeb597ca8ecc1e043ba8946fd0560062e1"
+      },
+      {
+        "file": "index-qNUagOs5.js",
+        "sha256": "b65e63549148d76bbf302c34f0bea6bd8b2d7e55dca338619878d44d4cc6f170"
+      },
+      {
+        "file": "index-uW1n47q8.js",
+        "sha256": "035b1d38e170951c463cdc56135a1b3c6320c38920b0b45eab4c93c8ce42ff85"
+      },
+      {
+        "file": "index-vgVgyRma.js",
+        "sha256": "103441f0eaaa109564547635707d6a8c2b3deab90de58f18619f916fd3dd329c"
+      },
+      {
+        "file": "index-_5299ymh.js",
+        "sha256": "c917df395cabab6253e584f49f766e1a8409e0b4f402e72b84214a4a6122c474"
+      }
+    ]
+  },
+  "regression": {
+    "files": 5,
+    "passed": 29,
+    "failed": 0
+  },
+  "typecheck": "passed",
+  "webBuild": "passed",
+  "electronCodeBuild": "passed",
+  "selfReview": {
+    "sourceData": "复用实际修复前受控测试Root/Profile；不手工伪造旧草稿",
+    "ownership": "仅当前已授权Thread且用户明确选择后复制到当前编辑存储；无公共API/数据库变化",
+    "noOverwrite": "复制前flush并检查当前完整草稿、Thread/epoch和旧记录；原始字节保持",
+    "attachments": "旧附件仅保留描述，去掉sourcePath并标unknown，不授予旧身份访问权",
+    "reload": "自审发现旧等待可能命中旧DOM，现等待不同loader的主框架提交、页面加载和登录恢复，再验证正文",
+    "visual": "最终稳定页面已核查，提示使用中性色，恢复后正文与原记录一致"
+  },
+  "earlierCapture": "第一轮恢复截图停在登录恢复中间态；该轮刷新证据不采用，正确等待后全套重新通过",
+  "limits": {
+    "closedBrowserPrivateDraft": "not_run",
+    "nativeMacFixture": "not_run",
+    "actualLegacyAttachmentAccess": "not_run",
+    "quota": "unit_verified_not_live_browser",
+    "fusionAcceptanceCases": "not_run",
+    "productTask": "I02-T01仍实施中"
+  }
+}

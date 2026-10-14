@@ -1,0 +1,21 @@
+{
+  "repository": "https://github.com/obra/superpowers",
+  "tag": "v6.3.0",
+  "commit": "b36e0829c6d0140e93cfef2ca599b1b07d4a7797",
+  "filesCompared": 52,
+  "byteIdentical": 51,
+  "differences": [
+    {
+      "path": "experts/skills/writing-skills/package.json",
+      "codegBlob": "3dbc1ca591c0557e35b6004aeba250e6a70b56e3",
+      "upstreamBlob": null
+    }
+  ],
+  "license": {
+    "sourceUrl": "https://github.com/obra/superpowers/blob/b36e0829c6d0140e93cfef2ca599b1b07d4a7797/LICENSE",
+    "blob": "abf0390320aa14406af7a520b9b0739fdda9bf08",
+    "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+    "bytes": 1070
+  },
+  "qualification": "upstream_content_comparison_and_license_retention_only_no_script_execution"
+}

@@ -2,7 +2,7 @@
 document_type: runtime-activity-mapping-registry
 authority: runtime-activity-mapping-catalog
 classifier_version: activity-v4
-last_updated: 2026-10-04
+last_updated: 2026-10-14
 ---
 
 # Runtime Activity Mapping Registry
@@ -11,6 +11,9 @@ last_updated: 2026-10-04
 
 | Adapter kind | 产品显示名 | 协议族 | 基线 coverage | 细粒度工具名边界 | Fixture | 真实 smoke |
 |---|---|---|---|---|---|---|
+| `hermes-cli` | Hermes Agent | `acp-v1` | `run_level` | 使用共享ACP结构化kind与同ToolCall证据；未知保持unknown；敏感批准仍由原生请求 | 原生模式/恢复选择/目录owner；Rust与实际模型资格按当前执行证据核实 | 固定官方v0.21.6及社区桥接0.21.6；Core接入中，真实模型/工具/停止恢复与四平台资格未通过 |
+| `openclaw-cli` | OpenClaw | `acp-v1` | `run_level` | 复用ACP结构化ToolCall；模型与权限由配对Gateway控制，不把thinking模式当权限 | 原生精确Gateway键冷恢复与控制面已验；Core接入与原生进程收敛分别记录 | 固定2026.9.8；本地模型元数据不构成推理，真实工具/批准/计量及四平台资格未通过 |
+| `gemini-cli` | Gemini CLI | `acp-v1` | `run_level` | 沿共享ACP结构化kind与同ToolCall证据合同；未知信号保持unknown，不凭工具名或正文推断 | 目录完整性、共享ACP分类与未知回退owner；新增原生权限/迁移owner | 固定0.60.0仅初始化与空认证拒绝已验证；Core真实模型、工具、停止和恢复未验证，四平台运行资格未授予 |
 | `command-code-cli` | Command Code | 官方 ACP v1 | `run_level` | 按 Session/Prompt/ToolCall 配对，保留同调用标准 locations；过滤原生 proposed diff，只有成功 edit_file 的单次替换片段形成 reported_mutation；失败、replace_all、未知旧状态保持路径回退 | 公共 ACP owner 验证 started/failed 不生成 Diff、成功片段和私有字段排除；共享 lifecycle | 1.74.1 + 原生 sub2api/gpt-6-sol 的 read/edit/command、allow/deny/cancel 通过；隔离 App 中文/空格文件、read/edit/read、可点击 +1/−1 与 CLI 发送通过。非零 exit 仍被上游标为 completed 且只在文本中报告；macOS arm64 Preview，未取得 First-Class |
 | `cline-cli` | Cline | `acp-v1` | `run_level` | 共享 ACP tool 配对；run_commands 原生失败与成功 apply_patch/editor reported_mutation | 共享 ACP、Diff/file-operation/recovery owner | macOS arm64 Preview；[当前 ACP 验收](../research/cline-runtime/acp-retirement-2026-10-08.md)，Hub 证据退役 |
 | `codex-cli` | Codex CLI | Codex app-server | `fine_grained` | MCP 使用结构化 `server/tool`；Core v3 不生成 commandActions 标题，但非空、全 read、唯一 path 的 `commandActions` 可形成 typed read；Renderer 从公开 command 生成去 wrapper、保留完整序列并脱敏的 Shell 标题；只有 `item.type=webSearch` 可把 `item.query` 投影为 Search Operation | structured read 正反例、Renderer 跨 Runtime 命令/脱敏/详情、typed query 与普通 query 排除回归通过 | manual completion/config/process + Skill turn 通过；MCP projection 通过；`0.147.0` WebSearch wire 实证通过；[`0.153.4` 文件操作矩阵](../versions/v1.52/runtime-acceptance.md)通过 |

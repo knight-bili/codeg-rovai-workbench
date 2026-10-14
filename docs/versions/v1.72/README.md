@@ -632,3 +632,33 @@ User 于 2026-10-09 确认[完整方案及补充边界 r1](model-context-change-
 新建降级，绑定成功前保留旧目标，输入接收/取消/执行代次保护不变。当前边界见
 [Runtime Launch v60](../../contracts/runtime-launch-and-verification-v60.md)，实施与验收见
 [实施记录](implementation-plan.md#同类-cli-优先恢复原生会话2026-10-12)。
+
+## 融合期 Gemini Runtime 接入（2026-10-14）
+
+按一期21种Runtime来源并集，在Core和共享客户端增加`gemini-cli`，使用固定Codeg/官方0.60.0的ACP合同。
+Migration197扩展Runtime/Skills闭集并发布schema147，保留旧行与旧来源证据；新平台资格待真实验证。
+当前边界见[Gemini Runtime v1](../../contracts/gemini-runtime-v1.md)，实施状态见
+[融合记录](../../../integration/execution/i02-runtime-port.md)。这一增量不表示一期或Runtime已经验收。
+
+## 融合期 Hermes Runtime 接入（2026-10-14）
+
+在同一Core接入固定官方v0.21.6与社区桥接0.21.6，目录增至20种，Migration198从147升级148；21种来源范围不减。
+原生模式、敏感批准及严格load恢复见[Hermes Runtime v1](../../contracts/hermes-runtime-v1.md)。Windows源码与安全原生协议检查已取得证据，真实模型/工具、原生Skills信任、跨Run计量及平台资格继续验证，阶段仍实施中。
+
+## 融合期 OpenClaw Runtime 接入（2026-10-14）
+
+固定官方2026.9.8在既有Fleet内接入配对Gateway/ACP，目录增至21种，Migration199从148升级149。
+完整Gateway键与ACP SessionId分别绑定，模型和四种权限走官方Gateway控制面；会话MCP字段保持空数组，服务器配置归属私有Gateway。
+合同见[OpenClaw Runtime v1](../../contracts/openclaw-runtime-v1.md)。本地元数据及进程检查不替代真实模型、工具、复杂认证、Bootstrap与平台资格；兼容整改仍属一期。
+
+后续正式Adapter/Fleet/ACP Host的新建、暖复用、冷Host精确恢复及缺失绑定拒绝已通过隔离Native补验；历史`agents.list`只在私有副本转为规范entries，源配置保持原字节。见[会话与原生配置记录](../../../integration/execution/i02-openclaw-session-result.json)，不升级为业务Core进程重启或真实模型资格。
+
+## 融合期技能包固定来源目录（2026-10-14）
+
+Core 接入固定 Codeg 的14专家、13科研、1个UI指南及9项Office外部声明，保留五类来源与多语言元数据，通过 `skillPacks.list/read` 提供同一份嵌入目录和内容预览。合同见 [Codeg Skill Packs v1](../../contracts/codeg-skill-packs-v1.md)。不自动安装或改原生配置；OfficeCLI、交互卡片渲染、显式安装更新卸载及成员投递仍属一期实施项，不能以目录移植代替工作包完成。
+
+后续显式安装、刷新修复和卸载进入同一Core，Migration200从149升级150。文件预备在数据库锁外，当前指针、事件与命令结果同事务提交；旧版本、用户改动和历史引用保留。合同见 [Skill Pack Installation v1](../../contracts/skill-pack-installation-v1.md)。安装不会自动启用成员、原生CLI或模型能力，完整一期验收状态不变。
+
+## 融合期技能包队员选择保存（2026-10-14）
+
+Migration201/schema151保存包与队员的显式选择，不默认赋值；版本观察包含当前安装，更新保留选择、卸载同事务清空，旧命令重放不会在重装后重新赋值。界面支持搜索、过滤全选和未知结果重试。合同见 [Skill Pack Members v1](../../contracts/skill-pack-members-v1.md)。这是配置层，当前模型版本28/33和原生配置不变；实际输入变更必须先完成独立字段级方案及二次确认，仍属于一期待完成范围。

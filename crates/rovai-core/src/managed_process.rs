@@ -149,6 +149,10 @@ impl ManagedProcessLaunchSpec {
 
         let mut environment = BTreeMap::new();
         for (key, value) in env::vars_os() {
+            #[cfg(windows)]
+            if !windows::inherit_environment_key(&key) {
+                continue;
+            }
             insert_environment(&mut environment, key, value);
         }
         for (key, value) in command.get_envs() {
@@ -1301,6 +1305,18 @@ mod tests {
             "probe:test",
         )
         .unwrap();
+        let invalid_keys = spec
+            .environment()
+            .keys()
+            .filter(|key| {
+                let key = key.to_string_lossy();
+                key.contains('=') && !(key.len() == 3 && key.starts_with('=') && key.ends_with(':'))
+            })
+            .collect::<Vec<_>>();
+        assert!(
+            invalid_keys.is_empty(),
+            "invalid captured keys: {invalid_keys:?}"
+        );
         let mut process = ManagedProcess::spawn(spec).unwrap();
         assert!(process.id().is_some());
         let mut stdout = process.take_stdout().unwrap();

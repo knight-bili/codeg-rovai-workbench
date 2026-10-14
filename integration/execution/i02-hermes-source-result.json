@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14",
+  "task": "I02-T02",
+  "status": "source_audited_implementation_pending",
+  "source": {
+    "codegCommit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "entry": "src-tauri/src/acp/registry.rs: AgentType::Hermes",
+    "bridge": {
+      "package": "hermes-agent",
+      "version": "0.21.6",
+      "repository": "https://github.com/wyrtensi/hermes-agent-npm",
+      "channel": "community_npm_bridge",
+      "engines": {
+        "node": ">=20.0.0"
+      },
+      "integrity": "sha512-qj5ZtDUSypYBo28cqsNykisu3wD7Miko2RVx59YeIF56deOPrMfI6zPhc3ymhF2KyWenvDmoxOGyjoLdJzjZxg==",
+      "downloadSource": "https://registry.npmmirror.com/hermes-agent/-/hermes-agent-0.21.6.tgz",
+      "integrityMatchesOfficialMetadata": true,
+      "installationScriptsExecuted": false,
+      "runtimeInstalled": false
+    },
+    "official": {
+      "repository": "https://github.com/NousResearch/hermes-agent",
+      "tag": "v0.21.6",
+      "tagObject": "f27cdbce5ab63eafe8633b293a75151409da5769",
+      "commit": "818c13be1dc4fd28987e1e881a9408224afd4535",
+      "tagSignatureVerified": false,
+      "bridgePinMatchesOfficialTag": true,
+      "files": [
+        {
+          "file": "acp_adapter/entry.py",
+          "sha256": "32cb6a33fc83c8925ce0c8a1aa526ef6618cb37d27832710fe2a7e9a79dfe7ee",
+          "commit": "818c13be1dc4fd28987e1e881a9408224afd4535"
+        },
+        {
+          "file": "acp_adapter/server.py",
+          "sha256": "bee679ec8d5fee13b27ad438c2799574bdf4ea214a78457147740e4ca220ec93",
+          "commit": "818c13be1dc4fd28987e1e881a9408224afd4535"
+        },
+        {
+          "file": "acp_adapter/session.py",
+          "sha256": "45e4b55f59f426aa9db0013442647b0521d664306d956b7556431e2f80cd3fc7",
+          "commit": "818c13be1dc4fd28987e1e881a9408224afd4535"
+        },
+        {
+          "file": "acp_adapter/model_catalog.py",
+          "sha256": "f7ed74ef1c1bacd5e9003761830c628c3c4ac47e78d175a12ada3c0ef345ebf5",
+          "commit": "818c13be1dc4fd28987e1e881a9408224afd4535"
+        },
+        {
+          "file": "acp_adapter/permissions.py",
+          "sha256": "03767ace43598102918f16d870626e464d16df491315a1624af5006915c4596d",
+          "commit": "818c13be1dc4fd28987e1e881a9408224afd4535"
+        },
+        {
+          "file": "acp_adapter/auth.py",
+          "sha256": "558a863ae939854bf2a89bd1c2c6f2f74495b059f40054a36ebc96bc23cebe20",
+          "commit": "818c13be1dc4fd28987e1e881a9408224afd4535"
+        },
+        {
+          "file": "pyproject.toml",
+          "sha256": "cadde2f6a92574d292103f43abf66408b1d841cd9ea332ca7f3e3dfc5dcc87fd",
+          "commit": "818c13be1dc4fd28987e1e881a9408224afd4535"
+        }
+      ]
+    }
+  },
+  "findings": {
+    "launch": [
+      "hermes",
+      "acp"
+    ],
+    "pythonVersion": "3.14",
+    "managedPython": "bridge通过校验固定uv版本创建包内独立venv",
+    "dependencies": [
+      "uv sync --frozen --extra all --no-dev"
+    ],
+    "home": "HERMES_HOME；不得落入客户日常~/.hermes",
+    "models": "原生models.availableModels/currentModelId；provider:model及命名端点路由保持原始ID",
+    "permissions": {
+      "modes": [
+        "default",
+        "accept_edits",
+        "dont_ask"
+      ],
+      "semantics": "dont_ask仍保留敏感路径批准，不能映射为无条件yolo或自动批准全部ACP请求"
+    },
+    "protocol": {
+      "version": 1,
+      "modelMethod": "session/set_model",
+      "modeMethod": "session/set_mode",
+      "history": "load/resume在响应前重放历史；不能将其当作新Prompt输出",
+      "auth": "只选择initialize实际宣告的非交互认证；hermes-setup终端配置不能自动当成认证成功",
+      "mcp": "支持Session MCP注入，但原生注册/命名及实际工具仍须验证"
+    },
+    "shutdown": "acp_disconnect写ended_at，load/resume可清除；历史导入不以ended_at当最后消息时间"
+  },
+  "nextImplementation": [
+    "Core新增产品/ACP实例与7表闭集迁移，延续单一Core权威",
+    "冻结原生模式与模型方法；共享客户端展示真实模式，不虚构yolo/plan",
+    "包内固定来源安装/更新与独立HERMES_HOME，补实际initialize/无凭据错误证据",
+    "受控Core会话/工具/停止恢复及真实模型资格，缺资源留待办"
+  ],
+  "limits": {
+    "CoreAdapter": "not_implemented",
+    "nativeHandshake": "not_run",
+    "realModel": "not_run",
+    "MCP": "not_run",
+    "stopResume": "not_run",
+    "platformQualification": "not_granted",
+    "fusionCatalog": "19/21，完整来源范围不删减"
+  },
+  "selfReview": {
+    "trust": "社区桥接与官方源码边界明确；只核对固定版本，没有运行postinstall或全局安装",
+    "permission": "保留敏感路径请求及原生optionId，不把dont_ask当授权跳过",
+    "history": "原生重放归属Session；不得形成第二套业务数据库或伪造Run输出",
+    "sourceFailure": "初次raw三文件429未取得；后续contents API获取并核对Git blob，最终7文件实际存在"
+  }
+}

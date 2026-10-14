@@ -38,6 +38,12 @@ jobs:
           node tools/integration/verify-foundation.mjs
           node --check tools/integration/smoke-foundation.mjs
           node --check tools/integration/smoke-migration-fixtures.mjs
+          node --check tools/integration/smoke-workbench-live.mjs
+          node --check tools/integration/smoke-legacy-draft.mjs
+          node --check tools/integration/smoke-gemini-acp.mjs
+          node --check tools/integration/smoke-hermes-acp.mjs
+          node --check tools/integration/smoke-openclaw-core-gateway.mjs
+          node --check scripts/lib/host-web-browser.mjs
       - name: Validate existing documentation governance
         env:
           DOCS_BASE_REF: ${{ github.event.pull_request.base.sha }}

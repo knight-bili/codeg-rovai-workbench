@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-14",
+  "task": "I02-T01",
+  "status": "passed",
+  "scope": "production_web_public_body_normal_browser_restart_and_actual_quota",
+  "source": {
+    "parentCommit": "06f8bb649e600d8f3d42ed296e071a40f90ab597",
+    "files": [
+      {
+        "file": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+        "sha256": "5d7ca16be17fd3e0f961cd97c24eb0e7814cd8a6a8ca7290ade79441d89dba40"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+        "sha256": "81ef864bae600ccce55d257a02be6b32dd97eb082a25c51ff308ed710afc1fc9"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/camp-client.tsx",
+        "sha256": "bd671efc342f476cf4e6b976061e0dfb88f21fb72067addd353595aa165cf0dc"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/camp-composer-local-store.ts",
+        "sha256": "b5a94c8a23342e7de00567b6b295fff6ec6bf7cd713ce5577696d0a8afc03b8a"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/pending-thread-draft.ts",
+        "sha256": "4ab6df9f88d7e3c89d89cac0e432e11a5ad4f8b48303aec91f2424e27078783f"
+      },
+      {
+        "file": "apps/web/src/editing-recovery.ts",
+        "sha256": "42812ad7ba9ab972bdc97d0d42a5d85ada598b69999b45efc4405b29dd0223b0"
+      },
+      {
+        "file": "apps/web/src/camp-adapter.ts",
+        "sha256": "a3c711c50adb13b1005727ec58ff296c2f52c96c98a0cc9c3e3173ed5ecd3c06"
+      },
+      {
+        "file": "scripts/lib/host-web-browser.mjs",
+        "sha256": "dedd8e99a0584f58242b8c68016d5d537f1cb9dd12226fca9879015acbcad9e0"
+      },
+      {
+        "file": "scripts/lib/host-web-live.test.mjs",
+        "sha256": "61c3bcbee9d969bb076c3685c72378e2bd93867b244df8fd09300603f6462f52"
+      },
+      {
+        "file": "tools/integration/smoke-workbench-live.mjs",
+        "sha256": "a402a72f07e3218158a0289adfe065729ad4ecabcd0449fc250e39ffa8f4be37"
+      }
+    ],
+    "coreBinary": {
+      "sha256": "d568695fc2530c3631a9cfdee563088ae068dad6f144e5f4c95538708f2d62cb",
+      "buildCommit": "9d1ad55eeb18c0bc359d6f575afe9a9936055040",
+      "ciRun": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38377262786",
+      "contract": "v1.72",
+      "schema": 146,
+      "protocol": 4
+    },
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/155.0.8059.39",
+      "revision": "@3ff7ac5a9224be9156d7f8703a06e22890aafd34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "jsVersion": "15.5.35.20"
+    },
+    "fullSuiteEvidence": "i02-navigation-live-result.json"
+  },
+  "checks": [
+    {
+      "id": "browser_process_restart_keeps_two_separate_body_snapshots",
+      "status": "passed"
+    },
+    {
+      "id": "explicit_previous_editor_restore_copies_one_snapshot_without_merging",
+      "status": "passed"
+    },
+    {
+      "id": "actual_browser_quota_preserves_input_and_previous_snapshot_then_retries",
+      "status": "passed"
+    }
+  ],
+  "isolation": "Root/Profile/Host均独立；不使用日常配置、数据或凭据",
+  "design": {
+    "authority": "仅客户端未发送公共正文快照；Core业务、执行、数据库与公共协议不变",
+    "identity": "当前Host origin/验证Owner/编辑身份分别存储；不同编辑者不自动读入",
+    "migration": "仅同验证编辑身份的旧标签公共正文进入快照；空快照阻止清空后旧记录复活",
+    "credentials": "不归档认证、编辑证明、待发命令或Single Chat恢复材料",
+    "restore": "同Owner且同Thread的原副本需用户明确选择；复制一份，不合并，不删除原副本；旧draftId和附件原路径不复用",
+    "failure": "实际容量边界满额，当前输入保留，全部旧快照字节保持；释放测试占用后继续输入并刷新恢复"
+  },
+  "unitCoverage": {
+    "files": 6,
+    "passed": 33,
+    "failed": 0,
+    "cases": [
+      "Host/Owner/嵌套Owner前缀过滤",
+      "同身份旧标签迁移",
+      "清空后不复活旧会话文字",
+      "非公共恢复材料不归档",
+      "原数据损坏及配额失败保持",
+      "读取同一内容不改保存时间"
+    ]
+  },
+  "screenshots": [
+    {
+      "file": "saved-draft-picker.png",
+      "sha256": "0c7cb5c88aba0cb55eea274c1925661eb8ea0e14163fda0fa0e1309224fa45d3"
+    },
+    {
+      "file": "saved-draft-restored.png",
+      "sha256": "9cb1888bbfbc22162c943ca7e01b1924c8531ffd359044b2ebf35918ccc51565"
+    }
+  ],
+  "review": "两份文字及保存时间分别展示，选择A后仅A进入当前编辑器；最终两张截图已核查",
+  "limits": {
+    "actualAI": "not_run",
+    "abruptCrash": "not_run",
+    "liveDifferentOwner": "not_run_unit_filtered",
+    "actualOldAttachment": "not_run",
+    "allPlatforms": "not_run",
+    "customerAcceptance": "not_run",
+    "fusionAcceptanceCases": "not_run"
+  }
+}

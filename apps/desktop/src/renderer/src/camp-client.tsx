@@ -7,7 +7,12 @@ import { desktopThreadClient } from './desktop-camp-client'
  * Remote adapters must authorize each operation and resource at the Host boundary.
  * Native startup, credentials, window controls and supervisor are intentionally absent.
  */
-export interface EditingRecovery { get(identity: string): unknown; set(identity: string, value: unknown): void }
+export interface SavedDraftCopy { id: string; value: string; savedAt: number }
+export interface EditingRecovery {
+  get(identity: string): unknown
+  set(identity: string, value: unknown): void
+  draftCopies?(identity: string): SavedDraftCopy[]
+}
 
 export type ThreadClient = Pick<RovaiApi,
   'request' | 'singleChatAttachments' | 'platform'

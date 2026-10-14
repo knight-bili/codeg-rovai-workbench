@@ -545,6 +545,11 @@ mod tests {
                 == fs::canonicalize(&plan.root).unwrap()
             {
                 fs::write(
+                    plan.data.join("restarted-pid"),
+                    std::process::id().to_string(),
+                )
+                .unwrap();
+                fs::write(
                     plan.data.join("restarted"),
                     serde_json::to_vec(&std::env::args().skip(1).collect::<Vec<_>>()).unwrap(),
                 )
@@ -608,6 +613,34 @@ mod tests {
             drop(child.stdin.take());
             child.wait_with_output().unwrap()
         };
+        let wait_for_restarted_process = || {
+            #[cfg(windows)]
+            {
+                use windows_sys::Win32::{
+                    Foundation::{CloseHandle, ERROR_INVALID_PARAMETER, WAIT_OBJECT_0},
+                    System::Threading::{OpenProcess, WaitForSingleObject},
+                };
+                let pid: u32 = fs::read_to_string(data.join("restarted-pid"))
+                    .unwrap()
+                    .parse()
+                    .unwrap();
+                // The receipt precedes test-harness teardown. Windows still pins
+                // the old image/current directory until that process really exits.
+                let handle = unsafe { OpenProcess(0x0010_0000, 0, pid) }; // SYNCHRONIZE only
+                if handle.is_null() {
+                    assert_eq!(
+                        std::io::Error::last_os_error().raw_os_error(),
+                        Some(ERROR_INVALID_PARAMETER as i32)
+                    );
+                } else {
+                    let outcome = unsafe { WaitForSingleObject(handle, 5_000) };
+                    unsafe {
+                        CloseHandle(handle);
+                    }
+                    assert_eq!(outcome, WAIT_OBJECT_0, "restarted test Server did not exit");
+                }
+            }
+        };
         assert!(!run(false).status.success());
         assert_eq!(
             fs::read_to_string(root.join("package-info")).unwrap(),
@@ -635,6 +668,7 @@ mod tests {
             "old"
         );
         assert!(data.join("updates/last-failure.txt").is_file());
+        wait_for_restarted_process();
         fs::remove_file(data.join("restarted")).unwrap();
         drop(active_program);
         let result = run(true);
@@ -649,6 +683,7 @@ mod tests {
             }
             std::thread::sleep(std::time::Duration::from_millis(50));
         }
+        wait_for_restarted_process();
         assert_eq!(
             serde_json::from_slice::<Vec<String>>(&fs::read(data.join("restarted")).unwrap())
                 .unwrap(),

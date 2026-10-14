@@ -1,0 +1,446 @@
+{
+  "schema_version": 1,
+  "checkedAt": "2026-10-13T18:13:07.9067162Z",
+  "task": "I02-T02",
+  "platform": "windows",
+  "scope": "read_only_current_process_PATH_inventory",
+  "sourceCoverage": 21,
+  "foundCount": 3,
+  "runtimes": [
+    {
+      "id": "antigravity",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "agy"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "claude_code",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "claude"
+      ],
+      "pathDiscovery": "found_on_current_path",
+      "executables": [
+        {
+          "alias": "claude",
+          "path": "E:\\software\\encoding\\common\\nodeJs\\node_global\\claude.ps1",
+          "commandType": "ExternalScript"
+        }
+      ],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": "2.1.227"
+    },
+    {
+      "id": "cline",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "cline"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "code_buddy",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "codebuddy"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "codex",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "codex"
+      ],
+      "pathDiscovery": "found_on_current_path",
+      "executables": [
+        {
+          "alias": "codex",
+          "path": "C:\\Users\\JiaLe\\AppData\\Local\\Volta\\bin\\codex.cmd",
+          "commandType": "Application"
+        }
+      ],
+      "coreAdmission": "not_run",
+      "authentication": "read_only_CLI_login_status_authenticated_chatgpt",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": "0.154.0"
+    },
+    {
+      "id": "command_code",
+      "sources": [
+        "rovai-ai"
+      ],
+      "aliases": [
+        "command-code",
+        "cmdc"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "copilot",
+      "sources": [
+        "rovai-ai"
+      ],
+      "aliases": [
+        "copilot"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "cursor",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "cursor-agent",
+        "agent"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "deepseek",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "dsh"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "gemini",
+      "sources": [
+        "codeg"
+      ],
+      "aliases": [
+        "gemini"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "source_added_qualification_and_Rust_validation_pending",
+      "version": null,
+      "isolatedNativeProbe": {
+        "version": "0.60.0",
+        "status": "6_checks_passed_bootstrap_rejection_only",
+        "coreAdapter": "not_implemented",
+        "evidence": "i02-gemini-native-result.json"
+      }
+    },
+    {
+      "id": "grok",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "grok"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "hermes",
+      "sources": [
+        "codeg"
+      ],
+      "aliases": [
+        "hermes"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "not_in_current_Core_AdapterKind",
+      "version": null
+    },
+    {
+      "id": "kimi_code",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "kimi"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "kiro",
+      "sources": [
+        "rovai-ai"
+      ],
+      "aliases": [
+        "kiro-cli"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "open_claw",
+      "sources": [
+        "codeg"
+      ],
+      "aliases": [
+        "openclaw"
+      ],
+      "pathDiscovery": "found_on_current_path",
+      "executables": [
+        {
+          "alias": "openclaw",
+          "path": "D:\\soft\\.openclaw\\bin\\openclaw.ps1",
+          "commandType": "ExternalScript"
+        }
+      ],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "not_in_current_Core_AdapterKind",
+      "version": "2026.6.10"
+    },
+    {
+      "id": "open_code",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "opencode"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "pi",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "pi"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "qoder",
+      "sources": [
+        "codeg",
+        "rovai-ai"
+      ],
+      "aliases": [
+        "qodercli"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "qwen_code",
+      "sources": [
+        "rovai-ai"
+      ],
+      "aliases": [
+        "qwen"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "trae_cn",
+      "sources": [
+        "rovai-ai"
+      ],
+      "aliases": [
+        "traecli"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    },
+    {
+      "id": "zcode",
+      "sources": [
+        "rovai-ai"
+      ],
+      "aliases": [
+        "ZCode"
+      ],
+      "pathDiscovery": "not_found_on_current_path",
+      "executables": [],
+      "coreAdmission": "not_run",
+      "authentication": "not_checked",
+      "actualInference": "not_run",
+      "coreAdapter": "declared_in_Core_source_execution_unverified",
+      "version": null
+    }
+  ],
+  "limits": [
+    "PATH absence does not establish uninstalled status",
+    "No install, login, global configuration or model turn is performed",
+    "An alias is not an admitted adapter; product/version/integrity still require Core probing",
+    "macOS/Linux discovery and all execution tests remain not_run"
+  ],
+  "sourceMappings": [
+    "crates/rovai-core/src/agent_profile.rs:174",
+    "Codeg fixed source src-tauri/src/acp/registry.rs Gemini/OpenClaw/Hermes entries"
+  ],
+  "source": {
+    "coreAdapters": 18,
+    "codegOnlyAdaptersToPort": [
+      "gemini",
+      "hermes",
+      "open_claw"
+    ],
+    "sourceFiles": [
+      {
+        "file": "crates/rovai-core/src/agent_profile.rs",
+        "sha256": "257e0deb64a2d8599a81893bb72cd1a67d63b8af37be29cfbcc24d1f3a2725c9"
+      },
+      {
+        "file": "tools/integration/inventory-local-runtimes.ps1",
+        "sha256": "cfeffb65092841b3d0a90de38d657fdb230faeb4ef4248cb760e4d7053a7473e"
+      }
+    ],
+    "codegRegistry": {
+      "fixedCommit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "file": "src-tauri/src/acp/registry.rs",
+      "sha256": "07dcbe932edaa44ab31fc7a47e2b154449631d4ac92ec4353f9a461d9ee4f694"
+    }
+  },
+  "selfReview": {
+    "discovery": "覆盖规划21种；3种在当前PATH找到，18种未找到，不能推断未安装",
+    "authentication": "Codex login status只记录认证布尔值和ChatGPT类型；未保存输出、凭据或配置",
+    "authority": "仅盘点；没有创建第二套Runtime/业务数据库，也没有写全局配置",
+    "qualification": "所有Core准入、真实模型、流式、停止和会话恢复均未运行"
+  },
+  "compatibility": [
+    {
+      "id": "open_claw",
+      "installedVersion": "2026.6.10",
+      "fixedCodegVersion": "2026.9.8",
+      "sourceNodeFloor": ">=24.16.0 <25 || >=26.1.0",
+      "localWorkspaceNode": "24.9.0",
+      "sourceSupportsMcpServers": false,
+      "action": "使用独立版本/Node运行根；先设计Core工具能力兼容，不升级全局安装或伪装MCP已接入"
+    }
+  ],
+  "currentFusion": {
+    "sourceDeclaredAdapters": 21,
+    "status": "catalog_source_integrated_Gemini_Hermes_OpenClaw_full_runtime_parity_pending",
+    "catalogPortsRemaining": [],
+    "parityRemaining": [
+      "gemini_full_qualification",
+      "hermes_native_trust_and_usage",
+      "open_claw_native_profile_MCP_bootstrap_and_lifecycle"
+    ],
+    "evidence": "i02-openclaw-core-result.json"
+  }
+}

@@ -21,7 +21,7 @@ pub struct RuntimeActivityMappingDescriptor {
     pub registry_entry: &'static str,
 }
 
-pub const RUNTIME_ACTIVITY_MAPPINGS: [RuntimeActivityMappingDescriptor; 18] = [
+pub const RUNTIME_ACTIVITY_MAPPINGS: [RuntimeActivityMappingDescriptor; AdapterKind::ALL.len()] = [
     descriptor(
         AdapterKind::CodexCli,
         "codex-app-server",
@@ -47,6 +47,9 @@ pub const RUNTIME_ACTIVITY_MAPPINGS: [RuntimeActivityMappingDescriptor; 18] = [
     descriptor(AdapterKind::QoderCli, "acp-v1", "fine_grained", "acp"),
     descriptor(AdapterKind::CodebuddyCli, "acp-v1", "fine_grained", "acp"),
     descriptor(AdapterKind::QwenCode, "acp-v1", "fine_grained", "acp"),
+    descriptor(AdapterKind::GeminiCli, "acp-v1", "run_level", "acp"),
+    descriptor(AdapterKind::HermesCli, "acp-v1", "run_level", "acp"),
+    descriptor(AdapterKind::OpenClawCli, "acp-v1", "run_level", "acp"),
     descriptor(AdapterKind::TraeCnCli, "acp-v1", "fine_grained", "acp"),
     descriptor(AdapterKind::CursorAgent, "acp-v1", "run_level", "acp"),
     descriptor(AdapterKind::KimiCodeCli, "acp-v1", "run_level", "acp"),
@@ -361,6 +364,10 @@ mod tests {
 
     #[test]
     fn structured_and_legacy_one_shot_coverage_remain_explicit() {
+        assert_eq!(
+            descriptor_for(AdapterKind::GeminiCli).baseline_coverage,
+            "run_level"
+        );
         assert_eq!(
             descriptor_for(AdapterKind::ClaudeCodeCli).baseline_coverage,
             "fine_grained"

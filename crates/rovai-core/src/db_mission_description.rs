@@ -70,9 +70,10 @@ mod tests {
     #[test]
     fn migration_preserves_literal_text_and_rolls_back_schema_receipt_and_evidence() {
         let mut database = crate::test_support::seeded_runtime_database_owned();
+        let project_path = database.directory().to_string_lossy().into_owned();
         let created = crate::mission::MissionService::default().create(&mut database, &crate::command::CommandEnvelope {
             command_id: "description-migration".into(), actor: crate::command::ActorRef::User{user_id:"local_user".into()}, camp_id:None, expected_versions:vec![],execution_epoch:None,
-            payload: serde_json::from_value(serde_json::json!({"title":"Legacy", "description":"literal @名字\nline", "projectPath":"/tmp", "projectBindingKind":"directory", "memberAgentIds":["agent_1"], "defaultLeadAgentId":"agent_1"})).unwrap(),
+            payload: serde_json::from_value(serde_json::json!({"title":"Legacy", "description":"literal @名字\nline", "projectPath":project_path, "projectBindingKind":"directory", "memberAgentIds":["agent_1"], "defaultLeadAgentId":"agent_1"})).unwrap(),
         }).unwrap();
         let id = created.result.payload["missionId"].as_str().unwrap();
         downgrade_for_test(database.connection());

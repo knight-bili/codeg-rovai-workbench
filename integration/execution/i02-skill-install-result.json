@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14T04:00:31.645Z",
+  "task": "I02-T03",
+  "status": "core_installation_lifecycle_and_production_settings_UI_verified_member_delivery_pending",
+  "source": {
+    "parent": "e2963ef0d59989d16d32fffc03d19925dd75de85",
+    "codeg": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "implementationFiles": [
+      {
+        "file": "apps/desktop/src/renderer/src/CapabilityDeleteDialog.tsx",
+        "sha256": "cc9601c584d3b58b3494935074afa79d6e177f60122636031ada255b08f723cb",
+        "gitBlob": "e80eb37c8c3caf1d9edbe6a76a258764b733e2dd"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/RebuiltSkillsSettings.tsx",
+        "sha256": "985c5400e7db29e8fcbd788182d9259099f9b139f4dd70e27dde2a4e25371ba2",
+        "gitBlob": "99732c90b377e30b6cdae844f68fa9599ea130a7"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/locales/en.json",
+        "sha256": "4e002041d26dc5e89ed5e64df827fa9463469715e63e31bb7f9996c8a7a1a989",
+        "gitBlob": "178e83b49ce9776e9ed6c6b0c04fa0137044b203"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/rebuilt-skills-settings.css",
+        "sha256": "15b189ee124f3e2e0909db3a8829894e2bae0c7300ec76a30bdde3f5b1cd708a",
+        "gitBlob": "07064069d99cc170995de46b30e8db2cd192b376"
+      },
+      {
+        "file": "crates/rovai-core/src/application.rs",
+        "sha256": "0ffd528f26b65ff7dc533cb74355c5da497fcdf088ee54dd15c9bca9258f0ab7",
+        "gitBlob": "14604a4a297d2505b2352a10e103e2a7483a02dc"
+      },
+      {
+        "file": "crates/rovai-core/src/codeg_skill_catalog.rs",
+        "sha256": "03c19088a6f3bb4dd852e6870b775d7bf4a19dd4165c4fdd264af361dc189fe1",
+        "gitBlob": "5fe29a6a12b4e3d676af523698ef0aa40846b160"
+      },
+      {
+        "file": "crates/rovai-core/src/db.rs",
+        "sha256": "2a19c7be63a7c8abc9eae60e9b90c51992b359f40246ab901245b67786735ecc",
+        "gitBlob": "3ba93df3a0bea1c6ebdb25df0a47d72707baf135"
+      },
+      {
+        "file": "crates/rovai-core/src/db_simplification.rs",
+        "sha256": "769f14417405c45a5533e81a28e6d7c6e6c54e5a2be8d423b829847fd14696d0",
+        "gitBlob": "dd9f9de28fe6961b4948c516cfefe5dc922b0927"
+      },
+      {
+        "file": "crates/rovai-core/src/lib.rs",
+        "sha256": "e434d96e2fc02247b0393ab256ca4eca1f67ed396ae8e12ca7f216656a175b7b",
+        "gitBlob": "c0004ae1aa2e1ca70b86e382f4e4683a7ac5a65c"
+      },
+      {
+        "file": "crates/rovai-core/src/skill.rs",
+        "sha256": "64c314e4550884047b291e43d881c72ab2c0c5493416213f30b39f8a2f9175d3",
+        "gitBlob": "5db71bc813471e451228250b04b07da5988c4281"
+      },
+      {
+        "file": "crates/rovai-web/src/operations.rs",
+        "sha256": "c27bd68633cd3b87867ec5e8e7d49c76e8d80699cdd58f0daf54e738f0072c03",
+        "gitBlob": "98ef23c25077272e3ff45db0485ad2538d47fcc3"
+      },
+      {
+        "file": "docs/architecture/skills.md",
+        "sha256": "ce1eb25e26bbb303650b3da54fc7a1e6659fc853a646455fd4c3bd0297916586",
+        "gitBlob": "5a12acb612c60e1c2946415c8bb66d0a69992312"
+      },
+      {
+        "file": "docs/contracts/README.md",
+        "sha256": "86bc551cf41c43f364840224dfb2503fc82b89073076f18a5f9b5e0ab6535f86",
+        "gitBlob": "1ecd7b72f5eb5659bbb157b78e454c52d95e596c"
+      },
+      {
+        "file": "docs/contracts/codeg-skill-packs-v1.md",
+        "sha256": "1f23f12c941a797ff12f91dd511e44a39658e3c6c0724f1abb60d4f99bc00a0e",
+        "gitBlob": "ca5aae3b336dd28cf5a20b341be986a6e65c465e"
+      },
+      {
+        "file": "docs/development/testing.md",
+        "sha256": "e89f63ba38f8ad5153d4c5be9e12227b666a3480bfb4fd5db1c3c6c24e5b3e70",
+        "gitBlob": "dcc52b77fcc93beebfd7088585285c016edf1159"
+      },
+      {
+        "file": "docs/ui/components/skills-settings.md",
+        "sha256": "3d27ade108442b2606a250a3bcce76753e20e449755ffca263929b6010bc0549",
+        "gitBlob": "a0f7fa9d3ae69c110c4ff97ef45008fb885eb16a"
+      },
+      {
+        "file": "docs/versions/v1.72/README.md",
+        "sha256": "65b3048659c1768b1103d7fe63915f9f6bdc8eb44bc5778fec0e6274727129a5",
+        "gitBlob": "f5149bc8e1d248db5e80d53ff9f794029ef532ed"
+      },
+      {
+        "file": "integration/foundation/current-protocol.json",
+        "sha256": "38eb8f5a3ad9665159e6fc695278c7680c3ffb5e76c37ad8cc02de203843defc",
+        "gitBlob": "29b6ce5e47fc4702faec26f2d7d298b0a87339a5"
+      },
+      {
+        "file": "packages/contracts/src/index.ts",
+        "sha256": "2d6c5623721d0757182fbf39820f6f92cb220a5574363da8a577be8e8088233a",
+        "gitBlob": "c9ff952ab25f78103f0fa589821a5d007fb53105"
+      },
+      {
+        "file": "apps/desktop/src/renderer/src/SkillPackSettings.tsx",
+        "sha256": "ee468c7478eeb845f3e3de6864357e564205cd1eb7237fc24238bc3f7caeff46",
+        "gitBlob": "d8d188dd8b11bdba5611e28fd3a61989a7adebc1"
+      },
+      {
+        "file": "crates/rovai-core/src/skill_pack_installation.rs",
+        "sha256": "a5d4fb3ead8d0213303ce26fc0f75119b596978f1cbaf8a671fa6e981f1ec8a9",
+        "gitBlob": "3275af66514d21b1fa9c63bac50d9f4504849c11"
+      },
+      {
+        "file": "docs/contracts/skill-pack-installation-v1.md",
+        "sha256": "367fef9e181ebd1e4e19dacbbef391ca6768e981d3db4ceabf12c572e3c6a209",
+        "gitBlob": "485b9f6cb0f1fd68047858c5d5176bac7dc77370"
+      },
+      {
+        "file": "tools/integration/smoke-skill-pack-installation.mjs",
+        "sha256": "a23717dbca516ceed5a0df15b5b39db492d2cdf5a9ce231ed7d79a0548e646c2",
+        "gitBlob": "acbbd67081d682a80cff0fccfb94cb2bd983708d"
+      },
+      {
+        "file": "tools/integration/smoke-skill-pack-ui.mjs",
+        "sha256": "133f31216a2631d15d2eba57da31c15cd5c58a3d2f85b98da665c739d6aebddd",
+        "gitBlob": "c5860ecce20b2b301b94d1caf11cd4c280b0202f"
+      }
+    ]
+  },
+  "implementation": {
+    "databaseAuthority": "Rovai Core SQLite",
+    "schema": 150,
+    "migration": 200,
+    "installedSourceCount": 28,
+    "catalogEntries": 37,
+    "api": [
+      "skillPacks.installations.list",
+      "skillPacks.install",
+      "skillPacks.uninstall"
+    ],
+    "ownedVersions": "<Core data-dir>/skill-packs/versions/<uuid>/<skillId>",
+    "preservePreviousFiles": true,
+    "uninstallRetainsFiles": true,
+    "duplicateCommandReplays": true,
+    "compareAndSwap": true,
+    "memberDelivery": false
+  },
+  "checks": {
+    "workspace": {
+      "passed": 501,
+      "ignored": 8,
+      "failed": 0,
+      "ignoredReason": "7 subprocess helpers and 1 manual Antigravity real-Runtime smoke",
+      "log": "work/i02/skill-install-workspace-default.log"
+    },
+    "source": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "log": "work/i02/skill-install-source-owner.log"
+    },
+    "lifecycle": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "log": "work/i02/skill-install-lifecycle-final.log"
+    },
+    "database": {
+      "uniqueTopLevelOwners": 95,
+      "moduleOwners": 13,
+      "totalUniqueOwners": 108,
+      "latestOutcome": "passed",
+      "singleFullRerun": false,
+      "composition": "45 passed in pre-fixture run + 48 passed in repair batch + 2 precisely rerun after final fixture expectations; 13 separate module owners passed",
+      "preFixture": {
+        "total": 95,
+        "completed": 60,
+        "passed": 45,
+        "failed": [
+          "db::tests::database_contract_preflight_admits_current_and_rejects_future_store",
+          "db::tests::runtime_catalog_upgrades_preserve_values_and_roll_back_receipts",
+          "db::tests::async_usage_migration_preserves_checkpoints_and_rolls_back_with_receipt",
+          "db::tests::run_bootstrap_migration_keeps_audit_and_rolls_back_its_schema_change",
+          "db::tests::runtime_catalog_migrations_preserve_rows_and_roll_back_with_their_receipts",
+          "db::tests::session_context_migration_upgrades_schema_127_and_rolls_back_atomically",
+          "db::tests::navigation_summary_migration_preserves_tables_backfills_and_rolls_back_with_events",
+          "db::tests::mission_migration_is_atomic_and_workspace_survives_camp_deletion",
+          "db::tests::deployed_tool_classifier_v141_upgrade_preserves_receipts_and_rolls_back",
+          "db::tests::v135_through_v139_retires_receipt_admission_and_preserves_historical_cascades",
+          "db::tests::v123_rehomes_existing_dingtalk_intents_to_direct_open_platform",
+          "db::tests::v122_adds_dingtalk_channel_state_and_provider_neutral_directories",
+          "db::tests::v121_installs_terminal_pending_and_sealed_execution_console_states",
+          "db::tests::v130_preserves_all_fast_choices_and_replaces_legacy_invalidation",
+          "db::tests::v124_adds_plaintext_channel_storage_without_importing_retired_files"
+        ],
+        "percent": 63.2,
+        "terminalResult": false,
+        "logBytes": 16525,
+        "status": "stopped_for_fixture_repair_not_a_passing_full_run"
+      },
+      "repairBatch": {
+        "passed": 48,
+        "failed": 2,
+        "remainingFailuresResolvedBy": [
+          {
+            "passed": 1,
+            "failed": 0,
+            "ignored": 0,
+            "log": "work/i02/skill-install-preflight-final.log"
+          },
+          {
+            "passed": 1,
+            "failed": 0,
+            "ignored": 0,
+            "log": "work/i02/skill-install-runtime-catalog-final.log"
+          }
+        ]
+      },
+      "moduleTests": {
+        "passed": 13,
+        "failed": 0,
+        "ignored": 0,
+        "log": "work/i02/skill-install-db-modules.log"
+      }
+    },
+    "UI": {
+      "passed": 16,
+      "evidence": "work/i02/skill-install-ui-evidence/ui-eia93k/result.json",
+      "productionComponents": true,
+      "realPackageCore": true,
+      "nativeDiscoveryFixture": true,
+      "wholeWorkbench": false
+    },
+    "HTTP": {
+      "passed": 17,
+      "evidence": "work/i02/skill-install-native-evidence/install-dhQiGs/result.json",
+      "realUpgrade": "149 -> 150",
+      "all28Installed": true,
+      "zeroAgentRun": true
+    },
+    "typecheck": "passed",
+    "localeTests": 4,
+    "allTargets": "passed",
+    "format": "passed",
+    "documentation": "passed",
+    "webBuild": "passed",
+    "foundation": "passed",
+    "scaffold": "passed"
+  },
+  "artifact": {
+    "sha256": "6dec380fb94450d7fefe31c887074adb46e59465a852071cbd003d2814f0cd93",
+    "binary": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i02\\native-artifacts\\core150-skill-install-6dec380fb944\\rovai-host.exe",
+    "schema": 150
+  },
+  "limitations": [
+    "安装不等于成员启用、原生发现、模型读取或真实工具执行",
+    "OfficeCLI、科研依赖安装与执行、交互卡片渲染、自定义创作/导入、市场和MCP仍继续研发",
+    "UI为生产Skills组件接真实Core技能包API；原生发现为空夹具，完整schema150工作台未验收",
+    "未提交/旧版本保留；磁盘清理和历史引用GC未实施",
+    "Mac/Linux/移动当前融合版本尚未验证；Runtime平台资格仍未授予",
+    "完整一期324验收场景仍not_run"
+  ],
+  "preservedFailures": [
+    {
+      "log": "work/i02/skill-install-initial-check.log",
+      "reason": "Read/Write.by_ref歧义，已修复"
+    },
+    {
+      "log": "work/i02/skill-install-lifecycle-first.log",
+      "reason": "旧树内容身份带sha256前缀，存储长度约束由64改71"
+    },
+    {
+      "log": "work/i02/skill-install-lifecycle-02.log",
+      "reason": "测试误引用退役command_result表，改当前event_log首次结果"
+    },
+    {
+      "log": "work/i02/skill-install-database-full.log",
+      "reason": "合成旧库保留新表、旧当前收据和版本断言；中断修复，非整套通过"
+    },
+    {
+      "log": "work/i02/skill-install-database-repair.log",
+      "reason": "50项中2处旧版最终断言，后续精确复测通过"
+    },
+    {
+      "log": "work/i02/skill-install-native-first.log",
+      "reason": "旧149隔离新库启动19.862s，超过测试工具15s；专用启动预算60s后实际验证通过，不是启动性能达标"
+    },
+    {
+      "log": "work/i02/skill-install-ui-first.log",
+      "reason": "独立证据目录缺React依赖解析，使用仓库现有依赖定位"
+    },
+    {
+      "log": "work/i02/skill-install-ui-02.log",
+      "reason": "fake Home缺AppData目录使Chrome无调试端口，创建隔离目录后通过"
+    }
+  ],
+  "customerDependencies": {
+    "billing": {
+      "head": "e2963ef0d59989d16d32fffc03d19925dd75de85",
+      "run": 38500616853,
+      "checkRun": 115646431364,
+      "annotation": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings",
+      "steps": 0
+    },
+    "dedicatedRuntimeIdentity": "pending",
+    "devices": "deferred",
+    "mainMerge": "customer_acceptance_required"
+  },
+  "next": [
+    "按成员显式选择、冻结真实输入与原生发现验证",
+    "自定义创作与导入、MCP/市场/Office/科研/UI实际执行",
+    "继续I02其他兼容整改及I03无限画布，保留I00-I12完整一期终点"
+  ]
+}

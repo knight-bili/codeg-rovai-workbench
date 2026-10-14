@@ -24,6 +24,20 @@ const thread = (threadId: string): NavigationTarget => ({ kind: 'camp', threadId
 const settle = () => new Promise(resolve => setTimeout(resolve, 0))
 
 describe('browser navigation adapter', () => {
+  it('restores project home context after refresh and rejects invalid stored project paths', async () => {
+    const host = browser()
+    const target = { kind: 'quick_chat', projectPath: '/work/project' } as NavigationTarget
+    const navigation = createDesktopNavigation(async (_target, tx) => { tx.commit() }, createBrowserNavigationHistory('project', host))
+    navigation.reset(target)
+    const restored = createBrowserNavigationHistory('project', host)
+    expect(restored.initial).toEqual({ entries: [target], index: 0 })
+    const key = 'rovai.web.history.v1:project'
+    const stored = JSON.parse(host.sessionStorage.getItem(key)!)
+    stored.snapshot.entries[0].projectPath = '../other-project'
+    host.sessionStorage.setItem(key, JSON.stringify(stored))
+    expect(createBrowserNavigationHistory('project', host).initial).toBeNull()
+  })
+
   it('keeps mobile settings overview distinct from its remembered section through Back and refresh', async () => {
     const host = browser()
     const navigation = createDesktopNavigation(async (_target, tx) => { tx.commit() }, createBrowserNavigationHistory('phone', host))

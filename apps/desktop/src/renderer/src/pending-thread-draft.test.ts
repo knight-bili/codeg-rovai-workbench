@@ -1,8 +1,21 @@
 import { describe, expect, it, vi } from 'vitest'
-import { emptyLocalThreadComposerDraft, loadLocalThreadComposerDraft, saveLocalThreadComposerDraft } from './camp-composer-local-store'
+import { emptyLocalThreadComposerDraft, loadLocalThreadComposerDraft, saveLocalThreadComposerDraft, threadComposerDraftStorage } from './camp-composer-local-store'
 import { PendingThreadDraftPersistence } from './pending-thread-draft'
 
 describe('Pending Thread draft recovery', () => {
+  it('uses the verified editor store before presence and blocks acknowledgement if that store fails', async () => {
+    const values = new Map<string, unknown>()
+    const request = vi.fn(async () => ({ changed: true }))
+    const editingRecovery = { get: (key: string) => values.get(key), set: vi.fn((key: string, value: unknown) => { values.set(key, value) }) }
+    const persistence = new PendingThreadDraftPersistence({ request: request as never, editingRecovery })
+    const draft = { ...emptyLocalThreadComposerDraft('pending'), body: 'private', content: { version: 2 as const, segments: [{ kind: 'text' as const, text: 'private' }] } }
+    await persistence.persist(draft)
+    expect(loadLocalThreadComposerDraft('pending', threadComposerDraftStorage(editingRecovery))).toEqual(draft)
+    expect(request).toHaveBeenCalledWith('threads.pendingDraft.setPresence', { threadId: 'pending', present: true })
+    editingRecovery.set.mockImplementationOnce(() => { throw new Error('editor quota') })
+    await expect(persistence.persist(emptyLocalThreadComposerDraft('pending'))).rejects.toThrow('editor quota')
+    expect(request).toHaveBeenCalledTimes(1)
+  })
   it('restores independent drafts, including attachment-only input, and releases visibility when cleared', async () => {
     const values = new Map<string, string>()
     const storage = { getItem: (key: string) => values.get(key) ?? null, setItem: (key: string, value: string) => { values.set(key, value) }, removeItem: (key: string) => { values.delete(key) } }

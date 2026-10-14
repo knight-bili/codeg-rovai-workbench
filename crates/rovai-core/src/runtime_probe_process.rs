@@ -91,7 +91,17 @@ pub async fn run_bounded_command_with_input(
     } else {
         ManagedStdinPolicy::Null
     };
-    let mut child = spawn_managed_probe(command, stdin_policy)?;
+    let child = spawn_managed_probe(command, stdin_policy)?;
+    run_bounded_managed_process(child, input, limits).await
+}
+
+/// Retain the same deadline, bounded readers and tree cleanup for a child
+/// derived from an already frozen Runtime launch snapshot.
+pub(crate) async fn run_bounded_managed_process(
+    mut child: ManagedProcess,
+    input: Option<&[u8]>,
+    limits: ProbeCommandLimits,
+) -> Result<BoundedCommandOutput> {
     let mut stdin = if input.is_some() {
         Some(
             child

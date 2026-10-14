@@ -130,7 +130,7 @@
       "C14"
     ],
     "acceptance": "八类节点全部可交互；从画布发起真实任务并回到 Mission、Thread、Diff，重启后布局和绑定不丢失。",
-    "status": "not_started"
+    "status": "in_progress"
   },
   {
     "id": "I03-T02",
@@ -156,7 +156,7 @@
       "C14"
     ],
     "acceptance": "八类节点全部可交互；从画布发起真实任务并回到 Mission、Thread、Diff，重启后布局和绑定不丢失。",
-    "status": "not_started"
+    "status": "in_progress"
   },
   {
     "id": "I04-T01",

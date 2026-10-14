@@ -4114,6 +4114,42 @@ export interface UpdateAutomationCommand {
   enabled?: boolean
 }
 
+export interface CanvasBoard {
+  id: string
+  name: string | null
+  description: string | null
+  color: string | null
+  revision: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CanvasBoardsSnapshot {
+  boards: CanvasBoard[]
+  throughGlobalSequence: number
+}
+
+export interface CanvasBoardSnapshot {
+  board: CanvasBoard | null
+  throughGlobalSequence: number
+}
+
+export interface CreateCanvasBoardCommand {
+  name?: string | null
+  description?: string | null
+  color?: string | null
+}
+
+export interface UpdateCanvasBoardCommand extends CreateCanvasBoardCommand {
+  boardId: string
+  expectedRevision: number
+}
+
+export interface DeleteCanvasBoardCommand {
+  boardId: string
+  expectedRevision: number
+}
+
 export type CoreMethod =
   | 'preferences.newConversation.get'
   | 'preferences.newConversation.setDefaults'
@@ -4206,6 +4242,11 @@ export type CoreMethod =
   | 'skillPacks.uninstall'
   | 'skillPacks.members.list'
   | 'skillPacks.members.set'
+  | 'canvas.boards.list'
+  | 'canvas.boards.get'
+  | 'canvas.boards.create'
+  | 'canvas.boards.update'
+  | 'canvas.boards.delete'
   | 'toolbox.read'
   | 'toolbox.setMembers'
   | 'nativeSkills.list'

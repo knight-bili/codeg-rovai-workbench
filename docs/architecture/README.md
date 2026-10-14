@@ -52,6 +52,7 @@ last_updated: 2026-10-12
 | [File Preview](file-preview.md) | 显式 Markdown 消息资源入口、来源上下文解析、Main canonical 路径投影、窗口内 Camp Tab shell、项目内子文件独立恢复来源、无副作用恢复、binding generation、具体文件能力/重开、分页、Root Grant、watcher、HTML 协议与资源生命周期 |
 | [当前基础架构不变量](foundational-invariants.md) | Core、Camp、身份、协作、Runtime、Context、Memory、Skill、Evidence、Qualification 与 Renderer 的跨主题当前规范内核 |
 | [Skills 来源、配置与模型投递](skills.md) | 当前平台/工具箱与 Harness 原生来源、队员配置、消息来源身份、Run 冻结、旧投影安全清理和历史恢复 |
+| [融合画布](canvas.md) | Core 多画板生命周期与快照；八类节点、对象绑定、局部视图与临时 PTY 的后续移植边界 |
 | [Skill Projection Reconciliation（历史）](skill-projection-reconciliation.md) | 旧 Library desired state、项目投递、SkillExposureSnapshot 与旧 Run 审计/清理 |
 | [Structured Run Input Skill Links（历史）](structured-current-input-skill-links.md) | 旧 Library/Exposure 的 Picker SkillMention、claim-time snapshot 与消息链接 |
 | [User Automation](user-automation.md) | 一个 `rovai` binary 下隔离的 Agent/User transport、Main-owned 本机 IPC、封闭 dispatch、Camp navigation、CLI-owned Diagnostic Trial、双 cursor 与安全导出边界 |

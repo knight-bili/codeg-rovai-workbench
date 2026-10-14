@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-14T06:11:31.818Z",
+  "task": "I03-T01/I03-T03",
+  "status": "multi_board_Core_lifecycle_and_HTTP_verified_nodes_UI_pending",
+  "source": {
+    "parent": "87d686443179b3175e44b5e964f7a1d83d3209e5",
+    "implementationFiles": [
+      {
+        "file": "crates/rovai-core/src/application.rs",
+        "sha256": "8bcfc2a78a3e20be9422482fccc1d3d9261d42254d7fc1b77176990dd6c5ded2",
+        "gitBlob": "c0eae1cdf94e4d32aa043a5964d4fae3ddc82a3d"
+      },
+      {
+        "file": "crates/rovai-core/src/db.rs",
+        "sha256": "12fc720c7128e6e87f0565e323fcf6febb51e0caded521358fc9f59b3a466973",
+        "gitBlob": "b28250a3062d4c2c8cc8b496225573acb45605f4"
+      },
+      {
+        "file": "crates/rovai-core/src/lib.rs",
+        "sha256": "733c483f949848688bda01b62443c37e35323a761a5733a3371763797f2e0135",
+        "gitBlob": "ae38fb1090cb4e93c1cbedab5590e03e7a1957db"
+      },
+      {
+        "file": "crates/rovai-core/src/skill_pack_members.rs",
+        "sha256": "395a5f1092719786f9a3e457228d5e21212c78392a469e897335c895c98519ef",
+        "gitBlob": "6dd437371b30a42a5435b1e509c363a27ed38504"
+      },
+      {
+        "file": "crates/rovai-web/src/operations.rs",
+        "sha256": "ccd715be278861eb000ff44a67b58f51bb9f8df3b58f1f676ccc1a75b230b445",
+        "gitBlob": "82414dc5360ca186978f15da785a2d8f5be39c03"
+      },
+      {
+        "file": "docs/architecture/README.md",
+        "sha256": "7ed21fd46ca94f524e302cc36af4a8473b0d271c475deb9138f31638c3692835",
+        "gitBlob": "beb890ee9ffca9b8e4c49232d26953ad5c78ba15"
+      },
+      {
+        "file": "docs/contracts/README.md",
+        "sha256": "8e83ac9ac3822a4b0b60a39a2506d2d43e120e7d684e0914b85118b3d2ef3d90",
+        "gitBlob": "dd2a797180043957ee3224079029a1b9927b2325"
+      },
+      {
+        "file": "docs/development/testing.md",
+        "sha256": "3598c36191bad449c330b9ea5e931ae5d91919c852a7f440c71b16880153c345",
+        "gitBlob": "a42073cce3c9b9bf8d0f6dc65be6e70a642020a9"
+      },
+      {
+        "file": "docs/versions/v1.72/README.md",
+        "sha256": "a90426882ed7cebe400b1f7ed0bd1eac5c803414bd5da3434f8533188ee650ac",
+        "gitBlob": "e26e20afed0535ee87d8757eedccc262eef0afc0"
+      },
+      {
+        "file": "integration/README.md",
+        "sha256": "c3c40cec6654f1667fd7a8c1de3920fd8095101db1afea324f1d04b48d9bd4be",
+        "gitBlob": "dcae075ea53bb6d4359d8d9629be0c4a2fd85004"
+      },
+      {
+        "file": "integration/foundation/current-protocol.json",
+        "sha256": "c368b86f72d023c354e1ce7631492da4c13cf1a64765b39c3081b35c1f2080fb",
+        "gitBlob": "cd9fd9e881f419778335d36445a1254cdf72351c"
+      },
+      {
+        "file": "integration/planning/features.json",
+        "sha256": "8f73f475e7eb69635a24862cbdb39521fd718c7d49e0c4509b34ba0de9c4408c",
+        "gitBlob": "2da1f8147cfc1338efa186d6f9047eac052aa562"
+      },
+      {
+        "file": "integration/planning/work-packages.json",
+        "sha256": "0c6607bea074f9083b6a9f621696655fbf5d3a3ca9a162b03f15972c99320478",
+        "gitBlob": "194ffb3ef8e5d4511969c7c25a1e494f3ba55151"
+      },
+      {
+        "file": "packages/contracts/src/index.ts",
+        "sha256": "1488d5e17aa051363e94efb4f224385b71a15cd1ef352d29216868f45dc0197f",
+        "gitBlob": "136e58f3c0ac0733c30e3f262fbbfffc1125bb47"
+      },
+      {
+        "file": "crates/rovai-core/src/canvas_board.rs",
+        "sha256": "fb6c76a9bbc2845a31bd71335cd1a53100cc4fc36d9e41589b2a483b2b7ce852",
+        "gitBlob": "0c0b685aab881932cdbdbb6ab80c67601c966144"
+      },
+      {
+        "file": "docs/architecture/canvas.md",
+        "sha256": "a376a41d939a18e344a8ae7f4d88ba9de6e1826673b8f41ac3a756ab39b5220f",
+        "gitBlob": "6c488e9b2162b819518fd8c0e21c7e815d63b7f9"
+      },
+      {
+        "file": "docs/contracts/canvas-boards-v1.md",
+        "sha256": "217e9deb2a43ed42c0c99e8cce1edd214febb67f18c70e7cb35c61fad741134d",
+        "gitBlob": "e6787e7affd6f949726932fff3d83b63fb7978b4"
+      },
+      {
+        "file": "tools/integration/smoke-canvas-boards.mjs",
+        "sha256": "7daf750d6996d464d53b921cdf54ce5ca78133a77fff4c613f798c51f33b4bd8",
+        "gitBlob": "9355b65b38a6177d487972ce74f1ce1ed452f9c0"
+      }
+    ],
+    "donorAudit": "i03-canvas-source-audit.json",
+    "donorFileCount": 16,
+    "protectedModelSources": [
+      {
+        "file": "crates/rovai-core/src/context.rs",
+        "sha256": "2adc3d625fe2e0027e37e02b284c1a8a22e0d5559544d83b7b82ea12c03df184"
+      },
+      {
+        "file": "crates/rovai-core/src/current_input_skill.rs",
+        "sha256": "a9f462bde50cdb62cb76822c5d0ffbe58f188d4823ca340b589a50dfef403c17"
+      },
+      {
+        "file": "crates/rovai-core/src/context_contract.rs",
+        "sha256": "0bd5b2539bc06080452a7bb651945fcb0816d3f2b9312e6ebf737a15aac8570c"
+      },
+      {
+        "file": "crates/rovai-core/src/managed_skills.rs",
+        "sha256": "49e76bb99eaaf3723ebe7c56fb361b4c20e68c1c5be0cc18983a901a4f86954b"
+      }
+    ]
+  },
+  "implementation": {
+    "schema": 152,
+    "migration": 202,
+    "APIs": [
+      "canvas.boards.list",
+      "canvas.boards.get",
+      "canvas.boards.create",
+      "canvas.boards.update",
+      "canvas.boards.delete"
+    ],
+    "authority": "Rovai Core SQLite",
+    "boardRevisionCAS": true,
+    "firstResultReplay": true,
+    "atomicInvalidationAndResult": true,
+    "singleReadTransaction": true,
+    "canvasUI": false,
+    "nodeKindsImplemented": 0,
+    "modelInputChanged": false
+  },
+  "checks": {
+    "workspace": {
+      "passed": 501,
+      "failed": 0,
+      "ignored": 8,
+      "singleFullRun": true,
+      "targets": [
+        {
+          "status": "ok",
+          "passed": 454,
+          "failed": 0,
+          "ignored": 8,
+          "filtered": 0,
+          "log": "work/i03/canvas-workspace.log"
+        },
+        {
+          "status": "ok",
+          "passed": 33,
+          "failed": 0,
+          "ignored": 0,
+          "filtered": 0,
+          "log": "work/i03/canvas-workspace.log"
+        },
+        {
+          "status": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0,
+          "filtered": 0,
+          "log": "work/i03/canvas-workspace.log"
+        },
+        {
+          "status": "ok",
+          "passed": 11,
+          "failed": 0,
+          "ignored": 0,
+          "filtered": 0,
+          "log": "work/i03/canvas-workspace.log"
+        }
+      ],
+      "ignoredReason": "7 subprocess helpers and 1 manual Antigravity real-Runtime smoke"
+    },
+    "canvasOwner": {
+      "status": "ok",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 951,
+      "log": "work/i03/canvas-owner-final.log"
+    },
+    "skillOwners": {
+      "status": "ok",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 949,
+      "log": "work/i03/skill-pack-regression.log"
+    },
+    "preflight": {
+      "status": "ok",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "filtered": 951,
+      "log": "work/i03/canvas-preflight.log"
+    },
+    "actualHTTP": {
+      "passed": 14,
+      "evidence": "work/i03/canvas-native-evidence/boards-m8RCmd/result.json",
+      "upgrade": "151 -> 152",
+      "realHostRestart": true,
+      "retainedInstallationAndMemberChoices": true,
+      "zeroAgentRun": true,
+      "zeroContextManifest": true
+    },
+    "typecheck": "passed",
+    "allTargets": "passed",
+    "format": "passed",
+    "documentation": "passed",
+    "foundation": "passed_source_baseline_161",
+    "scaffold": "passed_81_48_324"
+  },
+  "artifact": {
+    "schema": 152,
+    "binary": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\native-artifacts\\core152-canvas-boards-489bf95eb64d\\rovai-host.exe",
+    "sha256": "489bf95eb64d17da265da4889743c35d283ed301a4fb41540d8dcd1a0324af69",
+    "previousSha256": "cb1348b9761608ae04503dce20a59537566c837d662a71d53805ca39ffe306dd",
+    "binaryUnchangedAfterExtendedTestAdditions": false
+  },
+  "limitations": [
+    "多画板接口与存储基础已验；完整画布UI和八类节点尚未实现",
+    "业务对象绑定、拖动分组布局、文件权限及真实PTY仍在I03后续，不缩范围",
+    "完整324场景not_run；没有模型或跨平台资格",
+    "RuntimeTerminalAdmission是AgentRun终态结算，不能当PTY启动准入；需实际移植Codeg portable-pty管理器",
+    "客户未确认r1，已要求改成故事化客户说明；工程模型方案语义保持，模型源码不动"
+  ],
+  "next": [
+    "按客户要求重写技能包说明，以使用故事和可见结果确认，保留技术附录",
+    "继续I03全部节点与真实业务入口、布局和PTY",
+    "客户账号/付款/设备资源继续待办，main/发布仍客户控制"
+  ]
+}

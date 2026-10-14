@@ -33,7 +33,7 @@
       "id": "DEV-CORE-RUNTIME-UNION",
       "task": "I02-T02",
       "status": "catalog_21_source_integrated_runtime_parity_and_qualification_pending",
-      "problem": "Core21种/schema151；三种新增来源接入目录与差异控制面，完整实际运行、原生兼容和四平台资格仍须补齐",
+      "problem": "Core21种/schema152；三种新增来源接入目录与差异控制面，完整实际运行、原生兼容和四平台资格仍须补齐",
       "evidence": "i02-openclaw-core-result.json；不以本地元数据或编译替代执行",
       "owner": "研发"
     },
@@ -99,6 +99,14 @@
       "owner": "研发",
       "problem": "来源目录、安装/刷新/卸载、生产设置与队员配置保存已验；模型投递r1待确认后实施；自定义/导入、MCP市场、OfficeCLI、科研与UI渲染及历史GC继续研发",
       "evidence": "i02-skill-members-result.json"
+    },
+    {
+      "id": "DEV-CANVAS-NODES",
+      "task": "I03-T01/I03-T02/I03-T03",
+      "status": "multi_board_API_verified_complete_interactions_pending",
+      "owner": "研发",
+      "problem": "继续八类节点、共享布局、分组/分离、业务对象与真实文件、PTY管理和退出恢复；现有Runtime终态许可不是PTY启动能力",
+      "evidence": "i03-canvas-boards-result.json"
     }
   ]
 }

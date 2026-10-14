@@ -11,6 +11,8 @@ last_updated: 2026-10-12
 
 ## Rust 测试准入与退役门槛
 
+融合多画板新增扩展 owner `canvas_board::tests::board_migration_and_command_lifecycle_preserve_replay_and_atomic_snapshot`，拥有151→152加表与收据原子性、元数据边界、User作用域、CAS、结果失败回滚、一致读取、重开与删除后历史回放。现有成员/安装owner不拥有画板身份或修订，不能替代；复用已有私有SQLite模板而不另造Runtime。最低命令先 `cargo test -p rovai-core --features extended-tests --lib canvas_board -- --list`，再去掉 `--list` 执行。节点、PTY和真实模型不在此owner的资格范围。
+
 融合技能包成员选择由新增扩展 owner `skill_pack_members::tests::migration_and_member_choices_survive_reopen_and_uninstall_fences_old_replay` 拥有。它覆盖150→151建表/收据原子性、无默认成员、真实成员校验、陈旧观察拒绝、首次结果回放、更新保留选择、卸载事务回滚及重装不恢复选择。旧工具箱只有固定五项且不关联可卸载版本，不能证明新表与安装事务的交互；需要真实SQLite及私有文件fixture。最低命令先 `cargo test -p rovai-core --features extended-tests --lib skill_pack -- --list` 确认新增owner，再执行同一过滤；重复重开与回放用于证明持久化和旧命令不重新赋值。模型输入与成员实际投递由待确认的独立方案拥有，此测试不授予运行资格。
 
 融合技能包固定来源由新增纯函数 owner `codeg_skill_catalog::tests::catalog_preserves_pinned_sources_and_bounds_content_reads` 拥有。原先没有固定 Codeg 目录与嵌入资源，原生发现和旧 Revision owner 处理可变路径/数据库，无法验证这一来源的 Git 摘要、9 项 Office 外部依赖和跨包预览边界。该 owner 不建 SQLite、Home 或 Runtime，最低命令为 `cargo test -p rovai-core --lib codeg_skill_catalog::tests::catalog_preserves_pinned_sources_and_bounds_content_reads -- --exact`；Core/HTTP seam 由隔离 smoke 单独验证，不重复纯函数矩阵。

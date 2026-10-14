@@ -1,0 +1,141 @@
+{
+  "status": "fixed_source_inventory_verified_targeted_semantic_review",
+  "sourceCommit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+  "sources": [
+    {
+      "file": "src-tauri/src/db/service/canvas_service.rs",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "ffa14011bae20196bdb97a6be595ed0e24b701875f322ff8ced0bf64cc1b6c62",
+      "bytes": 58817
+    },
+    {
+      "file": "src-tauri/src/commands/canvas.rs",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "4050e992334d62491c9c8cafded67e848d89b61c98f98129c9bb8fd282a07892",
+      "bytes": 92466
+    },
+    {
+      "file": "src-tauri/src/db/entities/canvas_board.rs",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "2b895c3eae29864affa67e56ffab6ed41d2f6f5b5a7a4876d16c4b95dca066a9",
+      "bytes": 1264
+    },
+    {
+      "file": "src-tauri/src/db/entities/canvas_node.rs",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "ad1c7ed50c9759942f264fe763117f4d5ad2f0729398ac7ab7dce8740e016f01",
+      "bytes": 4717
+    },
+    {
+      "file": "src-tauri/src/models/canvas.rs",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "d8a40b63b0dfe9591729919a8c3fa134b1f54d7f02517c3ff6443403e75101c1",
+      "bytes": 5946
+    },
+    {
+      "file": "src-tauri/src/web/handlers/canvas.rs",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "85ba1968d3c261398e633a270c0dea1d0f99c5427008b493044b1bea461ec5ee",
+      "bytes": 5895
+    },
+    {
+      "file": "src/stores/canvas-store.ts",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "4d7257c4a3ac1407b0eff5844d6be11d647440cae8dec918d5dd8e02a5d8f300",
+      "bytes": 15062
+    },
+    {
+      "file": "src/stores/canvas-boards-store.ts",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "2893da72a24b01b3e3c92bf0896467787e3ae366338f9b6f90edca413137c501",
+      "bytes": 9054
+    },
+    {
+      "file": "src/lib/canvas-view-storage.ts",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "2d2b3882bce4b4244c889b92088d5bc82eb23c8929e2a672b4ab7da7fd614891",
+      "bytes": 13742
+    },
+    {
+      "file": "src/components/canvas/canvas-model.ts",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "20571a3aad0a7162a37a1e9225a2ebafc44212d79fe0bd3c188745624d935798",
+      "bytes": 45565
+    },
+    {
+      "file": "src/components/canvas/canvas-view.tsx",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "cd409b3fda49a8168db37fa48982af83dddf78ffc5400c7d5be737d0f7ed3d20",
+      "bytes": 95148
+    },
+    {
+      "file": "src/components/canvas/canvas-page.tsx",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "6388b4e7e4c29d9c25a91ea38f77b3acbdb1d94a674e4244dcfeb45759182dd6",
+      "bytes": 7315
+    },
+    {
+      "file": "src-tauri/src/terminal/manager.rs",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "f5af223be77168370b0e8dc74e92376a0e1b22c9c09dfa2169ffb3eddfa60043",
+      "bytes": 70208
+    },
+    {
+      "file": "src-tauri/src/terminal/types.rs",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "53546e29ba520996eb1c2cf3493adc2c960cee0953b63e810b105f83e13b0bc5",
+      "bytes": 2331
+    },
+    {
+      "file": "src-tauri/src/terminal/shell_flavor.rs",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "02ff200d998443f17d17ea11a63db4cb3f97fa4fbf4522b55561b7cad572d22b",
+      "bytes": 5843
+    },
+    {
+      "file": "src-tauri/src/terminal/error.rs",
+      "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "f1c7667e6cc12570ae7547f97235f9bd13c701cb79c614d02372ecaefb41eb53",
+      "bytes": 565
+    }
+  ],
+  "reviewScope": "16 files have fixed Git-byte hashes; targeted board lifecycle, node/model fields, view state, store race handling and PTY lifecycle sections reviewed; not a claim that every line or all product behavior is verified",
+  "sourceSemantics": {
+    "nodeKinds": [
+      "folder",
+      "group",
+      "agent",
+      "conversation",
+      "custom",
+      "note",
+      "file",
+      "terminal"
+    ],
+    "boardMetadataLimits": {
+      "name": 200,
+      "description": 2000,
+      "unit": "Unicode scalar values"
+    },
+    "colors": [
+      "neutral",
+      "zinc",
+      "slate",
+      "stone",
+      "gray",
+      "red",
+      "rose",
+      "orange",
+      "green",
+      "blue",
+      "yellow",
+      "violet"
+    ],
+    "boardCoordinates": "board units independent of application text zoom",
+    "authoritativeLayout": "source SQLite; destination Rovai Core SQLite",
+    "localView": "viewport/expansion/selection/minimap/unsent drafts remain client advisory",
+    "terminal": "ephemeral PTY, never restore stored process identity"
+  },
+  "currentSlice": "multi-board Core lifecycle only",
+  "remaining": "all eight node kinds, interactive graph, object references, business roundtrip, file permission and actual PTY, full platform acceptance",
+  "fusionAcceptance": "not_run"
+}

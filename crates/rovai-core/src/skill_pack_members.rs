@@ -178,6 +178,7 @@ pub(crate) fn clear_for_uninstall(connection: &Connection, skill_id: &str) -> Re
 
 #[cfg(test)]
 pub(crate) fn downgrade_for_test(connection: &Connection) {
+    crate::canvas_board::downgrade_for_test(connection);
     if !connection.table_exists(None, "member_skill_pack").unwrap() {
         return;
     }

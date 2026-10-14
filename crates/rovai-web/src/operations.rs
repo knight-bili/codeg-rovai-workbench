@@ -283,6 +283,16 @@ pub enum Operation {
     SkillPackMembers,
     #[serde(rename = "skillPacks.members.set")]
     SkillPackSetMembers,
+    #[serde(rename = "canvas.boards.list")]
+    CanvasBoardsList,
+    #[serde(rename = "canvas.boards.get")]
+    CanvasBoardsGet,
+    #[serde(rename = "canvas.boards.create")]
+    CanvasBoardsCreate,
+    #[serde(rename = "canvas.boards.update")]
+    CanvasBoardsUpdate,
+    #[serde(rename = "canvas.boards.delete")]
+    CanvasBoardsDelete,
     #[serde(rename = "toolbox.read")]
     ToolboxRead,
     #[serde(rename = "toolbox.setMembers")]
@@ -599,6 +609,11 @@ impl Operation {
             Self::SkillPackUninstall => "skillPacks.uninstall",
             Self::SkillPackMembers => "skillPacks.members.list",
             Self::SkillPackSetMembers => "skillPacks.members.set",
+            Self::CanvasBoardsList => "canvas.boards.list",
+            Self::CanvasBoardsGet => "canvas.boards.get",
+            Self::CanvasBoardsCreate => "canvas.boards.create",
+            Self::CanvasBoardsUpdate => "canvas.boards.update",
+            Self::CanvasBoardsDelete => "canvas.boards.delete",
             Self::ToolboxRead => "toolbox.read",
             Self::ToolboxSetMembers => "toolbox.setMembers",
             Self::NativeSkillsList => "nativeSkills.list",

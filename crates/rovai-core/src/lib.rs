@@ -42,6 +42,7 @@ mod camp_message_publication;
 pub mod camp_message_send_teaching;
 pub mod camp_open;
 pub mod canonical_activity;
+pub mod canvas_board;
 pub mod channel;
 pub mod claude_permission;
 pub mod codeg_skill_catalog;

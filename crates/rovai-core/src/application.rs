@@ -9353,6 +9353,55 @@ impl Core {
                 )?;
                 Ok(serde_json::to_value(execution.result)?)
             }
+            "canvas.boards.list" => {
+                let database = self.database.lock().await;
+                Ok(serde_json::to_value(rovai_core::canvas_board::list(
+                    database.connection(),
+                )?)?)
+            }
+            "canvas.boards.get" => {
+                #[derive(Deserialize)]
+                #[serde(rename_all = "camelCase", deny_unknown_fields)]
+                struct Params {
+                    board_id: String,
+                }
+                let params: Params = serde_json::from_value(request.params.clone())?;
+                let database = self.database.lock().await;
+                Ok(serde_json::to_value(rovai_core::canvas_board::get(
+                    database.connection(),
+                    &params.board_id,
+                )?)?)
+            }
+            "canvas.boards.create" => {
+                let params: UserCommandParams<rovai_core::canvas_board::CreateCanvasBoardCommand> =
+                    serde_json::from_value(request.params.clone())?;
+                let mut database = self.database.lock().await;
+                let execution = rovai_core::canvas_board::create(
+                    &mut database,
+                    &user_command_envelope(params.command_id, params.command),
+                )?;
+                Ok(serde_json::to_value(execution.result)?)
+            }
+            "canvas.boards.update" => {
+                let params: UserCommandParams<rovai_core::canvas_board::UpdateCanvasBoardCommand> =
+                    serde_json::from_value(request.params.clone())?;
+                let mut database = self.database.lock().await;
+                let execution = rovai_core::canvas_board::update(
+                    &mut database,
+                    &user_command_envelope(params.command_id, params.command),
+                )?;
+                Ok(serde_json::to_value(execution.result)?)
+            }
+            "canvas.boards.delete" => {
+                let params: UserCommandParams<rovai_core::canvas_board::DeleteCanvasBoardCommand> =
+                    serde_json::from_value(request.params.clone())?;
+                let mut database = self.database.lock().await;
+                let execution = rovai_core::canvas_board::delete(
+                    &mut database,
+                    &user_command_envelope(params.command_id, params.command),
+                )?;
+                Ok(serde_json::to_value(execution.result)?)
+            }
             "skillPacks.members.list" => {
                 let database = self.database.lock().await;
                 Ok(serde_json::to_value(rovai_core::skill_pack_members::list(

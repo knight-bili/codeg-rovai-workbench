@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R02",
+  "status": "partial_engineering_verified",
+  "checked_at": "2026-10-16T17:24:20.525251+00:00",
+  "candidate": "fusion-i03-rc.19",
+  "source_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+  "executed_owner_revision": "446dfa9d66dfe5260bf3219fde875cbbbd4c69eb",
+  "committed_test_owner_source": "428201ecc74346cec37c6209c57f79e7f765e54d",
+  "qualified_cases": [
+    "PC01",
+    "PC12"
+  ],
+  "partial_cases": [
+    "PC02",
+    "PC14"
+  ],
+  "qualification": {
+    "PC01": "Actual Native trusted typing and real submit button; Core/owned ACP completes the selected card input once. Its materials clear, the other card body/file/quote/revision and default file/quote draft remain exact.",
+    "PC12": "Actual Native submit with empty body and one file completes through Core/owned ACP. Selected materials clear; other inputs remain exact. Actual received CURRENT_INPUT has an empty message and its sole source file bytes match the prepared content.",
+    "PC02_partial": "Default materials remain exact after both sends. Actual parallel default local body still needs verification.",
+    "PC14_partial": "Actual ACP CURRENT_INPUT contains only the selected source path and quote; the source bytes were read and asserted before cleanup. Final durable Blob comparison, multiple-quote order and original section invariants still need independent evidence.",
+    "runtime_boundary": "Real production Core/Main/preload and owned fixed local ACP transport. No external model inference is claimed.",
+    "ui_boundary": "Final screenshot follows Core terminal snapshot without waiting for all UI invalidations; it still shows executing. R09 must verify eventual runtime-status updates. This run does not qualify runtime-status UI."
+  },
+  "failed_attempts": {
+    "r1": "Test looked for the textarea label on the submit button; no matching control. Corrected to original form submit control.",
+    "r2": "Test expected display filename in model input; original contract supplies the managed source path. Corrected to read and compare actual path bytes; production input unchanged."
+  },
+  "runs": [
+    {
+      "revision": "r1",
+      "status": "failed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T17:18:02.223Z"
+      },
+      "qualified": false
+    },
+    {
+      "revision": "r2",
+      "status": "failed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T17:19:33.327Z"
+      },
+      "qualified": false
+    },
+    {
+      "revision": "r3",
+      "status": "passed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T17:21:50.128Z"
+      },
+      "qualified": true
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r1\\controlled-runtime-input.jsonl",
+      "sha256": "e0d544b87e4bca052f43301bc4f9f21cb6c9ccd4466bec9a4aba535ebc6ec73d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r1\\driver-exit.json",
+      "sha256": "24e81870d953eaf0d037234c4e93fab99f1640e1e2dc8315cb554bd7af59b07d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r1\\failure.png",
+      "sha256": "925e86071ff3749fbf46532bde450d2229d88e8923a8b20eb36bb5a7546e71f8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r1\\result.json",
+      "sha256": "4a475eff4b93dec30628e3000bad3f7d44ce3d2b490ebdf46cd70a08b7db90c6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r1-config.json",
+      "sha256": "53e34c1446d13a5e5579304d72157be0388a60034863314d9a4a24228835d7c4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r2\\controlled-runtime-input.jsonl",
+      "sha256": "75b6effd7d1f9d7a4165b018584f254d9ca24fdb57e106ad3a3ffd2946bdac9b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r2\\driver-exit.json",
+      "sha256": "79ef95c2410222aa9b7b6740cea452008c5e57923045e35067c43646093c0aef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r2\\failure.png",
+      "sha256": "1fbe829c877085601357acb80e157a6b265f445f2e14f1ab677a7eef3695083c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r2\\result.json",
+      "sha256": "3882f7a8b739aee05f73771d1dbf3f683b50cbd6e4ed47bba2f213c0eb2887e0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r2-config.json",
+      "sha256": "7525412833a35f2dc31d6a5afc1afe6147a8586f83cfc0c094a70007fa69dfc7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r3\\01-private-send-retains-other-card.png",
+      "sha256": "b734877b9ed0d36ff42bb68977829a2d5997dab7059d2e773f2f9d834c28e4ea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r3\\attachment-only-runtime-current-input.json",
+      "sha256": "0eb53cfd712d32f05468bc42b9998cf1031016a8e032faf88c22f65b6f29e4ad"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r3\\controlled-runtime-input.jsonl",
+      "sha256": "e1ddcf3d8463f33d525dd96ebbc9e850e9fe2d9dc1d09801f1cf54063c9109c1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r3\\driver-exit.json",
+      "sha256": "bdae12e989a061c10c0aef273081b3d50a6758d7acd41bb41f3c4913283ef6c0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r3\\result.json",
+      "sha256": "9529bc158343715e00651964fdb52139bb1741ca9db5829f63d1fcf7dd701726"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r3\\selected-runtime-current-input.json",
+      "sha256": "22ff0395636daa815b55521be489c844fdb04bf837f40977038b39a5b6765ab3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-r3-config.json",
+      "sha256": "1b1987911b6c907585a3e33dda001105451b2306ea8735f807c8f75ce5e6e9cd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-r3-canvas-private-workflow.mjs",
+      "sha256": "07bcc853f9b48eb567d8d9dfa6dae6a6aee1e20dfd3472bb13cb70c1c2545e95"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-r3-canvas-private-ipc.mjs",
+      "sha256": "d9bbab9f6ee6e00c4f834e523b6db2cd71c2915dc169f7e8927b73c04b30ce7c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-native-input.mjs",
+      "sha256": "052125c03b6d634f089f5ac6609e0ada67d615c160f4692219d4a8d9ebf0a55f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-private-workflow.mjs",
+      "sha256": "07bcc853f9b48eb567d8d9dfa6dae6a6aee1e20dfd3472bb13cb70c1c2545e95"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r02-rc19-native.mjs",
+      "sha256": "0de102941f775bc64fecf86a36c105ffea58449d0cba924b956ddd835a26bf83"
+    }
+  ],
+  "builds_added_for_R02": 0,
+  "rust_changes": false,
+  "external_model_calls": 0,
+  "pushes": 0,
+  "actions_triggered": 0,
+  "customer_action_required_now": false
+}

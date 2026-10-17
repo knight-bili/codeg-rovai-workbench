@@ -102,7 +102,88 @@ pub struct CanvasBoard {
 #[serde(rename_all = "camelCase")]
 pub struct CanvasBoardsSnapshot {
     pub boards: Vec<CanvasBoard>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub summaries: Option<Vec<CanvasBoardSummary>>,
     pub through_global_sequence: i64,
+}
+#[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CanvasBoardSummary {
+    pub board_id: String,
+    pub revision: i64,
+    pub node_count: i64,
+    pub terminal_count: i64,
+    pub preview: Vec<CanvasBoardPreviewRect>,
+}
+#[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CanvasBoardPreviewRect {
+    pub kind: crate::canvas_node::CanvasNodeKind,
+    pub x: f64,
+    pub y: f64,
+    pub width: f64,
+    pub height: f64,
+    pub color: Option<String>,
+}
+// Codeg canvas_service.rs:1091-1218; Apache-2.0: integration/licenses/codeg/LICENSE.
+// Keep exact counts while materializing only the largest 200 footprints per board.
+const BOARD_PREVIEW_SQL: &str = "WITH footprints AS (
+ SELECT n.board_id,n.kind,n.x,n.y,n.width,n.height,n.color,
+ COUNT(*) OVER (PARTITION BY n.board_id) AS node_count,
+ SUM(n.kind='terminal') OVER (PARTITION BY n.board_id) AS terminal_count,
+ ROW_NUMBER() OVER (PARTITION BY n.board_id ORDER BY n.width*n.height DESC,n.id) AS position
+ FROM canvas_node n JOIN canvas_board b ON b.id=n.board_id WHERE b.deleted_at IS NULL
+)
+SELECT board_id,kind,x,y,width,height,color,node_count,terminal_count
+FROM footprints WHERE position<=200 ORDER BY board_id,position";
+
+fn summaries(
+    connection: &Connection,
+    boards: &[CanvasBoard],
+) -> Result<Option<Vec<CanvasBoardSummary>>> {
+    // The metadata-only schema152 read owner also uses this function before nodes exist.
+    if !connection.table_exists(None, "canvas_node")? {
+        return Ok(None);
+    }
+    let mut summaries = boards
+        .iter()
+        .map(|board| CanvasBoardSummary {
+            board_id: board.id.clone(),
+            revision: board.revision,
+            node_count: 0,
+            terminal_count: 0,
+            preview: vec![],
+        })
+        .collect::<Vec<_>>();
+    let indexes = boards
+        .iter()
+        .enumerate()
+        .map(|(i, board)| (board.id.as_str(), i))
+        .collect::<std::collections::HashMap<_, _>>();
+    let mut query = connection.prepare(BOARD_PREVIEW_SQL)?;
+    let mut rows = query.query([])?;
+    while let Some(row) = rows.next()? {
+        let board_id: String = row.get(0)?;
+        let summary = &mut summaries[indexes[board_id.as_str()]];
+        summary.node_count = row.get(7)?;
+        summary.terminal_count = row.get(8)?;
+        let kind = serde_json::from_value(json!(row.get::<_, String>(1)?)).map_err(|error| {
+            rusqlite::Error::FromSqlConversionFailure(
+                1,
+                rusqlite::types::Type::Text,
+                Box::new(error),
+            )
+        })?;
+        summary.preview.push(CanvasBoardPreviewRect {
+            kind,
+            x: row.get(2)?,
+            y: row.get(3)?,
+            width: row.get(4)?,
+            height: row.get(5)?,
+            color: row.get(6)?,
+        });
+    }
+    Ok(Some(summaries))
 }
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -122,10 +203,10 @@ fn from_row(row: &Row<'_>) -> rusqlite::Result<CanvasBoard> {
         updated_at: row.get(6)?,
     })
 }
-fn find(connection: &Connection, id: &str) -> Result<Option<CanvasBoard>> {
+pub(crate) fn find(connection: &Connection, id: &str) -> Result<Option<CanvasBoard>> {
     Ok(connection.query_row("SELECT id,name,description,color,revision,created_at,updated_at FROM canvas_board WHERE id=?1 AND deleted_at IS NULL", [id], from_row).optional()?)
 }
-fn sequence(connection: &Connection) -> rusqlite::Result<i64> {
+pub(crate) fn sequence(connection: &Connection) -> rusqlite::Result<i64> {
     connection.query_row(
         "SELECT COALESCE(MAX(global_sequence),0) FROM event_log",
         [],
@@ -136,9 +217,11 @@ pub fn list(connection: &Connection) -> Result<CanvasBoardsSnapshot> {
     let tx = connection.unchecked_transaction()?;
     let through_global_sequence = sequence(&tx)?;
     let boards=tx.prepare("SELECT id,name,description,color,revision,created_at,updated_at FROM canvas_board WHERE deleted_at IS NULL ORDER BY updated_at DESC,id DESC")?.query_map([],from_row)?.collect::<rusqlite::Result<Vec<_>>>()?;
+    let summaries = summaries(&tx, &boards)?;
     tx.commit()?;
     Ok(CanvasBoardsSnapshot {
         boards,
+        summaries,
         through_global_sequence,
     })
 }
@@ -153,7 +236,7 @@ pub fn get(connection: &Connection, id: &str) -> Result<CanvasBoardSnapshot> {
     })
 }
 
-fn allowed<C>(envelope: &CommandEnvelope<C>) -> bool {
+pub(crate) fn allowed<C>(envelope: &CommandEnvelope<C>) -> bool {
     matches!(envelope.actor, ActorRef::User { .. })
         && envelope.camp_id.is_none()
         && envelope.execution_epoch.is_none()
@@ -166,7 +249,7 @@ fn text(value: Option<&str>, max: usize) -> std::result::Result<Option<String>, 
     }
     Ok(value.map(str::to_owned))
 }
-fn color(value: Option<&str>) -> std::result::Result<Option<String>, ()> {
+pub(crate) fn color(value: Option<&str>) -> std::result::Result<Option<String>, ()> {
     let value = text(value, 20)?;
     if value.as_ref().is_some_and(|value| {
         ![
@@ -188,7 +271,7 @@ fn entity(id: &str) -> Option<EntityReference> {
         entity_id: id.into(),
     })
 }
-fn invalidated(
+pub(crate) fn invalidated(
     tx: &rusqlite::Transaction<'_>,
     id: &str,
     revision: i64,
@@ -262,6 +345,7 @@ pub fn delete(
             .checked_add(1)
             .ok_or_else(|| anyhow::anyhow!("Canvas board revision overflow"))?;
         let now = chrono::Utc::now().to_rfc3339();
+        tx.execute("DELETE FROM canvas_node WHERE board_id=?1", [&board.id])?;
         tx.execute(
             "UPDATE canvas_board SET revision=?2,updated_at=?3,deleted_at=?3 WHERE id=?1",
             params![board.id, revision, now],
@@ -356,6 +440,7 @@ mod tests {
             .execute_batch("ALTER TABLE canvas_board RENAME COLUMN broken_name TO name;")
             .unwrap();
         assert!(list(database.connection()).unwrap().boards.is_empty());
+        assert!(list(database.connection()).unwrap().summaries.is_none());
         let create_command = envelope(CreateCanvasBoardCommand {
             name: Some("  中文画板  ".into()),
             description: Some(" 说明 ".into()),
@@ -465,6 +550,71 @@ mod tests {
                 .revision,
             2
         );
+        // The reopened current schema has nodes; list summaries remain one read-only snapshot.
+        database.connection().execute("WITH RECURSIVE series(i) AS (VALUES(0) UNION ALL SELECT i+1 FROM series WHERE i<200)
+            INSERT INTO canvas_node(id,board_id,kind,conversations_json,title,content,color,collapsed,grid_columns,grid_rows,x,y,width,height,created_at,updated_at)
+            SELECT 'summary-'||i,?1,'note','[]','never-read-title','never-read-note-body','orange',0,0,0,i*10,0,CASE WHEN i=0 THEN 5000 ELSE 200+i END,100,'time','time' FROM series", [&id]).unwrap();
+        database.connection().execute_batch("INSERT INTO canvas_board(id,revision,created_at,updated_at) VALUES('summary-other',1,'time','time');
+            INSERT INTO canvas_node(id,board_id,kind,conversations_json,path,collapsed,grid_columns,grid_rows,x,y,width,height,created_at,updated_at)
+            VALUES('summary-other-node','summary-other','terminal','[]','/never-read-path',0,0,0,0,0,480,300,'time','time');").unwrap();
+        let changes: i64 = database
+            .connection()
+            .query_row("SELECT total_changes()", [], |row| row.get(0))
+            .unwrap();
+        let before_read = sequence(database.connection()).unwrap();
+        let overview = list(database.connection()).unwrap();
+        let rows = overview.summaries.as_ref().unwrap();
+        let summary = rows.iter().find(|row| row.board_id == id).unwrap();
+        assert_eq!(
+            (summary.revision, summary.node_count, summary.terminal_count),
+            (2, 201, 0)
+        );
+        assert_eq!(summary.preview.len(), 200);
+        assert_eq!(summary.preview[0].width, 5000.0);
+        assert!(summary.preview.iter().all(|rect| rect.x != 10.0));
+        assert!(
+            summary
+                .preview
+                .windows(2)
+                .all(|pair| pair[0].width * pair[0].height >= pair[1].width * pair[1].height)
+        );
+        let other = rows
+            .iter()
+            .find(|row| row.board_id == "summary-other")
+            .unwrap();
+        assert_eq!(
+            (other.node_count, other.terminal_count, other.preview.len()),
+            (1, 1, 1)
+        );
+        let encoded = serde_json::to_string(&overview).unwrap();
+        for private in [
+            "never-read-title",
+            "never-read-note-body",
+            "/never-read-path",
+        ] {
+            assert!(!encoded.contains(private));
+        }
+        assert_eq!(overview.through_global_sequence, before_read);
+        assert_eq!(
+            database
+                .connection()
+                .query_row("SELECT total_changes()", [], |row| row.get::<_, i64>(0))
+                .unwrap(),
+            changes
+        );
+        database
+            .connection()
+            .execute_batch("UPDATE canvas_board SET deleted_at='time' WHERE id='summary-other';")
+            .unwrap();
+        assert_eq!(
+            list(database.connection())
+                .unwrap()
+                .summaries
+                .unwrap()
+                .len(),
+            1
+        );
+        database.connection().execute_batch("DELETE FROM canvas_node WHERE board_id='summary-other'; DELETE FROM canvas_board WHERE id='summary-other';").unwrap();
         let deleted = delete(&mut database, &deletion).unwrap();
         assert_eq!(deleted.result.code, "canvas.board.deleted");
         assert!(get(database.connection(), &id).unwrap().board.is_none());
@@ -492,6 +642,10 @@ mod tests {
         .unwrap();
         assert_ne!(second.result.payload["board"]["id"], id);
         assert_eq!(list(database.connection()).unwrap().boards.len(), 1);
+        assert_eq!(
+            list(database.connection()).unwrap().summaries.unwrap()[0].node_count,
+            0
+        );
         let integrity: String = database
             .connection()
             .query_row("PRAGMA integrity_check", [], |row| row.get(0))

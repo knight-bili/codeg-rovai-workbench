@@ -1,0 +1,11 @@
+{
+  "name": "portable-pty",
+  "version": "0.8.1",
+  "license": "MIT",
+  "registry_source": "registry+https://github.com/rust-lang/crates.io-index",
+  "crate_checksum_sha256": "806ee80c2a03dbe1a9fb9534f8d19e4c0546b790cde8fd1fea9d6390644cb0be",
+  "license_sha256": "191c46fcf52061382b1c51a70311eb9081381cc158e5899f3739473a9432185b",
+  "repository": "https://github.com/wez/wezterm",
+  "basis": "Same0.8.1 version as pinned Codeg source; no latest-version migration",
+  "qualification": "direct license preserved; complete transitive release notices remain I12 dependency qualification"
+}

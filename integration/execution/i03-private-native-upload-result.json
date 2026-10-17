@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "status": "Native_bridge_locally_verified_Core_and_UI_pending",
+  "recorded_at": "2026-10-15T17:59:58.645147+00:00",
+  "source_binding": {
+    "base_commit": "9887c13c",
+    "kind": "exact_file_hashes_recorded_before_local_commit",
+    "files": {
+      "apps/desktop/src/main/private-attachment-preparation.ts": "6f94970e95971d53501789a3e2b774bea7298e86466e4704b3b1259449151de0",
+      "apps/desktop/src/main/private-attachment-preparation.test.ts": "7c54e904f6f7487b7ee81e4a487d249dfb705759454cfbe3a186888faca90c09",
+      "apps/desktop/src/main/core-client.ts": "324319ee1da0632b92fec6fbe7a9903604ae0bdf37184895b80287d2f3fe337b",
+      "apps/desktop/src/main/index.ts": "e44767de3b30893f14f5030586c4fb0233c6772bc9c381f857879cb686c52f3a",
+      "apps/desktop/src/preload/index.ts": "fb5e2e1250a9cb22b0ace306c80f567f2f889aa9491e434a811cb7ea91a92889",
+      "packages/contracts/src/index.ts": "2c6fbba0fab78a8cccc4a73e215d8cb7b48ebf976c0ba9eef2b1b136ed07f4e4",
+      "crates/rovai-core/src/web_upload.rs": "de7e918f3c80e7c9fe5cf2fc1318abae11be4a6f9c738062600206a8be1e5a8e",
+      "crates/rovai-core/src/application.rs": "16b275bc67b5f89c8a8790e872eb7e2eaa5be5e6eb2fd07dab92474c608c9157",
+      "crates/rovai-core/src/single_chat_composer_tests.rs": "c2343bfc6d8adc1306a81da4c611fa335894c6a8c000a5bb0f4d4810c860fbcb",
+      "docs/contracts/single-chat-composer-scope-v1.md": "a78c488bc94afe9b4b2fb414a80bde9947715ddc4d5e5dffd7a1ff91c478782c",
+      "docs/development/testing.md": "8caa7c726562722ad4a4b23367f527dd01b384592e8200301306f5a1920a376a",
+      "docs/versions/v1.72/README.md": "8e033255a21f26c569ef77de78d09b3b2d0cdefd4aafc027f07b3195fd491237"
+    }
+  },
+  "implemented": [
+    "Optional Native preparation/reconcile/retry/exact-owner-list API and Main window-bound IPC",
+    "Per-Core versioned journal, fsync before bind, owned byte spool and same-content crash residue reuse",
+    "Frozen original request and private source metadata; duplicate preparation and restore only look up receipts",
+    "Explicit retry reobserves original source and refuses name/kind/size/digest changes",
+    "Readonly receipt lookup can independently settle a hung original Native call",
+    "Desktop-only private observation and receipt Core methods; Desktop public upload still refused",
+    "Private bind verifies actual file content inside original Gateway handler, replay bypasses file reread"
+  ],
+  "executed_validation": {
+    "Native_Main_owner": {
+      "passed": 6,
+      "filesystem": "real_isolated_temporary_roots",
+      "Core_transport": "mocked"
+    },
+    "related_Web_client_and_digest": {
+      "passed": 27,
+      "runtime": "mocked_transport_and_real_digest"
+    },
+    "targeted_types_including_Main_Preloader_and_Web_adapter": "passed",
+    "rustfmt_web_upload_and_existing_composer_owner": "passed",
+    "documentation_version_decisions_and_policy": "passed",
+    "foundation_scaffold_and_diff": "passed",
+    "proposal_r1_frozen_hashes": "passed"
+  },
+  "not_executed": {
+    "Core_compile": "not_run_stage_candidate",
+    "Core_extended_owner": "not_run_same_existing_third_owner_extended",
+    "real_Native_IPC_and_Core_transport": "not_run",
+    "actual_file_authority_and_preview": "not_run",
+    "real_UI_multiwindow_platform_model": "not_run",
+    "full_PC01_PC24_and_formal_324": "not_run"
+  },
+  "self_review": [
+    "Initial fixture used invalid Thread ID; production parser rejected it. Corrected deterministic UUIDv7 encoding; initial failures retained.",
+    "Reused safe non-following/nonblocking file opening to reject changed file types without FIFO hangs.",
+    "Journal phase does not downgrade a recorded receipt when original transport resumes late.",
+    "Owned byte files keep a safe extension for existing preview classification; no duplicate overwrites.",
+    "SourceRef, SingleChat/model context, quote projection and Gateway source stay byte-identical to base."
+  ],
+  "remaining": [
+    "Shared preparation recovery controller and actual Native/Web attachment UI integration",
+    "Directory observation and private source checks from attachment admission through send/queue acceptance",
+    "Actual resource authorization and previews for journal-owned files inside the Core data directory",
+    "Definitive upload rejection presentation and safe cleanup; unknown outcomes must keep source files",
+    "Explicit original-byte reselect, legacy adoption and orphan/conflict recovery",
+    "Remaining I03 closeout groups and complete phase candidate validation"
+  ],
+  "boundaries": {
+    "new_Rust_owners": 0,
+    "Core_build": false,
+    "push": false,
+    "Actions": false,
+    "paid_models": false,
+    "customer_stage_gate": false,
+    "scoped_attachment_UI_enabled": false,
+    "schema": 155,
+    "migration": 205,
+    "public_operations": 180,
+    "full_scope_81_48_324_preserved": true
+  },
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/single_chat.rs": "69c1dbb56c56181bbd0e90ef0239a855894b4a9e864119155d1a2da4de6c2569",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "approved_r1_files": {
+    "I03_私聊材料怎么分开用_客户确认版_r1.docx": "87565f57fa0e994f676139e3376fe14e556ac9862c08f1573798d985f4dcecf7",
+    "I03_私聊材料怎么分开用_客户确认版_r1.pdf": "4b3446c0d97f2c6b8529a206d965a60229dcc1e5966e280647856fc88576e8df"
+  },
+  "artifacts": {
+    "i03\\private-upload-native-owners-first.log": "143aef056df6413d000d8d36d840e36915fac190b7190311fabdc901e7e77ded",
+    "i03\\private-upload-native-owners-fixed.log": "e68d929d409e8135ca83eafab5661988397a6a3199a5e42005234fc5b1f0170e",
+    "i03\\private-upload-native-owners-final.log": "04eadb966054a1605e1bdee651c76d8ba52655cca2135b64593ba17e98fbd2f0",
+    "i03\\private-upload-native-owners-final-main.log": "978853100c756141811b8a6ec09f3d2d03c89987cb7bc9ae779f0ce3acef0229",
+    "i03\\private-upload-native-types-first.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\private-upload-native-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\private-upload-native-types-final-checked.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\private-upload-native-typecheck.json": "3ea44c87866f61734a152821a1551ad6c549ac931effcf0cbfc17dd8aa6eb8c3",
+    "i03\\private-upload-native-rustfmt.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\private-upload-native-doc-version.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "i03\\private-upload-native-doc-decisions.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "i03\\private-upload-native-doc-policy.log": "93aefc92887ed971b146c44c3189a1cf4c0eca548d95f6ac558d695e18b2bc09",
+    "i03\\private-upload-native-foundation.log": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+    "i03\\private-upload-native-scaffold.log": "2ee2c3719652535f1e339f31975f9898892ac9b2c377dd394a9e4be1e0beb550",
+    "i03\\private-upload-native-diff.log": "beb16e5edba45d7d68d7e875a602a074d99c7b1be3fcfcaa906a6d46b3099152"
+  }
+}

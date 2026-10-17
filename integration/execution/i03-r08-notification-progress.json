@@ -1,0 +1,1087 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R08",
+  "status": "partial_engineering_verification_with_source_repair_pending_candidate",
+  "checked_at": "2026-10-16T23:03:38.119701+00:00",
+  "committed_test_owner_source": "809a3d0bc42b8607f2337ad45f7fa4265b0541e4",
+  "compiled_native_test_owner_source": "10ae6de98756bbf0870a7e7eed6847e0d29f6285",
+  "tested_candidate": "fusion-i03-rc.22",
+  "core_source": "1e840216a1af1f93da1371db545579889e42d4da",
+  "desktop_source": "a2bd333284649abc1352e70e5078780adaaaca6f",
+  "web_source": "a2bd333284649abc1352e70e5078780adaaaca6f",
+  "native_public_checks": [
+    {
+      "name": "actual_public_visible_canvas_reply_is_acknowledged_by_original_core_command",
+      "passed": true
+    },
+    {
+      "name": "actual_public_reply_stays_unread_under_real_dialog_then_acknowledges_when_uncovered",
+      "passed": true
+    },
+    {
+      "name": "actual_public_reply_stays_unread_outside_viewport_then_acknowledges_after_return",
+      "passed": true
+    },
+    {
+      "name": "actual_public_closed_card_cannot_acknowledge_new_reply_and_reopen_reads_original_run",
+      "passed": true
+    }
+  ],
+  "native_public_scenarios": [
+    {
+      "kind": "public",
+      "state": "visible",
+      "runId": "356d148a-6d60-42b8-8430-bf020c567715",
+      "threadTurnId": null,
+      "episodeId": "2a0bbb2ed6f8058c5a1932f1fc49694e",
+      "body": "R08 public visible 84585a6b-6c37-4e64-8889-ce845ee3dc60",
+      "read": true
+    },
+    {
+      "kind": "public",
+      "state": "occluded_then_uncovered",
+      "runId": "5db61df4-829e-43f0-afeb-fcd8f6f763f3",
+      "threadTurnId": null,
+      "episodeId": "426788b69a9115684cf3ffa8ffd5c05c",
+      "body": "R08 public occluded ad8e555b-4215-4425-aa4d-30ba949aa96e",
+      "hiddenSamples": [
+        {
+          "at": 1792191215586,
+          "unread": true,
+          "changeSequence": 3
+        },
+        {
+          "at": 1792191215900,
+          "unread": true,
+          "changeSequence": 3
+        },
+        {
+          "at": 1792191216613,
+          "unread": true,
+          "changeSequence": 3
+        },
+        {
+          "at": 1792191217626,
+          "unread": true,
+          "changeSequence": 3
+        }
+      ],
+      "read": true
+    },
+    {
+      "kind": "public",
+      "state": "offviewport_then_returned",
+      "runId": "654b0a2f-32d6-47ef-b5e5-369b06910b8c",
+      "threadTurnId": null,
+      "episodeId": "33e4ffe66ddb0db7521ce004852a4278",
+      "body": "R08 public offviewport c05df13b-328a-4fc6-8150-7a8ebcf9fac4",
+      "hiddenSamples": [
+        {
+          "at": 1792191233847,
+          "unread": true,
+          "changeSequence": 5
+        },
+        {
+          "at": 1792191234164,
+          "unread": true,
+          "changeSequence": 5
+        },
+        {
+          "at": 1792191234874,
+          "unread": true,
+          "changeSequence": 5
+        },
+        {
+          "at": 1792191235881,
+          "unread": true,
+          "changeSequence": 5
+        }
+      ],
+      "read": true
+    },
+    {
+      "kind": "public",
+      "state": "closed_then_reopened",
+      "runId": "7698ce60-09a7-4376-aef6-64b4d2159d9c",
+      "threadTurnId": null,
+      "episodeId": "179889fc78c9a30205b0d9ffec888508",
+      "body": "R08 public closed def57db7-0f54-4245-9ded-4e4754b2a67b",
+      "hiddenSamples": [
+        {
+          "at": 1792191237067,
+          "unread": true,
+          "changeSequence": 7
+        },
+        {
+          "at": 1792191237373,
+          "unread": true,
+          "changeSequence": 7
+        },
+        {
+          "at": 1792191238080,
+          "unread": true,
+          "changeSequence": 7
+        },
+        {
+          "at": 1792191239088,
+          "unread": true,
+          "changeSequence": 7
+        }
+      ],
+      "read": true
+    }
+  ],
+  "real_core_readonly_facts": {
+    "read_only_database": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\rc22-native-notifications-r14\\Core\\rovai.sqlite",
+    "facts": [
+      {
+        "episode_id": "2a0bbb2ed6f8058c5a1932f1fc49694e",
+        "semantic": "round_completed",
+        "agent_run_id": "356d148a-6d60-42b8-8430-bf020c567715",
+        "acknowledged_at": "2026-10-16T22:53:35.007211700+00:00"
+      },
+      {
+        "episode_id": "426788b69a9115684cf3ffa8ffd5c05c",
+        "semantic": "round_completed",
+        "agent_run_id": "5db61df4-829e-43f0-afeb-fcd8f6f763f3",
+        "acknowledged_at": "2026-10-16T22:53:37.679690700+00:00"
+      },
+      {
+        "episode_id": "33e4ffe66ddb0db7521ce004852a4278",
+        "semantic": "round_completed",
+        "agent_run_id": "654b0a2f-32d6-47ef-b5e5-369b06910b8c",
+        "acknowledged_at": "2026-10-16T22:53:56.224388300+00:00"
+      },
+      {
+        "episode_id": "179889fc78c9a30205b0d9ffec888508",
+        "semantic": "round_completed",
+        "agent_run_id": "7698ce60-09a7-4376-aef6-64b4d2159d9c",
+        "acknowledged_at": "2026-10-16T22:53:59.734527900+00:00"
+      },
+      {
+        "episode_id": "35c665b7f31b5f91fd2af8e91eedc837",
+        "semantic": "single_chat_reply",
+        "agent_run_id": "bf14f6b4-6fc2-44ee-b478-f96b291b751a",
+        "acknowledged_at": null
+      }
+    ],
+    "runs": [
+      {
+        "id": "356d148a-6d60-42b8-8430-bf020c567715",
+        "status": "succeeded",
+        "camp_turn_id": null
+      },
+      {
+        "id": "5db61df4-829e-43f0-afeb-fcd8f6f763f3",
+        "status": "succeeded",
+        "camp_turn_id": null
+      },
+      {
+        "id": "654b0a2f-32d6-47ef-b5e5-369b06910b8c",
+        "status": "succeeded",
+        "camp_turn_id": null
+      },
+      {
+        "id": "7698ce60-09a7-4376-aef6-64b4d2159d9c",
+        "status": "succeeded",
+        "camp_turn_id": null
+      },
+      {
+        "id": "bf14f6b4-6fc2-44ee-b478-f96b291b751a",
+        "status": "succeeded",
+        "camp_turn_id": "61c8a546-4521-4766-a934-f7918c0de017"
+      }
+    ],
+    "external_model_calls": 0,
+    "core_database_mutations_by_audit": 0
+  },
+  "public_attention_boundary": "原Current User Attention v8继承v7:21–28：公屏完成通知必须原执行面板中的具体Run实际可见，仅看公开消息或进入Thread不确认。Native真实鼠标打开原Execution入口和队员，原Core确认精确Run；遮挡/离视口/关闭期间四次采样均保持未读。",
+  "private_defect": {
+    "run_id": "bf14f6b4-6fc2-44ee-b478-f96b291b751a",
+    "episode_id": "35c665b7f31b5f91fd2af8e91eedc837",
+    "observed": "真实私聊Run succeeded且回复已展示，但single_chat_reply仍未确认。",
+    "cause": "原SingleChatPanel只发布旧turn编号且agentRunIds为空；Notification Episode v9按原Run身份确认，因此私聊可见来源丢失。"
+  },
+  "source_repair": {
+    "source": "809a3d0bc42b8607f2337ad45f7fa4265b0541e4",
+    "production_files": [
+      "apps/desktop/src/renderer/src/SingleChatPanel.tsx"
+    ],
+    "change": "原终态摘要/最终回复带精确data-agent-run-id；仅在原视口、focus和画布遮挡检查通过时发布Run编号。保留旧turn、原Core fence和布局。",
+    "focused_tests": 48,
+    "focused_tests_exit": 0,
+    "types_exit": 0,
+    "red_baseline_failures": 1,
+    "native_after_repair_verified": false,
+    "candidate_build_added": false
+  },
+  "fixture_corrections": [
+    "r1清理接口遗漏导致缺result；正常退出且不计通过。",
+    "r2/r3使用旧Renderer方法或未请求执行；按原Thread合同修订，原失败保留。",
+    "r4/r5/r8由驱动Node手写MCP文件造成Administrators owner拒绝；未证实为产品Runtime-private缺陷。r6/r7多余准备脚本失败被守卫阻止，均仅涉及独占测试Root；当前源码已删除全部ACL脚本及逻辑。",
+    "当前经原mcp.config.get在明确的隔离缺失路径创建合法空配置，无外部配置fallback、服务器0、权限问题false。",
+    "r9合同省略空字段、r10/r11未打开具体Run、r12 Radix需真实pointer、r13隐藏DOM不等于可见；按原源码交互修订，不放宽通知判据。",
+    "r14公屏四项通过后暴露私聊真实缺陷。原生geometry helper另改为等待实际节点坐标后fit，避免300ms固定等待取到旧位置；尚未授予新helper运行资格。"
+  ],
+  "visual_review": "已查看r14 failure.png：确有私聊最终回复，但测试恢复视口为22%且靠左；不能据此授予正常视觉资格。后续helper等待实际节点坐标再fit，并在新候选重新查看。原样式/结构本轮不变。",
+  "known_renderer_errors": [
+    "ResizeObserver loop completed with undelivered notifications.",
+    "ResizeObserver loop completed with undelivered notifications."
+  ],
+  "attempts": [
+    {
+      "revision": "r1",
+      "status": "failed_missing_result_after_fixture_cleanup_error",
+      "test_owner_source": "c9da151c622cf023ff81722c31f007d63ee945ed",
+      "passed_prefix_checks": 0,
+      "error": "releaseAll missing; result not persisted; normal observed Quit flow completed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:31:34.567Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r2",
+      "status": "failed",
+      "test_owner_source": "55e49c956b93bcf734f2e40765fbf3abe1d9ecc3",
+      "passed_prefix_checks": 0,
+      "error": "Error: Renderer requested an unsupported method: camp.messages.send\n    at evaluate (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r2-prepare.mjs:44:23)\n    at async send (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r2-canvas-notification-workflow.mjs:70:208)\n    at async Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r2-canvas-notification-workflow.mjs:97:18)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r2-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:31:52.329Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r3",
+      "status": "failed",
+      "test_owner_source": "5bca93de24c71ac63bf1f41eded3c08ffd607422",
+      "passed_prefix_checks": 0,
+      "error": "AssertionError [ERR_ASSERTION]: {\"commandResult\":{\"code\":\"camp_message.sent\",\"commandId\":\"21bcd55a-c90a-44bc-b484-9680aa9f3d4d\",\"commandType\":\"camp.message.send_user\",\"payload\":{\"deliveryIds\":[],\"sequence\":1,\"threadMessageId\":\"c08dca9d-9f09-42cc-83d9-d76c84b1483f\"},\"recordedAt\":\"2026-10-16T22:33:04.025570200+00:00\",\"resultEntity\":{\"entityId\":\"c08dca9d-9f09-42cc-83d9-d76c84b1483f\",\"entityType\":\"camp_message\"},\"status\":\"applied\"},\"pendingExecution\":null,\"preflight\":null,\"replayed\":false}\n+ actual - expected\n\n+ 'applied'\n- 'accepted'\n\n    at send (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r3-canvas-notification-workflow.mjs:71:10)\n    at async Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r3-canvas-notification-workflow.mjs:97:18)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r3-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:33:04.609Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r4",
+      "status": "failed",
+      "test_owner_source": "72a01051054d3a3f74b0bfd68fadd02f4ed233fb",
+      "passed_prefix_checks": 0,
+      "error": "AssertionError [ERR_ASSERTION]: [{\"a2aDepth\":0,\"a2aParentAgentRunId\":null,\"a2aRootAgentRunId\":null,\"agentId\":\"agent_5\",\"anchorMessageId\":\"d9677907-1996-441d-9715-f2bcfae61600\",\"cancelAcknowledgedAt\":\"2026-10-16T22:34:25.504898500+00:00\",\"cancelReasonCode\":\"runtime_terminal_unconfirmed\",\"cancelRequestedAt\":\"2026-10-16T22:34:25.486296300+00:00\",\"completionRole\":\"required\",\"conversationId\":\"6fc13c4c-505f-4714-b3fc-1ec8054468ae\",\"createdAt\":\"2026-10-16T22:34:25.405421900+00:00\",\"endedAt\":\"2026-10-16T22:34:25.486296300+00:00\",\"endingGitObservation\":{\"branch\":null,\"dirty\":null,\"gitCommonDir\":null,\"headCommit\":null,\"objectFormat\":null,\"observedAt\":\"2026-10-16T22:34:25.484579200+00:00\",\"repositoryRoot\":null,\"state\":\"not_git\"},\"executionEpoch\":1,\"executionEvidenceChangeSequence\":0,\"executionEvidenceCount\":0,\"failure\":{\"code\":\"runtime_launch_failed\",\"detail\":\"filesystem object owner is not the current Windows user\",\"origin\":\"unknown\",\"phase\":\"execution\",\"retryable\":true,\"runtimeKind\":\"qwen-code\",\"summary\":\"Qwen Code 未能完成运行\"},\"hasAcceptedContinuation\":false,\"hasUnsettledExternalEffects\":false,\"id\":\"f2cd63c0-04ef-44d9-b5e7-c84c979f5446\",\"inputMessageIds\":[\"d9677907-1996-441d-9715-f2bcfae61600\"],\"inputSummary\":\"R08 public visible 00fec54f-b5db-4a07-9795-1d1992b0f825\",\"invocationKind\":\"batch\",\"nativeSessionReplaced\":false,\"permissionSemantics\":\"runtime_managed_v2\",\"purpose\":\"Handle the claimed Camp message batch\",\"responsibilityGeneration\":0,\"responsibilityKey\":\"batch/agent_5/550748c5-b332-4fd9-952e-dfc8677b1aea/550748c5-b332-4fd9-952e-dfc8677b1aea\",\"runtimeModel\":{\"modelId\":null},\"startedAt\":\"2026-10-16T22:34:25.444659800+00:00\",\"startingGitObservation\":{\"branch\":null,\"dirty\":null,\"gitCommonDir\":null,\"headCommit\":null,\"objectFormat\":null,\"observedAt\":\"2026-10-16T22:34:25.439430300+00:00\",\"repositoryRoot\":null,\"state\":\"not_git\"},\"status\":\"failed\",\"taskId\":null,\"terminalReasonCode\":null,\"terminalResolutionSource\":null,\"threadTurnId\":null,\"triggerDeliveryGeneration\":0,\"updatedAt\":\"2026-10-16T22:34:25.504898500+00:00\",\"version\":3,\"waitReason\":null,\"workspace\":{\"path\":\"\\\\\\\\?\\\\C:\\\\Users\\\\JiaLe\\\\AppData\\\\Local\\\\Temp\\\\rovai-canvas-native-190cf86d\\\\rc22-native-notifications-r4\\\\Core\\\\quick-chat\"}}]\n+ actual - expected\n\n+ 'failed'\n- 'succeeded'\n\n    at send (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r4-canvas-notification-workflow.mjs:73:44)\n    at async Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r4-canvas-notification-workflow.mjs:98:18)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r4-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:34:26.186Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r5",
+      "status": "failed",
+      "test_owner_source": "72a01051054d3a3f74b0bfd68fadd02f4ed233fb",
+      "passed_prefix_checks": 0,
+      "error": "AssertionError [ERR_ASSERTION]: [{\"a2aDepth\":0,\"a2aParentAgentRunId\":null,\"a2aRootAgentRunId\":null,\"agentId\":\"agent_5\",\"anchorMessageId\":\"ca3e2538-c69f-4c7a-8d7b-2c8079803f51\",\"cancelAcknowledgedAt\":\"2026-10-16T22:36:32.502912500+00:00\",\"cancelReasonCode\":\"runtime_terminal_unconfirmed\",\"cancelRequestedAt\":\"2026-10-16T22:36:32.490493100+00:00\",\"completionRole\":\"required\",\"conversationId\":\"8289c9fe-2990-4d6c-ba02-ed41a1e42d8e\",\"createdAt\":\"2026-10-16T22:36:32.444388600+00:00\",\"endedAt\":\"2026-10-16T22:36:32.490493100+00:00\",\"endingGitObservation\":{\"branch\":null,\"dirty\":null,\"gitCommonDir\":null,\"headCommit\":null,\"objectFormat\":null,\"observedAt\":\"2026-10-16T22:36:32.489304400+00:00\",\"repositoryRoot\":null,\"state\":\"not_git\"},\"executionEpoch\":1,\"executionEvidenceChangeSequence\":0,\"executionEvidenceCount\":0,\"failure\":{\"code\":\"runtime_launch_failed\",\"detail\":\"filesystem object owner is not the current Windows user\",\"origin\":\"unknown\",\"phase\":\"execution\",\"retryable\":true,\"runtimeKind\":\"qwen-code\",\"summary\":\"Qwen Code 未能完成运行\"},\"hasAcceptedContinuation\":false,\"hasUnsettledExternalEffects\":false,\"id\":\"bc4a956c-ba54-4342-8281-86b348ff00de\",\"inputMessageIds\":[\"ca3e2538-c69f-4c7a-8d7b-2c8079803f51\"],\"inputSummary\":\"R08 public visible 06c3e012-e51b-4e02-b55a-15f829b8049a\",\"invocationKind\":\"batch\",\"nativeSessionReplaced\":false,\"permissionSemantics\":\"runtime_managed_v2\",\"purpose\":\"Handle the claimed Camp message batch\",\"responsibilityGeneration\":0,\"responsibilityKey\":\"batch/agent_5/0d78c8e3-78ad-42c0-9816-64bb2b5d51de/0d78c8e3-78ad-42c0-9816-64bb2b5d51de\",\"runtimeModel\":{\"modelId\":null},\"startedAt\":\"2026-10-16T22:36:32.471764900+00:00\",\"startingGitObservation\":{\"branch\":null,\"dirty\":null,\"gitCommonDir\":null,\"headCommit\":null,\"objectFormat\":null,\"observedAt\":\"2026-10-16T22:36:32.468011300+00:00\",\"repositoryRoot\":null,\"state\":\"not_git\"},\"status\":\"failed\",\"taskId\":null,\"terminalReasonCode\":null,\"terminalResolutionSource\":null,\"threadTurnId\":null,\"triggerDeliveryGeneration\":0,\"updatedAt\":\"2026-10-16T22:36:32.502912500+00:00\",\"version\":3,\"waitReason\":null,\"workspace\":{\"path\":\"\\\\\\\\?\\\\C:\\\\Users\\\\JiaLe\\\\AppData\\\\Local\\\\Temp\\\\rovai-canvas-native-190cf86d\\\\rc22-native-notifications-r5\\\\Core\\\\quick-chat\"}}]\n+ actual - expected\n\n+ 'failed'\n- 'succeeded'\n\n    at send (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r5-canvas-notification-workflow.mjs:73:44)\n    at async Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r5-canvas-notification-workflow.mjs:98:18)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r5-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:36:33.262Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r6",
+      "status": "failed",
+      "test_owner_source": "83b17fe8bc9c0b9b47613df7bb425c756986d3f4",
+      "passed_prefix_checks": 0,
+      "error": "Error: Command failed: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r6-fixture-owner.ps1 -Root C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\rc22-native-notifications-r6 -Report C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r6-prepare\\fixture-owner-preparation.json\nGet-FileHash : �޷���ȡ�ļ���C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\rc22-native-notifications-r6\r\n\\Core\\rovai.sqlite-shm��: �ļ���C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\rc22-native-notifications-\r\nr6\\Core\\rovai.sqlite-shm��������һ����ʹ�ã���˸ý����޷����ʴ��ļ���\r\n����λ�� C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i\r\n03-c06-rc22\\app\\r08-notification-r6-fixture-owner.ps1:14 �ַ�: 117\r\n+ ... ull} else {(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256). ...\r\n+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : ReadError: (C:\\Users\\JiaLe\\...ovai.sqlite-shm:PSObject) [Write-Error], WriteErrorExcepti \r\n   on\r\n    + FullyQualifiedErrorId : FileReadError,Get-FileHash\r\n \r\n\n    at genericNodeError (node:internal/errors:985:15)\n    at wrappedFn (node:internal/errors:539:14)\n    at checkExecSyncError (node:child_process:939:11)\n    at execFileSync (node:child_process:975:15)\n    at Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r6-canvas-notification-workflow.mjs:61:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r6-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:39:08.338Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r7",
+      "status": "failed",
+      "test_owner_source": "9f0d03dc80c5d396ab5074abf9a51179d55a4cea",
+      "passed_prefix_checks": 0,
+      "error": "Error: Command failed: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r7-fixture-owner.ps1 -Root C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\rc22-native-notifications-r7 -Report C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r7-prepare\\fixture-owner-preparation.json\nFixture DACL changed during owner preparation\r\n����λ�� C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i\r\n03-c06-rc22\\app\\r08-notification-r7-fixture-owner.ps1:30 �ַ�: 122\r\n+ ... inalAccess) { throw 'Fixture DACL changed during owner preparation' }\r\n+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : OperationStopped: (Fixture DACL ch...ner preparation:String) [], RuntimeException\r\n    + FullyQualifiedErrorId : Fixture DACL changed during owner preparation\r\n \r\n\n    at genericNodeError (node:internal/errors:985:15)\n    at wrappedFn (node:internal/errors:539:14)\n    at checkExecSyncError (node:child_process:939:11)\n    at execFileSync (node:child_process:975:15)\n    at Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r7-canvas-notification-workflow.mjs:61:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r7-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:40:12.493Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r8",
+      "status": "failed",
+      "test_owner_source": "d2bab64f5010448ff7ce989d6f728027cc3b42de",
+      "passed_prefix_checks": 0,
+      "error": "AssertionError [ERR_ASSERTION]: [{\"a2aDepth\":0,\"a2aParentAgentRunId\":null,\"a2aRootAgentRunId\":null,\"agentId\":\"agent_5\",\"anchorMessageId\":\"11ce3d0d-9c7d-4107-8007-799c878cc245\",\"cancelAcknowledgedAt\":\"2026-10-16T22:41:22.757944100+00:00\",\"cancelReasonCode\":\"runtime_terminal_unconfirmed\",\"cancelRequestedAt\":\"2026-10-16T22:41:22.743484600+00:00\",\"completionRole\":\"required\",\"conversationId\":\"96f3b6a0-6d5d-4614-af7e-5a2b5f66be7b\",\"createdAt\":\"2026-10-16T22:41:22.693801300+00:00\",\"endedAt\":\"2026-10-16T22:41:22.743484600+00:00\",\"endingGitObservation\":{\"branch\":null,\"dirty\":null,\"gitCommonDir\":null,\"headCommit\":null,\"objectFormat\":null,\"observedAt\":\"2026-10-16T22:41:22.742343600+00:00\",\"repositoryRoot\":null,\"state\":\"not_git\"},\"executionEpoch\":1,\"executionEvidenceChangeSequence\":0,\"executionEvidenceCount\":0,\"failure\":{\"code\":\"runtime_launch_failed\",\"detail\":\"filesystem object owner is not the current Windows user\",\"origin\":\"unknown\",\"phase\":\"execution\",\"retryable\":true,\"runtimeKind\":\"qwen-code\",\"summary\":\"Qwen Code 未能完成运行\"},\"hasAcceptedContinuation\":false,\"hasUnsettledExternalEffects\":false,\"id\":\"1c4d9107-f1a5-4ce0-8cd2-c1fa10bdb1ec\",\"inputMessageIds\":[\"11ce3d0d-9c7d-4107-8007-799c878cc245\"],\"inputSummary\":\"R08 public visible 0092af9b-0645-41db-bda0-5d82bca7f363\",\"invocationKind\":\"batch\",\"nativeSessionReplaced\":false,\"permissionSemantics\":\"runtime_managed_v2\",\"purpose\":\"Handle the claimed Camp message batch\",\"responsibilityGeneration\":0,\"responsibilityKey\":\"batch/agent_5/eedb0da6-7873-4ea0-8854-3748b47f3848/eedb0da6-7873-4ea0-8854-3748b47f3848\",\"runtimeModel\":{\"modelId\":null},\"startedAt\":\"2026-10-16T22:41:22.723225300+00:00\",\"startingGitObservation\":{\"branch\":null,\"dirty\":null,\"gitCommonDir\":null,\"headCommit\":null,\"objectFormat\":null,\"observedAt\":\"2026-10-16T22:41:22.719031+00:00\",\"repositoryRoot\":null,\"state\":\"not_git\"},\"status\":\"failed\",\"taskId\":null,\"terminalReasonCode\":null,\"terminalResolutionSource\":null,\"threadTurnId\":null,\"triggerDeliveryGeneration\":0,\"updatedAt\":\"2026-10-16T22:41:22.757944100+00:00\",\"version\":3,\"waitReason\":null,\"workspace\":{\"path\":\"\\\\\\\\?\\\\C:\\\\Users\\\\JiaLe\\\\AppData\\\\Local\\\\Temp\\\\rovai-canvas-native-190cf86d\\\\rc22-native-notifications-r8\\\\Core\\\\quick-chat\"}}]\n+ actual - expected\n\n+ 'failed'\n- 'succeeded'\n\n    at send (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r8-canvas-notification-workflow.mjs:77:44)\n    at async Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r8-canvas-notification-workflow.mjs:102:18)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r8-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:41:23.491Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r9",
+      "status": "failed",
+      "test_owner_source": "920c23dea72baf009f90546ccc6e3f48ef1997ef",
+      "passed_prefix_checks": 0,
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- null\n\n    at Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r9-canvas-notification-workflow.mjs:45:112)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r9-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:43:44.616Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r10",
+      "status": "failed",
+      "test_owner_source": "ea4eea01c65acf0ad8374912c76a3a42ee11a62e",
+      "passed_prefix_checks": 0,
+      "error": "Error: Native condition timed out: Boolean(document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"32c81ae1-e4cd-4682-96b1-70dd317d758c\"]')?.querySelector('[data-agent-run-id=\"a36e0800-7f7f-4495-bec1-f465f378677c\"]'))\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r10-prepare.mjs:47:163)\n    at async assertRead (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r10-canvas-notification-workflow.mjs:91:3)\n    at async Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r10-canvas-notification-workflow.mjs:102:48)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r10-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:45:20.632Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r11",
+      "status": "failed",
+      "test_owner_source": "267f24fcd4e7b4ed2754bf5f15893230106d1e38",
+      "passed_prefix_checks": 0,
+      "error": "Error: Native condition timed out: Boolean(document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"7e986869-da13-4cbd-b014-393233a3fd1a\"]')?.querySelector('[data-agent-run-id=\"3f480a28-e6b6-4020-b228-fa2a6481b7c7\"]'))\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r11-prepare.mjs:47:163)\n    at async assertRead (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r11-canvas-notification-workflow.mjs:93:3)\n    at async Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r11-canvas-notification-workflow.mjs:104:48)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r11-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:48:41.432Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r12",
+      "status": "failed",
+      "test_owner_source": "4467ca509c99ae5f778a3a2d87e36c2986c1b216",
+      "passed_prefix_checks": 1,
+      "error": "Error: Native condition timed out: Boolean((Array.from(document.querySelectorAll('[role=\"menuitem\"]')).find(node=>node.textContent?.includes('编辑画板')))&&!(Array.from(document.querySelectorAll('[role=\"menuitem\"]')).find(node=>node.textContent?.includes('编辑画板'))).disabled)\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r12-prepare.mjs:47:163)\n    at async click (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r12-canvas-notification-workflow.mjs:65:33)\n    at async Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r12-canvas-notification-workflow.mjs:109:65)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r12-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:50:30.558Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r13",
+      "status": "failed",
+      "test_owner_source": "ba1a012f8e7108535512c4239a043858be15387c",
+      "passed_prefix_checks": 0,
+      "error": "Error: Native condition timed out: Boolean((document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"b03f0323-03cc-4d8b-aeb1-99ab3a1fd599\"]').querySelector('.run-pulse-chip[data-agent-id=\"agent_5\"]'))&&!(document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"b03f0323-03cc-4d8b-aeb1-99ab3a1fd599\"]').querySelector('.run-pulse-chip[data-agent-id=\"agent_5\"]')).disabled&&(document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"b03f0323-03cc-4d8b-aeb1-99ab3a1fd599\"]').querySelector('.run-pulse-chip[data-agent-id=\"agent_5\"]')).checkVisibility())\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r13-prepare.mjs:47:163)\n    at async click (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r13-canvas-notification-workflow.mjs:66:3)\n    at async assertRead (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r13-canvas-notification-workflow.mjs:98:4)\n    at async Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r13-canvas-notification-workflow.mjs:111:48)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r13-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:52:16.896Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r14",
+      "status": "failed",
+      "test_owner_source": "10ae6de98756bbf0870a7e7eed6847e0d29f6285",
+      "passed_prefix_checks": 4,
+      "error": "Error: Native condition timed out: Boolean(document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"32519763-a1c9-4dd9-be40-ec8b9caa45ee\"]')?.querySelector('[data-agent-run-id=\"bf14f6b4-6fc2-44ee-b478-f96b291b751a\"]'))\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r14-prepare.mjs:47:163)\n    at async assertRead (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r14-canvas-notification-workflow.mjs:100:3)\n    at async Module.qualifyCanvasNotifications (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/r08-notification-r14-canvas-notification-workflow.mjs:111:48)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc22/app/c06-native-native-notifications-r14-prepare.mjs:173:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T22:54:20.898Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    }
+  ],
+  "owned_process_audit": {
+    "checked_at": "2026-10-16T23:01:34.5851647Z",
+    "native_lock_present": false,
+    "live_owned_processes": []
+  },
+  "remaining_runtime_boundaries": [
+    "集中候选构建后执行私聊通知四种实际可见性场景、全部卡片关闭后的Observer/listener释放，并保留公屏回归；本轮只有公屏四项实测通过，私聊为源码修复/48项测试/类型检查通过",
+    "实际文件IO取消或超时期间worker名额生命周期；已有受控阻塞Core owner不代替整App真实文件IO"
+  ],
+  "qualification_limit": "公屏四项限定在rc22 Windows本机；私聊修复后的实际运行和全部监听释放仍待集中候选。R08仍open、R09/R10仍open，正式12与平台资格不因本报告通过。",
+  "builds_added": 0,
+  "actions_triggered": 0,
+  "pushes": 0,
+  "external_model_calls": 0,
+  "customer_action_required_now": false,
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\record-r08-notification-progress.py",
+      "sha256": "c4f2c1bedb3406540bcc172b02f703edc17da69f88da196eedd16d5f2132ee86"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r08-native-notifications.mjs",
+      "sha256": "3efc7d50d882b87139e549c1facb1f9e54508dd30bed3db16a72f738aae38456"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-owned-process-audit.json",
+      "sha256": "a8c616501b5731b74324dea7d944595359d329b10bc698cdd180dd8e1c64782e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r14-readonly-facts.json",
+      "sha256": "1c4f17674ec30dbb8a03bc7b5d413b713bfac4b26fa221f20a999f447786dc28"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-private-notification-source-red.log",
+      "sha256": "1554d87fed8f707d75835098d534d977e8b17052d124ca5d4bad8ec4f87e8164"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-private-notification-source-green.log",
+      "sha256": "bea3e41a92e348740870ffdf2b3078cb56cf795a8bd162f1510ebed1b9d547cf"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-private-notification-source-green-v2.log",
+      "sha256": "36f87b8f51a6c1ef2699d03a5c354010111796735677a4e4957ac172718c56bf"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-private-notification-source-types.log",
+      "sha256": "ff776770de22dca74da70eabe0f6854bdb4cb7a2b98e7f6def0f879302ba319a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-private-notification-source-types-v2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-private-notification-source-codegraph.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-notifications-r1-controlled-close.json",
+      "sha256": "deeb18a99ed52c6e4636a5e2522961de0d00102497d9c7998c562a7d28f72cbb"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-notifications-r1-close-ui.json",
+      "sha256": "681e4ac9a9518e2a6d7a4780fb0a09645f466b5e56d277e29a1df48eb9e3cf44"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-notifications-r1-close-ui.png",
+      "sha256": "9219766ed7326bc766fff6f9038ad039a7981afb12c8ee4cf4ba0adb2d789f9c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-notifications-r1-quit-click.json",
+      "sha256": "45cf34c437ed0fa3527c5ff96d470bc9bde703e5c8221af813fae86bde45a606"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-notifications-r4-owner-inventory.json",
+      "sha256": "c196a1872d40035fdb46498dec6bca54bbc567021a96790356d7e2be744c97e2"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-notifications-r8-owner-after.json",
+      "sha256": "2ec6aaa6d4fb7f93ebd8272c4151da266ca78dc986cb1c8daf54fbde6e5aca51"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r1-prepare-config.json",
+      "sha256": "2dc5be3395ec6cc16a4afabc0634a9effc7338894ec87c368ec16372e79dfb18"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r1-prepare\\driver-exit.json",
+      "sha256": "80f1c273fd6c4c8bcf9a8a5ecd9f0a0e06fd538b82f5fa94278487f6e910c2b1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r1.log",
+      "sha256": "ca0ef9e2ec5b70905cc5c2c7885e1acf4d1c6e28f240acebefba2da2868bf434"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r1-canvas-notification-workflow.mjs",
+      "sha256": "f756c47b83a9d7302589b62b90be4cc7415d6796341ea95ac70d826f88513a62"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r1-prepare\\failure.png",
+      "sha256": "1eb50b86350e1f94a77e11ca6d2d1163fc30d1aa5e89ce780358630ba2fc47e9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r2-prepare-config.json",
+      "sha256": "e65065c24cfe3b9a30dc06eb87a89bafc5e8dd5587000d0a8f7e2dfd4b8a7ec0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r2-prepare\\driver-exit.json",
+      "sha256": "6c2217fa5fde646bee435686914b087c8b3e43d066d1dceedfb1d45efcd71d56"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r2.log",
+      "sha256": "aed82d7f860615d0d643896f7e5b8e1fe38044d1e62b36a2106a494b250b91f1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r2-canvas-notification-workflow.mjs",
+      "sha256": "e1d4d32a7ad76cc06a888ec20ec23e0bc147267e0fc989b515f20c004bae184b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r2-prepare\\result.json",
+      "sha256": "b6ccc6a0de6f4fa610d65065efe5fecd872e1833636597d5e719587864c9ef88"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r2-prepare\\failure.png",
+      "sha256": "e507fba81ba4186ae6b485958ffea10845806a33a75d457ba8a3059c388721d3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r3-prepare-config.json",
+      "sha256": "01ebf1e70c787b6eb6aaf18312445f0d59990ede7fc8fe3cffd2d8fd8ba1de7b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r3-prepare\\driver-exit.json",
+      "sha256": "d9a1417377e77d842d43030a18ce65e5f10bebe2708c26464572b047c10d8a79"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r3.log",
+      "sha256": "8cc51b9abfa2189bc8451980bfd7f3dac0ccfb0a5329f25df285912a7ec171dd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r3-canvas-notification-workflow.mjs",
+      "sha256": "7bd5286ffa831abf57a4932a9a85ef1d651140e5f70d7c5745bf93691f9aee33"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r3-prepare\\result.json",
+      "sha256": "2b91f72dae7d4a89e6e3936884b4322a2d2b26fe9735735e14eddd78b9e34760"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r3-prepare\\failure.png",
+      "sha256": "3873c89df974c76cda1fd70df467600a5bfc6a48c5c1808c12612d3fd4fb480f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r4-prepare-config.json",
+      "sha256": "70e68912bc24489e2a9e3c11000e86e94eb32cb403f6506ba200a4538a2eb616"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r4-prepare\\driver-exit.json",
+      "sha256": "34bb7b6445fbdc4f7a40c1bc971a4f53aa0fbfcc2c57bd8f9b155139a4e8630f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r4.log",
+      "sha256": "dbabe062037c789ee7be47da1287de69d40d037ab1e5d8b48b21e09e4d00faaf"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r4-canvas-notification-workflow.mjs",
+      "sha256": "a29a9d2aeae2715ba31e7c31522c50cdad0757d7d70fda9494aff3c6625a6d86"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r4-prepare\\result.json",
+      "sha256": "77c472378fcaa7656e7a0d28ffe83017f8ecabaae6f9b275aea558f5f186caea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r4-prepare\\failure.png",
+      "sha256": "3fc2f5e8b8e2973b61325a3397f85d370644ffdaaab2191b6ea332a3eac0c080"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r5-prepare-config.json",
+      "sha256": "2cae92fc47967c247a30ac4d84828c5e047ca6052958b6345b36e1d49087e933"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r5-prepare\\driver-exit.json",
+      "sha256": "35bba285beb1781b58126281b5ea3ab30eb6390a04ac0f5fd33a211bf9a85b6d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r5.log",
+      "sha256": "6d190b5a5b3e0bc3e188b812f1cf87b7736199ca53859a3aebda792179f5213a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r5-canvas-notification-workflow.mjs",
+      "sha256": "a29a9d2aeae2715ba31e7c31522c50cdad0757d7d70fda9494aff3c6625a6d86"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r5-prepare\\result.json",
+      "sha256": "6727bb611043fb9e2783ba0856f6391a6db11c950ace30ea2558c87b434bf650"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r5-prepare\\failure.png",
+      "sha256": "b13e6edc1f9011916b70ca6153de2bc5588cc50580bf662ddcddb9bbf4ebc8a1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r6-prepare-config.json",
+      "sha256": "86f693c9ce5dd48a56148ac69911673011cc3b8920a6627dd6b54b2f36a7e497"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r6-prepare\\driver-exit.json",
+      "sha256": "9ecee67aef75b6cd9001befa76b537ed8ac772fc66ad015ffaa449e89b4395a5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r6.log",
+      "sha256": "c1eacda481b6448077d63b2815ee8cd90cb7c78e234dbb6a8caa61b440feb32f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r6-canvas-notification-workflow.mjs",
+      "sha256": "0484c30f7ef6e2d91cd457efa83b7323cf40a8677c33baef07110dfce24c22d9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r6-fixture-owner.ps1",
+      "sha256": "f473d87829641f590fc8454ec45de567581d9f15f4896f680ca488120b3c028c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r6-prepare\\result.json",
+      "sha256": "ec466db1047f47d4cf536d14a30fd8a2c5014815d99304ac41d4892a97556783"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r6-prepare\\failure.png",
+      "sha256": "39ff12a0aed3f9584d1c06e12b7fd3323a18228a71b8b8246ca4ac3a3de528b8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r7-prepare-config.json",
+      "sha256": "9bd065089cbc4f709de9b5a6911e9f6fbf416435c3dce7135deec6af3b17c66a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r7-prepare\\driver-exit.json",
+      "sha256": "9cc5c43db38ab621dcf16959874a9e02642aac3bc65f8659ad786ddf45dfebb9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r7.log",
+      "sha256": "2be9d60ec2cf928e7bde1a4b2bacd3a944d38553bac3a552b67f22cb4e34fe57"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r7-canvas-notification-workflow.mjs",
+      "sha256": "0484c30f7ef6e2d91cd457efa83b7323cf40a8677c33baef07110dfce24c22d9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r7-fixture-owner.ps1",
+      "sha256": "69774bfb2765037d6de47460aea697ebc4769c4c24826635d3228d88cd243547"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r7-prepare\\result.json",
+      "sha256": "2c31c28e6c8af9f7b7e760cdac37e13fd6435687dd547ead11e0404c504219b0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r7-prepare\\failure.png",
+      "sha256": "39ff12a0aed3f9584d1c06e12b7fd3323a18228a71b8b8246ca4ac3a3de528b8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r7-prepare\\fixture-owner-preparation.json",
+      "sha256": "4e77a99143524574350dff82af2ed40ef26da4463e206dd61c6bc580f52bf406"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r8-prepare-config.json",
+      "sha256": "edf75a748030c84baaeec3c7f534fd4251199a75c0ded923bc4286631b74541e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r8-prepare\\driver-exit.json",
+      "sha256": "ecd81c3911d1fe9406698b8b8e9329933636113ed9dadf6906e6bc6b7b1df38c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r8.log",
+      "sha256": "c8ffae6f46a10c49c260c880dbb73298d0b4a28d5b27ea799851518875e4ff25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r8-canvas-notification-workflow.mjs",
+      "sha256": "0484c30f7ef6e2d91cd457efa83b7323cf40a8677c33baef07110dfce24c22d9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r8-fixture-owner.ps1",
+      "sha256": "9cbaf4d1c4b574966320b04bb449bdab68b706547555a693c9a74d88e0d453ca"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r8-prepare\\result.json",
+      "sha256": "1bc2da8c18621cd361bd071e3afea62ffca7d3b9da510eb0bf07d1e0080220e5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r8-prepare\\failure.png",
+      "sha256": "6c8dab89257d801ad305cba050318cea07bb624b64245c1d014e4ae687dab785"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r8-prepare\\fixture-owner-preparation.json",
+      "sha256": "5d7f4c9f9dbf0b1aba307a66edcbe0a7e2a2a1696450814fe746d56fef4021de"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r9-prepare-config.json",
+      "sha256": "e68bb51420d51f6f5b842c9beb7ec06f42f647d3f3cb1bd85b9aef8b03064e40"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r9-prepare\\driver-exit.json",
+      "sha256": "5860be6f10bd9fb4b6d00a0688e35de97e54e7e5dc48de14e3459ac99c4d62cf"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r9.log",
+      "sha256": "4e465f0d4bbfd00a67a1ec4441b2e5cbf6101555cbaf6e5b70df5753b542f046"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r9-canvas-notification-workflow.mjs",
+      "sha256": "3045556271526a47e0f02f0c91dfbceabe9abd169ab7610812de380aa7702a78"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r9-prepare\\result.json",
+      "sha256": "40c344c6375d1abd1c5d3a2328e2dc072365b93292c9bac36ac91d2100811b85"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r9-prepare\\failure.png",
+      "sha256": "8f82cdaec773a2b5e6b3afefbd9c81787a82957d64e3e40c2554f0eb9e8ef6ad"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r10-prepare-config.json",
+      "sha256": "68bf2583c082003078360b18f06d0f7712ab80b254814f3c58719e6ef4420212"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r10-prepare\\driver-exit.json",
+      "sha256": "54374102ca0f92aef04f7a6676d7574d6a73b079c7548e3bcfcfd9c15e88841f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r10.log",
+      "sha256": "21bff058d9ef8b6877f15bb25d98759c20fbffd00a31770529150f520a43652c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r10-canvas-notification-workflow.mjs",
+      "sha256": "46bc9d7ac7c4a641eb3b1e187ad933bdf84e3c907551f63c912af11b55360ff3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r10-prepare\\result.json",
+      "sha256": "ff52b8881bfb0af391b851efa64f7347b55552d65a86c749d4fdda2846b4cdd1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r10-prepare\\failure.png",
+      "sha256": "fc21e3d4e26b4d500ec1d61864dcef1326561017976f02985dad2ea6d48773ba"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r11-prepare-config.json",
+      "sha256": "fa8269cc6ae76139b44378b169b2668bc91d0e30034c4fd8af634a837eb76dcd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r11-prepare\\driver-exit.json",
+      "sha256": "253af6bfdee82aa8b186d9b2e67afb9faa7327e51cd6f95a8d23808eca478c3e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r11.log",
+      "sha256": "961701e43934751d179a06841dbd1bdd6e2c8a120589a083cbd029ad0b6a939d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r11-canvas-notification-workflow.mjs",
+      "sha256": "40b1e258e8654a4d231e43bf374c9ebb98cf0039f1669259318440cc645955c5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r11-prepare\\result.json",
+      "sha256": "e0e5666dae24912a32584cb059ae180eddc3eee633daf213cf161fe4582beb4a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r11-prepare\\failure.png",
+      "sha256": "b7a9173197599f85bbf466dde0e494bf49d097610fa735b9fce8a89e7e4d2410"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r12-prepare-config.json",
+      "sha256": "bec37485c2799572ef1565cb9d63089f6ff849364346fc8051bafdcb2e5f535a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r12-prepare\\driver-exit.json",
+      "sha256": "8773278b0a619f5a293f74a05e876a7ccd1896975b7c0a389dfd46594941e390"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r12.log",
+      "sha256": "fd2b2dcc62fa03754841afb6c0bf86cfa3844b062316911fcc6983451bd4bf7e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r12-canvas-notification-workflow.mjs",
+      "sha256": "4235dc7456ae76415ae713dfded5550912ba72b0d9a31dec97061a44fac0eee7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r12-prepare\\result.json",
+      "sha256": "9a761cfa6080d6755a4a5c7a1a25e15770cf62510de4f95671811d13af184ed6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r12-prepare\\failure.png",
+      "sha256": "23802346720f07b1734fefae602030157bc4cc97a59db1cba4944fda4346c379"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r13-prepare-config.json",
+      "sha256": "ea8d78c9fc5bfb6423ff133dac62f4cc7be43737ab5b0a718baec4a9d780e7b7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r13-prepare\\driver-exit.json",
+      "sha256": "684fd28594a77840cb11020effd245fe39f989a23612b60c1aade69619c230d9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r13.log",
+      "sha256": "c596fb3aed5ceecfe14438c8e60ccacf38380e943ec562fe2d0d7f6c20177d59"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r13-canvas-notification-workflow.mjs",
+      "sha256": "4b74c48eb6ec587da182cfd052062793db4f2ce7e98d3319968e6048ed9b76aa"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r13-prepare\\result.json",
+      "sha256": "148e8012618af7f1672e7d865dedeae8b61eabddce2594b21ca17b46ab82ae2e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r13-prepare\\failure.png",
+      "sha256": "3566c9dd1cc14a0922261008ab1d41998efd88932bab00cc611fdc3e15e295f4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r14-prepare-config.json",
+      "sha256": "c3ce24b540788165c265202179081bf95fcdde3e79703e7d9599def5cc2cecc3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r14-prepare\\driver-exit.json",
+      "sha256": "5d85558ff26e9a14a3ca4384d641253172aacd32b95f6d7e204225150329866f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-native-notifications-r14.log",
+      "sha256": "cfc6452760a979f022f7b240b71a7b7e897aef3cecf6478add8ef34cda9d0d05"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc22\\app\\r08-notification-r14-canvas-notification-workflow.mjs",
+      "sha256": "9def6e4312badea8fff54f4aceb9302e37ddcc331dd167eae8fd25fdccdfd71d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r14-prepare\\result.json",
+      "sha256": "a92e1a55505329b9397684c9b0a468a341718236b43b6f6fff2e4dd4786510b0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r14-prepare\\failure.png",
+      "sha256": "0fb36073084dfb5061217ea95ecda19ff765ee5646daf123ce4f759b3357ce1f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-native-notifications-r14-prepare\\controlled-runtime-input.jsonl",
+      "sha256": "5dbffc9896ca65db467188561975595001f442b713ab40d7e4012cc7c0d17150"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\rc22-native-notifications-r14\\Core\\mcp.json",
+      "sha256": "1fd4cd4c18a168dbd74f22bef1061a988fb3e036986be7ec99245e4f58ece652"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\SingleChatPanel.tsx",
+      "sha256": "560e6a3f46353f7ed5b3b5f7f29eafbc3cd1bff98c5aabcc6e6df4ec5ebc616f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\SingleChatPanel.test.ts",
+      "sha256": "37e0f69195fdbdfa335bc58806df4be4f3eba3effa022adf88d94b729036a38e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\canvas-notification-visibility.test.ts",
+      "sha256": "78d99cb660c601aad1456e1fdc39039253de1ad58a6cc3d994439e6dc57b29fb"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-notification-workflow.mjs",
+      "sha256": "30909d4e05bd5008120047a013f32ad21600c28374769372aade96b4df11b8ec"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-native-input.mjs",
+      "sha256": "9298197a26fb023e97227c97bc1a4bbef06126d47b86ef7dfa937b88ba5aca6e"
+    }
+  ]
+}

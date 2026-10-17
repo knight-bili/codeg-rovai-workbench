@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C05",
+  "status": "implementation_ready_for_stage_verification",
+  "recorded_at": "2026-10-16T04:02:10.603911+00:00",
+  "source_binding": {
+    "base_commit": "34fc207ca89ae96ccde60bd643fb8d00b4d21141",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "crates/rovai-core/src/application.rs": "b88b6108f0dce3e383c26c8fc76450a0900c729818974f7370f5dc1fb8eddaba",
+      "crates/rovai-core/src/application/private_composer.rs": "59599da07a437958c63b8f39346134bc80dc6ceefb7d98bfded436b124c0ce41",
+      "crates/rovai-core/src/application/private_sources.rs": "b8d529d50e53d6feb5d658a398dd898810f3045af6c55693684f7cfb009a5dcd",
+      "crates/rovai-core/src/private_source_observation.rs": "32f83555d68a4fdb0a4df76bc2459105d3c142eb7e80cc0a074146bf9bdb71bc",
+      "crates/rovai-core/src/single_chat.rs": "d42900cb08156c8628e48ef9545e60735ab7635ca5991aed17ef368d3fbe5f9d",
+      "crates/rovai-core/src/single_chat_composer.rs": "d0b8d9980fd13e66917a6e61d1a38a1fe2abf4cffe1d70928e70b44b24a63610",
+      "crates/rovai-core/src/single_chat_composer_tests.rs": "63028fcfa351e7dcc6470f405e303ecd69969dd6194417271adafd10aa8d3f6d",
+      "crates/rovai-core/src/web_upload.rs": "8f7558e7e27e5b70b2ca466b3d910663bed40bc7bebafd03085aaaabec986e15",
+      "docs/architecture/canvas.md": "a66a899f8fd89fa197e09cb09bb55ee72bd99e8857a6655d333a2763699bf585",
+      "docs/contracts/single-chat-composer-scope-v1.md": "8e1d0f173008dfda3d7d9de127f7b3cd0d15e6339bd4cfc1f9ef3effce3ee97c",
+      "docs/development/testing.md": "cb840a2e331eceeaefabe5eff461580c23580b7c74cb8d7e5a407c30021aaab5",
+      "integration/execution/goal-state.json": "03e9d1eadb48f8fe50204dd85b76b4fd1b1e48fe05eb2a0f29dca4fc824d8436",
+      "integration/execution/i03-closeout.json": "3ba41f0458a2d34a029f4df921bc4fe0d2a49cd692f06a7a637687b072761fe7"
+    }
+  },
+  "artifact_binding": {
+    "work/i03/record-c05-source-preparation.py": "e045f6b49a2092733ae50539545805f70e8910151f8b2d6ad3bdfbadf44d7a5f",
+    "work/i03/canvas-c05-source-preparation-syntax.log": "4dd41abd181e680924d523af5ba1898f7b9339a51ce3ab9323ad1c1913b1b1f8",
+    "work/i03/canvas-c05-source-preparation-syntax-final.log": "082655543125ac5f549379b878b12cc9f3b751958041ddc612ba8b2ee61371b6",
+    "work/i03/canvas-c05-source-preparation-docs-final.log": "6eb03e1b66af4f3a2ae337d42e11ddb5a595f11fc6e89cd079e7d49f34c7f9e8"
+  },
+  "frozen_authority_files": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "implemented": [
+    "Per-operation PreparedSources binds complete ordered SourceRef encoding to full content/identity observations and original IO failure details",
+    "Core-owned4-slot blocking IO outside database lock; actual worker retains permit after waiter cancellation; no business writes from IO worker",
+    "Gateway replay before IO, final Gateway replay/CAS/ownership checks after preparation, material/path/order mismatch aborts with no partial commit",
+    "Native observe/bind, legacy path add, scoped mutation/adoption, send, pending Save/Return and FIFO publish use prepared observations",
+    "FIFO temporary capacity/preparation mismatch retries later without marking needs_repair; actual changed source keeps original needs_repair behavior",
+    "Legacy missing observations do not acquire new historical content scans; original SourceRef/model schema and observation algorithms/limits unchanged"
+  ],
+  "verified": {
+    "rust_syntax": {
+      "existing_modules": 7,
+      "exit_code": 0,
+      "typecheck": false
+    },
+    "new_module_format": {
+      "modules": 1,
+      "exit_code": 0
+    },
+    "test_admission": {
+      "new_rust_owners": 0,
+      "test_attributes_unchanged": {
+        "crates/rovai-core/src/application.rs": {
+          "before": 67,
+          "after": 67
+        },
+        "crates/rovai-core/src/application/private_composer.rs": {
+          "before": 0,
+          "after": 0
+        },
+        "crates/rovai-core/src/private_source_observation.rs": {
+          "before": 0,
+          "after": 0
+        },
+        "crates/rovai-core/src/single_chat.rs": {
+          "before": 9,
+          "after": 9
+        },
+        "crates/rovai-core/src/single_chat_composer.rs": {
+          "before": 0,
+          "after": 0
+        },
+        "crates/rovai-core/src/single_chat_composer_tests.rs": {
+          "before": 3,
+          "after": 3
+        },
+        "crates/rovai-core/src/web_upload.rs": {
+          "before": 0,
+          "after": 0
+        }
+      }
+    },
+    "source_review": {
+      "content_scan_call_only_in_preparation": true,
+      "exact_ordered_inputs_required_at_three_observation_boundaries": true,
+      "both_Core_constructors_use_limit4": true,
+      "note": "source structure assertions, not runtime or concurrency proof"
+    },
+    "docs": {
+      "exit_code": 0,
+      "diff_base": "34fc207ca89ae96ccde60bd643fb8d00b4d21141",
+      "version": "v1.72"
+    }
+  },
+  "pending_test_extensions": [
+    "Existing third single_chat_composer owner: missing prep leaves original input and no receipt, foreign path/same ID and reordered complete materials reject, replay with empty prep, missing historic observation does not scan",
+    "Existing Application queue classifier:3 newly asynchronous entries",
+    "Existing actual Core independent read owner: held IO worker, capacity full, interactive read progress, abort waiter retains slot until real worker exits"
+  ],
+  "self_review_fixes": [
+    "Preserved upload source shape validation before fast replay",
+    "Preserved original IO diagnostics separately from missing/stale preparation",
+    "Exact ordered selection fence catches removal/reorder during pending working preparation, not only unseen added sources",
+    "Avoid scans for invalid draft revisions, over-limit inputs, and pending Return while edit remains open",
+    "Transient preparation/capacity failures do not turn FIFO input into permanent repair state"
+  ],
+  "not_run": [
+    "Cargo/full Rust type compilation or new Rust assertions",
+    "actual IO concurrency/large source latency/Core shutdown behavior",
+    "actual Core/Host/native IPC/App/platform qualification",
+    "full PC01-PC24 and324 engineering scenes"
+  ],
+  "limits": [
+    "Original cheap path/kind validation remains in transactions; this change removes full content hash/tree walks, not every OS metadata syscall",
+    "Prepared observation is a point-in-time live source check, not an immutable content copy or a file grant",
+    "Underlying blocked OS IO is not force-cancelled by dropping its Tokio waiter; runtime/platform shutdown behavior requires actual candidate validation"
+  ],
+  "candidate_tests": [
+    "single_chat_composer::tests",
+    "application::tests::runtime_probes_do_not_occupy_the_interactive_request_queue",
+    "application::tests::independent_reads_do_not_inherit_an_unrelated_non_database_wait",
+    "single_chat::tests"
+  ],
+  "source_protocol": {
+    "core_schema": 158,
+    "migration": 208,
+    "host_protocol": 4,
+    "public_core_methods": 185,
+    "changed": false
+  },
+  "guardrails": {
+    "push": false,
+    "actions": false,
+    "full_build": false,
+    "paid_models": false,
+    "real_user_data_or_credentials": false,
+    "old_binary_used": false,
+    "model_input_change": false,
+    "new_rust_owner": false,
+    "customer_action_required_now": false
+  },
+  "next": "冻结fusion-i03-rc.1准确源码提交，C06集中当前158/208 Core/Host/CLI编译、相关Rust owner先list非零再运行、TS/Web构建和真实Host/HTTP/Native/App/规模验证；缺陷回所属组，修复候选记录原因，不使用旧exe或等待客户阶段验收。"
+}

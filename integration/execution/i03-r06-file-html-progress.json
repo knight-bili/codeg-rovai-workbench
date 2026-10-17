@@ -1,0 +1,400 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R06",
+  "status": "partial_verified_repair_coded_pending_candidate_runtime",
+  "checked_at": "2026-10-16T19:41:33.140604+00:00",
+  "candidate_observed": "fusion-i03-rc.20",
+  "observed_source": "4585a9289f028b55a7b5449b3585fc144c7f372b",
+  "committed_test_owner_source": "afee4415f7b6416f2e5b1e4631808b35b500f93c",
+  "finding": {
+    "actual_iframes": 8,
+    "expected_maximum": 4,
+    "source": "global PreviewDeck renders background session HTML while PinnedFilePreview renders the same files again; loaded handle count is four, actual documents are eight",
+    "evidence": "native-file-resources-r6-prepare/result.json and failure.png; actual four HTML sites and duplicate author document IDs in renderer errors",
+    "repair_commit": "afee4415",
+    "repair": "one window resource owner admits actual documents across cards and full preview; hidden never-shown decks do not create documents, visible readers take priority, background documents retain state only while slots remain; four visible mirrors reject an additional refresh candidate"
+  },
+  "partial_runtime_qualification": [
+    "two actual Threads retain same-filename contents and separate preview keys",
+    "original explicit absolute external path remains allowed; a format-valid missing Thread is rejected",
+    "four actual HTML file resources load with original CSP and no native bridge; overall document-budget check fails"
+  ],
+  "not_qualified": [
+    "fixed production App document count and instance retention",
+    "fifth instance close/retry and same-source mirror boundary",
+    "fresh App/Core reference restoration and missing-source recovery"
+  ],
+  "fixture_corrections": {
+    "r1": "unsupported Renderer preflight replaced by original threads.create validation",
+    "r2": "optional absolutePath replaced by exact original rawReference",
+    "r3": "existing explicit external path is valid; no product permission change",
+    "r4_r5": "invalid Thread ID rejected before business lookup; final fixture preserves version/variant and changes only last digit",
+    "later": "card-specific postMessage probe and bounded frame inspection avoid selecting a hidden duplicate document"
+  },
+  "tests": {
+    "new_resource_budget_red": 2,
+    "final_related_passed": 52,
+    "ipc_observer_passed": 1,
+    "full_typecheck": "passed"
+  },
+  "runs": [
+    {
+      "revision": "r1",
+      "status": "failed",
+      "error": "Error: Renderer requested an unsupported method: workspaces.validate\n    at evaluate (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/c06-native-file-resources-r1-prepare.mjs:44:23)\n    at async Module.qualifyCanvasFileResources (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/native-file-resources-r1-prepare-canvas-file-resources-workflow.mjs:69:23)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/c06-native-file-resources-r1-prepare.mjs:83:4)",
+      "passed_checks": [],
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T19:22:12.585Z"
+      }
+    },
+    {
+      "revision": "r2",
+      "status": "failed",
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(files.every(Boolean))\n\n    at Module.qualifyCanvasFileResources (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/native-file-resources-r2-prepare-canvas-file-resources-workflow.mjs:82:66)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/c06-native-file-resources-r2-prepare.mjs:83:4)",
+      "passed_checks": [],
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T19:23:33.552Z"
+      }
+    },
+    {
+      "revision": "r3",
+      "status": "failed",
+      "error": "AssertionError [ERR_ASSERTION]: {\"ok\":true,\"value\":{\"kind\":\"file_preview\",\"file\":{\"handleId\":\"0f30637e-fec3-4a6c-a933-0430a858d458\",\"reopenToken\":\"96996166-2d28-4cbc-8b00-77b58afd34e9\",\"previewKey\":\"549e4eafdfcbb23b5b8ffc1fe2ed9cd15b8a443d077dc19ae6d6b16e8b344495\",\"displayPath\":\"C:\\\\Users\\\\JiaLe\\\\AppData\\\\Local\\\\Temp\\\\rovai-canvas-native-190cf86d\\\\r06-rc20-files-r3\\\\Thread-B\\\\同名 #资料.txt\",\"pathPresentation\":\"external\",\"fileName\":\"同名 #资料.txt\",\"size\":26,\"mime\":\"text/plain\",\"extension\":\".txt\",\"kind\":\"text\",\"hasExternalUpdate\":false,\"contentVersion\":{\"size\":26,\"mtimeMs\":1792178692462.714,\"fileId\":\"3486518:281474978835847\"},\"contentGeneration\":\"6b01c10f-6624-4ccf-9476-b96ee042049d\",\"capabilities\":[\"read\",\"open_in_system\",\"read_child\"]}}}\n\ntrue !== false\n\n    at Module.qualifyCanvasFileResources (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/native-file-resources-r3-prepare-canvas-file-resources-workflow.mjs:84:12)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/c06-native-file-resources-r3-prepare.mjs:83:4)",
+      "passed_checks": [],
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T19:24:54.739Z"
+      }
+    },
+    {
+      "revision": "r4",
+      "status": "failed",
+      "error": "Error: Error: Error invoking remote method 'rovai:file-preview-restore': Error: Unsupported file preview Thread\n    at evaluate (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/c06-native-file-resources-r4-prepare.mjs:44:23)\n    at async Module.qualifyCanvasFileResources (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/native-file-resources-r4-prepare-canvas-file-resources-workflow.mjs:86:19)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/c06-native-file-resources-r4-prepare.mjs:83:4)",
+      "passed_checks": [],
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T19:26:38.371Z"
+      }
+    },
+    {
+      "revision": "r5",
+      "status": "failed",
+      "error": "Error: Error: Error invoking remote method 'rovai:file-preview-restore': Error: Unsupported file preview Thread\n    at evaluate (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/c06-native-file-resources-r5-prepare.mjs:44:23)\n    at async Module.qualifyCanvasFileResources (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/native-file-resources-r5-prepare-canvas-file-resources-workflow.mjs:86:19)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/c06-native-file-resources-r5-prepare.mjs:83:4)",
+      "passed_checks": [],
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T19:27:59.174Z"
+      }
+    },
+    {
+      "revision": "r6",
+      "status": "failed",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n8 !== 4\n\n    at Module.qualifyCanvasFileResources (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/native-file-resources-r6-prepare-canvas-file-resources-workflow.mjs:102:12)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc20/app/c06-native-file-resources-r6-prepare.mjs:83:4)",
+      "passed_checks": [
+        {
+          "name": "actual_two_thread_same_filename_previews_keep_distinct_contents_and_keys_preserve_explicit_external_paths_and_reject_missing_thread",
+          "passed": true
+        },
+        {
+          "name": "actual_four_distinct_html_documents_load_with_original_csp_without_native_bridges",
+          "passed": true
+        }
+      ],
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T19:31:04.643Z"
+      }
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r1-prepare-config.json",
+      "sha256": "2d7b6b263ac0991b8bf1b8311e838289ba1f19553e9b96b6332abefe58de012f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc20-r1-prepare-driver.log",
+      "sha256": "eb9a66fe013db9d2325fd9bac409041ccf388761733e3f8676e88976d82b2c22"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-file-resources-r1-prepare.mjs",
+      "sha256": "916a305065b463f6347eda41a70cfd18a288ed77e7ae7199e2ca0933af3094ea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r1-prepare-canvas-file-resources-workflow.mjs",
+      "sha256": "bcd5f84227a8758fa42b5e8ded10fcc3d74d1346adcbb650c5c88f10dafe2305"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r1-prepare-canvas-file-ipc.mjs",
+      "sha256": "44bde388f45169676ab2d7364d961670ec8ba2b72817c7278d095ae83d538fa0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r1-prepare\\driver-exit.json",
+      "sha256": "23bc8d9839360b8506742576e1a258b4bd9b6c663e976f6d85dbe0c6826b6e22"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r1-prepare\\failure.png",
+      "sha256": "816b9caa7057cb253db79317abd16ed5b6dc81666e01fc4d7175ffef35444003"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r1-prepare\\result.json",
+      "sha256": "fb89bd88d1dd195d8b6f6ba9b1cec00d2c48cc2025b8e61f722daeee6d212f94"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r2-prepare-config.json",
+      "sha256": "4cb88309b9709edc3cf99b9c37ba51c50836f8b5aec80d9d27b67984d9e0b7c5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc20-r2-prepare-driver.log",
+      "sha256": "78899ae7002eef47148672ecdb79a8231da4ebf522d650aa280d94199f865cb6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-file-resources-r2-prepare.mjs",
+      "sha256": "916a305065b463f6347eda41a70cfd18a288ed77e7ae7199e2ca0933af3094ea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r2-prepare-canvas-file-resources-workflow.mjs",
+      "sha256": "bea41b6d993f7fd798bf57dfa1da532563b608c67b29e156009efe3021daeab0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r2-prepare-canvas-file-ipc.mjs",
+      "sha256": "44bde388f45169676ab2d7364d961670ec8ba2b72817c7278d095ae83d538fa0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r2-prepare\\driver-exit.json",
+      "sha256": "5c04601c37ad277fae8d441dace31c51e8ce2f9088be026d6ff763c20cfcfa90"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r2-prepare\\failure.png",
+      "sha256": "c400c7a199681741ba8f93269d39fdc5c1e6df7051816bc7a253913af3aaf354"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r2-prepare\\result.json",
+      "sha256": "5dce4ac07a9dadfb168fac260421b00e2a47dcd58bdb734d77d037950b553868"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r3-prepare-config.json",
+      "sha256": "a9811eb9e6a6d1640e4e348846fb31c6d803df4abbcac8fe79eb35e8fb27d3b5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc20-r3-prepare-driver.log",
+      "sha256": "7a5f441cd1b4b0f17921b5e86ce8e31656b905852076e4fbe1a0871ad5590618"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-file-resources-r3-prepare.mjs",
+      "sha256": "916a305065b463f6347eda41a70cfd18a288ed77e7ae7199e2ca0933af3094ea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r3-prepare-canvas-file-resources-workflow.mjs",
+      "sha256": "32d1462abd37cbc04f8ea1ca59ba43a6ed4204997c1b84e831376949e2af4165"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r3-prepare-canvas-file-ipc.mjs",
+      "sha256": "44bde388f45169676ab2d7364d961670ec8ba2b72817c7278d095ae83d538fa0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r3-prepare\\driver-exit.json",
+      "sha256": "bc39c1ffd87865e8873825cb52dff498044710357143f0fd9f308388c55cf9c0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r3-prepare\\failure.png",
+      "sha256": "c400c7a199681741ba8f93269d39fdc5c1e6df7051816bc7a253913af3aaf354"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r3-prepare\\result.json",
+      "sha256": "7269451af5fe5dd26e9fe90fdd5c50506caeefa669355335b3a84bef18029567"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r4-prepare-config.json",
+      "sha256": "643c7f0603c8655ef1c3628ca05031180d25c79972b30feb84061450cabc4ede"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc20-r4-prepare-driver.log",
+      "sha256": "b97a53158a492b391312e47f5516dec17cce5374b95805be6b869dd1e90e660f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-file-resources-r4-prepare.mjs",
+      "sha256": "916a305065b463f6347eda41a70cfd18a288ed77e7ae7199e2ca0933af3094ea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r4-prepare-canvas-file-resources-workflow.mjs",
+      "sha256": "edadc2ad41f623c7e9f317e82c0d13f908662ee064eecbbaa2bc05db958b2ed6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r4-prepare-canvas-file-ipc.mjs",
+      "sha256": "44bde388f45169676ab2d7364d961670ec8ba2b72817c7278d095ae83d538fa0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r4-prepare\\driver-exit.json",
+      "sha256": "840a3ade01cb6b994d6cb7f6affcdbaaa9779e5aa56fdde6084776cc678ff3b5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r4-prepare\\failure.png",
+      "sha256": "c400c7a199681741ba8f93269d39fdc5c1e6df7051816bc7a253913af3aaf354"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r4-prepare\\result.json",
+      "sha256": "17151647da17038107ea34359c8cb58171412387aa3cc52cf598bf6689483ab5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r5-prepare-config.json",
+      "sha256": "82ed5184e28e60398b16156b4f0e43871fdb4e5cc5d9730cc50499f247c39c0c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc20-r5-prepare-driver.log",
+      "sha256": "31c08005f643e884a34e5a6ae566030e02eaef30c2aec6485df211f9eab9ccfd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-file-resources-r5-prepare.mjs",
+      "sha256": "916a305065b463f6347eda41a70cfd18a288ed77e7ae7199e2ca0933af3094ea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r5-prepare-canvas-file-resources-workflow.mjs",
+      "sha256": "26ab85032a6243b85a5949a8c1c8751154a53dc1d233e890610b8859c7003448"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r5-prepare-canvas-file-ipc.mjs",
+      "sha256": "44bde388f45169676ab2d7364d961670ec8ba2b72817c7278d095ae83d538fa0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r5-prepare\\driver-exit.json",
+      "sha256": "c0c2d573431fc032371ca971aa281f5c298574bf7872065cd404aa449a2f9486"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r5-prepare\\failure.png",
+      "sha256": "c400c7a199681741ba8f93269d39fdc5c1e6df7051816bc7a253913af3aaf354"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r5-prepare\\result.json",
+      "sha256": "801593f4c91e0aea2597e07ffb551efe599b418038b89b8c084f87f7eb01cdd1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r6-prepare-config.json",
+      "sha256": "4c6fda6346602da4180fde733605607a30d2050e58d2adb2c291cfd1bec675e7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc20-r6-prepare-driver.log",
+      "sha256": "027196075aa2646b72377efa43de369fc5b540181ba9494ab4e9fddb9d11e6eb"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-file-resources-r6-prepare.mjs",
+      "sha256": "916a305065b463f6347eda41a70cfd18a288ed77e7ae7199e2ca0933af3094ea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r6-prepare-canvas-file-resources-workflow.mjs",
+      "sha256": "fcf636794c36e4523b25ce389c4ca18797d1089cd341d54a7aac7a926cc7cabb"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\native-file-resources-r6-prepare-canvas-file-ipc.mjs",
+      "sha256": "44bde388f45169676ab2d7364d961670ec8ba2b72817c7278d095ae83d538fa0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r6-prepare\\01-cross-thread-sources.png",
+      "sha256": "c400c7a199681741ba8f93269d39fdc5c1e6df7051816bc7a253913af3aaf354"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r6-prepare\\driver-exit.json",
+      "sha256": "3e080f718d25f735750d0bf667273a422b0c23ae84aeee738399dd44b56b0d97"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r6-prepare\\failure.png",
+      "sha256": "af08a1103ea15b4a4ad55fe3e6fcb6f027e97deb64e3554e3af69f31027d7c2e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-file-resources-r6-prepare\\result.json",
+      "sha256": "6451b343ed220e05b2203ea593e5ee7ea661247f95c45f888ce3919ed4f142b8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r06-rc20-native.mjs",
+      "sha256": "5fa21afc5fbc67755914689aa8b92a57278b07d3ee41684cac59dbe708f296a4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-final-processes.json",
+      "sha256": "b9e5c5b5536740175afd7f9c12da0e17c29c9e1d8c6aa80967ae063343025f48"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-presentation-red.log",
+      "sha256": "c21092f9e2b8f11bccdcea7387656e48dacbc7b568d642767fafcb232df3da4d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-presentation-final.log",
+      "sha256": "665330eda74278f24ceb1b07ee4cb41bb544ed6ba3e3ba54c9c30dd340578119"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-ipc-unit.log",
+      "sha256": "3160b6c08fcbc3805427052e57126fde68dec953a34c4cee1a22bf1b69a90d08"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-typecheck.log",
+      "sha256": "5a3973f79ed9becd5f23c4feff467513814de7ea381d75a4d2e339aa8b8edca9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\record-r06-progress.py",
+      "sha256": "72fd0a899bbe26ca760507cffb99294b37e35ef606622b8782af5c7c7286962b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\FilePreviewContext.tsx",
+      "sha256": "a7ea1604e15317732480c6e1db484a6cd7a6e467110714744dfd78b3120a716c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\HtmlFileViewer.tsx",
+      "sha256": "6b5a9be54bac842ea0567830164c0c54f413fc56a5f1ed5a187ad87c34c1dbf0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\file-preview-resources.test.ts",
+      "sha256": "d8bdc9a394f35b27326eb65a58140af4c291ec2b2b5c2d5c06c4c72895ea4545"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\file-preview-resources.ts",
+      "sha256": "077c7f99b8317256d5e88027a4e000941f5839fd380cd25c2b8ce8c8eace7538"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-native-input.mjs",
+      "sha256": "916a305065b463f6347eda41a70cfd18a288ed77e7ae7199e2ca0933af3094ea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-file-resources-workflow.mjs",
+      "sha256": "2fe4983d370daa22d216dba3889ce6228b20bd0bebee57ca6834ade2590c2619"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-file-ipc.mjs",
+      "sha256": "44bde388f45169676ab2d7364d961670ec8ba2b72817c7278d095ae83d538fa0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\lib\\canvas-file-ipc.test.mjs",
+      "sha256": "5b08a62bb0240023cdfa665cda5fa42488fb58a193dcb2b72a787a5a41cce814"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\docs\\architecture\\file-preview.md",
+      "sha256": "f4bce257bf0b4ba8b7d3488cb676bf1e6ab06f2bf35ebdd0de6da6cad7b9c2c1"
+    }
+  ],
+  "next": "R07 actual PTY capacity and reconnect on unchanged Core; accumulate R06 repair with remaining code for the next candidate; execute all R06 phases before closure",
+  "counts_unchanged": {
+    "settled_obligations": 17,
+    "open_work_groups": 5,
+    "private_cases_verified": 24,
+    "private_cases_open": 0,
+    "verified_work_groups": 5
+  },
+  "scope_boundary": "No complete R06/I03 or post-repair Native qualification; no external inference or other-platform claim.",
+  "builds_added": 0,
+  "actions_triggered": 0,
+  "pushes": 0,
+  "external_model_calls": 0,
+  "customer_action_required_now": false
+}

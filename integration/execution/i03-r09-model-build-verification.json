@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R09",
+  "status": "source_and_build_verified_native_ui_remaining",
+  "checked_at": "2026-10-16T21:17:31.334712+00:00",
+  "committed_test_owner_source": "2163f46a6d562f4fc24083a06b617ea78ee669ad",
+  "core_source": "1e840216a1af1f93da1371db545579889e42d4da",
+  "desktop_source": "a2bd333284649abc1352e70e5078780adaaaca6f",
+  "web_source": "a2bd333284649abc1352e70e5078780adaaaca6f",
+  "supersedes_pending_build_claim": "i03-r09-summary-implementation.json (historical immutable source5e21f0f2)",
+  "implemented": [
+    "复用原message_model投影，明确模型取冻结Run选择；runtime_default仅显示真正runtime_observed模型，无观测保持未知",
+    "公开历史和精确私聊历史分区取最近Run；不使用其他卡片或私聊记录，不以旧观测覆盖最新未知",
+    "最近运行与当前配置分别标注；活动/分支保持来源准确，公开与私聊不串计数",
+    "COUNT使用SQLite原生i64，修复rc21真实编译失败，不改接口或输入材料"
+  ],
+  "checks": {
+    "typescript_tests_passed": 34,
+    "typescript_owners": 4,
+    "full_types_exit_code": 0,
+    "rust_original_owners": [
+      {
+        "owner": "read_model::canvas_references::tests::pages_metadata_with_exact_editor_membership_and_private_identity_without_read_side_writes",
+        "exit_code": 0,
+        "started_at": "2026-10-16T20:45:34.7437595Z",
+        "finished_at": "2026-10-16T20:46:51.0875743Z",
+        "list_exit_code": 0
+      },
+      {
+        "owner": "read_model::message_model::tests::model_metadata_uses_frozen_options_and_default_only_observation",
+        "exit_code": 0,
+        "started_at": "2026-10-16T20:46:51.1012859Z",
+        "finished_at": "2026-10-16T20:46:56.0693485Z",
+        "list_exit_code": 0
+      }
+    ],
+    "desktop_build_exit_code": 0,
+    "web_build_exit_code": 0,
+    "core_host_cli_build_exit_code": 0,
+    "sql_existing_indexes": true
+  },
+  "candidate_reuse": "rc21 Desktop149/Web144编译输入与rc22完全相同，逐文件SHA核验复用；Core22为新编，非旧Core。rc21的Rust编译失败完整保留。",
+  "pending_in_same_group": [
+    "真实Host多Thread/公开和精确私聊交错活动、模型最近运行/配置差异的界面验证",
+    "八类创建/编辑/排列/折叠/错误态、画板CRUD、菜单键/旧Host提示的完整当前候选运行",
+    "日夜主题、小窗口/缩放/末项可达和四行长标题的实际同场景对照",
+    "已收集ResizeObserver只读调用栈、目标及错误；继续定位和影响评估，不能以通过的功能测试宣告告警无影响"
+  ],
+  "dependency_retained": {
+    "source_feature": "C08",
+    "planned_stage": "I04",
+    "work": "Codeg真实父子会话/异步委派完成后补child_count画布投影和回归，不能拿私聊数量替代；功能仍在完整一期"
+  },
+  "qualification_limit": "两个原Rust owner实际编译/运行与三组件构建通过；不把source/static检查或R06文件界面当成R09完整动态UI资格。",
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\freeze.json",
+      "sha256": "b0dd9c015bfb6c60209935c88f48b4027af812f3503ba394b1775d42c6578ba2"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-build-result.json",
+      "sha256": "500b63e46b903ae50b5cd1d04e69c7a66496f419de7438e54a9e15a5f091f208"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\rust-owners-result.json",
+      "sha256": "1b44fd6af3ccb33d0855bfef6b2dcda5d4521dbd1852f71a17137fafeaa2835a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\app-assembly.json",
+      "sha256": "e25a8110623ea39e4aa8b044b7819326c4ae96b6e2f5377f3b3e8a4146f6fc25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\desktop-output-inventory.json",
+      "sha256": "2c2f7563b68a48a68fed4f0cab779614f21dd7d629fb04dc3c6b6dde124ff970"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\web-output-verification.json",
+      "sha256": "17aa72a1992137cdf64b4a0fbf8b05768128838341071e63b9842f7e11f4e02d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.21\\desktop-build-result.json",
+      "sha256": "234e3c3d919a1fe8bcb9760d8c01264f22130a00dc9a0686700a05e33c6ace62"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.21\\web-build-result.json",
+      "sha256": "52c797c9c5c9bb68a33ee229a376254f8fb73fdf878661c34c0dcfb5a9b64f46"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\rc22-owned-process-audit.json",
+      "sha256": "acb499215d8de8fa2c6f8377e3557fbb027bf036824f0ea7158882d3e67f001d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\record-rc22-r06-closeout.py",
+      "sha256": "f369a9d9015bcbbb52a44465d98e8872c63a7241b9571a7664212e3c3f1d938a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\CanvasSurface.tsx",
+      "sha256": "9c47a42881834cbb0484ff4d9c153c1fc76e94e87c6a07ade2c883e394d8e266"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\FilePreviewContext.tsx",
+      "sha256": "a7ea1604e15317732480c6e1db484a6cd7a6e467110714744dfd78b3120a716c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\HtmlFileViewer.tsx",
+      "sha256": "6b5a9be54bac842ea0567830164c0c54f413fc56a5f1ed5a187ad87c34c1dbf0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\PrivateInputRecoveryPanel.tsx",
+      "sha256": "bee6249a4fde11840a3f7811c3382abb87721d0848dee68c85ee2d223178b6ca"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\SingleChatPanel.test.ts",
+      "sha256": "06e9792d04a288c277e9fb181aafd8d89b4d130a9a250bc1986f0f661f8dbe32"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\canvas-reference-controller.test.ts",
+      "sha256": "5fc1644ef1556abab5a8ad99438ae4269b9454ed4bb356275ba07a48ff6f1583"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\canvas-reference-controller.ts",
+      "sha256": "e009f4aed0607c2647eb848a2e4a44888757ec38f93de75eda8bf6639d878c64"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\canvas-reference-model.test.ts",
+      "sha256": "c81acd4419322b98865f434690f9f9c858cc4910157f67ecd1bbe9b89d02d714"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\canvas-reference-model.ts",
+      "sha256": "74c54c9c1f437aff69058b2eb49922e548fcb86723ae4bf523e9d4cb661a2275"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\canvas.css",
+      "sha256": "c47ec1f4ae0679c7f6c388da90728542dfdd3889dac46a238e7343934c356e22"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\file-preview-resources.test.ts",
+      "sha256": "d8bdc9a394f35b27326eb65a58140af4c291ec2b2b5c2d5c06c4c72895ea4545"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\file-preview-resources.ts",
+      "sha256": "077c7f99b8317256d5e88027a4e000941f5839fd380cd25c2b8ce8c8eace7538"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\crates\\rovai-core\\src\\read_model\\canvas_references.rs",
+      "sha256": "66f64af0b1930c78d81f5f15706a45ef8aad30a15cb3dd24c336a52141849b62"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\crates\\rovai-core\\src\\read_model\\message_model.rs",
+      "sha256": "e66cb0dbf2bb9e0fa0f899ae49ed718bfe4fcfe5ebc067b9b83afe147c00e48d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\docs\\contracts\\canvas-references-v1.md",
+      "sha256": "719b7eb5f41b7db30169686706ed2fb7c1be56e6744496868d280bd0a54cad98"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\packages\\contracts\\src\\index.ts",
+      "sha256": "29034837ab18dc965d2b8ec716678866d1a76ec0515f535cdd7ebdaad4aee084"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\rust-owner-0.log",
+      "sha256": "25f078aa030637aab649ff44af444e48d484cd2c9c4b8d10363c524e2098dd79"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\rust-owner-0-list.log",
+      "sha256": "4837ae5ff590ec9b65973fda4e2571886883fca8ad7bebcd6ba1f5c83e646107"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\rust-owner-1.log",
+      "sha256": "0d5d00a3d56625dce83de8ff717121956fd05ec627c1f8c34e0d743fb2170409"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\rust-owner-1-list.log",
+      "sha256": "1760b78706730c43b342a927d6810868b34ff57fc2612d562c14f6995d89a1c7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-last-model-tests.log",
+      "sha256": "2b4ee05f8e21363d0346b58370975bff0e8be9a9f3c34addfda223312744e648"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-last-model-types.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-last-model-sql-r1.json",
+      "sha256": "8c99240fd9fcc099880487366af75a59e78dc632a85ba5736dd5637533603abd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-last-model-sql-r1.log",
+      "sha256": "9a0f4eb5472ecc0bae54db664fde1913588fab71b016e962cb8869bfa4cb0c85"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\check-r09-last-model-sql.mjs",
+      "sha256": "67a349246feb707f4c4483c0101e40afdfb731f753861bda2830062801ff4129"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-last-model-docs-tests.log",
+      "sha256": "517ed311aa45e423fcd9db8467ddca5fe5ee14c79318183be3666bdb008b259b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-last-model-docs-version.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-last-model-docs-decisions.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-last-model-codegraph-final.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\rc21-native-build-driver.log",
+      "sha256": "1133e961ecedcfe96bf4e0cf92ee696ab529f0959b0343e94aa7d183bb905769"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\rc22-native-build-driver.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "external_model_calls": 0,
+  "actions_triggered": 0,
+  "pushes": 0,
+  "customer_action_required_now": false
+}

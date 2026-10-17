@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-14T18:13:09.490Z",
+  "source_commit": "80949061f34aaa6e9c82ce03f5bd63d9dcf21666",
+  "stage": "I03",
+  "status": "paged_reference_directory_coded_targeted_checks_passed_not_rust_or_host_qualified",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "6d8718f4530cdf832851597c3054775a4fa9debd2d61106a396384a511461e57"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasNodeEditor.tsx",
+      "sha256": "f65af3128ed560456469bdcbfd8b774f3ecdc481d3f24d272520907416ce728e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "4385c316d311bac66649a8a0721e60ff82450961aa912ad662c594b5fbf913ab"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+      "sha256": "a992a7720b9a6c76b076654347b1e97d9bd8ee106d910318ae85d820563b8cf2"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-reference-controller.test.ts",
+      "sha256": "8d1720cf5944f617d9f9cfb537b1c68db0bc23a78780551ecc74892f4d292a8e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-reference-controller.ts",
+      "sha256": "17b01c8fc6440a6b171ba378871b1e45e2ef6741ea96daef94789bec74ae6a15"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-reference-model.test.ts",
+      "sha256": "e28565e1fa3b60e0286beb36ba35933c8aa9f5967291492f48928a921af7d58d"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-reference-model.ts",
+      "sha256": "62b736e839e91c4c34a2209f9e461c9e3423a417c073d83b9ed77504276a7846"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "3b2b0aac3a80637a72bb76ce4a429636a07f7bf3445ab8d730b55c93e6344143"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/useCanvasReferences.ts",
+      "sha256": "0457adf3f3cb502ffe2259f234181b97490ab27ee203aedc6e8beefcf2a3938a"
+    },
+    {
+      "path": "apps/web/src/camp-adapter.test.ts",
+      "sha256": "049980d603226197ce0cb55f4ed75a87867d97b116ec50370ed8e1550431a298"
+    },
+    {
+      "path": "apps/web/src/client.ts",
+      "sha256": "c358caa69003580c63d067ca5c821ff98be4060df976a6e04acc23e80edff819"
+    },
+    {
+      "path": "crates/rovai-core/src/application.rs",
+      "sha256": "0674366a0266a85675f7ebfae45e92cce7a560d1879daf4aca1b7e3d88e8d5f1"
+    },
+    {
+      "path": "crates/rovai-core/src/read_model.rs",
+      "sha256": "ffb85d224294c714d68cf31a184a5191f38d0af9eeeb8cef7a54f791df104371"
+    },
+    {
+      "path": "crates/rovai-core/src/read_model/canvas_references.rs",
+      "sha256": "7101eebb5b1d41308ff996e43a05123955a746f936a4e05d32c01eeed953241d"
+    },
+    {
+      "path": "crates/rovai-web/src/operations.rs",
+      "sha256": "9d63ac2d5d64caa288b5c4aeb0ef86a1ce350ed124ad029f8b9dfa4c0c42713f"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "5147499b82849696b7d221e64e8b30bb87be9fc61bd3768f830f540df4f35b47"
+    },
+    {
+      "path": "docs/contracts/README.md",
+      "sha256": "e31a6cc545b666afc45847fb03aa0d7adeaf6ab81812c86255bf81d14cade86b"
+    },
+    {
+      "path": "docs/contracts/canvas-references-v1.md",
+      "sha256": "b6832a52b687df732ec3dbaa5e20829751a1749cf983892151e6c50366d292d5"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "8ca8cb7088e119f87758e1cb1192d0a0a8e5a7e1b82eced488ca571aa3ad8b11"
+    },
+    {
+      "path": "integration/foundation/current-protocol.json",
+      "sha256": "3443ed649c5f9f9a670524ff6975c4dbfa46e257cd3ec4305cc59bb002bf8dd6"
+    },
+    {
+      "path": "integration/licenses/README.md",
+      "sha256": "f839ed63a8f2dee92e1ae654aa7906b33b847f73a80c103e542f0c9e45a6863d"
+    },
+    {
+      "path": "integration/planning/work-packages.json",
+      "sha256": "0d23c1ffc23e85402f971aa518c39d1e12d57e7c831afb6443c972692e9462b4"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "e6261274b9590f68915fe132d96416128229e304875ff70951c1f58e1e2918c4"
+    },
+    {
+      "path": "tools/integration/smoke-canvas-nodes.mjs",
+      "sha256": "cfdf0216508135e172bfa02de34f68a459bcac043ac559fb6c764a37dc65ba31"
+    }
+  ],
+  "implemented": [
+    "Core canvas.references.page reads visible public Threads, Mission-backed Threads, active members/current runtime kind and exact active private Conversation identities in one read-only transaction per page",
+    "Lexical keyset pagination with a visible upper bound; no transcript, draft body, prompt, credentials, session or per-Thread private-query fanout",
+    "Host/editor-scoped frontend controller subscribes before initial read, rejects invalid cursor/range/member identity, preserves the last complete cache during refresh errors and suppresses disposed-owner reads",
+    "Mid-scan invalidation remains incomplete until a trailing refresh converges; fixed upper bounds are not advertised as a globally frozen multi-page transaction",
+    "Canvas picker and dynamic member regions use the full paged directory instead of recent navigation prefixes; exact public/private identities and Mission metadata remain distinct",
+    "Custom regions preserve unavailable saved references; new invalid selections require explicit removal; missing items in an incomplete directory are not treated as deleted",
+    "Pure folder/group resolution accepts explicit relation inputs and reports missing topology/preferences as incomplete; actual relation retrieval remains pending"
+  ],
+  "verification": {
+    "targeted_tests": {
+      "status": "passed",
+      "files": 4,
+      "passed": 18,
+      "failed": 0,
+      "log": "work/i03/canvas-reference-tests-final.log",
+      "owners": [
+        "canvas-reference-controller:4",
+        "canvas-reference-model:4",
+        "canvas-graph-controller:6",
+        "camp-adapter:4"
+      ]
+    },
+    "exact_sql_fixture": {
+      "status": "passed",
+      "owner": "Exact SQL strings extracted from current Rust source, local in-memory SQLite fixture",
+      "checks": [
+        "editor-scoped pending visibility",
+        "deletion fence",
+        "Mission-backed Thread inclusion",
+        "active member/runtime join",
+        "exact active private identities",
+        "fixed upper bound despite insertion/activity changes",
+        "reads change no rows"
+      ],
+      "qualification": "Does not compile Rust or qualify the actual Core/Host route",
+      "log": "work/i03/canvas-reference-sql-final.log",
+      "result": "work/i03/canvas-reference-sql-result.json"
+    },
+    "targeted_types": {
+      "status": "passed",
+      "exit_code": 0,
+      "log": "work/i03/canvas-reference-typecheck-final.log",
+      "scope": "BusinessApp/Canvas and Web adapter/history with transitive dependencies, not all repository configurations"
+    },
+    "rust_format": {
+      "status": "passed",
+      "exit_code": 0,
+      "log": "work/i03/canvas-reference-rustfmt-final.log",
+      "qualification": "Parser/format check only; no Rust compilation or test execution"
+    },
+    "generic_documentation_gates": {
+      "status": "passed",
+      "log": "work/i03/canvas-reference-docs-check.log"
+    },
+    "source_contract_fixture": {
+      "status": "passed",
+      "log": "work/i03/canvas-reference-foundation.log",
+      "current_operation_count": 176,
+      "historical_canonical_operation_count": 161,
+      "qualification": "Static consistency only; HTTP and migration design cases are not live execution"
+    },
+    "locale": {
+      "status": "passed",
+      "duplicate_keys": 0,
+      "missing_literal_translations": 0,
+      "log": "work/i03/canvas-reference-copy-check-final.log"
+    },
+    "smoke_script_syntax": "passed_node_check_only",
+    "diff_check": "passed",
+    "preserved_failures": [
+      "canvas-reference-tests-1.log: one new timing fixture assumed delayed trailing refresh; corrected fixture with controlled pending response, no production scheduler change",
+      "canvas-reference-typecheck-1.log: explicit loop variable annotation and ReactNode boolean error guard were required and fixed",
+      "canvas-reference-rustfmt.log: classifier assertion format repaired"
+    ],
+    "rust_test_owner": "coded_not_run: read_model::canvas_references::tests::pages_metadata_with_exact_editor_membership_and_private_identity_without_read_side_writes",
+    "current_host_route_and_receipt_smoke": "extended_existing_smoke_script_not_run",
+    "mounted_ui_and_platforms": "pending_stage_verification",
+    "full_compilation_and_workspace_regression": "deferred_stage_candidate"
+  },
+  "authority": {
+    "database_schema": 154,
+    "migration_added": false,
+    "dependency_added": false,
+    "model_input_changed": false,
+    "new_business_registry": false,
+    "core_is_authority": true
+  },
+  "remaining": [
+    "Retrieve real folder-group preferences/identity and Git worktree topology; pure resolution tests do not qualify retrieval",
+    "Member drag transfer, expanded conversation cards, existing authoritative Composer drafts and Mission/Task/Thread/Diff action round trips",
+    "Authorized file previews, real ephemeral PTY lifecycle and Desktop cold-start Canvas routing",
+    "Compile/test the current Rust owner, execute the extended isolated Host smoke, mount the actual UI and complete required platform/phase qualification"
+  ],
+  "execution_policy": {
+    "candidate": "fusion-i03-rc.1",
+    "candidate_frozen": false,
+    "pushed": false,
+    "new_action_runs": 0,
+    "stage_complete": false,
+    "customer_action_needed_for_this_slice": false
+  }
+}

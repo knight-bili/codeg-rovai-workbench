@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-16T14:00:03.314Z",
+  "status": "partial_loading_diagnostic_passed_full_app_warning_unresolved",
+  "scope": "既有实际CanvasSurface与闭合内存节点投影，新增120ms读取延迟及零ResizeObserver告警断言；无Core/模型/完整App",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/styles.css",
+      "sha256": "79ba75808d800e50097873436c6304f91d92f58d21104dce8348982d10319957"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "e15030c6431f3f1496a52367fcb44179f14e0c65cfb3f9b177b7529f5e5141d5"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "b39dd0bc12153de9267beeb760273d02e2416e60941ef387c0154faa5bf74125"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasNote.tsx",
+      "sha256": "01721d20e36f8a998ae9843544f47ed0e487d0946a20d25f70fef11a97678606"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasObjectDialog.tsx",
+      "sha256": "e6bf4ff812c3d251584722e305226f6e4bc6626638ca4d5172c4f32f3b3591e7"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/MissionDelivery.tsx",
+      "sha256": "0ac668b8b3be532f2484055e26470cb4bf50c4653008a424c91adf3fd350b909"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+      "sha256": "9c2d8b84c55ce1bc79f8b9847773301311a90b15dca3cf4c2a6b8b78fa003f29"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasBoardPreview.tsx",
+      "sha256": "c718fff26a242ab6ed81ba15089c3cd0cb2671580a8f635060e74cd8df27cc5c"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-boards-controller.ts",
+      "sha256": "fef5dd325074887bf41674cab97aa4ee2c7606cb0b61cbaccf6b72e78e50dd53"
+    },
+    {
+      "path": "scripts/fixtures/mission-board/renderer.tsx",
+      "sha256": "f74d86eea7c065361c88c7c1a883c3b9c70589bf987bbd00885cac8ca600a6ef"
+    },
+    {
+      "path": "scripts/fixtures/mission-board/canvas-source.tsx",
+      "sha256": "95cfb49789f4fa22825403af97225c28636ccda9b86298c718ad55ef14a77fef"
+    },
+    {
+      "path": "scripts/fixtures/mission-board/canvas-source.cjs",
+      "sha256": "438fa93a058222085ec0ed8335b54b123df8e48871957a72392d2e26cb2bda78"
+    },
+    {
+      "path": "scripts/lib/canvas-source-ui.test.mjs",
+      "sha256": "f487621204df41b21ec4c091f79407219e0c3d01528924622d7a3a662b8cdf45"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-resize-loading-red.log",
+      "sha256": "357434445965cb71f968e3a0da2f6d2c6dde9e03d9faec05fa4f0392e32db24a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-SsGXVs\\source-files.json",
+      "sha256": "42f275d805d9d65c4e3cb4fa39d28bd63f6882c00ab2867d948da7a1505865e4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-SsGXVs\\summary.json",
+      "sha256": "2639c78745ccb509783cab8ddffa7defe3d5382494ba7b5641b353e70305e80f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-SsGXVs\\canvas-source.cjs",
+      "sha256": "438fa93a058222085ec0ed8335b54b123df8e48871957a72392d2e26cb2bda78"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-SsGXVs\\resize-day.log",
+      "sha256": "d6e13d4c59d8ab0b94d8394817fe261ca874cdce9bfed3a13f99fe49ffdec768"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-SsGXVs\\resize-night.log",
+      "sha256": "7516b58d15ea77fdfd0ebd1cad62c1a51aaebab15191d0359914010ad4203958"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-SsGXVs\\resize-day\\result.json",
+      "sha256": "114e8739be0d99b997e73097ca867a52f5edfab89bc0dcac966c04354aefcc34"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-SsGXVs\\resize-night\\result.json",
+      "sha256": "682f8610ed3276160d35b78caf3ed506acf2005aafdde706d305f195ad0c3135"
+    }
+  ],
+  "result": [
+    {
+      "mode": "resize",
+      "theme": "day",
+      "code": 0,
+      "signal": null,
+      "deadline": false,
+      "status": "passed",
+      "checks": [
+        "source_card_density_selection_and_64_summaries_survive_window_and_zoom_changes"
+      ],
+      "resizeErrors": 0
+    },
+    {
+      "mode": "resize",
+      "theme": "night",
+      "code": 0,
+      "signal": null,
+      "deadline": false,
+      "status": "passed",
+      "checks": [
+        "source_card_density_selection_and_64_summaries_survive_window_and_zoom_changes"
+      ],
+      "resizeErrors": 0
+    }
+  ],
+  "finding": "日夜延迟加载与四种窗口/缩放检查均0告警，仍未复现rc15完整App的告警，不由此宣告修复，也不修改生产回调或过滤错误",
+  "next": "按I03收口排期先结算证据；完整应用提示/恢复高度变化继续有界诊断，不无限重复静态场景",
+  "production_source_changed": false
+}

@@ -10,7 +10,7 @@ if (process.argv.includes('--version')) {
   process.exit(0)
 }
 
-const sessionId = `fixture-stream-${process.pid}`
+let sessionId = `fixture-stream-${process.pid}`
 const send = (value) => process.stdout.write(`${JSON.stringify({ jsonrpc: '2.0', ...value })}\n`)
 const pause = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds))
 const update = (value) => send({ method: 'session/update', params: { sessionId, update: value } })
@@ -30,6 +30,7 @@ for await (const line of createInterface({ input: process.stdin })) {
       agentCapabilities: { sessionCapabilities: { resume: {} } }
     } })
   } else if (message.method === 'session/new' || message.method === 'session/resume') {
+    if (message.method === 'session/resume') sessionId = message.params.sessionId
     send({ id: message.id, result: {
       sessionId,
       models: {
@@ -51,9 +52,13 @@ for await (const line of createInterface({ input: process.stdin })) {
       })}\n`)
       // The fixed Charter also names ROVAI_SKILL_PACKS. Hold the unique work
       // item, never the preceding Bootstrap handshake.
-      if (JSON.stringify(message.params).includes('ROVAI_SKILL_RECOVERY_HELD_INPUT')) {
+      const rendered = (message.params.prompt ?? []).filter(part => part.type === 'text').map(part => part.text).join('\n')
+      const current = /\[CURRENT_INPUT\]\s*([\s\S]*?)\s*\[\/CURRENT_INPUT\]/.exec(rendered)
+      const input = JSON.stringify(current ? JSON.parse(current[1]) : message.params)
+      const silent = input.includes('ROVAI_SKILL_RECOVERY_SILENT_HELD_INPUT')
+      if (silent || input.includes('ROVAI_SKILL_RECOVERY_HELD_INPUT')) {
         heldPromptId = message.id
-        update({ sessionUpdate: 'agent_message_chunk', content: {
+        if (!silent) update({ sessionUpdate: 'agent_message_chunk', content: {
           type: 'text', text: 'Controlled input received; waiting for recovery injection.'
         } })
         continue

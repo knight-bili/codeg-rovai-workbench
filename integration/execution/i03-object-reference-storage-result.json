@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C02",
+  "status": "storage_code_ready_renderer_and_actual_core_pending",
+  "recorded_at": "2026-10-15T22:13:44.813755+00:00",
+  "source_binding": {
+    "base_commit": "9d3a2cb6ce2491b8d067363a06363ca9d0d5c402",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "apps/desktop/src/renderer/src/canvas-graph-controller.test.ts": "527a0134a4fdd7ad23d9a80e2d53a84ded7c3d2618b07765f6a69cf520fc635d",
+      "apps/desktop/src/renderer/src/canvas-graph-controller.ts": "2de9ccc6798a47b94adb50135ada3ab6fe7edabc68fdba8066f23fce92e88ae6",
+      "apps/desktop/src/renderer/src/locales/en.json": "5b9931ee20e98808075f7a17acafa0000d6387b2b74c9b5f69ddbd4f36df96d6",
+      "crates/rovai-core/src/canvas_node.rs": "185309d9b0c9a2f518a14623fe635d5524e66ba05777916803140f53a90f08d2",
+      "crates/rovai-core/src/db.rs": "dc4e554a0b79cb1387a6b992ef77e6ab61af31490b1cf2a072ccb1feda7dde55",
+      "crates/rovai-core/src/db_private_source_observation.rs": "74e1c4ec8aa1a42cb45441ee2e9f373086b199a9df3a68584a6341928fbead6a",
+      "crates/rovai-core/src/lib.rs": "a249bf820ca9fc198e1a56949def37ae43c49ed1b0c05a5f8246c9c3809dc089",
+      "docs/architecture/canvas.md": "c029def713100fb8a661b1b5bc32f47142e8dfd6fa8e0d5f2372dfd151f0a9b7",
+      "docs/contracts/canvas-nodes-v1.md": "727372fe656fe50b9fa6a6a888ae93f5239b02bea9ed45cf48aa370ca17a64ef",
+      "docs/development/testing.md": "78a644d70df35c8486854e2dcde235c0bfc321d6efc3ab18ae3b73459cbdd7c7",
+      "docs/versions/v1.72/README.md": "cea8ece4b16390df062deff3a9f4d69cc9ba4f18f7595a0919cc4dd0cea2b095",
+      "packages/contracts/src/index.ts": "514039dd898e1a89b4f458ef1b05d382b1ec41524d568cac1bd3e6f8b5b7022a",
+      "crates/rovai-core/src/canvas_object_reference.rs": "dd87c0707a9155428795057f490290d6fae910e326929ec52605e9d907a9625b",
+      "crates/rovai-core/src/db_canvas_objects.rs": "4bc60f795b41670cf73860eda5767cfb3918f98c7ca2a9da669896011fc945d2"
+    }
+  },
+  "implemented": [
+    "Optional closed immutable Mission/Task/MissionDiff identity on original conversation-card container; Core and storage guard verify source Thread",
+    "Schema157/Migration207 appends reference table/two guards, keeps original graph/business/frozen rows; exact156 source and atomic marker/receipt",
+    "Original Gateway transaction writes node/reference/result together; groups cannot consume objects, prune retains unavailable object pins",
+    "Snapshot capability and unsupported first-write rejection; original Diff ID/path/revision frozen for unknown retry",
+    "Existing 205/206 intermediates and old-source fixtures restore207; no new Rust test owner"
+  ],
+  "verified": {
+    "literal_sql": {
+      "passed": 46,
+      "failed": 0,
+      "kind": "isolated SQLite fixture from literal Rust SQL, not Rust Gateway/classifier/migration execution"
+    },
+    "client_checks": {
+      "files": 4,
+      "passed": 19,
+      "failed": 0,
+      "kind": "GraphController/layout/view/locale; missing member-drag filter did not run and is not counted"
+    },
+    "targeted_types": "pass",
+    "changed_rust_format": "pass_except_untouched_lib_baseline_debt",
+    "rust_test_owner_count": "unchanged",
+    "diff_check": "pass",
+    "documentation_version_and_decisions": "pass_final_after_creating_missing_evidence_target"
+  },
+  "failures_preserved": [
+    {
+      "artifact": "canvas-object-sql-01.log",
+      "reason": "witness extraction needed whitespace after Rust equals; fixed extractor and used new v2 directory",
+      "production_change_required": false
+    },
+    {
+      "artifact": "canvas-object-doc-decisions.log",
+      "reason": "evidence generation initially failed Windows default GBK decode of git source; explicit UTF8 generation created the target, final generic gate passed without exceptions"
+    }
+  ],
+  "not_run": [
+    "Rust compilation and extended canvas owner/new207 classifier/migration execution",
+    "actual current Core/Host upgrade from156",
+    "independent selector/card/workspace renderer (not implemented yet)",
+    "real model/platform/devices/formal324"
+  ],
+  "next_actions": [
+    "Add capability-gated object selector/rendering and separate business refs from ordinary conversation expansion/group gestures",
+    "Resolve original ID plus stored Thread before existing Mission/Task/current changes/fileDiff views",
+    "Stage candidate compile/list/run current extended owners including previous private lifecycle, then qualify real Host"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "artifacts": {
+    "i03/canvas-object-controller-01.log": "27e93db8751674c3bea2e0eea75418f20e6e9d4b4982218ea5a673b999bf9577",
+    "i03/canvas-object-client-01.log": "cdbb4e66e777140369629a219ffbd94a494b95fcbd739caa5814d36860d5d101",
+    "i03/canvas-object-types-01.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-object-typecheck.json": "85b1185f3f66b458ff1d3b7cf9391a125ccc761ed4edc6dba966ef178a73f352",
+    "i03/canvas-object-rust-format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-object-sql-01.log": "fdf8190698a6a213d8dcf6306919870e72bb7e94871a96125e84f02d4e4e736a",
+    "i03/canvas-object-sql-02.log": "25d104e546f378b0df71274e9d7583ffb5314ff98a8e9292e52aa878ad4e08ce",
+    "i03/verify-canvas-object-sql.py": "b454f830063bc1a81d3d0b4491dc48fab550aa31ed0b33c1db33a6fbd78f7102",
+    "i03/canvas-object-sql-v2/result.json": "aeb4bd5d53bedce1256c0696f790937f3a0d37156f35395ddeec2c5dae50abb5",
+    "i03/canvas-object-sql-v2/fixture.sqlite": "d23e44e486ba03595363bd0bdd064454c017b5ecaca40c2a7c14389482c2d4d6",
+    "i03/canvas-object-doc-version.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "i03/canvas-object-doc-decisions.log": "e3895afe9c6174af3ef31825e54d05308949cb915025a5ec80cee694ee555b46",
+    "i03/canvas-object-doc-decisions-final.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "i03/record-canvas-object-storage.py": "cfff5b34f55fd94d161efbc58958f005d11f6fc3aee01f200a19f8cb6798aecd"
+  },
+  "boundaries": {
+    "source_projection_schema": 157,
+    "source_last_migration": 207,
+    "actual_user_database_migrated": false,
+    "host_protocol": 4,
+    "public_core_methods": 180,
+    "model_source_changed": false,
+    "new_dependencies": false,
+    "cargo_push_actions_model": false,
+    "customer_action_required_now": false,
+    "formal324": "not_run"
+  },
+  "required_candidate_checks": [
+    "cargo test -p rovai-core --features extended-tests --lib canvas_node -- --list",
+    "cargo test -p rovai-core --features extended-tests --lib canvas_node -- --test-threads=1",
+    "compile and run original private composer owners plus actual authenticated Host upload lifecycle",
+    "independent Mission/Task/Diff mounted renderer and actual Core integration"
+  ]
+}

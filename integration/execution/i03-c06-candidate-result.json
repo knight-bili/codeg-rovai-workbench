@@ -1,0 +1,399 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C06",
+  "status": "in_progress",
+  "recorded_at": "2026-10-16T05:44:54.409845+00:00",
+  "source_binding": {
+    "base_commit": "db1e335598fbaf807b6bb00013a524b24db70013",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "apps/desktop/src/main/core-client.ts": "242efdea1ff985e0e366fbd05c73f5c7c2d8c39f239e715a79d753075a26a41c",
+      "apps/desktop/src/renderer/src/canvas-terminal-reader.ts": "78101fc2e4618ae71ee8b1d9b83d7d9fec01f1ac83c052e757c60e277eecc64e",
+      "apps/desktop/src/renderer/src/canvas-file.ts": "d66dfa3d201c45bd46c0530217f85bc8b2a349f1e99fd82e1381429b57dd17a1",
+      "docs/development/testing.md": "08178948a27505949336fc8978de3dfc20f0fdab4d979f6e4d91f631e8561acd",
+      "apps/desktop/src/main/file-preview/file-preview-authority.ts": "18f533d393fd5f89be73b5644e68785c5aeacf5ef057f2c5b5038b2114a632c8",
+      "apps/desktop/src/renderer/src/CanvasTerminal.tsx": "5b9415e1531478efdff5acb368a38ba838c12991bae0bafd754c6b7b72c3df92",
+      "apps/desktop/src/preload/index.ts": "6e967337ab894d853dab1bcd459af6106f749de76fdc93e6b414de85b34ab1c8",
+      "crates/rovai-core/src/canvas_node.rs": "e18a62ced0d45ef17acd437991654d60054ecc3f36176ce7c816c2ba14f25498",
+      "integration/planning/stage-versions.json": "8174569f07323b80c29a0f76917b67356e1210b9ab73780e3ccba644c0c5238c",
+      "apps/desktop/src/main/file-preview/file-preview-access.ts": "855527a6e86c487cf356a401b02d3bace30e33922fddbf5ec3567b9168888873",
+      "integration/execution/goal-state.json": "8e874efa0ab45b058e08f9dd590b64b9fa4231705b8b11e3a8dbfc59578ff668",
+      "crates/rovai-core/src/application.rs": "6dd5d2070103fe562c52bf91d997ec5bf40cd67d9cc77833e350c1936de76110",
+      "crates/rovai-core/src/canvas_terminal/manager.rs": "706df64aa5c67216209266abed21d441a69eab6500b3252ee490295d4a091caf",
+      "crates/rovai-core/src/canvas_terminal/helper.rs": "53ea8b282231798d1c4303e9fcddd7a4c38f62f51ee0c0876907c816d55ac4e6",
+      "apps/desktop/src/file-preview-reference.ts": "7463017c138c751fafa837337b3144e226af062f5080beb01657913479362a3f",
+      "integration/execution/i03-closeout.json": "0d74526489f467682e3b2096be0fcb795f52a82f6ad060b6da444446df20cd9f",
+      "crates/rovai-core/src/canvas_terminal/manager/tests.rs": "b80c8bc020d6a892ce0408ef58a1d013ae00fe2db426f787b2e343983fb31fbe",
+      "integration/execution/i03-c06-native-result.json": "1445815ffed792ef9e73a98b22ea06e2558427e7d762edbcc4f348ade63eb04c",
+      "apps/desktop/src/main/index.ts": "6e225d0010a7d820209a969207e0dffb46b1d7c974a86279ecac8a5f39f66a5a",
+      "apps/desktop/src/renderer/src/canvas-terminal-controller.ts": "ccd7319816088174101decd55deff9a01d5a8d4a73eecfadd01822641dedc2da",
+      "scripts/fixtures/canvas-native-input.mjs": "b774e339f5011d2806da5a246bb4bb09b0c9b34a609e286c196b7a816184a6cd",
+      "apps/desktop/src/main/file-preview/file-preview-service.ts": "fbebcfd10fd9a7c46156915b6712764a27892ab97db902c2a173f6b66d28580a"
+    }
+  },
+  "artifact_binding": {
+    "work/i03/c06/fusion-i03-rc.2/freeze.json": "c29e5a8b106a11652959dd373ad49e1af2a3846520cd486e56a88801b464eee2",
+    "work/i03/c06/fusion-i03-rc.2/types-result.json": "c1e77e868a7ab0dfb0e84d176ae4fdc6eb0903482a9ac3b591420bed2e2f93e2",
+    "work/i03/c06/fusion-i03-rc.2/types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/c06/fusion-i03-rc.2/web-build-result.json": "ec28e67799ab3f49819fe989aee0d02cd65b529fecdc5a1f2eaba014acf25a0f",
+    "work/i03/c06/fusion-i03-rc.2/web-build.log": "69e431097e018ef3df5a5c58f50b8419229c287a325815c5c0a500d9bcffc58e",
+    "work/i03/c06/fusion-i03-rc.2/rust-owner-list-result.json": "bf13d48dc31a68c0675862fe4958af7faf62f5302191d8497cf40865654f8c82",
+    "work/i03/c06/fusion-i03-rc.2/rust-owner-list.log": "8ca9a60217936694de39298478d4119c0c0435e3c8a2ffb108416ec6b3ee39b0",
+    "work/i03/c06/fusion-i03-rc.2/web-ui/asset-cache.json": "8d56a5815d03334687fcb0e2db33d5f2db0b8dacf0647e74ffd97baba849e162",
+    "work/i03/record-c06-fixture-repair.py": "d0b08b72cfacd9b0000221192d0c6ce8f8485654c3861036e805555a76841d9b",
+    "work/i03/c06/format-before-rc3.log": "0a7e67826df68619822788094a47ac6a1d15319da9b22f0a6686cdbc2c21560e",
+    "work/i03/c06/format-plan.json": "f07c90f7585e64ffa0d65621a26f899553980c8bfc2b015ed21e9a64ac4293d5",
+    "work/i03/c06/format-proof.json": "bf17f1fde593ec5d060dc215821256bfec4eba4f868e0321e01102abb6f5cbd9",
+    "work/i03/c06/format-apply.log": "0ffba0856bf561da59a6d5d903749b1f138470aa7b84f459f5f4e3d68e554e0d",
+    "work/i03/c06/format-after-rc3.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/format-c06-rust.py": "dfbee46ed0e5da0b6c9f7107c99ac6bad256e843b1b8af69f45e9f0e8a475ce1",
+    "work/i03/record-c06-format.py": "76e17c6babcf59b4372dede578303d6785df3cbc83e13ecee37b3c32016fc94e",
+    "work/i03/c06/fusion-i03-rc.3/freeze.json": "2278fe255f44945123223437f0c96b1dd851a060f5d05febef8d55e23250c91b",
+    "work/i03/c06/fusion-i03-rc.3/host-lifecycle-process.json": "57b2478d00c452b21caf6f4f39fe31e2ca59d14939acbe7d2fddd7730a99c3a5",
+    "work/i03/c06/fusion-i03-rc.3/host-lifecycle-result.json": "6692ed7a10a70a33d4aeb11a3ec1e87a15c79f322bf19d787f9e0f2d9fdac9fc",
+    "work/i03/c06/fusion-i03-rc.3/host-lifecycle-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/c06/fusion-i03-rc.3/host-lifecycle.log": "72942afedc8f944074210cc15fd97f3e1efb4c76030aba464964e7168a5deaac",
+    "work/i03/c06/fusion-i03-rc.3/private-material-tests-result.json": "0e6178d69b95554cc99b9d09c9797c38c0016349e4abd330ef12782bae352e38",
+    "work/i03/c06/fusion-i03-rc.3/private-material-tests-start.json": "2507d45eef2e5326c169c59b1e360303176fcc8fe4b06396970cf65e188dd5e3",
+    "work/i03/c06/fusion-i03-rc.3/private-material-tests.log": "11ffb3215467215efced7cd86668d4e5602e6a75a8e5830730ff50dc6659bc2f",
+    "work/i03/c06/fusion-i03-rc.3/rust-owner-list-result.json": "6867a9544d5cec762e9f9c3a21d99b3cad0d93d9fccd85a8c288151e92b96204",
+    "work/i03/c06/fusion-i03-rc.3/rust-owner-list-start.json": "ac13504083bceafbdfd4090b192ee25a6916b9142d9f6120dbb2bd60cef95888",
+    "work/i03/c06/fusion-i03-rc.3/rust-owner-list.log": "cf862ca5c391f5642aa259e3133da2f7d06b22b0a5c26fd9791193208f9bd685",
+    "work/i03/c06/fusion-i03-rc.3/verified-owner-list.json": "2904e351461113210219bbd0e3edb313af00872ca6a849f448b7fcea08298aeb",
+    "work/i03/c06/fusion-i03-rc.3/windows-binaries.json": "0ecc6806cba03694543a62eace401d77636f6046e15a70a4d24ecc631467168b",
+    "work/i03/c06/fusion-i03-rc.3/windows-build-result.json": "ee59aacf229206f5c05c111c04229458b52def5c8d3f6ae464d2b13f2b412fe8",
+    "work/i03/c06/fusion-i03-rc.3/windows-build-start.json": "15e4164cf5966f16a9bf52a22777c7948570717848a51bd446d2964f6368b0c0",
+    "work/i03/c06/fusion-i03-rc.3/windows-build.log": "28fa9b29540c577dccd04d3ea759b0d550b677ad894c59c5a8917b985cc4b505",
+    "work/i03/run-c06-host-lifecycle.ps1": "f75fae0d0aac796cb6437a8a5d759648a7a4ed3558e05fe7753589e4f5e75626",
+    "work/i03/record-c06-probe-repair.py": "fcf68316531fdf2b5a6d1b144990e382ff62c0d476438da60b4c7c70414beb6b",
+    "work/i03/c06/fusion-i03-rc.4/desktop-build-result.json": "3af94c1f298abbd9299a252126c72684d0e0d6d4860ccc97fa19b1f29e1c84e7",
+    "work/i03/c06/fusion-i03-rc.4/desktop-build.log": "4b50f080a228b9a84e0cddad2038e0e3b6d65b2556f6d714afe86a5ef3fbe6d3",
+    "work/i03/c06/fusion-i03-rc.4/desktop-output-inventory.json": "4273f4fcff0ec1ec8a2c3ce37857ade36c1be436ab38ea71e6c9ca46bf68c61b",
+    "work/i03/c06/fusion-i03-rc.4/desktop-output-relocation.json": "25cf7dc79ce22ccc6f0189aefbfd05d6c758b657a8553e1ee185418ecef83e08",
+    "work/i03/c06/fusion-i03-rc.4/freeze.json": "813937d27ebec1895707977a02309c99c585a79a0188a23f904ac9c18a384129",
+    "work/i03/c06/fusion-i03-rc.4/host-lifecycle-process.json": "36f990102ec3722bd75f845d0c2be5f526e55e16ecc2b60709c611bae9193871",
+    "work/i03/c06/fusion-i03-rc.4/host-lifecycle-result.json": "05baf76ecf47efca871f866da6a8281da231cf41a15d15864ea940973df4ebda",
+    "work/i03/c06/fusion-i03-rc.4/host-lifecycle-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/c06/fusion-i03-rc.4/host-lifecycle.log": "16b249d4680f3aa807197c3c819913a216a375980ccba860c90a124b473c05c5",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-01.log": "a6e5ad666d55c306df800be883b4e0ff05d15dae34043cdcd5a5acade6fa4ac0",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-02.log": "434dc5ad8b5b3561da863e98abd8d52c79f7b587d36668610c1ebc47ac676ec6",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-03.log": "49323670340ffe3737d543040da7eb9f41df0e4be2f14082684cb9c9debdd544",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-04.log": "5cbc3eeae8cece1e92ae7075b8506c2c464f9c2a62ced0fad2eb75ccbeeb5ec5",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-05.log": "270288e61b6fa6ce6723e9317b5427dfaaee7434d6765b25f7c256d11ba562bd",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-06.log": "c06bcc029d9bb29d40e82a85a850747f07b86cfddbf37087b70338bfccee6e80",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-07.log": "42c3c95753ddf00f444b9d398a7325b2041f705cf4063d1b6cee2ff64dde86c8",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-08.log": "acaf167b54b8fd5efadcdcb9686e30f44358a2a42a3a77655e3a3c8897b9304b",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-09.log": "c3e25ad7f51c74ccdde2d7d0059ef8aaed76b700fdb6de422e86fe019958d59a",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-10.log": "5f6c110fed6e57d6a59093818c8c6332f4077fa849ebbbb70a189a8fca950cae",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-11.log": "331bbb6f13289922e594e9e4bb19d66e8ede3e6b0284f4755d20c3f45d2ada39",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-12.log": "2e5d980a462278fe4a0f0cd5e6f30a05b6ae905c823daea417c7fb9e3e608c5e",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-13.log": "6b25e08662de12e99cec1dc6f02ac4502b6dc4d51ddf842714f953e83c2d6a57",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-14.log": "a657994091905726d585c6eaed22643d85fdf97d7abca88f727e6348c8f5c834",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-15.log": "4e334b8dc933a9e2bd9a2e6ccbc5114a5d721a36b9140460f445049d5325b5ad",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-16.log": "db464834b25d3566dbfabb87469c06847b40e35a4ab913db25a9d67754f9a10e",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-17.log": "4b291c11fb1305d3b3d2e173a70b5236a7db17974694d67ccb9675715c19d4bb",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-18.log": "da5fe5658f194c1fb13f3e88dec0e5823dcc04e30f319db748990ccc784af4f0",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-19.log": "368de4d348fa6c51b9a4814da3c4a218a39263258d7d805bddc941684082d6e2",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-20.log": "2f6781cca3861f503c9dede7c1a0bedff5d0ecc4c092a7fd3bd27526b90d1495",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-21.log": "56113872850e5eb81810fee22ba7ef87d451f9cf338a6ebce238a2ec1e400a89",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-22.log": "cc32b33180c041b7852219fef6e7a3b202bf790d6b8f5f69ae76ed94b9d6fdb1",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-23.log": "adaa75bfcf84915924f4b677f004ba13590b08db015d9efd6d48af6645d7842b",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-24.log": "11b29d423263abac58087a5d8552ab9a7432bdee4e988018a8b3fb0ff903e07e",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-25.log": "69057f5b6f2a18ec36b16c17ed2e94eee9a198bd23a29d399865bd314f7196ff",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-26.log": "8c33999b497fdc0524d6eb41a485fc526f6706192ccdf55adb2c7d90eadc3a52",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-list-result.json": "a8bc535886d9f397e7c576b6e75d01330506dc2bb6073ed708a6b6b83295934f",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-list-start.json": "fb394ec533aa209a54c2ef7861e5b3d57c5facf962c7058fd531ff83142bdb82",
+    "work/i03/c06/fusion-i03-rc.4/rust-owner-list.log": "37e73c19a4906593a7fe1335af4ed5f04a4e645557f6281b5784d5c8c55e78bb",
+    "work/i03/c06/fusion-i03-rc.4/rust-test-binary.json": "c5b6efc747475275011bf18b9621f015983470cf383b72594536d00bb1a15e4d",
+    "work/i03/c06/fusion-i03-rc.4/selected-owners.json": "71db1df6adb71738476ce1327c7499a73607ad8435db0ce95ebb234e5533e0db",
+    "work/i03/c06/fusion-i03-rc.4/selected-rust-results.json": "711b4a7dda75b441e76c331d62aa3ec0d61892bef66a025421ffbebea156df8f",
+    "work/i03/c06/fusion-i03-rc.4/selected-rust-summary.json": "f55b2b69a4dbf86b64b81c00518e9a5fb697badba6f51b71cafb8d1c0fc77a27",
+    "work/i03/c06/fusion-i03-rc.4/verified-owner-list.json": "0aa281293fc3476354a37f46c32b4e8e5968e7a56c1fcd129874d79b05097a8c",
+    "work/i03/freeze-i03-rc4.py": "6d93f3ef240b328f7faeee4b93ac3a9c0965590e3ffe28142daa0dd5331416c7",
+    "work/i03/run-c06-host-lifecycle-rc4.ps1": "ebd22c7b4a56dd3ed025d2d9e9f44a6a007925f349db9c4b7a1ce06b48985aab",
+    "work/i03/run-c06-rust-owner-list-rc4.ps1": "0def91d12e434d46394b54895d4dd0f11be16713adadb01a27cb88ccde50784a",
+    "work/i03/run-c06-selected-rust-rc4.ps1": "00e33ed03d5974bca53759e888cb30cf87899859ec46c989162c95449d524e2b",
+    "work/i03/record-c06-rc4-fixes.py": "d89c250821c1078d3280150874fc9a05ae3d74389dde868c37745e81f147fb9b",
+    "work/i03/c06/fusion-i03-rc.5/format-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/c06/fusion-i03-rc.5/freeze.json": "a4061ec5c8f83d1e328c53a712f8860a444271c589fca8a45ee6af711deaf0d7",
+    "work/i03/c06/fusion-i03-rc.5/host-lifecycle-process.json": "35eb6b52a37ee2802279c1910a0c2525a4dc9ff1c9c942a2796c834b25a89455",
+    "work/i03/c06/fusion-i03-rc.5/host-lifecycle-result.json": "7e7d2001e087c0a0389e9230abf5d26deb07651dd44aa4a9ae5a996a1d9e60cb",
+    "work/i03/c06/fusion-i03-rc.5/host-lifecycle-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/c06/fusion-i03-rc.5/host-lifecycle.log": "d13842d18eedd34f6b43d17095ff6ef47246c98458d37f418bb84feef8ff252d",
+    "work/i03/c06/fusion-i03-rc.5/rust-owner-01.log": "20e234e0019a0d83eff07f13f171ce1a994a8d45dabdb80fb409775803994f12",
+    "work/i03/c06/fusion-i03-rc.5/rust-owner-02.log": "ca305dc1bf921ebd55006c4f451e651eaba90ab01f782a81b22ae41521db4417",
+    "work/i03/c06/fusion-i03-rc.5/rust-owner-03.log": "b439712dfa400ddfdafdf0d7bb473fa35e6ca3c80bbd89b8673e23a97115fee5",
+    "work/i03/c06/fusion-i03-rc.5/rust-owner-04.log": "42c3c95753ddf00f444b9d398a7325b2041f705cf4063d1b6cee2ff64dde86c8",
+    "work/i03/c06/fusion-i03-rc.5/rust-owner-05.log": "acaf167b54b8fd5efadcdcb9686e30f44358a2a42a3a77655e3a3c8897b9304b",
+    "work/i03/c06/fusion-i03-rc.5/rust-owner-06.log": "c3e25ad7f51c74ccdde2d7d0059ef8aaed76b700fdb6de422e86fe019958d59a",
+    "work/i03/c06/fusion-i03-rc.5/rust-owner-07.log": "5f6c110fed6e57d6a59093818c8c6332f4077fa849ebbbb70a189a8fca950cae",
+    "work/i03/c06/fusion-i03-rc.5/rust-owner-list-result.json": "b16afa443a916fb69987775c94c5cd23319b14db2ec063eadec80654135d438b",
+    "work/i03/c06/fusion-i03-rc.5/rust-owner-list-start.json": "f4208212916aba8bcab85d0e1f960b6da1104a2ca661cec5717ccd17fd19788d",
+    "work/i03/c06/fusion-i03-rc.5/rust-owner-list.log": "779208b20f6475d29c02a2cd576ebea782d21170786a10f32787039d898999d2",
+    "work/i03/c06/fusion-i03-rc.5/rust-test-binary.json": "82353f1b0e0fedc1d803c3a07502230bc2bfa3c9c7ebe19a3555ca17d04f1791",
+    "work/i03/c06/fusion-i03-rc.5/selected-owners.json": "30da76996e217acdaea1be7e66ef988df278b314db799c48dfc91b6e4a81bb88",
+    "work/i03/c06/fusion-i03-rc.5/selected-rust-results.json": "bf32d59bdc3a3e815ceee344069fd8efec68d94e46f343990a3ed9bd7787ffdf",
+    "work/i03/c06/fusion-i03-rc.5/selected-rust-summary.json": "7d741dba29143914fd150499bfb7dd0ec04625eb2c83f7c955c64ef0523c831a",
+    "work/i03/c06/fusion-i03-rc.5/unique-related-rust-verification.json": "0b81487cc5f66dc2dc4ca2582b8ebf46714c04e71948037c366b715f23ee94ce",
+    "work/i03/c06/fusion-i03-rc.5/verified-owner-list.json": "0aa281293fc3476354a37f46c32b4e8e5968e7a56c1fcd129874d79b05097a8c",
+    "work/i03/c06/fusion-i03-rc.5/windows-binaries.json": "ea107c774441e48f71494a0f60a0affbedb66cd7355cbfcdf0b8957472924997",
+    "work/i03/c06/fusion-i03-rc.5/windows-build-result.json": "5a212d24daa0f16be55adb87f74e11bbaba9366acd589c6036b315dd45f22d4b",
+    "work/i03/c06/fusion-i03-rc.5/windows-build-start.json": "fb145c94c93cbba811630b304ac4a24a8ed15a7a4121cfca2824ccd244c21e14",
+    "work/i03/c06/fusion-i03-rc.5/windows-build.log": "1b7e6ffb3923f91dc0cd8a6a19f9dd61626fc9624f6ddd51261d73ce10538db9",
+    "work/i03/freeze-i03-rc5.py": "c91565cb5cbb904d3788b7f82ca4a9a6d708277a1d032ed8b5814b230f0be0d5",
+    "work/i03/run-c06-native-rc5.ps1": "033da68d3fa1fe44ca499507091ebbfc71ac5016026a2c80adbea2a502e7a975",
+    "work/i03/run-c06-rust-owner-list-rc5.ps1": "676e59b87c6364deb4551294cde160d1a19da3a8ea20c4ced33c7cc1f3330495",
+    "work/i03/run-c06-host-lifecycle-rc5.ps1": "00b4b5d911e22e756b76f2cb3cfb53291d489d6ad3cf512aa7eff83366599fe7",
+    "work/i03/run-c06-selected-rust-rc5.ps1": "0c967f0d2061e4ef5cd9a4ebcb21d6834771f9898b575a5361b4c60e50b7f3fe",
+    "work/i03/record-c06-rc5-result.py": "4e3f3f01710f24f4e10bfbab7bcf103d9fc3228fec5c708c73e40fb26d8e5f4f"
+  },
+  "frozen_authority_files": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "candidates": [
+    {
+      "version": "fusion-i03-rc.1",
+      "source_commit": "f2630de05ed69cef3d49db1dcf0e5f141299b047",
+      "status": "failed_full_types",
+      "windows_build": {
+        "source_commit": "f2630de05ed69cef3d49db1dcf0e5f141299b047",
+        "candidate": "fusion-i03-rc.1",
+        "started_at": "2026-10-16T04:05:56.4204015Z",
+        "finished_at": "2026-10-16T04:08:12.0440560Z",
+        "command": "cargo build --locked --package rovai-core --package rovai-host",
+        "exit_code": 0,
+        "status": "passed"
+      },
+      "types": {
+        "source_commit": "f2630de05ed69cef3d49db1dcf0e5f141299b047",
+        "started_at": "2026-10-16T04:05:56.0980802Z",
+        "finished_at": "2026-10-16T04:06:22.0532906Z",
+        "command": "pnpm exec tsc --noEmit",
+        "exit_code": 2,
+        "status": "failed"
+      }
+    },
+    {
+      "version": "fusion-i03-rc.2",
+      "source_commit": "9a2eaef5d8000371c69ca30283ab6daa539802a8",
+      "status": "failed_rust_test_compilation",
+      "types": {
+        "source_commit": "9a2eaef5d8000371c69ca30283ab6daa539802a8",
+        "started_at": "2026-10-16T04:18:02.4965528Z",
+        "finished_at": "2026-10-16T04:18:25.4882673Z",
+        "exit_code": 0,
+        "command": "pnpm exec tsc --noEmit"
+      },
+      "web": {
+        "source_commit": "9a2eaef5d8000371c69ca30283ab6daa539802a8",
+        "started_at": "2026-10-16T04:18:25.5099909Z",
+        "finished_at": "2026-10-16T04:18:36.3430189Z",
+        "exit_code": 0,
+        "output": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.2\\web-ui",
+        "command": "pnpm run build:web --outDir <candidate>/web-ui"
+      },
+      "rust_test_owner_list": {
+        "source_commit": "9a2eaef5d8000371c69ca30283ab6daa539802a8",
+        "started_at": "2026-10-16T04:18:02.5120970Z",
+        "finished_at": "2026-10-16T04:19:26.2978353Z",
+        "command": "cargo test --locked --offline -p rovai-core --lib --features extended-tests,slow-tests single_chat_composer::tests -- --list",
+        "exit_code": 101
+      }
+    },
+    {
+      "version": "fusion-i03-rc.3",
+      "source_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+      "status": "failed_test_probe",
+      "checks": {
+        "windows-build": {
+          "source_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+          "started_at": "2026-10-16T04:36:12.6124793Z",
+          "finished_at": "2026-10-16T04:37:21.8522192Z",
+          "command": "cargo build --locked --offline --package rovai-core --package rovai-host",
+          "exit_code": 0
+        },
+        "rust-owner-list": {
+          "source_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+          "started_at": "2026-10-16T04:37:22.0917993Z",
+          "finished_at": "2026-10-16T04:40:13.5451941Z",
+          "command": "cargo test --locked --offline -p rovai-core --lib --features extended-tests,slow-tests single_chat_composer::tests -- --list",
+          "exit_code": 0
+        },
+        "private-material-tests": {
+          "source_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+          "started_at": "2026-10-16T04:40:13.6002203Z",
+          "finished_at": "2026-10-16T04:40:24.2709091Z",
+          "command": "cargo test --locked --offline -p rovai-core --lib --features extended-tests,slow-tests single_chat_composer::tests -- --test-threads=1",
+          "exit_code": 0
+        },
+        "host-lifecycle": {
+          "source_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+          "started_at": "2026-10-16T04:41:53.5623240Z",
+          "finished_at": "2026-10-16T04:42:10.3142129Z",
+          "exit_code": 1,
+          "timed_out": false,
+          "harness_root": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-host-harness-9fa50169a60144ffabf3180a2e1b160d",
+          "node": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\tools\\node-v24.21.0\\node-v24.21.0-win-x64\\node.exe",
+          "host_binary": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\target\\debug\\rovai-host.exe",
+          "web": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.2\\web-ui",
+          "scope": "actual isolated Host/HTTP/Core/PTY lifecycle, no agent model"
+        }
+      }
+    },
+    {
+      "version": "fusion-i03-rc.4",
+      "source_commit": "b43416d3b2d161868cb0aa4204a4fc92de550942",
+      "status": "three_related_owner_findings",
+      "rust_related": {
+        "selected": 26,
+        "completed": 26,
+        "passed": 23,
+        "source_commit": "b43416d3b2d161868cb0aa4204a4fc92de550942",
+        "started_at": "2026-10-16T04:56:49.6192596Z",
+        "finished_at": "2026-10-16T04:58:27.2305593Z",
+        "failed": 3,
+        "test_binary_sha256": "7c9c971b905f76853807f06f11e6393817b750f5d95f7c01f98c11d42d6776d4"
+      },
+      "actual_host_passed": true,
+      "desktop_build_passed": true
+    },
+    {
+      "version": "fusion-i03-rc.5",
+      "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+      "status": "partial_engineering_verified",
+      "related_rust": {
+        "failed": 0,
+        "started_at": "2026-10-16T05:06:19.6224620Z",
+        "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+        "completed": 7,
+        "selected": 7,
+        "passed": 7,
+        "test_binary_sha256": "53a1727b1701906dd130b5e2d14b23b05713bb4155cb8cf80a771b1404791a3b",
+        "finished_at": "2026-10-16T05:06:40.7314235Z"
+      },
+      "actual_host_passed": true,
+      "remaining": [
+        "其他阶段相关Rust/Host projection和适用升级/迁移与冻结输入回归；未列为通过的保持待验",
+        "真实Native IPC/桌面App、文件资源授权与HTML预览、冷路由、多卡和大材料交互响应",
+        "阶段适用平台资格与PC01-PC24/正式场景证据；缺环境可独立推进后续阶段，最终MVP必需项不豁免"
+      ]
+    }
+  ],
+  "windows_binaries": [
+    {
+      "name": "rovai-core.exe",
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\target\\debug\\rovai-core.exe",
+      "length": 79862272,
+      "last_write_utc": "2026-10-16T05:03:14.7500155Z",
+      "sha256": "2345fdd7ad001ce45420e2285acdfe371bf2b809cadba3b7d24cd93d6fb6d0ac",
+      "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3"
+    },
+    {
+      "name": "rovai-host.exe",
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\target\\debug\\rovai-host.exe",
+      "length": 85946880,
+      "last_write_utc": "2026-10-16T05:03:17.8049047Z",
+      "sha256": "f54e9bba856e8310fe0088baeba6590b23994d6f6a39851738d043fba208e37d",
+      "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3"
+    },
+    {
+      "name": "rovai.exe",
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\target\\debug\\rovai.exe",
+      "length": 6582784,
+      "last_write_utc": "2026-10-16T05:03:18.5375722Z",
+      "sha256": "d6f5bb6e8847b8bf4490b295ddafe0a45a5ae794a7d1ea57209a47c099231327",
+      "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3"
+    }
+  ],
+  "implemented_repair": [
+    "Windows私有目录夹具按原规则创建并通过",
+    "文件pin规范几何/标题/颜色预期及精确路径通过",
+    "Ready/Stop空struct闭合额外字段且原JSON不变；所有坏帧/拆包/超量断言和真实生命周期通过"
+  ],
+  "reuse_boundary": "Production application prefix unchanged; preserve actual rc.3 binary source commit and hashes, rc.2 TS/Web and unaffected3 material owners",
+  "web_asset_inventory": {
+    "source_commit": "9a2eaef5d8000371c69ca30283ab6daa539802a8",
+    "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.2\\web-ui",
+    "files": 141,
+    "all_sha256_verified": true,
+    "manifest_sha256": "8d56a5815d03334687fcb0e2db33d5f2db0b8dacf0647e74ffd97baba849e162"
+  },
+  "not_run": [
+    "rc.3 Rust test compilation/list and selected owner execution",
+    "actual Host/PTY/native/App/platform runtime scenarios",
+    "full PC01-PC24/324"
+  ],
+  "normal_phase_batches": 1,
+  "repair_candidates": 4,
+  "candidate_execution_batches": 5,
+  "validation_batch_mapping": {
+    "fusion-i03-rc.1": "I03-normal-01",
+    "fusion-i03-rc.2": "I03-repair-01",
+    "fusion-i03-rc.3": "I03-repair-02",
+    "fusion-i03-rc.4": "I03-repair-03",
+    "fusion-i03-rc.5": "I03-repair-04"
+  },
+  "guardrails": {
+    "push": false,
+    "actions": false,
+    "paid_models": false,
+    "real_user_data_or_credentials": false,
+    "customer_action_required_now": false
+  },
+  "next": "I03-C06继续文件卡片实际挂载/HTML、私聊附件/上传真实授权及完整PC01-PC24适用流程；独立Mission/Task/Diff/文件实际工作区路由与焦点/冷恢复；多卡/大材料响应和适用平台。Windows原生键盘/终端可见输出/文件API及Web投影已有证据，复用未变结果，不能把三卡或直接API检查当完整UI/规模通过。",
+  "format_gate": {
+    "before_exit": 1,
+    "after_exit": 0,
+    "files": 9,
+    "canonical_before_after_equal": true,
+    "frozen_authority_unchanged": true,
+    "session_id": 75064
+  },
+  "private_material_verification": {
+    "source_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+    "features": "extended-tests,slow-tests",
+    "nonzero_owner_list": [
+      "single_chat_composer::tests::commands_keep_complete_inputs_separate_preserve_receipts_and_rollback_both_sides",
+      "single_chat_composer::tests::recovery_pages_are_read_only_context_bound_bounded_and_incomplete_after_changes",
+      "single_chat_composer::tests::send_consumes_only_the_registered_scope_and_keeps_one_private_fifo_and_legacy_shape"
+    ],
+    "passed": 3,
+    "failed": 0,
+    "exit_code": 0
+  },
+  "host_partial": {
+    "source_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+    "exit_code": 1,
+    "full_case_passed": false,
+    "agent_model": false,
+    "scope": "real Host/HTTP/PTY; reached flood/resize/input assertions before unsupported liveness call",
+    "remaining_lifecycle": "node/board deletion, natural exit, stop/restart, planned exit and hard crash not reached"
+  },
+  "rust_related_verification": {
+    "unique_owners": 26,
+    "passed": 26,
+    "failed": 0,
+    "current_rc5": 7,
+    "unaffected_rc4_reuse": 19,
+    "private_materials_additional_unchanged": 3
+  },
+  "desktop_build": {
+    "source_commit": "b43416d3b2d161868cb0aa4204a4fc92de550942",
+    "exit_code": 0,
+    "inventory": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.4\\desktop-output-inventory.json"
+  },
+  "host_lifecycle": {
+    "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+    "binary_source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+    "exit_code": 0,
+    "passed": 1,
+    "agent_model": false,
+    "actual_windows_pty": true,
+    "full_native_ui": false
+  },
+  "native_engineering_evidence": "i03-c06-native-result.json"
+}

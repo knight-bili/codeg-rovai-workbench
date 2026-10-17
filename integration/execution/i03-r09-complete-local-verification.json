@@ -1,0 +1,647 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R09",
+  "status": "engineering_verified_within_declared_local_scope",
+  "checked_at": "2026-10-17T00:40:27.467305+00:00",
+  "candidate": "fusion-i03-rc.25",
+  "core_source": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01",
+  "desktop_source": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+  "web_source": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+  "committed_test_owner_source": "c405d534ee2dc8c2ca98e82c33f488b23a5a74ec",
+  "dependencies": [
+    "i03-r09-source-ui-progress.json",
+    "i03-r09-model-build-verification.json"
+  ],
+  "source_reference": "固定Codeg aff1e6c与Rovai cc465dda，只移植既有卡片、原组件和操作。原引用映射保持。",
+  "summary_checks": [
+    {
+      "name": "actual_core_configuration_before_any_run_and_exact_real_git_branch_are_visible_in_original_summary",
+      "passed": true
+    },
+    {
+      "name": "actual_interleaved_two_thread_public_private_activity_and_independent_cancellation_update_original_status_dots",
+      "passed": true
+    },
+    {
+      "name": "actual_frozen_run_model_stays_distinct_from_changed_current_configuration_and_private_without_run_has_no_foreign_history",
+      "passed": true
+    },
+    {
+      "name": "original_four_line_long_title_and_metadata_keep_local_canvas_layout_across_day_night_small_window_and_original_83_120_zoom_steps",
+      "passed": true
+    },
+    {
+      "name": "actual_post_expansion_frames_keep_visible_editor_hit_and_stable_stage_then_trusted_input_reaches_original_composer",
+      "passed": true
+    }
+  ],
+  "activity_states": [
+    {
+      "label": "initial",
+      "projected": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "flags": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "through": 22
+    },
+    {
+      "label": "A public only",
+      "projected": [
+        true,
+        false,
+        false,
+        false
+      ],
+      "flags": [
+        true,
+        false,
+        false,
+        false
+      ],
+      "through": 28
+    },
+    {
+      "label": "A public and A private",
+      "projected": [
+        true,
+        true,
+        false,
+        false
+      ],
+      "flags": [
+        true,
+        true,
+        false,
+        false
+      ],
+      "through": 38
+    },
+    {
+      "label": "A public private and B public",
+      "projected": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "flags": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "through": 44
+    },
+    {
+      "label": "A public cancelled while A private B public stay",
+      "projected": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "flags": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "through": 55
+    },
+    {
+      "label": "A private cancelled while B public stays",
+      "projected": [
+        false,
+        false,
+        true,
+        false
+      ],
+      "flags": [
+        false,
+        false,
+        true,
+        false
+      ],
+      "through": 59
+    },
+    {
+      "label": "all terminal",
+      "projected": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "flags": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "through": 64
+    }
+  ],
+  "model_labels": [
+    {
+      "label": "最近：fixture-model",
+      "title": "最近运行模型：R09 本机摘要队员: fixture-model"
+    },
+    {
+      "label": "最近：fixture-model",
+      "title": "最近运行模型：R09 本机摘要队员: fixture-model"
+    },
+    {
+      "label": "最近：fixture-model",
+      "title": "最近运行模型：R09 本机摘要队员: fixture-model"
+    },
+    {
+      "label": "私有对话",
+      "title": "私有对话"
+    }
+  ],
+  "compatibility_checks": [
+    {
+      "name": "missing_terminal_capability_shows_original_upgrade_guidance_and_disables_start_without_any_terminal_rpc",
+      "passed": true
+    },
+    {
+      "name": "missing_object_and_file_capabilities_disable_original_creation_choices_and_submit_without_writing",
+      "passed": true
+    },
+    {
+      "name": "missing_board_summary_is_explicitly_unknown_in_original_list_instead_of_a_fabricated_zero",
+      "passed": true
+    },
+    {
+      "name": "actual_eight_original_card_types_fit_after_original_fit_action_in_day_night_and_small_window_without_outer_scroll",
+      "passed": true
+    },
+    {
+      "name": "compatibility_ui_does_not_bypass_missing_capabilities_or_mutate_the_original_eight_nodes",
+      "passed": true
+    }
+  ],
+  "compatibility_boundary": "实际App/Core中的旧协议缺字段受控注入；不是运行旧Host二进制。",
+  "visual_review": {
+    "screenshots_viewed": [
+      "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r9-prepare\\summary-day-100.png",
+      "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r9-prepare\\summary-night-83.png",
+      "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r9-prepare\\summary-day-120.png",
+      "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r10-prepare\\eight-day-1440.png",
+      "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r10-prepare\\eight-night-1040.png",
+      "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r10-prepare\\eight-day-1040.png"
+    ],
+    "scopes": [
+      "实际摘要四行标题、模型/分支元信息；日间100%、夜间83%、日间120%。小窗口改变后保留原摄像机位置，部分卡片在视口外不是全部可见资格。",
+      "原查看全部操作后八类在1440/1040窗口、日夜主题均落在舞台内，无外层滚动、卡片自身无溢出；兼容缺字段明确是受控合同。文件/终端成功内容与全部CRUD由前报告证明。",
+      "原八类编辑和正常夜间100%九图、列表日夜小窗口及删除三图沿前报告保留，不重命名为当前Core同场景重跑。"
+    ]
+  },
+  "frame_and_input": {
+    "frames": [
+      {
+        "gap": -3.2000000238422217,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      },
+      {
+        "gap": 9.5,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      },
+      {
+        "gap": 3,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      },
+      {
+        "gap": 4.200000000000728,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      },
+      {
+        "gap": 4.100000000000364,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      },
+      {
+        "gap": 4.099999999998545,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      },
+      {
+        "gap": 4.200000000000728,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      },
+      {
+        "gap": 4.200000000000728,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      },
+      {
+        "gap": 4.299999999999272,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      },
+      {
+        "gap": 4,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      },
+      {
+        "gap": 4.200000000000728,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      },
+      {
+        "gap": 4.099999999998545,
+        "stage": [
+          1170,
+          850
+        ],
+        "editor": [
+          539.6190795898438,
+          733.7381591796875,
+          630.7619018554688,
+          55.5
+        ],
+        "hit": true
+      }
+    ],
+    "input": "R09 尺寸观察后的真实输入🙂",
+    "qualification": "rc25无告警不覆盖rc24有告警路径；未证明根因或普遍无害。首帧timestamp与performance.now有不同采样时点，不作为耗时指标，也不宣称高负载帧率达标。"
+  },
+  "diagnostic_followup": "i03-ui-diagnostic-followups.json",
+  "known_diagnostic": {
+    "id": "I03-UI-RO-01",
+    "status": "open_diagnostic_no_observed_functional_failure_in_declared_checks",
+    "owner": "Codex",
+    "followup_stage": "R10/BUF并持续关注后续UI集成",
+    "observations": "rc24八类真实CRUD记录6条ResizeObserver循环告警；此前完整App观察定位到XYFlow节点/父画布以及原工作区/文件页签尺寸回调邻域，时序不是因果证明。",
+    "impact_record": "八类实际创建/编辑/CAS/移动/折叠/删除整批通过；rc25摘要展开后12帧输入区均可命中、舞台尺寸稳定，随后真实输入到达原编辑器；本次摘要及兼容整批无告警。未复现输入丢失、错误绑定或外层滚动故障。",
+    "limits": "rc25无告警不覆盖rc24有告警路径；未证明根因或普遍无害。首帧timestamp与performance.now有不同采样时点，不作为耗时指标，也不宣称高负载帧率达标。",
+    "next": "R10保留原捕获与来源记录；后续若复现持续重排、命中/输入失败或卡顿，则连同具体操作和尺寸追踪定点修复。不能过滤报错、改通用调度或将此项丢弃。",
+    "not_resolved": true
+  },
+  "repair": {
+    "source": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01",
+    "native_red": "rc24-summary-r7私聊实际running，但目录hasActiveRun=false",
+    "read_only_facts": "r09-nullable-private-readonly-facts.json",
+    "original_rust_owner_red_exit": 101,
+    "original_rust_owner_green_exit": 0,
+    "native_green": "rc25-summary-r9七种交错状态和原DOM状态点逐项相符",
+    "change": "只将PRIVATE_SQL按原camp_turn归属兼容null直接Thread字段；同Thread直接归属仍优先，wrong-turn/foreign-Thread不计入。RUN_MODELS原有轮次关联正确，没有改模型查询或模型输入。"
+  },
+  "attempts": [
+    {
+      "id": "rc24-summary-r6",
+      "status": "test_setup_failed",
+      "reason": "explicit模型漏options:{}被原Core正确拒绝。"
+    },
+    {
+      "id": "rc24-summary-r7",
+      "status": "failed_real_product_defect",
+      "reason": "真实私聊活动漏计；原受控退出，保留SQLite只读事实。"
+    },
+    {
+      "id": "rc25-summary-r8",
+      "status": "failed_test_selector",
+      "reason": "前四项通过；末项从卡片内部找覆盖层编辑器，非产品缺陷，整批不计通过。"
+    },
+    {
+      "id": "rc25-summary-r9",
+      "status": "passed",
+      "checks": 5
+    },
+    {
+      "id": "rc25-compatibility-r10",
+      "status": "passed",
+      "checks": 5
+    }
+  ],
+  "builds_added_in_this_followup": {
+    "core": 1,
+    "desktop": 0,
+    "web": 0
+  },
+  "native_binary_source": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01",
+  "frontend_reuse": "输入与94dc225f相同，149个Desktop/144个Web文件SHA核对，不重编。",
+  "source_dependency": {
+    "source_feature": "C08",
+    "planned_stage": "I04",
+    "work": "真实父子会话/异步委派完成后回接child_count，不用私聊数量替代；完整一期仍保留。"
+  },
+  "qualification_limit": "Windows当前App/Core本机边界及受控旧合同，固定本地ACP不等于外部模型；正式12场景、其他平台和开发预览仍R10。保留尺寸诊断，未宣称无任何缺陷或完整I03通过。",
+  "pushes": 0,
+  "actions_triggered": 0,
+  "external_model_calls": 0,
+  "customer_action_required_now": false,
+  "no_owned_processes_remaining": true,
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\assemble-rc25-app.mjs",
+      "sha256": "b7b78f2e859e4131396363a667f4df397e7647876dfab1e09a5ca350ae7c2b83"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\build-native-rc25.ps1",
+      "sha256": "f3273ba5489727d886d8e12cdb14f15fa1185c5c01f9e866dd47a025381f7e99"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r6-prepare\\result.json",
+      "sha256": "bade198a1217b13f2b80d23ff7c8e32e887dddfa583f846847db5352fbb287c4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r7-prepare\\result.json",
+      "sha256": "38cb2735ab3d1b8d2b0b68b8ed371f3a6ef1092bf0e1f44dd349fe7694077b46"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\app-assembly.json",
+      "sha256": "2f9db89e6fd178105dffd9afebb0df23d4a6b098a410ed727f99aae1919723bd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\build-artifacts.json",
+      "sha256": "c549a1bf750c5b33d5a77af9e17245a33175db58f5b6d748146c89bff53b093a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\desktop-output-inventory.json",
+      "sha256": "56b782d16376a3690165ddb42b66153688d6dc3057b30d6056028156eb4d9dec"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\freeze.json",
+      "sha256": "455e3244a4af8d30b59a49f481b38f91ea49089805209472f6cf3b4f78be0726"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-build-result.json",
+      "sha256": "d7ef6b56a1b0249506b9f5341f7251ded423c03370c1bf0f91d9905eeb5d3efe"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-build.log",
+      "sha256": "2acf54d7683d9720a3ef63a997af64e30a1c2456de582f326f24832d036188e7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r10-prepare-config.json",
+      "sha256": "322736ad378315362d87d3fed156d67555abec49c849c9ef61eddaefe7f2cbbb"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r10-prepare\\driver-exit.json",
+      "sha256": "f331ea80e3972b0f3a28f5db1b11e186db6bd82a6ccf1fc1aca19ae34d9468b5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r10-prepare\\eight-day-1040.png",
+      "sha256": "def1692ac7847ab03d05a506d74015af49223c3845afc7405bb8239bf213ff1b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r10-prepare\\eight-day-1440.png",
+      "sha256": "d5f09bc57ff90985b66b9eec3481ddcc271891ab276654f5a1bf2db1a8385e3b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r10-prepare\\eight-night-1040.png",
+      "sha256": "69014c1479dcdf74845f7479c9edcfd3ad7eb9757805bec538c9bf64d9fc1dc0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r10-prepare\\progress.json",
+      "sha256": "99a548acd2e83d5be83eb8391c40f4c69aa914f2da124529aceaf269053b3acd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r10-prepare\\result.json",
+      "sha256": "9ccfe31e2c1a4ff9794ea4f9b470998d363d730dc06943bca72efeae7400974c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r8-prepare\\result.json",
+      "sha256": "07cd15be140b0356d508a218dce1867df4b140b328ba370e02b20c41552cc96d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r9-prepare-config.json",
+      "sha256": "d5f201d1e53831d1523d948b8dbae4d2e3eef9ff1269daacb15f25344f58cb60"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r9-prepare\\controlled-runtime-input.jsonl",
+      "sha256": "26e83e8b2276e5a08895b579d0d9bb4b1d446b5625d3a56922a63d6729dc9e74"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r9-prepare\\driver-exit.json",
+      "sha256": "9436a3e311bd543a7592e36d782dc6ac013555215c043d93d57d4b69cf4b5790"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r9-prepare\\progress.json",
+      "sha256": "76741069343c80dc09625e6c868fcef70f07c88420e2e4dce2b4b2c737d36c9f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r9-prepare\\result.json",
+      "sha256": "03839442b47e73316875a64822f5ae18ceceae1859c39ed4d0ea0b3c4963753b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r9-prepare\\summary-day-100.png",
+      "sha256": "ff5e78ff673a30312c23b1ab288b45aef1eb739b776726e4e65438721a455bba"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r9-prepare\\summary-day-120.png",
+      "sha256": "ceda06103478b45a5f29804096df20dc0dd058d9e9a3a8f7feb985f98f2e0add"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-source-ui-r9-prepare\\summary-night-83.png",
+      "sha256": "28ef96818e7f34281dc7236785f2804596eee8b2c27f48ffb91bf56fa1310b4a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\web-output-verification.json",
+      "sha256": "cacac864e0133756ce25e17d37fecea8f7cce52aff4be9807c60052187c16774"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\prepare-rc25.py",
+      "sha256": "39eb286e3024a8e37f24f99c1cd26612137dc2a6fb6e8c7d39e54bd3d86eb231"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-compatibility-owner-sync-retry.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-nullable-private-green-exit.txt",
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-nullable-private-green.log",
+      "sha256": "234fae89b19862ea651aa3c6535d2355a4a91f6d762ddd522f7ee052a7df5de0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-nullable-private-readonly-facts.json",
+      "sha256": "1a6d6ee8ab2b0cc2b18f031ac770a48111aeb5e76db319a2a8dd8988bb3ee963"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-nullable-private-red.log",
+      "sha256": "e91226214679412e129a5de7ae2e7cd221f8ee626bf3039e2391ef60a5346a21"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-private-activity-source-sync.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-rc25-compatibility-ui-r10-driver.log",
+      "sha256": "4f26ac5575e5c53483bafb1bfe07c54833a17fdabcaa77549f78ffb54040c4da"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-rc25-owned-process-audit.json",
+      "sha256": "00372b7807c283c2914fedbcddf6a7e817db12a6e57f2aa0f77cd20b220d6a94"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-rc25-summary-ui-r8-driver.log",
+      "sha256": "eb8f596234c1469abeca5a5e122c0e9f2522f18d7542eec177c6ea398f567433"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-rc25-summary-ui-r9-driver.log",
+      "sha256": "5a76725caece7d783cdc6afdb9b720e5f84129e04c91b70fbdd988d64b54916e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-resize-observation-summary.json",
+      "sha256": "cc00e23177e5eb29572a264382192e236194c78c14a951a96c9139466a01ae82"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-summary-overlay-sync-retry.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\record-r09-closeout.py",
+      "sha256": "033e2a691d305bfa3f9762aab4d449b7d2d497622b3915a34c9b284a82710280"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r09-rc25-compatibility-ui.mjs",
+      "sha256": "ce9fcc4d25cac458d3453aee0e8655292451582ac4ecdf391b5cf05cfeb9e6bf"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r09-rc25-summary-ui.mjs",
+      "sha256": "1332b811aabf9e9972b537f659c605742e5177188b13ba37e76dbf3593d05b1e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\crates\\rovai-core\\src\\read_model\\canvas_references.rs",
+      "sha256": "d78cee9719072b8cc00158f0f0bf142c6b58d5566ecea2c20280a496675064cf"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-r09-model-build-verification.json",
+      "sha256": "08ba778d6b4adc52ce008a0ecdcef864377eeed867e580cd84703f57fdbbaf8c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-r09-source-ui-progress.json",
+      "sha256": "082509234f99744440f4546d1e6af64406746e18c14021770affa121793fe987"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-ui-diagnostic-followups.json",
+      "sha256": "061d6182a91901d1e1705d8ecbc7aff82f5bf52450ddfd8216afe4d83d5f6022"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-compatibility-ui-workflow.mjs",
+      "sha256": "2107f2ff7ed685bdfa21e83467c543e009fc4f0759477f7e2237f5a09295c94f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-summary-ui-workflow.mjs",
+      "sha256": "ad07dae65927d5aecdf0caef6ccbfffe30f30f6a29417057d650e1f1408396b1"
+    }
+  ]
+}

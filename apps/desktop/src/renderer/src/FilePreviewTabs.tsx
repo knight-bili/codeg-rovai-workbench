@@ -9,12 +9,12 @@ import { ExecutionIcon } from './ExecutionIcons'
 import { previewTabLabel, previewTabLabels, previewTabPresentation } from './file-preview-tab-presentation'
 import { UiText, uiAttribute, useInterfaceLanguage } from './interface-language'
 
-function tabDomId(tabId: string): string {
-  return `file-preview-tab-${tabId}`
+export function tabDomId(tabId: string, domScope?: string): string {
+  return `file-preview-tab-${domScope ? `${domScope}-` : ''}${tabId}`
 }
 
-function panelDomId(tabId: string): string {
-  return `file-preview-panel-${tabId}`
+export function panelDomId(tabId: string, domScope?: string): string {
+  return `file-preview-panel-${domScope ? `${domScope}-` : ''}${tabId}`
 }
 
 // Keep the tab, including its close button, clear of the overlaid edge controls.
@@ -35,6 +35,8 @@ export function FilePreviewTabs({ compact = false }: { compact?: boolean } = {})
   const language = useInterfaceLanguage()
   const client = useThreadClient()
   const {
+    domScope,
+    isFocusedSurface,
     tabs,
     activeTabId,
     openFeedback,
@@ -52,6 +54,8 @@ export function FilePreviewTabs({ compact = false }: { compact?: boolean } = {})
     toggleHtmlSource,
     reopen
   } = useFilePreview()
+  const focusedSurface = useRef(isFocusedSurface)
+  focusedSurface.current = isFocusedSurface
   const listRef = useRef<HTMLDivElement>(null)
   const leftButtonRef = useRef<HTMLButtonElement>(null)
   const rightButtonRef = useRef<HTMLButtonElement>(null)
@@ -97,18 +101,18 @@ export function FilePreviewTabs({ compact = false }: { compact?: boolean } = {})
   }, [tabs.length, paneVisible, updateEdges])
 
   useEffect(() => {
-    if (!paneVisible || !openFeedback || openFeedback.tabId !== activeTabId) return
-    const tab = document.getElementById(tabDomId(openFeedback.tabId))
+    if (focusedSurface.current === false || !paneVisible || !openFeedback || openFeedback.tabId !== activeTabId) return
+    const tab = document.getElementById(tabDomId(openFeedback.tabId, domScope))
     arrowScrollTarget.current = null
     if (listRef.current && tab?.parentElement) revealTab(listRef.current, tab.parentElement)
     if (openFeedback.focusTab
       && (document.activeElement === document.body || document.activeElement?.closest('.file-preview-pane'))) {
       tab?.focus({ preventScroll: true })
     }
-  }, [activeTabId, openFeedback, paneVisible])
+  }, [activeTabId, openFeedback, paneVisible, domScope])
 
   useEffect(() => {
-    if (compact && paneVisible) {
+    if (focusedSurface.current !== false && compact && paneVisible) {
       const target = listRef.current?.querySelector<HTMLButtonElement>('[aria-selected="true"]')
         ?? listRef.current?.closest('.file-preview-tabs')?.querySelector<HTMLButtonElement>('.file-preview-return')
       target?.focus({ preventScroll: true })
@@ -146,7 +150,7 @@ export function FilePreviewTabs({ compact = false }: { compact?: boolean } = {})
   }, [menu, tabs])
 
   const focusTab = (tabId: string): void => {
-    window.requestAnimationFrame(() => document.getElementById(tabDomId(tabId))?.focus({ preventScroll: true }))
+    window.requestAnimationFrame(() => document.getElementById(tabDomId(tabId, domScope))?.focus({ preventScroll: true }))
   }
 
   const scrollTabs = (direction: -1 | 1): void => {
@@ -291,13 +295,13 @@ export function FilePreviewTabs({ compact = false }: { compact?: boolean } = {})
                 }}
               >
                 <button
-                  id={tabDomId(tab.id)}
+                  id={tabDomId(tab.id, domScope)}
                   className="file-preview-tab-activate"
                   type="button"
                   role="tab"
                   aria-label={`${label}${statusLabel}${hasExternalUpdate ? uiAttribute("，有更新") : ''}`}
                   aria-selected={active}
-                  aria-controls={panelDomId(tab.id)}
+                  aria-controls={panelDomId(tab.id, domScope)}
                   tabIndex={active ? 0 : -1}
                   title={tab.kind === 'file_change'
                     ? `${displayPath}\nFile Change · ${tab.changes.completedAt}`

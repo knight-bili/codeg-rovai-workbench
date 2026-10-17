@@ -1,7 +1,7 @@
 ---
 document_type: development-guide
 authority: test-policy-and-command-routing
-last_updated: 2026-10-12
+last_updated: 2026-10-17
 ---
 
 # 测试与 Smoke Test
@@ -9,7 +9,235 @@ last_updated: 2026-10-12
 [`package.json#scripts`](../../package.json)是 JavaScript 命令名和组合的真源。Rust 测试
 目标由 Cargo workspace 和测试代码决定。
 
+融合期执行频率按客户2026-10-14确认的[阶段批量验证规则](../../integration/ci-cost-policy.md#阶段版本与验证频率)：
+小切片先编码/review、最低成本检查和本地commit，完整编译、staged全量路由、默认workspace与Actions
+集中到阶段候选；公共契约、安全/迁移或阻断后续开发时允许有原因的最小验证。
+以下owner、命令和测试准入规则继续有效，未执行的检查登记待验，不因减少触发次数而删测试或假报通过。
+
+I03 编辑端归属扩展现有 `host-web.test.mjs`，定向运行 `node --test --test-name-pattern="^Host private composer" scripts/lib/host-web.test.mjs`。
+该 owner 使用真实隔离 Host/Core、两个实际登录端及同一画布 pin，检查材料与完整保留正文隔离、跨端回执/retained ID、
+身份与恢复证明伪造、游标篡改、原身份重登及默认响应兼容；不种入 Pending/Run、不发送消息、不启动模型或 Renderer。
+可通过 `ROVAI_HOST_BIN`、`ROVAI_WEB_UI` 指定已构建候选；`ROVAI_KEEP_HOST_PRIVATE_SCOPE_FIXTURE=1` 保留合成 fixture 的结果供证据核对。
+本机未发送正文与保存位置另由现有 `editing-recovery.test.ts` 检查，不把纯存储测试当作实际页面/编辑器切换；
+旧能力缺失拒绝仍由 `private-composer-scope.test.ts` 拥有，数据库迁移失败回滚继续复用既有 Rust migration owner。
+
+I03 R01 的真实页面场景继续使用原 `canvas-native-input.mjs`，新增 `private-roundtrip` / `private-queue` 两个模式，
+共享 `canvas-private-workflow.mjs` 的真实业务命令夹具。原地/侧边往返同时观察正文、附件、引用顺序、revision、
+同一个编辑器及既有撤销/重做；同时观察编辑器祖先未被移除，避免仅检查DOM身份却漏掉重排导致的原生历史损坏。
+排队场景观察完整移回、保留输入交换、另一卡明确接管和旧令牌拒绝。
+原请求恢复必须经过生产Main准入和Core回执查询：执行前中断先核对未知，再明确重试原UUID；执行后丢回执只读核对已保存结果。
+夹具通过已准入的固定本地 ACP 生成私聊历史、暂停中的实际 Run 和原 FIFO 排队项，不直接写历史/Pending/Run 表。
+候选驱动须绑定独立模块、固定启动器与协议脚本的摘要，保持隔离环境并保留每次结果；不修改旧冻结驱动或放宽源码检查。
+Core 夹具前置验证与真正 Native UI 分别记资格；只有前置通过不能关闭 PC03/08/17/18/19 或整个 R01。
+其他并发拒绝、迟到上传、丢回执和换绑恢复继续由 R01 原清单约束，不被两个模式省略。
+
+上述模式增加 `canvas-private-ipc.mjs` 的测试期 Main IPC 观察：只记录方法/归属/原请求编号；
+精确输入上的一次并发材料修改仍调用原生产 handler，交换丢回执只发生在 Core 已完成之后。
+`private-rebind` 与 `private-late-upload` 分别检查原输入恢复和结束旧私聊后的迟到回执；后者不代替另一个 Core 的实际切换资格。
+`canvas-private-ipc.test.mjs` 仅拥有故障触发、原 handler 继续执行、其他归属不受影响和延迟释放的逻辑，不能据此标 Native UI 通过。
+
+PC10 的不同 Core 分支扩展现有 `host-web-live.test.mjs`，定向 owner 为 `actual browser Core switch`。
+共享 `canvas-cross-core-upload.mjs` 启动两套独立私有目录的真实Host/Core，使用现有Web产物和隔离Chrome标签页；
+文件经实际页面上传，确认原Core已绑定后仅在浏览器运输层暂停回复，再在同一标签页导航至另一Core。
+检查新Core正文/附件/引用/消息/Run不被旧结果改写、旧Core仍保留原材料；旧文档取消与实际延迟释放分别记录。
+该owner当前限定Windows，必须显式指定已核定的Host、Web、Chrome与唯一输出路径；不配置Runtime、不调用模型、不复用日常浏览器数据。
+本轮累计异常场景与待集成CSS使用同一修复候选做本地页面验证，复用源码未变的现有Core；不触发额外平台Actions或全Rust编译。
+
+I03 R02 继续使用同一 Native owner 的 `private-send` 与 `private-send-boundaries` 模式，后者将
+`canvas-private-send-boundaries.mjs` 单独复制并绑定摘要。实际默认正文/画布往返、两处发送、跨卡quote/working拒绝、
+原FIFO及源变化均经过生产UI/IPC/Core；最终Managed Blob用只读SQLite连接读取并核对摘要、原section、
+两个引用顺序和实际固定ACP收到的完整原文，不以Core草稿或最终材料API替代Runtime交接。
+测试源文件修改前保留字节及归属快照，解析绝对路径且仅操作本次隔离Core中的合成文件；业务数据库不种入行。
+固定ACP的会话恢复与暂停准入由 `node --test scripts/lib/streaming-acp-runtime.test.mjs` 拥有：
+必须恢复请求的准确Session ID，旧历史中的暂停标记不能阻塞后继CURRENT_INPUT。
+固定协议资格不代表外部模型推理；整App/Core中断、其他平台和完整UI仍分别核验，不由这些模式提前通过。
+
+I03 多卡输入的最低层 owner 为 `canvas-conversations-controller.test.ts`（精确上下文、全部准备回滚、模式切换与孤立输入保留）
+和 `thread-workspace-actions.test.ts`（不同 Thread 命令归属、冻结发送及拒绝/未知不清输入）。
+窗口预览生命周期继续扩展 `file-preview-resources.test.ts`，DOM scope 继续扩展 `FilePreviewTabs.test.ts`；
+原 `App.test.ts`、Thread 命令/读取/会话 owner 一并作相关回归，不新增平行执行或文件能力测试。
+浏览器隔离夹具实际挂载三个生产 Frame/ThreadWorkspace/Composer、模拟 Core/文件与内存编辑恢复，
+检查独立正文、原地/侧边保持编辑器与撤销、局部查找、关闭单卡及重开、精确文件内容、控件唯一性和缩放边界。
+内存夹具的重开不是磁盘/进程重启；它也没有挂载完整 ReactFlow/BusinessApp。真实 Core/文件授权、模型执行、
+真实可见通知持久确认、私有附件/quotes CAS、IME/触控、HTML规模及全平台验证仍保留到相应阶段候选。
+
+多卡通知继续扩展 `NotificationAttentionController.test.ts` 的来源并集、多 Thread quiet 与冻结请求语义，
+`canvas-notification-visibility.test.ts` 拥有按实例报告/关闭/旧挂载拒绝和窗口交集；不新增 Core 通知测试 owner。
+该owner同时覆盖软键盘/缩放视口的CSS坐标裁剪、视口及窗口事件的重算/卸载、64卡片只枚举一次且被遮挡消息不确认。
+修复前新增3项均复现失败，修复后与原视图/恢复/终端控制器相关4个owner共32项通过；只证明局部逻辑，不替代真实App规模或移动真机。
+隔离浏览器挂载生产 Attention Controller 与真实卡片，以模拟 Core 记录实际确认请求：一个 Thread 在途/失败时
+另一个继续、未知重试保持 UUID/字节、关闭一张/全部镜像、画布移出视口、卡片层叠、弹窗遮挡和重新出现。
+夹具调试信息限制高度，避免调试区遮住被测卡片；不由 mock 结果宣称真实通知事务或 Host 接管通过。
+
+展开恢复的最低层 `canvas-conversation-recovery.test.ts` 拥有精确 scoped 记录、显式收起、版本拒绝/保留、
+quota/读取拒绝及旧 scoped ID 经有效图迁移；继续扩展 `canvas-conversations-controller.test.ts`，覆盖 suspend 不删意图、
+恢复时每 Thread 首次刷新、失配引用/结束私聊不替代、取消后的迟到结果、输入保存失败不离开。
+`App.test.ts` 扩展失败/拒绝导航的恢复通知。浏览器夹具挂载生产 CanvasWorkspace、CanvasSurface、ReactFlow 和编辑器，
+检查独立双草稿、切板、切页、页面刷新、收起保持关闭、重开及 drawer 不持久，并审阅实际只读运输记录。
+该挂载发现并修复节点几何随内容/空分组数组反复更新的 ReactFlow 白屏；原纯/静态测试不覆盖此问题。
+页面 reload/localStorage 不等于完整 Native 进程重启；原编辑器 undo 保留、异常退出、私有附件/quotes CAS 与平台规模继续待验。
+
+私聊输入交接新增最低层 TypeScript owner `private-input-controller.test.ts`，负责原请求持久化、
+active/retained 分支、完整交换、同 key 镜像锁、只读核对/明确同编号重试、正文标记幂等、晚回执材料变化拒绝、
+损坏版本保留和本机正文位置索引。移回和发送均覆盖原连接永久等待、只读查询已有结果后结清原调用，不依赖 Web 运输代为完成 Promise。
+既有 `single-chat-composer-store.test.ts` 继续负责 string-map/Native 存储，
+`client.test.ts` 负责 Web 请求分组和原在途 Promise 与手工核对收敛，`SingleChatPanel.test.ts` 保留展示/轮询契约。
+独立控制器不触发 Runtime，原静态展示和运输 owner 不拥有上述交接状态，故新增 owner 有明确职责。
+生产 SingleChatPanel/恢复区/排队编辑的三位置浏览器夹具仅使用模拟 Core 和隔离本机前缀，检查完整材料切换、
+同位置镜像、不同位置隔离、页面 reload 只读恢复、同编号明确重试及保存/放弃/接管。
+该夹具不证明实际 Host/Native、多窗口、源文件摘要/授权、最终模型 Blob 或完整 PC01–PC24；正式324场景保持未验。
+
 ## Rust 测试准入与退役门槛
+
+画板列表缩略图/数量扩展既有 `canvas_board::tests::board_migration_and_command_lifecycle_preserve_replay_and_atomic_snapshot`
+owner：复用其 SQLite 与重开过程，覆盖 schema152 无节点时省略统计、当前空板真实零值、201节点保留完整计数但只投影200轮廓、
+大轮廓优先、跨板隔离、终端卡数量、删除板排除、投影不包含正文/路径及读取零写入。不新增 Rust owner 或整库夹具。
+最低命令 `cargo test -p rovai-core --features extended-tests --lib canvas_board::tests::board_migration_and_command_lifecycle_preserve_replay_and_atomic_snapshot`，
+按阶段候选集中编译执行；未执行前只能标源码已补。客户端归属/缺项兼容扩既有 `canvas-boards-controller.test.ts`；
+新 `CanvasBoardPreview.test.ts` 只拥有原SVG视框计算与预设颜色，不平行重测Core数据库。实际日夜列表、菜单/键盘、必要滚动与真实Core接口仍需候选资格。
+
+私有附件定位继续扩展既有第三个 `single_chat_composer::tests` owner 的实际 SQLite/源引用夹具，
+覆盖卡片、工作副本、retained/default retained 的正向读取、错 Thread/Conversation/client/scope/ref/Pending/token 拒绝，
+明确接管后旧令牌不可读、pin 删除后孤立输入可读及读取零写入，不新增 Rust owner。
+TypeScript 的闭合输入由原 `file-preview-ipc-input.test.ts` 拥有，来源透传由原 authority owner、
+位置缓存隔离由原 preview-session/AttachmentCard/ImageGallery owner 验证；新增 shared parser/key helper 无额外平行测试框架。
+
+Web 按卡片上传继续扩展上述第三个 Core owner 的独立临时 SQLite/文件夹具，覆盖可信编辑端、位置与租约绑定、
+原 UUID 回放、失败无登记以及旧 target 编码；不新增 Rust 测试 owner。按阶段批量策略，本批 Core 新断言尚未编译执行，
+阶段候选显式使用 extended-tests 并确认非零清单后运行。Web 原 `client.test.ts` 上传恢复 owner 改为公开/卡片/工作副本三类表驱动，
+验证摘要期间的目标冻结及丢回执只核对原请求；与原 `file-digest.test.ts` 共27项通过。定向 types 包含 Main。
+Native 异常后保留源文件目前只有源码审查和类型证据，实际 IPC 故障注入、原编号恢复和清理资格仍待完成。
+
+后续新增 `private-attachment-preparation.test.ts` 最低层 Main owner：独立临时目录验证版本化日志落盘、准确位置枚举、
+已准备/未知状态重启只读、相同原字节残留复用、同长度变化拒绝、另一 Core 目录拒绝采纳，以及查询回执独立结清永久等待的原调用。
+Core 替身只拥有观察/回执运输 seam，不证明实际 Core 或 Native IPC；原第三个 Core owner 扩展 Native 观察/准入、公开目标拒绝、
+同长度内容变化时零附加/无回执及原结果回放，不新增 Rust owner。6项 Main 加既有27项 Web/摘要检查通过，定向 types 含 Main/Preload。
+Core、实际 IPC 和文件 UI 统一留待阶段集中验证；附加前检查不代替发送前源观察或完整 PC15。
+
+后续 Migration206/source observation 因迁移安全阻断材料接线，按阶段规则例外合并一次最小 Core lib 检查，
+同时覆盖此前累计未编译的 Web/Native 上传代码。原205迁移 owner 扩206数据保留、回执失败回滚和伪造同名触发器拒绝；
+原第三个材料 owner 扩同长度变更阻断发送、同 UUID 拒绝结果回放、不同现存文件身份、目录内容/空目录名变化、
+观察不可改写、历史缺摘要兼容及目录排队失效进入 needs_repair。旧对象保留后才构造替换对象，不依赖删除后的编号复用或时间精度。
+不新增 Rust owner。相关默认单聊 owner 作回归，实际平台和完整 PC15 仍需阶段集成证据。
+本地 Core 检查不代表 Host HTTP/Native 或完整文件能力资格；源内容摘要、上传与完整 PC15 继续待验。
+
+私聊材料服务新增三个 `single_chat_composer::tests` 扩展 owner：
+`commands_keep_complete_inputs_separate_preserve_receipts_and_rollback_both_sides` 拥有七动作的跨 scope CAS、整份输入交换/回滚与可信编辑端回执；
+`recovery_pages_are_read_only_context_bound_bounded_and_incomplete_after_changes` 拥有分页只读、上下文/签名、原始摘要贯穿各页与 orphan 保留；
+`send_consumes_only_the_registered_scope_and_keeps_one_private_fifo_and_legacy_shape` 拥有精确消费、默认 JSON 和同 Conversation FIFO。
+原 codec/pin/迁移 owner 不拥有材料事务与业务消费，旧 single_chat owner 只拥有默认路径；因此复用隔离 SQLite/既有真实源文件夹具，
+不另造 Runtime 或格式 golden。先 `cargo test -p rovai-core --lib --features extended-tests single_chat_composer::tests -- --list`，再同过滤执行，
+另运行既有 single_chat、message_quote 及 scope codec/pin owner。17项通过仅证明本地 Core 边界；
+原 Context 慢测 `single_chat_contract_bytes_and_dynamic_section_order_are_exact` 在本次 extended 配置下没有入册，
+登记为未执行并留待阶段候选的 slow-tests，不将零测试视作通过。完整 PC01–PC24、实际 Host/模型和平台仍待验。
+
+C05源观察调度继续扩原第三个材料owner，验证缺准备时无回执/不消费输入、同ID异路径及材料顺序变化拒绝、
+原UUID无需准备直接回放、旧缺观察不增加内容扫描。原Application队列分类owner扩3入口准入，原
+`independent_reads_do_not_inherit_an_unrelated_non_database_wait`复用真实Core夹具检查受控IO任务在途时互动请求可完成、
+容量满时拒绝以及取消等待后实际IO仍持名额；不新增Rust owner或整库fixture。
+本批Rust只做语法检查，新worker模块格式检查；上述真实Core/SQLite断言未编译或运行。
+候选先列出非零owner再执行：`cargo test -p rovai-core --lib --features extended-tests single_chat_composer::tests -- --list`，
+以及同配置的`application::tests::independent_reads_do_not_inherit_an_unrelated_non_database_wait`与
+`application::tests::runtime_probes_do_not_occupy_the_interactive_request_queue`；随后执行同过滤并回归既有single_chat。
+
+上述原发送 owner 继续扩展同一 fixture，调用生产 Application 私聊材料 handler 与 reconcile，
+拥有旧省略/显式 null 的响应差别、默认与卡片/其他编辑端的 editToken/working 正文/quotes 隔离、可信身份注入、
+未知回执只读及首次结果重放/不重复提示；不新增 Rust owner，不用 SQLite/模拟运输推断实际 HTTP/Native IPC 通过。
+Web 原 `public_projection_excludes_mcp_credentials_and_desktop_mutation_actions` 增加两项操作编码/方法映射，随 I03 候选执行；
+本批只编译/执行受影响 Core lib owner。共享 `private-composer-scope.test.ts` 拥有旧 Core、错绑回显及调用后变更描述的拒绝；
+Web 原 client owner 表驱动复用发送/材料交换的丢回执重登检查，Main 原准入 owner 扩两项方法；低成本命令为
+`pnpm exec vitest run apps/desktop/src/shared/private-composer-scope.test.ts apps/web/src/client.test.ts apps/desktop/src/main/runtime-core-methods.test.ts`。
+这批客户端检查使用模拟 Fetch/请求，不是实际 Host 或 UI 资格。
+
+同一原发送 owner 继续复用已有私聊/Pending fixture 验证编辑租约的 client+scope 归属、显式跨位置接管/旧 token 拒绝、
+working quote/remove/restore 与附件排序、保存后移回完整 retained、缺 targetBody/错误材料 revision 的拒绝、
+回执尾注入失败时 Pending 状态与双方材料回滚及原 UUID 重放。旧 Web 编辑端 owner 增加先保存/取消的 r1 前置，
+保留原返回附件隔离、FIFO 和旧断言，不新增或停用 Rust owner；原默认 JSON 不出现 composerScope/targetBody 的兼容编码同场验证。
+最小 Core 命令仍为上述 extended service owner 与 single_chat/message_quote/scope 有关 owner；
+现有 SingleChatPanel/正文 store 测试只证明既存消费者和存储边界，未执行新版移回按钮或完整材料选择 UI。
+
+私聊材料隔离 r1 的新最低层 owner `single_chat_composer_scope::tests::scope_codec_preserves_legacy_omission_and_requires_explicit_closed_identity`
+拥有省略/显式 null 的协商差别、规范闭合标识和额外身份字段拒绝；原 DraftClient 与画布几何 owner 不拥有这项网络编码，不能由完整 Runtime 夹具代替。
+`pin_binding_requires_the_exact_live_private_reference_without_writing` 只建当前查询必要四表，拥有 Board/pin/Thread/Conversation 精确关系及结束/删除/非激活拒绝；
+旧画布引用校验允许公开或历史对象存在，不能证明新草稿首次登记的活跃私聊条件。该 owner 不建立完整 Database、不创建草稿、不启动 Runtime。
+最小命令 `cargo test -p rovai-core --lib single_chat_composer_scope -- --list` 后再执行同过滤。首批只有原文 SQL 见证；
+本轮新增 Schema155/Migration205 后，归属编码、pin 校验与下述迁移 owner 已纳入本地定向编译/执行。
+
+`db::private_composer_scope::tests::migration_preserves_default_materials_fences_scopes_and_rolls_back_receipts` 新增一个扩展 owner，
+拥有三维草稿主键、私有注册/完整保留项/编辑 scope 的原子切换、旧默认 JSON 原值与回执回放、缺结构拒绝、默认资源隔离、orphan 保留及删除清理。
+既有纯 codec/几何、旧两维编辑端迁移 owner 均不拥有这些跨表约束，故使用既有隔离私有 SQLite 模板、真实源文件与真实 Core 默认入口；
+不另建 Runtime 夹具、不调用模型。最小命令 `cargo test -p rovai-core --lib --features extended-tests composer_scope -- --list` 后去掉 `--list` 执行。
+因主键/回滚安全阻断后续材料接线，本轮按阶段规则例外执行这个本地最小检查及受影响旧 owner；全仓/跨平台与完整 PC01–PC24 仍留 I03 候选。
+
+Canvas `group.sourceMembers`扩展复用`canvas_node::tests::eight_kinds_preserve_source_geometry_text_and_reference_limits`的旧Group序列化断言，
+及`canvas_node::persistence_tests::migration_and_graph_gestures_preserve_scope_atomicity_replay_and_reopen`的跨源转移/私有身份/镜像保留/回放与派生绑定用例；
+不新增Rust owner，阶段命令`cargo test -p rovai-core --lib --features extended-tests canvas_node::`，本切片未编译执行。
+`canvas-conversation.test.ts`拥有公开/私有精确读取、Host/请求归属失效、运输错误、破坏性操作识别及相机几何；
+`thread-commands.test.ts`拥有Core client/Thread固定归属、交错命令、发送快照、原参数字节、缺源/错误Thread拒绝、运输未知不重发及名册CAS字段；
+共享格式/投影提取继续由原`App.test.ts`覆盖，保留原导出。测试仅使用模拟运输，不是实际Host、Runtime或多卡挂载证明。
+`thread-projection-store.test.ts`拥有每 client/Thread 的只读打开合并、刷新期间补读、失败保留/显式重试、
+schema/精确Thread/水位拒绝、历史请求与覆盖、过期分页丢弃、忘记/重启代次、挂载租约/订阅和五个空闲缓存预算。
+既有 `App.test.ts` 继续拥有页面投影/刷新/导航纯及静态行为；最小命令 `pnpm exec vitest run apps/desktop/src/renderer/src/thread-projection-store.test.ts apps/desktop/src/renderer/src/App.test.ts`。
+这些 mock 检查不证明实际Core重启、同时挂载多卡、可见通知、附件/流式或文件预览资格；完整接线仍须阶段验证。
+`single-chat-composer-store.test.ts`拥有私有正文的client/Thread隔离、镜像整表更新、单次发送互斥、较新输入保留、
+初始读取失败、保存失败/重试、pending key迁移和共享订阅生命周期；原`SingleChatPanel.test.ts`继续拥有私有面板。
+`canvas-composer-drafts.test.ts`拥有每卡规范归属、主会话隔离、既有格式往返、索引/内容单值写入、单卡删除、
+破损/未知版本及非字符串拒绝覆盖、写失败保留、闭合卡片输入恢复、服务身份失败重试和精确副本提取。
+原`pending-thread-draft.test.ts`扩多卡presence并集/串行收据、空主会话保留闭合卡片、失败写提示、卸载后挂载保护及已接受激活迟到错误。
+原`single-chat-composer-store.test.ts`扩同卡复用、不同卡/Host/Core/私有引用隔离、Native存储拒绝与失败重试；
+这些假存储/模拟运输检查不证明真实进程重启或附件/引用隔离。最小命令为 `pnpm exec vitest run apps/desktop/src/renderer/src/canvas-composer-drafts.test.ts apps/desktop/src/renderer/src/pending-thread-draft.test.ts apps/desktop/src/renderer/src/single-chat-composer-store.test.ts`。
+`apps/web/src/editing-recovery.test.ts`既有owner扩画布公开bundle的旧标签页迁入、同编辑端归档重建、精确副本与其他Owner隔离，
+并验证私聊/证明不归档、quota失败及未知版本拒绝覆盖；命令 `pnpm exec vitest run apps/web/src/editing-recovery.test.ts`。
+这些纯/静态检查不证明实际多面板、跨客户端接管、Core未知结果、附件/quote revision或进程重启恢复已验。
+`SingleChatPanel.test.ts`既有owner扩绑定私有ID不可替代的准入，`App.test.ts`既有离开/退出owner扩画布挂载Thread。
+这些定向检查不替代真实挂载的草稿、portal、弹层、附件、流式和Runtime验证；后者随阶段候选执行。
+`canvas-member-interaction.test.ts`只拥有客户端落点/原子意图/父坐标，旧graph controller owner扩嵌套来源未知重试；
+真实成员节点挂载、触控、取消/多选/高密度网格与Host升级仍列阶段集中验证。
+
+`read_model::navigation::tests::activity_counts_complete_visible_threads_once_and_resolves_external_window_owners`新增一个最小SQLite owner，
+拥有新完整活动聚合的Run去重、camp_turn fallback、归属优先、编辑端隔离、Mission/删除与物理缺失定位；
+旧Navigation owner仅证明窗口、历史隔离和读量，不能覆盖该聚合语义。新owner不加载完整Database/Runtime；
+阶段命令`cargo test -p rovai-core --lib --features extended-tests read_model::navigation`，本切片未编译运行。
+前端控制器另测200批量、迟到/失败、Host dispose、隐藏积压与水位，App既有静态owner补徽章三态；Node原文SQL见证及这些局部检查不替代实际Host/UI。
+
+工作树NUL解析由`git::worktrees::tests::nul_records_preserve_path_characters_and_reject_incomplete_or_ambiguous_topology`
+新增纯函数owner拥有：旧Git文本读取不能处理带换行路径和bare/locked/prunable分帧，亦无等价owner。
+真实主/子worktree、子目录、失效checkout与受保护目录复用`git::tests`现有仓库fixture扩展，不新增进程测试owner。
+同一NUL owner扩展Unicode分支、游离HEAD、重复/冲突分支拒绝断言，不新增Rust测试；本次仍只格式检查，实际执行沿阶段候选。
+`navigation-project-tree.test.ts`拥有精确关系、未登记/缺失子项、无主工程独立入口、失败缓存和矛盾/循环不隐藏工程；
+既有App导航静态owner补置顶主/子工程去重与分组菜单，不能替代实际鼠标/触控、显式打开与跨Host/退出验收。
+最小命令`cargo test -p rovai-core --lib git::`按阶段候选执行；本切片未编译不计通过。Web读队列和浏览器传递
+扩展既有owner，画布前端另有受控并发/迟到/失败测试；纯Git格式见证不替代Rust或真实Host。
+
+画布目录`read_model::canvas_references`新增最小SQLite owner，拥有跨Thread keyset上界、可信编辑端pending可见性、
+Mission纳入、active成员与私有Conversation归属及只读计数。旧Navigation owner只拥有侧栏摘要/窗口，不能证明这些
+跨表目录关系；新owner只建所读列，不加载完整Database/Runtime。最低命令`cargo test -p rovai-core --lib read_model::canvas_references`，
+本轮按阶段规则尚未编译运行；独立Node SQLite只执行Rust原文SQL，不当作Rust或Host通过。既有application读取队列owner增加新操作断言。
+`canvas-reference-controller.test.ts`拥有多页上界、游标/归属拒绝、读取中失效与dispose，`canvas-reference-model.test.ts`
+拥有同成员Runtime过滤、公开/私有/Mission精确引用和显式目录关系；两者均不启动Core或模型。
+
+R09继续扩展原 `read_model::canvas_references::tests::pages_metadata_with_exact_editor_membership_and_private_identity_without_read_side_writes`
+owner，覆盖公开非终态计数、私聊精确归属、终态排除与历史task fallback，不新增Rust owner或完整数据库fixture。
+本批只执行原文SQL见证，Rust编译/执行及真实Host活动刷新留待累计候选。上述TypeScript两个owner扩展模型配置归属、
+精确工作树分支/缺字段未知、公开与私聊状态隔离及agent_run失效；原 `SingleChatPanel.test.ts` 扩展缺失附件错误指引。
+原静态面板owner显式注入内存编辑恢复，避免在无window环境中触发Native存储getter；不将该替身算作Native保存资格。
+同一画布目录Rust owner继续扩展最近运行模型的公开/私聊隔离、已结束/离队/错Thread排除、旧camp_turn归属、
+最新默认模型缺观测不回退旧值和零写入；模型解析直接复用 `message_model::project_model`，不新建解析器或测试owner。
+原 `message_model` owner拥有冻结选择/默认观测和展示选项白名单；两owner随累计候选编译执行。
+原TypeScript模型/目录owner覆盖历史优先于当前配置、精确私聊和缺字段/非法模型记录拒绝，不授予真实Core/UI资格。
+
+画布Renderer读模型由`canvas-graph-controller.test.ts`拥有订阅/读取竞争、Host/画板切换隔离、未知手势原编号与
+版本保留、提交后读取失败、冲突低版本拒绝及回查/显式重试并发；复用既有refresh coordinator，不重测其通用重试矩阵。
+这类异步客户端归属不能由Core数据库owner证明，使用受控Promise与本地fake transport，无Electron/Core/模型。
+最小命令`pnpm exec vitest run apps/desktop/src/renderer/src/canvas-graph-controller.test.ts`；
+React实际挂载、Desktop/Web业务接线和真实Core回查仍列入I03阶段候选待验。
+
+I03 Web画布操作扩展既有`apps/web/src/client.test.ts`原命令恢复owner：原消息发送与四种画布写入均需重载后只回查、
+未知时拒绝新编号、显式重试保留原参数。新增`camp-adapter.test.ts`适配器seam拥有七种画布入口，
+覆盖此前原始HTTP smoke绕过的浏览器白名单，保留原生专属操作拒绝；不重复Core节点输入矩阵。
+既有`smoke-canvas-nodes.mjs`补查实际Core未知/已有/删除后的画布收据且回查不改变序列。
+本地最低命令为`pnpm exec vitest run apps/web/src/client.test.ts apps/web/src/camp-adapter.test.ts`；
+Rust回查分支的编译与真实Host补验登记到I03阶段候选，不以浏览器fixture代替实际Core结果。
 
 技能包Context153/203迁移新增扩展owner `db::skill_pack_context::tests::migration_is_atomic_and_preserves_existing_authorities`，拥有三表约束/新默认值/收据的同事务切换、失败时恢复及既有结果和Blob保留。安装/成员owner只加自己的表，不拥有RunInput、Manifest和Run默认值，不能代替这一边界；复用既有私有SQLite模板，不启动模型。最低命令为 `cargo test -p rovai-core --features extended-tests --lib db::skill_pack_context`。实际有内容的旧/新Run恢复与输入预算由Context owner继续验证；结构通过不能替代最终Blob或真实Runtime资格。
 
@@ -1526,6 +1754,34 @@ Schema153 的数据库回归继续复用现有 owner。旧来源夹具必须在�
 断言使用当前约束原因。完整 `db::` 扩展在 Windows 为109项；Linux 多一项现有的 Unix
 目录/符号链接隔离测试，必须在 Linux 实跑，不能以 Windows 数量替代跨平台资格。
 
+## 融合期节点图测试准入（2026-10-14）
+
+画布离开事务扩展既有 `canvas-conversations-controller.test.ts` 与 `App.test.ts`，覆盖原实例保留、失败回滚、
+选择性提交、并发引用计数、迟到/销毁围栏及后续退出检查失败；没有新增 Rust owner。
+浏览器隔离 fixture 挂载生产 CanvasWorkspace/CanvasSurface/ReactFlow/ThreadWorkspace/Composer，
+核对失败导航后同一 DOM 编辑器及真实撤销、等待期间锁定、弹窗取消、切板、画板拒绝/未知回执/核对成功与空列表选择。
+这是模拟 Core 的 Renderer 证据，不能替代完整 BusinessApp、Native 退出/异常恢复或真实 Core/Runtime/platform 验收。
+
+最低成本 owner `canvas_node::tests::eight_kinds_preserve_source_geometry_text_and_reference_limits`
+拥有新增八类节点闭集、有限几何、源尺寸/网格夹值、正文与4096标量路径、200精确成员去重和未知字段拒绝；
+不建立数据库或 Runtime。旧 Board owner 仅拥有元数据，无法证明这些节点字段和变换。
+最小命令 `cargo test -p rovai-core --lib canvas_node::tests`。
+
+新增扩展 owner `canvas_node::persistence_tests::migration_and_graph_gestures_preserve_scope_atomicity_replay_and_reopen`
+复用既有私有SQLite模板，拥有153→154加表/索引/回执原子性、精确Thread/Conversation引用、
+共享Board revision、跨画板拒写、批量校验和结果失败回滚、group接纳后再删pin、detach、prune、
+生产重开、删除后的首次结果回放及独立业务数据保留。无旧owner拥有节点图或204事务，较低层纯函数不足以覆盖。
+原Board owner和历史迁移仍保留；旧来源夹具只在节点表为空时回退，禁止丢弃图数据。
+最小命令先 `cargo test -p rovai-core --features extended-tests --lib canvas_node -- --list`，
+再去掉 `--list`；完整数据库扩展和默认workspace仍按实际修改执行。
+既有数据库准入 owner 同时扩展缺失节点必需列/索引的拒绝，保留等价SQL与缺失旧回执的准入；
+不增加平行数据库fixture或删除历史断言。
+真实Host/HTTP owner 为 `tools/integration/smoke-canvas-nodes.mjs`，验证实际153→154升级、
+原Board/Thread/单聊/技能字节与首次结果、八类节点、跨画板批量操作、分组/拆出、真实重启和删除。
+最小命令 `node tools/integration/smoke-canvas-nodes.mjs <旧153Host绝对路径> <当前154Host绝对路径> <证据根绝对路径>`；
+两版Host旁均需同版CLI，使用全新原生私有根及独立Home/Skill Library/MCP，不启动模型或PTY。
+fixture不能替代UI、PTY、模型或全平台资格；免费Linux Core流程增加既有 `canvas_` 模块过滤覆盖。
+
 ## 融合期技能包进程恢复验收（2026-10-14）
 
 `tools/integration/smoke-skill-pack-recovery.mjs` 拥有真实 Host/Core 进程到受控 ACP 的运输与恢复边界，
@@ -1576,3 +1832,161 @@ Windows Server 更新交接继续扩展原 owner `handoff_requires_settlement_th
 恢复冷Host；另一个缺失Binding必须拒绝恢复。停止后核对Fleet收敛，不发送prompt、不调用Builtin CLI，
 不能将管理器重建等同完整Core进程/业务数据库重启。配置owner增加历史`agents.list`、规范ID冲突和多Agent
 拒绝，Native fixture采用带大小写的唯一原生Agent，并检查源配置字节未变，复现修复前凭空增加main/双重roster的错误。
+
+## 融合期 Native 目录准备与私有暂存预览（2026-10-16）
+
+扩展原 `private-attachment-preparation.test.ts` owner，使用隔离目录与模拟 Core 摘要验证目录类型落盘、重启只查原回执、
+摘要变化不派发及明确重试保留原参数；这里不重新实现 Core 目录摘要算法。
+扩展原 FilePreviewService 私有根 owner，真实本地 HTTP 验证附件槽内 HTML/CSS、跨窗口/卡片拒绝、隐藏路径、
+目录穿越拒绝及授权撤销后的410；Core 只使用模拟授权接口。复用 file-preview-authority、Web client 和摘要 owner，
+5个测试文件共94项通过；Windows 跳过原有冒号文件名用例，未新增跳过。
+最小命令：`pnpm exec vitest run apps/desktop/src/main/private-attachment-preparation.test.ts apps/desktop/src/main/file-preview/file-preview-service.test.ts apps/desktop/src/main/file-preview/file-preview-authority.test.ts apps/web/src/client.test.ts apps/web/src/file-digest.test.ts`。
+Core 原私聊材料 owner 增加 Native 目录观察/绑定、Web 冒用拒绝、错误总量零材料/回执和正确请求恢复断言，
+不新增 Rust 测试函数，按阶段集中规则登记未运行；旧二进制不作为本轮新代码证据。完整 Host/Native IPC、平台和产品验证仍待。
+
+## 融合期共享文件准备控制器与 Native UI（2026-10-16）
+
+新增 Renderer 最低层 `private-upload-controller.test.ts`，拥有平台能力、同位置镜像、冻结归属、未知请求禁止替换、
+重建只读查回、明确原编号重试、挂起请求独立查回、迟到错误/未知不降级、错编号/跨卡片拒绝和编辑租约隔离。
+该 owner 使用模拟平台 API，不重复实现 Core 摘要或 Native 落盘；恢复提示只做静态组件呈现检查。
+扩展原 Main 准备 owner 验证观察失败零 bind、不同字节残留不覆盖、已落盘回执离线回放与损坏回执拒绝。
+新的 not_prepared 状态只说明本次未派发，原绑定结果未知不得使用；既有准备残留测试保留原字节和 bind 次数断言。
+最小命令：`pnpm exec vitest run apps/desktop/src/renderer/src/private-upload-controller.test.ts apps/desktop/src/renderer/src/SingleChatPanel.test.ts apps/desktop/src/renderer/src/private-input-controller.test.ts apps/desktop/src/main/private-attachment-preparation.test.ts`。
+实际挂载交互、Native IPC/Host、Web重选与旧租约记录恢复继续随阶段候选验证，不新增或忽略 Rust 测试。
+
+## 融合期 Web 原上传请求与重选（2026-10-16）
+
+新增最低层 Browser 准备 owner `apps/web/src/private-upload-preparations.test.ts`，经实际 ConsoleClient/文件摘要与模拟 fetch，
+验证元数据先落盘、冻结归属、刷新只读、重选名称/大小/摘要、同编号重试、挂起查回、首次拒绝与旧未知区别、错回执、
+存储失败零上传、位置/编辑租约隔离及有界文件缓存。扩展原 Web adapter owner，只有明确能力时提供四个新接口；
+扩展原共享控制器 owner 验证重选 File 保留原目标。Native 原准备 owner 验证共享解析提取后行为未变。
+5测试文件57项通过，定向类型检查通过，不累计中间复跑数量。
+最小命令：`pnpm exec vitest run apps/web/src/private-upload-preparations.test.ts apps/web/src/client.test.ts apps/web/src/camp-adapter.test.ts apps/desktop/src/renderer/src/private-upload-controller.test.ts apps/desktop/src/main/private-attachment-preparation.test.ts`。
+原 `scripts/lib/host-web.test.mjs` 实际进程 owner 增加无认证/错编辑端、RPC拒绝、路径投影、材料移除和编辑租约取消后原回执查询；
+当前仅语法检查，未启动旧Host或把旧二进制当新入口证据。Rust入口编译与该真实HTTP owner随阶段候选执行，不新增Rust测试函数。
+
+## 融合期上传业务拒绝持久化（2026-10-16）
+
+扩展原第三个 private-composer owner，复用同一隔离数据库/文件；不新增Rust测试函数或平行数据库owner。
+比较所有编辑端的草稿、工作正文/材料/引用、scope和源观察，证明明确拒绝只增加回执，原编号回放逐值相同。
+覆盖卡片/Native默认/Web默认版本、不可用scope、跨scope租约及接管后的旧令牌；原文件/目录观察失败仍是错误且不存回执。
+临时回执触发器同时阻断已写材料的成功路径和业务拒绝路径，证明存储失败不伪装拒绝，并回滚scope/观察/材料。
+最小命令 `cargo test -p rovai-core --lib --features extended-tests single_chat_composer::tests -- --test-threads=1` 实跑3项通过；
+首跑新增夹具误用了Rust字段名working_quotes_json作为表列，已按真实quotes_json/quote_trash_json修正并完整复验，失败日志保留。
+Web/新准备/旧transport等5测试文件61项通过，派发/查回/明确重试均识别真正Core拒绝；定向types和 `cargo check -p rovai-web` 通过。
+最小Core批次因原持久结果边界阻断后续恢复接线而提前执行，合并验证此前未编译目录和上传入口，不跑全仓/Actions。
+实际 `host-web.test.mjs` 增加拒绝回执、旧reconcile、重复拒绝spool和失效租约清理断言；当前只做语法检查，实际Host与平台仍待。
+
+### 上传准备结束与只含原意图重试（2026-10-16）
+
+本批继续扩展原第三 Core owner：就绪检查零回执/零材料变动、失效版本真实拒绝、明确结束后同编号晚到绑定只回放、
+首次成功不被结束覆盖、跨编辑端冲突及公开目标拒绝。材料快照 helper 从原拒绝夹具抽出复用，不新增 Rust owner。
+按阶段集中策略，新 Rust 断言及 Core/Host 入口本批不编译运行，不能沿用上批3项或旧二进制作为新代码通过。
+Main 独立文件夹具扩无原文件的只含意图拒绝、结束前失败/丢回执及成功回放；Browser 扩无原字节/原意图冻结、
+需要重选、明确结束和未知保留；原 renderer controller owner 扩结束先查回/重复点击/未知不移除及旧租约筛选。
+HTTP 原 owner 补认证/跨编辑端/就绪回滚/真实终结/材料与spool不变，脚本只做语法检查，实际运行随阶段候选。
+
+### 默认迁入与原位置恢复 UI（2026-10-16）
+
+沿原 private-input-controller owner 扩迁入的正文锁、源/目标 revision 冻结、默认与卡片正文不移动、正文副本单独保留；
+新增 private-input-recovery-catalog 最低层 owner 负责只读合并、未登记/旧 working 正文、Host/Core 与精确存储围栏、
+不完整分页/失败保留、构造归属冻结和同位置32副本的字典读取上限。既有 SingleChatPanel/store/catalog 文案 owner 共同回归。
+浏览器使用独立端口与独立存储前缀挂载生产组件，Core/资源为模拟：迁入完整保留项、孤立原位置编辑、正文复制不覆盖、
+单次原 scope 提交、未知提交阻止关闭、只读回执结清原挂起调用；没有连接日常数据、真实 Host 或模型。
+本批不增 Rust owner、不重复运行 Cargo/Actions；实际平台/最终文件链路与24PC场景随阶段候选集中执行。
+
+
+### I03独立对象引用准入（2026-10-16）
+
+不新增 Rust 测试 owner，扩原 canvas_node 的纯类型 owner 和 extended migration/graph owner：
+旧字段省略/闭合类型、Migration207的旧图/业务/冻结行保留、回执失败回滚与伪造同名触发器拒绝，
+实际 Mission/Task 服务建立对象后的精确归属、原编号回放、跨Thread拒绝、对象卡分组拒绝、节点/引用/版本/结果同事务，
+对象及Thread失效后保留引用/可整理布局、重开与画板删除级联。旧205/206夹具沿新207恢复，不丢弃真实引用。
+这些新断言本批未编译执行，阶段候选先列出非零 owner 再运行，旧二进制不可替代新源码资格。
+原 GraphController owner 扩能力缺失拒绝和独立Diff原UUID/对象/path冻结重试；当前类型检查与低成本客户端检查独立记录。
+实际 SQLite 夹具从当前 Rust 字符串提取表/触发器/Join/列及来源判定 SQL，覆盖回滚/失效保留/权限/重开/删除；
+它不调用 Rust migration/classifier/Gateway，不能写成这些方法已通过。真实Host owner、独立卡片UI与既有工作区导航待接线和阶段验证。
+
+I03-C03 文件来源绑定继续扩原 canvas_node 纯类型 owner 与 extended migration/graph owner，不新增 Rust 测试函数。
+类型断言覆盖旧None省略、来源闭合、错误kind/空白/长度和精确原路径；原持久owner覆盖208迁移回滚/假触发器，
+带来源创建、显式旧节点绑定/重放、不能改绑/跨板、回执故障全回滚、来源失效保留与重开/删除级联。
+旧205–207夹具链先安全移除空208再逐步回退，恢复到208后继续；有真实引用时禁止降级夹具丢弃数据。
+原GraphController owner补能力准入和原文件/Thread/node/UUID/版本冻结；原Main access/authority/service owner拥有真实临时文件与symlink边界，
+Windows不能创建的冒号文件名用原平台条件跳过，不能把它计为通过。原文SQL夹具只是SQLite语句证据，
+不证明Rust分类器、Gateway或Host已运行；当前158/208新增Rust随阶段候选列出非零原owner后编译实跑。
+
+I03-C03 文件卡片新增最低层 `canvas-file.test.ts` owner，负责字面路径到既有文件请求的无损编码与拒绝，不复制文件权限实现。
+原 `file-preview-reference.test.ts` 验证编码冒号与行号区分；原窗口资源 owner 扩固定双文件展示、后台打开不改活动tab、
+来源重新核对失败不回显缓存、冷恢复只读预览、固定展示不自动读取邻居文件，以及共享HTML镜像展示上限。
+联合原GraphController、文案与Main access/authority/service共8文件：108通过、1个原Windows冒号文件名条件跳过。
+定向类型检查覆盖生产App/Canvas及新增owner。隔离Vite界面挂载真实ReactFlow、编辑器和文件读者，Core与文件API均模拟；
+17条过程记录包含发现问题、修复复测及夹具操作，不当作17项正式用例通过。早期夹具容器尺寸警告及删除选择缺陷保留记录。
+实际Core/Host/NativeIPC、完整App原工作区导航、真实HTML/权限/规模与正式324场景仍待阶段候选，不新增Rust测试或触发重型构建。
+
+### I03临时终端最低层准入（2026-10-16）
+
+新增 `canvas_terminal::state::tests` 两个纯状态 owner，拥有关闭先到/启动迟到、代次围栏和退出结果保留，
+以及原始字节跨块、游标重叠、字节/块数上限与淘汰缺口。旧canvas几何owner和AgentRun terminal结算没有交互PTY状态，不能覆盖这些失败输入。
+新增 `canvas_terminal::tests::terminal_requests_are_closed_and_keep_original_generation_and_bytes` 拥有新请求闭合、
+禁止cwd/shell/Owner等注入、规范UUID、代次/游标、尺寸和输入字节上限；它不建完整Database或启动进程。
+完整Cargo最低命令为 `cargo test -p rovai-core --lib canvas_terminal:: -- --list` 后同过滤运行，随阶段候选执行；本批该codec owner尚未编译运行。
+
+为确定下一步PTY移植所依赖的执行恢复状态，本批例外直接以rustc编译无外部依赖的生产 `canvas_terminal/state.rs` 并先列出2个非零owner后执行，
+2项通过。这仅证明该纯状态源，不代表新helper、来源目录校验或完整Core编译通过。初次默认环境缺link.exe、继而缺SDK库；
+复用已验证本机MSVC和工作区SDK链接后通过，失败日志保留，不安装或修改系统环境。
+来源谓词另外提取Rust原文SQL，在最小两表SQLite执行11项原画板/错画板/错kind/删除/参数注入与零写入见证；
+不能把该SQL见证写成Rust的真实目录canonicalize、可信Owner或Host授权通过。
+辅助进程原生启动/进程树/真实字节和终端UI的最低层进程owner在父端接线后补齐，当前未开放产品入口。
+
+父端批次新增 `canvas_terminal::manager::tests` 两个最低层owner：输入原序号/UUID/摘要冲突、pending阻断、
+64条真实缓存边界后只拒绝旧输入、停止与实际回收区分；以及真实内存管道中的分片帧、EOF半帧、超长与开放JSON拒绝。
+旧state owner只拥有进程状态与字节游标，旧codec只拥有形状，不能证明上述实际入队/不重投与异步帧边界；
+新owner不启动完整Database、Core、Shell或模型。目前两项新增manager owner及更新codec尚未执行，随阶段候选列出非零清单再运行。
+原 `managed_process::tests::cancellation_reaps_captured_detached_children_after_parent_exit` 注入Linux根停止已记录但后代仍活跃状态，
+扩展实际自有子树与无关控制进程夹具；不新增全进程owner，此Linux/macOS检查本批未编译运行。
+原state回放owner补正文淘汰仍保留through/gap，新的独立源编译本批仍2项通过，不累计前轮次数。
+Core application仅做Rust语法解析，新模块与改动进程模块做格式检查；不把这些写成Core/Host类型或执行通过。
+后续必须补真实Core/Host终端进程owner，覆盖启动/原回执、输入、resize、日志洪流、删除、Core重启和计划退出，实际操作按阶段集中规则执行。
+
+终端接口批次新增`canvas-terminal-client.test.ts`为最低层客户端owner：固定节点/代次、启动Core身份、原输入字节冻结、
+未知运输只返回一次、原回执序号、原始块/淘汰游标以及公开字段投影。原画布命令owner只拥有持久Gateway手势，
+不能代替临时PTY字节与回执；该owner只模拟request，不启动Core、Host、Shell或模型。
+原Main准入owner扩展技能包/画布/终端的显式准入，原Web adapter owner沿真实适配器检查终端5方法及技能包7方法，
+以及此前漏列的原待创建会话存在状态通知，
+原ConsoleClient恢复owner扩展丢输入回执后重新登录、零持久pending/零原输入重发，使用模拟fetch。
+原Core队列owner、原canvas快照owner及原Web投影owner只追加对应断言，不增加整库fixture；这些Rust断言随候选编译运行。
+
+终端UI新增最低层`canvas-terminal-controller.test.ts`，覆盖实际客户端控制器/字节读者/窗口缓存/键编码：
+一份在途与有界输入顺序、未知启动原请求、回执丢失只读、代次替换的迟到写、释放绘制等待、重挂与淘汰、
+已回收会话解除旧输入围栏、尺寸合并及先读后重试。旧API形状owner没有队列和绘制生命周期，不能代替此边界；
+不创建平行Core/数据库或模型fixture，不新增Rust owner。本批4个相关TS owner24项通过，不累计中途重复运行。
+生产CanvasSurface/CanvasTerminal/xterm挂在隔离Vite页，Core/PTY模拟；浏览器见证记录操作和发现/复验，不能把记录条数当正式通过数。
+旧错误残留、最小尺寸换行、fit内外padding及无障碍旧代次文本问题已修正；真实Shell/进程树、Native IPC/Host、剪贴板平台权限、
+软键盘visualViewport、多窗口与规模仍由相应阶段/平台owner实际验证，不用该夹具替代。
+
+终端真实进程场景复用`host-web.test.mjs`首个Desktop/Web共用Core生命周期owner与原数据目录，不新增整库fixture或Rust测试owner。
+辅助`canvas-terminal-process.mjs`使用绝对Node解释器运行真实PTY，隔离环境，不继承账户令牌或全局MCP；无模型请求。
+新增断言覆盖并发原启动去重、真实TTY/中文cwd、相同输入只写一次、陈旧序号/跨节点/参数注入拒绝、未认证HTTP拒绝、
+实际111×33缩放、256KiB输出洪流与128KiB/块数/单块上限、原始UTF8/控制字节、互动队列响应、node/board删除，
+自然退出码7与脱离父进程后代回收、显式stop/新代次及旧代次拒绝、计划退出、Core强退/重开不自动启动。
+回收同时核对实际Shell、helper、detached child退出与独立控制进程存活；macOS先核实私有账本实际捕获，随后重开Core恢复。
+Linux专用helper保护线程的父pidfd、启动/清空互斥和subreaper行为由这条实际Host链路验证，不用纯形状测试替代。
+阶段候选构建当前Core/Host及Web后，执行`node --test --test-name-pattern="Desktop and Web share one Core" scripts/lib/host-web.test.mjs`；
+随后原Host完整相关套件仍须回归。I03-C06 当前 Windows 候选已实际通过上述 Host/Core/helper/PTY 生命周期；
+Linux、macOS 和其他未记录的场景仍须各自验证，不能由 Windows 结果替代。
+
+`scripts/fixtures/canvas-native-input.mjs` 拥有生产 Desktop Main/preload、真实 Core 和实际 PTY 之间的原生键盘边界。
+普通控制器 mock 和 Host 管道测试不经过 Chromium 输入及 xterm 绘制，不能代替这个 owner。
+它在父执行者已经装配并隔离的候选 App 中包装原 Main，依次核对画板/节点恢复、可用按钮、原生可信键盘事件、
+Core 实际计算、终端读者可见绘制和停止后的进程回收；不模拟请求、不运行模型，也不新增 Rust owner。
+配置由 `ROVAI_C06_NATIVE_CONFIG` 指向的本次私有 JSON 提供 `source_commit`、`evidence` 和 `production_main`；
+父执行者必须先按本地隔离合同明确 App、显式 data root、Skill Library、MCP 和独立环境目录。
+父执行者必须读取 `result.json.status`，并核对组件源码和产物，不能仅以 Electron 退出码判定通过。
+Windows 当前候选已通过这四项检查，并保存实际显示 `2+3` 与 `5` 的截图；导航和按钮使用生产 DOM handler，
+键盘使用 Electron `sendInputEvent`，不据此宣称 OS 鼠标、剪贴板、IME、触控或多窗口均已通过。
+
+同候选的实际 Desktop 文件检查经过生产 preload/Main/FilePreviewService/Core 与 NTFS，覆盖中文及 `#` 文件名、
+旧代次拒绝、伪造目录 grant 拒绝、两个 Thread 的独立文件 handle、单 handle 释放和会话清理。
+既有显式具体文件访问策略保持：文件位于项目外不自动构成拒绝条件；具体文件访问不产生目录 grant。
+这部分不代替文件卡片完整交互、HTML 页面、私聊附件授权或完整冷路由/多卡规模资格。
+本批实际结果和源码/产物绑定见 `integration/execution/i03-c06-native-result.json`。

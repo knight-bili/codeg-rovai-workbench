@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T12:46:37.004336+00:00",
+  "stage": "I03",
+  "goal_status": "active",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "source": "a360635d",
+    "checkpoint": "63322669"
+  },
+  "baseline": "63322669",
+  "source_commit": "e47af765cd75ef98e390302b377de878f520ce22",
+  "compile_repair_commit": "7cea2ddb",
+  "status": "schema155_private_composer_storage_and_default_scope_fences_locally_verified_new_material_operations_pending",
+  "approved_revision": 1,
+  "confirmation_status": "confirmed",
+  "proposal_evidence": "i03-private-materials-proposal-result.json",
+  "implementation": [
+    "Schema154到155/Migration205同事务重建草稿三维主键，旧client/revision/refs/quotes/trash/时间原值留默认scope，不自动复制",
+    "新增scope注册、完整retained输入、恢复索引和八个归属约束；单Conversation编辑租约只增加scope字段，不建第二FIFO",
+    "旧get/CAS/消费/quote/资源与edit会话明确限定默认scope，同client别scope不可见token或working材料",
+    "pin/Board无级联删除；永久Conversation删除级联、结束单聊按原语义清理所有私有输入，不删源文件",
+    "旧fixture按最新迁移反向恢复空scope，禁止丢弃真实scoped输入；Current准入、两处升级链和当前合同同步"
+  ],
+  "validation": {
+    "local_rust_build": "core_lib_test_extended_passed_not_workspace_all_targets",
+    "new_and_scope_owners": {
+      "passed": 3,
+      "failed": 0,
+      "source": {
+        "log": "work\\i03\\private-scope-migration-rust-owner-final.log",
+        "passed": 3,
+        "failed": 0,
+        "ignored": 0,
+        "names": [
+          "single_chat_composer_scope::tests::scope_codec_preserves_legacy_omission_and_requires_explicit_closed_identity",
+          "single_chat_composer_scope::tests::pin_binding_requires_the_exact_live_private_reference_without_writing",
+          "db::private_composer_scope::tests::migration_preserves_default_materials_fences_scopes_and_rolls_back_receipts"
+        ],
+        "sha256": "ac51f76a41baa69947cf42a6921b761a98ac28aa4ac6984e207a04200c4a5949"
+      }
+    },
+    "related_owners": [
+      {
+        "log": "work\\i03\\private-scope-regression-canvas_node-persistence_tests.log",
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0,
+        "names": [
+          "canvas_node::persistence_tests::migration_and_graph_gestures_preserve_scope_atomicity_replay_and_reopen"
+        ],
+        "sha256": "318d44cad0849ccf31d741eedfe45a61eeed105c7772a32cf084b3958c651e8c"
+      },
+      {
+        "log": "work\\i03\\private-scope-regression-database_contract_preflight_admits_current_and_rejects_future_store.log",
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0,
+        "names": [
+          "db::tests::database_contract_preflight_admits_current_and_rejects_future_store"
+        ],
+        "sha256": "83c35319e7af489c442a53e1f2426d45378d743506ec1b817d7cd33745ec9fcd"
+      },
+      {
+        "log": "work\\i03\\private-scope-regression-db-skill_pack_context-tests.log",
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0,
+        "names": [
+          "db::skill_pack_context::tests::migration_is_atomic_and_preserves_existing_authorities"
+        ],
+        "sha256": "2ed567a62b7253fc6636c49d43f125db1bddae468322c69c2a9c55e1d36807e2"
+      },
+      {
+        "log": "work\\i03\\private-scope-regression-local_attachment_source-tests.log",
+        "passed": 3,
+        "failed": 0,
+        "ignored": 0,
+        "names": [
+          "local_attachment_source::tests::source_ref_json_is_closed_and_pathless_view_is_stable",
+          "local_attachment_source::tests::resolver_rechecks_missing_and_kind_changed_without_hashing_content",
+          "local_attachment_source::tests::resolver_returns_exact_stored_paths_for_files_and_directories"
+        ],
+        "sha256": "096d943c3f0b0a773e0b84b8547a4bf1b3769dd1d6f7dfb905b0c627763b04ce"
+      },
+      {
+        "log": "work\\i03\\private-scope-regression-message_quote-tests.log",
+        "passed": 3,
+        "failed": 0,
+        "ignored": 0,
+        "names": [
+          "message_quote::tests::camp_quote_projection_rechecks_source_visibility_for_each_agent",
+          "message_quote::tests::readable_projection_preserves_selected_text_without_markdown_wrappers",
+          "message_quote::tests::capture_fences_source_identity_and_keeps_literal_instruction_snapshots"
+        ],
+        "sha256": "26d064f6ed9f0ad853391f7e46a6aaa377eeb10cfcab4d6be78c64ace03cc50e"
+      },
+      {
+        "log": "work\\i03\\private-scope-regression-read_model-canvas_references.log",
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0,
+        "names": [
+          "read_model::canvas_references::tests::pages_metadata_with_exact_editor_membership_and_private_identity_without_read_side_writes"
+        ],
+        "sha256": "ef61007e7dc273e7605c327c540df99f686844fe4388e58dcace8cab6faaf1c3"
+      },
+      {
+        "log": "work\\i03\\private-scope-regression-single_chat-tests.log",
+        "passed": 9,
+        "failed": 0,
+        "ignored": 0,
+        "names": [
+          "single_chat::tests::single_chat_skill_filter_uses_official_bundled_source_identity",
+          "single_chat::tests::source_attachments_are_consumed_by_one_message_and_keep_their_path_for_its_run",
+          "single_chat::tests::built_in_policy_is_a_closed_allowlist_and_restart_cancels_only_the_reply",
+          "single_chat::tests::unavailable_queue_head_needs_repair_and_blocks_later_single_chat_inputs",
+          "single_chat::tests::history_reads_only_messages_before_current_input_with_exclusive_pagination",
+          "single_chat::tests::returning_pending_input_restores_private_draft_and_releases_the_next_input",
+          "single_chat::tests::send_uses_current_state_and_end_uses_exact_identity_without_fencing_a_successor",
+          "single_chat::tests::pending_input_preserves_source_refs_and_publishes_after_the_active_run",
+          "single_chat::tests::successful_final_is_private_and_a_cancelled_run_cannot_append_late_output"
+        ],
+        "sha256": "2afe493bcd4005f7dd3fdd21a0469e12cb015336b516ad5d91e5d2c7be4addb4"
+      }
+    ],
+    "unique_tests_passed": 22,
+    "failed": 0,
+    "ignored": 0,
+    "regression_source_reuse": "七个受影响旧owner通过后仅扩展同一迁移owner的回执/准入断言，其余生产文件hash未变；新增断言随最终三个scope owner复验",
+    "rollback": "injected_migration205_receipt_failure_preserves_schema154_rows_and_foreign_keys",
+    "receipt": "old_open_command_exact_result_payload_replayed_without_new_event",
+    "admission": "missing_recovery_index_or_identity_guard_rejected_and_rollback_restores_current",
+    "orphan": "deleted_pin_keeps_registered_scope_and_complete_input_across_actual_database_reopen",
+    "default_resource_isolation": "legacy_snapshot_and_attachment_locators_do_not_read_other_scope_or_edit_token",
+    "foundation": "passed_historical161_current178_schema155_no_live_host",
+    "scaffold": "passed_81_clusters_48_work_packages_324_cases_product_not_run",
+    "rustfmt": "passed",
+    "docs": "version_and_decisions_passed",
+    "actual_model_runtime": "not_run",
+    "native_host_http": "not_run_this_slice",
+    "full_workspace_and_platform": "deferred_i03_candidate",
+    "pc01_pc24": "all_not_run_complete_scenarios",
+    "formal_324": "all_not_run"
+  },
+  "policy_exception": "主键/数据迁移回滚及公共Core准入是后续材料接线的安全前提，故本地限定owner编译和必要回归，不做全仓/云端检查",
+  "retained_failures": [
+    {
+      "log": "work/i03/private-scope-migration-rustfmt-initial.log",
+      "reason": "9处新增SQL末尾被脚本错误转义，修复后格式及编译通过"
+    },
+    {
+      "log": "work/i03/private-scope-migration-rust-list.log",
+      "exit_code": 101,
+      "reason": "未加载已有MSVC子环境，cl.exe未找到；复用已安装编译器及项目隔离SDK解决"
+    },
+    {
+      "log": "work/i03/private-scope-migration-rust-list-msvc.log",
+      "exit_code": 101,
+      "reason": "新增fixture三个命令字段错误与旧画布分页usize不支持ToSql；字段修正并单独提交分页修复"
+    }
+  ],
+  "current_contract": {
+    "schema": 155,
+    "migration": 205,
+    "host": 4,
+    "version": "v1.72",
+    "current_operations": 178,
+    "historical_operations": 161
+  },
+  "guards": [
+    "single_chat_composer_scope_insert_guard",
+    "single_chat_composer_scope_identity_guard",
+    "single_chat_composer_draft_binding_insert",
+    "single_chat_composer_draft_identity_guard",
+    "single_chat_retained_input_insert_guard",
+    "single_chat_retained_input_identity_guard",
+    "single_chat_pending_edit_scope_insert",
+    "single_chat_pending_edit_scope_update"
+  ],
+  "preserved_authorities": [
+    {
+      "path": "crates/rovai-core/src/draft_client.rs",
+      "sha256": "651d61c4788d6205f11abbe5979dd21f9a08c4e3378d2cb889ee2598dac2ed1e",
+      "git_blob": "8745a0ed10f868be9f728e63f951f7142124bdce"
+    },
+    {
+      "path": "crates/rovai-core/src/command.rs",
+      "sha256": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a",
+      "git_blob": "7529d3242563423d1901001b75693c31f5f889ca"
+    },
+    {
+      "path": "crates/rovai-core/src/context.rs",
+      "sha256": "3cc5ac1391dece1cad82f5dce7397723a6c99bd04cdea562568e17040e821fd9",
+      "git_blob": "cdd9fdef5b8ab841599ffa69b9a9184c4f4dabb8"
+    },
+    {
+      "path": "crates/rovai-core/src/context_contract.rs",
+      "sha256": "d69fc337182fdab43feb84435c852ca92bf9a4ae57b9e532cb73ad350ccd736c",
+      "git_blob": "97498ae4617bf94fbce2d5a68e6c459fe0c2df90"
+    },
+    {
+      "path": "crates/rovai-web/src/operations.rs",
+      "sha256": "e7d2b203700f888676aa122c8c5cd5c5d4520ac6c92a8c83e2a5881a223c62d3",
+      "git_blob": "9bbf410f9f40e10770912ea29b72d28fd960a680"
+    },
+    {
+      "path": "apps/desktop/src/main/index.ts",
+      "sha256": "f66e4fabf3ede35912bd3c32359df6872728fbb6375f5e7e9f96410972758ac0",
+      "git_blob": "27eb525e18e151d8479bb49b05dd9731b4b1f5b9"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "sha256": "d280ca7180e6d24f52bd7fc34b9d460f005164bc471828bdc0553c445a4ce660",
+      "git_blob": "fee636a91320aec476ff10fbf959670c2a7a368e"
+    },
+    {
+      "path": "apps/web/src/camp-adapter.ts",
+      "sha256": "47a517cfa7958ac5abd62aaf6a63d078d58aa2712684a747cd07312fc91d3658",
+      "git_blob": "cc47e5c688a431a762ca0484cac0e49c872082e9"
+    }
+  ],
+  "preserved_declarations": [
+    {
+      "path": "crates/rovai-core/src/single_chat.rs",
+      "before_symbol": "pub struct SingleChatService",
+      "sha256": "bd15394edb17655fdd1a582bd50e902dcb055631b20cc9d7b00d2bcb74ce8eb7",
+      "unchanged": true
+    },
+    {
+      "path": "crates/rovai-core/src/message_quote.rs",
+      "before_symbol": "#[derive(Debug, Clone, Copy)]\npub enum QuoteStorage",
+      "sha256": "8f2cc20aad727a0baa14ea35f5235a9b59a2b2d99193bfb78b47aad3acb34c7c",
+      "unchanged": true
+    }
+  ],
+  "initial_regression_binary": "368440d2d5d66ccdb38946634203a128c3ad4a7d57bc74947b65c9464162c0a8",
+  "final_test_binary": {
+    "path": "work/integration/target/debug/deps/rovai_core-8a00e4a485931fa6.exe",
+    "sha256": "67ff7137ae0ad4f2406f4cdbb36a83540885a9fd063b280f9a1af78cf9b14653"
+  },
+  "artifacts": [
+    {
+      "path": "work\\i03\\private-scope-migration-doc-decisions.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+      "bytes": 170
+    },
+    {
+      "path": "work\\i03\\private-scope-migration-doc-version.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+      "bytes": 79
+    },
+    {
+      "path": "work\\i03\\private-scope-migration-foundation.log",
+      "sha256": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+      "bytes": 182
+    },
+    {
+      "path": "work\\i03\\private-scope-migration-rust-list-fixed.log",
+      "sha256": "30be7a193b1e2c821afd6e8958e9366f52ffc8475c442e35fa3d4f9131cb3a66",
+      "bytes": 2072
+    },
+    {
+      "path": "work\\i03\\private-scope-migration-rust-list-msvc.log",
+      "sha256": "9cc401c2082783f0d76eef530c586f24c5a993af7a209f1fb4ff2be10ebc236f",
+      "bytes": 2613
+    },
+    {
+      "path": "work\\i03\\private-scope-migration-rust-list.log",
+      "sha256": "8deaf7d67d64da3664fcb20115d5bab4eadb93b197705a4207484355dc4587f6",
+      "bytes": 5773
+    },
+    {
+      "path": "work\\i03\\private-scope-migration-rust-owner-final.log",
+      "sha256": "ac51f76a41baa69947cf42a6921b761a98ac28aa4ac6984e207a04200c4a5949",
+      "bytes": 2185
+    },
+    {
+      "path": "work\\i03\\private-scope-migration-rust-owner-first.log",
+      "sha256": "5b0afaba5bbc36bd42813a2369b4232442a551165e29695db3b2d74f07cef8a6",
+      "bytes": 2041
+    },
+    {
+      "path": "work\\i03\\private-scope-migration-rustfmt-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work\\i03\\private-scope-migration-rustfmt-initial.log",
+      "sha256": "a83b871abe3c4de419b5c1541bc94e8e434a778704dd5f1236db633ce8fb6502",
+      "bytes": 50713
+    },
+    {
+      "path": "work\\i03\\private-scope-migration-rustfmt-repair.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work\\i03\\private-scope-migration-scaffold.log",
+      "sha256": "0d99a0a2ecdf3fc1eb15061e234bd58d0d076d8839658f7bcefe94356831c553",
+      "bytes": 406
+    },
+    {
+      "path": "work\\i03\\private-scope-regression-inputs.json",
+      "sha256": "1ad7b4e3aab3b9db0ec401daf8745ad30630d989bc695cf45117b659755d9c97"
+    },
+    {
+      "path": "work\\i03\\private-scope-storage-final-doc-version.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+      "bytes": 79
+    },
+    {
+      "path": "work\\i03\\private-scope-storage-final-doc-decisions.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+      "bytes": 170
+    },
+    {
+      "path": "work\\i03\\record_private_scope_storage.py",
+      "sha256": "0e7f7677da427db0a2ee82198a1ce745635c39c460fbe207a70cab830ac792d3",
+      "bytes": 8773
+    }
+  ],
+  "push": false,
+  "actions": false,
+  "paid_models": false,
+  "daily_data_access": false,
+  "remaining": [
+    "新scope生产登记/get能力协商与recovery读取",
+    "附件/引用CAS及按scope发送消费",
+    "排队接管、整份移回/保留交换与原UUID未知恢复",
+    "I03其余/I02剩余及I04-I12/BUF完整范围"
+  ],
+  "source_files": [
+    {
+      "path": "crates/rovai-core/src/canvas_node.rs",
+      "sha256": "19521479e6feb8e5d20ea8411c7ea13b23b4ab8c18bc1b6301668c6d57251fc6",
+      "git_blob": "2dbd0ec1eeb819e9d30d9a39ca12b5bc79e7c7d5"
+    },
+    {
+      "path": "crates/rovai-core/src/db.rs",
+      "sha256": "539bf9eff6d85004f462852d4317bcfe6cd5c88c0f485dcde3656a7a3d3809c6",
+      "git_blob": "ea881a48487b11f0b99e5aba293d38102c0b4458"
+    },
+    {
+      "path": "crates/rovai-core/src/db_private_composer_scope.rs",
+      "sha256": "acc376d5fd4df8f6c141d755ea0e515398235d4545503b5827a1297d3b7b32bc",
+      "git_blob": "62db5aca02597157baddfa59e4ba37f43cb0470f"
+    },
+    {
+      "path": "crates/rovai-core/src/local_attachment_source.rs",
+      "sha256": "17df30c4343ffeb594efab34099c3645974780100229295597794aa2833867bc",
+      "git_blob": "ec0771f7557ca9e0e34417f3bcd1f5d22e7ec29f"
+    },
+    {
+      "path": "crates/rovai-core/src/message_quote.rs",
+      "sha256": "12f1d399dbdd390cccd1b4cbf1e64bfec229254bfb382d35bf10e57971ad49ab",
+      "git_blob": "04797cc96bc509464019b638ed4b56ee0d0b8684"
+    },
+    {
+      "path": "crates/rovai-core/src/read_model/canvas_references.rs",
+      "sha256": "3c4e5d7d54c6730357236b6770873b717948facf0778387663b1743ecad48b47",
+      "git_blob": "de9ab32130b73d77459c9e3fc2dc58420eb0b271"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat.rs",
+      "sha256": "13e9ea3ec784d1fab519621d32e604d11607b38e09c6b5ca1dd6f4abb7f0ee93",
+      "git_blob": "51b00be2436b40b477387642d72d7278f2ef14d1"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "0619fe55545df50ad163cc691e31825950d796ca72cec4531b43d1c0805082e2",
+      "git_blob": "474492e7e9deee364c712ff7d4f3a342ff4a540d"
+    },
+    {
+      "path": "docs/contracts/single-chat-composer-scope-v1.md",
+      "sha256": "b67da3c64f9a39470f42ac308bed7aad61f57c2479a6aee099d44bb0af05a77d",
+      "git_blob": "ff536858492b48fd68d897a4e6a910c4f747e545"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "71832d4dfb690adcf4b0426e05afaadf52a245ba41b94736a94e804d25b704dc",
+      "git_blob": "91fe477eb83bd56ad88f40b7e495ca75d82518d8"
+    },
+    {
+      "path": "docs/versions/v1.72/README.md",
+      "sha256": "e2d066ac4669807d694291251e073afb57710fb5d6d01fcdd95e23c84e8788dc",
+      "git_blob": "0db02b43ab964bc94e7ea945d403f5b6c9c4423b"
+    },
+    {
+      "path": "docs/versions/v1.72/model-context-change-canvas-private-materials.md",
+      "sha256": "a7b7fb670a8ef3907935f64f90d8024b7b24b6df2a3f9cd872c8d1765dea2dd4",
+      "git_blob": "5eb66be153e5f6c0d3d7b202805784d9e2522405"
+    },
+    {
+      "path": "integration/foundation/current-protocol.json",
+      "sha256": "ad1ca01da79172ffd58a3c239b780d1bf0c1fd4b145c75a13a2bee4edf0e51b6",
+      "git_blob": "f2ac0860d0c380d3488fd6c56e60fad6d5b42983"
+    }
+  ],
+  "model_input_changed": false,
+  "codegraph": "existing_index_missing_not_initialized_no_sync_claim"
+}

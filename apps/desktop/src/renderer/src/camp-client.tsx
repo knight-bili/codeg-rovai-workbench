@@ -24,6 +24,12 @@ export type ThreadClient = Pick<RovaiApi,
     }>
   }
   editingRecovery?: EditingRecovery
+  privateInputRecovery?: RovaiApi['privateInputRecovery']
+  retryPendingCommand?: (method: 'singleChat.composerDraft.mutate' | 'singleChat.pendingInputs.edit' | 'singleChat.send', params: unknown) => Promise<void>
+  /** Authenticated Host/Owner identity for advisory presentation preferences; never a resource grant. */
+  presentationScope?: string
+  /** Web uses a live, Core-verified editor identity instead of exposing the server data directory. */
+  canvasCoreIdentity?: () => Promise<string>
   /** Explicit resource/platform dependencies of the shared management pages. */
   exportMonitoring: (filter: import('@contracts').MonitoringFilter) => Promise<{ exported: boolean; path?: string }>
   revealMonitoringExport: RovaiApi['revealMonitoringExport'] | null

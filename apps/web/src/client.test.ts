@@ -1,11 +1,49 @@
 import { describe, expect, it, vi } from 'vitest'
-import { ConsoleClient, InvalidationDecoder, SessionRequired } from './client'
+import { ConsoleClient, InvalidationDecoder, SessionRequired, WEB_OPERATIONS } from './client'
 import { newCommandId } from '../../desktop/src/shared/command-id'
 
 // Owns browser credential routing and connection generations. Host HTTP tests
 // cannot detect a client adding cookies, following a redirect, or accepting a
 // late response from a replaced session.
 describe('console transport', () => {
+  it('scopes Web canvas state to a verified editor without exposing server directories or credentials', async () => {
+    const origin = 'http://127.0.0.1:4317'
+    const connect = async (clientId: string) => {
+      const fetcher = vi.fn<typeof fetch>(async url => String(url).endsWith('/login')
+        ? Response.json({ protocolVersion: 4, token: 'a'.repeat(64), clientId, editorProof: 'e'.repeat(64), ownerId: 'local_user' })
+        : Response.json({ result: { name: 'Rovai', version: 'test' } }))
+      const client = new ConsoleClient(origin, fetcher)
+      await client.login('c'.repeat(64))
+      return { client, fetcher }
+    }
+    const first = await connect('b'.repeat(64)), second = await connect('d'.repeat(64))
+    const scope = await first.client.canvasCoreIdentity()
+    expect(scope).toBe(`web:${first.client.editingScope}`)
+    expect(scope).not.toContain('a'.repeat(64)); expect(scope).not.toContain('e'.repeat(64))
+    await first.client.login('c'.repeat(64))
+    expect(await first.client.canvasCoreIdentity()).toBe(scope)
+    expect(await second.client.canvasCoreIdentity()).not.toBe(scope)
+    const request = first.fetcher.mock.calls.find(([url]) => String(url).endsWith('/request'))
+    expect(JSON.parse(String(request?.[1]?.body)).operation).toBe('app.info')
+    first.client.clear(); second.client.clear()
+    await expect(first.client.canvasCoreIdentity()).rejects.toBeInstanceOf(SessionRequired)
+  })
+
+  it('rejects a late canvas identity read after the same editor reauthenticates', async () => {
+    let finish: ((value: Response) => void) | undefined
+    const fetcher = vi.fn<typeof fetch>(async url => String(url).endsWith('/login')
+      ? Response.json({ protocolVersion: 4, token: 'a'.repeat(64), clientId: 'b'.repeat(64), editorProof: 'c'.repeat(64), ownerId: 'local_user' })
+      : new Promise(resolve => { finish = resolve }))
+    const client = new ConsoleClient('http://127.0.0.1:4317', fetcher)
+    await client.login('d'.repeat(64))
+    const old = client.canvasCoreIdentity()
+    await vi.waitFor(() => expect(finish).toBeTypeOf('function'))
+    await client.login('d'.repeat(64))
+    finish!(Response.json({ result: { name: 'Rovai' } }))
+    await expect(old).rejects.toMatchObject({ name: 'AbortError' })
+    client.clear()
+  })
+
   it('uses Host channel capabilities and fences a channel reply across reauthentication', async () => {
     let pending: ((value: Response) => void) | undefined
     const fetcher = vi.fn<typeof fetch>().mockImplementation(async url => {
@@ -125,24 +163,28 @@ describe('console transport', () => {
     expect(scoped.takeChanges()).toEqual([])
   })
 
-  it('retains an unknown command across reauthentication and only looks up its original receipt', async () => {
+  it.each(['thread.messages.send', 'singleChat.composerDraft.mutate'] as const)('retains unknown %s across reauthentication and only looks up its original receipt', async operation => {
     let recorded = false
-    const params = { commandId: newCommandId(), threadId: 'test', draftRevision: 4, execution: null }
+    const params = operation === 'thread.messages.send'
+      ? { commandId: newCommandId(), threadId: 'test', draftRevision: 4, execution: null }
+      : { commandId: newCommandId(), command: { threadId: 'test', conversationId: 'private', composerScope: { kind: 'canvas', boardId: 'board', nodeId: 'node' }, expectedDraftRevision: 4, action: { type: 'swap_retained', retainedInputId: 'saved', expectedRetainedRevision: 1, currentBody: '保留完整输入' } } }
+    const original = structuredClone(params)
     const result = { commandResult: { status: 'applied', payload: { threadMessageId: 'once' } } }
     const fetcher = vi.fn<typeof fetch>().mockImplementation(async (url, options) => {
       if (String(url).endsWith('/login')) return Response.json({ protocolVersion: 4, token: 'a'.repeat(64), clientId: 'd'.repeat(64), editorProof: 'e'.repeat(64), ownerId: 'local_user' })
       const body = JSON.parse(String(options?.body))
-      if (body.operation === 'thread.messages.send') throw new TypeError('connection lost after admission')
-      expect(body).toEqual({ operation: 'commands.reconcile', params: { operation: 'thread.messages.send', params } })
+      if (body.operation === operation) throw new TypeError('connection lost after admission')
+      expect(body).toEqual({ operation: 'commands.reconcile', params: { operation, params: original } })
       return Response.json({ result: recorded ? { state: 'recorded', result } : { state: 'unknown' } })
     })
     const client = new ConsoleClient('http://127.0.0.1:4317', fetcher)
     await client.login('b'.repeat(64))
     let settled = false
-    const pending = client.request('thread.messages.send', params).then(value => { settled = true; return value })
+    const pending = client.request(operation, params).then(value => { settled = true; return value })
     await vi.waitFor(() => expect(fetcher.mock.calls.length).toBeGreaterThanOrEqual(3))
     expect(settled).toBe(false)
     expect(client.pendingCommandCount).toBe(1)
+    Reflect.set(params, 'laterCallerValue', '不可污染原请求')
     const scope = client.editingScope
     client.clear()
     recorded = true
@@ -151,33 +193,127 @@ describe('console transport', () => {
     await expect(pending).resolves.toEqual(result)
     expect(client.editingScope).toBe(scope)
     expect(client.pendingCommandCount).toBe(0)
-    expect(fetcher.mock.calls.filter(([, init]) => init?.body && JSON.parse(String(init.body)).operation === 'thread.messages.send')).toHaveLength(1)
+    expect(fetcher.mock.calls.filter(([, init]) => init?.body && JSON.parse(String(init.body)).operation === operation)).toHaveLength(1)
+  })
+
+  it('keeps an unknown private card independent and settles the original promise through an explicit receipt read', async () => {
+    let recorded = false
+    const params = (nodeId: string) => ({ commandId: newCommandId(), command: { threadId: 'thread', conversationId: 'private', composerScope: { kind: 'canvas', boardId: 'board', nodeId }, expectedDraftRevision: 0, action: { type: 'register_scope' } } })
+    const first = params('A'), second = params('B')
+    const result = { status: 'applied', code: 'single_chat.composer_draft_updated', payload: {} }
+    const fetcher = vi.fn<typeof fetch>().mockImplementation(async (url, options) => {
+      if (String(url).endsWith('/login')) return Response.json({ protocolVersion: 4, token: 'a'.repeat(64), clientId: 'd'.repeat(64), editorProof: 'e'.repeat(64), ownerId: 'local_user' })
+      const body = JSON.parse(String(options?.body))
+      if (body.operation === 'commands.reconcile') return Response.json({ result: recorded ? { state: 'recorded', result } : { state: 'unknown' } })
+      if (body.params.commandId === first.commandId) throw new TypeError('A reply lost')
+      expect(body.params).toEqual(second)
+      return Response.json({ result })
+    })
+    const client = new ConsoleClient('http://localhost:4317', fetcher)
+    await client.login('b'.repeat(64))
+    const pending = client.request('singleChat.composerDraft.mutate', first)
+    await vi.waitFor(() => expect(fetcher.mock.calls.some(([, init]) => JSON.parse(String(init?.body)).operation === 'commands.reconcile')).toBe(true))
+    await expect(client.request('singleChat.composerDraft.mutate', { ...first, commandId: newCommandId() })).rejects.toThrow('同类操作')
+    await expect(client.request('singleChat.composerDraft.mutate', second)).resolves.toEqual(result)
+    recorded = true
+    await client.request('commands.reconcile', { operation: 'singleChat.composerDraft.mutate', params: first })
+    await expect(pending).resolves.toEqual(result)
+    expect(client.pendingCommandCount).toBe(0)
+    expect(fetcher.mock.calls.filter(([, init]) => { const body = JSON.parse(String(init?.body)); return body.operation === 'singleChat.composerDraft.mutate' && body.params.commandId === first.commandId })).toHaveLength(1)
+  })
+
+  it('retries only the exact original private request and resolves its retained transport promise', async () => {
+    let permit = false
+    const params = { commandId: newCommandId(), command: { threadId: 'thread', conversationId: 'private', action: { type: 'return_to_composer', targetBody: '完整当前正文', expectedDraftRevision: 1 } } }
+    const result = { status: 'applied', payload: { placement: 'retained' } }
+    const fetcher = vi.fn<typeof fetch>().mockImplementation(async (url, options) => {
+      if (String(url).endsWith('/login')) return Response.json({ protocolVersion: 4, token: 'a'.repeat(64), clientId: 'd'.repeat(64), editorProof: 'e'.repeat(64), ownerId: 'local_user' })
+      const body = JSON.parse(String(options?.body))
+      if (body.operation === 'commands.reconcile') return Response.json({ result: { state: 'unknown' } })
+      expect(body.params).toEqual(params)
+      if (!permit) throw new TypeError('lost')
+      return Response.json({ result })
+    })
+    const client = new ConsoleClient('http://localhost:4317', fetcher)
+    await client.login('b'.repeat(64))
+    const pending = client.request('singleChat.pendingInputs.edit', params)
+    await vi.waitFor(() => expect(client.pendingCommandCount).toBe(1))
+    await expect(client.retryPendingCommand('singleChat.pendingInputs.edit', { ...params, command: { ...params.command, action: { ...params.command.action, targetBody: '变更正文' } } })).rejects.toThrow('参数不一致')
+    permit = true
+    await client.retryPendingCommand('singleChat.pendingInputs.edit', params)
+    await expect(pending).resolves.toEqual(result)
+    expect(client.pendingCommandCount).toBe(0)
   })
 
   it('resumes an unknown source binding without uploading another file', async () => {
-    let bound = false
-    let intent: unknown
-    const draft = { threadId: 'test', draftId: 'test/editor', revision: 2, attachments: [{ id: 'bound' }] }
-    const fetcher = vi.fn<typeof fetch>().mockImplementation(async (url, options) => {
+    const targets: Parameters<ConsoleClient['uploadTo']>[3][] = [
+      undefined,
+      { kind: 'single_chat', conversationId: 'private', composerScope: { kind: 'canvas', boardId: 'board', nodeId: 'original-card' } },
+      { kind: 'single_chat_pending', conversationId: 'private', pendingInputId: 'pending', editToken: 'lease', composerScope: { kind: 'canvas', boardId: 'board', nodeId: 'original-card' } }
+    ]
+    for (const target of targets) {
+      const frozenTarget = structuredClone(target)
+      let bound = false
+      let intent: unknown
+      const draft = { threadId: 'test', draftId: 'test/editor', revision: 2, attachments: [{ id: 'bound' }] }
+      const fetcher = vi.fn<typeof fetch>().mockImplementation(async (url, options) => {
+        if (String(url).endsWith('/login')) return Response.json({ protocolVersion: 4, token: 'a'.repeat(64), clientId: 'd'.repeat(64), editorProof: 'e'.repeat(64), ownerId: 'local_user' })
+        if (String(url).endsWith('/uploads')) {
+          intent = JSON.parse(String((options?.body as FormData).get('intent')))
+          expect(intent).toMatchObject({ threadId: 'test', expectedRevision: 1, displayName: 'input.txt', byteSize: 5 })
+          if (frozenTarget) expect(intent).toMatchObject({ target: frozenTarget })
+          else expect(intent).not.toHaveProperty('target')
+          throw new TypeError('response lost after binding')
+        }
+        expect(String(url)).toMatch(/\/uploads\/reconcile$/)
+        expect(JSON.parse(String(options?.body))).toEqual(intent)
+        return Response.json(bound ? { draft } : { state: 'unknown' })
+      })
+      const client = new ConsoleClient('http://127.0.0.1:4317', fetcher)
+      await client.login('b'.repeat(64))
+      const pending = target
+        ? client.uploadTo('test', 1, new File(['input'], 'input.txt'), target)
+        : client.uploadFile('test', 1, new File(['input'], 'input.txt'))
+      if (target?.composerScope) target.composerScope.nodeId = 'later-card'
+      await vi.waitFor(() => expect(fetcher.mock.calls.some(([url]) => String(url).endsWith('/uploads/reconcile'))).toBe(true))
+      client.clear(); bound = true
+      await client.login('b'.repeat(64))
+      await client.reconcilePending()
+      await expect(pending).resolves.toEqual(draft)
+      expect(fetcher.mock.calls.filter(([url]) => String(url).endsWith('/uploads'))).toHaveLength(1)
+    }
+  })
+
+  it.each(['dispatch', 'reconcile', 'retry'] as const)('settles canonical upload rejection from %s while keeping the original identity', async stage => {
+    let known = stage === 'dispatch', posts = 0
+    const intents: unknown[] = []
+    const fetcher = vi.fn<typeof fetch>(async (url, options) => {
       if (String(url).endsWith('/login')) return Response.json({ protocolVersion: 4, token: 'a'.repeat(64), clientId: 'd'.repeat(64), editorProof: 'e'.repeat(64), ownerId: 'local_user' })
       if (String(url).endsWith('/uploads')) {
-        intent = JSON.parse(String((options?.body as FormData).get('intent')))
-        expect(intent).toMatchObject({ threadId: 'test', expectedRevision: 1, displayName: 'input.txt', byteSize: 5 })
-        throw new TypeError('response lost after binding')
+        posts++; intents.push(JSON.parse(String((options?.body as FormData).get('intent'))))
+        if (known) return Response.json({ error: { code: 'upload_rejected' } }, { status: 409 })
+        throw new TypeError('response lost')
       }
-      expect(String(url)).toMatch(/\/uploads\/reconcile$/)
-      expect(JSON.parse(String(options?.body))).toEqual(intent)
-      return Response.json(bound ? { draft } : { state: 'unknown' })
+      return known && stage === 'reconcile'
+        ? Response.json({ error: { code: 'upload_rejected' } }, { status: 409 })
+        : Response.json({ state: 'unknown' })
     })
-    const client = new ConsoleClient('http://127.0.0.1:4317', fetcher)
+    const client = new ConsoleClient('http://localhost:4317', fetcher)
     await client.login('b'.repeat(64))
-    const pending = client.uploadFile('test', 1, new File(['input'], 'input.txt'))
-    await vi.waitFor(() => expect(fetcher.mock.calls.some(([url]) => String(url).endsWith('/uploads/reconcile'))).toBe(true))
-    client.clear(); bound = true
-    await client.login('b'.repeat(64))
-    await client.reconcilePending()
-    await expect(pending).resolves.toEqual(draft)
-    expect(fetcher.mock.calls.filter(([url]) => String(url).endsWith('/uploads'))).toHaveLength(1)
+    const waiting = client.uploadFile('original-thread', 7, new File(['input'], 'input.txt'))
+    const settled = expect(waiting).rejects.toThrow('upload_rejected')
+    await vi.waitFor(() => expect(posts).toBe(1))
+    if (stage !== 'dispatch') {
+      expect(client.pendingCommandCount).toBe(1)
+      known = true
+      if (stage === 'reconcile') await client.reconcilePending()
+      else await client.retryPending()
+    }
+    await settled
+    expect(client.pendingCommandCount).toBe(0)
+    expect(posts).toBe(stage === 'retry' ? 2 : 1)
+    expect(intents.every(intent => JSON.stringify(intent) === JSON.stringify(intents[0]))).toBe(true)
+    client.clear()
   })
 
   it('settles a recorded quote rejection after a lost reply without dispatching it twice', async () => {
@@ -247,6 +383,33 @@ describe('tab session recovery', () => {
     return { getItem: (key: string) => values.get(key) ?? null, setItem: (key: string, value: string) => { values.set(key, value) }, removeItem: (key: string) => { values.delete(key) } }
   }
   const identity = { protocolVersion: 4, token: 'a'.repeat(64), clientId: 'b'.repeat(64), editorProof: 'c'.repeat(64), ownerId: 'local_user', channels: 'desktop' }
+  it('admits terminal transport without persisting input or replaying a lost write after reauthentication', async () => {
+    const storage = memory(), operations: string[] = []
+    const params = { target: { boardId: 'board', nodeId: 'A' }, generation: newCommandId(), inputId: newCommandId(), expectedInputSequence: 0, bytesBase64: 'dGVybWluYWwtaW5wdXQ=', commandId: newCommandId() }
+    const fetcher = vi.fn<typeof fetch>().mockImplementation(async (url, init) => {
+      if (String(url).endsWith('/login')) return Response.json(identity)
+      const body = JSON.parse(String(init?.body))
+      operations.push(body.operation)
+      if (body.operation === 'canvas.terminals.write') throw new TypeError('terminal reply lost')
+      return Response.json({ result: {} })
+    })
+    const client = new ConsoleClient('http://localhost:4317', fetcher, storage)
+    await client.login('d'.repeat(64))
+    for (const operation of ['canvas.terminals.start', 'canvas.terminals.snapshot', 'canvas.terminals.write', 'canvas.terminals.resize', 'canvas.terminals.stop'] as const) {
+      expect(WEB_OPERATIONS).toContain(operation)
+      if (operation === 'canvas.terminals.write') await expect(client.request(operation, params)).rejects.toThrow('terminal reply lost')
+      else await client.request(operation, { target: params.target })
+    }
+    expect(client.pendingCommandCount).toBe(0)
+    expect(JSON.parse(storage.getItem('rovai.web.session.v1')!).pending).toEqual([])
+    expect(storage.getItem('rovai.web.session.v1')).not.toContain(params.bytesBase64)
+    expect(storage.getItem('rovai.web.edits.v1')).toBeNull()
+    client.clear(); await client.login('d'.repeat(64))
+    await client.reconcilePending(); await client.retryPending()
+    expect(operations).toEqual(['canvas.terminals.start', 'canvas.terminals.snapshot', 'canvas.terminals.write', 'canvas.terminals.resize', 'canvas.terminals.stop'])
+    expect(client.pendingCommandCount).toBe(0)
+    client.clear()
+  })
   it('exchanges a scan ticket only in POST and retains this tab editor but never a copied editor', async () => {
     const storage = memory()
     const fetcher = vi.fn<typeof fetch>().mockImplementation(async () => Response.json(identity))
@@ -314,31 +477,38 @@ describe('tab session recovery', () => {
     }
   })
   it('restores unknown command identities and only reconciles on startup; explicit retry reuses exact payload', async () => {
-    const storage = memory()
-    let recorded = false
-    const dispatches: unknown[] = []
-    const fetcher = vi.fn<typeof fetch>().mockImplementation(async (url, options) => {
-      if (!String(url).endsWith('/request')) return Response.json(identity)
-      const request = JSON.parse(String(options?.body))
-      if (request.operation === 'commands.reconcile') return Response.json({ result: recorded ? { state: 'recorded', result: { ok: true } } : { state: 'unknown' } })
-      dispatches.push(request.params)
-      throw new TypeError('response lost')
-    })
-    const first = new ConsoleClient('http://localhost:4317', fetcher, storage)
-    await first.login('d'.repeat(64))
-    const params = { commandId: newCommandId(), threadId: 'original', draftRevision: 7 }
-    void first.request('thread.messages.send', params)
-    await vi.waitFor(() => expect(dispatches).toHaveLength(1))
-    const next = new ConsoleClient('http://localhost:4317', fetcher, storage)
-    await next.restore()
-    expect(next.pendingCommandCount).toBe(1)
-    expect(dispatches).toHaveLength(1)
-    await expect(next.request('thread.messages.send', { ...params, commandId: newCommandId() })).rejects.toThrow('原提交')
-    await next.retryPending()
-    expect(dispatches).toEqual([params, params])
-    recorded = true
-    await vi.waitFor(async () => { await next.reconcilePending(); expect(next.pendingCommandCount).toBe(0) })
-    expect(JSON.parse(storage.getItem('rovai.web.session.v1')!).pending).toEqual([])
+    for (const operation of ['thread.messages.send', 'canvas.boards.create', 'canvas.boards.update', 'canvas.boards.delete', 'canvas.nodes.apply'] as const) {
+      const storage = memory()
+      let recorded = false
+      const dispatches: unknown[] = []
+      const fetcher = vi.fn<typeof fetch>().mockImplementation(async (url, options) => {
+        if (!String(url).endsWith('/request')) return Response.json(identity)
+        const request = JSON.parse(String(options?.body))
+        if (request.operation === 'commands.reconcile') return Response.json({ result: recorded ? { state: 'recorded', result: { ok: true } } : { state: 'unknown' } })
+        dispatches.push(request.params)
+        throw new TypeError('response lost')
+      })
+      const first = new ConsoleClient('http://localhost:4317', fetcher, storage)
+      await first.login('d'.repeat(64))
+      const params = operation === 'thread.messages.send'
+        ? { commandId: newCommandId(), threadId: 'original', draftRevision: 7 }
+        : { commandId: newCommandId(), command: operation === 'canvas.boards.create' ? { name: '原画板' }
+          : operation === 'canvas.nodes.apply' ? { boardId: 'original', expectedRevision: 7, mutation: { type: 'move', moves: [{ nodeId: 'node', x: 12, y: 24 }] } }
+            : { boardId: 'original', expectedRevision: 7 } }
+      void first.request(operation, params).catch(() => undefined)
+      await vi.waitFor(() => expect(dispatches).toHaveLength(1))
+      const next = new ConsoleClient('http://localhost:4317', fetcher, storage)
+      await next.restore()
+      expect(next.pendingCommandCount).toBe(1)
+      expect(dispatches).toHaveLength(1)
+      await expect(next.request(operation, { ...params, commandId: newCommandId() })).rejects.toThrow('原提交')
+      await next.retryPending()
+      expect(dispatches).toEqual([params, params])
+      recorded = true
+      await vi.waitFor(async () => { await next.reconcilePending(); expect(next.pendingCommandCount).toBe(0) })
+      expect(JSON.parse(storage.getItem('rovai.web.session.v1')!).pending).toEqual([])
+      first.clear(); next.clear()
+    }
   })
 })
 

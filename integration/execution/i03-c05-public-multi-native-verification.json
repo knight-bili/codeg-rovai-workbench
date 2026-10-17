@@ -1,0 +1,665 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "public_multi_focus_listener_release_and_64_summary_rendering_verified_remaining_scope",
+  "candidate": "fusion-i03-rc.14",
+  "production_source": "c44638135b8e06d34456bdc50657707404a6045c",
+  "native_source": "2158df02e793fc2eb3a01297b4921de214cdbe61",
+  "product_diff_since_candidate": [],
+  "new_builds": 0,
+  "runs": [
+    {
+      "revision": "r1",
+      "status": "failed",
+      "checks": [],
+      "error": "Error: [object Object]\n    at evaluate (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-public-multi-r1.mjs:40:23)\n    at async Promise.all (index 0)\n    at async qualifyPublicMulti (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-public-multi-r1.mjs:918:15)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-public-multi-r1.mjs:105:4)",
+      "full_error_in_bound_result": true,
+      "renderer_errors": [],
+      "test_owner_revision": "bcf820d672aa8c3b6ce1bbc17ef7244f52476603",
+      "fixture_sha256": "b9ec7396976891e587f5aec99540dad922504b37f5f23210c95abd0c1a273d5d",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r2",
+      "status": "failed",
+      "checks": [],
+      "error": "AssertionError [ERR_ASSERTION]: {\"step\":\"open_0\",\"type\":\"focus\",\"baseline\":[{\"signature\":\"9:131360:20:false\",\"handler\":\"() => {\\n      if (document.visibilityState === \\\"visible\\\") void current.refresh().catch(() => void 0);\\n    }\"},{\"signature\":\"9:134664:19:false\",\"handler\":\"() => {\\n      visible();\\n      poll();\\n    }\"},{\"signature\":\"9:144659:19:false\",\"handler\":\"() => setAttentive(read2())\"},{\"signature\":\"9:143550:19:false\",\"handler\":\"() => setAttentive(read2())\"},{\"signature\":\"9:116077:20:false\",\"handler\":\"() => {\\n      if (document.visibilityState === \\\"visible\\\") invalidate();\\n    }\"},{\"signature\":\"9:166809:24:false\",\"handler\":\"() => {\\n      if (!appIsVisible()) return;\\n      void loadNavigation(\\\"foreground\\\").catch(() => void 0);\\n    }\"},{\"signature\":\"9:133327:23:false\",\"handler\":\"() => current.setVisible(document.visibilityState === \\\"visible\\\")\"},{\"signature\":\"9:132709:23:false\",\"handler\":\"() => current.setVisible(document.visibilityState === \\\"visible\\\")\"},{\"signature\":\"9:144347:25:false\",\"handler\":\"() => {\\n      if (eventTimer !== null) window.clearTimeout(eventTimer);\\n      eventTimer = window.setTimeout(() => {\\n        eventTimer = null;\\n        void pollChanges().catch(() => void 0);\\n      }, 80);\\n    }\"},{\"signature\":\"9:130630:23:false\",\"handler\":\"() => current.setVisible(document.visibilityState === \\\"visible\\\")\"}],\"current\":[{\"signature\":\"9:131360:20:false\",\"handler\":\"() => {\\n      if (document.visibilityState === \\\"visible\\\") void current.refresh().catch(() => void 0);\\n    }\"},{\"signature\":\"9:134664:19:false\",\"handler\":\"() => {\\n      visible();\\n      poll();\\n    }\"},{\"signature\":\"9:144659:19:false\",\"handler\":\"() => setAttentive(read2())\"},{\"signature\":\"9:143550:19:false\",\"handler\":\"() => setAttentive(read2())\"},{\"signature\":\"9:1160",
+      "full_error_in_bound_result": true,
+      "renderer_errors": [],
+      "test_owner_revision": "d57199697fb44431ce754a4fcce11bd6173344a9",
+      "fixture_sha256": "13f1fc603beaf21f4d2775aa9209bfda4c8f766f4e516e62855ac28e3afedaef",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r3",
+      "status": "failed",
+      "checks": [
+        {
+          "name": "real_public_mirrors_mount_one_focus_and_visibility_reader_per_thread",
+          "passed": true
+        }
+      ],
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 3\n\n    at qualifyPublicMulti (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-public-multi-r3.mjs:970:10)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-public-multi-r3.mjs:105:4)",
+      "full_error_in_bound_result": true,
+      "renderer_errors": [],
+      "test_owner_revision": "06cdd2bdaf8a1d07b1b2222c464852dac287c5db",
+      "fixture_sha256": "95fe736faee3a37fbd54d4df87f5df868aff58047049a4a5504c48ea9c9cc61d",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r4",
+      "status": "failed",
+      "checks": [
+        {
+          "name": "real_public_mirrors_mount_one_focus_and_visibility_reader_per_thread",
+          "passed": true
+        },
+        {
+          "name": "trusted_public_input_uses_three_independent_pin_drafts_across_two_real_threads",
+          "passed": true
+        },
+        {
+          "name": "native_mouse_focus_and_trusted_typing_stay_on_original_public_editor_during_other_thread_layout_roundtrip",
+          "passed": true
+        },
+        {
+          "name": "closing_public_mirrors_releases_only_last_thread_reader_and_all_owned_focus_visibility_listeners",
+          "passed": true
+        },
+        {
+          "name": "public_pin_close_reopen_recovers_each_exact_draft_without_merging_same_or_different_threads",
+          "passed": true
+        },
+        {
+          "name": "public_multi_card_input_and_navigation_do_not_publish_messages_or_start_agent_runs",
+          "passed": true
+        },
+        {
+          "name": "actual_production_board_renders_64_persisted_summary_cards_without_mounting_conversation_editors",
+          "passed": true
+        }
+      ],
+      "error": "Error: Native condition timed out: document.querySelector('.canvas-zoom-readout').textContent!==\"63%\"\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-public-multi-r4.mjs:43:163)\n    at async qualifyPublicMulti (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-public-multi-r4.mjs:1032:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-public-multi-r4.mjs:105:4)",
+      "full_error_in_bound_result": true,
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications.",
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "test_owner_revision": "f3913d93848d28b28142f1f609f39af55eac62d9",
+      "fixture_sha256": "3a4505b248972554032669e27fb145b70cbdfd0a6e8066b81e194e39fae5579f",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "revision": "r5",
+      "status": "passed",
+      "checks": [
+        {
+          "name": "real_public_mirrors_mount_one_focus_and_visibility_reader_per_thread",
+          "passed": true
+        },
+        {
+          "name": "trusted_public_input_uses_three_independent_pin_drafts_across_two_real_threads",
+          "passed": true
+        },
+        {
+          "name": "native_mouse_focus_and_trusted_typing_stay_on_original_public_editor_during_other_thread_layout_roundtrip",
+          "passed": true
+        },
+        {
+          "name": "closing_public_mirrors_releases_only_last_thread_reader_and_all_owned_focus_visibility_listeners",
+          "passed": true
+        },
+        {
+          "name": "public_pin_close_reopen_recovers_each_exact_draft_without_merging_same_or_different_threads",
+          "passed": true
+        },
+        {
+          "name": "public_multi_card_input_and_navigation_do_not_publish_messages_or_start_agent_runs",
+          "passed": true
+        },
+        {
+          "name": "actual_production_board_renders_64_persisted_summary_cards_without_mounting_conversation_editors",
+          "passed": true
+        },
+        {
+          "name": "native_wheel_pans_actual_64_card_viewport_without_mutating_or_losing_persisted_nodes",
+          "passed": true
+        }
+      ],
+      "error": null,
+      "full_error_in_bound_result": true,
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications.",
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "test_owner_revision": "70813a478e97ff2f5509103de2833997ce5c4511",
+      "fixture_sha256": "5884ef1d88190a36705ecf07ddc8e26edd026eefa381e20111391facfcf3859b",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    }
+  ],
+  "passed_counts": {
+    "new_distinct_scenarios": 8,
+    "candidate_distinct_scenarios": 52,
+    "rule": "仅累计成功运行的不同场景，不累计重试次数，不用52代替I03或MVP完成"
+  },
+  "public_context": {
+    "boardId": "fa79936a-d8e9-4877-ae8a-ba3db28a4ba5",
+    "nodeIds": [
+      "5b90d4a9-0233-42d2-b8ac-5bab013fdd98",
+      "bce0b286-d7bd-4ce0-b3ab-afa1ffcb35e8",
+      "05c0d784-77c2-4f59-9d1a-8d6097d97cca"
+    ],
+    "threads": [
+      "rvcamp_01m51k9yxpej9skre0ybc5m82g",
+      "rvcamp_01m51k9yxpej9skre0ybc5m82g",
+      "rvcamp_01m51k9yy0fzrr8zqrx3jmcs50"
+    ],
+    "texts": [
+      "公开甲卡焦点仍在甲独立输入",
+      "同Thread公开乙卡独立输入",
+      "另一Thread公开丙卡独立输入"
+    ]
+  },
+  "listener_counts": [
+    {
+      "step": "empty_board",
+      "focus": 10,
+      "visibility": 10,
+      "thread_readers": 0
+    },
+    {
+      "step": "open_0",
+      "focus": 13,
+      "visibility": 13,
+      "thread_readers": 1
+    },
+    {
+      "step": "open_1",
+      "focus": 15,
+      "visibility": 15,
+      "thread_readers": 1
+    },
+    {
+      "step": "open_2",
+      "focus": 18,
+      "visibility": 18,
+      "thread_readers": 2
+    },
+    {
+      "step": "close_mirror_keep_thread_a",
+      "focus": 16,
+      "visibility": 16,
+      "thread_readers": 2
+    },
+    {
+      "step": "close_last_thread_a",
+      "focus": 13,
+      "visibility": 13,
+      "thread_readers": 1
+    },
+    {
+      "step": "close_last_thread_b",
+      "focus": 10,
+      "visibility": 10,
+      "thread_readers": 0
+    },
+    {
+      "step": "all_reopened_cards_closed",
+      "focus": 10,
+      "visibility": 10,
+      "thread_readers": 0
+    }
+  ],
+  "listener_owner": "CanvasThreadReader.tsx:34 foreground: hidden check then refresh().catch; other per-card visibility/focus hooks remain in full snapshots",
+  "summary_context": {
+    "boardId": "03e7d1ac-355e-4632-bdcb-00e0f7ae3599",
+    "nodeIds": [
+      "3ef79b1c-05c3-483d-99cd-2ecf52585ef2",
+      "821e1b77-3634-41ef-8500-c3274f7f06ee",
+      "d93f451b-5179-4876-9b1a-051d8d6ca8b7",
+      "68b4b960-2bb2-424e-b3c7-f5707017e88c",
+      "27b86ab5-e8ec-4c41-8699-173dfc5580cf",
+      "8f9ba70b-d7b0-4e95-9fe4-833c6459d78f",
+      "fd65766e-2fe7-4943-9a76-cffaea238e96",
+      "03a00b31-8430-48d3-aa95-9a334930fb38",
+      "8525eb5a-498e-405a-8880-87bd3b963dbe",
+      "28452d8b-32bd-44a4-ae88-fb1dc34ec086",
+      "8692c9dc-a2c2-4dec-858b-718dfc2f34dc",
+      "a40b3fa1-de90-4193-94cc-11ff69712e2f",
+      "4d07a61a-a856-4c04-8b1b-fe3d705273c5",
+      "fcd887f1-ff71-4677-a31b-c51966284ca8",
+      "ef32f4a3-dd84-49ee-bd8c-0fe93ea15abb",
+      "473aa752-64c1-4b00-bad1-74a512c1c200",
+      "030174f4-c38f-435c-8e18-aa4903e53183",
+      "98883437-d125-4a9b-9524-08f8c6c20ed8",
+      "1fc16598-132c-4331-b17a-fe10e6506907",
+      "e5f6877d-4f71-4131-84b3-13e86fccaadb",
+      "3bf41a06-d401-4e7e-aafe-4cfe3bb42be4",
+      "ee0aaaad-5b12-4c34-b7ee-c5bf328ee71b",
+      "d4c331d0-0794-4885-966d-259eba8b674b",
+      "1a9c34e8-6396-4e45-a6ce-4cacd3052764",
+      "62e0b220-c34c-41c1-b27b-b2f81e697b3c",
+      "424f5d32-d637-457d-b98a-7f758314c670",
+      "ba07458c-14a1-400a-9acb-302fed8a5170",
+      "435ea9a8-1e58-4d56-8545-6c1e0f43bcdf",
+      "91192095-43f7-4ff9-ad27-f05a491aa791",
+      "88785123-bd66-4c9d-a12d-54b55bd645ef",
+      "2389aeac-176b-4570-b268-4300950cc30f",
+      "d59dbbf6-5648-47d0-84b5-ef4747f19278",
+      "094f4c84-bb73-4a57-8953-1df4b80a8b95",
+      "59619cf8-ed37-4b66-aad4-1555edad5ab0",
+      "66b39dac-c8d0-4d8f-b498-ce2da887e273",
+      "0cdede34-a00e-40fa-ba07-1d59e9a78398",
+      "b4bc34ce-76ec-44f0-8dd5-fe9ea7b99b3e",
+      "d5e72cca-59f5-4ec0-bc80-65a97fd6da7d",
+      "eb04ceef-3060-4ad2-a0d7-82c8465389b4",
+      "2e68bf26-a46a-4c0e-afd3-a79b43ae9062",
+      "beb1c857-3512-4db2-b22e-c7360c7fed31",
+      "92dc0c94-e00d-439f-8881-b74ef9d2bc2a",
+      "bc76a59e-aa5c-4595-9631-4f611f35a879",
+      "96e8381b-257c-45af-b65b-a2c0462d7bf2",
+      "01df13af-8617-4e96-8082-3aa6427ee58d",
+      "9b3278f4-9a29-4fee-a54f-6aabc7cfe925",
+      "02189ac5-1c12-41b2-8327-249e3756583c",
+      "81bbbec8-27b5-4a57-a5c4-d26844da1dbc",
+      "f7a5391a-c9ef-405b-bb06-6334239cc4a7",
+      "39d7b6ac-c1f9-4035-8b6a-2afe456803ab",
+      "9c2bef7b-429a-47c5-a0d0-40852802e579",
+      "62159f0c-5fa4-49f4-a7ac-bb01db8fa3c5",
+      "f3e610e9-2c77-4809-8261-bd3c9a56ab0a",
+      "650a9ed2-8591-4a94-84df-1129bc3f816e",
+      "dea0af57-e289-4a7d-a41d-c87a14d4fd2b",
+      "c9ed76ec-a89b-45e1-a9f0-fc899bb69644",
+      "07bd2faf-5299-4132-a9c1-0c7d47a08794",
+      "c48f1742-a1f6-440e-bddc-cfe012581d7b",
+      "2733a2d0-7ebb-4d4e-a340-e4e3a70dbbb5",
+      "928580f7-74f0-49a0-801b-708c10650140",
+      "9344ff8e-6b7d-4a9a-9230-486278dc3252",
+      "fcdc3ac9-dbf1-4f22-bbb4-344a8360032d",
+      "d6d1e182-520f-446a-b474-bdb1ec9005f5",
+      "18b79eaf-f984-43a9-9029-4a11df0d0f61"
+    ],
+    "threads": [
+      "rvcamp_01m51k9yxpej9skre0ybc5m82g",
+      "rvcamp_01m51k9yy0fzrr8zqrx3jmcs50"
+    ]
+  },
+  "summary_frame_metrics": {
+    "sample_frames": 60,
+    "median_ms": 4.200000000000728,
+    "p95_ms": 4.299999999999272,
+    "max_ms": 4.299999999999272,
+    "qualification": "真实64摘要卡静态帧间隔采样，不是64个展开工作区、终端窗口上限或全交互帧率资格"
+  },
+  "viewport": {
+    "before": {
+      "transform": "translate(91px, 81.5633px) scale(0.626531)",
+      "zoom": "63%"
+    },
+    "after": {
+      "transform": "translate(91px, 131.563px) scale(0.626531)",
+      "zoom": "63%",
+      "wheel": [
+        {
+          "trusted": true,
+          "deltaX": 0,
+          "deltaY": -100
+        }
+      ]
+    }
+  },
+  "screenshots": [
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r5/01-public-two-threads-three-cards.png",
+      "width": 2520,
+      "height": 1500,
+      "actually_viewed": true
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r5/02-real-64-summary-cards.png",
+      "width": 2520,
+      "height": 1500,
+      "actually_viewed": true
+    }
+  ],
+  "failure_analysis": {
+    "r1": "夹具只读threads.open漏传原合同必需traceId，Core拒绝；修夹具并保留结构化错误，未改产品准入",
+    "r2": "夹具把所有新增窗口监听都当成ThreadReader。实际每卡另有原可见源发布监听；修为按冻结源码foreground回调识别读者，同时保留全部监听快照及关闭后的完整签名集合相等检查",
+    "r3": "原公开Lexical保存防抖350ms/maxWait1500ms。夹具只等DOM可见就立即读取持久记录，尚无保存结果；修为等待三份实际已保存body/context而不延长/禁用产品保存策略",
+    "r4": "64卡已渲染、前七场景通过；夹具错误预期普通滚轮缩放。两份原源码均panOnScroll，r5改为可信滚轮事件与视口矩阵平移、比例不变、节点全集保持的严格断言",
+    "r5": "八场景通过，正常受控退出；所有旧失败保留，未更改产品源码、阈值或既有交互"
+  },
+  "boundaries": [
+    "实际为三个展开公开卡、两个已有Thread，以及另一块画板的64摘要卡；没有证明64展开编辑器、超过五Thread的LRU预算、HTML/终端窗口上限或全部资源句柄释放",
+    "焦点先经原生鼠标命中公开编辑器，另一Thread布局通过现有按钮click切换；全程同DOM/实际activeElement及后续可信insertText核对；不等于物理IME/全部焦点路径",
+    "公开输入检查等待原防抖保存并含正常收起重开，不代表最后字立即整App/Core硬中断恢复已验证",
+    "60个静态rAF间隔只是本次运行测量，不作全交互帧率或跨设备性能承诺；两次截图已实际查看",
+    "ResizeObserver延迟通知保留；便笺字号、双主题、完整八类/错误态、列表真实预览和计数仍按有限UI清单",
+    "ready Git Diff、PC完整矩阵、未知在途请求/整App及Core硬中断、实际大材料IO和其他适用平台仍待工程验证"
+  ],
+  "evidence": [
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/freeze.json",
+      "sha256": "b969e5a47a959932718c1c716770d43cb789385897263e01b07e8110e89b5c77"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r1/result.json",
+      "sha256": "9a9a8e79fef6bdfa17274598d765f0d8f5880acd4df0e7d0a8ed82ff073a0928"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r1-config.json",
+      "sha256": "f173b338e3ff78dcc0a74d34fd5aa11f9dcc783dfe3ffe269d65e56d00869732"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-public-multi-r1.mjs",
+      "sha256": "b9ec7396976891e587f5aec99540dad922504b37f5f23210c95abd0c1a273d5d"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/public-multi-r1-run.log",
+      "sha256": "13f7125c6405e5be15df60ac7e06f598c11b2a7f9a591fa4b12929da2258f3e9"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r1/failure.png",
+      "sha256": "fcba8369fccff402dac60d51e8777afe9f6d353979e94a6152080e306fbae134"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r2/result.json",
+      "sha256": "a348b3a119baa8f9bb266c5e0bf29a2bab0ce67e99c6bbef7e969dc17546dea8"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r2-config.json",
+      "sha256": "55038c3e59c32a1d7640e009447021b850cd9c5eece389d38ff8d88bb9bddd02"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-public-multi-r2.mjs",
+      "sha256": "13f1fc603beaf21f4d2775aa9209bfda4c8f766f4e516e62855ac28e3afedaef"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/public-multi-r2-run.log",
+      "sha256": "bdfc0fe961950faa8326cc4d503d66b428b4d33404a99ba42c5ee474b01077bb"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r2/failure.png",
+      "sha256": "1a7dd5752371cffb2ac44bcbc47a3c087dedbbe066345cd879ab51ccd3ecbdfd"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r3/result.json",
+      "sha256": "3681d13543676f16e271a2aba1ead78373b06584bd65abec4451b40e69f85f55"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r3-config.json",
+      "sha256": "9e97ef94c58077fac0b285153d0309817300ebbb0ee1ea0f6474c8bacb0e6add"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-public-multi-r3.mjs",
+      "sha256": "95fe736faee3a37fbd54d4df87f5df868aff58047049a4a5504c48ea9c9cc61d"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/public-multi-r3-run.log",
+      "sha256": "44f8edf1d2400e5e3d175d9cec5d0aed5a25d15c3be8a328b54b7da46713d7da"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r3/failure.png",
+      "sha256": "7256cb5d3981a15304c1adbbc03efe74a10e4e23f84792830c2115acd84c09b6"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r4/result.json",
+      "sha256": "392990ebf9c21972dee1e94693ed1bbc10b50b46b6c21d52fad59faabcc1ad5c"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r4-config.json",
+      "sha256": "617132cf2c9c5dc28709c2e8d8ac5d64652d48381d43b53849bf1869bf2b1b88"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-public-multi-r4.mjs",
+      "sha256": "3a4505b248972554032669e27fb145b70cbdfd0a6e8066b81e194e39fae5579f"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/public-multi-r4-run.log",
+      "sha256": "3f07212153d462af92f56ec3288818f64098f790c7e67c304107cf1480b9cae7"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r4/failure.png",
+      "sha256": "6ff9bddbaa762f1943cbf4afa7c70502f3c9d0530568bfd7b2d7b3166ab052d2"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r5/result.json",
+      "sha256": "73d081e4152264981b002f4770a7d96099565819bc8260d04e6e3bb04a855fc7"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r5-config.json",
+      "sha256": "b75d43ed47ea14a6118db1f140a0e2de30d700f6baca2624ac448fd3913c9d44"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-public-multi-r5.mjs",
+      "sha256": "5884ef1d88190a36705ecf07ddc8e26edd026eefa381e20111391facfcf3859b"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/public-multi-r5-run.log",
+      "sha256": "02ba31e4ae1ac790ad03f8746112f1f77542e6cd3d48b676311ea33535eb6111"
+    },
+    {
+      "path": "integration/execution/i03-c06-source-card-group-verification.json",
+      "sha256": "fedef8b054f58ad27920316227dc597c023047fe4b8e604f0a642fef39243e4d"
+    },
+    {
+      "path": "integration/execution/i03-c05-notes-mirrors-native-verification.json",
+      "sha256": "b36ce293f169d98b05b6d2f609ac4282e4a380e1b36ca96598a542a0b9ed3fe8"
+    },
+    {
+      "path": "integration/execution/i03-c05-renderer-crash-native-verification.json",
+      "sha256": "64e4cc48c83eabff02aa4d44f496f89b5e571e6e0ea7e77ba84c7f3bcf748b14"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r5/01-public-two-threads-three-cards.png",
+      "sha256": "97c8f1bb054718a750e4a3d0d872f043ff8a8fe2576b3fe05a2813d1ff99ac59"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-multi-r5/02-real-64-summary-cards.png",
+      "sha256": "76f0b50e8da1656015d204bda080ea1e4519f7421ad07eb501ec7b7d78ccd07f"
+    },
+    {
+      "path": "../i03/c06/attachment-view-recovery-audit.json",
+      "sha256": "921694fc4bb96b9ded7963267e4a93481ce6618d5df120312d50c6979d24ec93"
+    },
+    {
+      "path": "../i03/c06/canvas-public-multi-final-sync.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "../i03/run-c06-rc14-public-native.mjs",
+      "sha256": "7dc29101fb19d95065d80b5fe94dce97ac2856be494ef5508ddd51a0e867cf52"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasThreadReader.tsx",
+      "sha256": "fce2c05e6b3bd73636437777104bfa3d9bf43d6643230edde90a12072ad75db7"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/composer-draft-sync.ts",
+      "sha256": "3a66518b54c1b557fae2fc69f14e60eb29808fa705e0ce6c0766894cdd7e8a14"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "b39dd0bc12153de9267beeb760273d02e2416e60941ef387c0154faa5bf74125"
+    },
+    {
+      "path": "../source-reference/codeg/src/components/canvas/canvas-view.tsx",
+      "sha256": "63316282f5a2a002130cc7345e9f080783d6d858b1e785586b94c0559483a8da"
+    }
+  ],
+  "customer_action_now": null,
+  "pushes": 0,
+  "actions": 0,
+  "paid_models": 0,
+  "driver_source_snapshot": {
+    "path": "../i03/run-c06-rc14-public-native.mjs",
+    "sha256": "7dc29101fb19d95065d80b5fe94dce97ac2856be494ef5508ddd51a0e867cf52",
+    "executed_from": "../i03/run-c06-rc14-native.mjs",
+    "note": "本组实际执行的driver字节另存不可变快照；原driver精确恢复到前批绑定字节，避免追加mode破坏旧证据"
+  },
+  "public_drafts_before_focus": [
+    {
+      "key": "rovai.canvas-composer-drafts.v1:rvcamp_01m51k9yy0fzrr8zqrx3jmcs50",
+      "context": [
+        "desktop",
+        "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\formal\\Core",
+        "fa79936a-d8e9-4877-ae8a-ba3db28a4ba5",
+        "05c0d784-77c2-4f59-9d1a-8d6097d97cca",
+        "rvcamp_01m51k9yy0fzrr8zqrx3jmcs50",
+        null
+      ],
+      "draft": {
+        "body": "另一Thread公开丙卡独立输入",
+        "content": {
+          "version": 2,
+          "segments": [
+            {
+              "kind": "text",
+              "text": "另一Thread公开丙卡独立输入"
+            }
+          ]
+        },
+        "quotes": [],
+        "revision": 2,
+        "attachments": [],
+        "updatedAt": "2026-10-16T11:25:12.240Z",
+        "expiresAt": null,
+        "campId": "rvcamp_01m51k9yy0fzrr8zqrx3jmcs50",
+        "replyIntent": null,
+        "continuationIntent": null
+      }
+    },
+    {
+      "key": "rovai.canvas-composer-drafts.v1:rvcamp_01m51k9yxpej9skre0ybc5m82g",
+      "context": [
+        "desktop",
+        "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\formal\\Core",
+        "fa79936a-d8e9-4877-ae8a-ba3db28a4ba5",
+        "5b90d4a9-0233-42d2-b8ac-5bab013fdd98",
+        "rvcamp_01m51k9yxpej9skre0ybc5m82g",
+        null
+      ],
+      "draft": {
+        "body": "公开甲卡独立输入",
+        "content": {
+          "version": 2,
+          "segments": [
+            {
+              "kind": "text",
+              "text": "公开甲卡独立输入"
+            }
+          ]
+        },
+        "quotes": [],
+        "revision": 2,
+        "attachments": [],
+        "updatedAt": "2026-10-16T11:25:12.178Z",
+        "expiresAt": null,
+        "campId": "rvcamp_01m51k9yxpej9skre0ybc5m82g",
+        "replyIntent": null,
+        "continuationIntent": null
+      }
+    },
+    {
+      "key": "rovai.canvas-composer-drafts.v1:rvcamp_01m51k9yxpej9skre0ybc5m82g",
+      "context": [
+        "desktop",
+        "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\formal\\Core",
+        "fa79936a-d8e9-4877-ae8a-ba3db28a4ba5",
+        "bce0b286-d7bd-4ce0-b3ab-afa1ffcb35e8",
+        "rvcamp_01m51k9yxpej9skre0ybc5m82g",
+        null
+      ],
+      "draft": {
+        "body": "同Thread公开乙卡独立输入",
+        "content": {
+          "version": 2,
+          "segments": [
+            {
+              "kind": "text",
+              "text": "同Thread公开乙卡独立输入"
+            }
+          ]
+        },
+        "quotes": [],
+        "revision": 2,
+        "attachments": [],
+        "updatedAt": "2026-10-16T11:25:12.209Z",
+        "expiresAt": null,
+        "campId": "rvcamp_01m51k9yxpej9skre0ybc5m82g",
+        "replyIntent": null,
+        "continuationIntent": null
+      }
+    }
+  ]
+}

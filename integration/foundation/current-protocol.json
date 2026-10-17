@@ -3,7 +3,7 @@
   "purpose": "当前融合工作树接口合同；固定来源与I01旧二进制证据保持原快照",
   "hostWebProtocolVersion": 4,
   "coreDataContractVersion": "v1.72",
-  "coreProjectionSchemaVersion": 153,
+  "coreProjectionSchemaVersion": 158,
   "canonicalWebOperations": [
     "missions.workspace.cleanup",
     "missions.cleanup.list",
@@ -52,6 +52,8 @@
     "singleChat.end",
     "singleChat.pendingInputs.edit",
     "singleChat.composerDraft.removeAttachment",
+    "singleChat.composerDraft.mutate",
+    "singleChat.composerDraft.recovery",
     "skills.content.read",
     "skills.import.inspect",
     "skills.import.github.inspect",
@@ -110,6 +112,7 @@
     "members.list",
     "members.get",
     "navigation.snapshot",
+    "navigation.activity",
     "navigation.threads",
     "navigation.groupThreads",
     "threads.exists",
@@ -140,10 +143,18 @@
     "skillPacks.members.list",
     "skillPacks.members.set",
     "canvas.boards.list",
+    "canvas.references.page",
     "canvas.boards.get",
     "canvas.boards.create",
     "canvas.boards.update",
     "canvas.boards.delete",
+    "canvas.nodes.snapshot",
+    "canvas.nodes.apply",
+    "canvas.terminals.start",
+    "canvas.terminals.snapshot",
+    "canvas.terminals.write",
+    "canvas.terminals.resize",
+    "canvas.terminals.stop",
     "toolbox.read",
     "toolbox.setMembers",
     "nativeSkills.list",
@@ -170,6 +181,7 @@
     "members.runtime.set",
     "members.runtime.clear",
     "workspaces.inspect",
+    "workspaces.worktrees",
     "workspaces.validate",
     "agentRunImages.read",
     "agentRunFileChanges.get",
@@ -204,9 +216,23 @@
     "qualification": "source_in_progress_not_runtime_qualified"
   },
   "evolution": {
-    "migration": 203,
-    "sourceProjectionSchemaVersion": 152,
-    "targetProjectionSchemaVersion": 153,
-    "reason": "已确认技能包投递r1：接收队员定版、输入冻结和旧任务原字节恢复；多画板仍保留，来源基线不改写"
-  }
+    "migration": 208,
+    "sourceProjectionSchemaVersion": 157,
+    "targetProjectionSchemaVersion": 158,
+    "reason": "同步既有文件来源绑定208/158；本批仅追加terminalVersion1与5个临时终端公开动作，不新增迁移，不改Host协议4和固定来源基线"
+  },
+  "evolutionHistory": [
+    {
+      "migration": 203,
+      "sourceProjectionSchemaVersion": 152,
+      "targetProjectionSchemaVersion": 153,
+      "reason": "已确认技能包投递r1：接收队员定版、输入冻结和旧任务原字节恢复；多画板仍保留，来源基线不改写"
+    },
+    {
+      "migration": 205,
+      "sourceProjectionSchemaVersion": 154,
+      "targetProjectionSchemaVersion": 155,
+      "reason": "已确认私聊材料隔离r1：默认材料原值保留，新增每卡scope与完整保留输入存储；新材料接口尚未接通，旧模型输入及冻结证据保持"
+    }
+  ]
 }

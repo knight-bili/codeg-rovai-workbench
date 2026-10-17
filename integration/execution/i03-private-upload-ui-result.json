@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "status": "partial_engineering_verification",
+  "recorded_at": "2026-10-15T19:36:19.767541+00:00",
+  "source_binding": {
+    "base_commit": "968c849cb4f4d4823cf61a3887d9a30a4fb3cada",
+    "kind": "exact_worktree_file_hashes_before_local_commit",
+    "files": {
+      "apps/desktop/src/main/private-attachment-preparation.test.ts": "8a20fc0fb9717a20b1a8115888259514f16fe21f17bc0913d62dc78373f4008c",
+      "apps/desktop/src/main/private-attachment-preparation.ts": "6c77d1e66111c5e7020f343edf3814ecfedb9e8aa8558ee5feec159e08f50aaf",
+      "apps/desktop/src/renderer/src/PrivatePendingEditor.tsx": "b8872cec26994ac69fc640d3569e3d33868da913b9e942df3efac4483f194950",
+      "apps/desktop/src/renderer/src/PrivateUploadRecoveryPanel.tsx": "fb2d0d413a3308ae917232d0746821cd1e30f784e65a85b435a81a85d1a4c083",
+      "apps/desktop/src/renderer/src/SingleChatPanel.tsx": "8c832f5de8a61c031243838f5107dc2977b330aeedb1c6ef21a22c8b2e6b325e",
+      "apps/desktop/src/renderer/src/private-upload-controller.test.ts": "4c7d73d9fe6740d144f0296b6733d74f792b1abbe9db21cf9a335adbc27bbbe6",
+      "apps/desktop/src/renderer/src/private-upload-controller.ts": "35f7a6319dd833cffb32ece5fbc02fb88f46e751bd80e7d04890a5b6bee57f50",
+      "docs/architecture/canvas.md": "b5ad9b42b280350f7efc8075b8519b7157cb018905ac21f5b1e89a652f3c8d8c",
+      "docs/contracts/single-chat-composer-scope-v1.md": "8c15fe6e8fe0bc2d99004c8ea17dbdecccefcea65ec55ab36665b046800c4a91",
+      "docs/development/testing.md": "71d47eb06b40ca136d0a5ef12b7256ad2f802a7d8579db9bee254ea7bf33394a",
+      "docs/ui/components/conversation-workspace.md": "a60195ce25dbd53fa8e21d0a2295ac012bae9e9953131a0064d88176a417c1fd",
+      "docs/versions/v1.72/README.md": "a19742061e9e600409a6d5053ca5766389b7a896cd4a1b01fd1d3e837b8a19c8",
+      "packages/contracts/src/index.ts": "cc1e202367019189de90ad973181d32976d0eca6c92dcd210cf3cebdd9ab8069"
+    }
+  },
+  "implemented": [
+    "Shared private upload controller and recovery panel; exact platform/Thread/Conversation/scope/Pending/lease ownership and original UUID/revision",
+    "Native card and working-copy file UI wired; unknown uploads gate repeated add/send/material handoff, readonly recovery remains available",
+    "No redispatch on load, explicit retry reconciles first and reuses original request; independent lookup settles hung calls and ignores late unknown/error",
+    "not_prepared only before this binding dispatch; prior journal conflicts/transport unknown remain recoverable, byte residues are never overwritten",
+    "Validated persisted Native receipt can settle offline without Core access; damaged/mismatched receipts rejected"
+  ],
+  "validation": {
+    "distinct_typescript_tests": 51,
+    "test_files": 4,
+    "failed": 0,
+    "skipped": 0,
+    "review_followup": "Final cached-owner guard covered by the full4-owner rerun; prior8-case rerun is included in51, not added again",
+    "main_filesystem": "Real isolated temporary files; simulated Core transport",
+    "renderer": "Simulated platform API and static recovery-panel markup, not mounted browser interaction",
+    "typecheck": "Final Renderer/Main/test/contract transitive TypeScript passed",
+    "doc_version_and_decisions": "passed against968c849c",
+    "doc_policy_tests": 10,
+    "foundation_and_scaffold": "passed",
+    "core_changed_this_slice": false,
+    "inherited_directory_core_delta": "not_run;968c849c Rust directory assertions still deferred to phase candidate"
+  },
+  "self_review": [
+    "Initial fixture missed required resultEntity; added the required field, no production relaxation",
+    "Known preparation failure changed to explicit not_prepared; retained byte-residue/no-extra-bind assertions",
+    "Cached receipt implementation made old always-query assertion obsolete; replaced with no-Core-call assertion and damaged-receipt rejection",
+    "Final review blocked queue deletion/lease change while working upload unresolved; late errors cannot downgrade recovered completion",
+    "Cached owner guard revalidates requested owner before returning an existing controller; scope field order does not change identity"
+  ],
+  "remaining": [
+    "Web original-request preparation/reconcile/retry/list interface, canonical receipt transport and original-file reselection",
+    "Old Pending/lease preparation records, legacy adoption/orphan/conflict unified recovery UI",
+    "Mounted UI interactions, actual Host/Native IPC and Core directory delta compilation in phase candidate",
+    "Large materials and journal enumeration/transaction-lock scale; other I03 closeout groups",
+    "I02 remaining, I04-I12/BUF, full PC01-PC24 and formal324 qualification"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "approved_r1_files": {
+    "I03_私聊材料怎么分开用_客户确认版_r1.docx": "87565f57fa0e994f676139e3376fe14e556ac9862c08f1573798d985f4dcecf7",
+    "I03_私聊材料怎么分开用_客户确认版_r1.pdf": "4b3446c0d97f2c6b8529a206d965a60229dcc1e5966e280647856fc88576e8df"
+  },
+  "artifacts": {
+    "i03\\private-upload-ui-controller-reviewed.log": "6d6a4cc3d159cbcf9d04c979f0ca33c2a0e013842c2e26fc35604e32d13ef19e",
+    "i03\\private-upload-ui-doc-decisions.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "i03\\private-upload-ui-doc-policy.log": "eeb1d0d9c18c86a3e42c765fd79dee41385aeb25a3060e3a44dab09ffa745ccb",
+    "i03\\private-upload-ui-doc-version.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "i03\\private-upload-ui-foundation.log": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+    "i03\\private-upload-ui-owners-final.log": "7f649422f69ac1944f138cea407ddaf93c5089db4ef7993121620979a1869ffd",
+    "i03\\private-upload-ui-owners-first.log": "ca7fcb154de2d9a7842eb8c0554675040f9a8de3c5ffbbce9259193bb8f0843b",
+    "i03\\private-upload-ui-owners-fixed.log": "15bbe0c8c1e3a72cf852c644cde02f04de26108d58508f82ca6c4fd2e9cafb3e",
+    "i03\\private-upload-ui-owners-receipt-final.log": "202b7d1acfc7ea5e179a7be76282d41de68ff2c97cccbeb79d18578a19cdc1df",
+    "i03\\private-upload-ui-owners-reviewed.log": "0784de1024c596f345a051d34bf4c4cade54f7d7b674d77b5bbd27a0a066e2bb",
+    "i03\\private-upload-ui-owners-verified.log": "bc61451f54532fec18d492da9571596e56ec4a45d4c6fb95679cb07fdeb8be72",
+    "i03\\private-upload-ui-scaffold.log": "bb86cd055ea17844a8bba120a8b4227fcbc6829171898811fbfdec4efed5b6d4",
+    "i03\\private-upload-ui-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\private-upload-ui-types-first.log": "b2d13d504c701ee653dee8f807ee2d7d2add9bf934878b7e0d3afba2e8dbd5d9",
+    "i03\\private-upload-ui-types-fixed.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\private-upload-ui-types-receipt-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\private-upload-ui-types-reviewed.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\private-upload-ui-types-verified.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "boundaries": {
+    "schema": 156,
+    "last_migration": 206,
+    "host_protocol": 4,
+    "public_core_methods": 180,
+    "source_ref_model_projection_frozen_inputs_changed": false,
+    "Web_scoped_add_enabled": false,
+    "full_build_host_model_actions_push": false,
+    "customer_action_required_now": false,
+    "formal324": "not_run"
+  }
+}

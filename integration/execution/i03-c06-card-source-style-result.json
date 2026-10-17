@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "implemented_pending_batched_visual_verification",
+  "scope": "I03既有卡片的原源码样式整改；不改变Core、模型输入或已确认私聊方案",
+  "sources": {
+    "codeg": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "rovai": "cc465dda562536b94f23787759e3206324baa29e"
+  },
+  "source_mapping": "integration/inventory/canvas-ui-reference.md#各类卡片的源码对照2026-10-16",
+  "files": [
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "2691101fe32a95f3f029b48df8a112889ba614429d527d46ce40883abab79e41"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "9735a0477294caba4d7d4e86b9e95c6257121f60eebe368a37c31c64ad6041a2"
+    },
+    {
+      "path": "scripts/fixtures/canvas-native-input.mjs",
+      "sha256": "e9fc1ffc4f52fc6db3582459257e83f50e7787ca78649c514330cc3d17fd7b97"
+    }
+  ],
+  "implementation": [
+    "公开/私有/区域派生对话统一采用Codeg 224×132摘要，四行标题、类型行和真实工程目录信息；保留展开/编辑/固定/移出及键盘入口",
+    "四种区域采用半透明16px边框、40px标题、折叠胶囊、已读取数量、未完成关系和空状态",
+    "12种身份色仅淡底着色；选中/镜像采用外侧环，不改变内部盒子宽高",
+    "便笺12px边框和轻标题、文件/终端/对象图标；保留原业务工作区与输入安全操作",
+    "便笺/区域缩放下限遵循原140×96和260×160；现有文件/终端/展开会话下限不变",
+    "Native owner按可访问名称识别图标展开入口，仍兼容原文字按钮，不更改断言或旧证据"
+  ],
+  "checks": {
+    "types": {
+      "exit_code": 0,
+      "log": "../i03/canvas-card-source-types-final.log"
+    },
+    "native_owner_syntax": {
+      "exit_code": 0
+    },
+    "diff_whitespace": {
+      "exit_code": 0
+    }
+  },
+  "runtime_verification": {
+    "status": "pending_next_batch",
+    "new_native_runs": 0,
+    "desktop_builds": 0,
+    "web_builds": 0,
+    "github_actions": 0,
+    "existing_evidence": "i03-c06-private-workspace-verification.json",
+    "boundary": "rc13的25个Native断言仅证明旧生产caa03f67，不作为本次样式的运行资格"
+  },
+  "remaining": [
+    "四行长标题和按钮在真实缩放/日夜主题/小窗口下不截断或重叠，选中/镜像/拖入完整状态对照",
+    "便笺原整纸拖动和双击行内编辑尚未移植；当前可选标题、Markdown及编辑弹窗保留",
+    "终端真实控制栏、空私聊恢复入口高度与单层滚动仍待统一整理",
+    "模型名、分支、子会话数和运行脉冲无等价Core投影，不能生成假状态或宣告功能已完成"
+  ],
+  "customer_action_now": null
+}

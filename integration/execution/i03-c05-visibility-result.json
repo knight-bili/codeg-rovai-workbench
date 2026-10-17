@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C05",
+  "status": "c05_visibility_fixed_source_observation_scheduling_pending",
+  "recorded_at": "2026-10-16T03:27:45.404169+00:00",
+  "source_binding": {
+    "base_commit": "7774517e87a4aed78bc2806b37608f350a3cc319",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "apps/desktop/src/renderer/src/canvas-notification-visibility.ts": "040a1f7cee22c0bd9a08903f217eb988e34ed20f28b745f308c0ba09fe2a3b3a",
+      "apps/desktop/src/renderer/src/canvas-notification-visibility.test.ts": "644c1ad6283f4aea02a80f7af3ead36792cdff008f8c574373fc61350176ea60",
+      "docs/architecture/canvas.md": "0233d767bc71a8627cab6a7b4c5f637b479c50bcb4bdde2e1f29cf6e5361342d",
+      "docs/development/testing.md": "9683c52b0fd0c27b0a3b7932b7851f801e8c780a8f33c331ebcee5c0cb235378",
+      "integration/execution/goal-state.json": "1ca77f71f618a8034e3e64dcd907ff0d2468e8e0b7b9a04084d1f0eef3cf1104",
+      "integration/execution/i03-closeout.json": "df67865a991b71ef87b15b72ee0ad8805466834d3331286eeab3646f19d7255b"
+    }
+  },
+  "reviewed_source_binding": {
+    "apps/desktop/src/renderer/src/CanvasWorkspace.tsx": "ea936c277803d3da65e57d9ac566914bda90a0c7c268bb4e4c60ff04cf97c851",
+    "apps/desktop/src/renderer/src/CanvasSurface.tsx": "ac879fc2631802995be133cca2a0c005d9ced994683fbbf39ba8723f4059e443",
+    "apps/desktop/src/renderer/src/canvas-view-state.ts": "e175c5b7a711fb3437c105d31a1392c453e9994923256bc026b738f7ed99bab0",
+    "apps/desktop/src/renderer/src/canvas-conversations-controller.ts": "0a2a9f0f88fe7f430f023041ce64404ae322a8702f348a668dbc31c59b469b1b",
+    "apps/desktop/src/renderer/src/canvas-conversation-recovery.ts": "d1615ee00b16d389591f5d7b954a3b6a31639376cd2adee384354957587de304",
+    "apps/desktop/src/renderer/src/BusinessApp.tsx": "06dcbbb323704f6bdf74246b2d96e238870ed80e053173f716375f07994330b2",
+    "apps/desktop/src/renderer/src/CanvasThreadReader.tsx": "fce2c05e6b3bd73636437777104bfa3d9bf43d6643230edde90a12072ad75db7",
+    "apps/desktop/src/renderer/src/thread-projection-store.ts": "6cb15336b6b683ddf7650b8c35326641a0ed415e64d5476daa8753f18954b1dd",
+    "apps/desktop/src/renderer/src/canvas-terminal-sessions.ts": "1c5e6732f745770610fc7cd9e3713378e7a7ad098774cb885b8b7c62121ae738",
+    "crates/rovai-core/src/private_source_observation.rs": "ebb690e5d96560399f83dd9c81b6e3cc946ff2a09ccd56cb9446c9654cf9e526",
+    "crates/rovai-core/src/local_attachment_snapshot.rs": "77141c47a8e9e466cffc0627c1be2e3c035ac06051e5026077f3a6681591ee1c",
+    "crates/rovai-core/src/single_chat.rs": "a674f9e3e4c383cf031f67c89d56b4941cb61e30e66bd67dfa6b6599fd0efda1",
+    "crates/rovai-core/src/single_chat_composer.rs": "d40d86f063828cc1bced4d90ff98cf6b8e0c84728148ceada5134e143d3c9fec",
+    "crates/rovai-core/src/web_upload.rs": "7266c11c9a4cf610649c46676320f1629a548a8567e3c5bdba4b8ad0d17b239f",
+    "docs/contracts/single-chat-composer-scope-v1.md": "cdc8f6a8d6f1fc09028085040fdfd8d418f6b19be1a7b0b7dff01e41e78d6118"
+  },
+  "artifact_binding": {
+    "work/i03/record-c05-visibility.py": "7a5283dcd47cde3c082657de6e51b7c35b48918960009913a186a84e0f91fdc7",
+    "work/i03/canvas-c05-typecheck.json": "c07f0d750b3e86be03462087bdb1d248d2051e581a4fa3de8877b15a131ed1bb",
+    "work/i03/canvas-c05-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/canvas-c05-visibility-tests-before.log": "38ecc9ea5270fe89ab2aa88059516cb94988ceeae5f2d3a20a2427cb81b4cd73",
+    "work/i03/canvas-c05-visibility-tests-after.log": "46601fab7c68066d0ddd38d9584cffaee8434e89a648191aaade3b9c52fd0f0f",
+    "work/i03/canvas-c05-visibility-tests-final.log": "cedca55783a8017dd3fba72edc143f54629e9d384c8295769c0a49c2e9100649",
+    "work/i03/canvas-c05-docs-final.log": "6eb03e1b66af4f3a2ae337d42e11ddb5a595f11fc6e89cd079e7d49f34c7f9e8"
+  },
+  "frozen_authority_files": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "implemented": [
+    "Clip visible notification sources to both layout and visual viewport CSS bounds, without multiplying by pinch scale",
+    "Visual viewport resize/scroll and window resize trigger existing recomputation; cleanup releases captured observer/listener owners",
+    "Enumerate mounted frames once for each dispatch; preserve existing first matching frame semantics and original reports"
+  ],
+  "verified": {
+    "vitest": {
+      "files": 4,
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "scope": "existing notification visibility/view/recovery/terminal controller owners; mocked DOM/Core"
+    },
+    "red_before": {
+      "files": 1,
+      "failed": 3,
+      "passed": 6,
+      "exit_code": 1,
+      "purpose": "reproduces missing viewport clipping, event recomputation and repeated enumeration"
+    },
+    "intermediate": {
+      "files": 1,
+      "failed": 1,
+      "passed": 8,
+      "reason": "capture cleanup expressed as explicit matching options object for EventTarget compatibility"
+    },
+    "types": {
+      "exit_code": 0,
+      "session_id": 21635,
+      "config": "work/i03/canvas-c05-typecheck.json"
+    },
+    "scale_logic": {
+      "frames": 64,
+      "visible": 32,
+      "covered": 32,
+      "whole_document_frame_enumerations_before": 64,
+      "whole_document_frame_enumerations_after": 1,
+      "real_dom": false,
+      "fps_measured": false
+    },
+    "docs": {
+      "exit_code": 0,
+      "diff_base": "7774517e87a4aed78bc2806b37608f350a3cc319",
+      "version": "v1.72"
+    }
+  },
+  "audit_findings": [
+    "CanvasSurface keys client/Core/board presentation and restores only after a valid graph; existing recovery keeps real pin/Thread/Conversation identity",
+    "BusinessApp mounts one CanvasThreadReader per unique Thread; ThreadProjectionStore retains active leases and evicts beyond5 idle",
+    "Terminal window cache is64 and only evicts idle resolved owners; real HTML/reader/cache scale remains pending",
+    "private_source_observation capture_sources/capture_upload/changed_source observe content synchronously from Gateway transactions; source digest/tree walk does not prove latency bounds"
+  ],
+  "required_remaining": [
+    "私聊源内容观察的锁外调度与事务内身份/CAS复核；沿原测试owner追加对应覆盖，保持r1输入语义"
+  ],
+  "not_run": [
+    "actual App cold routes/focus/crash recovery",
+    "actual Core/Host/native IPC or model",
+    "actual multi-card DOM/frame rate and source IO/transaction latency",
+    "real mobile keyboard/pinch/IME or native platform qualification",
+    "full PC01-PC24 and324 engineering scenes"
+  ],
+  "formal_I03_case_ids": [
+    "C12-N",
+    "C12-F",
+    "C12-R",
+    "C12-P",
+    "C13-N",
+    "C13-F",
+    "C13-R",
+    "C13-P",
+    "C14-N",
+    "C14-F",
+    "C14-R",
+    "C14-P"
+  ],
+  "formal_I03_status": "not_run",
+  "guardrails": {
+    "push": false,
+    "actions": false,
+    "full_build": false,
+    "paid_models": false,
+    "real_user_data_or_credentials": false,
+    "old_binary_used": false,
+    "model_input_change": false,
+    "new_rust_owner": false,
+    "customer_action_required_now": false
+  },
+  "next": "完成I03-C05最后一组代码：将私聊源内容观察与数据库事务/交互队列隔离，保留r1的原来源/内容/身份/缺失观察/旧UUID回放和完整输入拒绝规则；扩原owner，不借减小材料范围或只查mtime跳过内容校验。之后冻结C06候选集中构建与真实链路验证。"
+}

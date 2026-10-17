@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "status": "native_material_subflows_passed_renderer_file_entries_pending_batch",
+  "recorded_at": "2026-10-16T07:02:51.769111+00:00",
+  "source_binding": {
+    "base_commit": "c034b185344fb765f6adee71a7dab34fee812a38",
+    "files": {
+      "scripts/fixtures/canvas-native-input.mjs": "99fbb09aae2a9bceeb29c1adc2ccc1a2cab39684534749a99ca41b36bbe0903c",
+      "apps/desktop/src/renderer/src/SingleChatPanel.tsx": "b313b9118a853f5672f58d8325c181572419f61ed2186e65bd6421d7d50bb538",
+      "apps/desktop/src/renderer/src/PrivatePendingEditor.tsx": "a35dc7fff388dd561d12223290d215cdf3c5f64a313d0768989aa272169e50b9",
+      "apps/desktop/src/renderer/src/PrivateInputRecoveryPanel.tsx": "da032f55ff5efe155fd5cc4c7606f0a7931d90962ababce7cea73cf104834f5c",
+      "apps/desktop/src/renderer/src/styles.css": "7e202a5984f5a907396ada419a486bcaa3a1c71ea2f20e0de41932f3a85ab36f",
+      "integration/execution/goal-state.json": "c1f00c515e5272940af54b461c19c86b0767a76fe39e0e954ff2e32a010a6081",
+      "integration/execution/i03-closeout.json": "30149842a582cf6560cb7462d967116f5d79d5eaf0af05d0ea0a86cf16fe0a04",
+      "integration/planning/stage-versions.json": "92ee6d68d7c0f5fedf69a60ae9437e8cb0c2c978aca7f1a1c7e0977ec80b7c19",
+      "integration/execution/i03-private-materials-runtime-matrix.json": "efc14c8a0dd1d62c9cbc625d7d179a35f3d44bebf15b3859119120ed95c92364"
+    }
+  },
+  "artifact_binding": {
+    "work/i03/c06/attachment-view-recovery-audit.json": "921694fc4bb96b9ded7963267e4a93481ce6618d5df120312d50c6979d24ec93",
+    "work/i03/c06/private-scope-readonly-audit.json": "502f60febb7deb168d33d037747fff8e01353769d653bd6165ddceed15cc9b71",
+    "work/i03/c06-private-files-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/c06-private-files-tests.log": "df9e48fc99faff0f0e7b120cfe9d55053387c6f0279083310d7cc71753ba3e63",
+    "work/i03/run-c06-private-materials.mjs": "02e94c8618b401c6126218906ded2640ecc85015b1949e001d735ddc4772f91e",
+    "work/i03/run-c06-private-materials-reopen.mjs": "2f796175179a07f1f76ec0523ce710021b83191e9d95b15bb4d2a478f6107637",
+    "work/i03/c06/fusion-i03-rc.8/native-private-materials-r1-config.json": "ccb28dd852d60ae544d6e9e0ef991c675adf1eb0d1695c94fd8b492196fbb153",
+    "work/integration/integration/local/i03-c06-rc8/app/c06-native-private-materials-r1.mjs": "10274e4525ebd2816612cd7b273ceacc3189e3c73f11fec572e7cfb690da7a06",
+    "work/i03/c06/fusion-i03-rc.8/native-private-materials-r1/result.json": "aaf737b7900f3a7143203144f9ef80ba9a23ea6f2a648511a9fb3fdcb7eec0a7",
+    "work/i03/c06-private-materials-r1.log": "2763f749f40a123b659423fb9cb620c4fd952e08a43203aa7acb71ac9fd0abdd",
+    "work/i03/c06/fusion-i03-rc.8/native-private-materials-reopen-r1-config.json": "3095a314e2ab382f02c418861931e01193d0213f6e4ed1bdd0183a2f03ba3489",
+    "work/integration/integration/local/i03-c06-rc8/app/c06-native-private-materials-reopen-r1.mjs": "99fbb09aae2a9bceeb29c1adc2ccc1a2cab39684534749a99ca41b36bbe0903c",
+    "work/i03/c06/fusion-i03-rc.8/native-private-materials-reopen-r1/result.json": "f8616b49e8b210574b564021c4c93c43598cc71130805455c68d0f84a80dccee",
+    "work/i03/c06-private-materials-reopen-r1.log": "cb9c21091504552028185ad299260f870ec184a0f1c912dc4fa07e2b8a3deb6f"
+  },
+  "frozen_authority_files": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "validation": {
+    "native_main_desktop_source": "72048c73f9736a85ee1550cdc12dd1e3b45b6c79",
+    "core_source": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+    "native_material_checks": 8,
+    "native_cold_file_checks": 5,
+    "related_tests_passed": 56,
+    "types_exit": 0,
+    "types_session": 63502,
+    "new_renderer_ui": "not_built_or_run",
+    "model_calls": 0
+  },
+  "implemented": [
+    "三位置复用既有AttachmentCard及精确locator，scope/retained/token不相互替代",
+    "保留普通默认附件入口与移除动作；忙碌/恢复时禁用，清理替换后孤儿样式",
+    "复用既存Native owner，不新增Rust owner或编译Core/Desktop/Web"
+  ],
+  "limits": [
+    "未把13项检查当作PC01-PC24或324场景通过",
+    "排队有效token、引用、最终发送/FIFO、真正丢失回执界面和实际Runtime/模型输入仍待矩阵补证",
+    "两旧测试Thread历史空视图恢复已核；不外推所有历史附件恢复",
+    "当前运行产物为rc.8，三位置UI只是当前源码完成，须下一集中候选实际验证"
+  ],
+  "next": "推进C02真实Mission/Task/Diff与文件工作区定位、C05冷恢复和画布顶层工具条；本轮新附件UI与后续整改集齐后统一候选验证，不为这三个入口立即重编/推送。PC01-PC24按矩阵逐项补证，实际Runtime输入证据等待专用身份和预算。",
+  "paid_models": false,
+  "push": false,
+  "actions": false,
+  "customer_stage_gate": false
+}

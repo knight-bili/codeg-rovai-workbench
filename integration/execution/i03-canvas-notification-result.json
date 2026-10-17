@@ -1,0 +1,1561 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T09:33:44.892Z",
+  "stage": "I03",
+  "source_commit": "3aae43b99074b8c0e5798776e039d2b4e6d7c2f6",
+  "source_commits": [
+    "f400a48fee1cc3b1cd9d6adb75eea1c13edada3b",
+    "3aae43b99074b8c0e5798776e039d2b4e6d7c2f6"
+  ],
+  "goal_status": "active",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "source": "e7dd04495eb5b5e743bf4e4151a036c0e9370e23",
+    "checkpoint": "2f28ceccffe9500d78d895c73d9f3ce303e3bca6"
+  },
+  "status": "multi_card_visible_notification_union_and_per_Thread_exact_ack_wired_mock_UI_verified_existing_settings_focus_failure_pending",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "7fd633339fdaf8acefe3a61ccf6f7b16587a13cdbbdcf8e306f1653692685836",
+      "git_blob": "1c6a2f11b6c3d8086f7f3e0b6690d245449afacb"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasConversationFrame.tsx",
+      "sha256": "ac20a8977472cb3e82ee80b6568ebc61440e43362e2d97f324b695683c21638a",
+      "git_blob": "0bb07d6aec3eddb466392ce95284d045f81ed14e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasThreadWorkspace.tsx",
+      "sha256": "854eff417c46e9e6c00a5e7015ec713cc43c65b7636ef4c65cb87e8da5349e35",
+      "git_blob": "0d351d768087396fa82f5a9c43ad8113435ca8dc"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/NotificationAttentionController.test.ts",
+      "sha256": "d254a88d55c22509e1033919bc530c3024c31bfb6c425ef38e623f0e7b66f180",
+      "git_blob": "9c99d57700aa49f5e2b6837d9573a9ca2310b032"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/NotificationAttentionController.tsx",
+      "sha256": "5ae23c92c442c142bd4e0514bfe422b6ce18b0ee3f2360b28253e5e68f66a72b",
+      "git_blob": "c36ce59effdd63a6a32601187c89ff1b0765cffa"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "sha256": "d280ca7180e6d24f52bd7fc34b9d460f005164bc471828bdc0553c445a4ce660",
+      "git_blob": "fee636a91320aec476ff10fbf959670c2a7a368e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+      "sha256": "5f3bb195c08c90d6ab8d48791a2e2f9973ddb6ffa4cb5a669518bc17afbab9a1",
+      "git_blob": "e10be827a8f05cbb4c84f127fd3660dcae10ab90"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-notification-visibility.test.ts",
+      "sha256": "31cc43c01366a273083a2d6e5fcf90d2f1437c4aa3606fc6ef6f7ea237968fc8",
+      "git_blob": "705b27a4611de57ed768b653308e7ef20c7db73f"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-notification-visibility.ts",
+      "sha256": "f906c785b6d379537b6df28eda5d90a3e188c0e35a7bce049f8a04b4f0d488fe",
+      "git_blob": "49dec07a77f410e8bc495297df6086fb905f9b82"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "e18778334b5556bc2b24a47cbff9dfc8cc933908af27d338eaaf141f2bff2d74",
+      "git_blob": "d3a900b1b9e1f9c1c67a89ad2783b7b187cfb17f"
+    },
+    {
+      "path": "docs/architecture/notification-episodes.md",
+      "sha256": "92bdc1277d9659e4fb906e72ffcb5fccb7e04dd28f53db2911956e59f7631953",
+      "git_blob": "c25818d7f4f597fc5ae06108763683ad69d48997"
+    },
+    {
+      "path": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "3ce66fc499c4e48fb86c25387dcee757f46fb5bce76b6ed5464a7ce8a336b79f",
+      "git_blob": "8edbb789206f15cac648e4bda02ae0460c1e77fb"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "cc40ed7db4088e572447f5d09bf86426836c826283caac559b7cb4949d2cbe7c",
+      "git_blob": "fd4bd0dddbf7e78927f08040b2fa8089131f5360"
+    }
+  ],
+  "implementation": [
+    "实际CanvasThreadWorkspace已注册每实例public/private报告，Root按client独立registry并受当前画布/前台模态条件限制，接同一个NotificationAttentionController。关闭只删除自己的租约；旧挂载清理/迟到报告和跨Thread报告拒绝。",
+    "同Thread精确来源并集去重，不同Thread各自固定命令、在途Set与退避timer，保留原ack helper/UUID/冻结参数和Core Journal边界；一个Thread未知不拖住另一个。",
+    "画布消息/执行/审批和私有面板观察补窗口/祖先裁剪与DOM命中检查，变换/层叠/滚动/大小/焦点变化重观察；屏幕外、弹窗/别卡遮挡、已收起不以挂载代替已读证据。主会话原观察路径保留。",
+    "多个实际可见卡片Thread构成临时quiet范围，静默不确认事实；公私来源精确Conversation保留，Core继续核对消息/Turn/Run/Approval和观察边界，不以Mission/Task可见清除其业务通知。",
+    "client身份变化重建Attention Controller与通知游标/命令状态，旧读取/导航迟到回调围栏；不是第二通知/执行权威。",
+    "确认RPC发出前再次检验窗口注意力、当前实例DOM与确切来源命中，只从已报告来源减除，不增新ID或提高Journal边界。相同事件内旧报告3可见/即时检查0可见时，无新增确认请求。"
+  ],
+  "validation": {
+    "unit_owner_files": 7,
+    "unit_checks_passed": 245,
+    "unit_checks_failed": 0,
+    "targeted_types": "passed_including_new_tests",
+    "copy": "zero_duplicates_zero_missing_literals",
+    "docs_version": "v1.72_passed",
+    "docs_governance": "passed_with_baseline",
+    "docs_policy_tests": 10,
+    "diff_check": "passed",
+    "source_preservation": {
+      "baseline": "2f28ceccffe9500d78d895c73d9f3ce303e3bca6",
+      "verified_at": "2026-10-15T09:31:57.283Z",
+      "unchanged_files": [
+        {
+          "path": "thread-workspace-actions.ts",
+          "sha256": "55c2cfac97077cda3a1e117a8d0a0858a460fb46d6206616fa1dad782294c00b"
+        },
+        {
+          "path": "thread-commands.ts",
+          "sha256": "9d11152a14b5b091d77d9bbabb0048c71469dc9545c018ba216c89378cebe2ae"
+        },
+        {
+          "path": "thread-workspace-data.ts",
+          "sha256": "301d8c422a3656d065ca762735d8685d6ce8b5622d4b4a26cc5a083fd22318e3"
+        },
+        {
+          "path": "thread-run-cancellation.ts",
+          "sha256": "7ee3c45be85e19f035942c29d9083da1b0967edc66a417fdb646cd0d14c46b08"
+        },
+        {
+          "path": "thread-projection-events.ts",
+          "sha256": "c9857f3726e5cd9d272b53e5c0570fcd546b908cf0cce5074dbf6748a50356db"
+        }
+      ],
+      "private_send_and_pending_edit_expressions_unchanged": 3,
+      "visible_ack_wire_intent_helper_unchanged_sha256": "c0202ad62feaadb9161049aaaa505918fd34d93e4d304c885271d8361fdc0d7c",
+      "browser_checks": [
+        "parallel_Thread_dispatch",
+        "per_card_lease_close",
+        "all_closed_Thread_excluded",
+        "uncertain_UUID_and_frozen_payload_reused",
+        "offscreen_excluded",
+        "occluded_Thread_excluded",
+        "dialog_covered_excluded",
+        "reappearance_acknowledges_exact_current_sources",
+        "final_guard_render_smoke"
+      ],
+      "dispatch_time_validation_passed": true
+    },
+    "browser": {
+      "scope": "production_card_and_attention_controller_mock_Core_transport",
+      "observations": [
+        {
+          "step": "initial_A_held_B_dispatched",
+          "sources": [
+            {
+              "threadId": "a",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "surfaceVisible": true,
+              "snapshotSequence": 10,
+              "messageIds": [
+                "message-a-0"
+              ],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "surfaceVisible": true,
+              "snapshotSequence": 10,
+              "messageIds": [
+                "message-a-0"
+              ],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "b",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "b",
+              "surfaceVisible": true,
+              "snapshotSequence": 10,
+              "messageIds": [
+                "message-b-0"
+              ],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            }
+          ],
+          "requests": [
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "ebff8937-c789-405f-a9ff-aafcf4326405",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            }
+          ]
+        },
+        {
+          "step": "uncertain_retry_pending_first_observation",
+          "requests": [
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "ebff8937-c789-405f-a9ff-aafcf4326405",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            }
+          ]
+        },
+        {
+          "step": "close_first_keeps_mirror_and_B",
+          "sources": [
+            {
+              "threadId": "a",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "surfaceVisible": true,
+              "snapshotSequence": 10,
+              "messageIds": [
+                "message-a-0"
+              ],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "b",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "b",
+              "surfaceVisible": true,
+              "snapshotSequence": 10,
+              "messageIds": [
+                "message-b-0"
+              ],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            }
+          ],
+          "status": "卡片 2；存储 5；资源 a,b"
+        },
+        {
+          "step": "close_all_A_new_message_not_acknowledged",
+          "sources": [
+            {
+              "threadId": "b",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "b",
+              "surfaceVisible": true,
+              "snapshotSequence": 11,
+              "messageIds": [
+                "message-b-1"
+              ],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            }
+          ],
+          "requests": [
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "ebff8937-c789-405f-a9ff-aafcf4326405",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "5a2d5ff1-67c0-447d-a632-b3bf295b9f97",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "d19c267c-e761-4d7a-b83d-38789891c9a3",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-1"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            }
+          ],
+          "status": "卡片 1；存储 5；资源 b"
+        },
+        {
+          "step": "A_retry_observation_after_foreground_interactions",
+          "requests": [
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "ebff8937-c789-405f-a9ff-aafcf4326405",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "5a2d5ff1-67c0-447d-a632-b3bf295b9f97",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "d19c267c-e761-4d7a-b83d-38789891c9a3",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-1"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "969a6589-f20f-4713-9be9-6b968bcffe7f",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-a-1"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            }
+          ]
+        },
+        {
+          "step": "offscreen_new_message_excluded",
+          "sources": [
+            {
+              "threadId": "b",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "b",
+              "surfaceVisible": false,
+              "snapshotSequence": 12,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "surfaceVisible": false,
+              "snapshotSequence": 12,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            }
+          ],
+          "requests": [
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "ebff8937-c789-405f-a9ff-aafcf4326405",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "5a2d5ff1-67c0-447d-a632-b3bf295b9f97",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "d19c267c-e761-4d7a-b83d-38789891c9a3",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-1"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "969a6589-f20f-4713-9be9-6b968bcffe7f",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-a-1"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            }
+          ]
+        },
+        {
+          "step": "front_A_occludes_B_new_message",
+          "sources": [
+            {
+              "threadId": "b",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "b",
+              "surfaceVisible": false,
+              "snapshotSequence": 13,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "surfaceVisible": true,
+              "snapshotSequence": 13,
+              "messageIds": [
+                "message-a-3"
+              ],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            }
+          ],
+          "requests": [
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "ebff8937-c789-405f-a9ff-aafcf4326405",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "5a2d5ff1-67c0-447d-a632-b3bf295b9f97",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "d19c267c-e761-4d7a-b83d-38789891c9a3",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-1"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "969a6589-f20f-4713-9be9-6b968bcffe7f",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-a-1"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "cc066312-1215-47a4-a8cf-2881c1cab488",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 14,
+                "visibleMessageIds": [
+                  "message-b-2"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "a4586cd0-290d-4e92-adda-6459c18f561a",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 14,
+                "visibleMessageIds": [
+                  "message-a-2"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "e45d1761-069a-495c-b351-6a2c28644e0a",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 16,
+                "visibleMessageIds": [
+                  "message-a-2"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "241e137c-9527-4296-ae86-9871dd4a4aa1",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 16,
+                "visibleMessageIds": [
+                  "message-a-3"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            }
+          ]
+        },
+        {
+          "step": "dialog_occludes_all_new_messages",
+          "sources": [
+            {
+              "threadId": "b",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "b",
+              "surfaceVisible": false,
+              "snapshotSequence": 14,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "surfaceVisible": false,
+              "snapshotSequence": 14,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            }
+          ],
+          "requests": [
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "ebff8937-c789-405f-a9ff-aafcf4326405",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "5a2d5ff1-67c0-447d-a632-b3bf295b9f97",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "d19c267c-e761-4d7a-b83d-38789891c9a3",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-1"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "969a6589-f20f-4713-9be9-6b968bcffe7f",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-a-1"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "cc066312-1215-47a4-a8cf-2881c1cab488",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 14,
+                "visibleMessageIds": [
+                  "message-b-2"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "a4586cd0-290d-4e92-adda-6459c18f561a",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 14,
+                "visibleMessageIds": [
+                  "message-a-2"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "e45d1761-069a-495c-b351-6a2c28644e0a",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 16,
+                "visibleMessageIds": [
+                  "message-a-2"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "241e137c-9527-4296-ae86-9871dd4a4aa1",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 16,
+                "visibleMessageIds": [
+                  "message-a-3"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            }
+          ]
+        },
+        {
+          "step": "revealed_current_messages_acknowledged",
+          "sources": [
+            {
+              "threadId": "b",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "b",
+              "surfaceVisible": true,
+              "snapshotSequence": 14,
+              "messageIds": [
+                "message-b-4"
+              ],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "conversationId": null,
+              "surfaceVisible": false,
+              "snapshotSequence": 0,
+              "messageIds": [],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            },
+            {
+              "threadId": "a",
+              "surfaceVisible": true,
+              "snapshotSequence": 14,
+              "messageIds": [
+                "message-a-4"
+              ],
+              "campTurnIds": [],
+              "agentRunIds": [],
+              "approvalIds": []
+            }
+          ],
+          "requests": [
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "ebff8937-c789-405f-a9ff-aafcf4326405",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "7e5f8fed-27f1-4ac8-b41f-3176fd2ac7e5",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 10,
+                "visibleMessageIds": [
+                  "message-a-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "5a2d5ff1-67c0-447d-a632-b3bf295b9f97",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-0"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "d19c267c-e761-4d7a-b83d-38789891c9a3",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-b-1"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "969a6589-f20f-4713-9be9-6b968bcffe7f",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 12,
+                "visibleMessageIds": [
+                  "message-a-1"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "cc066312-1215-47a4-a8cf-2881c1cab488",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 14,
+                "visibleMessageIds": [
+                  "message-b-2"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "a4586cd0-290d-4e92-adda-6459c18f561a",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 14,
+                "visibleMessageIds": [
+                  "message-a-2"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "e45d1761-069a-495c-b351-6a2c28644e0a",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 16,
+                "visibleMessageIds": [
+                  "message-a-2"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "241e137c-9527-4296-ae86-9871dd4a4aa1",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 16,
+                "visibleMessageIds": [
+                  "message-a-3"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "b4c8c772-96a2-401b-822a-3279065114df",
+              "command": {
+                "threadId": "a",
+                "observedThroughChangeSequence": 18,
+                "visibleMessageIds": [
+                  "message-a-4"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            },
+            {
+              "commandId": "a7954e3e-43fe-4da1-812d-ad0bfbd6c316",
+              "command": {
+                "threadId": "b",
+                "observedThroughChangeSequence": 18,
+                "visibleMessageIds": [
+                  "message-b-4"
+                ],
+                "visibleThreadTurnIds": [],
+                "visibleAgentRunIds": [],
+                "visibleApprovalIds": []
+              }
+            }
+          ]
+        }
+      ],
+      "limits": [
+        "not full BusinessApp or ReactFlow",
+        "no real Core persistence or notification admission",
+        "private panel exact-source UI still pending",
+        "no actual Host switch IME touch scale qualification"
+      ],
+      "consoleErrors": [],
+      "final_navigation_guard_smoke": {
+        "sources": [
+          {
+            "threadId": "a",
+            "conversationId": null,
+            "surfaceVisible": false,
+            "snapshotSequence": 0,
+            "messageIds": [],
+            "campTurnIds": [],
+            "agentRunIds": [],
+            "approvalIds": []
+          },
+          {
+            "threadId": "a",
+            "surfaceVisible": true,
+            "snapshotSequence": 10,
+            "messageIds": [
+              "message-a-0"
+            ],
+            "campTurnIds": [],
+            "agentRunIds": [],
+            "approvalIds": []
+          },
+          {
+            "threadId": "a",
+            "conversationId": null,
+            "surfaceVisible": false,
+            "snapshotSequence": 0,
+            "messageIds": [],
+            "campTurnIds": [],
+            "agentRunIds": [],
+            "approvalIds": []
+          },
+          {
+            "threadId": "a",
+            "surfaceVisible": true,
+            "snapshotSequence": 10,
+            "messageIds": [
+              "message-a-0"
+            ],
+            "campTurnIds": [],
+            "agentRunIds": [],
+            "approvalIds": []
+          },
+          {
+            "threadId": "b",
+            "conversationId": null,
+            "surfaceVisible": false,
+            "snapshotSequence": 0,
+            "messageIds": [],
+            "campTurnIds": [],
+            "agentRunIds": [],
+            "approvalIds": []
+          },
+          {
+            "threadId": "b",
+            "surfaceVisible": true,
+            "snapshotSequence": 10,
+            "messageIds": [
+              "message-b-0"
+            ],
+            "campTurnIds": [],
+            "agentRunIds": [],
+            "approvalIds": []
+          }
+        ],
+        "requests": [
+          {
+            "commandId": "127f691d-6b30-4ddf-8345-7a771986044b",
+            "command": {
+              "threadId": "a",
+              "observedThroughChangeSequence": 10,
+              "visibleMessageIds": [
+                "message-a-0"
+              ],
+              "visibleThreadTurnIds": [],
+              "visibleAgentRunIds": [],
+              "visibleApprovalIds": []
+            }
+          },
+          {
+            "commandId": "181b865b-e0c0-46c5-9d30-cfe3b00d8822",
+            "command": {
+              "threadId": "b",
+              "observedThroughChangeSequence": 10,
+              "visibleMessageIds": [
+                "message-b-0"
+              ],
+              "visibleThreadTurnIds": [],
+              "visibleAgentRunIds": [],
+              "visibleApprovalIds": []
+            }
+          }
+        ],
+        "consoleErrors": []
+      },
+      "checks_passed": [
+        "parallel_Thread_dispatch",
+        "per_card_lease_close",
+        "all_closed_Thread_excluded",
+        "uncertain_UUID_and_frozen_payload_reused",
+        "offscreen_excluded",
+        "occluded_Thread_excluded",
+        "dialog_covered_excluded",
+        "reappearance_acknowledges_exact_current_sources",
+        "final_guard_render_smoke"
+      ],
+      "tested_implementation_commit": "f400a48fee1cc3b1cd9d6adb75eea1c13edada3b"
+    },
+    "dispatch_validation": {
+      "scope": "same_frame_real_DOM_validation_mock_Core",
+      "initial": [
+        {
+          "commandId": "6ca54637-1794-4cdd-a25d-4ef0ce9966e9",
+          "command": {
+            "threadId": "a",
+            "observedThroughChangeSequence": 10,
+            "visibleMessageIds": [
+              "message-a-0"
+            ],
+            "visibleThreadTurnIds": [],
+            "visibleAgentRunIds": [],
+            "visibleApprovalIds": []
+          }
+        },
+        {
+          "commandId": "578d8641-ccf6-4b01-a322-4691391015b1",
+          "command": {
+            "threadId": "b",
+            "observedThroughChangeSequence": 10,
+            "visibleMessageIds": [
+              "message-b-0"
+            ],
+            "visibleThreadTurnIds": [],
+            "visibleAgentRunIds": [],
+            "visibleApprovalIds": []
+          }
+        }
+      ],
+      "sameFrameObservation": "同帧检查 {\"reported\":3,\"validated\":0}",
+      "hidden": [
+        {
+          "commandId": "6ca54637-1794-4cdd-a25d-4ef0ce9966e9",
+          "command": {
+            "threadId": "a",
+            "observedThroughChangeSequence": 10,
+            "visibleMessageIds": [
+              "message-a-0"
+            ],
+            "visibleThreadTurnIds": [],
+            "visibleAgentRunIds": [],
+            "visibleApprovalIds": []
+          }
+        },
+        {
+          "commandId": "578d8641-ccf6-4b01-a322-4691391015b1",
+          "command": {
+            "threadId": "b",
+            "observedThroughChangeSequence": 10,
+            "visibleMessageIds": [
+              "message-b-0"
+            ],
+            "visibleThreadTurnIds": [],
+            "visibleAgentRunIds": [],
+            "visibleApprovalIds": []
+          }
+        }
+      ],
+      "revealed": [
+        {
+          "commandId": "6ca54637-1794-4cdd-a25d-4ef0ce9966e9",
+          "command": {
+            "threadId": "a",
+            "observedThroughChangeSequence": 10,
+            "visibleMessageIds": [
+              "message-a-0"
+            ],
+            "visibleThreadTurnIds": [],
+            "visibleAgentRunIds": [],
+            "visibleApprovalIds": []
+          }
+        },
+        {
+          "commandId": "578d8641-ccf6-4b01-a322-4691391015b1",
+          "command": {
+            "threadId": "b",
+            "observedThroughChangeSequence": 10,
+            "visibleMessageIds": [
+              "message-b-0"
+            ],
+            "visibleThreadTurnIds": [],
+            "visibleAgentRunIds": [],
+            "visibleApprovalIds": []
+          }
+        },
+        {
+          "commandId": "da972f57-8b20-414b-aaba-8e5faf1c6b33",
+          "command": {
+            "threadId": "b",
+            "observedThroughChangeSequence": 12,
+            "visibleMessageIds": [
+              "message-b-1"
+            ],
+            "visibleThreadTurnIds": [],
+            "visibleAgentRunIds": [],
+            "visibleApprovalIds": []
+          }
+        }
+      ],
+      "consoleErrors": [],
+      "correction": "Prior restore observation was captured before its asynchronous frame/ack settled; kept initial witness, verified new ACK in fresh AX before final capture.",
+      "tested_implementation_commit": "3aae43b99074b8c0e5798776e039d2b4e6d7c2f6"
+    },
+    "desktop_existing_owner": {
+      "command": "node --test scripts/lib/notification-attention.test.mjs",
+      "classification": "isolated_Electron_automatic_acceptance_no_Core_or_Runtime",
+      "actual_result": {
+        "passed": 1,
+        "failed": 1,
+        "exit_code": 1,
+        "tested_implementation_commit": "f400a48fee1cc3b1cd9d6adb75eea1c13edada3b",
+        "not_a_full_pass_for_final_source": true
+      },
+      "passed_case": "AgentRun notifications observe and focus the right-side execution Portal",
+      "failed_case": "notification cards preserve source identity, quiet current Camps, queues and paused lifetime",
+      "failure_location": "scripts/fixtures/notification-attention/main.cjs:127",
+      "expected": "taskStatuses:in_progress",
+      "actual": "undefined",
+      "baseline_comparison": {
+        "controller_at": "2f28ceccffe9500d78d895c73d9f3ce303e3bca6",
+        "same_settings_and_driver": true,
+        "exit_code": 1,
+        "same_failure": true
+      },
+      "decision": "Existing failure reproduced with baseline Controller; keep test enabled and record DEV-NOTIFICATION-SETTINGS-FAILURE-FOCUS for later repair. Do not report desktop owner fully passed."
+    },
+    "artifacts": [
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-owners-final.log",
+        "sha256": "944b104c16400c8ad54f6b1bb9c4d1f42282db0d0cf4663b75c92626871b00f8"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-types-final.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-copy.log",
+        "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-diff.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-doc-version.log",
+        "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-doc-decisions.log",
+        "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-doc-policy.log",
+        "sha256": "46e3859840ccf0fb240e813f93d540b1081c379082201210cae0993121cd22b7"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-source-proof.log",
+        "sha256": "f8a9546553811f13411e1bf753c44576cb4d4a0a02e946ccd2596df3866eec4c"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-source-proof.json",
+        "sha256": "e0dd8e3ca6d5e757ac11e1cbac72b00ead9c27f13eb42f39e97d138b32c716a9"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-browser-witness.json",
+        "sha256": "5d6416d3e598c9e08522a26d0dd3ceaedf60be50eac071d0fea974157c17b093"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-browser-initial.json",
+        "sha256": "e361e935011b52a606f99696593b3d6e69c549b519310e3a6b903ce4aacc7fcc"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-visible.jpg",
+        "sha256": "3713287d1c0379f2ea0601071fdc7df305600b5a5264c3fe3deb63307725f87b"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-dispatch-witness.json",
+        "sha256": "cf8b1f7bcff6de5dee2f6ebadd9cf28b07cdc34c49969bf679a53313e2316573"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-dispatch-witness-initial.json",
+        "sha256": "306093936762eba3aa0dacdcbfb9388e254c9f5de47a2284076a14f8aa11c258"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-dispatch.jpg",
+        "sha256": "e5d4eb4e4a0f66d3a70346752f47aeb4450d4f61239b5b93a297e3817764924a"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-source-proof-dispatch-initial.log",
+        "sha256": "c97ce6a2ce84a56d5f390308a7b99cf63eab184ec247d96ce36b8c0d5ace39ed"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-final-doc-check.log",
+        "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-source-policy.log",
+        "sha256": "e13c043f48e896012cdbe853cfe7922df1a69ac6695bf8fdebad07fc19204103"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-baseline-comparison.log",
+        "sha256": "5498b1b3006078abd74cb129e755990789a378a9e8c4154ff9fa73f8246eb671"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\notification-baseline-comparison\\result.json",
+        "sha256": "d3e3cd6650c433aeb061b6cbc2795ccaa8f53f149c72ef0e211c0977a9bac71b"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\notification-baseline-comparison\\result.log",
+        "sha256": "d0944d066e44bc71f21ba66183b9d3a6bc8c199ba6b363d63d8c239f2b4d141c"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-fixture\\entry.tsx",
+        "sha256": "6e07b75c7c68c6cfb2e3723e24c781ac67feb26bb98f9f6e06e14ee436e46492"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-fixture\\server.mjs",
+        "sha256": "6df38cbf7d0598901718ef04b21c05241027a63c5e4eb5e7302ddd078e972b58"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-notification-fixture\\index.html",
+        "sha256": "23f89bab590317547eb4c96ff607b4fd2728ba27ea1c10e403d25d081205e2fb"
+      }
+    ],
+    "reuse_scope": "Earlier full multi-card mock UI scenarios belong to f400a48f. Later commit adds subtractive dispatch-time checks, revalidated with same-frame hide/reappear browser witness and all 245 unit checks; no final-source full application or Core qualification claimed."
+  },
+  "corrections": [
+    "第一轮夹具调试header增长到248.7px，遮住y180卡片按钮，点击未关闭；保留initial记录，限制调试区高度后复验关闭单镜像和全部A卡片通过，没有生产关闭补丁。",
+    "原notification-attention.test.mjs实际启动两个隔离Electron夹具，非静态源码检查；本轮如实保留1通过/1失败及旧Controller对照，不降低断言或扩大超时。"
+  ],
+  "unchanged": {
+    "schema": 154,
+    "host": 4,
+    "data_contract": "v1.72",
+    "operations": 178,
+    "historical_operations": 161,
+    "Core_Main_API": false,
+    "model_input_change": false,
+    "dependency_or_migration_change": false
+  },
+  "pending": [
+    "真实Core通知事务/来源授权/边界确认、公私面板实际来源、Host接管、长时间退避及画布规模；当前浏览器为真实组件+模拟Core运输，Electron夹具也是无Core。",
+    "DEV-NOTIFICATION-SETTINGS-FAILURE-FOCUS：原通知设置失败保存后焦点恢复检查在当前及baseline均失败，研发整改不作为客户资源阻塞。",
+    "原特殊事件呈现、Host/Core/Board展开持久化与只读恢复、复杂导航失败后的实例恢复。",
+    "私有附件/quotes按卡片隔离及Core Draft CAS/未知结果、关闭孤立输入恢复及跨编辑端接管、HTML/iframe资源规模。",
+    "Mission/Task/Thread/Diff定位、授权文件、真实临时PTY、Desktop冷路由；I02剩余SP与真实Gate及I04-I12/BUF完整保留。"
+  ],
+  "fusion_acceptance": {
+    "total": 324,
+    "status": "all_not_run_not_replaced_by_unit_mock_or_isolated_Electron_checks"
+  },
+  "delivery": {
+    "local_commit": true,
+    "push": false,
+    "Actions": false,
+    "candidate": false,
+    "main_merge": false,
+    "release": false,
+    "paid_calls": 0,
+    "full_workspace_or_Rust_build": false
+  },
+  "codegraph": {
+    "indexed": false,
+    "action": "no_requery_or_initialization_no_sync_claim"
+  },
+  "customer_action_required_now": false
+}

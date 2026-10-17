@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "status": "partial_engineering_verification",
+  "recorded_at": "2026-10-15T19:14:27.112405+00:00",
+  "source_binding": {
+    "base_commit": "04a8fd08bd1613e0a3470349c6622911a9934bca",
+    "kind": "exact_worktree_file_hashes_before_local_commit",
+    "files": {
+      "apps/desktop/src/main/file-preview/file-preview-service.test.ts": "78b3f413773b6f8e4d371ffcb6ff981c05a71d509a729c3c82ea95647c455186",
+      "apps/desktop/src/main/private-attachment-preparation.test.ts": "1f2423a6c82be0c7f102a06bbec7ff93d9d724412ae787244ea2d2466fb6a247",
+      "apps/desktop/src/main/private-attachment-preparation.ts": "fe79cf99b3afc3de9b5386024f917ca3a311f44015ffcdbd8d3268c0807d2173",
+      "crates/rovai-core/src/private_source_observation.rs": "ebb690e5d96560399f83dd9c81b6e3cc946ff2a09ccd56cb9446c9654cf9e526",
+      "crates/rovai-core/src/single_chat_composer_tests.rs": "3b107193b60891449881fac6fb51a50ce4dd12318fcf961aa65c7c6314a04793",
+      "crates/rovai-core/src/web_upload.rs": "0b965cb7f99ee0ead01b577d369357736f3e32cd4a42870a967c38f82420a515",
+      "docs/contracts/single-chat-composer-scope-v1.md": "9c35221b3d017fedf2f86729609ade691326468bed0363ff66e954cec13f6556",
+      "docs/development/testing.md": "b61449c804116d00a060a2c8ad864af181fbe8d1c741215f1d1747a0c9d7e8ea",
+      "docs/versions/v1.72/README.md": "e029d9f453cd311dec5d11051b98379d5006e9597dd2d70720a30f5526c1b0fa"
+    }
+  },
+  "implemented": [
+    "Native private directory observation intent, tree digest, total bytes and original-request journal recovery; file JSON keeps sourceKind omitted",
+    "Directory bind verifies kind/digest/total bytes atomically; Web/public directory claims rejected",
+    "Verified existing Main attachment authorization for Core-owned byte sources without expanding private-root permissions"
+  ],
+  "validation": {
+    "typescript_tests": {
+      "files": 5,
+      "passed": 94,
+      "failed": 0,
+      "existing_platform_skipped": 1,
+      "skip_reason": "Windows cannot create existing literal colon-filename fixture"
+    },
+    "typecheck": "Main/Preload/Web including Native and preview test owners passed",
+    "preview_transport": "Real isolated filesystem and loopback HTTP; simulated Core authority, not real Host/Native IPC",
+    "rust_directory_delta": "not_run; original private-composer owner extended, deferred to phase candidate, no new Rust test function",
+    "rustfmt": "passed",
+    "doc_version_and_decisions": "passed",
+    "doc_policy_tests": 10,
+    "foundation_and_scaffold": "passed",
+    "previous_core13": "Bound to previous 04a8fd08 sources; not evidence for current directory delta"
+  },
+  "self_review": [
+    "Kept file JSON unchanged and rejected owned-byte journals claiming directory kind",
+    "Reuse existing protected attachment subroot path; broad workspace remains denied",
+    "First preview assertion expected403 on revocation; corrected assertion to existing410 Gone without changing production authorization",
+    "Fixed missing explicit generic-request parameter types and applied Rust formatting; failures retained"
+  ],
+  "remaining": [
+    "Shared Native/Web original-upload, original-byte reselection and failure/recovery UI; card add controls remain gated",
+    "Current Core directory assertions and actual Host/Native IPC/resource flow",
+    "Legacy adoption/orphan/conflict UI and large-material latency/transaction-lock impact",
+    "Other I03 closeout groups and phase candidate; I02 remaining, I04-I12 and BUF",
+    "Full PC01-PC24, formal324, actual platform/model qualification not_run"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "approved_r1_files": {
+    "I03_私聊材料怎么分开用_客户确认版_r1.docx": "87565f57fa0e994f676139e3376fe14e556ac9862c08f1573798d985f4dcecf7",
+    "I03_私聊材料怎么分开用_客户确认版_r1.pdf": "4b3446c0d97f2c6b8529a206d965a60229dcc1e5966e280647856fc88576e8df"
+  },
+  "artifacts": {
+    "i03\\native-directory-doc-decisions.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "i03\\native-directory-doc-policy.log": "1d194dee34da6cf6ad69dae88f3dfbf779618b16c94f74f585d611e8a1973ebd",
+    "i03\\native-directory-doc-version.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "i03\\native-directory-foundation.log": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+    "i03\\native-directory-owners.log": "73c35a9357d4278d95740bca496c39ca5613c7b9d4c6cf9b0a2f7c28b75d7237",
+    "i03\\native-directory-resource-owners-final.log": "2eeeb21bb2e84d551bf108a6f028a28a5143f3acd946c29566f6154993d164d7",
+    "i03\\native-directory-resource-owners-first.log": "e5b4363b0308135f3c545ec22570cb7eec35e0a2d4ecb56ea8aa9affbf659d39",
+    "i03\\native-directory-resource-types-final.log": "db63a5a2faf567e7b8d4e525a5c7ba8e1849b5595fa0bd026d9441854ac47161",
+    "i03\\native-directory-resource-types-fixed.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\native-directory-resource-types-verified.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\native-directory-rustfmt-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\native-directory-rustfmt.log": "5dce180defdf42fcf8c2e9cd86ca44f2912f935d68cbd4d6ac28e427eb8b23c1",
+    "i03\\native-directory-scaffold.log": "bb86cd055ea17844a8bba120a8b4227fcbc6829171898811fbfdec4efed5b6d4",
+    "i03\\native-directory-types-resource.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\native-directory-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "boundaries": {
+    "schema": 156,
+    "last_migration": 206,
+    "host_protocol": 4,
+    "public_methods": 180,
+    "source_ref_model_projection_frozen_inputs_changed": false,
+    "private_root_permission_widened": false,
+    "full_build_host_model_actions_push": false,
+    "customer_action_required_now": false,
+    "formal324": "not_run"
+  }
+}

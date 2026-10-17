@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T02:10:28.130Z",
+  "source_commit": "0efe96e082d61b83fe613cd2d4a6969af223ca8e",
+  "stage": "I03",
+  "status": "project_layout_and_sidebar_entry_coded_targeted_checks_passed_mounted_UI_pending",
+  "donor": {
+    "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "files": [
+      "src/components/conversations/sidebar-conversation-grouping.ts",
+      "src/components/conversations/sidebar-conversation-list.tsx",
+      "src/components/conversations/sidebar-folder-group-header.tsx"
+    ],
+    "license": "Apache-2.0 retained under integration/licenses/codeg; no new dependency"
+  },
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/App.test.ts",
+      "sha256": "f5c7bd3eb9a37109b3c0e76a30704755713490e311f4b69769111ad368403282"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "57c3278d3310d20c5ec5eb6cce1892cd9d5c466277f791936bccad65e52e4466"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ProjectGroupsDialog.tsx",
+      "sha256": "a75c181bc0e194677d276410d61e8f51297de978154d4b7c3161eeae7d8d49a1"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ProjectLayoutDialog.tsx",
+      "sha256": "2423b2cd00ef541bac592419e2b9c8fce1cb89a1d9dc3fe6a0ef5ba3487e65c3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ThreadNavigation.tsx",
+      "sha256": "c3d038675e5bf6fc56447c6bb0f88ba1791ce88f8e7e6860879015ca5d537851"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "70fa24ca49c32d96ae9c34ebfdcf90c44315f68ccf95eab6e60c9a3101cfa24c"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "d67c36d2da8a5f41bf9f36b5fc06a36b1936595d6cc55930ffd9ae1eda0eaf4a"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/navigation-project-layout.test.ts",
+      "sha256": "8231a31fb30c36ecf8e92c6c3ac899589a11246f05c895151323cf3c0e9f9c33"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/navigation-project-layout.ts",
+      "sha256": "0d39d305e582e8f32ebf3ddf2516bf272d3a1bef06e009e1b7e2b680acf4e867"
+    },
+    {
+      "path": "docs/contracts/navigation-project-groups-v1.md",
+      "sha256": "1167734da15a16a0f0d204577acd2eea2e60b36962064308314168476144ff9c"
+    },
+    {
+      "path": "docs/ui/components/app-shell-navigation.md",
+      "sha256": "d214061ec03d72428596903c051963d4b946ba56884d322317553d0f381ad420"
+    },
+    {
+      "path": "integration/licenses/README.md",
+      "sha256": "74ffc875e14670ac2a4a170d01cddc57d4760f4420719bf2665d33c6cef7be01"
+    }
+  ],
+  "implementation": [
+    "侧栏与画布共用管理入口；排列面板接已有schema7和applyProjectLayout，未改Core数据库/操作目录/模型输入。",
+    "容器模型保留组/散列工程混合顺序、组内排序、组携成员、空组投放、组间移动及返回任意顶层位置；不支持组嵌套。",
+    "置顶区不重排，置顶工程仍排列原位置；实际linked worktree无独立拖动行，关系读取不授文件/PTY/执行权限。",
+    "草稿仅驻当前弹窗；保存使用打开时的revision，关系更新不完整或获知新parent时阻止相关变更，部分布局保留未显示/已移除成员。",
+    "未知保存禁重复写；成功重读后可核对同一排列的已保存结果，或明确用最新布局放弃旧排列；不自动重基、重发或重建。",
+    "鼠标/触控通过持续面板捕获主指针，固定40px目标、边缘滚动、区域外放下/取消/失焦处理；键盘方向/Home/End/Enter/Esc及焦点归还已编码。",
+    "未保存关闭需明确放弃，未知保存先重读；弹窗保护离开/退出，Host或偏好Owner切换撤下旧表单并阻止迟到回填。"
+  ],
+  "checks": [
+    {
+      "name": "layout_and_preference_owners",
+      "log": "project-layout-owners-final.log",
+      "files": 7,
+      "passed": 37,
+      "failed": 0,
+      "path": "../i03/project-layout-owners-final.log",
+      "sha256": "63c1f0eef153c440f512668af463f7807c8903ddd215af61c6b54bab28e05885"
+    },
+    {
+      "name": "navigation_static_render_filter",
+      "log": "project-layout-navigation-final.log",
+      "files": 1,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 180,
+      "total_owner_cases": 184,
+      "path": "../i03/project-layout-navigation-final.log",
+      "sha256": "09a3338f7c803b81abf14137591cd715d269b1365b42dadb62506549c39bd63e"
+    },
+    {
+      "name": "scoped_types_including_new_layout_test",
+      "log": "project-layout-types-final.log",
+      "exit_code": 0,
+      "scope_config": "project-layout-typecheck.json",
+      "path": "../i03/project-layout-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "literal_ui_translations",
+      "log": "project-layout-copy-final.log",
+      "duplicate_keys": 0,
+      "missing": 0,
+      "path": "../i03/project-layout-copy-final.log",
+      "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078"
+    },
+    {
+      "name": "documentation_versions",
+      "log": "project-layout-docs-version-final.log",
+      "exit_code": 0,
+      "path": "../i03/project-layout-docs-version-final.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d"
+    },
+    {
+      "name": "documentation_decisions",
+      "log": "project-layout-docs-decisions-final.log",
+      "exit_code": 0,
+      "path": "../i03/project-layout-docs-decisions-final.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+    }
+  ],
+  "self_review_fixes": [
+    "捕获指针的手柄在切换目标视图时会被撤下，改由持续存在的面板容器捕获。",
+    "源标题只有一个操作网格列，新增更多按钮改为同列并排，避免挤到第二行。",
+    "补原行边界到移除后位置的换算、任意顶层边界、容器边框坐标及主指针取消处理。",
+    "旧连接晚返回不得回填新连接；键盘选择不空转动画帧，未移动目标不重复设置状态。"
+  ],
+  "not_run": [
+    "真实Electron/Web挂载、鼠标/触控/辅助技术交互与视觉QA",
+    "真实多窗口/浏览器锁、未知回包、Host/Owner切换与关闭恢复",
+    "新Rust完整编译与当前实际Host集成；全仓测试/全平台资格/付费模型/真机",
+    "324产品验收场景；本批局部检查不能替代完整I03或完整MVP验收"
+  ],
+  "remaining": [
+    "完整工作树层级与活动徽章、分组上下文操作",
+    "成员拖放与展开对话/Composer",
+    "Mission/Task/Thread/Diff实际定位、授权文件预览、真实临时PTY和Desktop冷启动路由"
+  ],
+  "execution": {
+    "branch": "phase/i03-canvas-nodes",
+    "local_commit": true,
+    "push": false,
+    "actions_triggered": false,
+    "candidate_frozen": false,
+    "main_merged": false,
+    "codegraph": "当前项目未索引；按仓库规则未隐式初始化",
+    "cadence": "多次本地commit；阶段编码/review集齐后冻结候选、集中验证与少量push/Actions"
+  }
+}

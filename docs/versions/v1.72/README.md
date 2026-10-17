@@ -11,6 +11,23 @@ last_updated: 2026-10-13
 
 # Rovai-ai v1.72：Lark 独立渠道
 
+## 融合画布私聊材料隔离 r1（2026-10-15）
+
+客户阅读16页说明后明确回复“确认，按私聊材料隔离 r1 实施”。
+[独立模型输入变更说明](model-context-change-canvas-private-materials.md)保存原文、具体 revision、批准文件摘要及完整前后对照。
+本次在模型接受输入前按卡片选择完整材料；现有已发布消息投影、格式版本、预算与冻结证据保持。
+Core 归属 codec、旧 get 省略与显式 null 区分、真实 pin 校验及 Schema155/Migration205 私有存储已实现，
+默认材料路径限定空 scope；[本地迁移证据](../../../integration/execution/i03-private-scope-storage-result.json)保留定向 Rust/旧路径回归及失败边界。
+Core 材料七动作、精确读取、有界恢复与发送按 scope 消费已接原事务/FIFO，17项定向检查通过，见
+[业务服务证据](../../../integration/execution/i03-private-composer-service-result.json)。get/mutate/recovery 的 Application、
+两端封闭准入、原 UUID 只读核对和客户端能力回显检查已接通，详见[应用入口证据](../../../integration/execution/i03-private-composer-api-result.json)。
+显式 get 才返回 scopeVersion，草稿和编辑会话同归属过滤；默认旧响应保持。Core 编辑租约已按 client+scope 显式接管并轮换 token；完整移回按空/占用目标返回活动/retained 输入，材料与 Pending 取消、回执同事务，见[编辑执行证据](../../../integration/execution/i03-private-pending-edit-result.json)。Renderer 已接新版移回、完整保留输入选择/交换、排队编辑恢复及持久原请求核对，见[输入界面证据](../../../integration/execution/i03-private-input-ui-result.json)。卡片正文/材料隔离和镜像、默认材料迁入及原位置恢复已做模拟 Core 的生产组件挂载；上传准备与精确资源链路已编码，最终卡片文件入口仍待真实 Host 验证后启用。最终 Blob/实际 Host/Runtime 和平台仍待验。当前 Web 准入180项，来源161项保持。
+24项完整验证要求仍待执行，不计入正式324场景通过。
+卡片/工作副本/retained 文件定位已按精确归属接 Core 与 Main 双入口、预览来源和缓存键，
+17项 Core 与65项客户端定向检查通过，见[文件资源证据](../../../integration/execution/i03-private-resource-result.json)。
+完整文件授权链路、上传源摘要及新文件 UI 仍待，不把本地定位检查计作完整 PC15 通过。
+不授权付费模型、main合入或发布。I03功能集齐后集中编译和平台验证。
+
 ## 技能包实际投递 r1 已获客户确认（2026-10-14）
 
 客户阅读前三页使用故事和完整研发附录后明确回复“符合预期，按对应 r1 继续实现”。
@@ -676,3 +693,89 @@ Core 接入固定 Codeg 的14专家、13科研、1个UI指南及9项Office外部
 ## 融合期技能包队员选择保存（2026-10-14）
 
 Migration201/schema151保存包与队员的显式选择，不默认赋值；版本观察包含当前安装，更新保留选择、卸载同事务清空，旧命令重放不会在重装后重新赋值。界面支持搜索、过滤全选和未知结果重试。合同见 [Skill Pack Members v1](../../contracts/skill-pack-members-v1.md)。这是配置层，当前模型版本28/33和原生配置不变；实际输入变更必须先完成独立字段级方案及二次确认，仍属于一期待完成范围。
+
+## 融合期私聊上传位置接线（2026-10-16）
+
+已确认私聊材料 r1 的 Web 上传 target 接入可选卡片 scope，Core 草稿/工作副本写入与回执复用原事务；
+Web 在文件摘要前冻结目标。Native 旧字节入口暂时保留异常后可能已绑定的源文件，防止回执丢失造成附件失效。
+合同见 [私聊输入 Scope v1](../../contracts/single-chat-composer-scope-v1.md#上传位置接线与待验边界2026-10-16)。
+27项客户端/摘要检查与定向 types 通过，Core 新断言及实际 HTTP/Native 留待阶段集中验证；
+原编号持久恢复、私有源变化检查和文件界面仍未完成，不表示完整 PC01–PC24 或一期已通过。
+
+## 融合期 Native 私聊上传原请求恢复（2026-10-16）
+
+按已确认 r1 新增可选 Native 桥和当前 Core 数据目录内的版本化原请求记录；恢复先查原回执，显式重试核对原文件摘要，
+查询可独立结清原连接等待。Core 私有观察/只读回执入口及附加前摘要复核保持原 SourceRef 和模型投影。
+范围见 [私聊输入 Scope v1](../../contracts/single-chat-composer-scope-v1.md#native-原上传请求恢复2026-10-16)。
+6项 Main 隔离文件系统/模拟运输与既有27项 Web 检查通过，Main/Preload 定向 types 通过；Core 新代码待阶段候选编译。
+目录观察、发送前源检查、实际资源授权/IPC、文件界面与明确失败回收继续实施，不改变正式一期未完成状态。
+
+## 融合期私聊源文件接受前检查（2026-10-16）
+
+Migration206/schema156 增加独立私聊源观察表，原输入、SourceRef、模型投影和已冻结 Run 不改；迁移不扫描用户文件。
+新材料及显式迁入记录文件/目录观察，发送和排队执行前重检，变化时保留输入；排队失效记为待修复以避免自动重试循环。
+边界见 [私聊输入 Scope v1](../../contracts/single-chat-composer-scope-v1.md#私聊源观察与接受前检查2026-10-16)。
+因迁移安全，最小 Core lib 检查合并覆盖此前两轮上传接线；实际客户端、Native目录请求、大材料性能和完整平台仍待，
+不能把 Core 局部检查升级为完整 PC01–PC24 或一期交付通过。
+
+## 融合期 Native 目录准备与暂存附件预览（2026-10-16）
+
+Native 原上传请求支持目录类型、树摘要和总字节数，文件请求保持旧 JSON；重启恢复和明确重试保留原意图。
+Core 私有暂存文件复用现有附件授权，未扩大私有根访问权限。
+范围见 [私聊输入 Scope v1](../../contracts/single-chat-composer-scope-v1.md#native-目录准备与暂存附件预览2026-10-16)。
+5个定向测试文件共94项通过，1项既有 Windows 平台跳过；Main/Preload/Web 定向类型检查通过。
+预览使用真实临时文件和本地 HTTP，Core 授权仍为模拟接口；新增 Rust 目录断言、实际 Host/Native IPC 和共享文件界面仍待。
+
+## 融合期共享文件准备与 Native 恢复界面（2026-10-16）
+
+新增按原位置复用的共享文件控制器与恢复面板，接入 Native 卡片和排队工作副本；未知请求只核对，明确重试复用原编号。
+准备前明确失败与运输未知分开，已落盘回执支持离线查回且拒绝损坏记录，迟到结果不降级已完成状态。
+范围见[共享文件准备与Native恢复](../../contracts/single-chat-composer-scope-v1.md#共享文件准备界面与-native-恢复2026-10-16)。
+本批只做定向 Renderer/Main 检查和类型检查；Web 适配、原文件重选、旧租约/孤立恢复与实际 Host/Native 运行仍待，完整一期未完成。
+
+## 融合期 Web 原上传请求与重选（2026-10-16）
+
+Web 四接口及原文件重选已接入共享界面，按 Host 的恢复能力声明启用；独立回执查询不依赖当前材料或编辑租约。
+准备记录只含元数据/回执，原 File 的名称、大小与摘要一致才重传；首次明确拒绝和旧未知结果分开处理。
+字段与限制见[Host Web v5](../../contracts/host-web-v5.md#私聊上传原回执与恢复能力2026-10-16)和[私聊输入](../../contracts/single-chat-composer-scope-v1.md#web-原请求准备与原文件重选2026-10-16)。
+57项模拟 HTTP/平台/Native 准备检查与 types 通过；Rust入口/真实HTTP owner 尚未构建运行，随阶段候选执行。
+旧租约准备记录统一入口、迁入/孤立/冲突、规模、完整PC01–PC24与一期工程验证继续，不能据本批声明完整交付。
+
+## 融合期上传明确拒绝与原请求收口（2026-10-16）
+
+私聊上传增加同事务、写材料前的只读业务准入，版本/租约等明确失效保存原编号的 rejected；执行错误仍完整回滚。
+Web 只在原 Core 拒绝已提交时发出 upload_rejected，旧/新客户端可结束未知等待，未绑定拒绝spool可安全清理。
+边界见[私聊输入合同](../../contracts/single-chat-composer-scope-v1.md#明确业务拒绝与原上传结果收口2026-10-16)。
+因持久结果权威阻断后续恢复接线，合批做最小Core库3个既有owner，覆盖新拒绝/回执故障及此前目录增量；3项实跑通过。
+61项客户端检查、types及Web服务编译检查通过。未运行实际Host/Native/浏览器或模型，不代表完整工程验证通过；
+无原字节的明确结束、旧租约统一入口、迁入/孤立/冲突和规模等继续，阶段范围完整保留。
+
+## 融合期准备生命周期与旧租约入口（2026-10-16）
+
+Native/Web 现在先核对原首次结果，再通过原意图检查失效，仍可提交才要求原文件；新增明确结束准备，
+Core 原 UUID 正式拒绝与晚到绑定共用首次结果围栏。不会删除已添加材料、正文或源文件，也不以本地关闭冒充完成。
+Web 按独立可选能力开放，旧 Host 保留原四接口；同卡片旧 Pending/token 记录有独立只读恢复入口。
+边界见[Host Web](../../contracts/host-web-v5.md#私聊文件准备的明确重试与结束2026-10-16)和
+[私聊输入](../../contracts/single-chat-composer-scope-v1.md#无原字节的准备恢复与旧编辑租约2026-10-16)。
+71项客户端定向检查通过，包含 Main 临时文件与模拟 Core、Browser 模拟 HTTP 和静态组件；不代表实际 Core/Host/Native IPC。
+新 Rust/实际 HTTP/挂载、默认材料迁入及孤立/冲突、规模和其他 I03 组仍待，完整 PC01–PC24 与一期范围不变。
+
+## 融合期默认迁入与原位置恢复（2026-10-16）
+
+默认材料先预览再明确迁入；源和目标双版本与目标正文由原输入控制器冻结，默认正文保留，非空目标另存完整材料。
+恢复列表合并原 Conversation 的 Core 位置与本机正文索引，已登记 orphan 复用原单聊编辑器；
+无登记/旧 working 正文可保留明确标注的正文副本，不假冒完整材料，也不覆盖当前正文。
+恢复编辑器的原子离开纳入父页面，未知提交不能通过关闭绕过；没有新的 Core/模型/存储协议。
+实际生产组件模拟 Core 完成9步交互，真实 Host/资源/平台和完整24PC仍待，I03不因本批视为工程完成。
+最新[分项记录](../../../integration/execution/i03-private-recovery-ui-result.json)同时记录低成本检查与真实验证缺项。
+
+
+## 融合期独立业务对象引用存储（2026-10-16）
+
+I03-C02 新增可选显式 Mission/Task/MissionDiff 引用，仍用原八种节点、User 命令与画板版本。
+源码 Schema157/Migration207 仅追加节点引用表及归属/不可变触发器，不复制业务状态或改模型输入；
+旧图与冻结事实保留，源156升级失败完整回滚。旧156明确为206迁移结果，不能误判成最新207。
+Core 对象所属Thread核对、不可变身份、失效保留、分组防误消费和快照能力已编码，
+原文 SQLite 46项见证与4个客户端owner共19项检查通过，定向 types 通过；新增 Rust 未编译执行。
+独立卡片选择/呈现、精确 Mission/Task/Diff 工作区导航和真实Core/Host仍待，C02保持进行中。
+[执行证据](../../../integration/execution/i03-object-reference-storage-result.json)区分源码、原文SQL与真实方法资格。

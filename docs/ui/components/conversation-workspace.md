@@ -459,7 +459,7 @@ Camp 公共 Source Attachment 组件。`Enter` 发送、`Shift+Enter` 换行，I
 
 同一段 Single Chat 有非终态 Run 时 Composer 仍可输入后续正文和附件。Draft 为空时主要动作显示“停止”；一旦存在正文
 或附件，主要动作恢复为“发送”，提交后把内容放入该 Conversation 自己的 FIFO，不改变当前 Run 输入。队列按顺序展示，
-支持删除和移回普通输入框编辑；移回会覆盖当前正文、附件和引用并取消原队列项。发布前附件失效时队首显示可理解的修复状态并阻塞同一
+支持编辑、删除和移回输入框；完整移回及当前正文、附件和引用的保留由[私聊输入合同](../../contracts/single-chat-composer-scope-v1.md)约束。发布前附件失效时队首显示可理解的修复状态并阻塞同一
 Conversation 的后项，用户移回编辑或删除队首后恢复；不得阻塞 Camp 公屏或其他 Single Chat。停止只结束当前回复，
 对话和未发布队列仍可继续。发送后回到最新；后台 Evidence 更新仅在用户原本接近底部时跟随，
 用户上滚阅读时不得抢走位置。选择另一个对象恢复其 active transcript 或创建新 transcript，UI 不区分这两种内部结果。

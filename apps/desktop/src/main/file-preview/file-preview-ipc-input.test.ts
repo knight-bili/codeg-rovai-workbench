@@ -16,6 +16,33 @@ const missionAttachmentRequest = {
   }
 }
 
+const privateBase = {
+  threadId: missionAttachmentRequest.threadId,
+  conversationId: '11111111-1111-4111-8111-111111111111',
+  attachmentRefId: missionAttachmentRequest.locator.attachmentRefId,
+  composerScope: { kind: 'canvas', boardId: '22222222-2222-4222-8222-222222222222', nodeId: '33333333-3333-4333-8333-333333333333' }
+}
+it.each([
+  { ...privateBase, owner: 'single_chat_scoped_composer' },
+  { ...privateBase, owner: 'single_chat_scoped_pending_edit', pendingInputId: '44444444-4444-4444-8444-444444444444', editToken: '55555555-5555-4555-8555-555555555555' },
+  { ...privateBase, owner: 'single_chat_retained', retainedInputId: '44444444-4444-4444-8444-444444444444' },
+  { ...privateBase, owner: 'single_chat_retained', composerScope: null, retainedInputId: '44444444-4444-4444-8444-444444444444' }
+])('preserves the full $owner identity through open and restore parsing', locator => {
+  const request = { kind: 'attachment', threadId: privateBase.threadId, locator }
+  expect(parseOpenFilePreviewRequest(request)).toEqual(request)
+  expect(parseRestoreFilePreviewRequest(request)).toEqual(request)
+  expect(() => parseOpenFilePreviewRequest({ ...request, locator: { ...locator, clientId: 'desktop' } })).toThrow()
+  expect(() => parseOpenFilePreviewRequest({ ...request, threadId: 'rvcamp_01m1jkkpkzfvgraw1p4r9zfb7v' })).toThrow()
+})
+
+it('rejects malformed scope, forged owners and attempted legacy scope stripping', () => {
+  const request = { kind: 'attachment', threadId: privateBase.threadId, locator: { ...privateBase, owner: 'single_chat_scoped_composer' } }
+  for (const composerScope of [null, undefined, { ...privateBase.composerScope, nodeId: 'node' }, { ...privateBase.composerScope, scopeKey: '' }]) {
+    expect(() => parseOpenFilePreviewRequest({ ...request, locator: { ...request.locator, composerScope } })).toThrow()
+  }
+  expect(() => parseOpenFilePreviewRequest({ ...request, locator: { ...request.locator, owner: 'single_chat_composer' } })).toThrow()
+})
+
 describe('parseOpenFilePreviewRequest', () => {
   it('accepts a Mission attachment locator', () => {
     expect(parseOpenFilePreviewRequest(missionAttachmentRequest)).toEqual(missionAttachmentRequest)

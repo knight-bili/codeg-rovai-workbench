@@ -10,6 +10,7 @@ import type {
 } from '@contracts'
 import { writePrivateJson } from './general-preferences'
 import { normalizeProjectDisplayName, projectDisplayNameError } from '../shared/project-display-name'
+import { applyNavigationProjectLayout } from '../shared/navigation-project-groups'
 
 export async function readNavigationPreferences(
   filePath: string
@@ -114,6 +115,13 @@ export class NavigationPreferencesStore {
     })
   }
 
+  applyProjectLayout(expectedRevision: number, mutation: unknown): Promise<NavigationPreferencesSnapshot> {
+    return this.#enqueue(async () => {
+      await this.#commit(applyNavigationProjectLayout(this.#snapshot, expectedRevision, mutation))
+      return this.get()
+    })
+  }
+
   setThreadReadState(threadId: string, state: NavigationThreadReadState | null): Promise<NavigationPreferencesSnapshot> {
     if (!isThreadId(threadId) || (state !== null && !isNavigationThreadReadState(state))) {
       return Promise.reject(new Error('Invalid Thread read state'))
@@ -194,7 +202,8 @@ export class NavigationPreferencesStore {
       const next = {
         ...this.#snapshot,
         registeredProjects: [...new Set([...this.#snapshot.registeredProjects, targetKey.slice('directory:'.length)])],
-        projectOrder: [...new Set([...(this.#snapshot.projectOrder ?? []), targetKey])],
+        projectOrder: this.#snapshot.projectGroups.some(group => group.projectPaths.includes(targetKey.slice('directory:'.length)))
+          ? this.#snapshot.projectOrder : [...new Set([...(this.#snapshot.projectOrder ?? []), targetKey])],
         removedProjects: this.#snapshot.removedProjects.filter(
           (project) => project.targetKey !== targetKey
         )

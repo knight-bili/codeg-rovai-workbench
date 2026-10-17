@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "status": "partial_implementation_Core_runtime_validation_deferred",
+  "recorded_at": "2026-10-15T17:33:31.641213+00:00",
+  "source_binding": {
+    "base_commit": "6f67147d",
+    "kind": "exact_file_hashes_recorded_before_local_commit",
+    "files": {
+      "apps/desktop/src/main/index.ts": "d2975f6725b4ec49e59032e70f942bad0ea2a5c2e67f20416bf391c6986d7526",
+      "apps/web/src/client.ts": "c9a3ab4554b4c03ae5c31b6184232aae4f67d2bb5d9bb51e03d3ec08c8bf030a",
+      "apps/web/src/client.test.ts": "507c3f2767c51f7555206a9c6861819f73067410170ecb646a48fd35af689bed",
+      "crates/rovai-core/src/web_upload.rs": "7baae062f8ff8e8be20128382472a8e0eec3c38673faa415f9f9f7ec4db9dabc",
+      "crates/rovai-core/src/single_chat_composer.rs": "5a0884cbc166be6949d16d020e3e16f92f4a8938b402fb10a19bb445971d2582",
+      "crates/rovai-core/src/single_chat_composer_tests.rs": "9286476e4dc2084cd799c0a315314542ebf8df0bdeb11760606010a3aff259ce",
+      "docs/contracts/single-chat-composer-scope-v1.md": "c22281cc4d1088abfcd3b29d57c41c82a1e48467b9c1ef18a8e9e54382fe126a",
+      "docs/development/testing.md": "8c65bd92a4f12fd750ca7e5c6dc46e48e7d69b473c76ce6149cf480821bf1d3a",
+      "docs/versions/v1.72/README.md": "376ddea3f32c882e17201417cc1d3f6b29aa423cc510fd07fa88675be73cb291"
+    }
+  },
+  "implemented": [
+    "Web upload private targets carry optional composerScope; absent/null serialize as legacy omission",
+    "Scoped Core attachment CAS, first-scope registration and receipt share the existing Gateway transaction",
+    "Pending upload joins trusted client, scope, pending revision, active state and current lease token",
+    "Upload/read-only reconciliation snapshots return the precise original private scope",
+    "Web freezes target before file digest; connection replacement prevents dispatch",
+    "Native legacy byte ingress retains possibly bound sources on response failure"
+  ],
+  "executed_validation": {
+    "Web_client_and_file_digest": {
+      "owners": 2,
+      "passed": 27
+    },
+    "targeted_types_including_Main": "passed",
+    "rustfmt": "passed",
+    "documentation_version_and_decisions": "passed",
+    "documentation_policy_tests": "passed",
+    "foundation_and_scaffold": "passed"
+  },
+  "not_executed": {
+    "Core_compile": "not_run_deferred_to_stage_candidate",
+    "Core_extended_owner": "not_run_new_cases_added_to_existing_third_owner",
+    "real_HTTP_Host": "not_run",
+    "Native_IPC_fault_injection": "not_run",
+    "full_PC01_PC24": "not_run",
+    "formal_324": "not_run",
+    "platforms_and_real_models": "not_run"
+  },
+  "remaining": [
+    "Native upload original command identity persistence and exact-result recovery",
+    "Safe cleanup after definitive rejection; unknown legacy Native failures may leave unbound temp files",
+    "Private source content observation/replacement checks before acceptance; SourceRef unchanged",
+    "Restored Web upload original-byte reselect/retry and UI recovery",
+    "Actual Host file flow before enabling scoped attachment UI",
+    "Legacy material adoption, orphan recovery and the other I03 closeout groups"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/single_chat.rs": "69c1dbb56c56181bbd0e90ef0239a855894b4a9e864119155d1a2da4de6c2569",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "artifacts": {
+    "i03\\private-upload-web-owners.log": "a6338c667fb9fd582de05a0b8caef0768e52b41664e219d8e1bacb9f660d95a1",
+    "i03\\private-upload-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\private-upload-rustfmt-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\private-upload-rustfmt-first.log": "df5e01c79e8833a0293e6209fae4f6f1af214c2870fc23c4b95626cb07532d72",
+    "i03\\private-upload-doc-version.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "i03\\private-upload-doc-decisions.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "i03\\private-upload-doc-policy.log": "e5df50e7de9f391b87eb820c5b468b155a8ee714d947148b00af1ada2d3bfb9e",
+    "i03\\private-upload-foundation.log": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+    "i03\\private-upload-scaffold.log": "bb86cd055ea17844a8bba120a8b4227fcbc6829171898811fbfdec4efed5b6d4"
+  },
+  "execution_policy": {
+    "new_Rust_owner_count": 0,
+    "Core_build": false,
+    "push": false,
+    "Actions": false,
+    "paid_models": false,
+    "customer_phase_gate": false,
+    "full_scope_81_48_324_preserved": true
+  }
+}

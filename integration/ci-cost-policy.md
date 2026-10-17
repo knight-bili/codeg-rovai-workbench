@@ -4,14 +4,41 @@
 `knight-bili/codeg-rovai-workbench` 从私有改为公开，以使用标准 GitHub 托管 runner。
 公开操作的实际结果与验证记录见[执行证据](execution/ci-free-result.json)。不调整付款方式、订阅或账号支出上限。
 
+## 阶段版本与验证频率
+
+客户于2026-10-14确认按阶段汇集功能后验证。以下频率取代“每个切片全量回归、push并等待Actions”的旧做法，
+不改变一期81功能簇、48工作包、324场景，也不删除或永久禁用测试。
+
+1. **小切片**：完成一个小功能、缺陷修复或调整后先做源码自审、差异/格式检查及已有的低成本定向测试，
+   中文本地commit；未编译或未运行的项记入阶段待验清单。默认不push，不启动完整编译、工作区回归或Actions。
+   Rust/Cargo等需要编译的验证默认随阶段集中；若数据迁移、安全、公共契约或执行恢复问题阻断后续编码，
+   只做有关模块的最小检查，并记录原因，不顺带升级为整套CI。
+2. **阶段候选**：本阶段计划功能编码与review集齐后，冻结同一commit并定义候选版本。
+   [阶段版本清单](planning/stage-versions.json)以`fusion-i01-rc.1`至`fusion-i12-rc.1`表示12个产品阶段；
+   I00初始化已完成，BUF按缺陷和兼容整改使用，不额外制造固定发布阶段。
+   这些是融合候选标识，不更改源`current_version`、应用包版本，不自动创建发布标签或Release。
+3. **集中验证**：先在本地跑本阶段相关编译、类型、测试、迁移及必要集成，再将候选推到阶段分支、更新草稿PR，
+   启动一批相关平台Actions。只选择该阶段涉及的工作流/平台；同一个检查覆盖多个功能，不逐功能重复。
+   未受影响且有准确来源的既有结果可复用，不把旧源码证据当作新源码通过。
+4. **异步推进**：登记run ID、版本、SHA和状态后立即继续可独立的编码/review，不持续轮询或以CI等待占满当前工作。
+   到下一检查点、阶段收口或失败通知时再查。若后续改动已经依赖验证结果，先切换其他可独立任务。
+5. **失败修复**：按问题分别本地commit，将同一批可定位问题汇集修复；先补验相关owner，再以`rc.2`等候选重跑失败项
+   和必要依赖。额外批次必须写明失败/兼容/客户反馈等原因，不因普通小改动重跑全部。
+6. **验收**：代码完成、编译通过、阶段验证通过和客户验收分别记录。延期、取消及缺资源的必需用例保持待验；
+   I12仍完成一期全量及连续场景验证，不以减少触发次数为由删掉必要检查。
+
+正常计划为I01–I12各一次阶段验证批次，共12批。一个批次可以包含多个平台job或工作流，
+因此“12批”不是承诺GitHub总共只显示12条run。已有历史运行保留，后续只在缺陷等明确原因下增补批次。
+不要求为了凑次数重跑已经完成的初始化或旧源码检查。
+
 ## 执行场景
 
 | 场景 | 执行方式 | 保留的验证范围 |
 | --- | --- | --- |
-| 日常修改 | 本机按改动运行检查、测试和自审 | 沿用开发与测试规范，未通过不得报告完成 |
-| 草稿 PR 更新 | Integration scaffold 自动运行一次，不再同时由 push 重复启动 | 来源、计划、文档治理、差异检查 |
-| PR 准备验收 | CI 自动快速门禁；草稿可手动运行 | 按路径识别的类型、Rust 生产目标、文档及技能检查 |
-| Core 跨平台 | 手动 Core integration，默认 Linux，可选 Windows 或 all | 全部原有测试命令保留；里程碑选择 all |
+| 日常修改 | 编码、自审、必要低成本检查和本地commit，不默认完整编译/push/Actions | 保留待阶段验证项，不声称产品已验收 |
+| 阶段候选推送及草稿 PR 更新 | 每阶段汇集推送，Integration scaffold 自动运行一次 | 来源、计划、文档治理、差异检查 |
+| 阶段 PR 准备验收 | CI 快速门禁；草稿手动运行仅在阶段验证批次内 | 按路径识别的类型、Rust 生产目标、文档及技能检查 |
+| Core 跨平台 | 阶段候选手动 Core integration，默认 Linux，可选 Windows 或 all | 全部原有测试命令保留；相关里程碑选择 all |
 | Desktop/Web 原生联调 | 手动 Workbench native Desktop and Web，默认 arm64，可选 x64 或 all | 两种 macOS 架构均保留；里程碑选择 all |
 | 源应用 Mac/iOS/Android 基线 | 手动 Foundation cross-platform，默认 Android，可选 macos、ios 或 all | 双应用双架构、iOS 模拟器、Android 单测及模拟器仍保留 |
 | Codeg Windows Server 基线 | 手动 Codeg source baseline | 原生编译、隔离认证和健康检查保留 |
@@ -38,3 +65,10 @@
 官方依据（核实于 2026-10-14）：[Actions 计费与免费范围](https://docs.github.com/en/billing/concepts/product-billing/github-actions)、
 [标准 runner](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)、
 [公开仓库的影响](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility)。
+
+## 工程验证与最终用户验收
+
+2026-10-16用户明确：I12工程完成前，只审核方案并协助无法自行解决的环境条件。阶段实现、代码审查、测试、构建、PR管理及工程收口均由Codex负责，不能设“等待客户阶段验收”门槛。
+“客户验收”只指I12必需工程完成后，用户取得可运行完整软件并按真实用户方式使用反馈；用户不负责逐条执行324技术场景、审PR或技术报告。
+阶段状态使用开发中、代码完成、工程验证中/通过、待环境验证。缺资源明确单列，继续独立工作；最终完整MVP不能豁免必需实现或验证。main最终合入/正式发布仍保留授权，阶段分支研发不等待该最终事件。
+当前[I03有限收口清单](execution/i03-closeout.json)和[完整目标描述](execution/goal-description.txt)落实此规则；不得通过搬走必需功能或把后期全部验证堆到I03来改变终点。

@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T06:49:16.957Z",
+  "stage": "I03",
+  "source_commit": "2774006a607067cd537ca4ed0c20d77f767ba009",
+  "goal_status": "active",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "source": "4c35cf3c82c606c393a0af0230cd8448bef20661",
+    "checkpoint": "fc8a60dfa77802306fc54f4770ddbcaa3b68efbd"
+  },
+  "status": "independent_canvas_card_drafts_pending_union_and_web_archive_wired_251_checks_passed_actual_multi_UI_pending",
+  "correction": {
+    "supersedes": "此前当前队列中所有同Thread镜像共用一份公开草稿/共享Lexical的假设",
+    "donor": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "path": "src/components/canvas/canvas-conversation-surface.tsx",
+    "draft_line": 786,
+    "attachment_line": 791,
+    "meaning": "Codeg每卡contextKey独立草稿和附件scope；同卡inline/drawer复用，消息和执行共享Core。保留历史证据，不缩减多卡完整输入。"
+  },
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "dc97ed059b3cd84bfff873495651f441bac6d3826b9b1a8c51311a9a18c75cec",
+      "git_blob": "4983868e041d41784e9bbddba6898e2b4052a22b"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "bd754332ba43864b600a945340b2bddd9bf2ac1f6d212115d9101e22041f046b",
+      "git_blob": "9fa8beb9229d49b275e6aa2eaaf3c4deb18996d3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+      "sha256": "d2027c1d13d1aea2bbbb7906a116039933f3b8e9ba8271438fe903f0d07c7df9",
+      "git_blob": "2c190cf0e9ae0228a4b374579b847ac2e31b1242"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "sha256": "d32a88264388b6dc72ba04cd9e379451d6dff9561dca431ad46f36f55933d5cb",
+      "git_blob": "3cb2ba8d76fbc356c3be81284fce12eeb746696b"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+      "sha256": "bd9ff81109c5b773722baf70b0a0cbfc7c22a5bd4cf1cb58240e3318d9e69028",
+      "git_blob": "67b08a774d7e8baced2ca1e168ea3929bb648666"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-composer-drafts.test.ts",
+      "sha256": "900324a68dc9365b63d4c67c64ded06baaa437b8f30825335ee3535eca03a569",
+      "git_blob": "361cbdcddb633b29f51d1011c3562c08f50a1f11"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-composer-drafts.ts",
+      "sha256": "35889b5214832da77fb9d1ef7719a249cafdce2d2d075918445d5357bdaab40f",
+      "git_blob": "64bdd6193801e41ed30ea9d7798c4b386b16902b"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversation.ts",
+      "sha256": "7f21553671de087b13cffae701718a563942c81e06655a6dc8be803020f1bca6",
+      "git_blob": "ad8e162a14e7eddccf99514e7257a18fb5e8dd40"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "de6fdca6e3775c299b7ef369b340d4df9e4a6dbef4082e6a175d5591a0f0efd0",
+      "git_blob": "fa24d1c4aeb971328cb05a46b0cc8a95f657d94c"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/pending-thread-draft.test.ts",
+      "sha256": "abbf967862148ee1019813cc9305e7d3679e5dffcbbda3bd97e8bbf9ed7b804b",
+      "git_blob": "6a936b7f109035ef1f55fb8630542aa399d34e7b"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/pending-thread-draft.ts",
+      "sha256": "8bc7cc53776003b9279b74c9666c7cbe29bf248e6b213bce2245b01393ef11be",
+      "git_blob": "11b83fbb08331f5a7a7fd970bac7b2d167e628b7"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/single-chat-composer-store.test.ts",
+      "sha256": "8655be6b3d1313f4313e22e6b4f8533dad55a8763b277a60c9553fb2241ea448",
+      "git_blob": "203ac6cca152d3e21fbae81d662cb509033d3002"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/single-chat-composer-store.ts",
+      "sha256": "1dc457eff0242581c4ccaf3298e9bee0bb77c24f9ed4251bb85c4bcf6c496931",
+      "git_blob": "1cbe9acda0b67da5ba764bb9f6204e822dbccc35"
+    },
+    {
+      "path": "apps/web/src/editing-recovery.test.ts",
+      "sha256": "3ae47b921f116438880280884b8bdbc26db805d07b6e0d9bb0f7478f76efede3",
+      "git_blob": "ea6b8ed3fec2b4753de6ec022c3665fe16e5eb2a"
+    },
+    {
+      "path": "apps/web/src/editing-recovery.ts",
+      "sha256": "d83a64e6b6d02a1c65cc8e6c8cb46d59834c7e510143b5d6bd755774ba9fdc92",
+      "git_blob": "f81275fcc552b25d43ab4df0dd5a0a82246584ad"
+    },
+    {
+      "path": "docs/architecture/camp-composer-draft.md",
+      "sha256": "f21afcffabd6254e47ee5ee202e929c32c95e8148b4199453feccfdc4f4bf74f",
+      "git_blob": "d89005cd02a88ef62d35f67c790fe5de166655fc"
+    },
+    {
+      "path": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "2197e25c438194752a0738c69656fb06c4e800076a03aa6cfc7cd17ab79a19d1",
+      "git_blob": "2a791a77818f0788066107106c5b860ee96b6241"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "bfbeb4ae61d5e36eb16db276348b5be684e373bb5bacb560034f53df849a5646",
+      "git_blob": "4c4dc60d439e3664aa37eb81824f46e040e5a43d"
+    },
+    {
+      "path": "integration/licenses/README.md",
+      "sha256": "ca65856160709c2634689b187231e8c91d86c430cfb3ea81c4fd6dfc0efad288",
+      "git_blob": "1c86d7ebf3370f8a8924bfbd6405f0f4a3e942c8"
+    }
+  ],
+  "implementation": [
+    "每卡Host/Owner+Core dataDir+board+真实pin+Thread+精确Conversation规范键。成员先detach获得真实pin；服务身份不完整禁止展开输入并允许guard之后重试核对。",
+    "公开沿既有轻量Draft格式，在每Thread单个v1 bundle中同步写索引/内容；每卡独立、主会话不导入、不同卡context切换重建coordinator/编辑器。同卡模式/几何不改context，不重建Lexical。",
+    "破损/未知版本/非字符串bundle拒绝覆盖，写失败保留旧记录及编辑器；恢复副本只提取精确context，恢复仍走原附件/回复/成员校验。",
+    "Pending presence按同client/Thread串行提交主会话及当前Host/Core全部卡片非空并集，含已收起输入；失败保存保留hint，激活收据停止旧pending写。离开后仍挂载卡片阻止discard，但挂载不伪造非空presence。",
+    "SingleChat正文默认原single-chat:<Thread>与字符串表不变，画布附context并分卡；同卡复用原共享store/发送锁与返回收据保护。Native scoped用localStorage桥，避免展开无关Desktop getter。",
+    "Web原公开归档扩canvas bundle，旧标签页有效公开记录可迁入；同编辑端标签页丢失可恢复，新编辑端只列同Host/Owner精确context副本供显式选择。字段过滤沿原公开Draft，不归档私聊正文/会话证明/待提交命令。"
+  ],
+  "checks": [
+    {
+      "name": "eight_scoped_owners_pure_static_and_mock",
+      "path": "../i03/canvas-context-owners-final.log",
+      "sha256": "4ca7dc20808a219e29565c599d18aea428e98f5d6d7db5b06eae4ac51724982c",
+      "files": 8,
+      "passed": 251,
+      "failed": 0,
+      "new_pure_cases": 18
+    },
+    {
+      "name": "scoped_TypeScript_including_new_context_and_Web_tests",
+      "path": "../i03/canvas-context-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0,
+      "config": "../i03/canvas-context-typecheck.json",
+      "config_sha256": "abe8e116d9f2574f30befe4a87d14f653395771b1194469bdf415afc0d9db5c1"
+    },
+    {
+      "name": "copy_and_duplicate_keys",
+      "path": "../i03/canvas-context-copy-final.log",
+      "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078",
+      "missing": 0,
+      "duplicate": 0
+    },
+    {
+      "name": "documentation_version",
+      "path": "../i03/canvas-context-docs-version-final.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+      "exit_code": 0
+    },
+    {
+      "name": "documentation_governance",
+      "path": "../i03/canvas-context-docs-decisions-final.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+      "exit_code": 0
+    },
+    {
+      "name": "diff_check",
+      "path": "../i03/canvas-context-diff-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0
+    },
+    {
+      "name": "pinned_Codeg_and_unchanged_transport",
+      "path": "../i03/canvas-context-source-proof.json",
+      "sha256": "61b053df27782fdf01ae8ababb5082d6588a3b4ad9bda15bb09f3699edb0fee3"
+    }
+  ],
+  "source_proof": {
+    "donor": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "source": "src/components/canvas/canvas-conversation-surface.tsx",
+    "source_sha256": "e2a2291cdecf358a24484ffed8c4f01e5daf6d40e91c5f6b2376be46ee985cc6",
+    "draft_line": 786,
+    "attachment_line": 791,
+    "excerpt": [
+      "          draftStorageKey={`canvas-draft:${contextKey}`}",
+      "          getSentHistory={getSentHistory}",
+      "          // The card's own connection key doubles as its composer scope: the",
+      "          // context-usage ring and connection dot in the picker row read it as",
+      "          // a contextKey (they showed nothing at all while it was undefined).",
+      "          attachmentTabId={contextKey}"
+    ],
+    "baseline": "fc8a60dfa77802306fc54f4770ddbcaa3b68efbd",
+    "private_transport": [
+      {
+        "method": "singleChat.send",
+        "calls": 1,
+        "expressions_unchanged": true,
+        "sha256": [
+          "a5730e1374333b1b9b8779b50c4e8171d0b219b7e101a0808ba81888efd34377"
+        ]
+      },
+      {
+        "method": "singleChat.pendingInputs.edit",
+        "calls": 2,
+        "expressions_unchanged": true,
+        "sha256": [
+          "0ae367275580b0028020cd1ec08f281a2c4d54b7d9fd0b72ab87471e4b9074b9",
+          "505292fbc330f186477a537cdd769672d51f620a8ba7c6bd3a043adc5a463126"
+        ]
+      }
+    ],
+    "public_send_helpers_unchanged": true,
+    "correction": "Per-card context drafts remain independent. Only same-card inline/drawer presentation reuses its composer. Core messages/execution are shared."
+  },
+  "self_review": [
+    "撤销错误的跨卡共享草稿计划，按供体真实draftStorageKey与attachmentTabId实现；没有用单张卡片或只读镜像替代完整多卡目标。",
+    "发现主会话initialDraft可能被画布采纳，页面传入与加载owner均阻止继承；context变化必须完成leave且重建输入owner，同卡presentation不视作离开。",
+    "核对leave完成回调在afterNextPaint/原挂载卸载后执行；挂载计数因此保护仍存在的卡片，最后卸载不永久保护空行，增加幂等释放测试。",
+    "核对真实Web recovery发现原仅归档legacy prefix，补public bundle准入、验证、字段过滤、迁入与精确副本；未知或quota失败保留原记录。",
+    "Native仅提取需要的onInvalidated和editingRecovery，不spread整个带getter的ThreadClient，测试拒绝访问无关Desktop桥。"
+  ],
+  "limitations": [
+    "当前仍一次聚焦一个实际交互实例；多卡同时挂载、各Thread预览/只读投影owner、全部leave聚合/展开恢复与可见通知仍在I03，不标完成。",
+    "公开卡片Draft附带的附件身份独立；私有附件/quotes仍走Conversation级Core Draft，必须继续隔离并验证CAS和未知结果。孤立卡片输入选择/删除、并发窗口、规模/配额仍待实际验证。",
+    "251项为纯/静态/mock，包括假存储重建；不是实际Electron/Web挂载、IME/焦点/Undo、触控/双主题、真实附件/流式/审批/停止或Core/Runtime进程重启资格。",
+    "无Rust/完整工作区构建/完整回归/打包/push/Actions/候选/合入；全部324产品验收场景仍not_run。"
+  ],
+  "protocol": {
+    "schema": 154,
+    "Host": 4,
+    "contract": "v1.72",
+    "current_operations": 178,
+    "historical_operations": 161,
+    "added_operations": 0,
+    "new_dependencies": 0,
+    "Core_database_or_model_context_changed": false,
+    "public_canvas_bundle_version": 1,
+    "default_legacy_keys_unchanged": true,
+    "web_archive_existing_version": 1
+  },
+  "next": [
+    "继续接同Thread只读读取/刷新owner与精确引用多卡呈现，每卡独立输入、自己的FilePreviewProvider和稳定portal；保留全部leave准备/回滚、Host/Core/board展开恢复及可见通知，恢复不得enter或启动Runtime。",
+    "补私有附件/quotes的卡片隔离及原Core Draft CAS/未知结果，核对卡片删除/换绑后孤立输入恢复、跨编辑端接管与规模/配额；不能把当前独立正文当完整附件隔离或多卡完成。",
+    "随后继续Mission/Task/Thread/Diff精确定位、授权文件预览、真实临时PTY生命周期与Desktop冷启动画布路由；阶段候选集中完整编译/集成/平台验证。",
+    "I02剩余SP/真实模型Gate与I04–I12/BUF全部既定范围保留。资源待办跳过后继续独立编码，未补齐必需验收不得标MVP完成。"
+  ],
+  "execution": {
+    "branch": "phase/i03-canvas-nodes",
+    "local_commit": true,
+    "push": false,
+    "Actions": false,
+    "stage_candidate": false,
+    "main_merge": false,
+    "cadence": "小切片编码/自审/适当低成本检查后本地commit；阶段编码review集齐后集中验证和少量push/Actions"
+  }
+}

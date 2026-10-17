@@ -1,0 +1,370 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R02",
+  "status": "engineering_verified_within_declared_local_scope",
+  "checked_at": "2026-10-16T17:50:49.154408+00:00",
+  "candidate": "fusion-i03-rc.19",
+  "source_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+  "core_source": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+  "committed_test_owner_source": "44495ef116b4c20d17a77e1cd90a07318355179a",
+  "qualified_cases": [
+    "PC02",
+    "PC11",
+    "PC14",
+    "PC15",
+    "PC16"
+  ],
+  "previous_case_evidence": {
+    "PC01": "i03-r02-native-send-verification.json",
+    "PC12": "i03-r02-native-send-verification.json"
+  },
+  "qualification": {
+    "PC02": "真实默认输入和画布分别保留不同本机正文、附件及引用；经完整工作区往返后分别实际发送，两处不相互清空，乙卡输入逐值保持。",
+    "PC11": "真实Core拒绝别卡quote ID、其他私聊消息引用及拿另一卡working令牌修改引用/附件；两份草稿和原完整工作副本不变，另一卡不暴露令牌。",
+    "PC14": "只读读取真实持久Managed Blob，核对字节数/SHA与accepted交接摘要；实际ACP收到整个Blob原文；路径内容、两段非源顺序引用、原section/formatter版本及无画布ID字段核定。",
+    "PC15": "源文件相同长度改内容、缺失、同名同内容换文件身份三种情况下，实际原生提交均明确拒绝；正文、材料、revision、另一卡、消息及Run数量不变，未借用同名源。",
+    "PC16": "同一私聊两张卡真实连续提交到原FIFO，等待期间无额外Run；精确取消阻塞Run后，两个输入按原次序进入实际ACP并成功完成，一条输入对应一个Run。"
+  },
+  "scope_boundary": "当前Windows真实Desktop/Core、固定本机ACP协议交接与只读数据库独立证据；不宣称外部模型推理、其他平台或整个I03通过。PC21/22进程中断仍开放。",
+  "database_boundary": "业务行只由生产命令创建，证据连接DatabaseSync readOnly:true；仅在已验证属于隔离Core的测试源文件上注入变化，修改前保存源字节及归属快照。",
+  "ui_followup_in_R09": "attachment_missing目前显示保留输入的通用错误指引；R09既定错误态应具体提示文件缺失与重新选择，不把本次通过写成全部文案/UI通过。",
+  "failed_attempts": {
+    "r1": "固定ACP声明resume但返回新PID会话ID，被Core正确拒绝，未获得FIFO资格。",
+    "r2": "脚本把文件缺失的既有attachment_missing也预期为source_changed，前置各场景通过但整批失败保留。",
+    "r3": "脚本误把可见会话归属标签当成输入框祖先，读取null；按原DOM可见归属标签修正。"
+  },
+  "fixture_repair": {
+    "commit": "5706b5c4",
+    "old_source_red": "failed_as_expected_wrong_resumed_session_id",
+    "current_protocol_test": "passed",
+    "behavior": "固定ACP恢复准确请求会话ID，只用CURRENT_INPUT判断暂停标记，历史标记不阻塞后继输入。生产输入与Core没有改动。"
+  },
+  "runs": [
+    {
+      "revision": "r1",
+      "status": "failed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T17:38:13.938Z"
+      },
+      "qualified": false
+    },
+    {
+      "revision": "r2",
+      "status": "failed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T17:41:03.203Z"
+      },
+      "qualified": false
+    },
+    {
+      "revision": "r3",
+      "status": "failed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T17:42:26.558Z"
+      },
+      "qualified": false
+    },
+    {
+      "revision": "r4",
+      "status": "passed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T17:44:19.130Z"
+      },
+      "qualified": true
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r1\\controlled-runtime-input.jsonl",
+      "sha256": "09ec211fbdd8997fcb3da1a966ecf8765677978641af4c505bdfda8bbf48ccca"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r1\\driver-exit.json",
+      "sha256": "92985f27fd4bc9ad1bebffa53564574e7c3d9d1b7db2ce18a4831cbdc29e04c7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r1\\failure.png",
+      "sha256": "54d3f35547d065c1145404203171071beae53d1d4eca8c8feaed28e251bbe99c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r1\\final-blob-runtime-comparison.json",
+      "sha256": "5ebd7b01b0d2916fbb4e0d54c3ae3827c34e69cb6c71baeaa036f77359c1eb33"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r1\\final-blob-verbatim.txt",
+      "sha256": "aa8b88e49d60ddb713c54d1f7518a677f1d43715f5d5e6bd58a28ea147496fc6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r1\\result.json",
+      "sha256": "52419c3f7809528d28a1084d6035340ad6b7639bf51520782fe339afcde85a44"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r1-config.json",
+      "sha256": "387489a191499e9b5e1c01d2d8c7a223fa53209dfb66aa4b47f88f61036d6d12"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r02-rc19-boundaries-r1-driver.log",
+      "sha256": "0ffd17ad84ff0151d0ef8cbaadb5beae120f89b11ff455cd23ca45f6f40eb95a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r1-canvas-private-workflow.mjs",
+      "sha256": "7fad08f312ba970608dc4f6ad0a1768953b88dbaf6937a217fe7c301a846bea1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r1-canvas-private-ipc.mjs",
+      "sha256": "d9bbab9f6ee6e00c4f834e523b6db2cd71c2915dc169f7e8927b73c04b30ce7c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r1-send-boundaries.mjs",
+      "sha256": "cdbff8141ccfbf1e6fcc33c224ef83a9bea258658a8a1ba8a379d24fd6996929"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\c06-controlled-diff-runtime-private-send-boundaries-r1.mjs",
+      "sha256": "9d724adbb896a11aefc433612e71ed995c351257cc2210861cc96babb34f4fd7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\c06-native-private-send-boundaries-r1.mjs",
+      "sha256": "0fb44055e0caeeafafccce8f00ac0f5e2ae9c96182da2be9953d44f9c43e71b5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r2\\controlled-runtime-input.jsonl",
+      "sha256": "a99bfc24e469f46a779d88f88167273726e03d414ee0664ca9f7f710e631fef8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r2\\driver-exit.json",
+      "sha256": "bdbe9fe565fd6d51af14daf84a1a300e2463b58210156cb36ad8af0077de81cf"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r2\\failure.png",
+      "sha256": "2e8470c1de70d2e604c9e929ad05733dd5f12ab1d95a9c2b16027de9919b32c8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r2\\fifo-and-working-copy.json",
+      "sha256": "3312aeaba36a5635a4830b03587b233c33ad21b352abccdb364d208aa2344cb1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r2\\final-blob-runtime-comparison.json",
+      "sha256": "7e8c25dcead0f09e600e1aa0d77855e983dd304d96f10feb5370235f62e45c12"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r2\\final-blob-verbatim.txt",
+      "sha256": "7cbbbeb902281ee37c4fbec39b8d98e14d6e9d6e2884591dbfaec3ace815af44"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r2\\result.json",
+      "sha256": "56df0e677e0e677db7ac92adf9ff9d808c9012d84a2c999f972ba3c68471428e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r2\\source-before-mutation.bin",
+      "sha256": "e0ab088aebe549a38da537192676c1302b05097bc55df3999b853278f5cc0ea0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r2\\source-before-mutation.json",
+      "sha256": "2153baf057b2efde8257f298199abec10d116eb5d8fa73e49124ac143368c0fc"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r2-config.json",
+      "sha256": "23ecaff11b5f8870a1bd9e38185f106670a5f91fb61fe014a094cd1bf0b08236"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r02-rc19-boundaries-r2-driver.log",
+      "sha256": "306ea3a7bb5e1d6853958510b46078b19d83bbecf19f22954fb9606d5af16665"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r2-canvas-private-workflow.mjs",
+      "sha256": "7fad08f312ba970608dc4f6ad0a1768953b88dbaf6937a217fe7c301a846bea1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r2-canvas-private-ipc.mjs",
+      "sha256": "d9bbab9f6ee6e00c4f834e523b6db2cd71c2915dc169f7e8927b73c04b30ce7c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r2-send-boundaries.mjs",
+      "sha256": "611c6b06b5aa6975ce9489f3b07b6c4fb51d0e0487cab39ad0b9a5dc56235c27"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\c06-controlled-diff-runtime-private-send-boundaries-r2.mjs",
+      "sha256": "b78e523d45d1a2fb3c147091a3058c9ddc55eb956c752da7a284d1840a2a7181"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\c06-native-private-send-boundaries-r2.mjs",
+      "sha256": "0fb44055e0caeeafafccce8f00ac0f5e2ae9c96182da2be9953d44f9c43e71b5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r3\\controlled-runtime-input.jsonl",
+      "sha256": "59652ea43b3b65e1c819a7c4507e2f7ba49675e50905e0c398d779189304c077"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r3\\driver-exit.json",
+      "sha256": "9837940ac0d13cb88c70f436587b3f15a455bd9a10399d59fa9678cb02bd9b26"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r3\\failure.png",
+      "sha256": "984a9a3e1682d04f4bc38643ff591ccae2b94a320597bbfc0edc8b0769522e96"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r3\\result.json",
+      "sha256": "66e6c0c19487a29dc083f4bb847b6765254859dee6f1b15704a7ecd6767e69e0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r3-config.json",
+      "sha256": "747ed031803213c8dd974490eec0bc885c5fd85aa880a16baf060f9cf5b27c03"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r02-rc19-boundaries-r3-driver.log",
+      "sha256": "bd53a743d0427299feb778635578d4d072bb7e577235b7ee73803e3170c30374"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r3-canvas-private-workflow.mjs",
+      "sha256": "7fad08f312ba970608dc4f6ad0a1768953b88dbaf6937a217fe7c301a846bea1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r3-canvas-private-ipc.mjs",
+      "sha256": "d9bbab9f6ee6e00c4f834e523b6db2cd71c2915dc169f7e8927b73c04b30ce7c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r3-send-boundaries.mjs",
+      "sha256": "ae27c02e1d1874419d80612e97194313ff3056541059e63f9a11898c68b06723"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\c06-controlled-diff-runtime-private-send-boundaries-r3.mjs",
+      "sha256": "b78e523d45d1a2fb3c147091a3058c9ddc55eb956c752da7a284d1840a2a7181"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\c06-native-private-send-boundaries-r3.mjs",
+      "sha256": "0fb44055e0caeeafafccce8f00ac0f5e2ae9c96182da2be9953d44f9c43e71b5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\01-private-source-failure-preserves-input.png",
+      "sha256": "15ffe2c5e165e9e887ba891965e2d5c6363deab40dd77f504dc5654ec93aa130"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\controlled-runtime-input.jsonl",
+      "sha256": "6f43ec131b666c1db0c4535ccab5fb8c88a43914f304f85a907576ab2fb6d80d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\driver-exit.json",
+      "sha256": "644e50b268084e3832dbacbb821ae23f847819d2bd468da5686a6da1ea8da191"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\fifo-and-working-copy.json",
+      "sha256": "1211cb13b8fbb05a4421d95edac4763bf6724b3001f3da266631fb0fcaa0c831"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\final-blob-runtime-comparison.json",
+      "sha256": "f318c244af2f38e4b9b667f38b12ea4adaa4690baa9480f92497f7226eea7de1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\final-blob-verbatim.txt",
+      "sha256": "32b84bab9570d91716476c15db44aa8e2728c1918bb58de211c53096e25b0cc0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\result.json",
+      "sha256": "7ccce69cd684d3d4bd452c943de74ea00b96c906a7758f27cae3a38f479ea15f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\source-before-mutation.bin",
+      "sha256": "e0ab088aebe549a38da537192676c1302b05097bc55df3999b853278f5cc0ea0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\source-before-mutation.json",
+      "sha256": "592e652d0e06188e9a8d5fc0e2b9b13de7f8ab61e197631f7dfc423bb9495ec1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\source-change-rejections.json",
+      "sha256": "c3626caaa8af94034a07cab6b9598bb90510ffdffc577694680b7e57586edcdb"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\source-missing.json",
+      "sha256": "4e1236179dfd931488585d1ca2fbe3db6ce45bb3c43f3e764e025e8e7f17d0b9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\source-same_name_replacement.json",
+      "sha256": "cdf63edd53d9a7faa981364d1d33c8aa20b03d3074d1b22b01c12dffa2c7319d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4\\source-same_size_changed.json",
+      "sha256": "f5f1dea880fcea755e6dad6c0d0fe91b5a897b97d5d20fef603854e410f433f3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-send-boundaries-r4-config.json",
+      "sha256": "68fc8267a24513b696c8bfe2fbdfbfdc027eb10bb25c8e821f39a5bd6da7fc97"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r02-rc19-boundaries-r4-driver.log",
+      "sha256": "9ffeaab5ad8eaeb3361f5cf42fa835bab3ca2e3dab46f5a4bd32063efbf737e3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r4-canvas-private-workflow.mjs",
+      "sha256": "7fad08f312ba970608dc4f6ad0a1768953b88dbaf6937a217fe7c301a846bea1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r4-canvas-private-ipc.mjs",
+      "sha256": "d9bbab9f6ee6e00c4f834e523b6db2cd71c2915dc169f7e8927b73c04b30ce7c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\private-send-boundaries-r4-send-boundaries.mjs",
+      "sha256": "f031dd673485bb98f47503fe55c78ab9b0e6511d6ce67947af2aef35c2722e7e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\c06-controlled-diff-runtime-private-send-boundaries-r4.mjs",
+      "sha256": "b78e523d45d1a2fb3c147091a3058c9ddc55eb956c752da7a284d1840a2a7181"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc19\\app\\c06-native-private-send-boundaries-r4.mjs",
+      "sha256": "0fb44055e0caeeafafccce8f00ac0f5e2ae9c96182da2be9953d44f9c43e71b5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\freeze.json",
+      "sha256": "1d2b289543cdca6a20bacd7f7cb75ae6f5c8eb1469f987cf913b996630e93f88"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\desktop-build-result.json",
+      "sha256": "e6c4bb43bc82330154de3c37e4c7dced11d190695e060825a5b9de0020f114b6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\web-build-result.json",
+      "sha256": "7b0fee45c969474f54a4a99f67b53b647c9c874932cab320a5ccce6958977c1a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r02-boundaries-rc19-native.mjs",
+      "sha256": "cf48517846c6a0d87ab496b921b91c25d2d11a8b8e179dce0bb9f8a9ea0e13cf"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r02-fixed-acp-protocol.log",
+      "sha256": "7b722a941ca1d0f717493f825baae08bddc59b5e30734db017da18c48e856cc4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r02-fixed-acp-old-source-red.log",
+      "sha256": "53767ba633ea69872b51874f609457977fa37086c2115b19b0169fab543cf27a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r02-fixed-acp-old-source-red.test.mjs",
+      "sha256": "e53e3c2c8bfb2f395f2074feddf45bc14054851c372616315ca70e450fec3ea6"
+    }
+  ],
+  "builds_added": 0,
+  "actions_triggered": 0,
+  "pushes": 0,
+  "external_model_calls": 0,
+  "customer_action_required_now": false,
+  "counts_after": {
+    "open_work_groups": 7,
+    "verified_work_groups": 3,
+    "private_cases_verified": 22,
+    "private_cases_open": 2
+  }
+}

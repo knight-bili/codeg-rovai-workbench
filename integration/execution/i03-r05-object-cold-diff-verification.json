@@ -1,0 +1,712 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R05",
+  "status": "engineering_verified_within_declared_local_scope",
+  "checked_at": "2026-10-16T19:11:09.330113+00:00",
+  "candidate": "fusion-i03-rc.20",
+  "source_commit": "4585a9289f028b55a7b5449b3585fc144c7f372b",
+  "core_source": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+  "committed_test_owner_source": "1a7a7945e2cf90d82959a473d31babc88cd5a267",
+  "qualification": [
+    "new App/Core processes restore exact Mission, cancelled Task, original source file and original Thread/worktree associations",
+    "actual Unicode pinned Diff; stale file requests do not rescan; failed refresh retains previous list and count, explicit success replaces view",
+    "same-file in-flight requests coalesce; late other-file result cannot replace selected file; actual Renderer 24-file cache eviction",
+    "two actual public card viewers retain independent Core views until last viewer closes; exactly one final Mission release invalidates both views",
+    "actual Core 12-view LRU, 13th insertion evicts untouched handle; explicit release invalidates remaining handles",
+    "actual 600-second idle expiry without clock manipulation, TTL override or rebuild; stale handle requires explicit refresh"
+  ],
+  "actual_ttl": {
+    "viewId": "eb425f5b-7846-47cf-a1ad-06ecbcbec52e",
+    "startedAt": "2026-10-16T19:00:43.682Z",
+    "notBefore": "2026-10-16T19:10:44.182Z",
+    "contractSeconds": 600,
+    "elapsedMs": 600508.1411
+  },
+  "passed_checks": {
+    "prepare": [
+      "owned_controlled_acp_passes_original_product_runtime_gate_without_external_model",
+      "real_core_prepares_managed_git_worktree_at_recorded_base_and_settles_controlled_protocol_run",
+      "actual_core_git_diff_includes_exact_unicode_path_and_untracked_file_without_writing_real_index_or_source_checkout",
+      "actual_canvas_diff_pin_opens_original_mission_diff_view_and_exact_unicode_file_with_visible_before_after_lines",
+      "formerly_changed_pinned_path_becoming_clean_keeps_original_pin_and_does_not_substitute_another_changed_file",
+      "owned_original_mission_cancelled_task_exact_source_file_diff_and_two_readers_persisted_without_database_seeding"
+    ],
+    "resume": [
+      "new_app_and_core_keep_exact_persisted_object_ids_while_prior_process_diff_handle_is_rejected",
+      "fresh_app_task_pin_opens_its_exact_original_workspace_and_object",
+      "fresh_app_mission_pin_opens_its_exact_original_workspace_and_object",
+      "fresh_app_source_file_pin_opens_original_source_bytes_not_the_different_mission_worktree_file",
+      "fresh_app_diff_pin_reacquires_new_view_for_exact_original_mission_and_unicode_path",
+      "actual_stale_file_view_requires_explicit_refresh_failed_refresh_keeps_old_list_and_successful_refresh_replaces_it",
+      "actual_same_view_inflight_file_reads_coalesce_and_late_other_file_reply_does_not_replace_selection",
+      "actual_renderer_24_file_cache_evicts_after_25_distinct_files_and_rereads_the_exact_evicted_file",
+      "two_actual_mounted_mission_readers_release_core_views_only_after_last_reader_closes",
+      "actual_core_12_view_lru_evicts_the_untouched_handle_on_13th_insert_and_explicit_release_invalidates_remaining_handles",
+      "actual_core_ten_minute_view_expiry_observation_started_no_virtual_clock_or_ttl_override",
+      "actual_core_ten_minute_idle_view_expires_and_requests_explicit_refresh"
+    ]
+  },
+  "failed_attempts": {
+    "r1-resume": "restored file preview hid the conversation activity entry; canonical fixture now uses existing return-to-conversation action",
+    "r2-resume": "expanded card activity entry was outside viewport; canonical fixture uses existing Fit All toolbar after expansion/layout changes; native hit guard preserved"
+  },
+  "runs": [
+    {
+      "revision": "r1",
+      "phase": "prepare",
+      "status": "passed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T18:54:47.263Z"
+      },
+      "checks": [
+        {
+          "name": "owned_controlled_acp_passes_original_product_runtime_gate_without_external_model",
+          "passed": true
+        },
+        {
+          "name": "real_core_prepares_managed_git_worktree_at_recorded_base_and_settles_controlled_protocol_run",
+          "passed": true
+        },
+        {
+          "name": "actual_core_git_diff_includes_exact_unicode_path_and_untracked_file_without_writing_real_index_or_source_checkout",
+          "passed": true
+        },
+        {
+          "name": "actual_canvas_diff_pin_opens_original_mission_diff_view_and_exact_unicode_file_with_visible_before_after_lines",
+          "passed": true
+        },
+        {
+          "name": "formerly_changed_pinned_path_becoming_clean_keeps_original_pin_and_does_not_substitute_another_changed_file",
+          "passed": true
+        },
+        {
+          "name": "owned_original_mission_cancelled_task_exact_source_file_diff_and_two_readers_persisted_without_database_seeding",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "revision": "r1",
+      "phase": "resume",
+      "status": "failed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T18:56:10.446Z"
+      },
+      "checks": [
+        {
+          "name": "new_app_and_core_keep_exact_persisted_object_ids_while_prior_process_diff_handle_is_rejected",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_task_pin_opens_its_exact_original_workspace_and_object",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_mission_pin_opens_its_exact_original_workspace_and_object",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_source_file_pin_opens_original_source_bytes_not_the_different_mission_worktree_file",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_diff_pin_reacquires_new_view_for_exact_original_mission_and_unicode_path",
+          "passed": true
+        },
+        {
+          "name": "actual_stale_file_view_requires_explicit_refresh_failed_refresh_keeps_old_list_and_successful_refresh_replaces_it",
+          "passed": true
+        },
+        {
+          "name": "actual_same_view_inflight_file_reads_coalesce_and_late_other_file_reply_does_not_replace_selection",
+          "passed": true
+        },
+        {
+          "name": "actual_renderer_24_file_cache_evicts_after_25_distinct_files_and_rereads_the_exact_evicted_file",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "revision": "r2",
+      "phase": "prepare",
+      "status": "passed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T18:57:18.301Z"
+      },
+      "checks": [
+        {
+          "name": "owned_controlled_acp_passes_original_product_runtime_gate_without_external_model",
+          "passed": true
+        },
+        {
+          "name": "real_core_prepares_managed_git_worktree_at_recorded_base_and_settles_controlled_protocol_run",
+          "passed": true
+        },
+        {
+          "name": "actual_core_git_diff_includes_exact_unicode_path_and_untracked_file_without_writing_real_index_or_source_checkout",
+          "passed": true
+        },
+        {
+          "name": "actual_canvas_diff_pin_opens_original_mission_diff_view_and_exact_unicode_file_with_visible_before_after_lines",
+          "passed": true
+        },
+        {
+          "name": "formerly_changed_pinned_path_becoming_clean_keeps_original_pin_and_does_not_substitute_another_changed_file",
+          "passed": true
+        },
+        {
+          "name": "owned_original_mission_cancelled_task_exact_source_file_diff_and_two_readers_persisted_without_database_seeding",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "revision": "r2",
+      "phase": "resume",
+      "status": "failed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T18:58:31.962Z"
+      },
+      "checks": [
+        {
+          "name": "new_app_and_core_keep_exact_persisted_object_ids_while_prior_process_diff_handle_is_rejected",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_task_pin_opens_its_exact_original_workspace_and_object",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_mission_pin_opens_its_exact_original_workspace_and_object",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_source_file_pin_opens_original_source_bytes_not_the_different_mission_worktree_file",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_diff_pin_reacquires_new_view_for_exact_original_mission_and_unicode_path",
+          "passed": true
+        },
+        {
+          "name": "actual_stale_file_view_requires_explicit_refresh_failed_refresh_keeps_old_list_and_successful_refresh_replaces_it",
+          "passed": true
+        },
+        {
+          "name": "actual_same_view_inflight_file_reads_coalesce_and_late_other_file_reply_does_not_replace_selection",
+          "passed": true
+        },
+        {
+          "name": "actual_renderer_24_file_cache_evicts_after_25_distinct_files_and_rereads_the_exact_evicted_file",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "revision": "r3",
+      "phase": "prepare",
+      "status": "passed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T19:00:07.008Z"
+      },
+      "checks": [
+        {
+          "name": "owned_controlled_acp_passes_original_product_runtime_gate_without_external_model",
+          "passed": true
+        },
+        {
+          "name": "real_core_prepares_managed_git_worktree_at_recorded_base_and_settles_controlled_protocol_run",
+          "passed": true
+        },
+        {
+          "name": "actual_core_git_diff_includes_exact_unicode_path_and_untracked_file_without_writing_real_index_or_source_checkout",
+          "passed": true
+        },
+        {
+          "name": "actual_canvas_diff_pin_opens_original_mission_diff_view_and_exact_unicode_file_with_visible_before_after_lines",
+          "passed": true
+        },
+        {
+          "name": "formerly_changed_pinned_path_becoming_clean_keeps_original_pin_and_does_not_substitute_another_changed_file",
+          "passed": true
+        },
+        {
+          "name": "owned_original_mission_cancelled_task_exact_source_file_diff_and_two_readers_persisted_without_database_seeding",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "revision": "r3",
+      "phase": "resume",
+      "status": "passed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T19:10:44.757Z"
+      },
+      "checks": [
+        {
+          "name": "new_app_and_core_keep_exact_persisted_object_ids_while_prior_process_diff_handle_is_rejected",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_task_pin_opens_its_exact_original_workspace_and_object",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_mission_pin_opens_its_exact_original_workspace_and_object",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_source_file_pin_opens_original_source_bytes_not_the_different_mission_worktree_file",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_diff_pin_reacquires_new_view_for_exact_original_mission_and_unicode_path",
+          "passed": true
+        },
+        {
+          "name": "actual_stale_file_view_requires_explicit_refresh_failed_refresh_keeps_old_list_and_successful_refresh_replaces_it",
+          "passed": true
+        },
+        {
+          "name": "actual_same_view_inflight_file_reads_coalesce_and_late_other_file_reply_does_not_replace_selection",
+          "passed": true
+        },
+        {
+          "name": "actual_renderer_24_file_cache_evicts_after_25_distinct_files_and_rereads_the_exact_evicted_file",
+          "passed": true
+        },
+        {
+          "name": "two_actual_mounted_mission_readers_release_core_views_only_after_last_reader_closes",
+          "passed": true
+        },
+        {
+          "name": "actual_core_12_view_lru_evicts_the_untouched_handle_on_13th_insert_and_explicit_release_invalidates_remaining_handles",
+          "passed": true
+        },
+        {
+          "name": "actual_core_ten_minute_view_expiry_observation_started_no_virtual_clock_or_ttl_override",
+          "passed": true
+        },
+        {
+          "name": "actual_core_ten_minute_idle_view_expires_and_requests_explicit_refresh",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-prepare-config.json",
+      "sha256": "992f07cb650ae97505fdd7954b5183206a344bdeb3b49dccd481ac8de4b4ec52"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r05-rc20-r1-prepare-driver.log",
+      "sha256": "a6b7e16ebdad3bc34ff42a64f4286d9245fb575f21d5ca78419ecb56b8e79e54"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-prepare\\01-ready-git-exact-diff.png",
+      "sha256": "73da00726aee522267f4259c77ace9e2f5c6e1adeab8703a4060d7eba710c25f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-prepare\\02-no-fallback-after-target-clean.png",
+      "sha256": "0d484c9299c293a5898de20891427cc8ed1853aa489a797f90743e0334dfae01"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-prepare\\cold-fixture-before.json",
+      "sha256": "d12c739641132cd52f597c3ec44d6ee19d29ed91784a7cdbffc28376504ffd14"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-prepare\\controlled-runtime-input.jsonl",
+      "sha256": "444d0e3465df138ffb24cb3afd17610380950a0707a9768c0bbcb9ee301efcfb"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-prepare\\driver-exit.json",
+      "sha256": "8dbb49d1e7d25dd645fa5a51b147fbadcb9f9cba3aa81ab426cdc827392761fa"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-prepare\\git-fixture-before-restore.json",
+      "sha256": "391fef0dfc8ebf00ef2dd4814b846ea48c52ba7d5f9e8bf63814d40222295615"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-prepare\\git-fixture-before.json",
+      "sha256": "c66942104ef483208b5e0bd455aeb2cdf096d4322bcf124407bef3cb290b3c07"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-prepare\\git-index-after.json",
+      "sha256": "b7676c779038e703f48d10796d2cd640a040ec620713c832a84a368774abc418"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-prepare\\object-context.json",
+      "sha256": "f3e684a97281e5999c29979cb75b0f1ee24b5e7bd7cbd97ff1eb622eee71c510"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-prepare\\result.json",
+      "sha256": "edd8aa68c35b42a5dc2936f89984cb6e1cbd32aff243c1611b8e11a936cca84e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r1-prepare-canvas-object-cold-workflow.mjs",
+      "sha256": "2eac12d076aa0834f29484e1ae04f9dafc4adbf6f75c6fb2e890935be80a08ca"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r1-prepare-canvas-mission-ipc.mjs",
+      "sha256": "36f1a49c1f1e7867a5ae62843c309b87c078e640396bda11ad0c48fc4ca8e524"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-controlled-diff-runtime-object-cold-r1-prepare.mjs",
+      "sha256": "6a16941be755fee8da15cb1963699548fe36bbee534f3559d7163253ef1afb11"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-object-cold-r1-prepare.mjs",
+      "sha256": "59c7fcc56ff9697dd3ed7d442189b63da0e62372ce657f10d673a99c063b9b25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-resume-config.json",
+      "sha256": "b8cbad52fce1cc2e54c1b201057f34d0e8280bddb84fca577af556d4e750faa5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r05-rc20-r1-resume-driver.log",
+      "sha256": "08b17c3795c4b34957f4d65a00a612681608db101ca9299028744726f8ec9348"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-resume\\01-cold-original-file.png",
+      "sha256": "6dbdadf96623ff3b98e86d92eedd115c33385908517c40ff5bb2bdeb1fe4c907"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-resume\\02-diff-refresh-cache.png",
+      "sha256": "f1dfb5e4b7b30de8f795d736e540ec169da09a3fa0b7bede27a291be69b7463c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-resume\\before-stale-injection.json",
+      "sha256": "6f9eb2d2835d9dc631f865a0222af99e54fc181e24708cc341ca2a83bf9a2e7d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-resume\\driver-exit.json",
+      "sha256": "a376f8c183bce3837a460c72cc96418b398f648bc0652c27d28122a7e879d055"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-resume\\failure.png",
+      "sha256": "0ab69f91f8e500285ce71c5b3d8f6bbb975b6b5e063375bd1d40bc1dce46d993"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r1-resume\\result.json",
+      "sha256": "4d1a7bf4472be0a1bd341869afead1eda83ecf841594daa3da39e132b1f44794"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r1-resume-canvas-object-cold-workflow.mjs",
+      "sha256": "2eac12d076aa0834f29484e1ae04f9dafc4adbf6f75c6fb2e890935be80a08ca"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r1-resume-canvas-mission-ipc.mjs",
+      "sha256": "36f1a49c1f1e7867a5ae62843c309b87c078e640396bda11ad0c48fc4ca8e524"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-controlled-diff-runtime-object-cold-r1-resume.mjs",
+      "sha256": "6a16941be755fee8da15cb1963699548fe36bbee534f3559d7163253ef1afb11"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-object-cold-r1-resume.mjs",
+      "sha256": "59c7fcc56ff9697dd3ed7d442189b63da0e62372ce657f10d673a99c063b9b25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-prepare-config.json",
+      "sha256": "61e830b84c8aab51dc59707cee458ffdbc5c5f1c4d243c1d5543eb9ab8301f2e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r05-rc20-r2-prepare-driver.log",
+      "sha256": "6219c4a2d789db483cca955b17f082d513919dd93c0c6d40a2933f33a5c58a53"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-prepare\\01-ready-git-exact-diff.png",
+      "sha256": "06455c5bbf4fcc732966c727ad4e8bdc6301356310d48373947f9a74b7acc3f3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-prepare\\02-no-fallback-after-target-clean.png",
+      "sha256": "f8c7e8b8cb20cceb03a93755af6b5aee7780dd7980c48f1b82564a7ab8359f32"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-prepare\\cold-fixture-before.json",
+      "sha256": "8a14356e4e114d91bdce0c1e0678849745ca244288a073041167e2043a269444"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-prepare\\controlled-runtime-input.jsonl",
+      "sha256": "77751aa11f3320f3fd099e1e5eaa8ff2521470689a8b47a871a3964b0c97243a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-prepare\\driver-exit.json",
+      "sha256": "12a563158b8d0e5a310c51b7f9a45b4749da29c6e42e74316196a3192d977638"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-prepare\\git-fixture-before-restore.json",
+      "sha256": "f7d5ffae0dde64020708b0dd91967c8519515bce458be367f13a69b4dbe42426"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-prepare\\git-fixture-before.json",
+      "sha256": "82b2795e99082222abf1220e72a3a87d0c69e3391ba7fe510803082eadcad34e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-prepare\\git-index-after.json",
+      "sha256": "9a22eff4ba8fd08ab9a72567bbe9bf5f600049ecbddbd55fa6645a57f11e1313"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-prepare\\object-context.json",
+      "sha256": "ff24fb9d35659c22b0452361fcec13666869a66e522357b1630269b67b7b982e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-prepare\\result.json",
+      "sha256": "c5de45a8312ebe64e2b6568c1c15ebcb5717e68ed87a97d07bf5875345400c23"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r2-prepare-canvas-object-cold-workflow.mjs",
+      "sha256": "4926e409b63a4e12b61e5b7f46620665e3e02f05f4c722176c9ab4660a5b8314"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r2-prepare-canvas-mission-ipc.mjs",
+      "sha256": "36f1a49c1f1e7867a5ae62843c309b87c078e640396bda11ad0c48fc4ca8e524"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-controlled-diff-runtime-object-cold-r2-prepare.mjs",
+      "sha256": "6a16941be755fee8da15cb1963699548fe36bbee534f3559d7163253ef1afb11"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-object-cold-r2-prepare.mjs",
+      "sha256": "59c7fcc56ff9697dd3ed7d442189b63da0e62372ce657f10d673a99c063b9b25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-resume-config.json",
+      "sha256": "745f69aaca76bb4f47fc58015f593cf57eefa4f85dfdccfcc2b0413b648b7991"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r05-rc20-r2-resume-driver.log",
+      "sha256": "c628537423fdcb853ed67bb878e577de8242525cb5d917b98e8a04b44b2bc6d4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-resume\\01-cold-original-file.png",
+      "sha256": "be4ce441dc1611f20b2ddbdc5b1a0041e9fd84f0928eca3be9efc501d5a0d553"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-resume\\02-diff-refresh-cache.png",
+      "sha256": "756467115dbefc51bc225f058ae5cb874f5fcb0aea7d2e78c76350bbd8be8790"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-resume\\before-stale-injection.json",
+      "sha256": "536afbb77145f5ebe1af1bcc5becfcba630052d9f90cc3e88c63ace4e57378aa"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-resume\\driver-exit.json",
+      "sha256": "bfbb7ed3be188da23673d1c56f9dc504ff88ece57f1545f0b72b9d6c0cdce615"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-resume\\failure.png",
+      "sha256": "f5fa9fac818c59cc0883b2242dd3cbefcc1f2a96e24170d80219621688366990"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r2-resume\\result.json",
+      "sha256": "f3161fee1f6d0139bdc2cbe589ad1112787cdc76fad4be20b179c293aba400d1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r2-resume-canvas-object-cold-workflow.mjs",
+      "sha256": "4926e409b63a4e12b61e5b7f46620665e3e02f05f4c722176c9ab4660a5b8314"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r2-resume-canvas-mission-ipc.mjs",
+      "sha256": "36f1a49c1f1e7867a5ae62843c309b87c078e640396bda11ad0c48fc4ca8e524"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-controlled-diff-runtime-object-cold-r2-resume.mjs",
+      "sha256": "6a16941be755fee8da15cb1963699548fe36bbee534f3559d7163253ef1afb11"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-object-cold-r2-resume.mjs",
+      "sha256": "59c7fcc56ff9697dd3ed7d442189b63da0e62372ce657f10d673a99c063b9b25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-prepare-config.json",
+      "sha256": "ce8d03c0dc78509f1a85f35dc83a96b523b90360ef6cf3c58464132250758fc4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r05-rc20-r3-prepare-driver.log",
+      "sha256": "27f88ca184bee9bbdc9eb896f75b3a362eac2f8601751643761a0f230a9178d3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-prepare\\01-ready-git-exact-diff.png",
+      "sha256": "ed9a5d83932117b6f700a4c7345a2e3a1aac794bf618a5b08a58cb4cccfdf239"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-prepare\\02-no-fallback-after-target-clean.png",
+      "sha256": "221ac4500ddb8402fb66dcd80c67643a4e11d37e6fc85d9c292ddfb5595ffad3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-prepare\\cold-fixture-before.json",
+      "sha256": "bd34e6fdbe6631ea842d68178462da130627618e7752f903ff09b411fcc0d4e3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-prepare\\controlled-runtime-input.jsonl",
+      "sha256": "cc925ab653c7d55b04fbea24b23f7cc62bd09a9c9d753cbf155ee5f58ebbbcc8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-prepare\\driver-exit.json",
+      "sha256": "2aad148c3b0bd418f4adf91e3ed8289a300fac6cd86a5850a5c45c00f2324e37"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-prepare\\git-fixture-before-restore.json",
+      "sha256": "c57feaadf2d9d090135c24f05fe3b23be98d3412c0e68ba96a50cd9917a3b243"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-prepare\\git-fixture-before.json",
+      "sha256": "5b43cf005843f75881759d9bc43d76aa07a7b2109cd7cf819403db1c6cff3678"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-prepare\\git-index-after.json",
+      "sha256": "14400bf30e1fe21c3d5aa7439308d2d9c475dcc1a03b164800c37f6d9b2da195"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-prepare\\object-context.json",
+      "sha256": "616ec54519c1958c8bfc5d3a39b92727a03c75eacbeb64db6619e5621b01f8d9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-prepare\\result.json",
+      "sha256": "96bbbe4c0b4befad32d2a99313c02605419cf780b054c34185e2ea24d6389513"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r3-prepare-canvas-object-cold-workflow.mjs",
+      "sha256": "3f3dc5a3d94be1d3cc70027336dbb5b569eaafe463eebe7bd4305dc3c8e42289"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r3-prepare-canvas-mission-ipc.mjs",
+      "sha256": "36f1a49c1f1e7867a5ae62843c309b87c078e640396bda11ad0c48fc4ca8e524"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-controlled-diff-runtime-object-cold-r3-prepare.mjs",
+      "sha256": "6a16941be755fee8da15cb1963699548fe36bbee534f3559d7163253ef1afb11"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-object-cold-r3-prepare.mjs",
+      "sha256": "59c7fcc56ff9697dd3ed7d442189b63da0e62372ce657f10d673a99c063b9b25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-resume-config.json",
+      "sha256": "6b78a3ccded1958f41e949fc4949a4ec41adcdc55a26c734797c7a5c58846b23"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r05-rc20-r3-resume-driver.log",
+      "sha256": "39c9d5b6b779dc8d4d126fce3726a870e6708bdb973a4b0b0420ff09d6dda4fe"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-resume\\01-cold-original-file.png",
+      "sha256": "ba5998a9f644dda88a5e0501dfe4147518178eeff1262a43e947c4e8d3abad35"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-resume\\02-diff-refresh-cache.png",
+      "sha256": "3b7db69e829afec7100a42e8d0e10da90864b15f0cc16dfac9e3e31ee13335a8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-resume\\before-stale-injection.json",
+      "sha256": "9c25e0057243eaa00d6151a7ce827097024f3d0999600bf82f247a5506d02410"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-resume\\driver-exit.json",
+      "sha256": "8753645202be0180187b0edfa7891911b7c96e232adc3c2e27a9e56fdd768343"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-resume\\result.json",
+      "sha256": "198cffbf665d4a8dd23b554f03086b9d71ee82c73a3a67103941257983302c65"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\native-object-cold-r3-resume\\ttl-pending.json",
+      "sha256": "69e8e0650b4a3db61dd4cdc4c3ae0be275909e8805601d4738810af51b37cdb1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r3-resume-canvas-object-cold-workflow.mjs",
+      "sha256": "3f3dc5a3d94be1d3cc70027336dbb5b569eaafe463eebe7bd4305dc3c8e42289"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\object-cold-r3-resume-canvas-mission-ipc.mjs",
+      "sha256": "36f1a49c1f1e7867a5ae62843c309b87c078e640396bda11ad0c48fc4ca8e524"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-controlled-diff-runtime-object-cold-r3-resume.mjs",
+      "sha256": "6a16941be755fee8da15cb1963699548fe36bbee534f3559d7163253ef1afb11"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc20\\app\\c06-native-object-cold-r3-resume.mjs",
+      "sha256": "59c7fcc56ff9697dd3ed7d442189b63da0e62372ce657f10d673a99c063b9b25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r05-rc20-native.mjs",
+      "sha256": "f6cf11100f1161b192fb171dd14b722d29f259f4ccf4663f8c869d6aedb95853"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r05-rc20-final-processes.json",
+      "sha256": "80efb74b8327a3c1ec7684f092d740b814058ad5c7ae319c707e6631d451b1ac"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r05-mission-ipc-final.log",
+      "sha256": "1a21bea17f7fb6c3351b3667970878d294c3079c7ebada980625aeadd37f60b7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\settle-r05-rc20.py",
+      "sha256": "367b55b9cde71ca1bcb592217f310515c89a9e93e31127d56bdfeb643a08dec5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-native-input.mjs",
+      "sha256": "59c7fcc56ff9697dd3ed7d442189b63da0e62372ce657f10d673a99c063b9b25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-mission-ipc.mjs",
+      "sha256": "36f1a49c1f1e7867a5ae62843c309b87c078e640396bda11ad0c48fc4ca8e524"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-object-cold-workflow.mjs",
+      "sha256": "3f3dc5a3d94be1d3cc70027336dbb5b569eaafe463eebe7bd4305dc3c8e42289"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\lib\\canvas-mission-ipc.test.mjs",
+      "sha256": "52bd2c96d7bd5540f701b63970ab53c7885d58d7d0ce3e8b1ae5b736cf7bdbc9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\freeze.json",
+      "sha256": "32041f7577eda7406a8812271acb021240b23dfcb5ce41b62bca63e7dc61716f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\desktop-build-result.json",
+      "sha256": "df235fad81ea1164066377ead35fe3b3dac21381e30425352eacd72fa1cc774a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\web-build-result.json",
+      "sha256": "b27071a202a070e31b3fbb66a52df07178a88f89aeaf6fccf848f57a705996cb"
+    }
+  ],
+  "scope_boundary": "Windows production Desktop/Main/preload/Core and owned actual Git; fixed local ACP only; no external inference, other-platform or complete I03 qualification.",
+  "counts_after": {
+    "open_work_groups": 5,
+    "verified_work_groups": 5,
+    "private_cases_verified": 24,
+    "private_cases_open": 0
+  },
+  "builds_added": 0,
+  "actions_triggered": 0,
+  "pushes": 0,
+  "external_model_calls": 0,
+  "customer_action_required_now": false
+}

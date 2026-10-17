@@ -744,6 +744,27 @@ export interface WorkspaceInspection extends WorkspaceSelection {
   gitObservation: GitObservation
 }
 
+export interface WorkspaceWorktree {
+  projectPath: string
+  isMain: boolean
+  bare: boolean
+  locked: boolean
+  prunable: boolean
+  available: boolean
+  /** Older Hosts may omit branch metadata. Missing is unknown, never inferred from directory names. */
+  branch?: string | null
+  detached?: boolean
+}
+
+export interface WorkspaceWorktrees {
+  schemaVersion: 1
+  requestedPath: string
+  projectPath: string
+  repositoryRoot: string | null
+  mainWorktreePath: string | null
+  worktrees: WorkspaceWorktree[]
+}
+
 export interface StartPreflightResult {
   admissible: boolean
   checkedAt: string
@@ -888,6 +909,7 @@ export interface SendSingleChatMessageCommand {
   conversationId: string
   body: string
   draftRevision: number
+  composerScope?: SingleChatComposerScope | null
 }
 
 export interface EndSingleChatCommand {
@@ -956,6 +978,129 @@ export interface SingleChatComposerDraftView {
   updatedAt: string | null
 }
 
+export type PrivateAttachmentUploadTarget = {
+  kind: 'single_chat'
+  conversationId: string
+  composerScope?: SingleChatComposerScope | null
+} | {
+  kind: 'single_chat_pending'
+  conversationId: string
+  composerScope?: SingleChatComposerScope | null
+  pendingInputId: string
+  editToken: string
+}
+
+export interface PrivateAttachmentPreparationRequest {
+  commandId: string
+  threadId: string
+  expectedRevision: number
+  target: PrivateAttachmentUploadTarget
+}
+
+export type PrivateAttachmentPreparationResult = {
+  /** 首次派发已明确未绑定；已有未知请求不能用单次重试拒绝覆盖。 */
+  state: 'rejected'
+  commandId: string
+  code: string
+} | {
+  /** 平台已确认本次未派发绑定；不能用于运输结果未知。 */
+  state: 'not_prepared'
+  commandId: string
+} | {
+  state: 'prepared' | 'unknown'
+  commandId: string
+} | {
+  state: 'recorded'
+  commandId: string
+  receipt: StoredCommandResult
+}
+
+export interface PrivateAttachmentPreparationOwner {
+  threadId: string
+  conversationId: string
+  composerScope: SingleChatComposerScope | null
+}
+
+export interface SingleChatComposerScope {
+  kind: 'canvas'
+  boardId: string
+  nodeId: string
+}
+
+export interface ScopedSingleChatComposerDraftView extends SingleChatComposerDraftView {
+  scopeVersion: 1
+  scopeKey: string
+  composerScope: SingleChatComposerScope | null
+}
+
+export interface ScopedSingleChatSnapshot extends SingleChatSnapshot {
+  draft: ScopedSingleChatComposerDraftView
+  pendingInputs: SingleChatPendingInputsView & { editingElsewhere: boolean }
+}
+
+export type PrivateComposerAction =
+  | { type: 'register_scope' }
+  | { type: 'remove_attachment'; attachmentRefId: string }
+  | { type: 'reorder_attachments'; attachmentRefIds: string[] }
+  | { type: 'quote'; action: MessageQuoteAction }
+  | { type: 'swap_retained'; retainedInputId: string; expectedRetainedRevision: number; currentBody: string }
+  | { type: 'discard_retained'; retainedInputId: string; expectedRetainedRevision: number }
+  | { type: 'adopt_legacy_materials'; expectedSourceRevision: number; targetBody: string }
+
+export interface MutatePrivateComposerCommand {
+  threadId: string
+  conversationId: string
+  composerScope?: SingleChatComposerScope | null
+  expectedDraftRevision: number
+  action: PrivateComposerAction
+}
+
+export interface PrivateComposerScopeEntry {
+  scopeKey: string
+  composerScope: SingleChatComposerScope | null
+  orphaned: boolean
+  draftRevision: number
+  attachmentCount: number
+  quoteCount: number
+  retainedInputCount: number
+  updatedAt: string | null
+}
+
+export interface RetainedPrivateInput {
+  id: string
+  conversationId: string
+  scopeKey: string
+  revision: number
+  body: string
+  attachments: LocalAttachmentSourceView[]
+  quotes: MessageQuoteSnapshot[]
+  updatedAt: string
+}
+
+export interface PrivateComposerMutationPayload {
+  draft: ScopedSingleChatComposerDraftView
+  body?: string
+  retainedInput?: RetainedPrivateInput
+}
+
+export type PrivateComposerRecoveryItem =
+  | { kind: 'scope'; scope: PrivateComposerScopeEntry }
+  | { kind: 'retained'; input: RetainedPrivateInput }
+
+export interface PrivateComposerRecoveryResult {
+  items: PrivateComposerRecoveryItem[]
+  nextCursor: string | null
+  complete: boolean
+  throughGlobalSequence: number
+}
+
+export interface PrivateComposerRecoveryParams {
+  threadId: string
+  conversationId: string
+  cursor?: string | null
+  limit?: number
+}
+
 export interface SingleChatPendingInputView {
   quotes: MessageQuoteSnapshot[]
   id: string
@@ -985,7 +1130,7 @@ export interface SingleChatPendingInputsView {
 }
 
 export type SingleChatPendingInputEditAction =
-  | { type: 'return_to_composer'; expectedDraftRevision: number }
+  | { type: 'return_to_composer'; expectedDraftRevision: number; targetBody: string }
   | { type: 'quote'; action: MessageQuoteAction }
   | { type: 'begin' | 'takeover' | 'cancel' | 'delete' }
   | { type: 'save'; body: string }
@@ -998,8 +1143,18 @@ export interface EditSingleChatPendingInputCommand {
   pendingInputId: string
   expectedRevision: number
   editToken: string | null
+  composerScope?: SingleChatComposerScope | null
   action: SingleChatPendingInputEditAction
 }
+
+export type SingleChatPendingReturnPayload = {
+  pendingInputId: string
+  body: string
+  draft: ScopedSingleChatComposerDraftView
+} & (
+  | { placement: 'active'; retainedInput?: never }
+  | { placement: 'retained'; retainedInput: RetainedPrivateInput }
+)
 
 export type NavigationThreadMarker = 'loading' | 'unread_completed' | 'none'
 
@@ -1054,6 +1209,12 @@ export interface NavigationSnapshot {
   throughGlobalSequence: number
   quickChat: NavigationThreadGroup
   projects: ProjectNavigationGroup[]
+}
+
+export interface NavigationActivitySnapshot {
+  schemaVersion: 1
+  throughGlobalSequence: number
+  groups: Array<{ groupKey: string; activeThreadCount: number }>
 }
 
 export interface NavigationThreadPage {
@@ -1365,6 +1526,9 @@ export type LocalAttachmentAvailability =
 export type LocalAttachmentSourceView = ThreadMessageAttachmentView
 
 export type LocalAttachmentOwnerLocator =
+  | { owner: 'single_chat_scoped_composer'; threadId: string; conversationId: string; composerScope: SingleChatComposerScope; attachmentRefId: string }
+  | { owner: 'single_chat_scoped_pending_edit'; threadId: string; conversationId: string; composerScope: SingleChatComposerScope; pendingInputId: string; editToken: string; attachmentRefId: string }
+  | { owner: 'single_chat_retained'; threadId: string; conversationId: string; composerScope: SingleChatComposerScope | null; retainedInputId: string; attachmentRefId: string }
   | { owner: 'composer'; threadId: string; attachmentRefId: string }
   | { owner: 'pending'; threadId: string; pendingInputId: string; attachmentRefId: string }
   | {
@@ -3442,8 +3606,24 @@ export interface NavigationThreadReadState {
   readThroughGlobalSequence: number
 }
 
+export const NAVIGATION_PROJECT_GROUP_COLORS = ['neutral', 'zinc', 'slate', 'stone', 'gray', 'red', 'rose', 'orange', 'green', 'blue', 'yellow', 'violet'] as const
+export type NavigationProjectGroupColor = typeof NAVIGATION_PROJECT_GROUP_COLORS[number]
+export interface NavigationProjectGroup {
+  id: string
+  name: string
+  color: NavigationProjectGroupColor | null
+  projectPaths: string[]
+}
+export type NavigationProjectLayoutEntry = { kind: 'group'; groupId: string }
+  | { kind: 'project'; projectPath: string; groupId: string | null }
+export type NavigationProjectLayoutMutation = { type: 'create' | 'update'; group: NavigationProjectGroup }
+  | { type: 'delete'; groupId: string }
+  | { type: 'layout'; entries: NavigationProjectLayoutEntry[] }
+
 export interface NavigationPreferencesSnapshot {
-  schemaVersion: 6
+  schemaVersion: 7
+  projectGroups: NavigationProjectGroup[]
+  projectGroupsRevision: number
   registeredProjects: string[]
   legacyProjectsSynced: boolean
   /** Read degradation only; never persisted. */
@@ -3456,6 +3636,7 @@ export interface NavigationPreferencesSnapshot {
 }
 
 export interface NavigationPreferencesApi {
+  applyProjectLayout(expectedRevision: number, mutation: NavigationProjectLayoutMutation): Promise<NavigationPreferencesSnapshot>
   registerProjects(projectPaths: string[], completeLegacy?: boolean): Promise<NavigationPreferencesSnapshot>
   get(): Promise<NavigationPreferencesSnapshot>
   setThreadReadState(threadId: string, state: NavigationThreadReadState | null): Promise<NavigationPreferencesSnapshot>
@@ -4150,7 +4331,27 @@ export interface CanvasBoard {
 
 export interface CanvasBoardsSnapshot {
   boards: CanvasBoard[]
+  /** Missing on metadata-only Hosts. Same transaction/revisions as boards; never a zero-count fallback. */
+  summaries?: CanvasBoardSummary[]
   throughGlobalSequence: number
+}
+
+export interface CanvasBoardSummary {
+  boardId: string
+  revision: number
+  nodeCount: number
+  terminalCount: number
+  /** At most 200 persisted footprints, largest area first. No text, paths or conversation identities. */
+  preview: CanvasBoardPreviewRect[]
+}
+
+export interface CanvasBoardPreviewRect {
+  kind: CanvasNodeKind
+  x: number
+  y: number
+  width: number
+  height: number
+  color: string | null
 }
 
 export interface CanvasBoardSnapshot {
@@ -4174,7 +4375,176 @@ export interface DeleteCanvasBoardCommand {
   expectedRevision: number
 }
 
+export type CanvasNodeKind = 'folder' | 'group' | 'agent' | 'conversation' | 'custom' | 'note' | 'file' | 'terminal'
+
+export interface CanvasConversationRef {
+  threadId: string
+  conversationId: string | null
+}
+
+/** 独立对象身份不可变；path只选择当前Mission Diff中的精确文件，不是文件授权。 */
+export type CanvasObjectReference =
+  | { kind: 'mission'; missionId: string }
+  | { kind: 'task'; taskId: string }
+  | { kind: 'mission_diff'; missionId: string; path?: string | null }
+
+/** 仅绑定文件节点原公开工程会话；具体文件能力仍由原预览系统签发。 */
+export interface CanvasFileReference { threadId: string }
+
+export interface CanvasRunModel extends ThreadMessageRuntimeModelView { runId: string }
+export interface CanvasReferenceMember { agentId: string; displayName: string; runtimeKind: AdapterKind | null; lastRunModel?: CanvasRunModel | null }
+export interface CanvasPrivateReference { conversationId: string; agentId: string; updatedAt: string; hasActiveRun?: boolean; lastRunModel?: CanvasRunModel | null }
+export interface CanvasThreadReference {
+  threadId: string
+  title: string
+  projectBindingKind: ProjectBindingKind
+  projectPath: string
+  updatedAt: string
+  version: number
+  missionId: string | null
+  members: CanvasReferenceMember[]
+  privateConversations: CanvasPrivateReference[]
+  /** Omitted by older Hosts. Counts only public nonterminal Runs, never a private card's activity. */
+  publicActiveRunCount?: number
+}
+export interface CanvasReferencePage {
+  schemaVersion: 1
+  throughGlobalSequence: number
+  items: CanvasThreadReference[]
+  nextAfterThreadId: string | null
+  upperThreadId: string | null
+}
+
+export interface CanvasNodeData {
+  kind: CanvasNodeKind
+  folderPath: string | null
+  folderGroupId: string | null
+  runtimeKind: string | null
+  agentId: string | null
+  conversation: CanvasConversationRef | null
+  conversations: CanvasConversationRef[]
+  objectReference?: CanvasObjectReference
+  fileReference?: CanvasFileReference
+  title: string | null
+  content: string | null
+  path: string | null
+  color: string | null
+  collapsed: boolean
+  gridColumns: number
+  gridRows: number
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+export type CanvasNodeInput = Pick<CanvasNodeData, 'kind' | 'x' | 'y' | 'width' | 'height'>
+  & Partial<Omit<CanvasNodeData, 'kind' | 'x' | 'y' | 'width' | 'height'>>
+
+export interface CanvasNode {
+  id: string
+  boardId: string
+  data: CanvasNodeData
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CanvasGraphSnapshot {
+  /** Missing on older Hosts; independent object pins require version 1. */
+  objectReferenceVersion?: number
+  /** Bound file creation and explicit legacy binding require version 1. */
+  fileReferenceVersion?: number
+  /** Missing on older Hosts; all ephemeral terminal operations require version 1. */
+  terminalVersion?: number
+  /** Missing on older Hosts; new sourceMembers writes require version 1. */
+  memberTransferVersion?: number
+  board: CanvasBoard | null
+  nodes: CanvasNode[]
+  throughGlobalSequence: number
+}
+
+export interface CanvasNodePatch {
+  title?: string
+  content?: string
+  color?: string
+  collapsed?: boolean
+  gridColumns?: number
+  gridRows?: number
+  x?: number
+  y?: number
+  width?: number
+  height?: number
+  memberAdd?: CanvasConversationRef
+  memberRemove?: CanvasConversationRef
+}
+
+export interface CanvasNodeMove {
+  nodeId: string
+  x: number
+  y: number
+}
+
+export type CanvasNodeMutation =
+  | { type: 'create'; node: CanvasNodeInput }
+  | { type: 'update'; nodeId: string; patch: CanvasNodePatch }
+  | { type: 'bind_file'; nodeId: string; threadId: string }
+  | { type: 'move'; moves: CanvasNodeMove[] }
+  | { type: 'group'; targetNodeId: string | null; newRegion: CanvasNodeInput | null; conversations: CanvasConversationRef[]; consumeNodeIds: string[]; sourceMembers?: Array<{ regionId: string; conversation: CanvasConversationRef }> }
+  | { type: 'detach'; regionId: string; conversation: CanvasConversationRef; x: number; y: number }
+  | { type: 'delete'; nodeIds: string[] }
+  | { type: 'prune' }
+
+export interface ApplyCanvasNodesCommand {
+  boardId: string
+  expectedRevision: number
+  mutation: CanvasNodeMutation
+}
+
+export interface CanvasTerminalTarget { boardId: string; nodeId: string }
+export interface CanvasTerminalSize { cols: number; rows: number }
+export interface CanvasTerminalStart extends CanvasTerminalSize {
+  target: CanvasTerminalTarget
+  coreGeneration: string
+  requestId: string
+  expectedGeneration: string | null
+}
+export interface CanvasTerminalRead { target: CanvasTerminalTarget; generation?: string | null; afterSeq?: number }
+export interface CanvasTerminalWrite {
+  target: CanvasTerminalTarget
+  generation: string
+  inputId: string
+  expectedInputSequence: number
+  bytesBase64: string
+}
+export interface CanvasTerminalResize extends CanvasTerminalSize { target: CanvasTerminalTarget; generation: string }
+export interface CanvasTerminalStop { target: CanvasTerminalTarget; generation: string }
+export interface CanvasTerminalInputReceipt {
+  sequence: number
+  inputId: string
+  status: 'queued' | 'pending' | 'written' | 'unknown' | 'not_written'
+}
+export interface CanvasTerminalSnapshot {
+  coreGeneration: string
+  target: CanvasTerminalTarget
+  exists: boolean
+  generation: string | null
+  launchRequestId: string | null
+  phase: 'missing' | 'starting' | 'running' | 'stopping' | 'exited' | 'failed'
+  cols: number | null
+  rows: number | null
+  exitCode: number | null
+  throughSeq: number
+  firstAvailableSeq: number
+  gap: boolean
+  chunks: Array<{ seq: number; bytesBase64: string }>
+  inputSequence: number
+  inputs: CanvasTerminalInputReceipt[]
+  issue: string | null
+  cleanupComplete: boolean
+}
+
 export type CoreMethod =
+  | 'commands.reconcile'
   | 'preferences.newConversation.get'
   | 'preferences.newConversation.setDefaults'
   | 'preferences.newConversation.setOneClick'
@@ -4271,6 +4641,14 @@ export type CoreMethod =
   | 'canvas.boards.create'
   | 'canvas.boards.update'
   | 'canvas.boards.delete'
+  | 'canvas.nodes.snapshot'
+  | 'canvas.references.page'
+  | 'canvas.nodes.apply'
+  | 'canvas.terminals.start'
+  | 'canvas.terminals.snapshot'
+  | 'canvas.terminals.write'
+  | 'canvas.terminals.resize'
+  | 'canvas.terminals.stop'
   | 'toolbox.read'
   | 'toolbox.setMembers'
   | 'nativeSkills.list'
@@ -4384,7 +4762,9 @@ export type CoreMethod =
   | 'threads.creationPreflight'
   | 'workspaces.validate'
   | 'workspaces.inspect'
+  | 'workspaces.worktrees'
   | 'navigation.snapshot'
+  | 'navigation.activity'
   | 'navigation.threads'
   | 'navigation.groupThreads'
   | 'navigation.findThread'
@@ -4413,6 +4793,8 @@ export type CoreMethod =
   | 'singleChat.end'
   | 'singleChat.sourceAttachments.addFromPath'
   | 'singleChat.composerDraft.removeAttachment'
+  | 'singleChat.composerDraft.mutate'
+  | 'singleChat.composerDraft.recovery'
   | 'singleChat.pendingInputs.addSourceAttachmentFromPath'
   | 'singleChat.pendingInputs.edit'
   | 'agentRuns.cancel'
@@ -4478,6 +4860,11 @@ export interface HostWebApi {
 }
 
 export interface RovaiApi {
+  /** Desktop-local private editor durability; never a Core receipt or Web resource grant. */
+  privateInputRecovery?: {
+    get(identity: string): {found:false} | {found:true; value:unknown}
+    set(identity: string, value: unknown): void
+  }
   /** Local Desktop owner only; absent on the public Web capability. */
   hostWeb?: HostWebApi
   request<T>(method: CoreMethod, params?: unknown): Promise<T>
@@ -4511,6 +4898,14 @@ export interface RovaiApi {
   }
   missionAttachments: MissionAttachmentsApi
   singleChatAttachments: {
+    prepareInput?(request: PrivateAttachmentPreparationRequest, file: File): Promise<PrivateAttachmentPreparationResult>
+    reconcileInput?(request: PrivateAttachmentPreparationRequest): Promise<PrivateAttachmentPreparationResult>
+    retryInput?(request: PrivateAttachmentPreparationRequest, originalFile?: File): Promise<PrivateAttachmentPreparationResult>
+    /** 明确结束尚未绑定的原准备；已提交时只返回首次结果，不删除材料。 */
+    finishInput?(request: PrivateAttachmentPreparationRequest): Promise<PrivateAttachmentPreparationResult>
+    pendingPreparations?(owner: PrivateAttachmentPreparationOwner): Promise<Array<{
+      request: PrivateAttachmentPreparationRequest; displayName: string; state: 'prepared' | 'unknown' | 'recorded'
+    }>>
     prepare(
       conversationId: string,
       expectedDraftRevision: number,

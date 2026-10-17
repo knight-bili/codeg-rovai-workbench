@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C04",
+  "status": "terminal_ui_controller_coded_actual_process_owner_and_runtime_pending",
+  "recorded_at": "2026-10-16T02:21:47.321291+00:00",
+  "source_binding": {
+    "base_commit": "1f09519d573fe95f8b2d197c15d29781fdd6faf6",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "apps/desktop/src/renderer/src/CanvasSurface.tsx": "ac879fc2631802995be133cca2a0c005d9ced994683fbbf39ba8723f4059e443",
+      "apps/desktop/src/renderer/src/CanvasTerminal.tsx": "5b9415e1531478efdff5acb368a38ba838c12991bae0bafd754c6b7b72c3df92",
+      "apps/desktop/src/renderer/src/canvas-terminal-controller.ts": "ccd7319816088174101decd55deff9a01d5a8d4a73eecfadd01822641dedc2da",
+      "apps/desktop/src/renderer/src/canvas-terminal-controller.test.ts": "892742b4bd484d7044d598981112c32854d4002e45b0ae9a9f368efebed234d6",
+      "apps/desktop/src/renderer/src/canvas-terminal-reader.ts": "78101fc2e4618ae71ee8b1d9b83d7d9fec01f1ac83c052e757c60e277eecc64e",
+      "apps/desktop/src/renderer/src/canvas-terminal-input.ts": "a2a34095c626e2569d6043f9b9a825e20a3bab8956856a26408108998cee2bd5",
+      "apps/desktop/src/renderer/src/canvas-terminal-sessions.ts": "1c5e6732f745770610fc7cd9e3713378e7a7ad098774cb885b8b7c62121ae738",
+      "apps/desktop/src/renderer/src/canvas.css": "0fe5df4a8d14347b52abac74433c4787167356fed0b912f13744b473943b3078",
+      "apps/desktop/src/renderer/src/locales/en.json": "e19f4f0d417f7991cd709397ec4bd0b8a6c8e71fd3692b74ce92c3ee1f195c53",
+      "package.json": "af9f5a370147d301f75a670d9b3315502c434dce7904ef6fcd985e4ba38d783c",
+      "pnpm-lock.yaml": "2989af0b6dfe1cd612bd09bfc7acb49b85fe97376adc4377c666f821449781e4",
+      "docs/architecture/canvas.md": "e4dc09af69d0924a89dfe420feaeca634535149bd6d5e5c52e533a8843fe5575",
+      "docs/contracts/canvas-nodes-v1.md": "bf3b9b43262c33a312de3ceca427bfe4dcbfa64c15f82ae3d9ec0cca5f15157f",
+      "docs/development/testing.md": "3109ce2e3334a5c293562743cfa6ef1aeeda7f17099620dedce706776a39fb26",
+      "integration/execution/goal-state.json": "b813bf68ed1a05615ffd156de2af078811f0930fc82476a8b42af9534f335ebf",
+      "integration/execution/i03-closeout.json": "0cc15e0dc6e891a1c8606f3e962be32d568a4cf9b1f7803d83de422ded48770f",
+      "integration/licenses/xterm/addon-fit-LICENSE.txt": "e256f01188af527e4d06d21d06fbf785ae9c50d4b328bf03cbe0ba7f0aa4228f",
+      "integration/licenses/xterm/addon-web-links-LICENSE.txt": "689ceb10716bd7a87a804c14951d7c2b818cbd60aab83d540902470ce3b13444",
+      "integration/licenses/xterm/source.json": "82fa0b2c9b6b8bbf781d0ad93557d35911c70786e91261da5306ed336b05ef03",
+      "integration/licenses/xterm/xterm-LICENSE.txt": "b569f629d00f2626a8100df2a1798210535621e42164dfd426a6fe5aac7b0ccd"
+    }
+  },
+  "artifact_binding": {
+    "work/i03/terminal-ui-browser-witness.json": "814e6744e26529cba215280792f483483f4b957586df13a54d4ee2f9885051de",
+    "work/i03/terminal-ui-dependencies-online.log": "e9add4ff18cec4b0fcc6d8ab0b6772ec5c8eac0c7530c16bb84346e0f9dd5327",
+    "work/i03/terminal-ui-dependencies.log": "c06dc58928d0af7b94a69a1ab9a6a73ff2ed7dc4d1abfe32cdbf4d9a855d9502",
+    "work/i03/terminal-ui-docs.log": "6eb03e1b66af4f3a2ae337d42e11ddb5a595f11fc6e89cd079e7d49f34c7f9e8",
+    "work/i03/terminal-ui-final.png": "f7699adee8560c1fc51fede4aa47f4dd0c9d4b19c16e04a39e4e27da42e94e15",
+    "work/i03/terminal-ui-fixture.log": "ab8e9c6975103e11299d6546a742b4310f3e51ef4e837d329e91d4824eb3f683",
+    "work/i03/terminal-ui-initial.png": "8edfc2d542c714dd1660fd70ca22c9296609375858597d1b8a6de02ea5c1c21c",
+    "work/i03/terminal-ui-install-frozen.log": "808e11c90d72a127744099b021bb0dc018174926e01af11dab673b458aee508b",
+    "work/i03/terminal-ui-lock-retain.log": "4514951baab83c38846051b3edca801242d8db830fd5fc4f91543b96a844ed16",
+    "work/i03/terminal-ui-minimum-before-fix.png": "42bf4c8ca3591d7f6c63c52c3ef8e5791381ac929e6ca7ca3daf6ceb4b69a97d",
+    "work/i03/terminal-ui-minimum-final.png": "59515878642de212c7faa334f11dbde59990b109152fbe561fa716493252ea78",
+    "work/i03/terminal-ui-night-final.png": "ab18e0668846bf3757e900f272145ed89c8b98853b8b9ef86458e22693e4c29d",
+    "work/i03/terminal-ui-reconciled-error-before-fix.png": "6a59dbf1a3ae91adec3e49d0969777643d116201be650361f6763b0433ab5351",
+    "work/i03/terminal-ui-source-audit.json": "1bb28f720aa4bbfb2e4eaf2b699b550fffd4e410db2859d90a8962b5325a918b",
+    "work/i03/terminal-ui-tests-final.log": "4051d4b2971153ebbdbc65092ed1f6791802a3812f6afba8f8405c0714d02597",
+    "work/i03/terminal-ui-tests-initial.log": "d3a8838d357167c1a0f097696da030c62b73248ef0e8a5be23ada10a836f615f",
+    "work/i03/terminal-ui-typecheck.json": "b05d8d02d5712af229705e7dd5f39a36d7e5117f8995bfbb164cf4b377b2d206",
+    "work/i03/terminal-ui-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/terminal-ui-types-initial.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/retain-terminal-dependencies.py": "0efebbc162a42d3f3acee77fd8a9fa9498ef7f01e0b1715d7a4338ed9837561e",
+    "work/i03/prepare-terminal-ui.mjs": "9635c1b14562065a7550b509ba914ac989d705266eccb6e8f433bc3aa2f0fea9",
+    "work/i03/prepare-terminal-ui.log": "94a94f362cb68916ba7076f4de444420f93c9892ebabdd65b0e6b320c926ae33",
+    "work/i03/record-terminal-ui.py": "f0061522af697f1ec858b5b569d25efa63b121737aa6aab3a0bb04bbabe0abb8",
+    "work/i03/terminal-controller-tests-initial.log": "d8038a82798338d0a6c9b2387b6bf8ef9e3ea408f3081dc4ffc72337347a31ca",
+    "work/i03/terminal-ui-fixture/entry.tsx": "ff2160c68fd823e3dfe53b4011e04bbe3f8247371760b60366d7efed55c4d20c",
+    "work/i03/terminal-ui-fixture/index.html": "6d9d5923f8ab3dd8e893f3cf6869428ed7f3cb0c9012d9df51081f07e5671fac",
+    "work/i03/terminal-ui-fixture/server.mjs": "5acb00848fc120bc77f748b95def7ec815d2bdea3e57cfdf272a05565995e23d",
+    "work/i03/terminal-ui-source/src/lib/terminal/keybar.ts": "ee3b44894be9d5aaeb98cca4c02d6f50ed050326e19212e65ddd17a4527f43f6",
+    "work/i03/terminal-ui-source/src/lib/terminal/shortcuts.ts": "c29dd43f00197ad92cfa6d35b9bc79cff8179581ba9499b7c19b691972312e70",
+    "work/i03/terminal-ui-source/src/lib/terminal/theme.ts": "c5b93b7ee34efb5e9a7b8cdf0954f8bc90d7ebf412131ddba1199906c29f29ab",
+    "work/i03/terminal-ui-source/src/lib/terminal/write-queue.ts": "759a58ca3baeafb1fb44848f98cdaec3734e7cd51a7679fd95120a8dfa5a5327"
+  },
+  "frozen_authority_files": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "previous_evidence": {
+    "path": "integration/execution/i03-terminal-api-result.json",
+    "sha256": "9ea2bcd1cd735ed0165cf8aaffd11eb8cde1d8210e51649a64441889492679b0"
+  },
+  "implemented": [
+    "Production CanvasSurface terminal card with explicit start/stop/retry, collapse/delete, actual node resize, scoped ownership and existing layout CAS",
+    "Single-flight input16KiB/unsent64KiB, original request and receipt fencing, no blind resend, read-only recovery and safe explicit restart after actual prior cleanup",
+    "Raw Uint8Array reader with write-callback backpressure, replay dedup/gap handling and disposal completion",
+    "Bounded64 window controllers, client/Core-directory/board/node scopes, safe inactive eviction and unresolved identities retained across route/collapse",
+    "Visible/foreground-only emulator and adaptive post-read polling; no unmount shell kill",
+    "Semantic-token day/night theme, code font size, application cursor and modifier keybar, native IME, binary input, selection copy and explicit paste, HTTP(S) links through existing opener",
+    "Exactly3 fixed xterm packages and MIT notices; previous lock entries unchanged and frozen offline install passed"
+  ],
+  "verified": {
+    "vitest": {
+      "files": 4,
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "scope": "controller/reader/cache/key encoding, previous low client, existing layout and locale owners; mocked request only"
+    },
+    "types": {
+      "exit_code": 0,
+      "config": "work/i03/terminal-ui-typecheck.json"
+    },
+    "browser": {
+      "records": 25,
+      "kind": "workflow_observations_and_findings_not_formal_pass_count",
+      "production": [
+        "CanvasSurface",
+        "CanvasTerminal",
+        "xterm"
+      ],
+      "mocked": [
+        "Core",
+        "PTY"
+      ],
+      "console_errors_or_warnings_seen": 0,
+      "covers": [
+        "explicit start and exact original unknown start",
+        "two card isolation and Chinese input",
+        "unknown input/read-only reconciliation/no duplicate bytes",
+        "collapse and route return preserve generation",
+        "stop requested vs cleanup then explicit new generation",
+        "Core replacement clears old output/live region and never auto-launches",
+        "actual node resize/minimum dimensions",
+        "day/night and output gap",
+        "precise B-only delete confirmation"
+      ],
+      "final_ack_button_guard": "last explicit ack eligibility boolean change covered by final unit/types; final static screenshots show unaffected running state"
+    },
+    "dependencies": {
+      "packages_added": 3,
+      "old_lock_entries": "byte-identical after removing only new3 entries in each section",
+      "frozen_offline_install": "exit0_ignore_scripts"
+    },
+    "docs": {
+      "exit_code": 0,
+      "diff_base": "1f09519d573fe95f8b2d197c15d29781fdd6faf6",
+      "version": "v1.72"
+    }
+  },
+  "self_review_fixes": [
+    "Restored unrelated lock churn from package-manager add; retained only3 intended entries",
+    "Late old write completion cannot strand a new start action; old cleanup releases unresolved input fence",
+    "Confirmed original input/start receipt clears stale transport error",
+    "Unknown unadmitted input cannot expose a no-op continue button",
+    "Minimum card toolbar stays within its own horizontal scroller",
+    "Moved padding into xterm element to match fixed FitAddon dimension calculation; applied semantic background to viewport",
+    "Reset accessibility live region with session generation",
+    "Virtual key encoding preserves Codeg CSI modifiers and application cursor mode"
+  ],
+  "not_run": [
+    "actual Core/helper/Host compilation and process owner",
+    "real PTY/stdin/resize/tree cleanup",
+    "actual Native IPC or Host HTTP",
+    "actual clipboard platform permissions and native IME composition",
+    "soft keyboard/visualViewport and actual mobile devices",
+    "full Desktop navigation/multiple windows/scale",
+    "full PC01-PC24 and324 fusion scenes"
+  ],
+  "scope_preserved": {
+    "I05": "full workspace terminal/Shell configuration",
+    "I08": "full shared browser/link menus",
+    "I10": "native mobile input/platforms",
+    "I11": "full customization including fonts/ligatures"
+  },
+  "guardrails": {
+    "push": false,
+    "actions": false,
+    "paid_models": false,
+    "real_user_data_or_credentials": false,
+    "old_binary_used": false,
+    "schema_change": false,
+    "customer_action_required_now": false
+  },
+  "cleanup": {
+    "browser_tab_17": "closed",
+    "fixture_pid_299520": "verified exact server script then stopped",
+    "server_session_90472": "terminal_exit_minus1_after_intentional_stop"
+  },
+  "next": "补I03-C04实际最低层进程owner，优先复用原Host生命周期fixture，覆盖终端启动/回执/输入/resize/删除/Core退出与自有树清空并保留无关控制进程；只编码审查，随C06当前源集中编译运行。之后C05冷路由/多卡/规模及C06候选。"
+}

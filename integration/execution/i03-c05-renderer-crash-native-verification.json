@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "isolated_renderer_crash_recovery_verified_remaining_stage_scope",
+  "candidate": "fusion-i03-rc.14",
+  "production_source": "c44638135b8e06d34456bdc50657707404a6045c",
+  "native_source": "2158df02e793fc2eb3a01297b4921de214cdbe61",
+  "product_diff_since_candidate": [],
+  "new_builds": 0,
+  "runs": [
+    {
+      "revision": "r1",
+      "status": "failed",
+      "checks": [],
+      "error": "Error: Native condition timed out: Boolean(document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"28a827bb-d8c3-402c-8731-85a4cbb79be1\"]')?.querySelector('.single-chat-composer textarea')&&document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"b44af91f-cc66-4418-9b4c-4dfc2da79ffd\"]')?.querySelector('.single-chat-composer textarea')&&document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"28a827bb-d8c3-402c-8731-85a4cbb79be1\"]')?.querySelector('.single-chat-composer textarea').value===\"甲卡未发送，硬中断前最后一个字：甲\"&&document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"b44af91f-cc66-4418-9b4c-4dfc2da79ffd\"]')?.querySelector('.single-chat-composer textarea').value===\"乙卡独立输入保持不变\")\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r1.mjs:38:163)\n    at async crashAndReload (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r1.mjs:849:3)\n    at async qualifyRendererCrash (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r1.mjs:852:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r1.mjs:94:4)",
+      "crashes": [
+        {
+          "kind": "last_private_character",
+          "before_renderer_pid": 328004,
+          "main_pid": 324040,
+          "details": {
+            "reason": "crashed",
+            "exitCode": 2
+          },
+          "recovery_action": "explicit_webContents_reload",
+          "after_renderer_pid": 234256
+        }
+      ],
+      "renderer_errors": [],
+      "test_owner_revision": "8510a5d0521e557b906082a4d7561218b3e8a678",
+      "fixture_sha256": "4be2806a63489ed43486f18cec3328da93bad50ce09f85c7b44ab49133f8215a",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      },
+      "exit_observed": true,
+      "normal_shutdown_verified": true
+    },
+    {
+      "revision": "r2",
+      "status": "failed",
+      "checks": [
+        {
+          "name": "reopening_exact_board_after_forced_renderer_termination_recovers_last_private_character_and_both_distinct_bodies",
+          "passed": true
+        }
+      ],
+      "error": "Error: Native condition timed out: Boolean(document.querySelector('.canvas-board-tile[data-board-id=\"de1876a9-055a-4ff7-a49f-6ac236c96411\"]:not(:disabled)'))\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r2.mjs:38:163)\n    at async openCanvasBoard (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r2.mjs:18:2)\n    at async crashAndReload (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r2.mjs:851:3)\n    at async qualifyRendererCrash (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r2.mjs:863:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r2.mjs:94:4)",
+      "crashes": [
+        {
+          "kind": "last_private_character",
+          "before_renderer_pid": 330596,
+          "main_pid": 324240,
+          "details": {
+            "reason": "crashed",
+            "exitCode": 2
+          },
+          "recovery_action": "explicit_webContents_reload_then_open_exact_board",
+          "after_renderer_pid": 320912,
+          "landing_on_canvas": false
+        },
+        {
+          "kind": "unblurred_note_draft",
+          "before_renderer_pid": 320912,
+          "main_pid": 324240,
+          "details": {
+            "reason": "crashed",
+            "exitCode": 2
+          },
+          "recovery_action": "explicit_webContents_reload_then_open_exact_board",
+          "after_renderer_pid": 326792,
+          "landing_on_canvas": false
+        }
+      ],
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications.",
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "test_owner_revision": "7f25728456d4f1bbf94f8cf6fd57a74972a0fc6f",
+      "fixture_sha256": "d6ac20fc7adc373112f412d564f0342b95d6e4dd7243de9d348a1307c294eeab",
+      "shutdown": null,
+      "exit_observed": true,
+      "normal_shutdown_verified": false
+    },
+    {
+      "revision": "r3",
+      "status": "passed",
+      "checks": [
+        {
+          "name": "reopening_exact_board_after_forced_renderer_termination_recovers_last_private_character_and_both_distinct_bodies",
+          "passed": true
+        },
+        {
+          "name": "unblurred_note_survives_forced_renderer_termination_as_a_visible_scoped_draft_without_overwriting_saved_text",
+          "passed": true
+        },
+        {
+          "name": "two_real_renderer_faults_keep_original_private_identity_and_do_not_send_or_start_model_runs",
+          "passed": true
+        }
+      ],
+      "error": null,
+      "crashes": [
+        {
+          "kind": "last_private_character",
+          "before_renderer_pid": 326000,
+          "main_pid": 277224,
+          "details": {
+            "reason": "crashed",
+            "exitCode": 2
+          },
+          "recovery_action": "explicit_webContents_reload_then_open_exact_board",
+          "after_renderer_pid": 317920,
+          "landing_on_canvas": false
+        },
+        {
+          "kind": "unblurred_note_draft",
+          "before_renderer_pid": 317920,
+          "main_pid": 277224,
+          "details": {
+            "reason": "crashed",
+            "exitCode": 2
+          },
+          "recovery_action": "explicit_webContents_reload_then_open_exact_board",
+          "after_renderer_pid": 328112,
+          "landing_on_canvas": false
+        }
+      ],
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "test_owner_revision": "0885ba26dde6e794c9eae058ad809e0df8be5774",
+      "fixture_sha256": "9c274332fd12768fa45437a5f2fc8bb52874e9e7f1c010d48d8a6ce90179a51c",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      },
+      "exit_observed": true,
+      "normal_shutdown_verified": true
+    }
+  ],
+  "passed_counts": {
+    "distinct_new_assertions": 3,
+    "distinct_candidate_assertions": 44,
+    "rule": "仅累计成功运行的不同场景；r2与r3重复的私聊恢复只计一次，不用数量代替阶段完成"
+  },
+  "verified": {
+    "fault": "Electron forcefullyCrashRenderer，实际render-process-gone=crashed/exitCode2；两次不同renderer PID，Main PID保持277224",
+    "recovery": "显式reload后选择无限画布；精确原画板由已保存选择恢复，不再点击返回列表；没有调用展开按钮重新创建pin",
+    "private_last_character": "可信insertText完成后直接硬中断，不失焦、不读存储、不等待；原A最后甲和B独立正文恢复",
+    "note": "可信输入后未经失焦直接硬中断；原Core content仍是baseline，本机独立noteId草稿及画面保持最后乙；经明确UI保存后正常退出",
+    "identity": "原Thread/conversation/node引用不变，消息和AgentRun均为空",
+    "preflight": {
+      "source_result": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.14\\native-renderer-crash-r2\\result.json",
+      "boardId": "de1876a9-055a-4ff7-a49f-6ac236c96411",
+      "noteId": "c742cd19-aedf-459d-b84c-423a76e30de2",
+      "own_recovered_note_saved": true
+    }
+  },
+  "failure_analysis": {
+    "r1": "测试错误要求Main固定启动快照的reload直接进入画布，实际回到对话页；由desktop-session.ts原快照缓存确认，修为显式选择画布后恢复精确原板，不修改产品启动策略",
+    "r2": "私聊硬中断恢复已过；note也已在画面恢复，但旧openCanvasBoard强制再返回列表触发dirty-note离开保护；App quit被同一保护阻止，driver结束后无拥有进程。没有受控退出回执，不能标正常退出。后续r3先通过现有UI核对保存这张自有便笺",
+    "r3": "路由helper已在精确原板恢复时直接使用，失败finally仅处理本fixture已知nodeId；两次fault和三项场景通过，受控退出completed，无deadline或forcedSignal"
+  },
+  "screenshot": {
+    "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r3/01-recovered-private-cards-and-note.png",
+    "width": 2520,
+    "height": 1500,
+    "actually_viewed": true,
+    "visual_findings": [
+      "画布和卡片无额外外围滚动，标题单层，两份私聊输入与未保存便笺均可见",
+      "便笺SafeMarkdown document规则实际为15px，覆盖纸张13px；与原Codeg note-node.tsx:139/146不一致，下一组集中整改，不宣告完整UI通过"
+    ]
+  },
+  "boundaries": [
+    "本次只证明界面renderer硬中断后经显式重新载入及打开画布的恢复；不代表产品自动恢复入口、整个App/Core硬杀或在途未知请求恢复已通过",
+    "输入由Electron可信insertText注入，不能替代Windows物理IME组合/移动键盘资格",
+    "多Thread/公开卡、原生焦点/实际资源释放和规模、HTML/终端窗口上限、大材料/IO、ready Git Diff及完整PC矩阵仍待",
+    "保留ResizeObserver延迟通知；整套主题/八类状态/字号尚未通过全部视觉检查"
+  ],
+  "evidence": [
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/freeze.json",
+      "sha256": "b969e5a47a959932718c1c716770d43cb789385897263e01b07e8110e89b5c77"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r1/result.json",
+      "sha256": "4a05d86e7ffa502846100ba1d664151214cbebb8aed54263d77452e836053251"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r1-config.json",
+      "sha256": "26898560758d9c359ca06226fee502bbc116faafdbc9f23f6267193332c728f7"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r1.mjs",
+      "sha256": "4be2806a63489ed43486f18cec3328da93bad50ce09f85c7b44ab49133f8215a"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/renderer-crash-r1-run.log",
+      "sha256": "37bc10c3b79c042d683b6483ad4e9c96b2b38d454855ded4f52f8061d85e5722"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r1/crash-events.json",
+      "sha256": "5806c84ae495913c48350bb5ca12b536c61c1e979f68dcd085630a66e7e80dbc"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r2/result.json",
+      "sha256": "e226c16ab83a6ff6e206cbdbfccfb89dbd643d3b4af681e41b663e5c52ebc66e"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r2-config.json",
+      "sha256": "c2a980e62000a145a5dc7d92d073bd33ece887b74d69331bcbc7d5ae520649a1"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r2.mjs",
+      "sha256": "d6ac20fc7adc373112f412d564f0342b95d6e4dd7243de9d348a1307c294eeab"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/renderer-crash-r2-run.log",
+      "sha256": "613d69138c518ba6a8c92acfb7998601768e03c0a729aa0f40a1bb05f6a8abbf"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r2/crash-events.json",
+      "sha256": "f986d4eac250e92e41141444660a48d1bcd3d7f8c13b6737751f56cf17c9d939"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r3/result.json",
+      "sha256": "0f4d1517623d83856ecf1a4c4e419cc02c14387ce478bad0b991153739abc7a6"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r3-config.json",
+      "sha256": "14d3917808b7f6cddb1a2f3d0dffafb42f632c4f49b4f6ded672aa0a9db0a421"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-renderer-crash-r3.mjs",
+      "sha256": "9c274332fd12768fa45437a5f2fc8bb52874e9e7f1c010d48d8a6ce90179a51c"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/renderer-crash-r3-run.log",
+      "sha256": "163c3b97a66c7e7b9867be16339e8d2220f5105ed72b9d6f60046ee31bf65b57"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r3/crash-events.json",
+      "sha256": "3cd254a7574f88977713fd8ad32e0a09a6a831c5b1d47215fefad53b5b82b9fd"
+    },
+    {
+      "path": "integration/execution/i03-c06-source-card-group-verification.json",
+      "sha256": "fedef8b054f58ad27920316227dc597c023047fe4b8e604f0a642fef39243e4d"
+    },
+    {
+      "path": "integration/execution/i03-c05-notes-mirrors-native-verification.json",
+      "sha256": "b36ce293f169d98b05b6d2f609ac4282e4a380e1b36ca96598a542a0b9ed3fe8"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r3/01-recovered-private-cards-and-note.png",
+      "sha256": "1e2088e452cc55b665032a0ab43b18d467584fbe0a167ee4014015f191e0a6f4"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r1/failure.png",
+      "sha256": "316e1376f86b9887979826ce8312e351a016d46d74970254d7ea9124230b4041"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-renderer-crash-r2/failure.png",
+      "sha256": "3035d7a765f15f8d63fbf71cca8ab9103b6f39c2fa87eee6c1f1938ebbcaa968"
+    },
+    {
+      "path": "../i03/run-c06-rc14-native.mjs",
+      "sha256": "24087b68f882d8a0fab4097422ab13fde1247d48f9c560f585e303bb56b20f1c"
+    },
+    {
+      "path": "../i03/c06/canvas-renderer-crash-fixture-sync-retry.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    }
+  ],
+  "customer_action_now": null,
+  "pushes": 0,
+  "actions": 0,
+  "paid_models": 0
+}

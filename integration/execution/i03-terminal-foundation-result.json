@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C04",
+  "status": "foundation_coded_parent_and_product_integration_pending",
+  "recorded_at": "2026-10-16T00:17:58.308761+00:00",
+  "previous_turn_classification": "progress_df50072_file_preview_code_and_bound_checks_committed",
+  "source_binding": {
+    "base_commit": "df50072b894d13df3f501d1ed7bd6ea8a77a3f83",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "Cargo.lock": "c5cfe55f4fa91e28b3ba629846570cd7f7ab3036779c9161d03f0b3e2388dbb5",
+      "crates/rovai-core/Cargo.toml": "57d3e5815aa4dca32a36e0a4f9d766a3f5daf15cc4bd4a051f741cba79244270",
+      "crates/rovai-core/src/lib.rs": "d20eb0bf1b0f96c60c6e956999ada57d9b8f451b5fb5fa4b56b614057675ee76",
+      "docs/architecture/canvas.md": "9b8576c4a019f7fb6598394945bbc2bf4b859bd97db7e8cd61dd2c38093a4354",
+      "docs/contracts/canvas-nodes-v1.md": "c8779a755591232faaf31fb0d3d606e73354a3af23260536d5cd1468b2802890",
+      "docs/development/testing.md": "d295461b6837855928aa2d80a861d6cd7d96a529bb5229579d0c7821bc3bef7e",
+      "integration/licenses/README.md": "41a70489fc628bc1e8a6feece2e0ec7fe048d75a860b3074f5a16849c78aea98",
+      "crates/rovai-core/src/canvas_terminal.rs": "1d87ee28626eaac373a92de9aad3c87652a880b12452312dc2e0aed4734ccae9",
+      "crates/rovai-core/src/canvas_terminal/helper.rs": "e632555107f87510f04274834f09e0090add611dca4b91801252b2e60aa5d3e8",
+      "crates/rovai-core/src/canvas_terminal/state.rs": "d91db5a47038c4784af8093350c4d7a23b13d8bc3632c58a98eccd1fee7053e9",
+      "integration/licenses/portable-pty/LICENSE.md": "191c46fcf52061382b1c51a70311eb9081381cc158e5899f3739473a9432185b",
+      "integration/licenses/portable-pty/source.json": "6e9fa62cf508c809715b008f36876709cfc527fa33c3c8557b2831d924c176b4"
+    }
+  },
+  "implemented": [
+    "Core live board/node terminal-source query; closed launch/read/write/resize/stop types with no supplied cwd/shell/Owner grant",
+    "Private immutable request/generation state; Starting/Running/Stopping/Exited/Failed distinguish stop request from actual reap",
+    "Raw-byte output with atomic monotonic cursor,128KiB/2048 whole chunks,8192-byte read bound and explicit replay gap",
+    "Helper source implements portable-pty spawn/read/write/resize/stop with64KiB frames,8-frame input queue,16KiB input and pipe backpressure",
+    "Helper has no business DB authority; parent ManagedProcess ownership/entry/API/UI remains to implement",
+    "Same donor portable-pty0.8.1 pinned; direct MIT notice and registry checksum preserved without changing existing dependency graph"
+  ],
+  "verified": {
+    "standalone_production_state_source": {
+      "owners_listed": 2,
+      "passed": 2,
+      "failed": 0,
+      "command_script": "work/i03/check-canvas-terminal-state.ps1",
+      "scope": "rustc directly compiled only std-only state.rs; no helper/full Core compilation"
+    },
+    "source_sql": {
+      "passed": 11,
+      "failed": 0,
+      "readonly": true,
+      "scope": "literal production SQL/minimal two-table SQLite; not Rust directory or authenticated Host"
+    },
+    "dependency_lock": {
+      "existing_packages_unchanged": 278,
+      "new_packages": 21,
+      "new": [
+        [
+          "bitflags",
+          "1.3.2"
+        ],
+        [
+          "downcast-rs",
+          "1.2.1"
+        ],
+        [
+          "filedescriptor",
+          "0.8.3"
+        ],
+        [
+          "ioctl-rs",
+          "0.1.6"
+        ],
+        [
+          "memoffset",
+          "0.6.5"
+        ],
+        [
+          "nix",
+          "0.25.1"
+        ],
+        [
+          "pin-utils",
+          "0.1.1"
+        ],
+        [
+          "portable-pty",
+          "0.8.1"
+        ],
+        [
+          "serial",
+          "0.4.0"
+        ],
+        [
+          "serial-core",
+          "0.4.0"
+        ],
+        [
+          "serial-unix",
+          "0.4.0"
+        ],
+        [
+          "serial-windows",
+          "0.4.0"
+        ],
+        [
+          "shared_library",
+          "0.1.9"
+        ],
+        [
+          "shell-words",
+          "1.1.1"
+        ],
+        [
+          "termios",
+          "0.2.2"
+        ],
+        [
+          "thiserror",
+          "1.0.69"
+        ],
+        [
+          "thiserror-impl",
+          "1.0.69"
+        ],
+        [
+          "winapi",
+          "0.3.9"
+        ],
+        [
+          "winapi-i686-pc-windows-gnu",
+          "0.4.0"
+        ],
+        [
+          "winapi-x86_64-pc-windows-gnu",
+          "0.4.0"
+        ],
+        [
+          "winreg",
+          "0.10.1"
+        ]
+      ]
+    },
+    "documentation_governance": "pass_v1.72_diff_base_df50072",
+    "changed_module_format": "pass_new_three_modules_only_not_whole_lib"
+  },
+  "self_review": [
+    "Source kill and portable-pty Windows TerminateProcess cover only direct child; require existing ManagedProcess job/tree ownership before exposing helper",
+    "Preserve UTF-8/control bytes across read boundaries; do not use per-chunk lossy UTF-8 conversion from donor",
+    "Limit chunk count as well as bytes so one-byte output does not grow metadata unbounded",
+    "No late spawn commit after stop; keep cancelled/failed versus actual exited distinct",
+    "Failed default linker/SDK environment retained; used existing verified local MSVC/workspace SDK without system modification",
+    "Canonical UUID and closed input types stop alternate spellings and injected process identity; codec owner not yet executed"
+  ],
+  "not_run": [
+    "helper and full Core Rust compilation; new closed-request Rust codec owner",
+    "actual PTY startup/byte stream/resize and managed parent process tree reclamation",
+    "parent registry, CLI bootstrap, node/board delete and planned shutdown integration",
+    "public capability/API, actual Native/Web authorization/reconnect and terminal UI",
+    "actual OS directory identity/race and current158/208 Core/Host/platform qualification",
+    "full324/fullPC01-PC24/paid models/devices; complete transitive release notices remain I12"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "artifacts": {
+    "i03/canvas-terminal-state-compile.log": "ccacbeb562b6592f16f516cb857c27445f8f55181f404f6857ff0f957c93c66c",
+    "i03/canvas-terminal-state-compile-msvc.log": "306581681a7edf9cfe356106f7a0aa81ccba7f7a303f76d45abbbc9a0007b2c6",
+    "i03/canvas-terminal-state-compile-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-terminal-state-compile-checked.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-terminal-state-list-checked.log": "d2b60ddd957dc3c2dfab918d8a5b57d2906c2a29b0ed9d26d8d62e575cb29a5b",
+    "i03/canvas-terminal-state-tests-checked.log": "f0b903b5c00078a0d5fb9005c3fa6210936b753801f3fb1cd81eacdb272147fd",
+    "i03/canvas-terminal-state-tests.exe": "4f5010298865024f520aca8b2ae85a3dd469454edef11dd4c263b3dd0124bfe5",
+    "i03/check-canvas-terminal-state.ps1": "b144edd299527c3cfb157e6b3971eff755b29574630bb425777168d2ab6a31f6",
+    "i03/verify-canvas-terminal-source.py": "1802423e5cbd737d69725edde8d1737815f0759824150daab5b1d3a01d23ac43",
+    "i03/canvas-terminal-source-sql-result.json": "154bba234fcc7e010830e55127a2657c9851969f9eca894a790cb861df15c4d0",
+    "i03/canvas-terminal-dependency-resolution.log": "b446f9ca146c4a30e8a4f25e712c5650a4c7f276df00ccf94eae1e24a64c8e38",
+    "i03/canvas-terminal-portable-pty-info.log": "11f0a0e6f4f18d6b615606cfa56312de3477b123a0a199395450f762c544ab02",
+    "i03/canvas-terminal-portable-pty-info-official.log": "bae0648c355b4fc0d4bfaae28d3493b961a190903e4edc8aa5b4b05c43d516bd",
+    "i03/canvas-terminal-docs.log": "6eb03e1b66af4f3a2ae337d42e11ddb5a595f11fc6e89cd079e7d49f34c7f9e8",
+    "i03/canvas-terminal-format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/terminal-source-audit-v1/audit.json": "cfb2b821ddeb069b22338ca5fa142dfd89e48be019f0f59daa49bce5b9c0d69b",
+    "i03/record-canvas-terminal-foundation.py": "d10984fa5903de026cb1a21eb7103dc7e21ae667c11b69ce50731e9a8e90b05e"
+  },
+  "donor": {
+    "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "sources": [
+      {
+        "path": "src/components/canvas/nodes/terminal-node.tsx",
+        "blob": "1363626fdb3acac77c5f7c0c28a986c29405f6e8",
+        "sha256": "e6bfb25008c91e5b7af15e390c1c5d98190a39f1300bef6b526ab58b53214883",
+        "bytes": 4951
+      },
+      {
+        "path": "src/components/terminal/terminal-view.tsx",
+        "blob": "0ab646ba064982bfebfdb6410d4ac9a3430ab8ea",
+        "sha256": "def7886c65656f28c4164fe9af8a486b737355782585acaf27b02c0f138c89cc",
+        "bytes": 38050
+      },
+      {
+        "path": "src-tauri/src/commands/terminal.rs",
+        "blob": "3aaa020f232b83f84d28404dc67a051a24efec3b",
+        "sha256": "22d2cbea4efb85ef9f5f7d65778d4b0cd316a46a8ef787efe5f38c102a566441",
+        "bytes": 5871
+      },
+      {
+        "path": "src-tauri/src/web/handlers/terminal.rs",
+        "blob": "dabd7455d8849fda91dd8444f38d4582a81e945f",
+        "sha256": "f267894348b903a1a16bf3de615558333cdc6fa72842d79e645effacfa6ba659",
+        "bytes": 5024
+      },
+      {
+        "path": "src-tauri/src/terminal/manager.rs",
+        "blob": "d7449003f1af8f237a6b3d2affc3629236c0bf37",
+        "sha256": "f5af223be77168370b0e8dc74e92376a0e1b22c9c09dfa2169ffb3eddfa60043",
+        "bytes": 70208
+      },
+      {
+        "path": "src-tauri/src/terminal/types.rs",
+        "blob": "3b69ff4660f76acdd0410801ed2c203fec15214b",
+        "sha256": "53546e29ba520996eb1c2cf3493adc2c960cee0953b63e810b105f83e13b0bc5",
+        "bytes": 2331
+      }
+    ],
+    "read_only": true
+  },
+  "boundaries": {
+    "source_schema": 158,
+    "last_migration": 208,
+    "new_database_schema": false,
+    "public_core_methods": 180,
+    "host_protocol": 4,
+    "new_public_capability_or_cli_entry": false,
+    "actual_pty_started": false,
+    "actual_user_database_migrated": false,
+    "push_actions_model": false,
+    "customer_action_required_now": false,
+    "formal324": "not_run"
+  },
+  "next_actions": [
+    "Implement parent Core registry using existing ManagedProcess and trusted launch/source lifecycle gate, then CLI helper bootstrap",
+    "Wire node/board delete and planned shutdown; add actual lowest process owner before capability exposure",
+    "Implement Native/Web RPC and terminal reader/reconnect; C04 remains in progress, then C05/C06 stage candidate"
+  ]
+}

@@ -46,7 +46,7 @@ export class HtmlPreviewSite {
   readonly #events = new Map<ServerResponse, number>()
   readonly #diagnostics: { requestSequence: number; diagnostic: HtmlPreviewDiagnostic }[] = []
   #requestSequence = 0
-  #entryNavigationPending = false
+  #pendingEntryNavigations = 0
   #timer: ReturnType<typeof setTimeout> | null = null
   #closing: Promise<void> | null = null
 
@@ -178,18 +178,20 @@ export class HtmlPreviewSite {
       const fetchSite = request.headers['sec-fetch-site']
       const entryDocument = new URL(this.descriptor.documentUrl)
       entryDocument.hash = ''
-      const entryNavigation = authenticated && navigation && this.#entryNavigationPending && url.href === entryDocument.href
+      const crossSite = Boolean(fetchSite && fetchSite !== 'same-origin' && fetchSite !== 'none')
+      const entryNavigation = authenticated && navigation && crossSite && this.#pendingEntryNavigations > 0 && url.href === entryDocument.href
       if (!bootstrap && !entryNavigation && fetchSite && fetchSite !== 'same-origin' && fetchSite !== 'none') throw new PreviewResourceError(403, '资源请求来自另一个页面。')
       if (request.headers.origin && request.headers.origin !== this.descriptor.origin) throw new PreviewResourceError(403, '资源请求来源不匹配。')
+      // 每次能力交换各有一个入口；在异步来源复核前认领，避免两个请求共用一次准入。
+      if (entryNavigation) this.#pendingEntryNavigations--
       await this.#options.validate(signal)
       signal.throwIfAborted()
       if (bootstrap) {
-        this.#entryNavigationPending = true
+        this.#pendingEntryNavigations++
         response.setHeader('Set-Cookie', `${COOKIE}=${this.#cookie}; Path=/; HttpOnly; Secure; SameSite=None; Partitioned`)
         response.setHeader('Cache-Control', 'no-store')
         response.writeHead(302, { Location: this.descriptor.documentUrl }); response.end(); this.#touch(); return
       }
-      if (entryNavigation) this.#entryNavigationPending = false
       if (url.pathname === `${INTERNAL}events`) {
         const afterRequest = this.#documentStarts.get(url.searchParams.get('documentId') ?? '')
         if (afterRequest === undefined) throw new PreviewResourceError(403, '预览文档诊断订阅已失效。')

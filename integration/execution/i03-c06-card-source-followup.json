@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-16T12:12:43.136Z",
+  "status": "implemented_local_syntax_checked_pending_batched_visual_verification",
+  "base_commit": "425cef405f3f8d5c124ca45918f78342cffad3e9",
+  "scope": "按固定Codeg源码修正既有卡片的正文文字选择、光标、标题拖动和便笺正文密度；不改执行或模型输入",
+  "sources": {
+    "codeg": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "rovai": "cc465dda562536b94f23787759e3206324baa29e"
+  },
+  "source_mapping": "integration/inventory/canvas-ui-reference.md",
+  "reference_components": [
+    "Codeg src/components/canvas/nodes/card-frame.tsx:13-18,64,98-110：正文select-text/cursor-auto，标题select-none/drag handle",
+    "Codeg src/components/canvas/nodes/note-node.tsx:139-146：13px正文、leading-relaxed；静态整纸拖动与编辑态分开"
+  ],
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "9c8376062c0ebb7335f66d65854c6913a0e66e43aca942cb07f5d1e402f7b331"
+    }
+  ],
+  "checks": {
+    "css_parse": {
+      "passed": true,
+      "rules": 288
+    },
+    "diff_whitespace": {
+      "passed": true
+    }
+  },
+  "runtime_verification": {
+    "status": "pending_next_frozen_candidate",
+    "desktop_builds": 0,
+    "web_builds": 0,
+    "native_runs": 0,
+    "github_actions": 0,
+    "boundary": "rc14的60个已通过Native场景属于旧CSS；不作为本补正的运行或完整视觉资格"
+  },
+  "remaining": [
+    "集中核对八类、长标题、日夜主题和小窗口真实界面；保留正文可达性与必要滚动，不统一隐藏滚动条",
+    "Diff失效态搜索框级联边框与ResizeObserver问题继续按原清单处理"
+  ],
+  "customer_action_now": null
+}

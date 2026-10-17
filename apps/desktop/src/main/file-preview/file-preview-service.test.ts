@@ -5,7 +5,7 @@ import { homedir, tmpdir } from 'node:os'
 import { basename, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import type { OpenFilePreviewRequest } from '@contracts'
+import type { CoreMethod, OpenFilePreviewRequest } from '@contracts'
 import { RootWatchRegistry } from './file-preview-watchers'
 import { CoreFilePreviewSourceAuthority } from './file-preview-authority'
 import { previewPathIsVisible } from '../../renderer/src/file-preview-tab-presentation'
@@ -158,9 +158,9 @@ describe('FilePreviewService', () => {
     const prepared = await service.prepareHtmlSite(1, { handleId: file.handleId, expectedGeneration: file.contentGeneration })
     if (!prepared.ok) throw new Error('expected site')
     const origin = new URL(prepared.value.origin)
-    const read = (path: string, cookie?: string) => new Promise<{ status: number; cookie?: string; body: string }>((resolve, reject) => {
-      const request = httpRequest({ hostname: '127.0.0.1', port: origin.port, path,
-        headers: { host: origin.host, ...(cookie ? { cookie } : {}) } }, response => {
+    const read = (path: string, cookie?: string, siteOrigin = origin) => new Promise<{ status: number; cookie?: string; body: string }>((resolve, reject) => {
+      const request = httpRequest({ hostname: '127.0.0.1', port: siteOrigin.port, path,
+        headers: { host: siteOrigin.host, ...(cookie ? { cookie } : {}) } }, response => {
         const chunks: Buffer[] = []
         response.on('data', chunk => chunks.push(chunk))
         response.on('end', () => resolve({ status: response.statusCode!, cookie: response.headers['set-cookie']?.[0].split(';')[0], body: Buffer.concat(chunks).toString() }))
@@ -174,6 +174,53 @@ describe('FilePreviewService', () => {
     const denied = await read('/app-data/credentials.json', bootstrap.cookie)
     expect(denied.status).toBe(403)
     expect(denied.body).not.toContain('test-only')
+    // 已有附件授权只放行自己的 Core 暂存槽，不给工作区或其他卡片增加私有根权限。
+    const threadId = 'rvcamp_0000000000e008000000000001'
+    const id = '00000000-0000-4000-8000-000000000001'
+    const locator = {
+      owner: 'single_chat_scoped_composer' as const, threadId, conversationId: '00000000-0000-4000-8000-000000000002',
+      composerScope: { kind: 'canvas' as const, boardId: '00000000-0000-4000-8000-000000000003', nodeId: '00000000-0000-4000-8000-000000000004' },
+      attachmentRefId: id
+    }
+    const slot = join(privateRoot, 'private-attachment-preparations-v1', 'sources', id)
+    await mkdir(slot, { recursive: true })
+    const delivered = join(slot, 'source.html')
+    await writeFile(delivered, '<link href="theme.css"><h1>owned input</h1>')
+    await writeFile(join(slot, 'theme.css'), 'body{color:blue}')
+    let sourceAllowed = true
+    const forwarded: unknown[] = []
+    const privateAuthority = new CoreFilePreviewSourceAuthority({
+      async request<T>(_method: CoreMethod, params: unknown): Promise<T> {
+        forwarded.push(structuredClone(params))
+        return (sourceAllowed && JSON.stringify(params) === JSON.stringify(locator) ? {
+          attachmentId: id, path: delivered, displayName: 'source.html', kind: 'file',
+          mediaType: 'text/html', openRisk: 'normal', canShowPath: false
+        } : null) as T
+      }
+    })
+    const privateService = new FilePreviewService(privateAuthority, native)
+    services.push(privateService)
+    await privateService.bindThread(1, threadId)
+    const admitted = await privateService.open(1, { kind: 'attachment', threadId, locator })
+    if (!admitted.ok || admitted.value.kind !== 'file_preview') throw new Error('expected admitted private source')
+    const privateFile = admitted.value.file
+    expect(previewPathIsVisible(privateFile)).toBe(false)
+    expect((await privateService.copyPath(1, { handleId: privateFile.handleId, format: 'absolute' })).ok).toBe(false)
+    expect((await privateService.readText(1, { handleId: privateFile.handleId, expectedGeneration: privateFile.contentGeneration })).ok).toBe(true)
+    expect((await privateService.readText(2, { handleId: privateFile.handleId, expectedGeneration: privateFile.contentGeneration })).ok).toBe(false)
+    const other = { ...locator, composerScope: { ...locator.composerScope, nodeId: '00000000-0000-4000-8000-000000000005' } }
+    expect((await privateService.open(1, { kind: 'attachment', threadId, locator: other })).ok).toBe(false)
+    expect(forwarded).toContainEqual(other)
+    const privateSite = await privateService.prepareHtmlSite(1, { handleId: privateFile.handleId, expectedGeneration: privateFile.contentGeneration })
+    if (!privateSite.ok) throw new Error('expected private attachment site')
+    const privateOrigin = new URL(privateSite.value.origin)
+    const privateBootstrap = await read(new URL(privateSite.value.entryUrl).pathname, undefined, privateOrigin)
+    expect(privateBootstrap.status).toBe(302)
+    expect((await read('/source.html', privateBootstrap.cookie, privateOrigin)).status).toBe(200)
+    expect((await read('/theme.css', privateBootstrap.cookie, privateOrigin)).status).toBe(200)
+    expect((await read('/../../credentials.json', privateBootstrap.cookie, privateOrigin)).status).toBe(403)
+    sourceAllowed = false
+    expect((await read('/source.html', privateBootstrap.cookie, privateOrigin)).status).toBe(410)
   })
 
   it('binds HTTP preview sites to the existing handle, generation, window and Thread lifetime', async () => {

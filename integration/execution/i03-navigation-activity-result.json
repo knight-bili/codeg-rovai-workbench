@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T04:00:56.835Z",
+  "stage": "I03",
+  "source_commit": "7326bc56a8081c37396857246c0af575880ccb00",
+  "status": "complete_navigation_activity_metadata_and_badges_coded_targeted_checks_passed_Rust_Host_mounted_UI_pending",
+  "goal_status": "active_live_verified",
+  "previous_goal_turn": "progress: f7d7a1b0 and ee42bf17",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/App.test.ts",
+      "sha256": "986c0114d2b69645432b1a46893bca8d86c2a610e934f93ab456b23765481f15"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/NavigationActivityBadge.tsx",
+      "sha256": "d757dc7e07ef80821a460e3cb1dbe70c68981a3d09f562e78af61ea01deb383a"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ThreadNavigation.tsx",
+      "sha256": "e2abe38f0a15309be24debf134ca09b72102131709156b5eda8e622889c013ee"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "e4e57d8766e4c25896672b9ace5c397bb59c7f93d50f61681ad53c8107b5ea51"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "9ba78d4c567c3f5f95e0a807dc03c11baba9ed3e0007c36cc5bcd2d2e23a2b39"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/navigation-activity-controller.test.ts",
+      "sha256": "af91bfaa801239f45990fdef0e53a9b09aeba8d77afeccfb316ac9d1e8a428c8"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/navigation-activity-controller.ts",
+      "sha256": "83cca19d8ff7bac06f01907ea39cf7ec6134d9cd223e9cdf34264dade8d44eee"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/useNavigationActivity.ts",
+      "sha256": "1f61565d4a3c4f03c287ba22c7909b68f7cfc4e351744a715800428d3189bc3c"
+    },
+    {
+      "path": "apps/web/src/camp-adapter.test.ts",
+      "sha256": "9997bac606156e8fac38f3443f0586b0e468141f4e5dcf85fd33f4f15eb3f061"
+    },
+    {
+      "path": "apps/web/src/client.ts",
+      "sha256": "22cd90e406817c803faa1a4cf2b46d1528e5d726437aee4248d18d068f3d27f3"
+    },
+    {
+      "path": "crates/rovai-core/src/application.rs",
+      "sha256": "5b9f6a0b769798e275fcc539b8999f66f5c84dd2a71609bbb4f7922414690add"
+    },
+    {
+      "path": "crates/rovai-core/src/read_model.rs",
+      "sha256": "7a9c7e32dff8f69640a02b0abfc6a551a3610f736f5da52f670b9b8ab34661ec"
+    },
+    {
+      "path": "crates/rovai-core/src/read_model/navigation.rs",
+      "sha256": "bd787c69032fd65d942f674963fb52114d61a30ddad604577aced9df99ecc48a"
+    },
+    {
+      "path": "crates/rovai-web/src/operations.rs",
+      "sha256": "e7d2b203700f888676aa122c8c5cd5c5d4520ac6c92a8c83e2a5881a223c62d3"
+    },
+    {
+      "path": "docs/contracts/README.md",
+      "sha256": "ab01b5e54a7e95ee723a3610673930eee3ab60648e274f99761b5df501a4c953"
+    },
+    {
+      "path": "docs/contracts/navigation-activity-v1.md",
+      "sha256": "9124458a9dee925a558894233b11e257814da8a9c38f437db15ba4eb64478221"
+    },
+    {
+      "path": "docs/contracts/navigation-project-groups-v1.md",
+      "sha256": "bc78f42d7735b946fb981c7d9c7e91b85409e87d6916f6198aea5d5523f25961"
+    },
+    {
+      "path": "docs/contracts/navigation-read-v1.md",
+      "sha256": "fc4f57e2580aaac291084fdd5c2b5f33a71ab4f47836aa671d1fb63d5bf96882"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "0d37e828e4a189a0424f22bc7f3970623d6dbe897f5d1d03be621a68e53cdfc6"
+    },
+    {
+      "path": "docs/ui/components/app-shell-navigation.md",
+      "sha256": "164567d5fbbabb7160ca3b1a64542134dfc84edc5a3dfcb2813ff46750c73da1"
+    },
+    {
+      "path": "integration/foundation/current-protocol.json",
+      "sha256": "1cf37f458c52e19344470fffb1c474cbe84ad3cd353bdbfe8af6098c254c8460"
+    },
+    {
+      "path": "integration/licenses/README.md",
+      "sha256": "14c3e57411d44e256cc1f9de5806d3196a2870e3e4809d70f990f59fead3d01c"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "c5554227ddd046ba51ac5ee3c13f54db60e3e7e2d4bf40539f0ed33bd133e021"
+    },
+    {
+      "path": "tools/integration/smoke-canvas-nodes.mjs",
+      "sha256": "b41f6f404accf8cd43dd4e2a174487734441ef600067d66eeb7da671c8525b55"
+    }
+  ],
+  "contract": "docs/contracts/navigation-activity-v1.md",
+  "authority": "Core完整普通导航Thread活动计数；不是Run、队员或私有Conversation个数，不从前N行loading推导。",
+  "implementation": [
+    "新增独立有界只读navigation.activity，Native/认证Host/Web白名单及CoreMethod接通；groupKeys/threadIds各最多200、严格字段/重复/语法校验。",
+    "原文SQL沿导航VISIBLE及共享活跃状态定义，去重显式camp_id与私有camp_turn fallback；排除Mission/删除，隔离pending编辑端材料。",
+    "可选threadIds在同一事务定位实际组且只返回请求范围内统计；任一物理删除不能定位时核对本批最多200组，不读其他Thread内容。",
+    "路径与既有导航偏好同语法，跨平台历史Unix/Windows/UNC不依赖当前主机目录存在；Core统计不授文件/终端/Git/执行权限。",
+    "客户端订阅先于读，作用域/水位校验、迟到丢弃、失败旧值、后台暂停、20秒可见完整性刷新；ID积压及在途恢复超过200退为有界元数据核对。",
+    "普通已读/改名/仅消息变化不额外统计，外部组事件不推进当前组水位；Host/Owner切换新控制器、dispose和旧回复隔离。",
+    "工程/分组沿真实树对当前登记工程去重汇总，置顶不重复，未知关系不报数字；确定0隐藏，未知省略号，旧数~n带上次统计说明。",
+    "每组统计完整但跨200组批次不是全局原子快照；不改原navigation.threads/前缀窗口范围，不改数据库迁移或模型输入。"
+  ],
+  "checks": [
+    {
+      "name": "related_TS_owners_and_Web_transport",
+      "log": "navigation-activity-owners-final.log",
+      "files": 11,
+      "passed": 78,
+      "failed": 0,
+      "path": "../i03/navigation-activity-owners-final.log",
+      "sha256": "143ec2c8dd1af7e62aad181de97a841c65a79d93b4faf3da35a9dfa7d2339b8a"
+    },
+    {
+      "name": "filtered_navigation_static_render",
+      "log": "navigation-activity-navigation-01.log",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 180,
+      "total_owner_cases": 186,
+      "path": "../i03/navigation-activity-navigation-01.log",
+      "sha256": "8c20b0f6992497507fe11006b1b6dd2dd162a0c06e2da6b886456782f89ec877"
+    },
+    {
+      "name": "scoped_types_including_activity_controller_tests",
+      "log": "navigation-activity-types-final.log",
+      "exit_code": 0,
+      "config": "navigation-activity-typecheck.json",
+      "path": "../i03/navigation-activity-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ui_copy",
+      "log": "navigation-activity-copy-final.log",
+      "duplicate_keys": 0,
+      "missing": 0,
+      "path": "../i03/navigation-activity-copy-final.log",
+      "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078"
+    },
+    {
+      "name": "rust_format_only",
+      "log": "navigation-activity-rustfmt-final.log",
+      "exit_code": 0,
+      "compiled": false,
+      "tests_run": false,
+      "path": "../i03/navigation-activity-rustfmt-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "documentation_versions",
+      "log": "navigation-activity-docs-version-final.log",
+      "exit_code": 0,
+      "path": "../i03/navigation-activity-docs-version-final.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d"
+    },
+    {
+      "name": "documentation_decisions",
+      "log": "navigation-activity-docs-decisions-final.log",
+      "exit_code": 0,
+      "path": "../i03/navigation-activity-docs-decisions-final.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+    },
+    {
+      "name": "source_catalog_consistency_only",
+      "log": "navigation-activity-foundation-final.log",
+      "current_operations": 178,
+      "historical_operations": 161,
+      "Host_execution": false,
+      "path": "../i03/navigation-activity-foundation-final.log",
+      "sha256": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695"
+    }
+  ],
+  "SQL_fixture_witness": {
+    "kind": "exact_rust_source_SQL_fixture_witness_not_Rust_or_Host_execution",
+    "passed": 7,
+    "path": "../i03/activity-sql-4QI9Rc/result.json",
+    "sha256": "c52ccb9a50dabc79fdbb80ff577117dc87b63bc6f52e1688689b89ba98a054ad",
+    "source_sha256": "bd787c69032fd65d942f674963fb52114d61a30ddad604577aced9df99ecc48a",
+    "note": "临时Node SQLite仅执行Rust原文SQL/fixture和owner lookup，不是Rust编译/方法或真实Host资格。"
+  },
+  "source_catalog": {
+    "current": 178,
+    "previous": 177,
+    "historical": 161,
+    "host_protocol": 4,
+    "core_schema": 154,
+    "data_contract": "v1.72",
+    "new_dependency": false,
+    "new_migration": false
+  },
+  "self_review": [
+    "输入路径改为既有导航偏好跨平台语法，避免Windows/Linux迁移后的历史统计被本机Path判断拒绝。",
+    "区分完整0、从未核实和旧计数，拓扑不完整不出数字，不用前缀数/Run数冒充Thread总量。",
+    "未知Thread由Core统计接口直接定位，避免额外逐Thread详情和普通行端点扩大返回。",
+    "在途读取再次失效不发布；恢复队列也执行200 ID积压上限，外部组事件不提升当前组最低水位。",
+    "浏览器原owner写死9个操作的断言改为fixture实际operations.length；初次失败navigation-activity-controllers-02.log保留，最终78项相关owner全部通过。"
+  ],
+  "not_run": [
+    "新增Rust SQLite owner与Core/Host代码编译/执行；格式检查不能替代此项。",
+    "认证Host当前源码RPC与真正Native IPC；smoke已扩但仅做语法检查。",
+    "React实际挂载/StrictMode、Desktop/Web跨Host或Owner切换、SSE断线、压力/性能与后台恢复。",
+    "全部App186项（本批仅6项）、全仓/平台/模型/真机及324产品场景。"
+  ],
+  "next": [
+    "成员拖放、展开对话卡片和既有Composer草稿；保留公开/私有精确身份和当前输入治理。",
+    "Mission/Task/Thread/Diff定位、授权文件、真实临时PTY及Desktop冷启动；I02剩余SP/真实Gate和I04–I12/BUF全部保留。"
+  ],
+  "execution": {
+    "branch": "phase/i03-canvas-nodes",
+    "local_commit": true,
+    "push": false,
+    "actions_triggered": false,
+    "candidate_frozen": false,
+    "main_merged": false,
+    "cadence": "多次本地commit；阶段编码/review集齐后集中编译/集成/平台和少量推送。",
+    "codegraph": "当前项目明确无索引；未隐式创建。"
+  }
+}

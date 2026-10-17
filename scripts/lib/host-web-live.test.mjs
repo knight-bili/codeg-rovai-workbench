@@ -12,6 +12,15 @@ import { launchAcceptanceBrowser, pause } from './host-web-browser.mjs'
 import { exerciseBrowserManagement } from './host-web-management-ui.mjs'
 const root = resolve(import.meta.dirname, '../..')
 const chrome = process.env.ROVAI_REVIEW_CHROME ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+
+test('actual browser Core switch isolates a committed private upload whose HTTP reply is delayed', { timeout: 180_000 }, async t => {
+  if (process.platform !== 'win32') { t.skip('This two-Core protected-directory browser owner qualifies Windows only.'); return }
+  const binary = process.env.ROVAI_HOST_BIN, uiDirectory = process.env.ROVAI_WEB_UI, output = process.env.ROVAI_CROSS_CORE_UPLOAD_OUTPUT
+  assert.ok(binary && uiDirectory && output, 'Use an explicitly frozen Host, Web artifact and unique evidence directory')
+  await access(chrome)
+  const { qualifyCrossCoreUpload } = await import('../fixtures/canvas-cross-core-upload.mjs')
+  await qualifyCrossCoreUpload({ binary, uiDirectory, chrome, output })
+})
 // Owns the real native entry + browser shared-page seam. The component fixture
 // cannot detect bootstrap/reauth remounts or IPC/HTTP editor ownership mistakes.
 // Reading records use execution:null and have no delivery or withdrawal right.

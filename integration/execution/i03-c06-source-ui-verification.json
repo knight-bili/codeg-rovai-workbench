@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "status": "container_repair_engineering_passed_full_canvas_ui_partial",
+  "recorded_at": "2026-10-16T08:48:58.520Z",
+  "candidate": "fusion-i03-rc.10",
+  "production_source_commit": "7eef4c6ca082f28f7a39ce78b1fcf9dd68cbe9c6",
+  "native_source_commit": "2158df02e793fc2eb3a01297b4921de214cdbe61",
+  "artifact_binding": {
+    "work/i03/c06/fusion-i03-rc.10/freeze.json": "f08fa6df6008b04580006632e66dc51796a8a56dcf41d7e6179af532631ce49d",
+    "work/i03/c06/fusion-i03-rc.10/desktop-build-result.json": "a8408fbfb60ca310101e9260d7757a094e9e39d639cb9afe383bcb059c7d5af9",
+    "work/i03/c06/fusion-i03-rc.10/web-build-result.json": "5b786bafab08b354af3189a45a8716cd8912ae3e378dd2a573f56c3468abc40e",
+    "work/i03/c06/fusion-i03-rc.10/desktop-output-inventory.json": "a2eb915ae3bd9556e95251812fc6124d3aeaf125afcf49f6e3702f2a53b6ffa6",
+    "work/i03/c06/fusion-i03-rc.10/web-output-verification.json": "eadc250149b1d8c3771173b208a50f22919861e9ff5fa2b2d326e157c3e54f3c",
+    "work/i03/c06/fusion-i03-rc.10/native-visual-r2/result.json": "61f1963ca0021d0b0d42974aeeb86ea97b373fcfcfc203d9d5f172f1f2b4e259",
+    "work/i03/c06-rc10-visual-r2.log": "502ea566bd8d8276e0d3f09ad3b1e0cdb586abab85c58ea6445cefa758c17734",
+    "work/i03/c06/fusion-i03-rc.10/native-files-r1/result.json": "df5f42a2295edc3dd9ac030ba76436486b00defb63a333032018cd1ea3730627",
+    "work/i03/c06-rc10-files-r1.log": "9e3ec2e0806504142860d02f1538aea97f5a7261f0e08511f4e4fa8ba7ebfa5e",
+    "work/i03/c06/fusion-i03-rc.10/native-objects-r1/result.json": "8e5655c1e4b8b5bb172913637d97df539fb82d133ae34444745e6a77c3dc4609",
+    "work/i03/c06-rc10-objects-r1.log": "ee32fd1df498cf2a58cd4cd904d26543c56bdb423339b0bbddaea35704d3a373",
+    "work/i03/c06/fusion-i03-rc.10/native-private-ui-r3/result.json": "087a903f328daf6e9216fcde84827ef3d4d901d8d84c401e5cfe86c5a36f8639",
+    "work/i03/c06-rc10-private-ui-r3.log": "e72f6129c9fcf8dc8b6a8e9bafbd9424ce92ef78b34bc899ba47a78620dda6ac",
+    "work/i03/c06/fusion-i03-rc.10/native-visual-r2/00-board-home.png": "cf97d61720060104032c4068f2e86627189650e187addb4df7508919a1774554",
+    "work/i03/c06/fusion-i03-rc.10/native-visual-r2/01-board-dialog.png": "2cf1c56ee1848964e6d45b81ccbeb274ca10322874418ab547ae889237520d36",
+    "work/i03/c06/fusion-i03-rc.10/native-visual-r2/02-empty-board.png": "0b41e408601ed6caa62dbaea4d916a1cca2e7d404c644300ff5a905c4e5f5c8d",
+    "work/i03/c06/fusion-i03-rc.10/native-files-r1/01-text-and-interactive-html.png": "1a4a551535a11ac84878826b0a6a3b2b471e5e512bf68f391a37f906c83f7a34",
+    "work/i03/c06/fusion-i03-rc.10/native-private-ui-r3/01-private-attachment-preview.png": "b62546b3827177389d9101fce5f59c8041239a493c2e561ff56d1a178f453b89",
+    "work/i03/codeg-ui-reference/06-fusion-container-before.png": "72004d3da6c53e5f64f8cf1ba72d462245f950476bc02bd6213d2f012bbcd201"
+  },
+  "checks": {
+    "types_exit": 0,
+    "controller_tests_passed": 4,
+    "docs_exit": 0,
+    "desktop_exit": 0,
+    "web_exit": 0,
+    "native": {
+      "visual": {
+        "revision": "r2",
+        "status": "passed",
+        "checks_passed": 4,
+        "scope": "production Main/preload/Core; Codeg canvas creation and rendered visual states; no model",
+        "controlled_shutdown": "completed",
+        "deadline_expired": false,
+        "forced_signal": null
+      },
+      "files": {
+        "revision": "r1",
+        "status": "passed",
+        "checks_passed": 9,
+        "scope": "production Main/preload/Core; real file cards and author HTML lifecycle",
+        "controlled_shutdown": "completed",
+        "deadline_expired": false,
+        "forced_signal": null
+      },
+      "objects": {
+        "revision": "r1",
+        "status": "passed",
+        "checks_passed": 8,
+        "scope": "production Main/preload/Core; exact Mission/Task/Diff/file workspace navigation; no model",
+        "controlled_shutdown": "completed",
+        "deadline_expired": false,
+        "forced_signal": null
+      },
+      "private-ui": {
+        "revision": "r3",
+        "status": "passed",
+        "checks_passed": 2,
+        "scope": "production Main/preload/Core; actual scoped attachment card opens exact source in canvas; no model",
+        "controlled_shutdown": "completed",
+        "deadline_expired": false,
+        "forced_signal": null
+      }
+    },
+    "native_checks_passed": 23
+  },
+  "container_fit": {
+    "padding": [
+      "0px",
+      "0px",
+      "0px",
+      "0px"
+    ],
+    "extraScrollX": 0,
+    "extraScrollY": 0,
+    "widthGap": 0,
+    "heightGap": 0
+  },
+  "small_window": {
+    "viewport": {
+      "width": 1040,
+      "height": 702
+    },
+    "outerExtraX": 0,
+    "outerExtraY": 0,
+    "listExtraY": 496,
+    "listScrollTop": 496,
+    "lastVisible": true
+  },
+  "dialog_style": {
+    "width": 448,
+    "padding": "24px",
+    "radius": "28px",
+    "inputRadius": "999px"
+  },
+  "visual_board_id": "f8f2f219-824f-4522-8eca-462dca564c25",
+  "resolved": [
+    "画布外层默认padding和50px空行造成的留白与溢出",
+    "只有列表承担真实溢出，小窗口最后一项仍可到达",
+    "通用弹窗覆盖专用宽度、圆角、间距和输入框样式",
+    "创建/删除回执须匹配Core单数commandType，创建后核对精确新boardId",
+    "rc9原对象验证确认Mission交付使用threadId；rc10再次通过"
+  ],
+  "retained_failures": [
+    {
+      "candidate": "rc9",
+      "mode": "visual-r1",
+      "reason": "保存成功但未进入新画布；已修复生产回执判断"
+    },
+    {
+      "candidate": "rc10",
+      "mode": "visual-r1",
+      "reason": "脚本在入场动画中测量，首次断言失败；对话框未关闭挡住退出，原driver180秒超时终止，仅此失败run不具受控退出资格；修复owner等待及失败表单关闭，r2受控退出"
+    },
+    {
+      "candidate": "rc10",
+      "mode": "private-ui-r1/r2",
+      "reason": "原卡片已经由生产恢复链路展开，脚本仍找展开按钮；新增错误详情并按nodeId核对已恢复卡片，r3两断言通过"
+    }
+  ],
+  "remaining": [
+    "私聊卡片重复标题与内容容器贴合需继续整改",
+    "附件预览截图仍停留单聊加载状态，当前DOM及授权读取通过不等同完整视觉资格",
+    "Codeg列表真实预览/节点数量尚未接入，禁止假缩略图",
+    "双主题、完整八类创建路径、键盘/错误状态、冷恢复及规模仍按I03有限清单补证",
+    "Diff准备好Git工作区的真实路径尚未取得本批资格；本批只验证诚实不可用分支",
+    "Mac/移动真机与适用跨平台验证待环境资源，最终MVP不豁免"
+  ],
+  "source_ui_policy": "integration/ui-source-policy.md",
+  "customer_action_required_now": false,
+  "actions": false,
+  "release": false,
+  "paid_models": false,
+  "scope_note": "本报告覆盖容器修复及必要回归，不宣布I03、全部页面或完整MVP工程完成"
+}

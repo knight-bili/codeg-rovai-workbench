@@ -35,6 +35,13 @@ spacing:
 
 ## Overview
 
+The customer's explicit fusion requirement (2026-10-16) applies to every page and
+complex dialog: use the corresponding Codeg/Rovai source UI as the baseline,
+reuse its components and interactions, and avoid an invented replacement design.
+Further improvements require a concrete reason and rendered comparisons that
+demonstrate no regression in visual quality, complete functionality or usability.
+Follow [`integration/ui-source-policy.md`](integration/ui-source-policy.md).
+
 **Creative North Star: “Porcelain Day / Steel Night.”**
 
 Rovai AI is a dense but calm desktop workspace: porcelain and graphite surfaces provide quiet
@@ -136,6 +143,13 @@ for genuine overlays such as Dialogs, Popovers and fixed approval surfaces.
 and ambient shadows.
 
 ## Shapes
+
+The integrated canvas follows the customer's explicit Codeg reference (2026-10-16):
+16px document cards, a 36px card title row, pill-shaped floating tools and a 28px
+board dialog. Its neutral Day/Night palette is scoped through the `--canvas-board-*`
+tokens in `packages/ui/src/theme.css`; this does not replace the App shell's visual
+system. Source mappings and verification boundaries live in
+[`integration/inventory/canvas-ui-reference.md`](integration/inventory/canvas-ui-reference.md).
 
 Controls use compact 5–8px radii, work surfaces typically use 9–11px and dialogs use 12–13px.
 Pills are reserved for terse status, filters and identity metadata; they do not wrap paragraphs.

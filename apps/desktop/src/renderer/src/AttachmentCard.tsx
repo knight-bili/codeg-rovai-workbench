@@ -14,6 +14,7 @@ import {
 import { UiText, uiAttribute } from './interface-language'
 import { ImageContextMenu, type ImageAction, type ImageMenuPosition } from './ImageContextMenu'
 import { writeClipboardImage } from './clipboard'
+import { privateAttachmentOwnerKey } from '../../shared/private-attachment-locator'
 
 type AttachmentKind = 'file' | 'directory'
 
@@ -35,6 +36,8 @@ function AttachmentFolderGlyph(): JSX.Element {
 }
 
 function localAttachmentLocatorKey(locator: LocalAttachmentOwnerLocator): string {
+  const privateKey = privateAttachmentOwnerKey(locator)
+  if (privateKey) return `${privateKey}:${locator.attachmentRefId}`
   if (locator.owner === 'composer') {
     return `composer:${locator.threadId}:${locator.attachmentRefId}`
   }
@@ -59,7 +62,8 @@ function localAttachmentLocatorKey(locator: LocalAttachmentOwnerLocator): string
   if (locator.owner === 'single_chat_pending') {
     return `single-chat-pending:${locator.threadId}:${locator.conversationId}:${locator.pendingInputId}:${locator.attachmentRefId}`
   }
-  return `single-chat-pending-edit:${locator.threadId}:${locator.conversationId}:${locator.pendingInputId}:${locator.editToken}:${locator.attachmentRefId}`
+  if (locator.owner === 'single_chat_pending_edit') return `single-chat-pending-edit:${locator.threadId}:${locator.conversationId}:${locator.pendingInputId}:${locator.editToken}:${locator.attachmentRefId}`
+  throw new Error('Unsupported attachment locator')
 }
 
 export function AttachmentCard({

@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "status": "partial_engineering_verification",
+  "recorded_at": "2026-10-15T20:41:48.641933+00:00",
+  "source_binding": {
+    "base_commit": "e485e2c0674ef8508b468d52ab0a32c12b38aadc",
+    "kind": "exact_worktree_file_hashes_before_local_commit",
+    "files": {
+      "apps/web/src/client.test.ts": "e201183e9bb1c25fbc0f7d6b30652c3b26cdd065e493792129f9f50f3fc22fd0",
+      "apps/web/src/client.ts": "887157c3b26609f70504005767a48e1f4dc53f53c69150222d6b0c0c1b882558",
+      "apps/web/src/private-upload-preparations.test.ts": "2e63146c560b7b0c700a7f13f74dea298de19c2497e1950b7eed34e73220e645",
+      "crates/rovai-core/src/single_chat_composer_tests.rs": "e4dfb80717a5ae3bfd98b46b6765d9f10e209bb51e0e7d061cf78ff072870c0a",
+      "crates/rovai-core/src/web_upload.rs": "2a4ead7997836e20de5b7d0cd1668e1d0c2b8c5bcb820ff6ac35c7eca734bec3",
+      "crates/rovai-web/src/uploads.rs": "2e3ef31fefa1b4da278603cb9a02ad8c342ae3c5f3e3e4010827c543c9a97f19",
+      "docs/contracts/host-web-v5.md": "50fb82c5375a58fe95facf887916a403418a0629e6ba74a3ac1b47daeed49932",
+      "docs/contracts/single-chat-composer-scope-v1.md": "15f9cebed26419ef94098c8e21fb269b110dcaafd33f3c36bcdebbe25278e38e",
+      "docs/development/testing.md": "6625b68e0aa3f53e7417cb76ccaf6fb463e752d67f212f7a7134999632ab0b9c",
+      "docs/versions/v1.72/README.md": "b14418797e630783896f1d23103745b1f7c6fe93e477ec667ef994e4caf04012",
+      "scripts/lib/host-web.test.mjs": "a547f89baea9147b2fa045ceec4a0d0ed853d8bf10c6506ae1c9ebcb598450d5"
+    }
+  },
+  "implemented": [
+    "Private upload performs readonly owner/scope/CAS/lease/capacity/reference admission inside existing Gateway transaction before any material/scope/observation write",
+    "Expected business refusal returns real persisted rejected for original UUID; no blanket handler-error conversion or Gateway change",
+    "SQL/corruption/filesystem/source observation and later write failures still rollback all business and receipt changes",
+    "Web ingress/reconciliation checks independent original receipt, emits upload_rejected only for actual Core rejected and cleans confirmed-unbound rejection/replay spools",
+    "Legacy browser dispatch/reconciliation/explicit retry settle canonical rejection; new Web/Native original receipt flow keeps exact identity"
+  ],
+  "validation": {
+    "core_private_composer_owners": {
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "new_test_functions": 0
+    },
+    "core_coverage": "Same isolated SQLite/FS owner covers full materials unchanged on CAS/default Native/default Web/scope/lease refusal, original receipt replay, successful/rejected receipt-store failure rollback and inherited directory assertions",
+    "typescript": {
+      "files": 5,
+      "distinct_passed": 61,
+      "failed": 0,
+      "skipped": 0,
+      "transport": "simulated HTTP/platform plus isolated Native filesystem, not actual Host"
+    },
+    "typecheck": "passed",
+    "web_rust_cargo_check": "passed",
+    "rustfmt_and_http_syntax": "passed",
+    "doc_version_decisions": "passed againste485e2c0",
+    "doc_policy_tests": 10,
+    "foundation_scaffold": "passed",
+    "actual_host_native_browser_platform_model": "not_run",
+    "full_PC01_PC24_and_formal324": "not_qualified"
+  },
+  "build_exception": "Persistent original-result semantics blocked subsequent recovery UI; minimum3-owner Core lib batch combines prior uncompiled directory/Web ingress, then rovai-web type check; no workspace/Host/Actions",
+  "self_review": [
+    "Kept normal execution errors as errors; only readonly known business preconditions yield rejected",
+    "Legacy upload clients must not treat a rejected snapshot as success or keep unknown forever, so added strong canonical code handling",
+    "Core first build succeeded but one new fixture used Rust field names as SQL column names; corrected to actual quotes_json/quote_trash_json and reran the entire3-owner group successfully",
+    "First failed run is preserved and excluded; no old executable invoked after failure",
+    "Current passing binary copied into a hash-named archive before mutable target artifacts can be replaced"
+  ],
+  "core_test_binary": {
+    "path": "i03\\artifacts\\upload-finality\\31f23a4641696a2c\\core-lib-tests.exe",
+    "sha256": "31f23a4641696a2c48cb05d1754939015fc7ffc68eb8244be24ee7cad40b3e0d",
+    "test_source": "upload-finality-core-fixed.log",
+    "owners": 3
+  },
+  "remaining": [
+    "Original bytes unavailable and no terminal receipt: explicit safe ending/admission-only retry remains to implement",
+    "Old Pending/lease preparation records and legacy adoption/orphan/conflict unified recovery UI",
+    "Actual authenticated HTTP spool/rejection/receipt tests, Native IPC and mounted browser/platform/model qualification",
+    "Large materials/journal/transaction-lock scale, other I03 groups and phase candidate",
+    "I02 remaining, I04-I12/BUF and formal324"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "approved_r1_files": {
+    "I03_私聊材料怎么分开用_客户确认版_r1.docx": "87565f57fa0e994f676139e3376fe14e556ac9862c08f1573798d985f4dcecf7",
+    "I03_私聊材料怎么分开用_客户确认版_r1.pdf": "4b3446c0d97f2c6b8529a206d965a60229dcc1e5966e280647856fc88576e8df"
+  },
+  "artifacts": {
+    "i03\\upload-finality-core-first.log": "57b875ab4710e766ded41559899fae2c64f9292cee28d47917a5568ba134224b",
+    "i03\\upload-finality-core-fixed.log": "42b5fa7e846436eba0d8a928ed52343d0a6b8f71a503736eedcf54fd2a3f81ba",
+    "i03\\upload-finality-doc-decisions.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "i03\\upload-finality-doc-policy.log": "e073539789fa695af1b795ad20d63fd1b97935125580afa0bbb331e2de316696",
+    "i03\\upload-finality-doc-version.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "i03\\upload-finality-foundation.log": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+    "i03\\upload-finality-http-syntax.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\upload-finality-rustfmt.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\upload-finality-scaffold.log": "a88b779f581bd4a00853a6f6f1806a60f2dd558e7ef28fc89290b84bebd74cb5",
+    "i03\\upload-finality-ts-first.log": "6a829720b299e0bfcfb2f927c7e88d2a091c4ba86549be4a544fe3d14a7ee4d4",
+    "i03\\upload-finality-types-first.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\upload-finality-web-first.log": "26acaa09533df1c2782b69a1dea67ad90b0a542af3471aa9418f6b1b050829c9",
+    "i03\\upload-finality-core-artifact.json": "c22df93bffda567690b1aa0ec0cea3914cfd4010e3dfb76b3ec64100f4204cbb",
+    "i03\\artifacts\\upload-finality\\31f23a4641696a2c\\core-lib-tests.exe": "31f23a4641696a2c48cb05d1754939015fc7ffc68eb8244be24ee7cad40b3e0d"
+  },
+  "boundaries": {
+    "schema": 156,
+    "last_migration": 206,
+    "host_protocol": 4,
+    "public_core_methods": 180,
+    "source_ref_model_projection_frozen_inputs_changed": false,
+    "full_build_host_model_actions_push": false,
+    "customer_action_required_now": false,
+    "formal324": "not_run"
+  }
+}

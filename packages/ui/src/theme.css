@@ -1,5 +1,29 @@
 /* Shared Porcelain Day / Steel Night tokens; owned by the existing Desktop theme contract. */
 :root {
+  /* Codeg neutral canvas palette; scoped by canvas.css, without replacing the App theme. */
+  --canvas-board-background: #ffffff;
+  --canvas-board-card: #ffffff;
+  --canvas-board-input: #fafafa;
+  --canvas-board-ink: #171717;
+  --canvas-board-muted: #737373;
+  --canvas-board-line: #e5e5e5;
+  --canvas-board-dot: #e5e5e5;
+  --canvas-board-hover: #f5f5f5;
+  --canvas-board-selected: #e5e5e5;
+  --canvas-board-action: #262626;
+  --canvas-board-action-ink: #fafafa;
+  --canvas-color-neutral: oklch(0.205 0 0);
+  --canvas-color-zinc: oklch(0.21 0.006 285.885);
+  --canvas-color-slate: oklch(0.208 0.042 265.755);
+  --canvas-color-stone: oklch(0.216 0.006 56.043);
+  --canvas-color-gray: oklch(0.21 0.034 264.665);
+  --canvas-color-red: oklch(0.637 0.237 25.331);
+  --canvas-color-rose: oklch(0.645 0.246 16.439);
+  --canvas-color-orange: oklch(0.705 0.213 47.604);
+  --canvas-color-green: oklch(0.723 0.219 149.579);
+  --canvas-color-blue: oklch(0.546 0.245 262.881);
+  --canvas-color-yellow: oklch(0.795 0.184 86.047);
+  --canvas-color-violet: oklch(0.606 0.25 292.717);
   /* Settings controls and observed runtime usage series. */
   --monitoring-input: #393b3d;
   --monitoring-output: #657f9b;
@@ -201,6 +225,17 @@
 }
 
 :root[data-theme="night"] {
+  --canvas-board-background: #0a0a0a;
+  --canvas-board-card: #171717;
+  --canvas-board-input: #141414;
+  --canvas-board-ink: #ededed;
+  --canvas-board-muted: #a3a3a3;
+  --canvas-board-line: #2b2b2b;
+  --canvas-board-dot: #272727;
+  --canvas-board-hover: #262626;
+  --canvas-board-selected: #404040;
+  --canvas-board-action: #d4d4d4;
+  --canvas-board-action-ink: #171717;
   --monitoring-input: #d5d6d8;
   --monitoring-output: #8ca7c6;
   --monitoring-read: #86b098;

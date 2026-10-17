@@ -238,6 +238,7 @@ pub(super) fn migrate(database: &mut Database) -> Result<()> {
 
 #[cfg(test)]
 pub(super) fn downgrade_for_test(connection: &Connection) {
+    crate::canvas_node::downgrade_for_test(connection);
     if !connection
         .query_row(
             "SELECT EXISTS(SELECT 1 FROM schema_migration WHERE version=203)",

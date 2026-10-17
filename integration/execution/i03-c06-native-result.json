@@ -1,0 +1,305 @@
+{
+  "schema_version": 1,
+  "stage": "I03-C06",
+  "status": "partial_engineering_verified",
+  "recorded_at": "2026-10-16T05:44:54.402487+00:00",
+  "component_source": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+  "desktop_source": "b43416d3b2d161868cb0aa4204a4fc92de550942",
+  "new_production_builds": 0,
+  "new_actions": 0,
+  "paid_models": false,
+  "daily_data": false,
+  "native_desktop": {
+    "status": "passed",
+    "checks": [
+      {
+        "name": "production_canvas_route_and_persisted_nodes",
+        "passed": true,
+        "board_id": "5bca067b-8dcb-44c5-8150-0633c97682c6"
+      },
+      {
+        "name": "native_electron_keyboard_reaches_real_pty_and_calculates_five",
+        "passed": true,
+        "input_sequence": 2
+      },
+      {
+        "name": "real_pty_result_is_painted_in_production_terminal_reader",
+        "passed": true
+      },
+      {
+        "name": "native_terminal_stop_completes_process_cleanup",
+        "passed": true
+      }
+    ],
+    "result": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.5\\native-758da4e2\\native-electron-final\\result.json",
+    "screenshot": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.5\\native-758da4e2\\native-electron-final\\native-output.png",
+    "visual_review": "actual PNG inspected; 2+3 and 5 visible, no overlap or unintended scrollbar",
+    "input_method": "Electron sendInputEvent through actual production handlers; DOM button activation; not OS pointer/IME/clipboard qualification",
+    "shutdown": "completed deadlineExpired=false forcedSignal=null"
+  },
+  "file_api": {
+    "status": "passed",
+    "business_assertions": 7,
+    "fixture_preparation": 1,
+    "checks": [
+      {
+        "name": "fixture_members_and_two_directory_threads_created_by_real_core",
+        "passed": true,
+        "threads": [
+          "rvcamp_01m51k9yxpej9skre0ybc5m82g",
+          "rvcamp_01m51k9yy0fzrr8zqrx3jmcs50"
+        ],
+        "agent_id": "agent_7"
+      },
+      {
+        "name": "native_preload_main_core_authorized_unicode_file_read",
+        "passed": true,
+        "file_name": "说明 #中文.txt",
+        "kind": "text"
+      },
+      {
+        "name": "stale_file_handle_generation_rejected",
+        "passed": true,
+        "code": "read_failed"
+      },
+      {
+        "name": "forged_directory_grant_cannot_authorize_a_file",
+        "passed": true,
+        "code": "source_not_authorized"
+      },
+      {
+        "name": "existing_explicit_external_file_policy_preserved_with_independent_thread_handles",
+        "passed": true
+      },
+      {
+        "name": "released_native_file_handle_no_longer_readable",
+        "passed": true,
+        "code": "read_failed"
+      },
+      {
+        "name": "releasing_one_thread_handle_keeps_other_thread_handle_readable",
+        "passed": true
+      },
+      {
+        "name": "closing_retained_sessions_revokes_remaining_handles",
+        "passed": true,
+        "code": "read_failed"
+      }
+    ],
+    "result": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.5\\native-190cf86d\\file-authority-final\\result.json",
+    "policy": "Preserve exact explicit-file access including external files; directory grants and private source authority remain separate"
+  },
+  "cold_reopen": {
+    "full_case_passed": false,
+    "passed_checks": [
+      {
+        "name": "real_desktop_cold_reopen_keeps_nodes_without_auto_start_or_output",
+        "passed": true,
+        "target": {
+          "boardId": "5bca067b-8dcb-44c5-8150-0633c97682c6",
+          "nodeId": "0dd3a15d-7bbe-4ad7-8135-03b206116496"
+        },
+        "core_generation": "782a212f-37e9-4d49-94f3-47fdb5cdd5ad"
+      },
+      {
+        "name": "selected_board_and_three_cards_restore_after_process_restart",
+        "passed": true
+      }
+    ],
+    "boundary": "only selected board, three stored nodes and no automatic PTY/output; not whole App routing/focus/scale"
+  },
+  "web_projection": {
+    "passed": 1,
+    "listed": 1,
+    "test_binary_sha256": "e24f726b3009248a6206ac7c9d375d7a3faed0636b4edb0c087422c0cf30d59f"
+  },
+  "failures_preserved": {
+    "startup": "native-9557524c: isolated profile lacked standard AppData directories; native preparation passed after correction",
+    "driver": "CDP element serialization and input/click driver did not qualify native input; direct Electron owner passed; do not treat DPI as proven cause",
+    "test_expectations": "file paths must encode literal #; concrete-file external access follows inherited contract and is not an unauthorized directory grant",
+    "visible_attempt": "intermediate native-electron-visible did not wait until Start was enabled; failed result preserved despite Electron exit0, parent now reads result status"
+  },
+  "staged_apps": [
+    {
+      "run_id": "190cf86d",
+      "app": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-190cf86d\\app",
+      "desktop_files": 149,
+      "native_binaries": [
+        {
+          "name": "rovai-core.exe",
+          "sha256": "2345fdd7ad001ce45420e2285acdfe371bf2b809cadba3b7d24cd93d6fb6d0ac"
+        },
+        {
+          "name": "rovai-host.exe",
+          "sha256": "f54e9bba856e8310fe0088baeba6590b23994d6f6a39851738d043fba208e37d"
+        },
+        {
+          "name": "rovai.exe",
+          "sha256": "d6f5bb6e8847b8bf4490b295ddafe0a45a5ae794a7d1ea57209a47c099231327"
+        }
+      ]
+    },
+    {
+      "run_id": "758da4e2",
+      "app": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-758da4e2\\app",
+      "desktop_files": 149,
+      "native_binaries": [
+        {
+          "name": "rovai-core.exe",
+          "sha256": "2345fdd7ad001ce45420e2285acdfe371bf2b809cadba3b7d24cd93d6fb6d0ac"
+        },
+        {
+          "name": "rovai-host.exe",
+          "sha256": "f54e9bba856e8310fe0088baeba6590b23994d6f6a39851738d043fba208e37d"
+        },
+        {
+          "name": "rovai.exe",
+          "sha256": "d6f5bb6e8847b8bf4490b295ddafe0a45a5ae794a7d1ea57209a47c099231327"
+        }
+      ]
+    }
+  ],
+  "frozen_authority_files": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "source_binding": {
+    "base_commit": "db1e335598fbaf807b6bb00013a524b24db70013",
+    "files": {
+      "apps/desktop/src/main/index.ts": "6e225d0010a7d820209a969207e0dffb46b1d7c974a86279ecac8a5f39f66a5a",
+      "apps/desktop/src/main/core-client.ts": "242efdea1ff985e0e366fbd05c73f5c7c2d8c39f239e715a79d753075a26a41c",
+      "apps/desktop/src/preload/index.ts": "6e967337ab894d853dab1bcd459af6106f749de76fdc93e6b414de85b34ab1c8",
+      "apps/desktop/src/renderer/src/CanvasTerminal.tsx": "5b9415e1531478efdff5acb368a38ba838c12991bae0bafd754c6b7b72c3df92",
+      "apps/desktop/src/renderer/src/canvas-terminal-controller.ts": "ccd7319816088174101decd55deff9a01d5a8d4a73eecfadd01822641dedc2da",
+      "apps/desktop/src/renderer/src/canvas-terminal-reader.ts": "78101fc2e4618ae71ee8b1d9b83d7d9fec01f1ac83c052e757c60e277eecc64e",
+      "apps/desktop/src/renderer/src/canvas-file.ts": "d66dfa3d201c45bd46c0530217f85bc8b2a349f1e99fd82e1381429b57dd17a1",
+      "apps/desktop/src/main/file-preview/file-preview-service.ts": "fbebcfd10fd9a7c46156915b6712764a27892ab97db902c2a173f6b66d28580a",
+      "apps/desktop/src/main/file-preview/file-preview-authority.ts": "18f533d393fd5f89be73b5644e68785c5aeacf5ef057f2c5b5038b2114a632c8",
+      "apps/desktop/src/main/file-preview/file-preview-access.ts": "855527a6e86c487cf356a401b02d3bace30e33922fddbf5ec3567b9168888873",
+      "apps/desktop/src/file-preview-reference.ts": "7463017c138c751fafa837337b3144e226af062f5080beb01657913479362a3f",
+      "scripts/fixtures/canvas-native-input.mjs": "b774e339f5011d2806da5a246bb4bb09b0c9b34a609e286c196b7a816184a6cd",
+      "docs/development/testing.md": "08178948a27505949336fc8978de3dfc20f0fdab4d979f6e4d91f631e8561acd",
+      "integration/execution/goal-state.json": "8e874efa0ab45b058e08f9dd590b64b9fa4231705b8b11e3a8dbfc59578ff668",
+      "integration/execution/i03-closeout.json": "0d74526489f467682e3b2096be0fcb795f52a82f6ad060b6da444446df20cd9f",
+      "integration/planning/stage-versions.json": "8174569f07323b80c29a0f76917b67356e1210b9ab73780e3ccba644c0c5238c"
+    }
+  },
+  "artifact_binding": {
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/01-home.png": "1238647d901078726010c076fe3b0dc16ab872369671c805a719f3efd750b874",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/failure.png": "5256a3963b6e84d0da0be3f3c008512718bc6da440e333628887287f70f2b4f5",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/harness.mjs": "346141142d6e4e9d6dc48deab5a2e03777bd2d187658a47466d12bbb0f7b67c7",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/manifest.json": "8689a94bee516538e9bdbc5332acd703560b34bfe112c09733a3bcbdf2b2ece0",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/result.json": "755ffdb994201750f56b88a38ad797abe788b5ad16568ebeab764ee53961e336",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/rpc-diagnostic.json": "ebae582bdfeb2b327d7893cc5eac189e4a762839f3b685d6aae424e78656958f",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/file-authority/harness-v1.mjs": "addec64dbae446e35ab953713b635c971f3998b18a449661aff413d89bcaf25c",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/file-authority/result.json": "d765a4f4386b8b65c91951e0f7c560acc2e3c774bb8b96bddd6387f197c53ad6",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/file-authority-final/result.json": "b60911fc7ecdab73dfcd87d23aef6630c3440dc398e692294dbf78ea7fefe659",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/file-authority-uri/harness-v2.mjs": "41663e6959147922b4aadac8efcf89c3373263cd5587da1b4d836ffd74aec263",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/file-authority-uri/result.json": "f3a2c07d0200ea264518dfe9b71439e3c1db14e58b9b390d2d9929506355b9ff",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/01-home.png": "f478e7fb72da956dbd529285c73bfb28b51be10dae1d4df9f162442ad74fa148",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/02-canvas.png": "ca4d78fe9a2c6c68d2ad85a6056bdfd11112595a3463faeb9cbcc0ccf1271cfa",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/failure.png": "3a39fa4845683bc48d4e194edf17d7f52e3d1737067806ec38964f5e80c7df5d",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/harness.mjs": "d0dae0bb9f1576b9a1b79e8861888f5ea7e8f1e25765b49022f0019989835786",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/manifest.json": "443c76d8f125c443060cce5f749948564be10eb94dc8a4dd5483d2f6cf93aba6",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-electron-final-config.json": "9e001ae47669c3317ee3ee24ea75c064ec12111b652425e7fdb24f536ab9eb09",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-electron-input-config.json": "269970b5c70b198e250694e954cf2d3c618b70e752d87ba252aad71112de0abd",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-electron-visible-config.json": "ee471a3c3df979a6f1b2afc10f842ebbacdaec4ea3cc620a414ec5fe2e9572f4",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/result.json": "61e3c7b056b1819d6e689221de8bc7e10edd73288b5ccdb1bd992dd701002cf4",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/input-and-cold-reopen/failure.png": "3a39fa4845683bc48d4e194edf17d7f52e3d1737067806ec38964f5e80c7df5d",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/input-and-cold-reopen/harness.mjs": "b27415db9b0d9868d3261f2d17c66831d75ced6895e37c69083a65af09639ea5",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/input-and-cold-reopen/result.json": "0b0bb363dead24f3de28fad6280e05a1dbd007c9cdb97689e4e07e44c6b36b18",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-electron-final/native-output.png": "77383c6b98de2484e5ea642a15e241c5d86a55915728b662c4040a0abe886531",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-electron-final/result.json": "3b4c5009f9508314c09f65bc26d52f93d3b19376412ae4adc023655e7f2b95c8",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-electron-input/native-output.png": "7c3bedeb5cdfe5962a597cc3247ffb6710dbbe155ec9bfb79a2092fdc14f8840",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-electron-input/result.json": "12755aa78442fa495d96d7e4b87ace990b5ed2ef8bb65ca752cccaf79558a485",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-electron-visible/result.json": "8ae8db7936b8a65d42b3e70bde964b9f9dd17a4538ef2d2eefd9745355103fa8",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-keyboard-diagnostic/failure.png": "b11a2b13be6e7f3ff8c29235a563a199589c6887130a60cd52f4b86ec8b7e4c6",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-keyboard-diagnostic/result.json": "1ed7ad3236183201405dd113ea80e827bfb75fe51ffad2e5f88376f48ce204f2",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-keyboard-focus/failure.png": "8f0a80e7f5c2179e4d67c47a091196026d648883a355d10ad6b5ea474225b75e",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-keyboard-focus/result.json": "824da3d85615e51229476b0ad36587d0dcba07c72cd82aa7b7803c90a501229c",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-keyboard-scale1/failure.png": "b1083469d3073373fd744eb0a93285258ea89fe7e26e9a9e5e1de62487293525",
+    "work/i03/c06/fusion-i03-rc.5/native-758da4e2/native-keyboard-scale1/result.json": "39c38f1ddb2cd8e5df9ced7c56614b49c8238aabc71af2ad01116055b9460978",
+    "work/i03/c06/fusion-i03-rc.5/native-9557524c/bootstrap-diagnostic-profile-directories.json": "cf44eb686d97b5b833173dded739d397ab5aa5f5daac694b5551b0cb91326ea7",
+    "work/i03/c06/fusion-i03-rc.5/native-9557524c/bootstrap-diagnostic.json": "f14a73d76cb0cba2e460a5f965b3f4ae4c0daa0933ba76d90c73203108e2446a",
+    "work/i03/c06/fusion-i03-rc.5/native-9557524c/harness-v1.mjs": "685d87b1f3835f0d424824a9bbc7124e556e4813463d9d531ea7e5018897cb38",
+    "work/i03/c06/fusion-i03-rc.5/native-9557524c/manifest.json": "d97c8ffe393d26693319fc6271728883613a2039a81133849eff40df6fc695f0",
+    "work/i03/c06/fusion-i03-rc.5/native-9557524c/result.json": "053ebd2972059c6f8b806ea28fe42f0f14b441107094a4e560c82cb30ac33f5e",
+    "work/i03/c06/fusion-i03-rc.5/web-projection-list-result.json": "9565a257a5a80f9c089ebcbf97eb18318b5ddfdf7d78ffc716d32c95b74655b9",
+    "work/i03/c06/fusion-i03-rc.5/web-projection-list.log": "8f614f54b0018384c8e681c2e517433da6e33fcb85479368a341b600a46e5e8b",
+    "work/i03/c06/fusion-i03-rc.5/web-projection-test-result.json": "4b45ef3604fc1c6a4f5b6728632d58d467d692b4d7ff911151fe8db27dcf4a53",
+    "work/i03/c06/fusion-i03-rc.5/web-projection-test.log": "1ff7eab8d1d03957113c01363ffee903dab3bc75ed5abbe21f9e39a4edbb44cc",
+    "work/i03/c06-desktop-native-smoke-r2.log": "f2a9799249b31b21e4d488bed35aab2255b758dca540559c12342a52f864f981",
+    "work/i03/c06-desktop-native-smoke-r3.log": "d5985a4a8687f73f4fb99054c856b79cbe75cbb1fb858e8b9dcf837a7e536d1f",
+    "work/i03/c06-desktop-native-smoke.log": "ab134abfb8e4de5623730218101e80d4ab030d66fd1d4065a51d36af64fdde0a",
+    "work/i03/c06-desktop-native-smoke.mjs": "d0dae0bb9f1576b9a1b79e8861888f5ea7e8f1e25765b49022f0019989835786",
+    "work/i03/c06-native-canvas-rpc-diagnostic.log": "79f39832c4c0be8001b7bae20da0a4fc4aebaa413a12a8c8d98e4a0c6810e8bd",
+    "work/i03/c06-native-docs-base.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "work/i03/c06-native-docs.log": "7e54a2eb2e65eba06e11bac67a5deed3c8842ffdfc06f6a077e61bfa432f0c90",
+    "work/i03/c06-native-file-authority-final.log": "22278a42c27157c0dd98ae93c4878838d2c967fd229eefa40e53bb8848dbcb51",
+    "work/i03/c06-native-file-authority-uri.log": "ab19188555388d47607638bf437a10b3c10f42f09b5de91d5f64ff309fab4710",
+    "work/i03/c06-native-file-authority.log": "2c87e933bfb0fca01d73994500df55cfbb58f95041057c07684fa04cd18b6327",
+    "work/i03/c06-native-file-authority.mjs": "01d92182d09200b51f1cfa2eba4a39a8f36b74930b6d71c32a8bbf8f1a11add4",
+    "work/i03/c06-native-focus-diagnostic.log": "da4a20bbe51a81d0e80796593c352a0ff9f1c5c5e5829c0a1692b94c624f77d3",
+    "work/i03/c06-native-focus-diagnostic.mjs": "fe4f3e50341a9ceedeb15dedbf7f5edafd61e437ff1acf2840170e0dfef44aeb",
+    "work/i03/c06-native-input-final.log": "f063f3c7aed3b48c97c3e53ac0f5eefa679c08a78da6fc7bd13c3c1088dbdc05",
+    "work/i03/c06-native-input-owner.log": "bef11fe317f03e309ae970ce01dba9b225c3785340f5e8a1e751f5e576353e7e",
+    "work/i03/c06-native-input-owner.mjs": "b774e339f5011d2806da5a246bb4bb09b0c9b34a609e286c196b7a816184a6cd",
+    "work/i03/c06-native-input-visible.log": "8d4ea61f7154dccb6806e5c2e81325eceb95151df62545695aa5294bce3a4212",
+    "work/i03/c06-native-keyboard-diagnostic.log": "07e3d972d6f6dc18b15e4b0bfafcf1c558d656abf8011b515c4bb8a9baf39c8a",
+    "work/i03/c06-native-keyboard-diagnostic.mjs": "bf013b947a9609b155bef75e08f9fd6c48f5148e2f261b53ebfcc17a83920eba",
+    "work/i03/c06-native-scale1-probe.log": "07a4c57e24733a15802f941b707fa3891849fe3316d2aa1c2356deafbdae54e7",
+    "work/i03/c06-native-scale1-probe.mjs": "9c6f749a91ee190a4981a811ef9b17e9afc2b9ea4ef0042425854e3e1f9baa94",
+    "work/i03/c06-native-terminal-input.log": "24024c1be210d84a8b39a4ce327223ac36856f7eccc5b1afb8ed17040f477d3f",
+    "work/i03/c06-native-terminal-input.mjs": "b27415db9b0d9868d3261f2d17c66831d75ced6895e37c69083a65af09639ea5",
+    "work/i03/canvas-native-final.log": "0ae297183594ef4d9c0b0cf847e8496dbca74d2f915d121c2feb91407e974604",
+    "work/i03/canvas-native-first.log": "87eec9151c7fe328696c5effb46e856272078cc363e410ae41227b29fa41e09a",
+    "work/i03/diagnose-native-bootstrap.mjs": "ec5ce976dc2f2e6aaa8ab1b8ddbadd473e68b23f2be6e0ac46d051685f2638cd",
+    "work/i03/diagnose-native-canvas-rpc.mjs": "a5539207b3c56649782290be61e6f4135bd5a8fa6cad085342cc40a8d2f6e48f",
+    "work/i03/edit_native_directory.py": "3dac275548c8864869078db406df38ee6bf711f0147ff0671ac7a053bf2c4d11",
+    "work/i03/native-directory-doc-decisions.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "work/i03/native-directory-doc-policy.log": "1d194dee34da6cf6ad69dae88f3dfbf779618b16c94f74f585d611e8a1973ebd",
+    "work/i03/native-directory-doc-version.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "work/i03/native-directory-foundation.log": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+    "work/i03/native-directory-owners.log": "73c35a9357d4278d95740bca496c39ca5613c7b9d4c6cf9b0a2f7c28b75d7237",
+    "work/i03/native-directory-resource-owners-final.log": "2eeeb21bb2e84d551bf108a6f028a28a5143f3acd946c29566f6154993d164d7",
+    "work/i03/native-directory-resource-owners-first.log": "e5b4363b0308135f3c545ec22570cb7eec35e0a2d4ecb56ea8aa9affbf659d39",
+    "work/i03/native-directory-resource-typecheck.json": "3ce05ab20660014cba90989c453977931d9ed59e2d7bfe06765731330ad8e5b4",
+    "work/i03/native-directory-resource-types-final.log": "db63a5a2faf567e7b8d4e525a5c7ba8e1849b5595fa0bd026d9441854ac47161",
+    "work/i03/native-directory-resource-types-fixed.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/native-directory-resource-types-verified.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/native-directory-rustfmt-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/native-directory-rustfmt.log": "5dce180defdf42fcf8c2e9cd86ca44f2912f935d68cbd4d6ac28e427eb8b23c1",
+    "work/i03/native-directory-scaffold.log": "bb86cd055ea17844a8bba120a8b4227fcbc6829171898811fbfdec4efed5b6d4",
+    "work/i03/native-directory-types-resource.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/native-directory-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/prepare-native-focus-diagnostic.py": "18e1a98fc42e059587056dd0390f4fa11e5da8d9f702bcc561e1655668955486",
+    "work/i03/prepare-native-key-diagnostic.py": "f606c44b72a5a82af87924dae5ceb9900aab729af9973e593c2c91e4ce74c762",
+    "work/i03/prepare-native-scale1-probe.py": "c1a3d282d831ab98b8fb4b720cbf9fbcec07205ddcc7638be975768723ba513b",
+    "work/i03/private-upload-native-diff.log": "beb16e5edba45d7d68d7e875a602a074d99c7b1be3fcfcaa906a6d46b3099152",
+    "work/i03/private-upload-native-doc-decisions.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "work/i03/private-upload-native-doc-policy.log": "93aefc92887ed971b146c44c3189a1cf4c0eca548d95f6ac558d695e18b2bc09",
+    "work/i03/private-upload-native-doc-version.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "work/i03/private-upload-native-foundation.log": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+    "work/i03/private-upload-native-owners-final-main.log": "978853100c756141811b8a6ec09f3d2d03c89987cb7bc9ae779f0ce3acef0229",
+    "work/i03/private-upload-native-owners-final.log": "04eadb966054a1605e1bdee651c76d8ba52655cca2135b64593ba17e98fbd2f0",
+    "work/i03/private-upload-native-owners-first.log": "143aef056df6413d000d8d36d840e36915fac190b7190311fabdc901e7e77ded",
+    "work/i03/private-upload-native-owners-fixed.log": "e68d929d409e8135ca83eafab5661988397a6a3199a5e42005234fc5b1f0170e",
+    "work/i03/private-upload-native-rustfmt.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/private-upload-native-scaffold.log": "2ee2c3719652535f1e339f31975f9898892ac9b2c377dd394a9e4be1e0beb550",
+    "work/i03/private-upload-native-typecheck.json": "3ea44c87866f61734a152821a1551ad6c549ac931effcf0cbfc17dd8aa6eb8c3",
+    "work/i03/private-upload-native-types-final-checked.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/private-upload-native-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/private-upload-native-types-first.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/record-c06-native.py": "280ee25756a49cab92411cf37518796cb8ae7299718e8321435c05e1ec3978c3",
+    "work/i03/record_native_directory.py": "2bdbcbf508221e4067b34f919b29fc8dac1b84814d0bd3f350eaf7b166e7fabd",
+    "work/i03/record_native_upload.py": "e04b6f8d0e023dce28301c16b79e0a94a2da94526ba7758f2ebc7cd21e6b62bd",
+    "work/i03/run-c06-native-input-owner.mjs": "9709eab9d568dada6d0e7c4811d7fe48ea06cde7a2baf23e9bb5e062d21a574d",
+    "work/i03/run-c06-native-rc5.ps1": "033da68d3fa1fe44ca499507091ebbfc71ac5016026a2c80adbea2a502e7a975"
+  },
+  "formal_pc01_pc24": "not_run_complete_matrix",
+  "formal_324": "not_run",
+  "customer_action_required_now": false,
+  "next": "I03-C06继续文件卡片实际挂载/HTML、私聊附件/上传真实授权及完整PC01-PC24适用流程；独立Mission/Task/Diff/文件实际工作区路由与焦点/冷恢复；多卡/大材料响应和适用平台。Windows原生键盘/终端可见输出/文件API及Web投影已有证据，复用未变结果，不能把三卡或直接API检查当完整UI/规模通过。"
+}

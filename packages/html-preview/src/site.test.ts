@@ -143,8 +143,17 @@ it('does not attribute a delayed old-page request failure to the next document',
 
 it('serves a capability-scoped static site with query-preserving HTML, MIME, cache and range responses', async () => {
   const { site } = await fixture(); const cookie = await authenticate(site)
+  // 同一卡片与保留工作区可能先完成两次入口交换，再分别跟随跳转。
+  expect(await authenticate(site)).toBe(cookie)
+  expect((await read(site, '/pages/index.html', { cookie, 'sec-fetch-site': 'same-origin', 'sec-fetch-dest': 'iframe' })).status).toBe(200)
   const entry = await read(site, '/pages/index.html', { cookie, 'sec-fetch-site': 'cross-site', 'sec-fetch-dest': 'iframe' })
   expect(entry.status).toBe(200); expect(entry.headers['content-security-policy']).toContain("frame-src 'self' http: https:")
+  expect((await read(site, '/pages/index.html', { cookie, 'sec-fetch-site': 'cross-site', 'sec-fetch-dest': 'iframe' })).status).toBe(200)
+  expect((await read(site, '/pages/index.html', { cookie, 'sec-fetch-site': 'cross-site', 'sec-fetch-dest': 'iframe' })).status).toBe(403)
+  await authenticate(site)
+  expect((await read(site, '/pages/index.html', { cookie, origin: 'http://other.localhost:5555', 'sec-fetch-site': 'cross-site', 'sec-fetch-dest': 'iframe' })).status).toBe(403)
+  expect((await read(site, '/assets/app.js', { cookie, 'sec-fetch-site': 'cross-site', 'sec-fetch-dest': 'script' })).status).toBe(403)
+  expect((await read(site, '/pages/index.html', { cookie, 'sec-fetch-site': 'cross-site', 'sec-fetch-dest': 'iframe' })).status).toBe(200)
   expect(entry.text).toContain('history.replaceState(null,"","?tab=all")')
   for (const query of ['', '?canvas=1', '?tab=all']) {
     const response = await read(site, `/pages/index.html${query}`, { cookie, 'sec-fetch-site': 'same-origin' })

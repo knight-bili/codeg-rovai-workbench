@@ -53,7 +53,7 @@ pub(super) fn load_message_models(
     Ok(models)
 }
 
-fn project_model(
+pub(super) fn project_model(
     adapter_kind: Option<&str>,
     selection: Option<&str>,
     observed_model: Option<String>,

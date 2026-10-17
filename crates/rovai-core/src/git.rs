@@ -9,6 +9,9 @@ use anyhow::{Context, Result, bail};
 use serde::{Deserialize, Serialize};
 use tokio::process::Command;
 
+mod worktrees;
+pub use worktrees::{WorkspaceWorktree, WorkspaceWorktrees, inspect_worktrees};
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum GitCapabilityState {
@@ -397,6 +400,9 @@ mod tests {
         let ordinary_inspection = inspect_workspace(&ordinary, &data_dir, false)
             .await
             .unwrap();
+        let ordinary_topology = inspect_worktrees(&ordinary, &data_dir).await.unwrap();
+        assert!(ordinary_topology.repository_root.is_none());
+        assert!(ordinary_topology.worktrees.is_empty());
         assert_eq!(
             ordinary_inspection.git_observation.state,
             GitCapabilityState::NotGit
@@ -424,6 +430,11 @@ mod tests {
         );
         assert_eq!(empty_inspection.git_observation.head_commit, None);
         assert_eq!(empty_inspection.git_observation.dirty, None);
+        let empty_topology = inspect_worktrees(&empty_repository, &data_dir)
+            .await
+            .unwrap();
+        assert_eq!(empty_topology.worktrees.len(), 1);
+        assert!(empty_topology.worktrees[0].is_main && empty_topology.worktrees[0].available);
 
         fs::remove_dir_all(root).unwrap();
     }
@@ -454,6 +465,46 @@ mod tests {
         assert_eq!(changed.branch, clean.branch);
         assert_eq!(changed.dirty, None);
 
+        // Reuse this real repository owner for main/linked topology and missing checkout metadata.
+        let linked = root.join("linked checkout");
+        run_git(
+            &project,
+            &["worktree", "add", "-b", "linked", linked.to_str().unwrap()],
+        )
+        .await;
+        run_git(&project, &["worktree", "lock", linked.to_str().unwrap()]).await;
+        let topology = inspect_worktrees(&linked, &data_dir).await.unwrap();
+        let canonical_project = fs::canonicalize(&project)
+            .unwrap()
+            .to_str()
+            .unwrap()
+            .to_string();
+        let canonical_linked = fs::canonicalize(&linked)
+            .unwrap()
+            .to_str()
+            .unwrap()
+            .to_string();
+        assert_eq!(
+            topology.repository_root.as_deref(),
+            Some(canonical_linked.as_str())
+        );
+        assert_eq!(
+            topology.main_worktree_path.as_deref(),
+            Some(canonical_project.as_str())
+        );
+        assert_eq!(topology.worktrees.len(), 2);
+        assert!(topology.worktrees[1].locked && topology.worktrees[1].available);
+        let nested = linked.join("nested");
+        fs::create_dir(&nested).unwrap();
+        let nested_topology = inspect_worktrees(&nested, &data_dir).await.unwrap();
+        assert_eq!(nested_topology.repository_root, topology.repository_root);
+        assert_ne!(nested_topology.project_path, topology.project_path);
+        assert!(inspect_worktrees(&data_dir, &data_dir).await.is_err());
+        fs::remove_dir_all(&linked).unwrap();
+        let missing = inspect_worktrees(&project, &data_dir).await.unwrap();
+        assert_eq!(missing.worktrees.len(), 2);
+        assert!(!missing.worktrees[1].available);
+
         fs::remove_dir_all(root).unwrap();
     }
 
@@ -471,6 +522,7 @@ mod tests {
             inspection.git_observation.state,
             GitCapabilityState::GitInvalid
         );
+        assert!(inspect_worktrees(&project, &data_dir).await.is_err());
 
         fs::remove_dir_all(root).unwrap();
     }

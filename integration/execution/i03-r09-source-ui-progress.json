@@ -1,0 +1,999 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R09",
+  "status": "partial_engineering_verified_R09_remains_open",
+  "checked_at": "2026-10-17T00:17:40.009075+00:00",
+  "candidate": "fusion-i03-rc.24",
+  "desktop_source": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+  "web_source": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+  "core_source": "1e840216a1af1f93da1371db545579889e42d4da",
+  "committed_test_owner_source": "438500e9cdb5d8dd8a6e05c833e1d235ae3c93e1",
+  "card_owner_source": "2c0c9b4ab3e845aa60e3eb9475784591a4ee4338",
+  "card_checks": [
+    {
+      "name": "native_main_admits_original_read_only_worktree_topology_for_a_plain_directory",
+      "passed": true
+    },
+    {
+      "name": "original_board_creation_and_project_group_management_persist_real_board_and_device_group_without_model",
+      "passed": true
+    },
+    {
+      "name": "actual_folder_create_edit_color_keyboard_and_stale_revision_preserve_binding_and_latest_geometry",
+      "passed": true
+    },
+    {
+      "name": "actual_folder_collapse_and_reopen_keep_original_node_and_source",
+      "passed": true
+    },
+    {
+      "name": "actual_folder_arrange_keyboard_move_and_confirmed_delete_preserve_original_business_objects",
+      "passed": true
+    },
+    {
+      "name": "actual_group_create_edit_color_keyboard_and_stale_revision_preserve_binding_and_latest_geometry",
+      "passed": true
+    },
+    {
+      "name": "actual_group_collapse_and_reopen_keep_original_node_and_source",
+      "passed": true
+    },
+    {
+      "name": "actual_group_arrange_keyboard_move_and_confirmed_delete_preserve_original_business_objects",
+      "passed": true
+    },
+    {
+      "name": "actual_agent_create_edit_color_keyboard_and_stale_revision_preserve_binding_and_latest_geometry",
+      "passed": true
+    },
+    {
+      "name": "actual_agent_collapse_and_reopen_keep_original_node_and_source",
+      "passed": true
+    },
+    {
+      "name": "actual_agent_arrange_keyboard_move_and_confirmed_delete_preserve_original_business_objects",
+      "passed": true
+    },
+    {
+      "name": "actual_conversation_create_edit_color_keyboard_and_stale_revision_preserve_binding_and_latest_geometry",
+      "passed": true
+    },
+    {
+      "name": "actual_conversation_arrange_keyboard_move_and_confirmed_delete_preserve_original_business_objects",
+      "passed": true
+    },
+    {
+      "name": "actual_custom_create_edit_color_keyboard_and_stale_revision_preserve_binding_and_latest_geometry",
+      "passed": true
+    },
+    {
+      "name": "actual_custom_collapse_and_reopen_keep_original_node_and_source",
+      "passed": true
+    },
+    {
+      "name": "actual_custom_arrange_keyboard_move_and_confirmed_delete_preserve_original_business_objects",
+      "passed": true
+    },
+    {
+      "name": "actual_note_create_edit_color_keyboard_and_stale_revision_preserve_binding_and_latest_geometry",
+      "passed": true
+    },
+    {
+      "name": "actual_note_arrange_keyboard_move_and_confirmed_delete_preserve_original_business_objects",
+      "passed": true
+    },
+    {
+      "name": "actual_file_create_edit_color_keyboard_and_stale_revision_preserve_binding_and_latest_geometry",
+      "passed": true
+    },
+    {
+      "name": "actual_file_collapse_and_reopen_keep_original_node_and_source",
+      "passed": true
+    },
+    {
+      "name": "actual_file_arrange_keyboard_move_and_confirmed_delete_preserve_original_business_objects",
+      "passed": true
+    },
+    {
+      "name": "actual_terminal_create_edit_color_keyboard_and_stale_revision_preserve_binding_and_latest_geometry",
+      "passed": true
+    },
+    {
+      "name": "actual_terminal_collapse_and_reopen_keep_original_node_and_source",
+      "passed": true
+    },
+    {
+      "name": "actual_terminal_arrange_keyboard_move_and_confirmed_delete_preserve_original_business_objects",
+      "passed": true
+    },
+    {
+      "name": "all_eight_original_card_types_complete_without_message_run_or_source_file_mutation",
+      "passed": true
+    }
+  ],
+  "cards": [
+    {
+      "kind": "folder",
+      "nodeId": "5cc7dea4-0043-4de1-952a-7f93175f6f51",
+      "createRevision": "2026-10-17T00:00:29.284013+00:00",
+      "editedRevision": 4,
+      "collapseApplicable": true,
+      "bounds": {
+        "card": {
+          "x": 613,
+          "y": 361,
+          "width": 484,
+          "height": 268,
+          "top": 361,
+          "right": 1097,
+          "bottom": 629,
+          "left": 613
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 920,
+          "dpr": 1.5
+        },
+        "outerExtraX": 0,
+        "outerExtraY": 0,
+        "workspace": {
+          "x": 270,
+          "y": 30,
+          "width": 1170,
+          "height": 890,
+          "top": 30,
+          "right": 1440,
+          "bottom": 920,
+          "left": 270
+        },
+        "zoom": "100%"
+      },
+      "deleted": true
+    },
+    {
+      "kind": "group",
+      "nodeId": "f84d2c05-f574-4cc0-ace6-1c8e38a1f290",
+      "createRevision": "2026-10-17T00:00:50.596644400+00:00",
+      "editedRevision": 12,
+      "collapseApplicable": true,
+      "bounds": {
+        "card": {
+          "x": 613,
+          "y": 397,
+          "width": 484,
+          "height": 196,
+          "top": 397,
+          "right": 1097,
+          "bottom": 593,
+          "left": 613
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 920,
+          "dpr": 1.5
+        },
+        "outerExtraX": 0,
+        "outerExtraY": 0,
+        "workspace": {
+          "x": 270,
+          "y": 30,
+          "width": 1170,
+          "height": 890,
+          "top": 30,
+          "right": 1440,
+          "bottom": 920,
+          "left": 270
+        },
+        "zoom": "100%"
+      },
+      "deleted": true
+    },
+    {
+      "kind": "agent",
+      "nodeId": "76f40280-d14f-49c5-a6f2-13f1510411ca",
+      "createRevision": "2026-10-17T00:01:10.770380+00:00",
+      "editedRevision": 20,
+      "collapseApplicable": true,
+      "bounds": {
+        "card": {
+          "x": 613,
+          "y": 361,
+          "width": 484,
+          "height": 268,
+          "top": 361,
+          "right": 1097,
+          "bottom": 629,
+          "left": 613
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 920,
+          "dpr": 1.5
+        },
+        "outerExtraX": 0,
+        "outerExtraY": 0,
+        "workspace": {
+          "x": 270,
+          "y": 30,
+          "width": 1170,
+          "height": 890,
+          "top": 30,
+          "right": 1440,
+          "bottom": 920,
+          "left": 270
+        },
+        "zoom": "100%"
+      },
+      "deleted": true
+    },
+    {
+      "kind": "conversation",
+      "nodeId": "6796f206-b7cb-489f-8324-c8cb64a2533c",
+      "createRevision": "2026-10-17T00:01:30.716398700+00:00",
+      "editedRevision": 28,
+      "collapseApplicable": false,
+      "bounds": {
+        "card": {
+          "x": 743,
+          "y": 429,
+          "width": 224,
+          "height": 132,
+          "top": 429,
+          "right": 967,
+          "bottom": 561,
+          "left": 743
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 920,
+          "dpr": 1.5
+        },
+        "outerExtraX": 0,
+        "outerExtraY": 0,
+        "workspace": {
+          "x": 270,
+          "y": 30,
+          "width": 1170,
+          "height": 890,
+          "top": 30,
+          "right": 1440,
+          "bottom": 920,
+          "left": 270
+        },
+        "zoom": "100%"
+      },
+      "deleted": true
+    },
+    {
+      "kind": "custom",
+      "nodeId": "cbbfbb36-3192-4788-82c9-45589d8214a2",
+      "createRevision": "2026-10-17T00:01:50.493326400+00:00",
+      "editedRevision": 34,
+      "collapseApplicable": true,
+      "bounds": {
+        "card": {
+          "x": 613,
+          "y": 361,
+          "width": 484,
+          "height": 268,
+          "top": 361,
+          "right": 1097,
+          "bottom": 629,
+          "left": 613
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 920,
+          "dpr": 1.5
+        },
+        "outerExtraX": 0,
+        "outerExtraY": 0,
+        "workspace": {
+          "x": 270,
+          "y": 30,
+          "width": 1170,
+          "height": 890,
+          "top": 30,
+          "right": 1440,
+          "bottom": 920,
+          "left": 270
+        },
+        "zoom": "100%"
+      },
+      "deleted": true
+    },
+    {
+      "kind": "note",
+      "nodeId": "f0c51ff9-5edc-482b-8487-c02ebf3ea9a8",
+      "createRevision": "2026-10-17T00:02:10.674317800+00:00",
+      "editedRevision": 42,
+      "collapseApplicable": false,
+      "bounds": {
+        "card": {
+          "x": 695,
+          "y": 385,
+          "width": 320,
+          "height": 220,
+          "top": 385,
+          "right": 1015,
+          "bottom": 605,
+          "left": 695
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 920,
+          "dpr": 1.5
+        },
+        "outerExtraX": 0,
+        "outerExtraY": 0,
+        "workspace": {
+          "x": 270,
+          "y": 30,
+          "width": 1170,
+          "height": 890,
+          "top": 30,
+          "right": 1440,
+          "bottom": 920,
+          "left": 270
+        },
+        "zoom": "100%"
+      },
+      "deleted": true
+    },
+    {
+      "kind": "file",
+      "nodeId": "da3fc53e-9dd9-4fa2-8fe4-0cb68539eb79",
+      "createRevision": "2026-10-17T00:02:30.593606500+00:00",
+      "editedRevision": 48,
+      "collapseApplicable": true,
+      "bounds": {
+        "card": {
+          "x": 625,
+          "y": 315,
+          "width": 460,
+          "height": 360,
+          "top": 315,
+          "right": 1085,
+          "bottom": 675,
+          "left": 625
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 920,
+          "dpr": 1.5
+        },
+        "outerExtraX": 0,
+        "outerExtraY": 0,
+        "workspace": {
+          "x": 270,
+          "y": 30,
+          "width": 1170,
+          "height": 890,
+          "top": 30,
+          "right": 1440,
+          "bottom": 920,
+          "left": 270
+        },
+        "zoom": "100%"
+      },
+      "deleted": true
+    },
+    {
+      "kind": "terminal",
+      "nodeId": "53316d6a-4aae-490e-a43e-855aa453558d",
+      "createRevision": "2026-10-17T00:02:50.737008600+00:00",
+      "editedRevision": 56,
+      "collapseApplicable": true,
+      "bounds": {
+        "card": {
+          "x": 615,
+          "y": 345,
+          "width": 480,
+          "height": 300,
+          "top": 345,
+          "right": 1095,
+          "bottom": 645,
+          "left": 615
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 920,
+          "dpr": 1.5
+        },
+        "outerExtraX": 0,
+        "outerExtraY": 0,
+        "workspace": {
+          "x": 270,
+          "y": 30,
+          "width": 1170,
+          "height": 890,
+          "top": 30,
+          "right": 1440,
+          "bottom": 920,
+          "left": 270
+        },
+        "zoom": "100%"
+      },
+      "deleted": true
+    }
+  ],
+  "board_checks": [
+    {
+      "name": "actual_day_small_window_keeps_compact_equal_cards_single_scroll_and_trusted_wheel_reaches_last_create_button",
+      "passed": true
+    },
+    {
+      "name": "actual_night_small_window_keeps_compact_equal_cards_single_scroll_and_trusted_wheel_reaches_last_create_button",
+      "passed": true
+    },
+    {
+      "name": "actual_windows_menu_key_opens_original_board_actions_and_escape_restores_exact_focus",
+      "passed": true
+    },
+    {
+      "name": "actual_board_edit_preserves_input_during_external_revision_and_saves_only_after_explicit_latest_version",
+      "passed": true
+    },
+    {
+      "name": "actual_current_board_delete_warns_exact_count_cancel_preserves_then_confirm_selects_a_real_remaining_board",
+      "passed": true
+    },
+    {
+      "name": "actual_board_search_empty_state_keeps_the_original_board_catalog",
+      "passed": true
+    }
+  ],
+  "board_layouts": [
+    {
+      "theme": "day",
+      "viewport": {
+        "width": 1040,
+        "height": 702,
+        "dpr": 1.5
+      },
+      "padding": [
+        "0px",
+        "0px",
+        "0px",
+        "0px"
+      ],
+      "outerExtraX": 0,
+      "outerExtraY": 0,
+      "widthGap": 0,
+      "heightGap": 0,
+      "listExtraY": 1814,
+      "scrollTop": 1814,
+      "lastVisible": true,
+      "wheel": [
+        {
+          "trusted": true,
+          "dy": 1200
+        },
+        {
+          "trusted": true,
+          "dy": 1200
+        },
+        {
+          "trusted": true,
+          "dy": 1200
+        },
+        {
+          "trusted": true,
+          "dy": 1200
+        }
+      ],
+      "cards": [
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 93.33333587646484,
+          "preview": 221.6666717529297
+        }
+      ]
+    },
+    {
+      "theme": "night",
+      "viewport": {
+        "width": 1040,
+        "height": 702,
+        "dpr": 1.5
+      },
+      "padding": [
+        "0px",
+        "0px",
+        "0px",
+        "0px"
+      ],
+      "outerExtraX": 0,
+      "outerExtraY": 0,
+      "widthGap": 0,
+      "heightGap": 0,
+      "listExtraY": 1814,
+      "scrollTop": 1814,
+      "lastVisible": true,
+      "wheel": [
+        {
+          "trusted": true,
+          "dy": 1200
+        },
+        {
+          "trusted": true,
+          "dy": 1200
+        }
+      ],
+      "cards": [
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 77.33333587646484,
+          "preview": 221.6666717529297
+        },
+        {
+          "height": 316.3333435058594,
+          "copy": 93.33333587646484,
+          "preview": 221.6666717529297
+        }
+      ]
+    }
+  ],
+  "actual_windows_menu_key": {
+    "menuKeys": [
+      {
+        "key": "ContextMenu",
+        "code": "",
+        "trusted": true
+      }
+    ],
+    "menuInput": {
+      "native_virtual_key": 93,
+      "hwnd": 13897446,
+      "pid": 361992,
+      "events": 2
+    }
+  },
+  "repairs": [
+    {
+      "source": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+      "defect": "Main遗漏原workspaces.worktrees只读准入，真实工程区域读取失败。",
+      "red": "rc23 Native r3原错误Renderer requested an unsupported method: workspaces.worktrees",
+      "green": "rc24 r5通过真实Main/preload/Core读取普通目录拓扑，原工程区域显示真实关联会话。"
+    },
+    {
+      "source": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+      "defect": "连续删除前五类节点后残留selected ID，便笺显示选中但缺少单选编辑入口。",
+      "red": "rc23 Native r2/r3在实际便笺编辑入口失败",
+      "green": "rc24 r5同顺序通过便笺原编辑、色板和CAS冲突保存，不改绑定/模型输入。"
+    }
+  ],
+  "visual_review": {
+    "card_record": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-card-visual-review.json",
+    "card_screenshots_viewed": 9,
+    "card_scope": "夜间100%，1440×920 CSS，八类外层extraX/Y均0；不是全部主题/缩放通过。",
+    "board_screenshots_viewed": [
+      "board-list-day.png",
+      "board-list-night.png",
+      "board-delete.png"
+    ],
+    "board_scope": "真实1040×702 CSS小窗口，原日夜主题，卡片等高316.333px、长标题截断、单层局部滚动和末项可达；原删除确认计数1。"
+  },
+  "diagnostics": {
+    "card_renderer_errors": [
+      "ResizeObserver loop completed with undelivered notifications.",
+      "ResizeObserver loop completed with undelivered notifications.",
+      "ResizeObserver loop completed with undelivered notifications.",
+      "ResizeObserver loop completed with undelivered notifications.",
+      "ResizeObserver loop completed with undelivered notifications.",
+      "ResizeObserver loop completed with undelivered notifications."
+    ],
+    "card_warning_count": 6,
+    "board_renderer_errors": [],
+    "board_runtime_errors": [],
+    "board_resize_errors": 0,
+    "boundary": "未过滤、未更改回调调度，不以操作通过认定告警无影响。卡片完整错误事件采集在后续owner补齐，r5不倒填。"
+  },
+  "attempts": [
+    {
+      "id": "rc23-source-ui-r1",
+      "status": "failed",
+      "reason": "测试在启动过渡遮挡时点击导航；未授予卡片资格。"
+    },
+    {
+      "id": "rc23-source-ui-r2/r3",
+      "status": "failed",
+      "reason": "真实Main准入和连续删除选中残留缺陷，五类局部通过不合并为整批。"
+    },
+    {
+      "id": "rc24-source-ui-r4",
+      "status": "failed",
+      "reason": "准备新队员尚未进入原下拉列表；测试失败未取消自己的编辑框，应用原关闭保护拒绝退出。360s测试父驱动deadline SIGKILL，明确不是正常退出。"
+    },
+    {
+      "id": "rc24-source-ui-r5",
+      "status": "passed",
+      "checks": 25,
+      "exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-17T00:03:10.978Z"
+      }
+    },
+    {
+      "id": "rc24-board-ui-r1",
+      "status": "failed",
+      "reason": "一次巨大滚轮未到达底部；改为逐次真实滚轮，不把准备错误当裁切缺陷。"
+    },
+    {
+      "id": "rc24-board-ui-r2",
+      "status": "failed",
+      "reason": "日夜几何和末项可达已过，Electron ContextMenu没有触发系统菜单键；完整断言保留。"
+    },
+    {
+      "id": "rc24-board-ui-r3",
+      "status": "passed",
+      "checks": 6,
+      "exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-17T00:11:10.910Z"
+      }
+    }
+  ],
+  "related_tests": {
+    "unique_tests_passed": 28,
+    "files": 4,
+    "full_types_exit": 0
+  },
+  "core_binary_reused_from": "fusion-i03-rc.22",
+  "desktop_builds_added": 1,
+  "web_builds_added": 1,
+  "core_builds_added": 0,
+  "pending": [
+    "真实Core多Thread公开/精确私聊交错活动、最近实际运行模型与当前配置差异、真实分支摘要；不调用付费模型。",
+    "原八类在日间/小窗口/缩放和四行长标题的剩余同场景对照；已过夜间100%与画板列表日夜小窗口不重复。",
+    "旧Host能力缺失的原界面指引；错误态逐项按现有能力保留，不能绕过准入。",
+    "卡片运行的6条ResizeObserver告警继续定位和实际帧/输入/命中影响记录；列表整批无告警不覆盖卡片。"
+  ],
+  "source_dependency": {
+    "source_feature": "C08",
+    "planned_stage": "I04",
+    "work": "真实父子会话/异步委派完成后回接画布child_count；不拿私聊数量替代。"
+  },
+  "qualification_limit": "R09部分工程验证，正式12场景/其他平台/开发预览仍R10，R09/R10仍开放。31项实际检查不转换为阶段完成百分比。未调用外部模型。",
+  "no_owned_processes_remaining": true,
+  "pushes": 0,
+  "actions_triggered": 0,
+  "external_model_calls": 0,
+  "customer_action_required_now": false,
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\assemble-rc24-app.mjs",
+      "sha256": "64211d900f4767b6e86b197e7ed5e92aeafaad7e605cc1e84e40cf8c45941d44"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\build-rc24.mjs",
+      "sha256": "8dd948e990594de274574494a3ec4a370876ea0009125520426ad88adb8b88df"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\app-assembly.json",
+      "sha256": "cfe159c52492330a921c3cf6b86f224766581c7731fe6b5fd1e33c47f83f4481"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\build-artifacts.json",
+      "sha256": "e6d07c96e87639334aba0970ef88182cf3551f0e000c01afdee39420023ad25b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\desktop-build-result.json",
+      "sha256": "fd819faeecaf20bc5d91bc381fd421ed403786f11682fa0b54c73fdeb508fcf6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\desktop-output-inventory.json",
+      "sha256": "56b782d16376a3690165ddb42b66153688d6dc3057b30d6056028156eb4d9dec"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\freeze.json",
+      "sha256": "e49414311c1a045f67412a6b75c669e430703b8665fe1702500e5367412fb774"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-build-result.json",
+      "sha256": "500b63e46b903ae50b5cd1d04e69c7a66496f419de7438e54a9e15a5f091f208"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r3-prepare-config.json",
+      "sha256": "90ef34570df74c48cdc9a35a3f45707f9f9be66ba7d2a9052a2b0af03978c21e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r3-prepare\\board-delete.png",
+      "sha256": "660b7d3e21fc371dfd53a60e58c9d53a2a7db9ea6e8d9e0e381dd153623fc272"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r3-prepare\\board-list-day.png",
+      "sha256": "64e2afa61736ca2d30c970c3d4bee9063858f7ce987f5cacafda530074803fa0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r3-prepare\\board-list-night.png",
+      "sha256": "47dbf1de3950dd45691db4c04b07ebf36d50a030c077f1995cab15a6667e611d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r3-prepare\\driver-exit.json",
+      "sha256": "7455dcb25ab3afedb1733dd4accd57fa69cf27ff686174e42c8bd4cf646ab541"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r3-prepare\\layout-progress.json",
+      "sha256": "acf2ff07b0fc642ffa98db652f841ae6342e904f70106650ad737af18b76453b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r3-prepare\\progress.json",
+      "sha256": "6b403f6aece85df37add8747a68a5bf6e65a5bc54b82874aff30a6e38e3999f0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r3-prepare\\result.json",
+      "sha256": "041d71e5ff2ba395fb7c376f2d82c99427fd3adf5a35a88d6d423a1f0f132e9a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r4-prepare\\driver-exit.json",
+      "sha256": "283a3a8f5b56df9b060403b810dc951f6cb0b81da594c23ad3f1a8a72c26aa21"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare-config.json",
+      "sha256": "b22e294a059c295122fbfd23b38d4714a459cd831c195655af43d2a5522aaaaa"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\card-agent.png",
+      "sha256": "ed2b961c09d41b457c773f78dbb9e56547e5539491b5319932a06a9393c7fd1a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\card-conversation.png",
+      "sha256": "4dd2b3ea0f9d5782cc880c3c45aaa073b541cd7b4011aed3af596712762076d9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\card-custom.png",
+      "sha256": "045d24dd7326616237a6f350537391aee482c5bd9a545ec8c09562f19a1ce288"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\card-file.png",
+      "sha256": "a32968e7f5ebaee1b902199953b26c87d3d420b0e4fa8030cd1cd6ee5a84359c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\card-folder.png",
+      "sha256": "121bc6691b741a121247ce4bd5e849a032960901ce4aa8dbd05933750b5ee737"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\card-group.png",
+      "sha256": "23dc443041b25074c4c8742c5a62f1d0b38f3b021812594d49deb0737ae6d509"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\card-note.png",
+      "sha256": "5ada8dfb0b29efb362ef65304438f9ed13d2883a47f51066cf13837ba67c11ee"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\card-terminal.png",
+      "sha256": "54f1e5dbe48341ac49180fe2b29a83d7ae69bef8c39a13b79af6d5f23056f9db"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\driver-exit.json",
+      "sha256": "ea87431f685a7a177e87f123d3d893f784ed1a6e4e1de96799c88a79d6e410bb"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\editor-folder.png",
+      "sha256": "f8413aeb89beda38a99c7bca8a99175d7d0ceae18fabb348d8aaf0b4db995244"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\progress.json",
+      "sha256": "a8f94db7aa32a929abfefa1d6448e733d84ca29a54fbd9b5bb3ee603ff69f5ea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\native-source-ui-r5-prepare\\result.json",
+      "sha256": "c8d3174f502e7c263c9e86b57ff59b21a52632dc4e53a6578df95dfa379048af"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\web-build-result.json",
+      "sha256": "d4ac860667728ce9e3c296a1267c2973b4a78882ce69f294ee1d708479189587"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.24\\web-output-verification.json",
+      "sha256": "cacac864e0133756ce25e17d37fecea8f7cce52aff4be9807c60052187c16774"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\prepare-rc24.py",
+      "sha256": "5e4c26b4c59213260e59cd6f0019f250472ddc94ea6b1cd604b5e9a1a70f4d9e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-board-native-menu-sync-retry.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-card-visual-review.json",
+      "sha256": "f3a2f34edb80e42eecb0cc8669d50c3413dd6aae360102e205650be6e4d83c98"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-native-findings-sync.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-native-findings-tests.log",
+      "sha256": "86747afcaa251eea8ba1d063cd03bd1617ad1f1524e1a6e23f99b3748965be31"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-native-findings-types.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-rc24-board-ui-r1-driver.log",
+      "sha256": "8cb3619042c4a1c6771e6f4822348862ff7f1f91230d2cb4716a273add2ef811"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-rc24-board-ui-r2-driver.log",
+      "sha256": "d9a31b4118947d365c0d42f6352a1ae239fddd43c96344dc8f4698f8a585271b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-rc24-board-ui-r3-driver.log",
+      "sha256": "fd040afdb91fdacb1b69e0d0f90a49b4252352ac8e3b8919a43ea60a5de45fa0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-rc24-owned-process-audit.json",
+      "sha256": "96d2a87be7e3193f5b4c402d947cc67efd1ec4cdbc274536a75dd9903cbd4e8d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-rc24-source-ui-r4-driver.log",
+      "sha256": "371342bedcd3738aa1118c5830185d69747b924a11e4395cbdabdbe18280b23c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-rc24-source-ui-r5-driver.log",
+      "sha256": "ffaa8b78bba21c51c7442e8d7071d802caa639e88fdaa0c96d2e9472aa20f98c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-source-ui-r1-driver.log",
+      "sha256": "d8edc183affe4855b123da3b17ab393f11dda196df64f603467c72c0aae5141c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-source-ui-r2-driver.log",
+      "sha256": "3ca9970bc7941b412677e1d0f19ef7729450ef3c629d3cf19fcce28eb1782659"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-source-ui-r3-driver.log",
+      "sha256": "beb40c56331db2f63884b3eb712e62b2f305807130b2774c79db9e0560cbd008"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\record-r09-source-ui-progress.py",
+      "sha256": "c1bbdf8a4eb96f5aec3c9a691aa92f21f427f5e32157c6c02ed2660861451a62"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r09-rc24-board-ui-native-menu.mjs",
+      "sha256": "c29e72cf9ed4106324cb085ffab94e225b6277f70abfe950b4b1f0f6394c8175"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r09-rc24-source-ui.mjs",
+      "sha256": "b9a9b018dae99abfb5f16f39a1bc0881d7c537b800a360ba463d15dfa7b055a3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\main\\index.ts",
+      "sha256": "561e74c8319813f242583b59bbec40022b5f036be98eaec5a00a081ab1ef1a3a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\CanvasSurface.tsx",
+      "sha256": "e88356dbf35080884c6c0e179c678968d9d44ac477d7c1e9dd4c22f75aeaa293"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-board-ui-workflow.mjs",
+      "sha256": "cac16993ec6331b0b3e576ff7dbadf9b3af4bbd432414ddb3df6f19db39e3c31"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-native-input.mjs",
+      "sha256": "f623726f2f69792ecccb13dd25cd3fa71490e926ffe4fbbf829a6bdf403c63c2"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-source-ui-workflow.mjs",
+      "sha256": "b72d0b3f70e9b60293a643f91f7b709be901c90b8ac8575977203ed32bc3b6d4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-windows-menu-key.ps1",
+      "sha256": "dfe4383d9d1912772aa25a1ff379a6d3b85baa5fe005c46e7c88a306014ef591"
+    }
+  ]
+}

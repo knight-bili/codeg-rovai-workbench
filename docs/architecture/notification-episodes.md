@@ -2,7 +2,7 @@
 document_type: architecture
 authority: notification-episode-architecture
 status: accepted
-last_updated: 2026-09-20
+last_updated: 2026-10-15
 ---
 
 # Notification Episode 架构
@@ -81,6 +81,21 @@ Episode 推荐动作从不参与该来源集合。执行台由稳定 Portal 在�
 隐藏 surface 持续水合完整 Inbox。
 
 ## 并发和恢复
+
+融合画布使用同一 Attention Controller，不为每张卡片建立独立 Journal 或通知真源。
+`CanvasNotificationVisibility` 只保存当前 client 下的临时可见报告，按精确实例注册 public/private 两个通道；
+关闭实例只撤销自己的报告，迟到报告或旧挂载清理不覆盖重开的实例，跨 Thread 报告拒绝接纳。
+同 Thread 镜像的精确来源去重，不同 Thread 分别提交既有 `acknowledgeVisibleSources`，各自保留请求编号、
+冻结参数、在途状态与退避；一个 Thread 失败不阻止其他 Thread。Journal 仍统一推进，观察边界只来自 Core。
+
+画布来源除了原时间线交集，还须与窗口及裁剪祖先相交，并通过实际 DOM 命中检测排除其他卡片/弹窗遮挡。
+变换、层叠、大小、滚动及窗口注意力变化触发重新观察，屏幕外或已关闭来源不以挂载状态作为已读证据。
+提交确认前再次核对当前窗口注意力、实例 DOM 与来源命中，只能从已报告来源中剔除不可见项，
+不加入新来源或提高 Journal 边界，避免几何变化到下一帧报告之间的间隔造成误确认。
+实际可见卡片组成多个临时 quiet Thread，静默不写已读；公屏与私有来源继续保留精确 Conversation，
+业务 Mission/Task 通知不因普通可见性被读掉。换 client 重建整个 Controller，旧读取和导航回调不能作用到新实例。
+这些调整无 Core/Host/API/模型输入变更；模拟 Core 的生产组件挂载只证明 Renderer 请求和呈现，
+真实通知事务、私有面板来源、Host 接管、长时间退避和画布规模仍须阶段验收。
 
 - 每个 attention-worthy source 先获得全局 change sequence，再以同一边界写 Occurrence 与 Journal；
 - action/acknowledgement 绑定 observed Episode version，clear 绑定 attention revision，mark-all 绑定

@@ -1,0 +1,322 @@
+{
+  "schema_version": 1,
+  "stage": "I03-C01",
+  "basis": "integration/proposals/canvas-private-materials-r1.md",
+  "engineering_owner": "Codex",
+  "customer_stage_gate": false,
+  "cases": [
+    {
+      "id": "PC01",
+      "scenario": "同一私聊双卡分别放附件和引用",
+      "expected": "甲发送只消费甲，乙完整保留",
+      "status": "engineering_verified",
+      "verified": [
+        "实际双卡附件隔离及错误跨卡移除通过",
+        "真实输入/提交并经Core和固定ACP完成；仅消费所选卡正文、文件和引用，另一卡正文/材料及默认材料逐值保持。"
+      ],
+      "remaining": null,
+      "evidence": "i03-r02-native-send-verification.json#qualification",
+      "verification_layer": "当前编译Desktop真实发送、真实Core消费及固定本机ACP接收；无外部模型推理"
+    },
+    {
+      "id": "PC02",
+      "scenario": "默认输入和画布同时准备材料",
+      "expected": "两处互不串入或清空",
+      "status": "engineering_verified",
+      "verified": [
+        "实际默认草稿与两张卡片附件互不串入，显式迁入后默认材料清空",
+        "当前实际卡片发送及仅附件发送后，默认附件/引用草稿逐值保持；乙卡本机正文保持。",
+        "真实默认输入和画布分别保留不同本机正文、附件及引用；经完整工作区往返后分别实际发送，两处不相互清空，乙卡输入逐值保持。"
+      ],
+      "remaining": null,
+      "evidence": "i03-r02-complete-send-boundaries-verification.json#qualification",
+      "verification_layer": "当前Windows实际Native/Core与固定本机ACP、只读持久输入证据；不外推外部推理或其他平台。"
+    },
+    {
+      "id": "PC03",
+      "scenario": "同卡原地与侧边切换",
+      "expected": "同正文、材料、revision 与编辑器",
+      "status": "engineering_verified",
+      "verified": [
+        "rc14真实鼠标原地/侧边往返保留同textarea；同私聊双卡往返保留双方编辑器与另一输入滚动，已有精确附件预览和原材料不消费证据",
+        "同次原地/侧边往返保持正文、附件、引用顺序、revision及同一编辑器；两次往返均保留移动前真实原生撤销/重做，观察到编辑器祖先移除零次"
+      ],
+      "remaining": null,
+      "verification_layer": "Windows实际Main/preload/Core及页面；固定本地ACP，不含外部模型或其他平台",
+      "evidence": "i03-r01-native-complete-input-verification.json#qualification/PC03"
+    },
+    {
+      "id": "PC04",
+      "scenario": "另一 Conversation 复用相同节点文本",
+      "expected": "不采纳原私聊 scope",
+      "status": "engineering_verified",
+      "verified": [
+        "single_chat_composer_scope.rs:206–298，错误Thread/Conversation及失效节点返回false且数据库零写入；旧测试日志已核，当前模块字节一致"
+      ],
+      "remaining": null,
+      "verification_layer": "Core真实SQLite绑定边界；不声称其他编辑端、Host认证或完整UI通过",
+      "evidence": "i03-closeout-settlement.json#core_case_reuse"
+    },
+    {
+      "id": "PC05",
+      "scenario": "另一个已验证编辑端访问同 Conversation",
+      "expected": "不看到对方草稿与保留项",
+      "status": "engineering_verified",
+      "verified": [
+        "真实Host两个独立登录身份访问同Conversation同pin，只读到各自材料与完整保留正文；跨端retained ID、回执拒绝，Desktop默认身份也读不到Web材料",
+        "原生产本机正文存储接Web编辑端隔离层，单测验证同pin正文/保留副本/位置索引分离、各自重载和复制标签页换身份后不采纳原私聊"
+      ],
+      "remaining": null,
+      "verification_layer": "Windows真实Host/Core HTTP和客户端存储逻辑；不宣称浏览器页面、编辑器undo或多窗口UI已运行",
+      "evidence": "i03-r03-host-private-verification.json#qualification"
+    },
+    {
+      "id": "PC06",
+      "scenario": "网络伪造 draftClient 和恢复证明",
+      "expected": "Host 拒绝，无授权提升",
+      "status": "engineering_verified",
+      "verified": [
+        "真实HTTP的Session/Proof身份错配、无Bearer恢复、伪造draftClient字段和顶层身份拒绝，前后材料不变",
+        "真实Host分页恢复游标跨编辑端和篡改拒绝，原编辑端合法游标仍可读取"
+      ],
+      "remaining": null,
+      "verification_layer": "Windows真实Host/Core网络准入；不是仅Core反序列化或模拟HTTP",
+      "evidence": "i03-r03-host-private-verification.json#qualification"
+    },
+    {
+      "id": "PC07",
+      "scenario": "伪造 Board pin 或错误私有引用",
+      "expected": "首次写入拒绝并回滚",
+      "status": "engineering_verified",
+      "verified": [
+        "伪造节点登记实际拒绝，SQL只读复核无scope行",
+        "实际Native伪造节点首次登记拒绝且无scope行；Core同源绑定负例及首次跨卡引用失败回滚断言通过"
+      ],
+      "remaining": null,
+      "verification_layer": "Core绑定/事务边界与实际Native伪造pin；不覆盖其余24场景",
+      "evidence": "i03-closeout-settlement.json#core_case_reuse"
+    },
+    {
+      "id": "PC08",
+      "scenario": "只读恢复空 scope",
+      "expected": "不建表行、不 enter、不执行",
+      "status": "engineering_verified",
+      "verified": [
+        "空scope只读读取后恢复列表和SQL均无登记；冷读未新增消息/Run",
+        "实际打开空卡只读取历史，scope无登记、revision零、Run不增加，实际IPC无enter/open/send"
+      ],
+      "remaining": null,
+      "verification_layer": "Windows实际Main/preload/Core及页面；固定本地ACP，不含外部模型或其他平台",
+      "evidence": "i03-r01-native-complete-input-verification.json#qualification/PC08"
+    },
+    {
+      "id": "PC09",
+      "scenario": "同 scope 两次并发 CAS",
+      "expected": "仅一笔生效，另一保留输入",
+      "status": "engineering_verified",
+      "verified": [
+        "真实同revision并发材料修改恰好一笔生效、另一拒绝，另一卡不变",
+        "真实Core先应用并发材料修改，原引用删除因版本冲突拒绝；界面提示保留，正文/原引用和另一卡不变"
+      ],
+      "remaining": null,
+      "verification_layer": "Windows实际Main/preload/Core及页面；固定本地ACP，不含外部模型或其他平台",
+      "evidence": "i03-r01-native-complete-input-verification.json#qualification/PC09"
+    },
+    {
+      "id": "PC10",
+      "scenario": "上传中切 Core 或结束单聊",
+      "expected": "迟到结果不污染新上下文",
+      "status": "engineering_verified",
+      "verified": [
+        "实际文件输入input/change均可信，真实Main/Core完成上传后延迟回复；结束旧私聊、删除旧卡并打开新目标，迟到回复未污染新正文/附件/引用/消息/Run",
+        "真实Web文件上传在Core A提交后暂停HTTP回复，同页切到独立Core B并输入；原执行环境和暂停请求确已失效，B正文/附件/引用/消息/Run保持，A材料不转移。两个Host正常退出。"
+      ],
+      "remaining": null,
+      "evidence": "i03-r01-cross-core-upload-verification.json#qualification",
+      "verification_layer": "rc18实际Native结束旧单聊的迟到回复；rc19实际双Core浏览器导航和旧页面失效隔离；无外部模型"
+    },
+    {
+      "id": "PC11",
+      "scenario": "移除别 scope 附件或越权 quote",
+      "expected": "拒绝，不借用或删除别卡材料",
+      "status": "engineering_verified",
+      "verified": [
+        "跨卡移除附件拒绝且两份草稿逐字段保持；原文件读者跨卡读取拒绝",
+        "真实Core拒绝别卡quote ID、其他私聊消息引用及拿另一卡working令牌修改引用/附件；两份草稿和原完整工作副本不变，另一卡不暴露令牌。"
+      ],
+      "remaining": null,
+      "evidence": "i03-r02-complete-send-boundaries-verification.json#qualification",
+      "verification_layer": "当前Windows实际Native/Core与固定本机ACP、只读持久输入证据；不外推外部推理或其他平台。"
+    },
+    {
+      "id": "PC12",
+      "scenario": "仅附件发送",
+      "expected": "维持原合法行为，使用所选附件",
+      "status": "engineering_verified",
+      "verified": [
+        "真实空正文仅附件发送成功；实际Runtime收到唯一所选源路径，读取字节匹配，其他输入保持。"
+      ],
+      "remaining": null,
+      "evidence": "i03-r02-native-send-verification.json#qualification",
+      "verification_layer": "当前编译Desktop真实发送、真实Core消费及固定本机ACP接收；无外部模型推理"
+    },
+    {
+      "id": "PC13",
+      "scenario": "只有 quote 没有问题正文",
+      "expected": "保留原 question_required 约束",
+      "status": "engineering_verified",
+      "verified": [
+        "single_chat_composer_tests.rs:692–708，实际Service拒绝quote.question_required且原revision不变；同源既有owner已运行通过"
+      ],
+      "remaining": null,
+      "verification_layer": "Core真实SQLite发送准入；未运行模型，最终Runtime输入仍归PC14/PC22",
+      "evidence": "i03-closeout-settlement.json#core_case_reuse"
+    },
+    {
+      "id": "PC14",
+      "scenario": "单卡发送并检查最终输入",
+      "expected": "路径、quote 顺序及原 section 正确；无卡片字段",
+      "status": "engineering_verified",
+      "verified": [
+        "实际Core向固定本机ACP交接所选源路径和引用；读取实际路径字节匹配，其他卡和默认材料未混入CURRENT_INPUT。",
+        "只读读取真实持久Managed Blob，核对字节数/SHA与accepted交接摘要；实际ACP收到整个Blob原文；路径内容、两段非源顺序引用、原section/formatter版本及无画布ID字段核定。"
+      ],
+      "remaining": null,
+      "evidence": "i03-r02-complete-send-boundaries-verification.json#qualification",
+      "verification_layer": "当前Windows实际Native/Core与固定本机ACP、只读持久输入证据；不外推外部推理或其他平台。"
+    },
+    {
+      "id": "PC15",
+      "scenario": "发送前源文件变化或失效",
+      "expected": "明确失败并保留输入，不替换同名源",
+      "status": "engineering_verified",
+      "verified": [
+        "源文件相同长度改内容、缺失、同名同内容换文件身份三种情况下，实际原生提交均明确拒绝；正文、材料、revision、另一卡、消息及Run数量不变，未借用同名源。"
+      ],
+      "remaining": null,
+      "evidence": "i03-r02-complete-send-boundaries-verification.json#qualification",
+      "verification_layer": "当前Windows实际Native/Core与固定本机ACP、只读持久输入证据；不外推外部推理或其他平台。"
+    },
+    {
+      "id": "PC16",
+      "scenario": "双卡同 Conversation 连续发送",
+      "expected": "原 FIFO 顺序，无额外执行队列",
+      "status": "engineering_verified",
+      "verified": [
+        "同一私聊两张卡真实连续提交到原FIFO，等待期间无额外Run；精确取消阻塞Run后，两个输入按原次序进入实际ACP并成功完成，一条输入对应一个Run。"
+      ],
+      "remaining": null,
+      "evidence": "i03-r02-complete-send-boundaries-verification.json#qualification",
+      "verification_layer": "当前Windows实际Native/Core与固定本机ACP、只读持久输入证据；不外推外部推理或其他平台。"
+    },
+    {
+      "id": "PC17",
+      "scenario": "另一卡查看编辑并明确接管",
+      "expected": "不继承 token；接管后旧写拒绝",
+      "status": "engineering_verified",
+      "verified": [
+        "真实Host/Core由原发送产生队列；另一scope看不到编辑token，明确接管获得新token，旧token保存被拒绝，无Pending/Run数据库种入",
+        "另一卡不继承租约令牌，实际页面明确接管后使用已保存输入，新令牌使旧写拒绝，再从页面编辑保存完整排队输入"
+      ],
+      "remaining": null,
+      "partial_evidence": "i03-r01-private-workflow-preparation.json",
+      "verification_layer": "Windows实际Main/preload/Core及页面；固定本地ACP，不含外部模型或其他平台",
+      "evidence": "i03-r01-native-complete-input-verification.json#qualification/PC17"
+    },
+    {
+      "id": "PC18",
+      "scenario": "排队消息移回空卡",
+      "expected": "正文、附件、quotes 同份返回",
+      "status": "engineering_verified",
+      "verified": [
+        "真实Core把原队列正文/quote移回空位置，原FIFO未向固定ACP派发排队输入；附件与页面完整资格继续",
+        "实际排队消息移回空卡，正文、附件和引用为同份输入，原排队项移除"
+      ],
+      "remaining": null,
+      "partial_evidence": "i03-r01-private-workflow-preparation.json",
+      "verification_layer": "Windows实际Main/preload/Core及页面；固定本地ACP，不含外部模型或其他平台",
+      "evidence": "i03-r01-native-complete-input-verification.json#qualification/PC18"
+    },
+    {
+      "id": "PC19",
+      "scenario": "移回非空目标",
+      "expected": "两份完整输入，无覆盖或混装",
+      "status": "engineering_verified",
+      "verified": [
+        "真实Core非空目标保持原draft/quote，另建含原队列正文/quote的retained，未派发原排队输入",
+        "移回非空卡不覆盖当前完整输入，另一份正文/附件/引用完整保留并可交换"
+      ],
+      "remaining": null,
+      "partial_evidence": "i03-r01-private-workflow-preparation.json",
+      "verification_layer": "Windows实际Main/preload/Core及页面；固定本地ACP，不含外部模型或其他平台",
+      "evidence": "i03-r01-native-complete-input-verification.json#qualification/PC19"
+    },
+    {
+      "id": "PC20",
+      "scenario": "交换保留输入时丢失回执并重试",
+      "expected": "原 UUID 只交换一次，双方均可恢复",
+      "status": "engineering_verified",
+      "verified": [
+        "真实保留输入交换原UUID回放结果相同；冷启动后双方正文/附件和原准备回执保持",
+        "执行前中断经Core核对未知后明确重试，运输两次使用同UUID而Core仅执行一次；已执行的反向交换丢回执后只读核对，无第二次写且双方完整输入保留"
+      ],
+      "remaining": null,
+      "verification_layer": "Windows实际Main/preload/Core及页面；固定本地ACP，不含外部模型或其他平台",
+      "evidence": "i03-r01-native-complete-input-verification.json#qualification/PC20"
+    },
+    {
+      "id": "PC21",
+      "scenario": "发送已接受但响应丢失并重启",
+      "expected": "核对原结果，不换 UUID 重发",
+      "status": "engineering_verified",
+      "verified": [
+        "当前rc20真实Windows整App强制退出，旧Core确认退出后以同根新App恢复；另一卡正文末字/附件/引用完整，原发送UUID被实际commands.reconcile核对，零singleChat.send重派发、零额外Runtime输入，不人工flush或正常退出准备。"
+      ],
+      "remaining": null,
+      "evidence": "i03-r04-process-interruption-verification.json#qualification",
+      "verification_layer": "Windows实际Desktop/Core、固定本机ACP和只读持久输入；不宣称外部推理、其他平台、断电恢复或完整I03通过。其他平台/外部推理及I02真正冻结后未投递窗口仍保留原所属队列。"
+    },
+    {
+      "id": "PC22",
+      "scenario": "Core 在输入接受前后分别退出",
+      "expected": "旧冻结 Manifest Blob 与接受边界保持",
+      "status": "engineering_verified",
+      "verified": [
+        "当前rc20实际杀死Core，生产Supervisor以新PID重建；已派发未确认与标准ACP terminal确定接受两个窗口，冻结Blob/摘要/Manifest/epoch与原UUID保持，另一卡完整输入不变，无材料重选或重复发送。已派发未知不称为not_accepted；不外推其他协议运行中显式确认。"
+      ],
+      "remaining": null,
+      "evidence": "i03-r04-process-interruption-verification.json#qualification",
+      "verification_layer": "Windows实际Desktop/Core、固定本机ACP和只读持久输入；不宣称外部推理、其他平台、断电恢复或完整I03通过。其他平台/外部推理及I02真正冻结后未投递窗口仍保留原所属队列。"
+    },
+    {
+      "id": "PC23",
+      "scenario": "删除节点或换绑后恢复",
+      "expected": "保留原归属，不自动转发新单聊",
+      "status": "engineering_verified",
+      "verified": [
+        "删除pin后原归属标为孤立、材料保持，冷启动可按原owner读取正文和源文件",
+        "使用产品现有删除/新建路径：旧scope孤立材料与正文保留，恢复列表在原私聊原位置继续编辑，新目标为空且没有open/send转发；未新增或调用原地换绑API"
+      ],
+      "remaining": null,
+      "verification_layer": "Windows实际Main/preload/Core及页面；固定本地ACP，不含外部模型或其他平台",
+      "evidence": "i03-r01-native-complete-input-verification.json#qualification/PC23"
+    },
+    {
+      "id": "PC24",
+      "scenario": "升级旧数据与旧客户端及注入迁移失败",
+      "expected": "默认行、旧回执不变；失败全回滚；新功能不降级绕过",
+      "status": "engineering_verified",
+      "verified": [
+        "真实Host原身份重登保留完整输入，旧默认get形状不增加scope字段，旧命令回执保持，错误revision不改原草稿",
+        "复用rc4实际迁移owner：注入Migration205回执失败保持旧schema/材料，成功升级逐值保留默认行、编辑会话和原回执；当前迁移及相关DB/私聊依赖源码不变",
+        "共享客户端能力owner实际执行，旧Core/错误版本/错卡/错私聊拒绝且无写入或自动降级"
+      ],
+      "remaining": null,
+      "verification_layer": "真实Host兼容、已运行同源Core迁移回滚、当前客户端能力逻辑；不宣称所有历史安装包或平台运行通过",
+      "evidence": "i03-r03-host-private-verification.json#qualification"
+    }
+  ],
+  "settlement": "i03-closeout-settlement.json",
+  "latest_verification": "i03-r04-process-interruption-verification.json",
+  "latest_preparation": "i03-r01-private-workflow-preparation.json"
+}

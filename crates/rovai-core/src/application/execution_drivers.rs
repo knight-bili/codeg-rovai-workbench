@@ -695,6 +695,7 @@ mod tests {
                         "wake-send",
                         Some(camp_id),
                         SendSingleChatMessageCommand {
+                            composer_scope: None,
                             draft_client: Default::default(),
                             camp_id: camp_id.into(),
                             conversation_id: conversation_id.into(),

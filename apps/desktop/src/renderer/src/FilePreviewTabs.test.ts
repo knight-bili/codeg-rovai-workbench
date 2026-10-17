@@ -157,6 +157,20 @@ describe('localized preview status tabs', () => {
 })
 
 describe('FilePreviewTabs open feedback', () => {
+  it('keeps tab and panel identities unique across mirrors without changing the legacy surface', () => {
+    const legacyTabs = renderTabs(), legacyPane = renderPane()
+    expect(legacyTabs).toContain('id="file-preview-tab-second"')
+    expect(legacyPane).toContain('aria-labelledby="file-preview-tab-second"')
+    for (const domScope of ['canvas-first', 'canvas-mirror']) {
+      preview = { ...preview, domScope, isFocusedSurface: domScope === 'canvas-first' }
+      const tabs = renderTabs(), pane = renderPane()
+      expect(tabs).toContain(`id="file-preview-tab-${domScope}-second"`)
+      expect(tabs).toContain(`aria-controls="file-preview-panel-${domScope}-second"`)
+      expect(pane).toContain(`id="file-preview-panel-${domScope}-second"`)
+      expect(pane).toContain(`aria-labelledby="file-preview-tab-${domScope}-second"`)
+      expect(pane).toContain(`id="file-preview-pane-${domScope}"`)
+    }
+  })
   it('does not announce a lazy background tab as actively opening', () => {
     const cold = tab('background')
     cold.file = null

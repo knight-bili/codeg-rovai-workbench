@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "status": "implementation_verified_pending_desktop_candidate",
+  "recorded_at": "2026-10-16T06:09:11.618210+00:00",
+  "source_binding": {
+    "base_commit": "81cc5ab93e6b58df6f4371693343a2aab4d602ad",
+    "files": {
+      "packages/html-preview/src/site.ts": "fbef7bf813f76e53d25a527cb14f022118bce6d04665930247d83f2778737106",
+      "packages/html-preview/src/site.test.ts": "f1b79c20cd8b9be7a3251a80e3403c017a57a8a52ee387a1c9d6878fc540b121",
+      "scripts/fixtures/canvas-native-input.mjs": "e66a445828a6e6539576be2684176f3fae88fbab702c00357295aba0c89685f9",
+      "integration/execution/goal-state.json": "8f085f5bed707e84d24ec0bc526a2b0a1110e445404ec02f9f8acc7fd8ae5cf4",
+      "integration/execution/i03-closeout.json": "c9a9da65d9b79e9cdb3947710c73ce46c7dc65ba434e388656190369c17dcff7",
+      "integration/planning/stage-versions.json": "cb0d36bc527855143e96890799555ba93aaf5a5f37c4cd9d5822d94e8ed6d09a"
+    }
+  },
+  "artifact_binding": {
+    "work/i03/c06-html-entry-before.log": "83bd4db81afcb612e528d8f2c13f69711d343ff4ca5360f9d1d1bd382a9463e2",
+    "work/i03/c06-html-entry-after.log": "879eb5d7cad6504ce3a6588e47cc3cc5420e3318154674a0ced870d8535e1ca9",
+    "work/i03/record-c06-html-repair.py": "2629858c6c138f99e6115f994bd33c671f9b498e092df0916433cfaa665cb4ff",
+    "work/i03/run-c06-native-file-cards.mjs": "2d1a73e8554b42a620c44c73c61d4530b4f370db94171c36df1c743756a2b40f",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/file-cards-r1/failure.png": "c09491801d76c94328d4791a42f0b3512eb7a8ed60cbfaa635806df22e1b8d1e",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/file-cards-r1/result.json": "58eb74bcddaab77fd796ae891cd5889c2dbbc89cf3420fda213d36987a72712f",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/file-cards-r2/failure.png": "ba3fe6358444fb48b4193b9051fe2c9bc6cc315b8cfdc7c281872ec30dcb4c13",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/file-cards-r2/result.json": "7efd680fc4c1332d2a4175401ca276ce6fee5a276e65e0ea95cddbcbc234f1dc",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/file-cards-r3/failure.png": "7e4bcbbe889d0cb44d63430618ea55d304bebdd336c5e6e46123a3926c91ad9a",
+    "work/i03/c06/fusion-i03-rc.5/native-190cf86d/file-cards-r3/result.json": "729c29c0130d76fccf14b6678a69de9e9cdbfad951c3378881dc700d272d65b0"
+  },
+  "frozen_authority_files": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "reproduction": "two valid capability exchanges overlap before their cross-site iframe navigations; same-origin reads must not consume those admissions",
+  "repair": "count each completed exchange; reserve exact cookie-authenticated cross-site document entry after header checks and before async validation",
+  "validation": {
+    "before_failed": 1,
+    "after_passed": 91,
+    "after_skipped": 1,
+    "skip_reason": "existing Windows literal-colon file name test",
+    "new_rust_owners": 0,
+    "paid_models": false
+  },
+  "scope_preserved": [
+    "cookie authentication",
+    "exact host/origin/path checks",
+    "extra navigation and cross-site resource rejection",
+    "author CSP/HTML",
+    "Core source and DB contracts"
+  ],
+  "next": "冻结rc.6；HTML Site仅被Desktop Main导入，Core/Rust/Web输入不变，复用rc.5三EXE与Web/Rust/原Native结果，集中全量types和Desktop构建后再运行当前真实文件卡片/HTML生命周期。保留r1-r3失败与准确卡片frame探针，不将原工作区隐藏iframe误当卡片。"
+}

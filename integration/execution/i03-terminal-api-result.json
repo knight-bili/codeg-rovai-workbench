@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C04",
+  "status": "terminal_api_client_coded_ui_and_actual_process_pending",
+  "recorded_at": "2026-10-16T01:28:23.510794+00:00",
+  "source_binding": {
+    "base_commit": "3a9260d033ec01aac4e796fdb169803e494d8ce1",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "apps/desktop/src/main/index.ts": "6e225d0010a7d820209a969207e0dffb46b1d7c974a86279ecac8a5f39f66a5a",
+      "apps/desktop/src/main/runtime-core-methods.test.ts": "cd0300bc4f0809fd9668ed071cac8a7285e149e7507d9ccfdee9b74d5a77c3aa",
+      "apps/desktop/src/renderer/src/canvas-terminal-client.ts": "d15aa80259d4778ae8857d92bca8d6e137da6afe12d9c37718cc1e2421b032f0",
+      "apps/desktop/src/renderer/src/canvas-terminal-client.test.ts": "b202425fa30c05fab4bc92f7d95b5ffdd6cda63e020fc0448f17a8c030515e22",
+      "apps/desktop/src/renderer/src/locales/en.json": "3b337bcc36e8dfa7b19a37598e246ba1f67a0b071039da174ac9a12a2d494b6f",
+      "apps/web/src/client.ts": "50dfe1059a6fbb440a5bbaf34a2354d788afee83ee23c35505acfb2bd4ac45b4",
+      "apps/web/src/client.test.ts": "4b2e223dfdfb8dbeb7fbc2a71b405039bc23fa27163bc67b76c075f8ec804e82",
+      "apps/web/src/camp-adapter.test.ts": "3c1aebfb5cddb0aeffafb93398d2df002772056c0b5b99e3f7d129e5c9c0265c",
+      "packages/contracts/src/index.ts": "b2d9d5cc29d0399ef02315174acbac79e77d00c59ba3b2afb5f6fa8b8375046f",
+      "crates/rovai-core/src/application.rs": "71b2e24f4acab045560b015d6fbdb826c34faa2a35fa5cbb5de236d10576c9dd",
+      "crates/rovai-core/src/canvas_node.rs": "435249999ebd179971cf763b433e10398ad30e5fbd8499ae4530a4db0c774764",
+      "crates/rovai-core/src/canvas_terminal.rs": "8fee81cbab63142449a67907eb7a45d9d8fdc3deb2dce167f3a3653b40ac309a",
+      "crates/rovai-core/src/application/canvas_terminal.rs": "e7a943d376a2e39b1397c4ab36fdc1936aab422b420ca3f0b61ea8012424f648",
+      "crates/rovai-web/src/operations.rs": "e1227fbb411aa6468831464739868109356ffbd6957fe9c6f2496f995db47144",
+      "docs/architecture/canvas.md": "0e9039ee4f4485949f94926ea355b8820ce8e9925e2d489d0f2273de26e9f405",
+      "docs/contracts/canvas-nodes-v1.md": "f80be42c73b6f5cf0e349a22efac50f29f7e1101a32a179b839c0b76444fabc3",
+      "docs/development/testing.md": "f5fce5206516210f6b0c97e50e452f30ea7b02a3d90c7229274543190a63a140",
+      "integration/foundation/current-protocol.json": "b5c029b497417a476527a4e7b279ae89fe58ea35fd899a7ad414eb7490e6a5bf",
+      "integration/execution/goal-state.json": "278fc05699ab01d97672905248730a90b261a3a650fdeeb80d08ca86f1787b65",
+      "integration/execution/i03-closeout.json": "e49933a1046f95085dd89fb4b126613cbb9739dfe27224e6871b0027cd6c2d76"
+    }
+  },
+  "artifact_binding": {
+    "work/i03/canvas-terminal-api-typecheck.json": "f900a93cd5ba1c8d321cb5f98ce1e0736e8d1c9b7c69d204f53f8b2d144f5585",
+    "work/i03/canvas-terminal-api-tests-initial.log": "bf5ff095df0e907fe23fc265df22c23ac208645fb7b5b70cb0d18541297f1e6d",
+    "work/i03/canvas-terminal-api-tests-final.log": "92b3626763e402b390abfd0168ba556c22760a5c79cacbb9e2621286e1f9be19",
+    "work/i03/canvas-terminal-api-types-initial.log": "b1fd22336438a7b8c880e098b4cd11473d51b6a6c48fbb14fc1e2bfbd7076d87",
+    "work/i03/canvas-terminal-api-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/terminal-api-rust-format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/terminal-api-application-parsed.rs": "4370b0b80c44daf4aaddd4aeed113c00a1f7b6d378a194331e50d76b2d22c95b",
+    "work/i03/terminal-api-protocol-update.log": "fa2fb19f958671bc079818bb9f7c1e5b3f4fab64c2559a421a633819a2007685",
+    "work/i03/terminal-api-protocol-update-final.log": "ce12f80f446f432617b7bfee8788a13f5d072fd1274387011bb4c3d37f318412",
+    "work/i03/update-terminal-api-protocol.py": "7696b3e8bda80e8bcb2006f65a42178280026ecbc5340a65233c10be67e1ae77",
+    "work/i03/record-canvas-terminal-api.py": "9cc162a1f2ba8f1577d28743ea27e221f34b853b1063cd22525adaac68bd2215",
+    "work/i03/canvas-terminal-api-docs.log": "6eb03e1b66af4f3a2ae337d42e11ddb5a595f11fc6e89cd079e7d49f34c7f9e8"
+  },
+  "frozen_authority_files": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "previous_evidence": {
+    "path": "integration/execution/i03-terminal-parent-result.json",
+    "sha256": "6a2d01504f78d84b854dba5560ff2e9483bca2caf5eacc47ebc8ad3c6ac6ec38"
+  },
+  "implemented": [
+    "Five explicit Core terminal routes; lifecycle mutations outside main request queue, snapshot on independent read queue",
+    "Optional terminalVersion1 capability and shared TypeScript request/snapshot/receipt contracts",
+    "Native explicit admission fixes15 existing canvas/skill-pack methods and admits5 terminals; existing preload/desktop generic request reused",
+    "Authenticated Web operation enum/admission/mapping/public projection and existing Web adapter reused; fixed7 missing preexisting skill-pack client methods and original pending-draft presence notification",
+    "Shared fixed-target client checks request identities, freezes fields/bytes, bounds whole output chunks/cursors/receipts and projects only public fields",
+    "No terminal durable command recovery or automatic retry; unknown input must be read by original session/receipt in subsequent UI controller"
+  ],
+  "verified": {
+    "vitest": {
+      "files": 5,
+      "passed": 48,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "scope": "new lowest client owner, existing Main source admission owner, existing ConsoleClient and Web adapter with mocked fetch, existing locale owner; no actual Host/IPC/PTY"
+    },
+    "targeted_types": {
+      "exit_code": 0,
+      "config": "work/i03/canvas-terminal-api-typecheck.json"
+    },
+    "rust_format": {
+      "modules": 4,
+      "exit_code": 0
+    },
+    "rust_syntax": {
+      "file": "crates/rovai-core/src/application.rs",
+      "exit_code": 0,
+      "scope": "rustfmt stdout parse only; not compiled"
+    },
+    "protocol_source_consistency": {
+      "canonical_web_operations": 185,
+      "shared_web_client_operations": 185,
+      "new_terminal_operations": 5,
+      "native_prior_admission_fixed": 15,
+      "web_prior_admission_fixed": 8,
+      "schema": 158,
+      "migration": 208,
+      "host_protocol": 4
+    },
+    "frozen_model_authority": "four current byte hashes unchanged",
+    "docs": {
+      "exit_code": 0,
+      "version": "v1.72",
+      "diff_base": "3a9260d033ec01aac4e796fdb169803e494d8ce1",
+      "scope": "documentation version and decision governance"
+    }
+  },
+  "self_review_fixes": [
+    "Discovered Native Main omitted the15 already-implemented canvas/skill-pack operations; added explicit admission and existing owner assertions",
+    "Initial targeted tsc exit2 from property narrowing across chunk callback; captured bounded throughSeq, final exit0",
+    "Initial protocol extraction omitted multiline/alias serde attributes; corrected to185 canonical methods",
+    "Admission comparison found7 missing skill-pack client entries and original pendingDraft.setPresence used by shared pending-thread controller; restored all8,185 shared Web client entries exactly match canonical set",
+    "Current protocol snapshot stale156 corrected to existing158/208; immutable source baseline and Cargo.lock unchanged"
+  ],
+  "not_run": [
+    "new Rust queue/canvas capability/Web projection assertions",
+    "full Core/helper/Host compilation",
+    "actual Native IPC or Host HTTP",
+    "actual PTY or managed child tree",
+    "terminal UI/controller and browser witness",
+    "PC01-PC24 full run",
+    "324 full fusion scenarios",
+    "cross-platform actual devices"
+  ],
+  "guardrails": {
+    "push": false,
+    "actions": false,
+    "paid_models": false,
+    "user_data_or_credentials": false,
+    "old_binary_reused_for_new_source": false,
+    "schema_migration_added": false,
+    "customer_action_required_now": false
+  },
+  "next": "继续I03-C04原终端读者/卡片与会话控制器：显式启动、连续原字节、resize/stop、原请求与代次重连/输入回执查询、收起/删除/重开；补实际最低层进程owner。API与客户端已编码，实际Core/Host/Native/PTY随阶段候选运行。"
+}

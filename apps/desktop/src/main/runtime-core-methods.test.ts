@@ -33,12 +33,28 @@ describe('Runtime Renderer Core method allowlist', () => {
     )
   })
 
-  it('allows the Single Chat pending-input mutation implemented by Core', () => {
+  it('allows the Single Chat pending-input and scoped-material operations implemented by Core', () => {
     const allowlistStart = mainSource.indexOf('const allowedMethods = new Set<CoreMethod>([')
     const allowlistEnd = mainSource.indexOf('\n])', allowlistStart)
     expect(allowlistStart).toBeGreaterThan(-1)
     expect(allowlistEnd).toBeGreaterThan(allowlistStart)
-    expect(mainSource.slice(allowlistStart, allowlistEnd))
-      .toContain("'singleChat.pendingInputs.edit'")
+    for (const method of ['singleChat.pendingInputs.edit', 'singleChat.composerDraft.mutate', 'singleChat.composerDraft.recovery']) {
+      expect(mainSource.slice(allowlistStart, allowlistEnd)).toContain(`'${method}'`)
+    }
+  })
+
+  it('admits the implemented skill packs, canvas and ephemeral terminal operations at Native IPC', () => {
+    const start = mainSource.indexOf('const allowedMethods = new Set<CoreMethod>([')
+    const end = mainSource.indexOf('\n])', start)
+    expect(start).toBeGreaterThan(-1)
+    expect(end).toBeGreaterThan(start)
+    const methods = mainSource.slice(start, end)
+    for (const method of [
+      'skillPacks.list', 'skillPacks.read', 'skillPacks.installations.list', 'skillPacks.install', 'skillPacks.uninstall', 'skillPacks.members.list', 'skillPacks.members.set',
+      'canvas.boards.list', 'canvas.boards.get', 'canvas.boards.create', 'canvas.boards.update', 'canvas.boards.delete',
+      'canvas.nodes.snapshot', 'canvas.nodes.apply', 'canvas.references.page',
+      'canvas.terminals.start', 'canvas.terminals.snapshot', 'canvas.terminals.write', 'canvas.terminals.resize', 'canvas.terminals.stop'
+    ]) expect(methods).toContain(`'${method}'`)
+    expect(methods).not.toContain("'core.shutdown'")
   })
 })

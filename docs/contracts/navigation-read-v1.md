@@ -22,6 +22,8 @@ external_principal 消息推进。查看、重命名、队员消息和 Run 终�
 `groupKeys` 为 `quick-chat` 或 `directory:<projectPath>`。`groupLimits` 为完整前缀大小，默认/最少 5；
 未知 key 不创建组。分组响应在同一个事务里获得总数与排序后的前 N 条，不能用部分本地数据推导补位或名次。
 完整快照只跨组读取目录/计数元数据，各组详细行按索引限定窗口；正常路径不访问 event_log。
+完整活动徽章另用[Navigation Activity v1](navigation-activity-v1.md)只读元数据，不能把本接口的前缀loading数当成全组数量；
+原`navigation.threads`/分组窗口的读取范围和返回内容保持，不因统计需求附带其他Thread详情。
 置顶 Camp 用已知 ID 批量读取，不遍历其他组寻找；完整恢复同时按 ID 核对窗口外的置顶项，普通切换不带起其他置顶项读取。
 
 NavigationCampItem 延续 schema 3 字段，并提供 `lastSeenGlobalSequence`（读取旧 fixture 时可缺省为 0）。
@@ -33,7 +35,8 @@ Renderer 的运行环沿用 loading，而未读独立使用最新回复与查看
 ## Client directory preferences
 
 Desktop 的 `navigation.json` 与 Web 既有 origin/Owner 偏好 JSON 是各自目录清单的唯一存储；
-不在 SQLite 登记目录，不跨客户端同步。schema 6 在旧 pins、removedProjects、projectOrder、
+不在 SQLite 登记目录，不跨客户端同步。当前schema7在schema6基础上增加
+[展示分组及布局修订](navigation-project-groups-v1.md)；schema6在旧 pins、removedProjects、projectOrder、
 projectNames、threadReadStates 上增补 `registeredProjects: string[]` 与 `legacyProjectsSynced: boolean`。
 路径沿用 Workspace 规范绝对路径；名称只读取既有别名映射。旧 schema 在内存补空数组和 false，不在读取时重写。
 
@@ -70,7 +73,7 @@ Desktop 复用 Main 队列及私有原子文件写入；Web 在现有浏览器�
 
 ## Explicit local read intent
 
-`navigationPreferences` schema 6 另存本机 `threadReadStates`，每个稳定 Thread ID 的值为
+`navigationPreferences` schema7继续保存本机 `threadReadStates`，每个稳定 Thread ID 的值为
 `{ manualUnread: boolean, readThroughGlobalSequence: number }`；水位必须是非负安全整数。
 `setThreadReadState(threadId, state | null)` 原子保存并返回完整偏好快照；`null` 移除本机意图，非空值的 read-through
 与旧值取最大。`onChanged` 发布成功保存后的快照。schema 2/3/4 默认补空映射，不修改 Core schema 或已读存储。

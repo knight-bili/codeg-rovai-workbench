@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T10:52:05.881Z",
+  "stage": "I03",
+  "source_commit": "5a297921701ec1f94f04fcb6510b665bd00ce570",
+  "goal_status": "active",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "checkpoint": "1edff563"
+  },
+  "status": "renderer_two_phase_leave_original_editors_undo_verified_native_quit_recovery_pending",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/App.test.ts",
+      "sha256": "6a2644e065ab4f93c4f737df222c67a9104a800251a7eb08c89c6e15d9b8ac51"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "22d3348e6696fda418968bc60a3c236aaad5dbbffb1ec336bc84b7920a724d87"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasConversationFrame.tsx",
+      "sha256": "368397de5a698b142bf1ef0e551ff999b1c7fea499cadf27cf870df25149eecf"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "256a434dd55bc1d57fa447b7fedbe84f1c7352d7dfa82142d969641adb461af5"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+      "sha256": "ea936c277803d3da65e57d9ac566914bda90a0c7c268bb4e4c60ff04cf97c851"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversations-controller.test.ts",
+      "sha256": "e8e8abced1b4f140df6bad47b16df68d2fbd72b60f1d63feaf4fb67561b8cfff"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversations-controller.ts",
+      "sha256": "0a2a9f0f88fe7f430f023041ce64404ae322a8702f348a668dbc31c59b469b1b"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "1b7e451240550144747d33d5c7256801b48496b08b63ad53d8eee2cf8974107c"
+    },
+    {
+      "path": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "dcd1b97fbb4716430bab562fea0548f599501a590b6f79d2bf985b9a6bde481e"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "31a3a3fc23741cd55a44a421bfd553fb7f96fbfb00c9170b4ab1c65591d604f9"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-leave.ts",
+      "sha256": "d6d0662e30fc418a8ad262b545498603f8e709c2994f96b101c150e43b10d833"
+    }
+  ],
+  "unchanged_input_modules": [
+    {
+      "path": "apps/desktop/src/renderer/src/thread-workspace-actions.ts",
+      "unchanged": true,
+      "sha256": "55c2cfac97077cda3a1e117a8d0a0858a460fb46d6206616fa1dad782294c00b"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-commands.ts",
+      "unchanged": true,
+      "sha256": "9d11152a14b5b091d77d9bbabb0048c71469dc9545c018ba216c89378cebe2ae"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-workspace-data.ts",
+      "unchanged": true,
+      "sha256": "301d8c422a3656d065ca762735d8685d6ce8b5622d4b4a26cc5a083fd22318e3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-run-cancellation.ts",
+      "unchanged": true,
+      "sha256": "7ee3c45be85e19f035942c29d9083da1b0967edc66a417fdb646cd0d14c46b08"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-projection-events.ts",
+      "unchanged": true,
+      "sha256": "c9857f3726e5cd9d272b53e5c0570fcd546b908cf0cce5074dbf6748a50356db"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-composer-drafts.ts",
+      "unchanged": true,
+      "sha256": "35889b5214832da77fb9d1ef7719a249cafdce2d2d075918445d5357bdaab40f"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "unchanged": true,
+      "sha256": "d280ca7180e6d24f52bd7fc34b9d460f005164bc471828bdc0553c445a4ce660"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+      "unchanged": true,
+      "sha256": "5f3bb195c08c90d6ab8d48791a2e2f9973ddb6ffa4cb5a669518bc17afbab9a1"
+    }
+  ],
+  "implementation": [
+    "Canvas leave先保存/锁定所有原实例；实际route提交后才交接，失败/拒绝/失效导航complete(false)保留同一DOM与undo。并发用户共享准备，最后释放前不提前解锁，dispose/迟到结果按代次回滚。",
+    "BusinessApp观察实际view而非void回调完成；CanvasSurface在leave结束后才恢复。画板切换、弹窗、创建/删除与unknown/reconcile接同一机制；拒绝和未知保留原实例，只对成功删除的画板实例交接。",
+    "真实浏览器核对发现空选板效应自我失效循环并卡住旧页；已修复无编辑器时直接选择有效画板，补验删除最后画板、空列表创建、旧选择reload和原DOM撤销。"
+  ],
+  "validation": {
+    "owners": {
+      "files": 8,
+      "passed": 247,
+      "failed": 0,
+      "log": "work/i03/canvas-atomic-owners-final.log"
+    },
+    "types": {
+      "exit_code": 0,
+      "no_emit": true,
+      "log": "work/i03/canvas-atomic-typecheck-final.log"
+    },
+    "copy": {
+      "missing": 0,
+      "duplicate": 0,
+      "log": "work/i03/canvas-atomic-copy.log"
+    },
+    "docs": {
+      "version": "v1.72",
+      "governance": "passed",
+      "policy_tests": 10
+    },
+    "browser": {
+      "initial_observations": 16,
+      "final_observations": 6,
+      "final_console_errors": 0,
+      "scope": "production CanvasWorkspace/CanvasSurface/ReactFlow/ThreadWorkspace/Composer with mock Core",
+      "initial_failure_retained": true,
+      "final_undo_and_reconcile_verified": true
+    },
+    "formal_acceptance": "all_324_not_run"
+  },
+  "private_attachments_research": {
+    "implemented": false,
+    "finding": "正文按卡片隔离；附件与quotes仍由Conversation级Core Draft持有，send精确消费draftRevision。需要继续核查CAS/未知与模型输入治理；旧技能投递r1不等于批准新的附件选择语义。",
+    "next": "先制定与现行消费合同兼容的隔离方案，若改变模型可见内容/选择则另交完整具体revision确认，期间推进独立工作。"
+  },
+  "limitations": [
+    "完整BusinessApp、Native退出预检后失败/异常进程/Host接管仍待验",
+    "原通知设置失败焦点缺陷保留整改",
+    "私有附件/quotes隔离、孤立输入恢复、HTML规模、对象定位/授权文件/PTY及I02剩余/I04-I12/BUF继续",
+    "完整编译/工作区回归/平台Actions延期阶段候选；未push/合入/发布/付费"
+  ],
+  "cleanup": {
+    "loopback43127": "stopped_verified_no_listener",
+    "tab9": "closed",
+    "tab8": "close_binding_timeout_unconfirmed_temporary_tab_no_handoff",
+    "test_processes": "finished"
+  },
+  "artifacts": [
+    {
+      "path": "canvas-atomic-owners-initial.log",
+      "sha256": "3f39008b5a930926b0ff12f5c651d729385dbaa5118130be2886520cdf450631"
+    },
+    {
+      "path": "canvas-atomic-owners-final.log",
+      "sha256": "c2e98f5eb0bd0894990c628d14210c29ee934d9618e6c7833578d931166f018a"
+    },
+    {
+      "path": "canvas-atomic-typecheck-initial.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "canvas-atomic-typecheck-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "canvas-atomic-docs.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+    },
+    {
+      "path": "canvas-atomic-doc-tests.log",
+      "sha256": "7ff1b1762ac4272bcdf609593cd4dd7f0d79e0c1a9fe00a69773df40a0b70ca8"
+    },
+    {
+      "path": "canvas-atomic-browser-witness-partial.json",
+      "sha256": "6d492c0bb457cb74c991330ebbb535aadb5e34db4c70f05f4d8c38ab0f414ae3"
+    },
+    {
+      "path": "canvas-atomic-browser-witness-retry.json",
+      "sha256": "734d02a84d13b2485bd3515547ae2e6220917e77005d45e618339d4cab4e6f31"
+    },
+    {
+      "path": "canvas-atomic-original-editors.jpg",
+      "sha256": "b217dfd24bab7536cc462a3342ad100d6a464bc7be77f7e67a83ce77362d034e"
+    },
+    {
+      "path": "canvas-atomic-unknown.jpg",
+      "sha256": "393b33a01e8581b37ffe26134420fa8ee9d755e62dcd48722abd9fc4d36cc123"
+    },
+    {
+      "path": "canvas-atomic-reconciled.jpg",
+      "sha256": "db2354d6174f9660c50b3006a71f3aaad88fdd5c013521cc8f2fb621b19760dd"
+    },
+    {
+      "path": "canvas-atomic-final.jpg",
+      "sha256": "b1582e9bef760644b3f74d9716e8001e6bd79253286b7a360dad7ef2a5c9d7c1"
+    },
+    {
+      "path": "canvas-atomic-fixture/entry.tsx",
+      "sha256": "51c4b955d5bd880df643b154178a842c29f98d8f6e94317f11c96271d1171f98"
+    },
+    {
+      "path": "canvas-atomic-fixture/server.mjs",
+      "sha256": "bc36890728c894df4938b54050d50b6e78c10dc803f406d283d793c02f4a887f"
+    },
+    {
+      "path": "canvas-atomic-fixture/index.html",
+      "sha256": "23f89bab590317547eb4c96ff607b4fd2728ba27ea1c10e403d25d081205e2fb"
+    }
+  ],
+  "source_proof": {
+    "path": "work/i03/canvas-atomic-source-proof.json",
+    "sha256": "413191fd5e680a293ad68565e259a4f3652e7b012ef481e4fcc6306dc48a90b9"
+  },
+  "authority": {
+    "schema": 154,
+    "host": 4,
+    "current_contract": "v1.72",
+    "current_operations": 178,
+    "historical_operations": 161,
+    "model_input_changed": false,
+    "dependencies_changed": false,
+    "codegraph": "no_existing_index_no_initialization_or_sync_claim"
+  }
+}

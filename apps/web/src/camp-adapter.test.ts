@@ -1,5 +1,5 @@
 import { afterEach, expect, it, vi } from 'vitest'
-import type { AgentRunExecutionEvidenceView } from '@contracts'
+import type { AgentRunExecutionEvidenceView, CoreMethod } from '@contracts'
 import { ExecutionWindow } from '../../desktop/src/renderer/src/execution-window'
 import { ConsoleClient } from './client'
 import { createThreadAdapter } from './camp-adapter'
@@ -7,6 +7,82 @@ import { createThreadAdapter } from './camp-adapter'
 // Owns the production Web adapter + execution window seam. A Host-only HTTP
 // test bypasses this adapter's allowlist; a populated page hides missing deltas.
 afterEach(() => vi.unstubAllGlobals())
+it.each([false, true])('恢复与结束准备分别按服务端能力开放（结束能力 %s）', async lifecycle => {
+  const values = new Map<string, string>()
+  const storage = { getItem: (key: string) => values.get(key) ?? null,
+    setItem: (key: string, value: string) => { values.set(key, value) }, removeItem: (key: string) => { values.delete(key) } }
+  vi.stubGlobal('sessionStorage', storage); vi.stubGlobal('localStorage', storage)
+  vi.stubGlobal('navigator', { platform: 'Win32' })
+  vi.stubGlobal('window', { sessionStorage: storage, history: { state: null } })
+  vi.stubGlobal('matchMedia', () => ({ matches: false }))
+  const id = '00000000-0000-4000-8000-000000000001', conversationId = '00000000-0000-4000-8000-000000000002'
+  const input = { commandId: id, threadId: 'rvcamp_0000000000e008000000000001', expectedRevision: 0,
+    target: { kind: 'single_chat' as const, conversationId } }
+  const paths: string[] = []
+  const fetcher = vi.fn<typeof fetch>(async (url, options) => {
+    if (String(url).endsWith('/login')) return Response.json({ protocolVersion: 4, token: 'a'.repeat(64), clientId: 'b'.repeat(64), editorProof: 'c'.repeat(64), ownerId: 'owner', privateUploadRecoveryVersion: 1, ...(lifecycle ? { privateUploadLifecycleVersion: 1 } : {}) })
+    paths.push(new URL(String(url)).pathname)
+    if (String(url).endsWith('/uploads')) {
+      expect(JSON.parse(String((options!.body as FormData).get('intent')))).toMatchObject(input)
+      return Response.json({ draft: null })
+    }
+    return Response.json({ state: 'recorded', receipt: { commandId: id, commandType: 'camp.source_attachment.upload.bind', status: 'applied', code: 'attachment.upload_bound',
+      payload: { attachmentRefId: id }, resultEntity: null, recordedAt: '2026-10-16T00:00:00Z' } })
+  })
+  const transport = new ConsoleClient('http://localhost:4317', fetcher)
+  await transport.login('d'.repeat(64))
+  const { client } = createThreadAdapter(transport, async () => null).environment
+  const api = client.singleChatAttachments
+  expect(typeof api.finishInput).toBe(lifecycle ? 'function' : 'undefined')
+  expect(await api.prepareInput!(input, new File(['input'], 'input.txt'))).toMatchObject({ state: 'recorded' })
+  expect(await api.pendingPreparations!({ threadId: input.threadId, conversationId, composerScope: null })).toHaveLength(1)
+  expect(await api.reconcileInput!(input)).toMatchObject({ state: 'recorded' })
+  expect(await api.retryInput!(input)).toMatchObject({ state: 'recorded' })
+  if (lifecycle) expect(await api.finishInput!(input)).toMatchObject({ state: 'recorded' })
+  expect(paths).toEqual(['/api/v1/uploads', '/api/v1/uploads/receipt'])
+  transport.clear()
+})
+
+it('admits the shared canvas operations through the authenticated Web adapter and rejects native-only operations', async () => {
+  const storage = { getItem: () => null, setItem: () => undefined, removeItem: () => undefined }
+  vi.stubGlobal('sessionStorage', storage); vi.stubGlobal('localStorage', storage)
+  vi.stubGlobal('navigator', { platform: 'MacIntel' })
+  vi.stubGlobal('window', { sessionStorage: storage, history: { state: null } })
+  vi.stubGlobal('matchMedia', () => ({ matches: false }))
+  const requests: unknown[] = []
+  const fetcher = vi.fn<typeof fetch>(async (url, options) => {
+    if (String(url).endsWith('/login')) return Response.json({ protocolVersion: 4, token: 'a'.repeat(64), clientId: 'd'.repeat(64), editorProof: 'e'.repeat(64), ownerId: 'local_user' })
+    const request = JSON.parse(String(options?.body)); requests.push(request)
+    expect(new Headers(options?.headers).get('Authorization')).toBe('Bearer ' + 'a'.repeat(64))
+    return Response.json({ result: request })
+  })
+  const transport = new ConsoleClient('http://127.0.0.1:8766', fetcher)
+  await transport.login('b'.repeat(64))
+  const { client } = createThreadAdapter(transport, async () => null).environment
+  expect(client.singleChatAttachments.prepareInput).toBeUndefined()
+  const operations = ['canvas.boards.list', 'canvas.boards.get', 'canvas.boards.create',
+    'canvas.boards.update', 'canvas.boards.delete', 'canvas.nodes.snapshot', 'canvas.nodes.apply', 'canvas.references.page',
+    'canvas.terminals.start', 'canvas.terminals.snapshot', 'canvas.terminals.write', 'canvas.terminals.resize', 'canvas.terminals.stop',
+    'skillPacks.list', 'skillPacks.read', 'skillPacks.installations.list', 'skillPacks.install', 'skillPacks.uninstall', 'skillPacks.members.list', 'skillPacks.members.set',
+    'threads.pendingDraft.setPresence',
+    'workspaces.worktrees', 'navigation.activity'] satisfies CoreMethod[]
+  try {
+    for (const operation of operations) {
+      const params = operation === 'navigation.activity' ? { groupKeys: ['directory:/project'], threadIds: ['external-window-thread'] }
+        : operation === 'canvas.references.page' ? { afterThreadId: null, upperThreadId: null, limit: 200 }
+        : operation === 'workspaces.worktrees' ? { path: '/project' }
+        : operation.startsWith('canvas.terminals.') ? { target: { boardId: 'board', nodeId: 'terminal' }, generation: 'original' }
+        : operation.startsWith('skillPacks.') ? { skillId: 'example', commandId: 'original', command: { skillId: 'example', expectedVersion: 'absent' } }
+        : operation === 'threads.pendingDraft.setPresence' ? { threadId: 'pending', present: true }
+        : { commandId: operation, command: { boardId: 'board', expectedRevision: 3 } }
+      expect(await client.request(operation, params)).toEqual({ operation, params })
+    }
+    expect(requests).toHaveLength(operations.length)
+    await expect(client.request('preferences.newConversation.initialize')).rejects.toThrow('尚未开放此 Web 操作')
+    expect(requests).toHaveLength(operations.length)
+  } finally { transport.clear() }
+})
+
 it('loads a command after an initially empty Web Run and refreshes its completion', async () => {
   const storage = { getItem: () => null, setItem: () => undefined, removeItem: () => undefined }
   vi.stubGlobal('sessionStorage', storage)

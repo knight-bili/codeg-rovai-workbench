@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "at": "2026-10-16T14:24:10.918972+00:00",
+  "status": "evidence_settled_finite_remaining_queue_frozen",
+  "audit_base": "04fc69bd",
+  "audit": {
+    "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\i03-closeout-evidence-audit.json",
+    "sha256": "bbe74b270742f79010265b0dcd2c55e604f6e55e57b48ffc75fa29cd568f8f11",
+    "verified_artifact_hashes": 409,
+    "failed": 0
+  },
+  "before_snapshot": {
+    "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\closeout-before-04fc69bd",
+    "sha256": "6ec40c119b1c9df3798e96291cdbacf93377f8048aa32b55fe491653808d3837"
+  },
+  "source_reuse": [
+    {
+      "report": "i03-thread-projection-result.json",
+      "path": "apps/desktop/src/renderer/src/thread-projection-store.ts",
+      "recorded_sha256": "6cb15336b6b683ddf7650b8c35326641a0ed415e64d5476daa8753f18954b1dd",
+      "current_sha256": "6cb15336b6b683ddf7650b8c35326641a0ed415e64d5476daa8753f18954b1dd",
+      "matches": true
+    },
+    {
+      "report": "i03-thread-projection-result.json",
+      "path": "apps/desktop/src/renderer/src/thread-projection-store.test.ts",
+      "recorded_sha256": "2e067d9268f8a6fc1b3ce3bc319556916fc799ca4c6084c3915ab30cf508dad0",
+      "current_sha256": "2e067d9268f8a6fc1b3ce3bc319556916fc799ca4c6084c3915ab30cf508dad0",
+      "matches": true
+    },
+    {
+      "report": "i03-terminal-ui-result.json",
+      "path": "apps/desktop/src/renderer/src/canvas-terminal-sessions.ts",
+      "recorded_sha256": "1c5e6732f745770610fc7cd9e3713378e7a7ad098774cb885b8b7c62121ae738",
+      "current_sha256": "1c5e6732f745770610fc7cd9e3713378e7a7ad098774cb885b8b7c62121ae738",
+      "matches": true
+    },
+    {
+      "report": "i03-terminal-ui-result.json",
+      "path": "apps/desktop/src/renderer/src/canvas-terminal-controller.ts",
+      "recorded_sha256": "ccd7319816088174101decd55deff9a01d5a8d4a73eecfadd01822641dedc2da",
+      "current_sha256": "ccd7319816088174101decd55deff9a01d5a8d4a73eecfadd01822641dedc2da",
+      "matches": true
+    },
+    {
+      "report": "i03-terminal-ui-result.json",
+      "path": "apps/desktop/src/renderer/src/canvas-terminal-controller.test.ts",
+      "recorded_sha256": "892742b4bd484d7044d598981112c32854d4002e45b0ae9a9f368efebed234d6",
+      "current_sha256": "892742b4bd484d7044d598981112c32854d4002e45b0ae9a9f368efebed234d6",
+      "matches": true
+    },
+    {
+      "report": "i03-terminal-ui-result.json",
+      "path": "work/i03/terminal-ui-tests-final.log",
+      "recorded_sha256": "4051d4b2971153ebbdbc65092ed1f6791802a3812f6afba8f8405c0714d02597",
+      "current_sha256": "4051d4b2971153ebbdbc65092ed1f6791802a3812f6afba8f8405c0714d02597",
+      "matches": true
+    },
+    {
+      "report": "i03-terminal-ui-result.json",
+      "path": "work/i03/terminal-controller-tests-initial.log",
+      "recorded_sha256": "d8038a82798338d0a6c9b2387b6bf8ef9e3ea408f3081dc4ffc72337347a31ca",
+      "current_sha256": "d8038a82798338d0a6c9b2387b6bf8ef9e3ea408f3081dc4ffc72337347a31ca",
+      "matches": true
+    }
+  ],
+  "core_case_reuse": [
+    {
+      "path": "crates/rovai-core/src/single_chat_composer_tests.rs",
+      "compiled_reference": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+      "compiled_blob": "bcaaa5f647aacf399a470b0cc64766d2654ea7c0",
+      "current_blob": "bcaaa5f647aacf399a470b0cc64766d2654ea7c0",
+      "current_sha256": "270bee4fb999acb369c7bc1dd0da585e75469e5b46eb22b7646c1bb25e2be5b5"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat_composer.rs",
+      "compiled_reference": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+      "compiled_blob": "f88f32273f2565d486b70c688a8c85924773561b",
+      "current_blob": "f88f32273f2565d486b70c688a8c85924773561b",
+      "current_sha256": "ff754e70aec31bd970751664dff2d9331e1fa3cf19c434172dcc6c71e8dba88d"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat.rs",
+      "compiled_reference": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+      "compiled_blob": "a2e22e49b7b14006f7597864a1a0f2f699d41004",
+      "current_blob": "a2e22e49b7b14006f7597864a1a0f2f699d41004",
+      "current_sha256": "288e6688548f1c65ed5133d46bccdb9386545307fdd46e64ea9e02ec0ac96392"
+    },
+    {
+      "path": "crates/rovai-core/src/draft_client.rs",
+      "compiled_reference": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+      "compiled_blob": "8745a0ed10f868be9f728e63f951f7142124bdce",
+      "current_blob": "8745a0ed10f868be9f728e63f951f7142124bdce",
+      "current_sha256": "651d61c4788d6205f11abbe5979dd21f9a08c4e3378d2cb889ee2598dac2ed1e"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat_composer_scope.rs",
+      "compiled_reference": "b43416d3b2d161868cb0aa4204a4fc92de550942",
+      "compiled_blob": "89d74f0aa5abacabdb842760b3eb4067fec920ad",
+      "current_blob": "89d74f0aa5abacabdb842760b3eb4067fec920ad",
+      "current_sha256": "01b24473dc178b625f20dfd7406339140d758e28ad2cf88ebadfe90dba34a4c3"
+    }
+  ],
+  "core_logs": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.3\\private-material-tests.log",
+      "sha256": "11ffb3215467215efced7cd86668d4e5602e6a75a8e5830730ff50dc6659bc2f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.3\\private-material-tests-result.json",
+      "sha256": "0e6178d69b95554cc99b9d09c9797c38c0016349e4abd330ef12782bae352e38"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.4\\rust-owner-25.log",
+      "sha256": "69057f5b6f2a18ec36b16c17ed2e94eee9a198bd23a29d399865bd314f7196ff"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.4\\rust-owner-26.log",
+      "sha256": "8c33999b497fdc0524d6eb41a485fc526f6706192ccdf55adb2c7d90eadc3a52"
+    }
+  ],
+  "settled_obligations": [
+    {
+      "id": "S01",
+      "obligation": "便笺真实拖动、行内保存、冲突及离开保护",
+      "evidence": "i03-c05-notes-mirrors-native-verification.json",
+      "qualification_boundary": "六项rc14真实场景；当前新CSS最终集成另归R10",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S02",
+      "obligation": "同私聊双卡独立正文/编辑器、暖态及新App恢复",
+      "evidence": "i03-c05-notes-mirrors-native-verification.json",
+      "qualification_boundary": "不等于整App/Core硬中断或最终发送",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S03",
+      "obligation": "renderer两次硬中断保留私聊末字和便笺副本",
+      "evidence": "i03-c05-renderer-crash-native-verification.json",
+      "qualification_boundary": "只关闭renderer层旧待办；App/Core仍在R04",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S04",
+      "obligation": "公开双Thread三卡焦点、读者与监听释放",
+      "evidence": "i03-c05-public-multi-native-verification.json",
+      "qualification_boundary": "rc15相关回归通过；其他资源预算另列",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S05",
+      "obligation": "64摘要实际渲染和可信滚轮平移",
+      "evidence": "i03-c05-public-multi-native-verification.json",
+      "qualification_boundary": "不外推所有操作帧率、64实时输入或64PTY",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S06",
+      "obligation": "Mission/历史Task/具体文件进入原工作区",
+      "evidence": "i03-c06-source-card-group-verification.json",
+      "qualification_boundary": "真实对象8场景；新进程对象路由和过期容量仍在R05",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S07",
+      "obligation": "真实Git中文精确Diff、索引物理不变及变干净不替代",
+      "evidence": "i03-c02-ready-diff-public-cold-native-verification.json",
+      "qualification_boundary": "真实Core+固定本地ACP协议；无外部模型推理",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S08",
+      "obligation": "真实文本/HTML、作者交互、CSP、源码往返及跨卡重读",
+      "evidence": "i03-c06-source-card-group-verification.json",
+      "qualification_boundary": "真实文件9场景；跨Thread/HTML上限和冷恢复在R06",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S09",
+      "obligation": "临时PTY既有生命周期和真实键盘输入/绘制/停止",
+      "evidence": "i03-c06-rc15-list-native-verification.json",
+      "qualification_boundary": "rc15相关终端5场景；16/17真实上限、重连和IME在R07",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S10",
+      "obligation": "真实列表轮廓/节点数、右键/Shift+F10/回焦和删除提示",
+      "evidence": "i03-c06-rc15-list-native-verification.json",
+      "qualification_boundary": "7场景；后改纵向SVG样式须R10集成，菜单键和旧Host提示在R09",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S11",
+      "obligation": "原三个私聊材料Rust测试owner已编译并执行",
+      "evidence": "i03-c06-candidate-result.json",
+      "qualification_boundary": "只结算旧“尚未编译”记录，不宣告24场景全过",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S12",
+      "obligation": "五个空闲Thread快照的逻辑预算",
+      "evidence": "i03-thread-projection-result.json",
+      "qualification_boundary": "原源码/测试与日志匹配；挂载、监听、在途不淘汰，不是窗口实测性能",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S13",
+      "obligation": "64个窗口终端控制器的逻辑预算",
+      "evidence": "i03-terminal-ui-result.json",
+      "qualification_boundary": "原源码/测试与日志匹配；不可淘汰条目锁住第65个，释放后可替换，不是64真实PTY",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S14",
+      "obligation": "原HTML合法双入口403修复的真实界面复验",
+      "evidence": "i03-c06-card-refinement-verification.json",
+      "qualification_boundary": "原9场景及后续rc14文件回归；不扩大为全部浏览器/HTML预算通过",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S15",
+      "obligation": "PC04错误会话绑定边界",
+      "evidence": "i03-closeout-settlement.json",
+      "qualification_boundary": "Core真实SQLite绑定边界；不声称其他编辑端、Host认证或完整UI通过",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S16",
+      "obligation": "PC07伪造pin及登记回滚边界",
+      "evidence": "i03-closeout-settlement.json",
+      "qualification_boundary": "Core绑定/事务边界与实际Native伪造pin；不覆盖其余24场景",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S17",
+      "obligation": "PC13引用无正文准入边界",
+      "evidence": "i03-closeout-settlement.json",
+      "qualification_boundary": "Core真实SQLite发送准入；未运行模型，最终Runtime输入仍归PC14/PC22",
+      "status": "settled_within_declared_scope"
+    }
+  ],
+  "counts": {
+    "settled_obligations": 17,
+    "open_work_groups": 10,
+    "private_cases_verified": 3,
+    "private_cases_open": 21
+  },
+  "definition_correction": {
+    "case": "C12-F",
+    "old": "删除当前画板或重复名称冲突",
+    "new": "删除当前画板或并发修改/删除触发版本冲突",
+    "reason": "固定Codeg create_board及迁移不设name唯一约束；融合Core同样允许重名。修正原计划误写，保留既有产品行为。",
+    "donor": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "sources": [
+      "src-tauri/src/db/service/canvas_service.rs:1224",
+      "src-tauri/src/db/migration/m20260929_000001_canvas_board.rs:24"
+    ]
+  },
+  "guardrails": {
+    "new_runtime_tests": 0,
+    "new_builds": 0,
+    "paid_models": false,
+    "push": false,
+    "actions": false,
+    "production_code_changed": false,
+    "full_i03_passed": false,
+    "current_css_native_integration_pending": true
+  },
+  "next": "优先I03-R03实际Host身份边界，复用已构建程序与既有安全owner；同步准备R01页面缺口，不立即重编完整App。"
+}

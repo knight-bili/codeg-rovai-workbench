@@ -294,3 +294,23 @@ Run the Renderer theme-token tests and the shared [theme matrix](../qa/theme-mat
 `1040×700`, `1440×920`, `2560×1440`, keyboard focus, 200% zoom and reduced motion.
 
 Neutral workspace selection/hover tokens apply to teammate roster, Memory, Automation and jump search. These workspaces reuse the conversation action family for neutral actions; Runtime configuration dropdowns and sidebar backgrounds retain their existing tokens. Focus tokens do not require an extra outline, halo or focused input border.
+
+## 融合画布专用中性色
+
+客户于 2026-10-16 明确指定 Codeg 画布截图为融合画布的视觉参考。以下 Token 仅由画布、画布菜单与画板弹窗消费，应用其他页面继续使用本主题既有语义。
+
+| Token | 值 |
+|---|---|
+| `--canvas-board-background` | `#ffffff` |
+| `--canvas-board-card` | `#ffffff` |
+| `--canvas-board-input` | `#fafafa` |
+| `--canvas-board-ink` | `#171717` |
+| `--canvas-board-muted` | `#737373` |
+| `--canvas-board-line` | `#e5e5e5` |
+| `--canvas-board-dot` | `#e5e5e5` |
+| `--canvas-board-hover` | `#f5f5f5` |
+| `--canvas-board-selected` | `#e5e5e5` |
+| `--canvas-board-action` | `#262626` |
+| `--canvas-board-action-ink` | `#fafafa` |
+
+十二个 `--canvas-color-*` 身份色按固定 Codeg `THEME_COLOR_PREVIEW` 原值保存在共享主题文件中，两套主题一致，不替代成功、警告或错误状态色。组件与来源映射见 [画布源码参考](../../../integration/inventory/canvas-ui-reference.md)。

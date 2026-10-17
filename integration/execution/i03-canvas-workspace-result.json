@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-14T17:19:26.583Z",
+  "source_commit": "d30d6b0139962d429ef9d823c6060d84b3fbadc9",
+  "stage": "I03",
+  "status": "multi_board_and_production_navigation_coded_targeted_checks_passed_not_runtime_qualified",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+      "sha256": "c69987f04ee81289a0ccd160c0d16e1a94894dd396915cf509a8030591016dfb"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasBoardDialog.tsx",
+      "sha256": "bf8495fdd88afedb9f9bc43e307a71b9a1d25f67912e8d3b313a1852302ce719"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-boards-controller.ts",
+      "sha256": "f45ceeb34b2a556c78684210b71cf762affd37180c82605df7400505069de536"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "07e2624c1a3748008c236b5a1e1daec096ee0ab0acbfd4e30ca156ba479b3955"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "f29d487c07596ecffa8384b84ee4dd0f89556d5879ffb509b2ddf727e31ca3e2"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "sha256": "fab3228b8f82b9f532a203476b1d3ca6c6536aac9976eb09ad4451918471c48f"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+      "sha256": "5e9f6d503a5d15aee26a6dcf1e90e1d0a45f9f8d90a6d3eb5d5abb5ee7cae580"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-view-state.ts",
+      "sha256": "e175c5b7a711fb3437c105d31a1392c453e9994923256bc026b738f7ed99bab0"
+    },
+    {
+      "path": "apps/web/src/navigation-history.ts",
+      "sha256": "a7eea5293c6e4a481dc1d5e9993320164ba848b4cea95837a61c852d5908aba9"
+    },
+    {
+      "path": "apps/web/src/camp-adapter.ts",
+      "sha256": "47a517cfa7958ac5abd62aaf6a63d078d58aa2712684a747cd07312fc91d3658"
+    }
+  ],
+  "implemented": [
+    "Core snapshot-based board list, explicit create/edit/delete dialogs, original command reconciliation and exact retry for all three writes",
+    "Shared Desktop/Web sidebar and navigation page; Mobile Web menu header uses the same workspace",
+    "Host/Owner/Core-scoped last board preference; stale board selection is checked against an authoritative successful list",
+    "Unsaved node/board forms, active gestures and unknown writes block board switching, shared page departure and native App quit; browser beforeunload requests its native warning",
+    "Private references read and validate the exact active Conversation and Thread, then focus that same conversation without manufacturing a notification Run ID or opening a replacement chat",
+    "Keyboard moves and delete actions join Core commands and confirmation rather than changing only ReactFlow memory",
+    "Recovered rejection errors remain visible inside dialogs and leave original input intact"
+  ],
+  "verification": {
+    "board_and_view_owners": {
+      "status": "passed",
+      "passed": 8,
+      "failed": 0,
+      "log": "work/i03/canvas-boards-controller-tests-1.log"
+    },
+    "related_six_module_initial_run": {
+      "status": "failed_preserved",
+      "passed": 214,
+      "failed": 5,
+      "log": "work/i03/canvas-workspace-tests-2.log",
+      "detail": "All five failures were in the unchanged legacy Runtime catalog expectation/fixture inside App.test.ts; the other five module owners passed."
+    },
+    "app_owner_after_fixture_repair": {
+      "status": "passed",
+      "passed": 183,
+      "failed": 0,
+      "log": "work/i03/canvas-root-runtime-fixture-tests.log"
+    },
+    "other_five_owner_results": {
+      "status": "passed_reused_from_initial_run",
+      "passed": 36,
+      "failed": 0,
+      "modules": [
+        "SingleChatPanel.test.ts",
+        "canvas-boards-controller.test.ts",
+        "canvas-view-state.test.ts",
+        "navigation-history.test.ts",
+        "camp-adapter.test.ts"
+      ],
+      "detail": "The repair changed only App.test.ts synthetic fixture and expected catalog; these production modules and other test owners were not changed afterward. This is not a claim of one final 219-test all-green run."
+    },
+    "targeted_types": {
+      "status": "passed",
+      "log": "work/i03/canvas-workspace-typecheck-final.log",
+      "command": "pnpm exec tsc --noEmit -p ../i03/canvas-ui-typecheck.json",
+      "scope": "BusinessApp/Canvas, Web adapter/history and transitive dependencies, not all repository configurations"
+    },
+    "copy_check": {
+      "status": "passed",
+      "duplicate_locale_keys": 0,
+      "missing_literal_translations_in_four_canvas_modules": 0,
+      "log": "work/i03/canvas-workspace-copy-check.log"
+    },
+    "generic_documentation_gates": {
+      "status": "passed",
+      "log": "work/i03/canvas-workspace-docs-check.log"
+    },
+    "diff_check": "passed",
+    "earlier_type_failure": "canvas-workspace-typecheck-1.log: ReactNode guard used unknown readError directly; fixed with a boolean guard",
+    "mounted_ui_and_keyboard": "pending_stage_verification",
+    "actual_current_host": "pending_stage_verification",
+    "rust_compile_and_workspace_regression": "deferred_stage_candidate",
+    "real_model_and_platform_qualification": "pending"
+  },
+  "runtime_fixture_repair": {
+    "stale_catalog_origin": "1595fb6b added Gemini/Hermes/OpenClaw before this UI slice",
+    "change": "Extend the existing closed catalog assertion and synthetic runtimeAdmissionRows helper to cover the three existing entries",
+    "production_admission_changed": false,
+    "real_model_or_platform_qualification_inferred": false
+  },
+  "self_review": [
+    "Shared board/node revision floor rejects stale reads and commands; command results do not become a replacement list cache",
+    "Subscribe before initial read; disposal suppresses late publication; a failed follow-up read keeps a recorded result terminal",
+    "Modal cancellation and page/quit guards query live pending state, not only React-rendered booleans",
+    "Private focus validates actual conversation ownership and current navigation intent; no public-thread fallback or new Run identity",
+    "Board deletion confirmation covers note prose and leaves independent business objects/files untouched at the command seam",
+    "Selected-board preferences are advisory; presentationScope/dataDir do not authorize file access"
+  ],
+  "remaining": [
+    "Complete paginated folder/group/agent region resolution, real folder-group preferences, worktree inclusion and full private-conversation choices",
+    "Member drag transfers, expanded conversation cards and existing authoritative Composer drafts",
+    "Mission/Task/Thread/Diff execution round trip, authorized file previews and actual ephemeral PTY lifecycle",
+    "Desktop cold-start Canvas routing and hard-interruption qualification; public Core RestorableLocation is still unchanged",
+    "Mounted Desktop/Web UI, keyboard/close/reconnect interaction, current Host/Rust regression and required platform evidence"
+  ],
+  "execution_policy": {
+    "candidate": "fusion-i03-rc.1",
+    "candidate_frozen": false,
+    "pushed": false,
+    "new_action_runs": 0,
+    "stage_complete": false,
+    "customer_action_needed_for_this_slice": false
+  }
+}

@@ -7,6 +7,10 @@ last_updated: 2026-10-10
 
 # Mission board
 
+画布中的公开会话卡片复用本工作区的 Mission 说明、启动及交付/活动/累计 Diff 组件；入口要求当前 Thread 与 Mission 投影标识一致。
+镜像卡共享既有使命动作 owner，来源定位返回发起卡片。多实例的折叠、文件树和 Diff 弹窗控件标识相互独立；
+Mission 缺失或换绑时，保留的活动页显示不可用。此接线不改变使命命令、固定基线或模型输入。
+
 The board header's creation entry is **新使命**, using the existing neutral primary action tokens
 (`--conversation-action` / `--conversation-action-contrast`, black in Day) and their hover token.
 This entry still opens the same creation dialog; the dialog's labels and submission choices are unchanged.

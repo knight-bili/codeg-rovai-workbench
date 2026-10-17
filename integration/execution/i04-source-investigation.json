@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "stage": "I04",
+  "task": "I04-T01",
+  "status": "source_investigation_in_progress_not_implemented",
+  "checked_at": "2026-10-17T01:31:06.238653+00:00",
+  "formal_case_ids": [
+    "C01-N",
+    "C01-F",
+    "C01-R",
+    "C01-P",
+    "C03-N",
+    "C03-F",
+    "C03-R",
+    "C03-P",
+    "C08-N",
+    "C08-F",
+    "C08-R",
+    "C08-P",
+    "C10-N",
+    "C10-F",
+    "C10-R",
+    "C10-P",
+    "C11-N",
+    "C11-F",
+    "C11-R",
+    "C11-P",
+    "R04-N",
+    "R04-F",
+    "R04-R",
+    "R04-P",
+    "R05-N",
+    "R05-F",
+    "R05-R",
+    "R05-P",
+    "R08-N",
+    "R08-F",
+    "R08-R",
+    "R08-P",
+    "R09-N",
+    "R09-F",
+    "R09-R",
+    "R09-P",
+    "R10-N",
+    "R10-F",
+    "R10-R",
+    "R10-P",
+    "R11-N",
+    "R11-F",
+    "R11-R",
+    "R11-P",
+    "R14-N",
+    "R14-F",
+    "R14-R",
+    "R14-P",
+    "R15-N",
+    "R15-F",
+    "R15-R",
+    "R15-P",
+    "R16-N",
+    "R16-F",
+    "R16-R",
+    "R16-P",
+    "R17-N",
+    "R17-F",
+    "R17-R",
+    "R17-P",
+    "R18-N",
+    "R18-F",
+    "R18-R",
+    "R18-P",
+    "R19-N",
+    "R19-F",
+    "R19-R",
+    "R19-P",
+    "R22-N",
+    "R22-F",
+    "R22-R",
+    "R22-P",
+    "R23-N",
+    "R23-F",
+    "R23-R",
+    "R23-P",
+    "R24-N",
+    "R24-F",
+    "R24-R",
+    "R24-P",
+    "R35-N",
+    "R35-F",
+    "R35-R",
+    "R35-P"
+  ],
+  "findings": [
+    {
+      "source": "Codeg delegation-context.tsx:46-59,125-205,228-249",
+      "fact": "父tool-use、子connection/conversation与broker task分别定位；子permission保持子connection身份，完成后先保留实时结果再分离。",
+      "implication": "私聊数不能作为父子数；当前UI不能只复制计数。"
+    },
+    {
+      "source": "Codeg delegation/types.rs:54-104,202-216,231-251",
+      "fact": "新委派与原task恢复有不同请求；状态含running/completed/failed/canceled/unknown，阻塞原因区分权限、问题和计划。",
+      "implication": "Core映射必须核对稳定task归属、阻塞请求ID及迟到/取消/重启，不把unknown写成failed或重发。"
+    },
+    {
+      "source": "Core runtime.rs:43-81 is_root_output",
+      "fact": "带子归属、replay或snapshot标记的内容排除出根输出；Claude解析也区分根消息。",
+      "implication": "保持根输出隔离；子会话持久身份与展示需独立设计，不直接放宽过滤。"
+    }
+  ],
+  "not_proven": [
+    "尚未完成broker/listener/spawner全链路核查",
+    "尚未决定或实现融合持久化/API/迁移",
+    "没有运行外部模型或授予父子/委派真实资格"
+  ],
+  "next": "固定broker/listener/spawner与Core协作/Native Session身份映射",
+  "source_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\source-reference\\codeg\\src\\contexts\\delegation-context.tsx",
+      "source": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "3d7a8d2655a0d5dc40876692877e5cc0c9f439c9800e5e31fd48ee791112051e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\source-reference\\codeg\\src-tauri\\src\\acp\\delegation\\types.rs",
+      "source": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "9f5082b36e7af588c9a72106628ef08f9cae526023c529471e235d6909b0803c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\source-reference\\codeg\\src-tauri\\src\\acp\\delegation\\service.rs",
+      "source": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+      "sha256": "925232517852415aa1e6350b102377d086c2f5b6157925417f59215cb3dcd73f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\crates\\rovai-core\\src\\runtime.rs",
+      "source": "fd5ae8bbd9458c36694b0ebe1a2e45360946ec84",
+      "sha256": "0ec79e72db375ce0c9a0cd772476263ed479e0bf449e6b1ca983ba7b076579de"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\crates\\rovai-core\\src\\claude.rs",
+      "source": "fd5ae8bbd9458c36694b0ebe1a2e45360946ec84",
+      "sha256": "1060e586d8db3015c512ab285c18c749a079ec22d24a35cecf05ed72e18bd0f9"
+    }
+  ]
+}

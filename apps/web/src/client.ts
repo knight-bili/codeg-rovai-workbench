@@ -3,6 +3,8 @@ import { browserEditingRecovery } from './editing-recovery'
 import { RECOVERY_KEY, type RecoveryStorage } from './tab-recovery'
 import { fileDigest } from './file-digest'
 import { newCommandId } from '../../desktop/src/shared/command-id'
+import { BrowserPrivateUploadPreparations } from './private-upload-preparations'
+import type { EditingRecovery } from '../../desktop/src/renderer/src/camp-client'
 import type { ThreadReadInvalidation, ChannelKind, ChannelSettingsSnapshot, FilePreviewBinaryContent, FilePreviewOperationResult, LocalAttachmentSourceView } from '@contracts'
 
 const HOST_WEB_PROTOCOL_VERSION = 4
@@ -54,6 +56,8 @@ export const WEB_OPERATIONS = [
   'singleChat.end',
   'singleChat.pendingInputs.edit',
   'singleChat.composerDraft.removeAttachment',
+  'singleChat.composerDraft.mutate',
+  'singleChat.composerDraft.recovery',
   'skills.content.read',
   'skills.import.inspect',
   'skills.import.github.inspect',
@@ -118,6 +122,7 @@ export const WEB_OPERATIONS = [
   'automations.run',
   'app.info',
   'navigation.snapshot',
+  'navigation.activity',
   'navigation.threads',
   'navigation.groupThreads',
   'navigation.campViewed',
@@ -149,6 +154,12 @@ export const WEB_OPERATIONS = [
   'toolbox.list',
   'toolbox.read',
   'toolbox.setMembers',
+  'canvas.boards.list', 'canvas.boards.get',
+  'canvas.boards.create', 'canvas.boards.update', 'canvas.boards.delete',
+  'canvas.nodes.snapshot', 'canvas.nodes.apply', 'canvas.references.page',
+  'canvas.terminals.start', 'canvas.terminals.snapshot', 'canvas.terminals.write', 'canvas.terminals.resize', 'canvas.terminals.stop',
+  'skillPacks.list', 'skillPacks.read', 'skillPacks.installations.list', 'skillPacks.install', 'skillPacks.uninstall', 'skillPacks.members.list', 'skillPacks.members.set',
+  'threads.pendingDraft.setPresence',
   'nativeSkills.list',
   'nativeSkills.read',
   'skills.candidates',
@@ -179,6 +190,7 @@ export const WEB_OPERATIONS = [
   'members.runtime.set',
   'members.runtime.clear',
   'workspaces.inspect',
+  'workspaces.worktrees',
   'workspaces.validate',
   'agentRunImages.read',
   'agentRunFileChanges.get',
@@ -191,6 +203,7 @@ export const WEB_OPERATIONS = [
 export type WebOperation = typeof WEB_OPERATIONS[number]
 
 const RECONCILABLE_COMMANDS = new Set<WebOperation>([
+  'canvas.boards.create', 'canvas.boards.update', 'canvas.boards.delete', 'canvas.nodes.apply',
   'threads.rename',
   'threads.delete',
   'threads.retryDeletion',
@@ -204,6 +217,7 @@ const RECONCILABLE_COMMANDS = new Set<WebOperation>([
   'skills.reconcile',
 
   'singleChat.open', 'singleChat.send', 'singleChat.end', 'singleChat.pendingInputs.edit',
+  'singleChat.composerDraft.mutate',
   'skills.import.commit',
   'skills.setEnabled',
   'skills.setGroupAssignments',
@@ -236,6 +250,14 @@ const RECONCILABLE_COMMANDS = new Set<WebOperation>([
   'members.create', 'members.update', 'members.avatar.set', 'members.runtime.set', 'members.runtime.clear',
   'messageQuotes.mutateDraft'
 ])
+
+function commandGroup(operation: WebOperation, params: unknown): string {
+  if (operation !== 'singleChat.composerDraft.mutate' && operation !== 'singleChat.pendingInputs.edit' && operation !== 'singleChat.send') return operation
+  const command = params && typeof params === 'object' && 'command' in params ? params.command : null
+  if (!command || typeof command !== 'object') return operation
+  const input = command as { threadId?: string; campId?: string; conversationId?: string; composerScope?: unknown }
+  return JSON.stringify([operation, input.threadId ?? input.campId, input.conversationId, input.composerScope ?? null])
+}
 
 export type ConnectionState = 'connecting' | 'live' | 'offline' | 'expired'
 type PendingCommand = { operation: WebOperation; params: unknown; resolve(value: unknown): void; reject(error: unknown): void }
@@ -272,7 +294,7 @@ export class InvalidationDecoder {
   }
 }
 
-type SessionResponse = { protocolVersion?: unknown; token?: unknown; clientId?: unknown; editorProof?: unknown; ownerId?: unknown; channels?: unknown; expiresAt?: unknown; serverTime?: unknown; renewalWindowSeconds?: unknown }
+type SessionResponse = { protocolVersion?: unknown; token?: unknown; clientId?: unknown; editorProof?: unknown; ownerId?: unknown; channels?: unknown; privateUploadRecoveryVersion?: unknown; privateUploadLifecycleVersion?: unknown; expiresAt?: unknown; serverTime?: unknown; renewalWindowSeconds?: unknown }
 
 export class ConsoleClient {
   readonly origin: string
@@ -295,6 +317,10 @@ export class ConsoleClient {
 
   #pending = new Map<string, PendingCommand>()
   #pendingUploads = new Map<string, PendingUpload>()
+  #privateUploadRecoveryVersion = 0
+  #privateUploadLifecycleVersion = 0
+  get supportsPrivateUploadLifecycle(): boolean { return this.supportsPrivateUploadRecovery && this.#privateUploadLifecycleVersion === 1 }
+  get supportsPrivateUploadRecovery(): boolean { return this.authenticated && this.#privateUploadRecoveryVersion === 1 }
   #localUploads = new Map<string, File>()
   #reconciling = false
   #restored = false
@@ -316,6 +342,14 @@ export class ConsoleClient {
   }
   get presentationScope(): string | null {
     return this.#ownerId ? `${this.origin}/${this.#ownerId}` : null
+  }
+  /** Core-verified editor identity; never a server path, credential or resource grant. */
+  async canvasCoreIdentity(): Promise<string> {
+    const scope = this.editingScope, generation = this.#generation
+    if (!scope || !this.authenticated) throw new SessionRequired()
+    await this.request('app.info')
+    if (!this.authenticated || scope !== this.editingScope || generation !== this.#generation) throw new DOMException('Connection replaced', 'AbortError')
+    return `web:${scope}`
   }
   get authenticated(): boolean { return this.#token !== null }
   onAuthenticationChanged(listener: () => void): () => void {
@@ -465,6 +499,8 @@ export class ConsoleClient {
     this.#editor = { clientId: session.clientId, proof: session.editorProof }
     this.#ownerId = session.ownerId
     this.#channels = session.channels === 'desktop' ? 'desktop' : 'unsupported'
+    this.#privateUploadRecoveryVersion = session.privateUploadRecoveryVersion === 1 ? 1 : 0
+    this.#privateUploadLifecycleVersion = session.privateUploadLifecycleVersion === 1 ? 1 : 0
     this.#token = session.token
     this.#persistTabAuthentication()
     this.#persistRecovery()
@@ -559,10 +595,25 @@ export class ConsoleClient {
   }
 
   async request<T>(operation: WebOperation, params: unknown = {}): Promise<T> {
+    if (operation === 'commands.reconcile') {
+      const query = structuredClone(params) as { operation?: WebOperation; params?: { commandId?: string } }
+      const receipt = await this.#rpc<CommandReceipt>(operation, query)
+      const id = query.params?.commandId
+      const entry = id ? this.#pending.get(id) : undefined
+      if (receipt.state === 'recorded' && id && entry && entry.operation === query.operation && JSON.stringify(entry.params) === JSON.stringify(query.params)) {
+        this.#pending.delete(id)
+        try { this.#notifyPending() } finally {
+          if (receipt.error) entry.reject(new CoreRequestError(receipt.error.code, receipt.error.message))
+          else entry.resolve(receipt.result)
+        }
+      }
+      return receipt as T
+    }
     const commandId = params && typeof params === 'object' && 'commandId' in params ? params.commandId : undefined
     if (!RECONCILABLE_COMMANDS.has(operation) || typeof commandId !== 'string') return this.#rpc<T>(operation, params)
     if (!this.authenticated) throw new SessionRequired()
-    if ([...this.#pending.values()].some(entry => entry.operation === operation)) throw new Error('同类操作的原提交仍待核对，请先核对原提交结果。')
+    const group = commandGroup(operation, params)
+    if ([...this.#pending.values()].some(entry => commandGroup(entry.operation, entry.params) === group)) throw new Error('同类操作的原提交仍待核对，请先核对原提交结果。')
     if (this.#pending.has(commandId)) throw new Error('原命令仍在核对中，请等待其结果。')
     // Keep the original request and promise alive through connection/session
     // loss. Shared production handlers retain their submitting state; no new ID
@@ -573,6 +624,14 @@ export class ConsoleClient {
       this.#notifyPending()
       void this.#dispatchCommand(commandId, entry)
     })
+  }
+
+  async retryPendingCommand(operation: 'singleChat.composerDraft.mutate' | 'singleChat.pendingInputs.edit' | 'singleChat.send', params: unknown): Promise<void> {
+    const id = params && typeof params === 'object' && 'commandId' in params ? params.commandId : undefined
+    const entry = typeof id === 'string' ? this.#pending.get(id) : undefined
+    if (!entry) { await this.request(operation, structuredClone(params)); return }
+    if (entry.operation !== operation || JSON.stringify(entry.params) !== JSON.stringify(params)) throw new Error('原命令参数不一致。')
+    await this.#dispatchCommand(id as string, entry, true)
   }
 
   async #dispatchCommand(commandId: string, entry: PendingCommand, preserveUnknown = false): Promise<void> {
@@ -612,16 +671,62 @@ export class ConsoleClient {
     return this.uploadTo<LocalAttachmentSourceView>(threadId, expectedRevision, file)
   }
 
+  privateUploadPreparations(storage: EditingRecovery): BrowserPrivateUploadPreparations {
+    const scope = this.editingScope
+    const guard = (): void => {
+      if (!this.supportsPrivateUploadRecovery || scope !== this.editingScope) throw new Error('private_upload.context_changed')
+    }
+    guard()
+    return new BrowserPrivateUploadPreparations(storage, {
+      guard,
+      digest: async file => {
+        guard()
+        const generation = this.#generation
+        const digest = await fileDigest(file, this.#lifetime.signal)
+        guard()
+        if (generation !== this.#generation) throw new DOMException('Connection replaced', 'AbortError')
+        return digest
+      },
+      bind: async (intent, file) => {
+        guard()
+        const data = new FormData(); data.append('intent', JSON.stringify(intent)); data.append('file', file)
+        try { await this.#json('uploads', { method: 'POST', body: data }); return {} }
+        catch (error) {
+          if (error instanceof HttpRequestError && ['draft_changed', 'invalid_upload', 'upload_too_large', 'upload_changed_or_session_expired', 'upload_capacity'].includes(error.code)) return { rejectedCode: error.code }
+          throw error
+        }
+      },
+      receipt: intent => { guard(); return this.#json('uploads/receipt', { method: 'POST', body: JSON.stringify(intent) }) },
+      ...(this.supportsPrivateUploadLifecycle ? {
+        retry: async intent => {
+          guard()
+          if (!this.supportsPrivateUploadLifecycle) throw new Error('private_upload.capability_required')
+          return this.#json<{ state: 'needs_source' } | { state: 'recorded'; receipt: import('@contracts').StoredCommandResult }>('uploads/retry', { method: 'POST', body: JSON.stringify(intent) })
+        },
+        finish: async intent => {
+          guard()
+          if (!this.supportsPrivateUploadLifecycle) throw new Error('private_upload.capability_required')
+          return this.#json<{ state: 'unknown' } | { state: 'recorded'; receipt: import('@contracts').StoredCommandResult }>('uploads/finish', { method: 'POST', body: JSON.stringify(intent) })
+        }
+      } : {})
+    })
+  }
+
   async uploadTo<T>(threadId: string, expectedRevision: number, file: File, target?:
-    | { kind: 'single_chat'; conversationId: string }
-    | { kind: 'single_chat_pending'; conversationId: string; pendingInputId: string; editToken: string }
+    | { kind: 'single_chat'; conversationId: string; composerScope?: import('@contracts').SingleChatComposerScope | null }
+    | { kind: 'single_chat_pending'; conversationId: string; pendingInputId: string; editToken: string; composerScope?: import('@contracts').SingleChatComposerScope | null }
   ): Promise<T> {
     if (!this.authenticated) throw new SessionRequired()
     if (file.size > 20 * 1024 * 1024) throw new Error('单个上传文件不能超过 20 MB。')
     const scope = this.editingScope
+    const generation = this.#generation
+    const frozenTarget = target ? structuredClone(target) : undefined
     const digest = await fileDigest(file, this.#lifetime.signal)
+    if (scope !== this.editingScope || generation !== this.#generation || !this.authenticated) {
+      throw new DOMException('Connection replaced', 'AbortError')
+    }
     const commandId = newCommandId()
-    const intent = { commandId, threadId, expectedRevision, ...(target ? { target } : {}), displayName: file.name, byteSize: file.size,
+    const intent = { commandId, threadId, expectedRevision, ...(frozenTarget ? { target: frozenTarget } : {}), displayName: file.name, byteSize: file.size,
       sha256: digest }
     const data = new FormData(); data.append('intent', JSON.stringify(intent)); data.append('file', file)
     return new Promise((resolve, reject) => {
@@ -661,6 +766,10 @@ export class ConsoleClient {
         if (this.#pendingUploads.get(commandId) !== entry) return
         this.#pendingUploads.delete(commandId); this.#notifyPending(); entry.resolve(result.draft)
       }).catch(error => {
+        if (error instanceof HttpRequestError && error.code === 'upload_rejected') {
+          if (this.#pendingUploads.get(commandId) === entry) { this.#pendingUploads.delete(commandId); this.#notifyPending(); entry.reject(error) }
+          return
+        }
         if (preserveUnknown) { void this.reconcilePending(); return }
         if (error instanceof SessionRequired || (error instanceof HttpRequestError && ['draft_changed', 'invalid_upload', 'upload_too_large', 'upload_changed_or_session_expired', 'upload_conflict', 'upload_capacity'].includes(error.code))) {
           if (this.#pendingUploads.get(commandId) === entry) { this.#pendingUploads.delete(commandId); this.#notifyPending(); entry.reject(error) }
@@ -735,7 +844,12 @@ export class ConsoleClient {
           if (result.draft && this.#pendingUploads.get(id) === entry) {
             this.#pendingUploads.delete(id); this.#notifyPending(); entry.resolve(result.draft)
           }
-        } catch { /* No deletion or redispatch while binding remains unknown. */ }
+        } catch (error) {
+          if (error instanceof HttpRequestError && error.code === 'upload_rejected' && this.#pendingUploads.get(id) === entry) {
+            this.#pendingUploads.delete(id); this.#notifyPending(); entry.reject(error)
+          }
+          // 只有明确 Core 拒绝才能结清；运输失败仍不删除或重传。
+        }
       }
     } finally { this.#reconciling = false }
   }
@@ -772,14 +886,14 @@ export class ConsoleClient {
     return this.#json('workspaces', { method: 'POST', body: JSON.stringify({ path, offset }) })
   }
 
-  async #json<T>(path: 'session' | 'session/renew' | 'channels' | 'updates' | 'workspaces' | 'uploads' | 'uploads/reconcile' | 'files' | 'avatars', options: RequestInit = {}): Promise<T> {
+  async #json<T>(path: 'session' | 'session/renew' | 'channels' | 'updates' | 'workspaces' | 'uploads' | 'uploads/reconcile' | 'uploads/receipt' | 'uploads/retry' | 'uploads/finish' | 'files' | 'avatars', options: RequestInit = {}): Promise<T> {
     const generation = this.#generation
     const result = await (await this.#authorized(path, options)).json() as T
     if (generation !== this.#generation) throw new DOMException('Connection replaced', 'AbortError')
     return result
   }
 
-  async #authorized(path: 'session' | 'session/renew' | 'channels' | 'updates' | 'request' | 'events' | 'logout' | 'workspaces' | 'uploads' | 'uploads/reconcile' | 'files' | 'files/bytes' | 'attachments' | 'avatars', options: RequestInit = {}): Promise<Response> {
+  async #authorized(path: 'session' | 'session/renew' | 'channels' | 'updates' | 'workspaces' | 'uploads' | 'uploads/reconcile' | 'uploads/receipt' | 'uploads/retry' | 'uploads/finish' | 'request' | 'events' | 'logout' | 'files' | 'files/bytes' | 'attachments' | 'avatars', options: RequestInit = {}): Promise<Response> {
     if (!this.#token) throw new SessionRequired()
     const generation = this.#generation
     if (this.#localExpiry !== null && this.#localExpiry - this.#now() <= this.#renewalWindow && !['session', 'session/renew', 'logout'].includes(path)) await this.renewIfNeeded()

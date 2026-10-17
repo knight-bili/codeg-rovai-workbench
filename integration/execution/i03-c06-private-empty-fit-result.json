@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "implemented_pending_batched_native_verification",
+  "basis": {
+    "prior_real_screenshot": "../i03/c06/fusion-i03-rc.13/native-private-ui-r2/02-private-conversation-returned.png",
+    "source_empty": "apps/desktop/src/renderer/src/styles.css:1456",
+    "source_legacy": "apps/desktop/src/renderer/src/PrivateLegacyMaterialsPanel.tsx:32",
+    "source_recovery": "apps/desktop/src/renderer/src/PrivateInputRecoveryBrowser.tsx:91"
+  },
+  "changes": [
+    "仅绑定画布的私聊空状态移除300px最小高度；正文实际溢出仍使用原viewport滚动",
+    "默认材料未展开时不套额外边框和8px内边距；保留按钮、原读取/预览/确认迁入，展开后完整内容保持",
+    "其他输入恢复入口改为随内容宽度；错误、忙碌和原恢复弹窗保持"
+  ],
+  "source_hashes": [
+    {
+      "path": "apps/desktop/src/renderer/src/PrivateLegacyMaterialsPanel.tsx",
+      "sha256": "3f2d7ea08c50d23c81dfaae117ad6c92a761d64694860dca4b51d9823f3d5996"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "414424f7786cade36672ee23139bb4bca7acef99d39c520d243f02dac8283658"
+    },
+    {
+      "path": "scripts/fixtures/canvas-native-input.mjs",
+      "sha256": "46e64af95b887f4c95671e35c4737f4ea062a9df9db6dce5fcf6d1280242555a"
+    }
+  ],
+  "checks": {
+    "types_exit": 0,
+    "types_log": "../i03/canvas-private-fit-types.log",
+    "native_owner_syntax_exit": 0,
+    "diff_exit": 0
+  },
+  "prepared_native_checks": {
+    "executed": false,
+    "notes_mode": [
+      "真实正文拖动后Core几何",
+      "双击与可信末字符失焦保存",
+      "F2进入及Escape保存",
+      "远端版本变化保留两份正文",
+      "未保存普通导航保护",
+      "明确核对后保存且其他便笺不变"
+    ],
+    "terminal_mode": [
+      "260px最小宽六项原操作全可达，原可信PTY输入/输出/停止",
+      "原夹具按精确boardId打开并恢复原宽度"
+    ],
+    "private_ui_mode": [
+      "实际可见空私聊viewport无多余纵向滚动，旧材料未展开入口紧凑"
+    ]
+  },
+  "new_builds": 0,
+  "new_native_runs": 0,
+  "actions": 0,
+  "customer_action_now": null
+}

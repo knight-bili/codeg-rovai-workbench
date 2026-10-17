@@ -1,0 +1,661 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16T13:44:40.441Z",
+  "status": "focused_native_checks_passed_with_open_ui_findings",
+  "candidate": "fusion-i03-rc.15",
+  "frozen_source_commit": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+  "sources": {
+    "codeg": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "rovai": "cc465dda562536b94f23787759e3206324baa29e"
+  },
+  "scope": "原Codeg画板轮廓/真实数量/列表右键/键盘和删除提示；当前Core与桌面相关回归，未使用模型",
+  "builds": {
+    "desktop_exit": 0,
+    "web_exit": 0,
+    "native_exit": 0,
+    "binaries": [
+      {
+        "sha256": "8a8c90c5d04d58dd03f73c72f3fad7818a58ffc58adc0d5dd800d400c29a1f72",
+        "length": 79894528,
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-bin\\rovai-core.exe",
+        "name": "rovai-core.exe",
+        "source_commit": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195"
+      },
+      {
+        "sha256": "d0988301d00a6bb3cf8733ded78bfe85cf8b3cf5a30683e47d01982bf0468928",
+        "length": 85979648,
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-bin\\rovai-host.exe",
+        "name": "rovai-host.exe",
+        "source_commit": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195"
+      },
+      {
+        "sha256": "233aec7e68bebc215bf6d7e2c6d6d148cf4ecf57949ebe508377e1c1ab725e56",
+        "length": 6582784,
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-bin\\rovai.exe",
+        "name": "rovai.exe",
+        "source_commit": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195"
+      }
+    ]
+  },
+  "rust": {
+    "finished_at": "2026-10-16T13:12:38.4406607Z",
+    "started_at": "2026-10-16T13:10:58.8551910Z",
+    "owner": "canvas_board::tests::board_migration_and_command_lifecycle_preserve_replay_and_atomic_snapshot",
+    "source_commit": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+    "exit_code": 0,
+    "passed": 1,
+    "filtered_out": 1247,
+    "boundary": "仅扩展既有画板生命周期owner，不是全Rust测试通过"
+  },
+  "distinct_scenarios_in_this_candidate": {
+    "board_list": 7,
+    "public_multi_related_regression": 8,
+    "terminal_related_regression": 5,
+    "total": 20,
+    "boundary": "同一候选的相关检查；不与历史rc14的60项机械相加，也不代表完整阶段通过"
+  },
+  "runs": [
+    {
+      "id": "native-board-list-r1",
+      "status": "failed",
+      "passed_checks": 1,
+      "checks": [
+        {
+          "name": "real_core_list_returns_exact_same_revision_counts_and_geometry_without_advancing_event_sequence",
+          "passed": true
+        }
+      ],
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "resize_observer_diagnostic_errors": 1,
+      "test_owner_revision": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+      "test_owner_sha256": "53a5ee1b7b82bfbcf6450f12bb435905e4af35bddcd5ccc3ec0f0407211dbd37",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T13:17:47.364Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "id": "native-board-list-r2",
+      "status": "passed",
+      "passed_checks": 7,
+      "checks": [
+        {
+          "name": "real_core_list_returns_exact_same_revision_counts_and_geometry_without_advancing_event_sequence",
+          "passed": true
+        },
+        {
+          "name": "actual_board_card_draws_three_authoritative_footprints_and_exact_node_count",
+          "passed": true
+        },
+        {
+          "name": "trusted_right_click_opens_original_actions_and_escape_restores_the_exact_board_button",
+          "passed": true
+        },
+        {
+          "name": "trusted_shift_f10_opens_the_same_board_context_actions",
+          "passed": true
+        },
+        {
+          "name": "delete_confirmation_uses_the_exact_board_revision_node_count_and_terminal_card_warning",
+          "passed": true
+        },
+        {
+          "name": "menu_and_cancel_preserve_all_nodes_and_never_start_a_terminal",
+          "passed": true
+        },
+        {
+          "name": "separate_overflow_menu_keeps_edit_action_without_nested_buttons_or_a_write",
+          "passed": true
+        }
+      ],
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications.",
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "resize_observer_diagnostic_errors": 2,
+      "test_owner_revision": "6bb8609dd6d84468d1dcde34b87f8f5059286f0d",
+      "test_owner_sha256": "932efefb2d6b51d5ac26ca020c3840d1a808e54cd598bac8ef6618dacb3740d4",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T13:22:31.712Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "id": "native-board-list-r3",
+      "status": "passed",
+      "passed_checks": 7,
+      "checks": [
+        {
+          "name": "real_core_list_returns_exact_same_revision_counts_and_geometry_without_advancing_event_sequence",
+          "passed": true
+        },
+        {
+          "name": "actual_board_card_draws_three_authoritative_footprints_and_exact_node_count",
+          "passed": true
+        },
+        {
+          "name": "trusted_right_click_opens_original_actions_and_escape_restores_the_exact_board_button",
+          "passed": true
+        },
+        {
+          "name": "trusted_shift_f10_opens_the_same_board_context_actions",
+          "passed": true
+        },
+        {
+          "name": "delete_confirmation_uses_the_exact_board_revision_node_count_and_terminal_card_warning",
+          "passed": true
+        },
+        {
+          "name": "menu_and_cancel_preserve_all_nodes_and_never_start_a_terminal",
+          "passed": true
+        },
+        {
+          "name": "separate_overflow_menu_keeps_edit_action_without_nested_buttons_or_a_write",
+          "passed": true
+        }
+      ],
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications.",
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "resize_observer_diagnostic_errors": 2,
+      "test_owner_revision": "6bb8609dd6d84468d1dcde34b87f8f5059286f0d",
+      "test_owner_sha256": "47a60ec03c393cbf63a43e9ba6e23474d3a21788cf7d88937a7beef9a752eb25",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T13:31:54.680Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "id": "native-board-list-r4",
+      "status": "passed",
+      "passed_checks": 7,
+      "checks": [
+        {
+          "name": "real_core_list_returns_exact_same_revision_counts_and_geometry_without_advancing_event_sequence",
+          "passed": true
+        },
+        {
+          "name": "actual_board_card_draws_three_authoritative_footprints_and_exact_node_count",
+          "passed": true
+        },
+        {
+          "name": "trusted_right_click_opens_original_actions_and_escape_restores_the_exact_board_button",
+          "passed": true
+        },
+        {
+          "name": "trusted_shift_f10_opens_the_same_board_context_actions",
+          "passed": true
+        },
+        {
+          "name": "delete_confirmation_uses_the_exact_board_revision_node_count_and_terminal_card_warning",
+          "passed": true
+        },
+        {
+          "name": "menu_and_cancel_preserve_all_nodes_and_never_start_a_terminal",
+          "passed": true
+        },
+        {
+          "name": "separate_overflow_menu_keeps_edit_action_without_nested_buttons_or_a_write",
+          "passed": true
+        }
+      ],
+      "renderer_errors": [],
+      "resize_observer_diagnostic_errors": 0,
+      "test_owner_revision": "6bb8609dd6d84468d1dcde34b87f8f5059286f0d",
+      "test_owner_sha256": "e9facd414ba592ca5d6c78470d32ab30ea671fd1663f45daffff0a04dea9523b",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T13:36:00.596Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "id": "native-public-multi-r1",
+      "status": "passed",
+      "passed_checks": 8,
+      "checks": [
+        {
+          "name": "real_public_mirrors_mount_one_focus_and_visibility_reader_per_thread",
+          "passed": true
+        },
+        {
+          "name": "trusted_public_input_uses_three_independent_pin_drafts_across_two_real_threads",
+          "passed": true
+        },
+        {
+          "name": "native_mouse_focus_and_trusted_typing_stay_on_original_public_editor_during_other_thread_layout_roundtrip",
+          "passed": true
+        },
+        {
+          "name": "closing_public_mirrors_releases_only_last_thread_reader_and_all_owned_focus_visibility_listeners",
+          "passed": true
+        },
+        {
+          "name": "public_pin_close_reopen_recovers_each_exact_draft_without_merging_same_or_different_threads",
+          "passed": true
+        },
+        {
+          "name": "public_multi_card_input_and_navigation_do_not_publish_messages_or_start_agent_runs",
+          "passed": true
+        },
+        {
+          "name": "actual_production_board_renders_64_persisted_summary_cards_without_mounting_conversation_editors",
+          "passed": true
+        },
+        {
+          "name": "native_wheel_pans_actual_64_card_viewport_without_mutating_or_losing_persisted_nodes",
+          "passed": true
+        }
+      ],
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications.",
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "resize_observer_diagnostic_errors": 2,
+      "test_owner_revision": "6bb8609dd6d84468d1dcde34b87f8f5059286f0d",
+      "test_owner_sha256": "932efefb2d6b51d5ac26ca020c3840d1a808e54cd598bac8ef6618dacb3740d4",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T13:29:53.842Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "id": "native-terminal-r1",
+      "status": "passed",
+      "passed_checks": 5,
+      "checks": [
+        {
+          "name": "production_canvas_route_and_persisted_nodes",
+          "passed": true,
+          "board_id": "d18f8065-b80f-419f-b9a4-4843c0d9cb15"
+        },
+        {
+          "name": "minimum_width_terminal_preserves_six_visible_named_controls_without_outer_scroll",
+          "passed": true
+        },
+        {
+          "name": "native_electron_keyboard_reaches_real_pty_and_calculates_five",
+          "passed": true,
+          "input_sequence": 2
+        },
+        {
+          "name": "real_pty_result_is_painted_in_production_terminal_reader",
+          "passed": true
+        },
+        {
+          "name": "native_terminal_stop_completes_process_cleanup",
+          "passed": true
+        }
+      ],
+      "renderer_errors": [],
+      "resize_observer_diagnostic_errors": null,
+      "test_owner_revision": "6bb8609dd6d84468d1dcde34b87f8f5059286f0d",
+      "test_owner_sha256": "47a60ec03c393cbf63a43e9ba6e23474d3a21788cf7d88937a7beef9a752eb25",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T13:32:57.718Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\freeze.json",
+      "sha256": "ed6d832e4e94a702bd23ee4195f3383e5bed097875e9b3d48e2bf348f4e66e68"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\desktop-build-result.json",
+      "sha256": "7ea38c7464f16b753250f03743e7c1715bebbf7bde28c71ff7bc04dc36fc2d1f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\web-build-result.json",
+      "sha256": "087cae05750f5ff11a37aef6e5ee40b53e6c5576d50e9aa74214a2c0912ddf88"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-build-result.json",
+      "sha256": "a9f8eb64a949e645fce5397dafcde571d7a5c68b800b0efa0441b6874241573a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\rust-board-owner-result.json",
+      "sha256": "78504271e33df3bad087609536ce551fe4231a90adbf76dcbd2d39dff3f7b0db"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\rust-board-owner.log",
+      "sha256": "68264c4bc0a28ad3f242850edf18e75c7e0305cb445e69415105c680a11af1be"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-build.log",
+      "sha256": "f7acd4cb0f309833c13d927e79927fda43386fe89f689d9abcd3c78bd6d35822"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\desktop-output-inventory.json",
+      "sha256": "2eb37715601f0de475c101b0947acaf0b72cff0cd407c6b295bea7b7a1a43e39"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\web-output-verification.json",
+      "sha256": "7cfbd4185c50ce21ce9d22cf2421c6abf8d371e06be2fa3d7ce8e6135c4f6a35"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\isolation-preflight.json",
+      "sha256": "250defb119f276376d4a38af277014e72ef1c92debddffb318ab6afc112d066b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-c06-rc15-native.mjs",
+      "sha256": "0de38e6e82866270ffb6abc3ab0b43ad27cf30c389c8cd78171ee48d2dd0dd0b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\prepare-rc15.mjs",
+      "sha256": "6d7cd0848f61167f111cf6b11ed2b81c0092df1c8d7ab508f45cc90b851345c4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\build-rc15.mjs",
+      "sha256": "743651fd7987bbd03f7ce9035b966ad80c048c99e741cd9a64c689b632ef0041"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\build-native-rc15.ps1",
+      "sha256": "0a70569699f097cb27bd4bd73a47b41672aa3c1d80e6889bb37abd0abcf505ce"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r1-config.json",
+      "sha256": "d50cc35a6f94fde6682b5b0ee7707f68927569e173fb095334dbe0c68bb8cf1f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r1-driver.log",
+      "sha256": "15184a3f2fd121a4adb3105778d22b04e2e1acfad42b6c1304d8aaee9d43fdb9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc15\\app\\c06-native-board-list-r1.mjs",
+      "sha256": "53a5ee1b7b82bfbcf6450f12bb435905e4af35bddcd5ccc3ec0f0407211dbd37"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r1\\driver-exit.json",
+      "sha256": "7ceb5791cce146ef4711dd763936dfe660c90e0daf47e0b77f2649ec77e88c04"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r1\\failure.png",
+      "sha256": "305c2c727bf6791f6ca7ff13c6cb32fcb354ddcade427a720bdd42a93560180b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r1\\result.json",
+      "sha256": "41b52644b705fac6b194da2ef29de35fe658906d0fb3265e9b6361e8af4fb104"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r2-config.json",
+      "sha256": "5fa436f239a6d0514062e28fbc872aacdd59e03ace0ecb9e9f58897f9e3ad770"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r2-driver.log",
+      "sha256": "c5686612b745726d5931eee4d835768c020212371d70b0296e31746f8ad2ac0f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc15\\app\\c06-native-board-list-r2.mjs",
+      "sha256": "932efefb2d6b51d5ac26ca020c3840d1a808e54cd598bac8ef6618dacb3740d4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r2\\01-original-board-delete-warning.png",
+      "sha256": "b5fbb846f7caf701f6a437ddbff96d11884ad7bbd8d137a36013fe06e750a66a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r2\\02-real-board-list.png",
+      "sha256": "78b61091cacc16c80da65e7fdab2edd71f6513e6fd2ebed48fec24c380688224"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r2\\driver-exit.json",
+      "sha256": "ce18953c5811275898312c70348df4060f609e75392dc37a146876311ee7f57f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r2\\result.json",
+      "sha256": "9429b022c255308f1ef53afb626c2ebb43d1f6c7365e1fa3fe8cbcda1484cafe"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r3-config.json",
+      "sha256": "04b9c9b7803b6f8914bc1f818fea67af7aa1d245ecd5ed49db20bfc37b980f2a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r3-driver.log",
+      "sha256": "196f25101ba180f9fa9db1f3fdb6604f3d9e32e842146f0c6216d3c0ddf0ae99"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc15\\app\\c06-native-board-list-r3.mjs",
+      "sha256": "47a60ec03c393cbf63a43e9ba6e23474d3a21788cf7d88937a7beef9a752eb25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r3\\01-original-board-delete-warning.png",
+      "sha256": "35ab2b21dc0dcf9e1c74e77c1d3050425698b11e9948eaa3d1873674c413759c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r3\\02-real-board-list.png",
+      "sha256": "05c43ed0c51e3c50704ee9a80696e752fbbef8ee24b6c9fc487d6a0189d477c6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r3\\driver-exit.json",
+      "sha256": "cb1ffb139854b51633be2c10c1e040b320b200682e5d48be1385f8b94c7be63d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r3\\result.json",
+      "sha256": "29bef2abb4dd7661902696e3ee7f89643e71f7ddc529bf67b314ff00a42c1f8d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r4-config.json",
+      "sha256": "2799696587d3ee030c6ba6fa121c6590acc6c01729b60f31a56f9532f4eee9a9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r4-driver.log",
+      "sha256": "dfa2f851d404625534d22e5a542e140daa01981a67fdfa999b9abe042fcf0f05"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc15\\app\\c06-native-board-list-r4.mjs",
+      "sha256": "e9facd414ba592ca5d6c78470d32ab30ea671fd1663f45daffff0a04dea9523b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r4\\01-original-board-delete-warning.png",
+      "sha256": "b3d0165143f5e19ce6f0bc16f8c38729ed9ca436ececd9b1c86985d66369988a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r4\\02-real-board-list.png",
+      "sha256": "4864d09f5facb0991dadc162a487785523cd6e9b6ab56e27b3129bf76a753165"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r4\\driver-exit.json",
+      "sha256": "73f5bf2a23487cff7ba262a69e6fde648f116ea54d4922e8c4c82dd8dfe42abc"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-board-list-r4\\result.json",
+      "sha256": "17a0759872e202ecc366cc81da61b11077ed4da4770fbc9908fe63ecb0f52481"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-public-multi-r1-config.json",
+      "sha256": "43a32ca8fab1d8bcabea923366fb0c49d9d672ca4499c56ef1cd0337f227b7da"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-public-multi-r1-driver.log",
+      "sha256": "c68946c17d5069227ca37d08e193d2779fee4332f7da91b347da991b742ea3c3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc15\\app\\c06-native-public-multi-r1.mjs",
+      "sha256": "932efefb2d6b51d5ac26ca020c3840d1a808e54cd598bac8ef6618dacb3740d4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-public-multi-r1\\01-public-two-threads-three-cards.png",
+      "sha256": "390afc15da3a6b20403cf05dc42514b68e35d45568be4ad4d40fa65cf4fb9344"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-public-multi-r1\\02-real-64-summary-cards.png",
+      "sha256": "1d96c68b4c764699d322dcf01b642c1c7f556bffa15f0c245cac37ebcd16e671"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-public-multi-r1\\driver-exit.json",
+      "sha256": "db7a53c3ecf6ddbdbca9020d3743331716e721efde3c7f3297b4cb4341386030"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-public-multi-r1\\result.json",
+      "sha256": "27853551d91b501327df10dadbbf128076a2d68d81a348e11c044cc0b804f4d6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-terminal-r1-config.json",
+      "sha256": "0e74fd6c1980e6695b8cb31cb8ff2a79b9cb37a646463a4ac16825b46489abb3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-terminal-r1-driver.log",
+      "sha256": "bee5ad03bd0325d30ef8588317a79e5a9e6718d90ad5de5cbb1eb81748cd19fc"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc15\\app\\c06-native-terminal-r1.mjs",
+      "sha256": "47a60ec03c393cbf63a43e9ba6e23474d3a21788cf7d88937a7beef9a752eb25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-terminal-r1\\driver-exit.json",
+      "sha256": "0536ddd1c3d2c630fac89a2f3cfbf4e8b25b1b01a06620007f095ea217fc483d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-terminal-r1\\native-output.png",
+      "sha256": "7a83396c470ca5301e2c62a4895630ab2768bdc1a8f3780159f95c1a079108ba"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-terminal-r1\\result.json",
+      "sha256": "b9c13eee149e91e779e4b918f4113314b80da5e28722986359a7f1af8e2286cb"
+    }
+  ],
+  "reviewed_screenshots": [
+    "native-board-list-r2/02-real-board-list.png",
+    "native-board-list-r3/01-original-board-delete-warning.png",
+    "native-public-multi-r1/01-public-two-threads-three-cards.png",
+    "native-public-multi-r1/02-real-64-summary-cards.png",
+    "native-terminal-r1/native-output.png"
+  ],
+  "failures_retained": [
+    {
+      "run": "native-board-list-r1",
+      "cause": "测试导航helper只等待任意dock，旧画板仍在时提前点返回；加强精确目标和节点就绪等待，未修改产品",
+      "app_exit_zero_is_not_functional_success": true
+    },
+    {
+      "run": "native-board-list-r2",
+      "cause": "删除截图在入场动画中间；r3/r4等待动画和两帧后捕获，旧截图保留且不作为弹窗视觉通过"
+    }
+  ],
+  "findings": [
+    {
+      "id": "card-list-blank-space",
+      "status": "reproduced_fixed_in_source_renderer_only",
+      "detail": "实际文字固有高度最多77.333px，文字容器167.698px；纵向SVG固有尺寸将网格行撑高，当前CSS后续修复见独立Renderer报告"
+    },
+    {
+      "id": "canvas-resize-observer",
+      "status": "open",
+      "detail": "完整App仍记录尺寸监听警告；当前诊断保留原回调调度并记录创建来源/元素/最近回调，没有过滤错误，也未授予零错误资格"
+    }
+  ],
+  "current_source_drift_after_candidate": [
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "frozen_sha256": "fa0dc95c830f69f480cd194a6256cb60628e6f980dfc04fd21f60f654ee21b03",
+      "current_sha256": "e15030c6431f3f1496a52367fcb44179f14e0c65cfb3f9b177b7529f5e5141d5"
+    }
+  ],
+  "boundary": "rc15运行的是冻结e0c4fad7的真实Core/Host/CLI和桌面，不覆盖随后CSS；四个模型输入权威文件未变；无付费模型、push、Actions或发布",
+  "next": "保留候选与全部旧失败，集齐余下修复后再做必要桌面集成；继续原C05资源预算/未知请求/IO/PC和完整主题八类，独立I04保留"
+}

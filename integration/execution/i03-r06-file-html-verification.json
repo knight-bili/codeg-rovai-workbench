@@ -1,0 +1,454 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R06",
+  "status": "engineering_verified_within_declared_local_scope",
+  "checked_at": "2026-10-16T21:17:31.276100+00:00",
+  "candidate": "fusion-i03-rc.22",
+  "committed_test_owner_source": "2163f46a6d562f4fc24083a06b617ea78ee669ad",
+  "core_source": "1e840216a1af1f93da1371db545579889e42d4da",
+  "desktop_source": "a2bd333284649abc1352e70e5078780adaaaca6f",
+  "web_source": "a2bd333284649abc1352e70e5078780adaaaca6f",
+  "repair_commit": "afee4415f7b6416f2e5b1e4631808b35b500f93c",
+  "runs": [
+    {
+      "name": "native-file-resources-r3-prepare",
+      "checks": [
+        {
+          "name": "actual_two_thread_same_filename_previews_keep_distinct_contents_and_keys_preserve_explicit_external_paths_and_reject_missing_thread",
+          "passed": true
+        },
+        {
+          "name": "actual_four_distinct_html_documents_load_with_original_csp_without_native_bridges",
+          "passed": true
+        },
+        {
+          "name": "fifth_distinct_visible_html_is_bounded_without_replacing_the_four_current_documents",
+          "passed": true
+        },
+        {
+          "name": "removing_one_html_pin_releases_its_document_and_site_then_retry_admits_the_fifth_and_preserves_other_documents_and_source",
+          "passed": true
+        },
+        {
+          "name": "same_html_file_mirrors_also_obey_four_actual_presentations_instead_of_only_counting_shared_handles",
+          "passed": true
+        },
+        {
+          "name": "closing_one_same_source_mirror_admits_the_waiting_presentation_without_releasing_its_other_readers",
+          "passed": true
+        },
+        {
+          "name": "file_resource_checks_never_send_messages_or_start_model_runs",
+          "passed": true
+        }
+      ],
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T21:04:28.840Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      },
+      "resize_errors": 4
+    },
+    {
+      "name": "native-file-resources-r3-resume",
+      "checks": [
+        {
+          "name": "fresh_app_core_restore_exact_cross_thread_file_and_html_references_with_new_capabilities",
+          "passed": true
+        },
+        {
+          "name": "owned_source_snapshot_saved_before_testing_missing_file_in_next_fresh_process",
+          "passed": true
+        },
+        {
+          "name": "file_resource_checks_never_send_messages_or_start_model_runs",
+          "passed": true
+        }
+      ],
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T21:09:07.278Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      },
+      "resize_errors": 0
+    },
+    {
+      "name": "native-file-resources-r3-missing",
+      "checks": [
+        {
+          "name": "fresh_process_missing_source_keeps_original_pin_and_error_without_cached_body_or_other_thread_fallback",
+          "passed": true
+        },
+        {
+          "name": "explicit_retry_revalidates_restored_original_file_and_keeps_other_thread_and_html_sources_intact",
+          "passed": true
+        },
+        {
+          "name": "file_resource_checks_never_send_messages_or_start_model_runs",
+          "passed": true
+        }
+      ],
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T21:09:38.922Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      },
+      "resize_errors": 0
+    },
+    {
+      "name": "native-files-r1",
+      "checks": [
+        {
+          "name": "actual_canvas_text_card_preserves_unicode_and_literal_hash_file_name",
+          "passed": true
+        },
+        {
+          "name": "actual_html_card_loads_author_css_js_and_keeps_csp_without_native_bridge",
+          "passed": true
+        },
+        {
+          "name": "author_html_interaction_executes_in_actual_preview",
+          "passed": true
+        },
+        {
+          "name": "author_document_has_confirmed_loaded_state_and_connected_host_channel",
+          "passed": true
+        },
+        {
+          "name": "file_card_uses_one_header_and_keeps_exact_path_available_on_hover",
+          "passed": true
+        },
+        {
+          "name": "html_source_preview_toggle_preserves_live_document_and_author_state",
+          "passed": true
+        },
+        {
+          "name": "reloading_one_actual_file_card_preserves_other_html_document",
+          "passed": true
+        },
+        {
+          "name": "file_card_more_menu_is_reachable_with_native_keyboard",
+          "passed": true
+        },
+        {
+          "name": "core_node_deletion_removes_only_pin_and_preserves_file_and_other_html_view",
+          "passed": true
+        }
+      ],
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T21:11:29.631Z"
+      },
+      "controlled_shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      },
+      "resize_errors": 1
+    }
+  ],
+  "distinct_passed_check_names": [
+    "actual_canvas_text_card_preserves_unicode_and_literal_hash_file_name",
+    "actual_four_distinct_html_documents_load_with_original_csp_without_native_bridges",
+    "actual_html_card_loads_author_css_js_and_keeps_csp_without_native_bridge",
+    "actual_two_thread_same_filename_previews_keep_distinct_contents_and_keys_preserve_explicit_external_paths_and_reject_missing_thread",
+    "author_document_has_confirmed_loaded_state_and_connected_host_channel",
+    "author_html_interaction_executes_in_actual_preview",
+    "closing_one_same_source_mirror_admits_the_waiting_presentation_without_releasing_its_other_readers",
+    "core_node_deletion_removes_only_pin_and_preserves_file_and_other_html_view",
+    "explicit_retry_revalidates_restored_original_file_and_keeps_other_thread_and_html_sources_intact",
+    "fifth_distinct_visible_html_is_bounded_without_replacing_the_four_current_documents",
+    "file_card_more_menu_is_reachable_with_native_keyboard",
+    "file_card_uses_one_header_and_keeps_exact_path_available_on_hover",
+    "file_resource_checks_never_send_messages_or_start_model_runs",
+    "fresh_app_core_restore_exact_cross_thread_file_and_html_references_with_new_capabilities",
+    "fresh_process_missing_source_keeps_original_pin_and_error_without_cached_body_or_other_thread_fallback",
+    "html_source_preview_toggle_preserves_live_document_and_author_state",
+    "owned_source_snapshot_saved_before_testing_missing_file_in_next_fresh_process",
+    "reloading_one_actual_file_card_preserves_other_html_document",
+    "removing_one_html_pin_releases_its_document_and_site_then_retry_admits_the_fifth_and_preserves_other_documents_and_source",
+    "same_html_file_mirrors_also_obey_four_actual_presentations_instead_of_only_counting_shared_handles"
+  ],
+  "unique_checks": 20,
+  "html_release": {
+    "originalSiteReleased": true,
+    "originalDocumentRemoved": true,
+    "cachedSourceHandleRetained": true,
+    "retainedHandleCount": 7,
+    "qualification": "File Preview v13/v14 retain bounded source/read snapshots separately from the four live HTML documents and sites"
+  },
+  "source_bytes_restored": true,
+  "database_after": {
+    "formal": {
+      "agent_runs": [
+        [
+          "succeeded",
+          3
+        ]
+      ],
+      "pending": {
+        "pending_camp_input": 0,
+        "single_chat_pending_input": 0
+      }
+    },
+    "rc22-file-resources-r3": {
+      "agent_runs": [],
+      "pending": {
+        "pending_camp_input": 0,
+        "single_chat_pending_input": 0
+      }
+    }
+  },
+  "no_owned_processes_remaining": true,
+  "visual_review": [
+    "prepare/02-window-html-budget.png：四个实际作者文档，无外层滚动条，原标题与正文保持",
+    "files/02-updated-text-and-retained-html.png：紧凑单标题栏，重读文本后作者计数仍为1；白底为作者页面原样式"
+  ],
+  "preserved_failures": {
+    "historical_rc20": "i03-r06-file-html-progress.json",
+    "rc22_r1": "资源错误区无正常重读工具栏；改测试选择实际重试按钮",
+    "rc22_r2": "原合同回收HTML站点和文档，保留有界源码缓存；改为核对原站点释放和原Frame消失",
+    "resume_preflight": "缺_rovai的空MCP被原迁移删除；修复同一隔离Root的schema2空配置，SQLite SHA不变；首次未启动App"
+  },
+  "test_owner_binding": "成功r3三次与files均绑定2163f46a原文件SHA；r2准备HEAD与实际修改后字节不同，失败保留，最终9c28e337提交blob核对，不授予r2整批通过资格。",
+  "qualification_limit": "本机Windows文件/HTML边界。保留原作者CSP；connect-src none阻断预览事件连接的记录不被删改。ResizeObserver告警仍由R09定位及评估；本报告不证明其无影响，不授予其他平台、全部八类UI或完整I03资格。",
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\freeze.json",
+      "sha256": "b0dd9c015bfb6c60209935c88f48b4027af812f3503ba394b1775d42c6578ba2"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-build-result.json",
+      "sha256": "500b63e46b903ae50b5cd1d04e69c7a66496f419de7438e54a9e15a5f091f208"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\rust-owners-result.json",
+      "sha256": "1b44fd6af3ccb33d0855bfef6b2dcda5d4521dbd1852f71a17137fafeaa2835a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\app-assembly.json",
+      "sha256": "e25a8110623ea39e4aa8b044b7819326c4ae96b6e2f5377f3b3e8a4146f6fc25"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\desktop-output-inventory.json",
+      "sha256": "2c2f7563b68a48a68fed4f0cab779614f21dd7d629fb04dc3c6b6dde124ff970"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\web-output-verification.json",
+      "sha256": "17aa72a1992137cdf64b4a0fbf8b05768128838341071e63b9842f7e11f4e02d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.21\\desktop-build-result.json",
+      "sha256": "234e3c3d919a1fe8bcb9760d8c01264f22130a00dc9a0686700a05e33c6ace62"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.21\\web-build-result.json",
+      "sha256": "52c797c9c5c9bb68a33ee229a376254f8fb73fdf878661c34c0dcfb5a9b64f46"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\rc22-owned-process-audit.json",
+      "sha256": "acb499215d8de8fa2c6f8377e3557fbb027bf036824f0ea7158882d3e67f001d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\record-rc22-r06-closeout.py",
+      "sha256": "f369a9d9015bcbbb52a44465d98e8872c63a7241b9571a7664212e3c3f1d938a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-files-r1-source-before.json",
+      "sha256": "64b52c9671d0d67c73641ff5aa7198f261fe5e0657a00820b0cac46f8fb4bc74"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\r06-r3-resume-mcp-preflight.json",
+      "sha256": "69a00e44f4c8a3c42aec03fa494dca2b447893f61b50620acfde19794ae3051b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-prepare\\result.json",
+      "sha256": "ae9a48c557ba5cc98a62dc7875230b51556ff8ecef8b349e070cdf8e3a2b3b15"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-prepare\\driver-exit.json",
+      "sha256": "6ad412b070e8b7b8c80a33f8da09a0adc31a34dca267089f6f5dc02958a2bcae"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-prepare\\01-cross-thread-sources.png",
+      "sha256": "c400c7a199681741ba8f93269d39fdc5c1e6df7051816bc7a253913af3aaf354"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-prepare\\02-window-html-budget.png",
+      "sha256": "5c4ff0433c24a76ca4336cfdc2f721081418bd844f43635db3eef31cfb8eb1e9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-prepare-config.json",
+      "sha256": "ac6aece46f90e08a408e643dece36fd685eade1618d95523a8a5a5a7de32014d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-resume\\result.json",
+      "sha256": "fb8a0188849bf11e1943f8ac5b20e683cfe605b44009f6b3095c0f66811a85a6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-resume\\driver-exit.json",
+      "sha256": "6034ccc331979d44ce9186b3e88165875159a04c47f84233121faada28c8e0fa"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-resume-config.json",
+      "sha256": "d4bab5188d1219b49405a51b36fd4c93d993dd963dfdbc137d55f5e6f7818552"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-missing\\result.json",
+      "sha256": "1c2c711eb00575c046c271fa1519d87d1a45742c8b6204bc71ff800bc724aed0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-missing\\driver-exit.json",
+      "sha256": "d39acf0bef6dc9724cf493fc2fcca84a0d9e2c12c82bbd60b0743b61eecce0cf"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-missing\\01-missing-source-restored.png",
+      "sha256": "c19da9e8ebfc2eac6602acc5f0f7ae8e1fe51e7a3fe4ba47eda6c2eb939f966c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-file-resources-r3-missing-config.json",
+      "sha256": "4de9fa534302f1922ca6b4abdd8c5c690431fe2d99fa9ee0cdd1bb1f0bbe287c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-files-r1\\result.json",
+      "sha256": "69b8a4e12a6069260fa0897e6d605407a8cf318f226a3284ddd24df47cd71ab1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-files-r1\\driver-exit.json",
+      "sha256": "a3022381b5894434a4f0328d34fd2786e53240ffbdfffbf1fdbdf4149cbe8d96"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-files-r1\\01-text-and-interactive-html.png",
+      "sha256": "9b632a7411a26035ab1e5968165055fb73590bc463224149e3758b498882ec2d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-files-r1\\02-updated-text-and-retained-html.png",
+      "sha256": "b500e1bde2dd01a62193c3078f62f06429010415d0ca645d07b0c1608791284a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.22\\native-files-r1-config.json",
+      "sha256": "6e0a5ad6d322fe5e49f87a16f677bfc4d2bd5591cf787b882d9c22b1dcbae183"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc22-r1-prepare-driver.log",
+      "sha256": "a7da4d3e130ffab158693b6fe09ed4485e541597d856abb99e47c6a54f22f6f7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc22-r2-prepare-driver.log",
+      "sha256": "cefed7f0a6442d21f2a3a473e6a760782348e600970249999cc4e490fae74b6c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc22-r3-prepare-driver.log",
+      "sha256": "a3a471e36d1670df88f215f78f4a87adadf33dde19b3ea589ab415e61b1e0c47"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc22-r3-resume-driver.log",
+      "sha256": "60b51be0d0f1a9eb89ecf8d13d9034f4df988215a409cc870e0c2d9fe5add28e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc22-r3-resume-v3-driver.log",
+      "sha256": "415676b07883994a683309eb73af227dbafdb06514318ea525032c4095d3da53"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc22-r3-missing-v3-driver.log",
+      "sha256": "1fcf83cca3e4009acd0994efb47dc94270c20ffce390ee4d6e7fed6e07be6c13"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r06-rc22-files-r1-driver.log",
+      "sha256": "d8ac7e562a20eccd99e44e27937de4964c4fa748d7a7bc04fbc6465805b6cf96"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r06-rc22-native.mjs",
+      "sha256": "9f143c501ead426c18dcfbcec1d01d4d8585ae95a4838637bee935fd7953e74a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r06-rc22-native-v2.mjs",
+      "sha256": "a50a61f3e25a1a60d3b484eae24be076b31832acc1cb77a4f3e5ae939a2f5f4d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r06-rc22-native-v3.mjs",
+      "sha256": "72395c16114c258cca582bed5ac53e049363cbf88dc5a1db7966c3baa6641b4f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-c06-rc22-native.mjs",
+      "sha256": "f686ac095642671b95fc4bf4c5d244536a1b3c2bec1500c5b6cd1fce64f9b353"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-file-resources-workflow.mjs",
+      "sha256": "16be4a96aed479e0585bfd02548be6767b810e7a674185a67cf2553055c8a58c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-native-input.mjs",
+      "sha256": "916a305065b463f6347eda41a70cfd18a288ed77e7ae7199e2ca0933af3094ea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-file-ipc.mjs",
+      "sha256": "44bde388f45169676ab2d7364d961670ec8ba2b72817c7278d095ae83d538fa0"
+    }
+  ],
+  "external_model_calls": 0,
+  "actions_triggered": 0,
+  "pushes": 0,
+  "customer_action_required_now": false
+}

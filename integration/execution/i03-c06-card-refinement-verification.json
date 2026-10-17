@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "status": "partial_stage_engineering_passed",
+  "recorded_at": "2026-10-16T06:44:28.099551+00:00",
+  "candidate": "fusion-i03-rc.8",
+  "production_source_commit": "72048c73f9736a85ee1550cdc12dd1e3b45b6c79",
+  "source_binding": {
+    "files": {
+      "apps/desktop/src/renderer/src/CanvasSurface.tsx": "443fef29c90b741e5390ebabe6d6ac9c783c4ba7b3082904e668d242f9ae59dc",
+      "apps/desktop/src/renderer/src/CanvasFilePreview.tsx": "f6b32bea6ed757070789248fa4ae141105532eaca25ac9a6e1d5729abf8d815f",
+      "apps/desktop/src/renderer/src/FilePreviewContext.tsx": "bcde853d37d67a4ea8e72e50a965f61d68db7698430999f3e2dff3dea4ae0945",
+      "apps/desktop/src/renderer/src/FilePreviewPane.tsx": "a0c85443725374ab31414b9fd48701ee5c0cc4f35f3dff1bff6c965f83a1731e",
+      "apps/desktop/src/renderer/src/HtmlFileViewer.tsx": "6f72da9db9b9baa9fb4955f2b0d92e68c96bff7a4e71b0d83b5fb13c1bff8a74",
+      "apps/desktop/src/renderer/src/canvas.css": "fd260da1467de2002a2289cd404e1812eeeb0fc545f5cd4958401a0f8425b024",
+      "scripts/fixtures/canvas-native-input.mjs": "d6a078f48d0677623531007bd2bb4cfd925754e0fabbd5fba6d83c9f48a70f90",
+      "integration/execution/goal-state.json": "811a8f2e5d2bfb760074b985f26a17ae9b10d62bfc55470a4c23bf80030e2734",
+      "integration/execution/i03-closeout.json": "583291016593474a899e59dbf81a40d23c94c2b967838eb091d1e0c605c71646",
+      "integration/planning/stage-versions.json": "365024b2d9341232d3a6c6da37f01af535fc37c35b0459bd3c08b7a350bc901d"
+    },
+    "historical_implementation": "i03-c06-card-refinement-result.json"
+  },
+  "artifact_binding": {
+    "work/i03/c06/fusion-i03-rc.8/freeze.json": "5cc5a8554f6dca5af24cc5dfa16b1de3938d443ad358dc50dd18f5fa19a06767",
+    "work/i03/c06/fusion-i03-rc.8/desktop-build-result.json": "911a3ee64b2c596f5c18ac2dcacd4f18e97ff80e224e10f7ff9217dce2133e50",
+    "work/i03/c06/fusion-i03-rc.8/web-build-result.json": "3fb3704d31ee9df7a767f0fdf5d4c3bb61f4ab6290dd7a00f4d93c190fc6049c",
+    "work/i03/c06/fusion-i03-rc.8/desktop-output-inventory.json": "b8db4f32dd90020e622bfa73d1d8cdfb728b0131cb0719f4ac0926a68b0c4726",
+    "work/i03/c06/fusion-i03-rc.8/web-output-verification.json": "a489ec97b8fe88f650127e9a6a09f78159f4291248c2b206c816ba9d57d067de",
+    "work/i03/c06/fusion-i03-rc.8/native-file-cards-r1/result.json": "0189e839b1547e04935d7526f022596f008cc75ceab07a07328d24ae9fec30ae",
+    "work/i03/c06-native-file-cards-rc8-r1.log": "ee0e0bcb756572539b227cfdc8b93815fddb0ea9d98d7a498a600cfa34a30e05",
+    "work/i03/run-c06-native-file-cards-rc8.mjs": "d800f889a2155660e594fccec696da58989ef288f7e613e080f92a683e069475",
+    "work/i03/c06/fusion-i03-rc.8/native-file-cards-r1/01-text-and-interactive-html.png": "9f392ef69855f37c0a604c49116469d1cdf8d28cc3d662c8b170b5573b2776d4",
+    "work/i03/c06/fusion-i03-rc.8/native-file-cards-r1/02-updated-text-and-retained-html.png": "c1d2e311b9e78b283ae7b696b8cc15272141a2f9d1dee4f208741771c1ce49c6"
+  },
+  "frozen_authority_files": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "validation": {
+    "types_exit": 0,
+    "related_test_files": 4,
+    "related_tests_passed": 46,
+    "desktop_exit": 0,
+    "desktop_files": 149,
+    "web_exit": 0,
+    "web_manifest_entries": 141,
+    "native_checks_passed": 9,
+    "native_host_state": {
+      "documentState": "loaded",
+      "scriptState": "no-error-observed",
+      "resourceState": "no-error-observed",
+      "channelState": "connected",
+      "serverDiagnosticsState": "unavailable"
+    },
+    "native_card_layout": {
+      "pathRows": 0,
+      "exposedPaths": 0,
+      "headerActions": true,
+      "title": "交互 #预览.html\nC:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\文件工程A\\交互 #预览.html",
+      "headerHeight": 38.566673278808594,
+      "iconCenterDelta": 0.3296213150024414
+    },
+    "controlled_shutdown": {
+      "report": {
+        "activeExecutionsObserved": 0,
+        "cancelledAgentRunsSettled": 0,
+        "controlledShutdownCyclePersisted": true,
+        "deadlineExpired": false,
+        "protocolVersion": 3,
+        "status": "completed",
+        "stopRequestsIssued": 0,
+        "terminalExecutionsSettled": 0,
+        "unresolvedExecutions": 0,
+        "unsettledEffectAgentRuns": 0
+      },
+      "forcedSignal": null
+    }
+  },
+  "limits": [
+    "只证明本轮相关范围，I03整体未收口、PC01-PC24和324场景未整体通过",
+    "服务端诊断受原作者connect-src none限制而不可用，文档及宿主通信已连接；未放宽CSP或文件授权",
+    "Web构建通过，未将其写成真实Web UI和跨平台运行通过",
+    "顶层工具条、双主题/窄窗口、C01/C02/C05剩余和外部平台资格保留"
+  ],
+  "scope_preserved": {
+    "function_clusters": 81,
+    "work_packages": 48,
+    "engineering_scenarios": 324,
+    "core_authority": "rovai-core",
+    "model_input_changed": false,
+    "paid_models": false,
+    "push": false,
+    "actions": false,
+    "customer_stage_gate": false
+  },
+  "next": "继续C01真实Host/Native私聊材料完整流程：先核Published Attachment View路径完整性事件，再完成PC01-PC24适用链路；C02对象定位/C05冷路由与规模并行按有限清单推进，不重跑未变的卡片和构建。"
+}

@@ -1,4 +1,5 @@
 import { useAttachmentLocation } from './attachment-location'
+import { privateAttachmentOwnerKey } from '../../shared/private-attachment-locator'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type JSX, type KeyboardEvent, type MouseEvent } from 'react'
 import { createPortal } from 'react-dom'
 import * as Dialog from '@radix-ui/react-dialog'
@@ -40,6 +41,9 @@ export type ImagePayload = {
 export const MAX_IMAGE_PAYLOAD_CACHE_BYTES = 128 * 1024 * 1024
 
 function attachmentOwnerKey(locator: LocalAttachmentOwnerLocator): string {
+  if (locator.owner === 'single_chat_scoped_composer' || locator.owner === 'single_chat_scoped_pending_edit' || locator.owner === 'single_chat_retained') {
+    return privateAttachmentOwnerKey(locator)!
+  }
   if (locator.owner === 'message') return `${locator.owner}:${locator.messageId}`
   if (locator.owner === 'pending' || locator.owner === 'pending_edit') {
     return `${locator.owner}:${locator.pendingInputId}`

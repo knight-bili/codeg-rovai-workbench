@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R01",
+  "checked_at": "2026-10-16T17:15:01.182460+00:00",
+  "candidate": "fusion-i03-rc.19",
+  "source_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+  "test_owner_commit": "446dfa9d66dfe5260bf3219fde875cbbbd4c69eb",
+  "defect": "Web hides app.info.dataDir, but shared canvas opening and recovery required that server path",
+  "repair": "Native keeps its live dataDir identity; Web uses its Core-issued editor identity after live app.info authentication. All four shared consumers use the same resolver; missing/stale identity fails closed.",
+  "qualification": {
+    "PC10": "Real independent Core A/B with production Web in the same isolated browser page. A commits actual file upload while HTTP reply is held. Cross-origin navigation destroys the old execution context and interception; B retains its own body and empty materials/messages/runs, A retains only its file. Native end-old-conversation late-reply branch remains covered by rc18.",
+    "browser_boundary": "Browser cancels the old document response; this does not claim an old JavaScript callback ran in the new page.",
+    "native_regression": "Current compiled desktop actually preserves same-editor inline/drawer, native undo/redo and materials; concurrent CAS rejection preserves local input.",
+    "runtime_boundary": "Native regression uses owned fixed local ACP only, no external model inference. No final-send/PC14 qualification is inferred.",
+    "counts_after": {
+      "open_work_groups": 8,
+      "verified_work_groups": 2,
+      "private_cases_verified": 15,
+      "private_cases_open": 9
+    }
+  },
+  "tests": {
+    "client_and_shared_logic": 84,
+    "typecheck_exit": 0,
+    "docs_tests": 10,
+    "docs_check_exit": 0
+  },
+  "runs": [
+    {
+      "id": "pc10-cross-core-r1",
+      "status": "failed",
+      "driver_exit": {
+        "code": 1,
+        "signal": null,
+        "at": "2026-10-16T16:46:07.664Z"
+      },
+      "qualification": "failed_attempt_retained_not_counted"
+    },
+    {
+      "id": "pc10-cross-core-r2",
+      "status": "failed",
+      "driver_exit": {
+        "code": 1,
+        "signal": null,
+        "at": "2026-10-16T16:49:10.948Z"
+      },
+      "qualification": "failed_attempt_retained_not_counted"
+    },
+    {
+      "id": "pc10-rc19-cross-core-r1",
+      "status": "failed",
+      "driver_exit": {
+        "code": 1,
+        "signal": null,
+        "at": "2026-10-16T17:05:48.065Z"
+      },
+      "qualification": "failed_attempt_retained_not_counted"
+    },
+    {
+      "id": "pc10-rc19-cross-core-r2",
+      "status": "failed",
+      "driver_exit": {
+        "code": 1,
+        "signal": null,
+        "at": "2026-10-16T17:08:17.323Z"
+      },
+      "qualification": "failed_attempt_retained_not_counted"
+    },
+    {
+      "id": "pc10-rc19-cross-core-r3",
+      "status": "passed",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "at": "2026-10-16T17:09:34.368Z"
+      },
+      "qualification": "passed_current_candidate"
+    }
+  ],
+  "native_run": {
+    "result": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-roundtrip-r1\\result.json",
+    "driver_exit": {
+      "code": 0,
+      "signal": null,
+      "deadline_terminated": false,
+      "at": "2026-10-16T17:10:42.001Z"
+    }
+  },
+  "core_rebuilt": false,
+  "core_source": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+  "external_model_calls": 0,
+  "pushes": 0,
+  "actions_triggered": 0,
+  "customer_action_required_now": false,
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r1\\driver-exit.json",
+      "sha256": "a9c4102285c371b9eb992db11fe2745da53a92d061a884b354e3ac935ff82cf6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r1\\driver.mjs",
+      "sha256": "ab7fdbd2dbaa427d184c7dfb01bdc89a5cb3c5b19aa6e321ade56844ca20c6ed"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r1\\fixture-source.mjs",
+      "sha256": "026adb37f46b9cef99006928c6b4143837da3f9b0f92c4e74c9471dd0c44c5a9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r1\\manifest.json",
+      "sha256": "916a79c0fbc1cbb6c20b442eda616722722b11dc6453b941daac0b1a288f23aa"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r1\\owner-source.mjs",
+      "sha256": "40009f8dde8a3688e0d31c7fe1117d5a7b455f430611cd266b2b3258dad7d72d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r1\\result.json",
+      "sha256": "86a4f40196370622735fdfc8c74fd13e67dfc8b61719c2882de2fbb7e5f37eee"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r1\\stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r1\\stdout.log",
+      "sha256": "4359915d3941bd6233e8ce25127304cd96f676315cde4a4c539c4f1dedd64e98"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r2\\driver-exit.json",
+      "sha256": "c7740d1ccd889884a938f272fd348f435c8da45d852daba6cc4f2aadf31ccc87"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r2\\driver.mjs",
+      "sha256": "ab7fdbd2dbaa427d184c7dfb01bdc89a5cb3c5b19aa6e321ade56844ca20c6ed"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r2\\failure.png",
+      "sha256": "450f19eaf8844c7654adbbd7fea279bd3f54c251601b6bf03eb6722cf9fbc00c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r2\\fixture-source.mjs",
+      "sha256": "d63f3e5275647180c01c882191450d09db3a1e02d6e486c53e1ed658c8a56883"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r2\\manifest.json",
+      "sha256": "728e6aae6db3ba3b9c903548690633378934d92eec12962e1cfd4b31b6f6b35c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r2\\owner-source.mjs",
+      "sha256": "40009f8dde8a3688e0d31c7fe1117d5a7b455f430611cd266b2b3258dad7d72d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r2\\result.json",
+      "sha256": "90e07d43352cc27e1e17a114fa7ed7cec1b5f4224582efefc120b91aee512afd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r2\\stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-cross-core-r2\\stdout.log",
+      "sha256": "c08c78247911896e439b2990e30a915c38f305e8a804d3aa00a7dc0e43270f3b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r1\\01-old-core-upload-response-paused.png",
+      "sha256": "8a28c1a2a53c7264f167c9bd3ac6376328f41d07ce1aa7af6a3fd98206b3576b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r1\\driver-exit.json",
+      "sha256": "53043fb140b8d8f2424ab8c409566dd43d1d64f8c3f75215578509ef134dc79b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r1\\driver.mjs",
+      "sha256": "7de90ee4577a6c6fc03c8da1df408a368023b76435d1a571edd58f89164cba71"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r1\\failure.png",
+      "sha256": "34b76a2a35e6a071f5187fa495677670f8755e464dfa668c68104a116ad38e13"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r1\\fixture-source.mjs",
+      "sha256": "7bf9daa0ebc4e7fb4cbbb108619daa7a273e18a2e83a30ecfb112fb4114dfb7a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r1\\manifest.json",
+      "sha256": "b91d323810bfa8fb6f447cec3e846c7d2aba02363fc0f11d452f40d64f63fad3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r1\\owner-source.mjs",
+      "sha256": "40009f8dde8a3688e0d31c7fe1117d5a7b455f430611cd266b2b3258dad7d72d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r1\\result.json",
+      "sha256": "f81a291be1c879a8d09e4c6563a6f0331654524b40c1484e608dd83eb8576f2d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r1\\stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r1\\stdout.log",
+      "sha256": "c39fdc50108a07cbd22434ad4cfa1d2eca5c8972185d3dd5b32ef6363a2b70e2"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r2\\01-old-core-upload-response-paused.png",
+      "sha256": "8a28c1a2a53c7264f167c9bd3ac6376328f41d07ce1aa7af6a3fd98206b3576b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r2\\driver-exit.json",
+      "sha256": "3044a52d7d2afc2e69e06d89db1af58d562abfd6e1900b2075e5899bfd589540"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r2\\driver.mjs",
+      "sha256": "7de90ee4577a6c6fc03c8da1df408a368023b76435d1a571edd58f89164cba71"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r2\\failure.png",
+      "sha256": "34b76a2a35e6a071f5187fa495677670f8755e464dfa668c68104a116ad38e13"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r2\\fixture-source.mjs",
+      "sha256": "2e49b642cf339b51b932ba140a9c1ef6478d77d5643e17b1d01c5fc0ebab3071"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r2\\manifest.json",
+      "sha256": "5674ba2092c5fa45fda2bc9adcc67fcb3f493122b884e37c618612a45ccce986"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r2\\owner-source.mjs",
+      "sha256": "40009f8dde8a3688e0d31c7fe1117d5a7b455f430611cd266b2b3258dad7d72d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r2\\result.json",
+      "sha256": "ff68abf7a2ecf26a3a8d6425d08b0f6f1cc3be900fcb310cefb2c1e9d8073ee4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r2\\stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r2\\stdout.log",
+      "sha256": "a1c9e76c3e9b455dd9b29e49b3b372fe9c5a5ee66e4d3a7a3782c3f8cc384669"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r3\\01-old-core-upload-response-paused.png",
+      "sha256": "8a28c1a2a53c7264f167c9bd3ac6376328f41d07ce1aa7af6a3fd98206b3576b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r3\\02-new-core-input-stays-independent.png",
+      "sha256": "270e441b5e3f4cbb7092aba3b9c09360ed51c91ff20214950841e84165183e2a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r3\\driver-exit.json",
+      "sha256": "d3131912f37e5a2be437d14c619750e6ca1c49992c8fb913f88c4405c2339a30"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r3\\driver.mjs",
+      "sha256": "7de90ee4577a6c6fc03c8da1df408a368023b76435d1a571edd58f89164cba71"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r3\\fixture-source.mjs",
+      "sha256": "d47e5853908d9f092d712c914e20f8c39e79e22d55f81b081265cc6ea56f7bfe"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r3\\manifest.json",
+      "sha256": "a797ebc3a1dba5db3382858118b8a3a26b576fc7704b8f4a0dec73f7b78f9afa"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r3\\owner-source.mjs",
+      "sha256": "40009f8dde8a3688e0d31c7fe1117d5a7b455f430611cd266b2b3258dad7d72d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r3\\result.json",
+      "sha256": "0ed781f6af4822891c403ee1e2beb76c2b30af48550436df558ebffc783fa615"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r3\\stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-rc19-cross-core-r3\\stdout.log",
+      "sha256": "215cb49f14a247b02d53393217a3c7b309e7cb135a0928bdd0de1cde32ab3556"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\freeze.json",
+      "sha256": "1d2b289543cdca6a20bacd7f7cb75ae6f5c8eb1469f987cf913b996630e93f88"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\desktop-build-result.json",
+      "sha256": "e6c4bb43bc82330154de3c37e4c7dced11d190695e060825a5b9de0020f114b6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\web-build-result.json",
+      "sha256": "7b0fee45c969474f54a4a99f67b53b647c9c874932cab320a5ccce6958977c1a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\web-ui\\asset-cache.json",
+      "sha256": "0427c28923f3a43b7574644ef2a5a771bf049b13e4a6f853a8042390a5c39f4c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-roundtrip-r1-config.json",
+      "sha256": "dc78b3d671ce9bc36eedf37d0d4a776217515ff232fe6a43f3c6f90c79097538"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-roundtrip-r1\\01-private-full-input-roundtrip.png",
+      "sha256": "3861fe60278202cf1e0d9727af1c19b628e052720ae8355c42cea9f5078a3525"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-roundtrip-r1\\02-private-cas-preserves-input.png",
+      "sha256": "8f5fbae8de00a185afbe17a50470d09f88c46f9a70f6c4ea760b71715ca96615"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-roundtrip-r1\\controlled-runtime-input.jsonl",
+      "sha256": "59d187f837a7e9e3c400a995848753c032407bf7f710c634a20e60024c28bb46"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-roundtrip-r1\\driver-exit.json",
+      "sha256": "e71eb1886a5f3ffbd73dcbd7867a3ff2f418d39c958a5dd1cd8fbfcf3ac3d04b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.19\\native-private-roundtrip-r1\\result.json",
+      "sha256": "f28340743da2e950e243bbba49c519cffa05d219aafca9eb0fa503f1f0cc72d2"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-scope-red.log",
+      "sha256": "65b9874bdec5f11af9b6b3bacf18e1c257f3dd37fc989b35d3ea3d4be26b2a93"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-scope-green-final.log",
+      "sha256": "ee6be472012b40985466023d10ac7946142a07ac39f1eb25de9e1808ba686859"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-docs-test.log",
+      "sha256": "146573f9e78dd0a1683b2b6aebcb87e82a754f725368e1f1f339fb916100248d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\pc10-docs-check.log",
+      "sha256": "4fa8226f6e1e1996a680427364d86433fe0bcd846ed1c0516cac067440f40e31"
+    }
+  ]
+}

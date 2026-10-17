@@ -30,6 +30,9 @@ mod windows;
 #[path = "managed_process/linux.rs"]
 mod process_tree;
 
+#[cfg(target_os = "linux")]
+pub(crate) use process_tree::HelperDescendantGuard;
+
 #[cfg(target_os = "macos")]
 #[path = "managed_process/macos.rs"]
 mod process_tree;
@@ -832,6 +835,10 @@ impl ManagedProcess {
         }
         #[cfg(not(target_os = "macos"))]
         if self.tree_termination_requested {
+            // Linux 后续捕获的自有后代仍须收到强制停止，不能由首次 root 停止遮蔽。
+            #[cfg(target_os = "linux")]
+            return self.signal_captured_descendants(libc::SIGKILL);
+            #[cfg(not(target_os = "linux"))]
             return Ok(());
         }
         #[cfg(target_os = "linux")]
@@ -1254,6 +1261,11 @@ mod tests {
                 .unwrap(),
             "root exit is insufficient while a captured detached child is alive"
         );
+        #[cfg(target_os = "linux")]
+        {
+            // 注入“根停止已记录、实际后代尚未退出”的恢复状态，必须继续强停自有后代。
+            process.tree_termination_requested = true;
+        }
         process.force_terminate_tree().unwrap();
         tokio::time::timeout(Duration::from_secs(3), async {
             while !process.captured_tree_is_empty().unwrap() {

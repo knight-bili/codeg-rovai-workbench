@@ -1,4 +1,5 @@
 import { dirname, isAbsolute } from 'node:path'
+import { privateAttachmentOwnerKey } from '../../shared/private-attachment-locator'
 import type { CoreMethod, OpenFilePreviewRequest } from '@contracts'
 import {
   parseDesktopAttachmentTarget,
@@ -102,7 +103,7 @@ function attachmentAuthorityTarget(
     kind: 'file_target',
     threadId: request.threadId,
     sourceKind: request.kind,
-    sourceIdentity: `attachment:${ownerIdentity}:${target.attachmentId}`,
+    sourceIdentity: `attachment:${privateAttachmentOwnerKey(locator) ?? ownerIdentity}:${target.attachmentId}`,
     rootPath: dirname(target.path),
     basePath: dirname(target.path),
     candidatePath: target.path,

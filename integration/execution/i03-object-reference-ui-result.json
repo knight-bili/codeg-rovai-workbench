@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C02",
+  "status": "implementation_ready_for_stage_verification",
+  "recorded_at": "2026-10-15T22:47:37.901253+00:00",
+  "source_binding": {
+    "base_commit": "d7f6e8cd40ec7ffcee341de9691b3942b38b85ec",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "apps/desktop/src/renderer/src/BusinessApp.tsx": "a57d014fe4734ffbc86ae93a5d3a97e20d22836ba488e9ad99973a1a4c00ff3d",
+      "apps/desktop/src/renderer/src/CanvasNodeEditor.tsx": "38815baa45472100a8534bebe74b1c48e8824ed3d9f7d378824563e27c9afab7",
+      "apps/desktop/src/renderer/src/CanvasSurface.tsx": "b81ea47012214e92ae77b6772ece4bed96b520ff426eca0051ed4cc078b047af",
+      "apps/desktop/src/renderer/src/MissionDelivery.tsx": "0ac668b8b3be532f2484055e26470cb4bf50c4653008a424c91adf3fd350b909",
+      "apps/desktop/src/renderer/src/canvas-conversation-recovery.ts": "d1615ee00b16d389591f5d7b954a3b6a31639376cd2adee384354957587de304",
+      "apps/desktop/src/renderer/src/canvas-conversation.ts": "5654de7b63842ac4cbd56acc61d7822887b7a533ab214088726dc73eb872906a",
+      "apps/desktop/src/renderer/src/canvas.css": "a8a2409f6bb108a85a2ff1357d4a2824c365ccc3ad5ebdbcf97b05ca991f6c0b",
+      "apps/desktop/src/renderer/src/locales/en.json": "931718d4691cafb9064d2bdbe75fcf0fceecb8b55cfcd1823d30371c3767f90e",
+      "docs/architecture/canvas.md": "3d4f74ced2c42666fa326337ac9a882cb50fc13a76ad549681dddcc5c6e48287",
+      "docs/contracts/canvas-nodes-v1.md": "43abb5084738d8e11baceda8662de926e925ede9ff17bd3df13df628240815eb",
+      "apps/desktop/src/renderer/src/CanvasObjectDialog.tsx": "e6bf4ff812c3d251584722e305226f6e4bc6626638ca4d5172c4f32f3b3591e7",
+      "apps/desktop/src/renderer/src/CanvasObjectPicker.tsx": "3f9018eb0ebeb334437301c02c44b8a480ce966b8fb9d061a8a6b3b706a33601",
+      "apps/desktop/src/renderer/src/canvas-object.test.ts": "7c3528b6ccaac1638cfbabffc8ea04bba00955345843edf120b7555040b58b59",
+      "apps/desktop/src/renderer/src/canvas-object.ts": "b86c0dd26cfc0d60a23640d191c8f3c318dfe1863343d86dad9f037d17016559",
+      "apps/desktop/src/renderer/src/mission-diff-session.ts": "6d638f9cf29df45912f29261c3055b9082f07e481b7f2f528358e3979dd567de"
+    }
+  },
+  "previous_core_storage_evidence": {
+    "path": "integration/execution/i03-object-reference-storage-result.json",
+    "sha256": "3381479ae8bdc9b8b3fc0133197f285495c20ca71e0e71af015031e84036e0c7"
+  },
+  "implemented": [
+    "Capability-gated Mission/Task/cumulative Diff chooser: original public Thread, exact Mission, explicit bounded Task pagination including ended history",
+    "Diff optional exact Unicode/whitespace path chosen from current list, no file ID/view ID in saved node; disappearing selection preserved until explicit change",
+    "Cards show original object identity; open on demand, read exact ID plus Thread, discard superseded reads, preserve unavailable references",
+    "Business pins excluded from conversation expansion/mirroring/group/drop consumption and legacy expansion migration; layout/delete metadata preserved",
+    "Read-only inspector; Mission/Task operation entry revalidates and routes to existing workspace with exact focus/anchored Task, no new write/Runtime owner",
+    "Diff reads original Mission delivery/ownership/base/workspace visibility, reuses MissionChanges with fresh view/file IDs and missing-path notice, no first-file fallback",
+    "Mission-wide snapshot release waits for last mounted reader per client/Mission; unrelated stream events do not disable object operations"
+  ],
+  "verified": {
+    "client_checks": {
+      "files": 7,
+      "passed": 66,
+      "failed": 0,
+      "skipped": 0
+    },
+    "targeted_types": "pass_including_new_test_owner",
+    "mounted_ui": {
+      "kind": "production components with simulated RPC; not full App/Host",
+      "covered": [
+        "history Task selection/read/original workspace callback",
+        "Mission selection",
+        "wrong Thread refused",
+        "missing Task retains original ID",
+        "Diff exact path without saved viewId",
+        "fresh workspace baseline/current fileId/viewId",
+        "missing path no automatic fallback",
+        "old capability disables object types"
+      ],
+      "console_errors_warnings": 0,
+      "final_after_mount_adjustments": "Only public-anchor strict-null guard and filtered event invalidation changed after visual check; covered by final 66 unit checks/types, full App event path remains stage verification"
+    },
+    "documentation_governance": "pass_version_and_diff_aware_decisions_base_d7f6e8cd",
+    "diff_check": "pass"
+  },
+  "self_review_fixes": [
+    "Initial inspector displayed unavailable baseline; fixed by reading/validating original Mission delivery metadata before Diff",
+    "Reused Mission-wide release would invalidate another mounted reader; added per-client/Mission final-reader release",
+    "Unfiltered Core event listener would mark every stream update stale; now only source object/Thread/reset invalidations",
+    "Initial locale check found four static missing entries; supplemented this batch of UI phrases including JSX strings",
+    "New test owner exposed union spread type ambiguity; corrected the explicit Diff fixture literal",
+    "First visual fixture omitted app mission.css; preserved screenshot and corrected fixture import; no replacement product styling"
+  ],
+  "not_run": [
+    "current schema157/Migration207 Rust compilation and actual Core/Gateway owners",
+    "real Host/Native/database upgrade and full App workspace/focus navigation",
+    "live Git baseline/workspace changes and 12-view cache capacity/expiry in multi-surface App",
+    "formal324/full PC01-PC24, actual platform/devices or model"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "artifacts": {
+    "i03/canvas-object-ui-tests-01.log": "7973002e887c417edabe707891ef3a0a4b356989eb583130ccd8c43f8ad487c2",
+    "i03/canvas-object-ui-locale-01.log": "009fd954b47a4a8bb5c908b57467fc4980ab29213cb823e68dff9119b474c81d",
+    "i03/canvas-object-ui-tests-final-v2.log": "40873f85be7156056eb819b994d7fd6d20d19b8ef05d7f73d3fa1256e42cf8cd",
+    "i03/canvas-object-ui-types-01.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-object-ui-types-02.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-object-ui-types-final.log": "eca2b14288623f41a6aa78557c2b7668c349e46ff5f850bd32ab2d03176b2c79",
+    "i03/canvas-object-ui-types-final-checked.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-object-ui-types-final-v2.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-object-typecheck.json": "918d6d802deef618b81e16fbed1864bc2c50d4f7e3ede48a2b767a864a97c418",
+    "i03/canvas-object-ui-fixture.log": "35851de79b7be4d2f8b27255cd608f3f92fdded7a1aafee7ec62b815fcb82fdc",
+    "i03/canvas-object-ui-browser-witness.json": "32bd26f52cbba9b5b536c33c8ffdd66c73c409c02fb107cd6d46bad4441de4a9",
+    "i03/canvas-object-ui-before-fixture-style.png": "3152737cdaf4f6797fda7bf49a957962a0a96344e6969841c42f518f5e8410c7",
+    "i03/canvas-object-ui-final.png": "2d4aab394e0bb99f2830d1b0493b7792c7c901db3eca18ced561afbe434e5a15",
+    "i03/object-ui-fixture/entry.tsx": "c40f90d1fac04e2e2ae1290d70c8a20ab6e9bf0372730397d2da025be8c98f5f",
+    "i03/object-ui-fixture/index.html": "62d748bec45974cca42b78fbb6384b2124f3701ece51ccacf681d224769e633d",
+    "i03/object-ui-fixture/server.mjs": "fe4e8b6aa0e84ceca71026c4353e599050212606dc3023a876b93387a6070616",
+    "i03/record-canvas-object-ui.py": "d7e0896e71e6cb7e15e83ae3b48bdcdb428dda8c53c19442177077db87421983",
+    "i03/canvas-object-ui-docs-final.log": "6eb03e1b66af4f3a2ae337d42e11ddb5a595f11fc6e89cd079e7d49f34c7f9e8"
+  },
+  "boundaries": {
+    "source_projection_schema": 157,
+    "source_last_migration": 207,
+    "actual_user_database_migrated": false,
+    "host_protocol": 4,
+    "public_core_methods": 180,
+    "rust_changed": false,
+    "model_source_changed": false,
+    "new_dependencies": false,
+    "cargo_push_actions_model": false,
+    "customer_action_required_now": false,
+    "formal324": "not_run"
+  },
+  "next_actions": [
+    "Continue I03-C03 actual authorized file node/preview, then C04 isolated PTY",
+    "C05 cold route/multi-card/scale plus actual object navigation; C06 frozen candidate consolidated compile/integration",
+    "Repair defects in their owning group; do not request customer stage tests"
+  ]
+}

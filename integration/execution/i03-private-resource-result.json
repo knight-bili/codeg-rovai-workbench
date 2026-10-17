@@ -1,0 +1,423 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T17:09:03.240342+00:00",
+  "stage": "I03",
+  "goal_status": "active",
+  "baseline": "071f665c",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "source": "e7ab2aab3d144bbde52d58d39d20d8d8f063dd66",
+    "checkpoint": "071f665c"
+  },
+  "source_commit": "56ccbfab6362767920271886e50f78a96498522e",
+  "status": "private_resource_locator_Core_client_scope_joins_and_Main_cache_boundaries_locally_verified_upload_digest_and_Host_pending",
+  "approved_revision": 1,
+  "confirmation_status": "confirmed",
+  "approved_files": [
+    {
+      "path": "outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.docx",
+      "sha256": "87565f57fa0e994f676139e3376fe14e556ac9862c08f1573798d985f4dcecf7"
+    },
+    {
+      "path": "outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.pdf",
+      "sha256": "4b3446c0d97f2c6b8529a206d965a60229dcc1e5966e280647856fc88576e8df"
+    }
+  ],
+  "implemented": [
+    "Core三种闭合locator：卡片输入、scoped Pending edit、retained（含显式null默认）；旧owner编码保持",
+    "SQL按Thread/Conversation/可信client/scope/材料行查源引用，working另核对Pending与token；不回退旧managed附件，不登记或写库",
+    "明确接管后旧token资源拒绝；pin删除后按持久原归属读孤立材料；自报clientId拒绝",
+    "Main原生附件/文件预览双入口闭合解析，保留描述；旧owner塞scope/client字段拒绝，不默默丢弃降级",
+    "AttachmentCard/ImageGallery/PreviewSession/Core sourceIdentity包含scope/retainedID/lease，隔离同附件号的缓存位置"
+  ],
+  "validation": {
+    "Core_unique_passed": 17,
+    "Core_owners": [
+      {
+        "path": "work/i03/private-resource-core-tests-final.log",
+        "sha256": "eeea283d181aa09571dad9cfa3b7a8e79c1cc5e1262327cdcb5d379ecd2aaa4a",
+        "bytes": 2190,
+        "passed": 3,
+        "names": [
+          "single_chat_composer::tests::recovery_pages_are_read_only_context_bound_bounded_and_incomplete_after_changes",
+          "single_chat_composer::tests::send_consumes_only_the_registered_scope_and_keeps_one_private_fifo_and_legacy_shape",
+          "single_chat_composer::tests::commands_keep_complete_inputs_separate_preserve_receipts_and_rollback_both_sides"
+        ]
+      },
+      {
+        "path": "work/i03/private-resource-core-single-chat.log",
+        "sha256": "3331134e953ae210559f477dd528316dad886a7870baf7c35db9799af2a5c764",
+        "bytes": 1079,
+        "passed": 9,
+        "names": [
+          "single_chat::tests::single_chat_skill_filter_uses_official_bundled_source_identity",
+          "single_chat::tests::source_attachments_are_consumed_by_one_message_and_keep_their_path_for_its_run",
+          "single_chat::tests::built_in_policy_is_a_closed_allowlist_and_restart_cancels_only_the_reply",
+          "single_chat::tests::unavailable_queue_head_needs_repair_and_blocks_later_single_chat_inputs",
+          "single_chat::tests::history_reads_only_messages_before_current_input_with_exclusive_pagination",
+          "single_chat::tests::returning_pending_input_restores_private_draft_and_releases_the_next_input",
+          "single_chat::tests::pending_input_preserves_source_refs_and_publishes_after_the_active_run",
+          "single_chat::tests::send_uses_current_state_and_end_uses_exact_identity_without_fencing_a_successor",
+          "single_chat::tests::successful_final_is_private_and_a_cancelled_run_cannot_append_late_output"
+        ]
+      },
+      {
+        "path": "work/i03/private-resource-core-quotes.log",
+        "sha256": "e7e0d4aa9feacfa0e4eb2c36875fdc577fe3c4a39cf7739e31571a05a14c5216",
+        "bytes": 430,
+        "passed": 3,
+        "names": [
+          "message_quote::tests::readable_projection_preserves_selected_text_without_markdown_wrappers",
+          "message_quote::tests::camp_quote_projection_rechecks_source_visibility_for_each_agent",
+          "message_quote::tests::capture_fences_source_identity_and_keeps_literal_instruction_snapshots"
+        ]
+      },
+      {
+        "path": "work/i03/private-resource-core-scope.log",
+        "sha256": "e52daeec0aa5c6c614eb2293ed71541f9f6ac62e3f6d3b3128c0273b5e833fcc",
+        "bytes": 362,
+        "passed": 2,
+        "names": [
+          "single_chat_composer_scope::tests::scope_codec_preserves_legacy_omission_and_requires_explicit_closed_identity",
+          "single_chat_composer_scope::tests::pin_binding_requires_the_exact_live_private_reference_without_writing"
+        ]
+      }
+    ],
+    "Core_failed": 0,
+    "Core_ignored": 0,
+    "client": {
+      "files": 6,
+      "passed": 65,
+      "failed": 0,
+      "log": {
+        "path": "work/i03/private-resource-client-final.log",
+        "sha256": "765c8670f72ad97713e7110a9532a62edcb9effc08f80521a1fddd70c9626aac",
+        "bytes": 286
+      },
+      "scope": "mock_Core_static_UI_and_parser_cache_owners"
+    },
+    "types": {
+      "status": "passed_Main_index_file_preview_renderer_Web_imports_targeted",
+      "log": {
+        "path": "work/i03/private-resource-types-final.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    "format_and_diff": "passed",
+    "docs": "version_diff_aware_governance_and_10_policy_tests_passed",
+    "foundation": "passed_source_contract_fixture_only",
+    "scaffold": "81_clusters_48_packages_324_cases_preserved_product_not_run",
+    "actual_Host_HTTP_Native_UI_preview_upload_Runtime": "not_run",
+    "formal_cases": {
+      "not_run": 324
+    },
+    "PC15": "not_run_complete_scenario",
+    "SourceRef_shape_and_existing_validation": "byte_identical_to_baseline_no_content_digest_proof_added"
+  },
+  "compilation_exception": "文件授权公共契约是上传/预览接线的安全前提，仅Core lib extended局部验证；自审补Web正向/旧令牌撤销/orphan/default retained后重编同一局部owner。后续9+3+2复用同一binary，无Host或全仓编译。",
+  "self_review": [
+    "新owner使旧Host明确拒绝而不是吞scope退默认；Main旧owner额外scope/client同样拒绝",
+    "Core查询不靠retainedID或refID全局寻址，均与可信client及原Conversation/scope材料行绑定",
+    "Scope读取不再校验活pin并删除旧输入，保留孤立恢复；新登记仍必须过现行pin校验",
+    "缓存key规范化scope字段顺序并包含lease/retainedID；Main原样将descriptor交Core",
+    "尚未做源内容摘要，不启用新文件UI或宣称完整PC15通过；公共/Agent live source及模型投影保持"
+  ],
+  "earlier_failures": [
+    {
+      "log": "work/i03/private-resource-types-first.log",
+      "reason": "scratch缺electron-vite资产类型，补include现有依赖node.d.ts，无生产类型放宽"
+    },
+    {
+      "kind": "new_authority_test_types",
+      "reason": "新增generic mock与union字段访问不成立；显式generic包装及kind守卫修复，最终types通过"
+    },
+    {
+      "log": "work/i03/private-resource-rustfmt-first.log",
+      "reason": "新增代码未格式化，限定三个修改文件格式化后通过"
+    },
+    {
+      "kind": "docs_patch_context",
+      "reason": "第一次文档patch定位行不匹配，工具原子拒绝未落盘；读取精确行后重做"
+    },
+    {
+      "kind": "build_environment_message",
+      "reason": "既有包装首行VsDevCmd路径提示；Core最终exit0且测试通过，5条既有unused warnings，不据此宣称Host平台资格"
+    }
+  ],
+  "pending": [
+    "prepare原UUID/全参数的Native与Web共用提交/只读恢复，源文件内容摘要和替换检查",
+    "scoped上传/工作副本与retained预览实际Host链路、真实撤销/重启与文件访问策略验收，再启用文件UI",
+    "默认材料显式迁入、孤立Core/本机正文统一恢复与旧意图材料变化后的可操作恢复",
+    "I03其余Mission/Task/Diff pin、文件/PTY/冷路由及I02剩余；I04–I12/BUF与324正式验收"
+  ],
+  "preserved_versions": {
+    "schema": 155,
+    "migration": 205,
+    "Host": 4,
+    "current": "v1.72",
+    "current_operations": 180,
+    "historical_operations": 161
+  },
+  "policy": {
+    "pushed": false,
+    "new_Action_runs": 0,
+    "new_paid_model_runs": 0,
+    "main_merged": false,
+    "published": false,
+    "daily_data_used": false,
+    "normal_stage_batches": 12,
+    "candidate_frozen": false
+  },
+  "CodeGraph": "本仓未索引，按已核实工具要求文件回退，不初始化或声称sync",
+  "customer_action_required_now": false,
+  "source_files": [
+    {
+      "path": "apps/desktop/src/main/file-preview/file-preview-authority.test.ts",
+      "sha256": "2e5921d3f063cba0f1cfa05e327cecad451c8a49566b53ba1cc93a56cf7a4a0b"
+    },
+    {
+      "path": "apps/desktop/src/main/file-preview/file-preview-authority.ts",
+      "sha256": "18f533d393fd5f89be73b5644e68785c5aeacf5ef057f2c5b5038b2114a632c8"
+    },
+    {
+      "path": "apps/desktop/src/main/file-preview/file-preview-ipc-input.test.ts",
+      "sha256": "0c7ec419d05180c4105f8d57b0b031b894fdb0e5d4b1273c60d92ede8ffc35fe"
+    },
+    {
+      "path": "apps/desktop/src/main/file-preview/file-preview-ipc-input.ts",
+      "sha256": "cb3198fea52534ce261f313b0c6d835cd3c9e69c296f8bbdbe2560cccf3d7078"
+    },
+    {
+      "path": "apps/desktop/src/main/index.ts",
+      "sha256": "af15138e4921746ac569c79a4210f47a30156a431b8b43c233b09dc44b29daca"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/AttachmentCard.tsx",
+      "sha256": "e1b3247d0984afefc3ef901dfa3654a140c6edef985d654dc01ed2db6f27e31e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ImageGallery.tsx",
+      "sha256": "e57428870130c602b34e40c240ab73dae8975e5e526cea099aaae36797e3c4f3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/file-preview-session.test.ts",
+      "sha256": "fb6f6d9383587e4559a9e6a321c081d875425967dc4a42dface06a269b7cb627"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/file-preview-session.ts",
+      "sha256": "af39ecc226744738daad99a65b0edec49a622298cf75d82c942398b45df5073a"
+    },
+    {
+      "path": "apps/desktop/src/shared/private-attachment-locator.ts",
+      "sha256": "421a3f7e6b4e826b78b327230c28514615ed716501b59c25f16067d6bb5c8991"
+    },
+    {
+      "path": "crates/rovai-core/src/camp_attachment.rs",
+      "sha256": "7a338c80c2f38c33df44c7a65eb6fac6ceeab41be26692f649c4134f2d948d9a"
+    },
+    {
+      "path": "crates/rovai-core/src/local_attachment_source.rs",
+      "sha256": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat_composer_tests.rs",
+      "sha256": "c4ad1db2c6d02e7a6429cfbb2711019994048d1ef338ab0ceb468cb1752c6b29"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "da2c334e250250d6e640204080511813031b8a75d1fed0296861316ecb8b7a20"
+    },
+    {
+      "path": "docs/contracts/single-chat-composer-scope-v1.md",
+      "sha256": "27ef30ff0c55c21f5dd9bfe94d32d0608f29fbac0457a4333b1f1b3c03c32d11"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "d354d434bf15b9e7dad9b8fb558423f37d08b16400e6c4800ede9ffc8bf8daa8"
+    },
+    {
+      "path": "docs/versions/v1.72/README.md",
+      "sha256": "75fcd717d9c6567e660b34fb1fdf8290d92c711ab09f5022d65fc5185e34d5d8"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "189f9784577cbb3b897bc7f808a9aaace85c2fff8c1f0be53fd650d9693aaa46"
+    }
+  ],
+  "preserved_authorities": [
+    {
+      "path": "crates/rovai-core/src/context.rs",
+      "git_blob": "6c336da3c1a68d0f76d2b3d7bcd072cb89c20730",
+      "sha256": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784"
+    },
+    {
+      "path": "crates/rovai-core/src/context_contract.rs",
+      "git_blob": "97498ae4617bf94fbce2d5a68e6c459fe0c2df90",
+      "sha256": "d69fc337182fdab43feb84435c852ca92bf9a4ae57b9e532cb73ad350ccd736c"
+    },
+    {
+      "path": "crates/rovai-core/src/message_quote.rs",
+      "git_blob": "cae8847c28e3f605eb6a8b3b31918d723a9ea4e1",
+      "sha256": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e"
+    },
+    {
+      "path": "crates/rovai-core/src/draft_client.rs",
+      "git_blob": "8745a0ed10f868be9f728e63f951f7142124bdce",
+      "sha256": "651d61c4788d6205f11abbe5979dd21f9a08c4e3378d2cb889ee2598dac2ed1e"
+    },
+    {
+      "path": "crates/rovai-core/src/db.rs",
+      "git_blob": "ea881a48487b11f0b99e5aba293d38102c0b4458",
+      "sha256": "539bf9eff6d85004f462852d4317bcfe6cd5c88c0f485dcde3656a7a3d3809c6"
+    },
+    {
+      "path": "crates/rovai-core/src/db_private_composer_scope.rs",
+      "git_blob": "62db5aca02597157baddfa59e4ba37f43cb0470f",
+      "sha256": "acc376d5fd4df8f6c141d755ea0e515398235d4545503b5827a1297d3b7b32bc"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat.rs",
+      "git_blob": "c24d792c985ae08c2e159903e86552684be5cb96",
+      "sha256": "69c1dbb56c56181bbd0e90ef0239a855894b4a9e864119155d1a2da4de6c2569"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat_composer.rs",
+      "git_blob": "ecba6911d9ace38d2fa945bf81edb078db5ba09c",
+      "sha256": "fde43ac80b4f741152ac87a960d19b021774e64a0a4ee728fdec1f8d0d2b54c1"
+    },
+    {
+      "path": "crates/rovai-core/src/web_upload.rs",
+      "git_blob": "7a0e491b554f1b5f4ada7642a5ca8bbfafdb7c91",
+      "sha256": "3e959a557ab84e56b1c5151240ff958a91681890076122f9b3e771e5114583b8"
+    },
+    {
+      "path": "crates/rovai-core/src/application/private_composer.rs",
+      "git_blob": "5be38cf30a2ebb0c8fe11ff6c008013b6d912910",
+      "sha256": "e05ba85ce6c90c107364f5bf24800140cf483b25afe35b127030cb868903569d"
+    },
+    {
+      "path": "crates/rovai-web/src/operations.rs",
+      "git_blob": "c06aeaf508aa05fca4f67fdb1bc5e26613877d53",
+      "sha256": "e264b1e8f890c5c5723750bf1841594c94096058aa07e2533dc7806c904ead47"
+    },
+    {
+      "path": "integration/foundation/current-protocol.json",
+      "git_blob": "8bf1531ca7b42782b04db2d92f2ad985786a2929",
+      "sha256": "04063f89c5cb900d89d21fbd96a588e5e87883825b80ce7344b0ccd8b6dd0e67"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "work/i03/private-resource-client-final.log",
+      "sha256": "765c8670f72ad97713e7110a9532a62edcb9effc08f80521a1fddd70c9626aac",
+      "bytes": 286
+    },
+    {
+      "path": "work/i03/private-resource-client-first.log",
+      "sha256": "ff404eedfc007ce2c0238aa2aefc886731c979f249371fb5592374bbd9027739",
+      "bytes": 285
+    },
+    {
+      "path": "work/i03/private-resource-core-list.log",
+      "sha256": "8fe7878572fe31bff9fae955c6bee2c04685c9f258b72d0f0b155987895a11f9",
+      "bytes": 2077
+    },
+    {
+      "path": "work/i03/private-resource-core-quotes.log",
+      "sha256": "e7e0d4aa9feacfa0e4eb2c36875fdc577fe3c4a39cf7739e31571a05a14c5216",
+      "bytes": 430
+    },
+    {
+      "path": "work/i03/private-resource-core-scope.log",
+      "sha256": "e52daeec0aa5c6c614eb2293ed71541f9f6ac62e3f6d3b3128c0273b5e833fcc",
+      "bytes": 362
+    },
+    {
+      "path": "work/i03/private-resource-core-single-chat.log",
+      "sha256": "3331134e953ae210559f477dd528316dad886a7870baf7c35db9799af2a5c764",
+      "bytes": 1079
+    },
+    {
+      "path": "work/i03/private-resource-core-tests-final.log",
+      "sha256": "eeea283d181aa09571dad9cfa3b7a8e79c1cc5e1262327cdcb5d379ecd2aaa4a",
+      "bytes": 2190
+    },
+    {
+      "path": "work/i03/private-resource-core-tests-first.log",
+      "sha256": "de913beb432a22802ebcbd15cffbf2cb620d948344655c2f368a8decfc87e80e",
+      "bytes": 491
+    },
+    {
+      "path": "work/i03/private-resource-gate-docs-decisions.log",
+      "sha256": "ee47569c353f8114ff1c752ddb26fa908f413560a39d77a50e7694c7edef977f",
+      "bytes": 232
+    },
+    {
+      "path": "work/i03/private-resource-gate-docs-policy.log",
+      "sha256": "2ece579523ad61df805d9348a7572dabc9fad2019bfca65679df4821dbc7bb9c",
+      "bytes": 973
+    },
+    {
+      "path": "work/i03/private-resource-gate-docs-version.log",
+      "sha256": "8600a1ee61738be69f52443298d9b90d5a5862d63ea7205a38a69bad473f107d",
+      "bytes": 117
+    },
+    {
+      "path": "work/i03/private-resource-gate-foundation.log",
+      "sha256": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+      "bytes": 182
+    },
+    {
+      "path": "work/i03/private-resource-gate-scaffold.log",
+      "sha256": "2f82011834174c6eacb0d6742620d100058b128f364966a3950fc33f22407f05",
+      "bytes": 153
+    },
+    {
+      "path": "work/i03/private-resource-rustfmt-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work/i03/private-resource-rustfmt-first.log",
+      "sha256": "20ccfb43a8b1a83807bc521aaf097ef5cdcbbd5200e4668d8e22bb6e5eb667d9",
+      "bytes": 6887
+    },
+    {
+      "path": "work/i03/private-resource-rustfmt.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work/i03/private-resource-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work/i03/private-resource-types-first.log",
+      "sha256": "60f3eaba25c728fd6d49e7037d6f93aa064425c24037685a28f7ca8b0b7116b0",
+      "bytes": 1094
+    },
+    {
+      "path": "work/i03/private-resource-types-fixed.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work/i03/private-resource-typecheck.json",
+      "sha256": "864e4ec99a5a7477479342968e518c791cea97a6be431b54c6ecea86717a4e43",
+      "bytes": 757
+    },
+    {
+      "path": "work/i03/record_private_resource.py",
+      "sha256": "321e079b1620146cb3dcd7621a4a3625f1e77612af3013aff4e5428d307d7559",
+      "bytes": 10650
+    },
+    {
+      "path": "work/integration/target/debug/deps/rovai_core-8a00e4a485931fa6.exe",
+      "sha256": "0d773cbbc25fe4400419e41350df5a0c0a94630e2d93e43f74501c8fca47d188",
+      "bytes": 88100352
+    }
+  ],
+  "next_action": "继续私有上传原请求编号与源内容变化检查，保留公共live source/模型投影；再实际Host文件链路与UI、迁入/孤立恢复"
+}

@@ -4,7 +4,7 @@ contract: canvas-boards-v1
 authority: core-canvas-board-lifecycle-and-snapshot
 status: accepted
 version: 1
-last_updated: 2026-10-14
+last_updated: 2026-10-16
 ---
 
 # Canvas Boards v1
@@ -29,7 +29,7 @@ Both Core and authenticated Host Web admit these operations:
 
 | Operation | Parameters | Result |
 |---|---|---|
-| `canvas.boards.list` | `{}` | `{boards: CanvasBoard[], throughGlobalSequence: number}` |
+| `canvas.boards.list` | `{}` | `{boards: CanvasBoard[], summaries?: CanvasBoardSummary[], throughGlobalSequence: number}` |
 | `canvas.boards.get` | `{boardId: string}` | `{board: CanvasBoard \| null, throughGlobalSequence: number}` |
 | `canvas.boards.create` | User command with `{name?, description?, color?}` | Stored command result with `{board}` |
 | `canvas.boards.update` | User command with `{boardId, expectedRevision, name?, description?, color?}` | Stored command result with `{board}` |
@@ -63,6 +63,30 @@ or deleted IDs. Each result and `throughGlobalSequence` come from one SQLite rea
 Reads have no maintenance or creation side effects. Timestamp ordering is a display preference;
 only revision participates in write admission.
 
+### List summaries
+
+`summaries` is an additive read projection; `boards` and all request shapes remain compatible.
+When present, it has exactly one entry per returned board with the same `boardId` and `revision`:
+`{boardId, revision, nodeCount, terminalCount, preview}`. Both counts cover persisted `canvas_node`
+rows, including independent business pins; derived region members and running PTY processes are
+not counted as additional nodes. Empty boards have real zero counts and an empty preview.
+
+Each preview contains at most 200 `{kind, x, y, width, height, color}` footprints, ordered by
+descending stored width × height, then node ID. Counts remain exact beyond the preview cap.
+Only the eight persisted node kinds and the existing geometry/color domain are used. No node
+title, note body, path, Thread/private-conversation identity, member list, file content or terminal
+output enters this projection. The Core query materializes bounded footprints rather than full
+node rows. Board rows, summaries and the sequence are read in the same transaction; reads do not
+touch revisions, timestamps, events or receipts. Deleted boards contribute neither counts nor
+footprints. This adds no schema or migration and creates no parallel cache or execution authority.
+
+Metadata-only older Hosts omit the field; clients show an unavailable statistic, never a fabricated
+zero. The schema152 metadata test owner can also read before `canvas_node` exists. Live database
+contract admission remains mandatory and must not treat missing current-schema tables as healthy.
+Clients reject mismatched/duplicate board identities or revisions, invalid counts and invalid/capped
+geometry before replacing their last valid list. The thumbnail is a silhouette of persisted geometry,
+not a render of open conversations, resolved region memberships, file viewers or terminal sessions.
+
 ## Writes, events and recovery
 
 Use [Domain Command Result v2](domain-command-result-v2.md). Revision starts at 1. Update and delete
@@ -80,9 +104,11 @@ cross-board authority from response arrival order.
 
 Schema152/Migration202 atomically adds `canvas_board`, the receipt and marker to exact schema151.
 It does not modify any existing installation, member choice, Run input or model contract.
-Deletion retains a metadata tombstone to avoid identity reuse; there are no nodes or PTY processes
-in this slice. Node cleanup and actual ephemeral terminal settlement must join the deletion lifecycle
-before those capabilities are introduced; a tombstone alone must never claim terminal settlement.
+Deletion retains a metadata tombstone to avoid identity reuse. [Canvas Nodes v1](canvas-nodes-v1.md)
+extends this lifecycle in schema154: nodes are deleted in the same transaction and graph writes use
+the same board revision. There are no interactive PTY processes in these slices. Actual ephemeral
+terminal settlement must join the deletion lifecycle before that capability is introduced;
+a tombstone alone must never claim terminal settlement.
 
 ## Verification boundary
 

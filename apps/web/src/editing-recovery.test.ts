@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { browserEditingRecovery } from './editing-recovery'
 import { emptyLocalThreadComposerDraft, saveLocalThreadComposerDraft, threadComposerDraftStorage, loadLocalThreadComposerDraft } from '../../desktop/src/renderer/src/camp-composer-local-store'
+import { canvasComposerDraftStorage, canvasComposerDraftCopies, CANVAS_COMPOSER_STORAGE_PREFIX, type CanvasComposerContext } from '../../desktop/src/renderer/src/canvas-composer-drafts'
+import { singleChatComposerStore } from '../../desktop/src/renderer/src/single-chat-composer-store'
 
 class Store {
   values = new Map<string, string>()
@@ -14,6 +16,77 @@ const identity = 'rovai.camp-composer-draft.v1:thread'
 const draft = (body: string) => ({ ...emptyLocalThreadComposerDraft('thread'), body, content: { version: 2 as const, segments: [{ kind: 'text' as const, text: body }] } })
 
 describe('Web body snapshots', () => {
+  it('keeps same-pin private bodies and saved input positions local to each verified editor', () => {
+    const archive = new Store(), tabA = new Store(), tabB = new Store()
+    const context: CanvasComposerContext = { host: 'host/owner', core: '/core', boardId: 'board', nodeId: 'same-pin', threadId: 'thread', conversationId: 'private' }
+    const owner = (editor: string, tab: Store) => ({ editingRecovery: browserEditingRecovery(`host/owner/${editor}`, tab, { ownerScope: 'host/owner', storage: archive }) })
+    const a = owner('a', tabA), b = owner('b', tabB)
+    const first = singleChatComposerStore(a, 'thread', context), second = singleChatComposerStore(b, 'thread', context)
+    expect(first.update(() => ({ private: '甲未发送正文', 'private:returned:request-a': '甲保留副本' }))).toBe(true)
+    a.editingRecovery.set('single-chat-input-body-index:v1', { version: 1, entries: { own: { bodyKey: 'private' } } })
+    expect(second.getSnapshot().drafts).toEqual({})
+    expect(b.editingRecovery.get('single-chat-input-body-index:v1')).toBeNull()
+    expect(second.update(() => ({ private: '乙未发送正文' }))).toBe(true)
+    expect(first.getSnapshot().drafts.private).toBe('甲未发送正文')
+    expect(singleChatComposerStore(owner('a', tabA), 'thread', context).getSnapshot().drafts).toEqual(first.getSnapshot().drafts)
+    expect(singleChatComposerStore(owner('b', tabB), 'thread', context).getSnapshot().drafts).toEqual({ private: '乙未发送正文' })
+    const copiedTab = new Store(); copiedTab.values = new Map(tabA.values)
+    expect(singleChatComposerStore(owner('new-editor', copiedTab), 'thread', context).getSnapshot().drafts).toEqual({})
+    expect(archive.length).toBe(0)
+  })
+
+  it('archives per-card public snapshots after tab loss, offers exact-context copies, and excludes private edits and proofs', () => {
+    const archive = new Store(), tab = new Store(), scope = 'host/owner/editor'
+    const context: CanvasComposerContext = { host: 'host/owner', core: '/core', boardId: 'board', nodeId: 'first', threadId: 'thread', conversationId: null }
+    const client = (editingRecovery: ReturnType<typeof browserEditingRecovery>) => ({ editingRecovery, request: (async () => ({ dataDir: '/core' })) as never, presentationScope: context.host })
+    // An older tab-only record is migrated only after the durable archive write succeeds.
+    const legacy = client(browserEditingRecovery(scope, tab))
+    saveLocalThreadComposerDraft(draft('first'), canvasComposerDraftStorage(legacy, context))
+    legacy.editingRecovery.set('single-chat:thread:canvas:private', { body: 'private-only', proof: 'proof-secret' })
+    const current = client(browserEditingRecovery(scope, tab, { ownerScope: context.host, storage: archive }))
+    saveLocalThreadComposerDraft(draft('second'), canvasComposerDraftStorage(current, { ...context, nodeId: 'second' }))
+    expect(loadLocalThreadComposerDraft('thread', canvasComposerDraftStorage(current, context))?.body).toBe('first')
+    const sameEditor = client(browserEditingRecovery(scope, new Store(), { ownerScope: context.host, storage: archive }))
+    expect(loadLocalThreadComposerDraft('thread', canvasComposerDraftStorage(sameEditor, context))?.body).toBe('first')
+    const reopened = client(browserEditingRecovery('host/owner/new', new Store(), { ownerScope: context.host, storage: archive }))
+    expect(loadLocalThreadComposerDraft('thread', canvasComposerDraftStorage(reopened, context))).toBeNull()
+    const copies = canvasComposerDraftCopies(reopened, context)
+    expect(copies).toHaveLength(1)
+    expect(JSON.parse(copies[0].value).body).toBe('first')
+    expect(canvasComposerDraftCopies(reopened, { ...context, nodeId: 'second' }).map(copy => JSON.parse(copy.value).body)).toEqual(['second'])
+    expect(canvasComposerDraftCopies(reopened, { ...context, core: '/different' })).toEqual([])
+    const otherOwner = client(browserEditingRecovery('host/other/new', new Store(), { ownerScope: 'host/other', storage: archive }))
+    expect(canvasComposerDraftCopies(otherOwner, context)).toEqual([])
+    const stored = [...archive.values.values()].join('')
+    expect(stored).not.toContain('private-only')
+    expect(stored).not.toContain('proof-secret')
+    saveLocalThreadComposerDraft(emptyLocalThreadComposerDraft('thread'), canvasComposerDraftStorage(sameEditor, context))
+    expect(loadLocalThreadComposerDraft('thread', canvasComposerDraftStorage(sameEditor, { ...context, nodeId: 'second' }))?.body).toBe('second')
+  })
+
+  it('keeps archived canvas input on quota failure and rejects future bundles before modifying either store', () => {
+    const archive = new Store(), tab = new Store(), scope = 'host/owner/editor', bundleKey = `${CANVAS_COMPOSER_STORAGE_PREFIX}thread`
+    const recovery = browserEditingRecovery(scope, tab, { ownerScope: 'host/owner', storage: archive })
+    const context: CanvasComposerContext = { host: 'host/owner', core: '/core', boardId: 'board', nodeId: 'first', threadId: 'thread', conversationId: null }
+    const client = { editingRecovery: recovery, request: (async () => ({})) as never }
+    const store = canvasComposerDraftStorage(client, context)
+    saveLocalThreadComposerDraft(draft('saved'), store)
+    const before = archive.getItem(`rovai.web.thread-drafts.v1:${scope}`), write = archive.setItem.bind(archive)
+    archive.setItem = () => { throw new Error('quota') }
+    expect(() => saveLocalThreadComposerDraft(draft('new'), store)).toThrow('quota')
+    expect(archive.getItem(`rovai.web.thread-drafts.v1:${scope}`)).toBe(before)
+    archive.setItem = write
+    expect(() => recovery.set(bundleKey, '{"version":2,"drafts":{}}')).toThrow()
+    expect(archive.getItem(`rovai.web.thread-drafts.v1:${scope}`)).toBe(before)
+    expect(tab.length).toBe(0)
+    const saved = JSON.parse(before!)
+    saved.entries[bundleKey].value = '{"version":2,"drafts":{}}'
+    archive.setItem(`rovai.web.thread-drafts.v1:${scope}`, JSON.stringify(saved))
+    expect(() => loadLocalThreadComposerDraft('thread', store)).toThrow()
+    expect(() => saveLocalThreadComposerDraft(draft('overwrite'), store)).toThrow()
+    expect(archive.getItem(`rovai.web.thread-drafts.v1:${scope}`)).toContain('\\"version\\":2')
+  })
+
   it('keeps editors separate after tab loss, filters Host/Owner, and retains copies after restoring or clearing another editor', () => {
     const archive = new Store()
     const a = browserEditingRecovery('host/owner/a', new Store(), { ownerScope: 'host/owner', storage: archive })

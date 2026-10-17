@@ -21,6 +21,8 @@ import type {
   NavigationThreadGroup,
   NavigationSnapshot,
   ProjectNavigationGroup,
+  NavigationProjectGroup,
+  WorkspaceWorktree,
   SettingsSection
 } from '@contracts'
 import {
@@ -51,6 +53,13 @@ import {
   type NavigationGroupLimits
 } from './navigation-window-reader'
 import { UiText, uiAttribute } from './interface-language'
+import { navigationProjectSidebarLayout } from '../../shared/navigation-project-groups'
+import { useCanvasFolders } from './useCanvasFolders'
+import { resolveSidebarProjectGroups } from './project-group-presentation'
+import { navigationProjectTrees } from './navigation-project-tree'
+import { useNavigationActivity } from './useNavigationActivity'
+import { navigationActivityForGroups } from './navigation-activity-controller'
+import { NavigationActivityBadge } from './NavigationActivityBadge'
 
 export type NavigationSettingsSection = SettingsSection
 
@@ -141,6 +150,11 @@ export function ThreadNavigation({
   shellOnlyProjectPath = null,
   creatingConversation = false,
   pins = [],
+  folderGroups = [],
+  projectOrder = null,
+  onManageProjectGroups,
+  onOpenWorktree,
+  openingWorktreePath = null,
   pinnedThreadItems = [],
   threadReadStates = {},
   onSetThreadUnread,
@@ -153,6 +167,7 @@ export function ThreadNavigation({
   onMembers,
   onAutomations = () => undefined,
   onMissions = () => undefined,
+  onCanvas = () => undefined,
   unreadMissionCount = 0,
   onMemory,
   pendingMemoryCount,
@@ -177,7 +192,7 @@ export function ThreadNavigation({
   navigationId?: string
   settingsNavigation?: React.ReactNode
   footer?: React.ReactNode
-  view: 'compose' | 'camp' | 'members' | 'automations' | 'missions' | 'memory' | 'settings'
+  view: 'compose' | 'camp' | 'members' | 'automations' | 'missions' | 'canvas' | 'memory' | 'settings'
   state: 'loading' | 'ready' | 'error'
   disabled?: boolean
   navigation: NavigationSnapshot | null
@@ -190,6 +205,11 @@ export function ThreadNavigation({
   shellOnlyProjectPath?: string | null
   creatingConversation?: boolean
   pins?: NavigationPin[]
+  folderGroups?: NavigationProjectGroup[]
+  projectOrder?: string[] | null
+  onManageProjectGroups?(groupId?: string, action?: 'edit' | 'delete'): void
+  onOpenWorktree?(path: string): void
+  openingWorktreePath?: string | null
   pinnedThreadItems?: NavigationThreadItem[]
   threadReadStates?: Record<string, NavigationThreadReadState>
   onSetThreadUnread?(thread: NavigationThreadItem, unread: boolean): Promise<void>
@@ -202,6 +222,7 @@ export function ThreadNavigation({
   onMembers(): void
   onAutomations?(): void
   onMissions?(): void
+  onCanvas?(): void
   unreadMissionCount?: number
   onMemory(): void
   pendingMemoryCount: number
@@ -224,10 +245,20 @@ export function ThreadNavigation({
   onError(error: unknown): void
 }): JSX.Element {
   const client = useThreadClient()
+  const folderPaths = useMemo(() => [...(navigation?.projects.map(project => project.projectPath) ?? []), ...folderGroups.flatMap(group => group.projectPaths)], [folderGroups, navigation])
+  const folders = useCanvasFolders(folderPaths)
+  const resolvedFolderGroups = useMemo(() => resolveSidebarProjectGroups(folderGroups, folders.resolutions), [folderGroups, folders.resolutions])
+  const projectTrees = useMemo(() => navigationProjectTrees(navigation?.projects ?? [], folders.resolutions), [navigation, folders.resolutions])
   const mobile = useMobileLayout()
   const collapsed = useNavigationCollapsed()
   const navigationCollapsed = !mobile && collapsed
+  const activity = useNavigationActivity(client, navigation ? ['quick-chat', ...navigation.projects.map(project => project.projectKey)] : [],
+    state === 'ready' && !disabled && !navigationCollapsed && (view !== 'settings' || mobile))
+  const projectActivityKeys = (project: ProjectNavigationGroup) => [project.projectKey,
+    ...(projectTrees.find(tree => tree.project.projectKey === project.projectKey)?.children.flatMap(child => child.project ? [child.project.projectKey] : []) ?? [])]
   const [collapsedProjectGroups, setCollapsedProjectGroups] = useState<Set<string>>(() => new Set())
+  const [collapsedFolderGroups, setCollapsedFolderGroups] = useState<Set<string>>(() => new Set())
+  useEffect(() => setCollapsedFolderGroups(new Set()), [client])
   const [loadingGroups, setLoadingGroups] = useState<Set<string>>(() => new Set())
   const [action, setAction] = useState<NavigationAction>(null)
   const [renameTitle, setRenameTitle] = useState('')
@@ -382,6 +413,73 @@ export function ThreadNavigation({
     }
   }
 
+  const renderProject = (project: ProjectNavigationGroup, options: { pinned?: boolean; worktree?: WorkspaceWorktree; parentPath?: string; complete?: boolean; children?: React.ReactNode } = {}): JSX.Element | null => {
+    const groupKey = projectKey(project)
+    if (!options.pinned && pins.some((pin) => pin.kind === 'project' && pin.targetKey === project.projectKey)) return null
+    const window = groupWindow(groupKey, project)
+    return (
+      <ThreadGroup
+        key={project.projectKey}
+        groupKey={groupKey}
+        pinTargetKey={project.projectKey}
+        label={project.name}
+        totalCount={project.totalCount}
+        threads={window.threads}
+        hasMore={window.hasMore}
+        projectExpanded={!collapsedProjectGroups.has(groupKey)}
+        loadingMore={loadingGroups.has(groupKey)}
+        activeThreadId={activeThreadId}
+        firstRunThreadId={firstRunThreadId}
+        openingThreadId={openingThreadId}
+        currentProject={currentProjectKey === project.projectKey}
+        createDisabled={creatingConversation || options.worktree?.available === false || Boolean(options.worktree?.prunable)}
+        worktree={options.worktree} parentProjectPath={options.parentPath} relationComplete={options.complete} worktreeChildren={options.children}
+        activity={navigationActivityForGroups(activity, projectActivityKeys(project), options.complete !== false)}
+        pinned={pins.some((pin) => pin.kind === 'project' && pin.targetKey === project.projectKey)}
+        onShowMore={() => void showMore(groupKey)}
+        onCollapseThreads={() => collapseGroupThreads(groupKey)}
+        onToggleExpanded={() => toggleProjectGroup(groupKey)}
+        onSelectProject={() => onSelectProject(project)}
+        onOpenProjectHome={onOpenProjectHome ? () => onOpenProjectHome(project) : undefined}
+        onCreate={() => onCreateInProject(project)}
+        onTogglePin={project.projectPath === shellOnlyProjectPath
+          ? undefined
+          : () => void togglePin('project', project.projectKey)}
+        onRenameProject={onRenameProject ? () => setRenameProject(project) : undefined}
+        onRemoveProject={() => openProjectRemoval(project)}
+        onToggleThreadPin={(thread) => void togglePin('camp', thread.id, thread)}
+        onCopyThreadId={(thread) => void copyThreadId(thread)}
+        threadReadStates={threadReadStates}
+        onSetThreadUnread={onSetThreadUnread ? setThreadUnread : undefined}
+        platform={platform}
+        onRevealProject={onRevealProject ? () => { void onRevealProject(project).catch(onError) } : undefined}
+        onCopyProjectPath={() => void copyProjectPath(project)}
+        onThread={onThread}
+        onAction={openAction}
+      />
+    )
+
+  }
+
+  const renderProjectTree = (project: ProjectNavigationGroup, pinned = false): JSX.Element | null => {
+    const tree = projectTrees.find(tree => tree.project.projectPath === project.projectPath)
+    const parent = projectTrees.find(tree => tree.children.some(child => child.path === project.projectPath))
+    const entry = parent?.children.find(child => child.path === project.projectPath)
+    const children = tree?.children.map(child => child.project
+      ? renderProject(child.project, { worktree: child.worktree, parentPath: project.projectPath, complete: child.complete })
+      : <div key={child.path} className="navigation-unregistered-worktree" data-worktree-path={child.path}>
+        <button type="button" title={child.path} aria-label={uiAttribute('打开并登记工作树“{0}”', child.path)} disabled={!onOpenWorktree || Boolean(openingWorktreePath) || !child.complete || !child.worktree.available || child.worktree.prunable}
+          onClick={() => onOpenWorktree?.(child.path)}>{child.worktree.branch || child.path}</button>
+        <small>{openingWorktreePath === child.path ? uiAttribute('正在打开工作树…') : !child.complete ? uiAttribute('工作树关系待核对，暂不能打开')
+          : !child.worktree.available || child.worktree.prunable ? uiAttribute('工作树当前无法打开') : uiAttribute('未登记工作树，点击打开')}
+          {child.worktree.detached && <> · <UiText zh="游离 HEAD" /></>}{child.worktree.locked && <> · <UiText zh="已锁定" /></>}
+          {!child.worktree.available && <> · <UiText zh="目录不可用" /></>}{child.worktree.prunable && <> · <UiText zh="待清理" /></>}
+          {!child.complete && <> · <UiText zh="关系待核对" /></>}</small>
+      </div>)
+    return renderProject(project, { pinned, worktree: tree?.worktree ?? entry?.worktree, parentPath: tree?.parentPath ?? parent?.project.projectPath,
+      complete: tree?.complete ?? entry?.complete, children: children?.some(Boolean) ? <div className="navigation-worktrees">{children}</div> : undefined })
+  }
+
   return (
     <>
       <aside id={navigationId} className={`unified-sidebar ${view === 'settings' && !mobile ? 'settings-navigation-mode' : ''}${navigationCollapsed ? ' is-collapsed' : ''}`} inert={disabled || navigationCollapsed} aria-label={view === 'settings' && !mobile ? uiAttribute("设置分类") : uiAttribute("全局导航")}>
@@ -445,6 +543,9 @@ export function ThreadNavigation({
                     <span className="rail-glyph" aria-hidden="true"><MissionIcon /></span><span className="rail-label"><UiText zh={"使命板"} /></span>
                     {unreadMissionCount > 0 && <i className="mission-rail-badge-dot" aria-hidden="true" />}
                   </button>
+                  <button className={`rail-button ${view === 'canvas' ? 'active' : ''}`} type="button" aria-current={view === 'canvas' ? 'page' : undefined} aria-label={uiAttribute('无限画布')} title={uiAttribute('无限画布')} onClick={onCanvas} disabled={state !== 'ready'}>
+                    <span className="rail-glyph" aria-hidden="true"><NavigationIcon name="blocks" /></span><span className="rail-label"><UiText zh="无限画布" /></span>
+                  </button>
                   <button className={`rail-button ${view === 'automations' ? 'active' : ''}`} type="button" aria-current={view === 'automations' ? 'page' : undefined} aria-label={uiAttribute("定时任务")} title={uiAttribute("定时任务")} onClick={onAutomations}>
                     <span className="rail-glyph" aria-hidden="true"><NavigationIcon name="calendar-clock" /></span><span className="rail-label"><UiText zh={"定时任务"} /></span>
                   </button>
@@ -479,99 +580,26 @@ export function ThreadNavigation({
                 onAction={openAction}
               />
             ))}
-            {pinnedProjects.map((project) => {
-              const groupKey = projectKey(project)
-              const window = groupWindow(groupKey, project)
-              return <ThreadGroup
-                key={`pinned-${project.projectKey}`}
-                groupKey={groupKey}
-                pinTargetKey={project.projectKey}
-                label={project.name}
-                totalCount={project.totalCount}
-                threads={window.threads}
-                hasMore={window.hasMore}
-                projectExpanded={!collapsedProjectGroups.has(groupKey)}
-                loadingMore={loadingGroups.has(groupKey)}
-                activeThreadId={activeThreadId}
-                firstRunThreadId={firstRunThreadId}
-                openingThreadId={openingThreadId}
-                currentProject={currentProjectKey === project.projectKey}
-                createDisabled={creatingConversation}
-                pinned
-                onShowMore={() => void showMore(groupKey)}
-                onCollapseThreads={() => collapseGroupThreads(groupKey)}
-                onToggleExpanded={() => toggleProjectGroup(groupKey)}
-                onSelectProject={() => onSelectProject(project)}
-                onOpenProjectHome={onOpenProjectHome ? () => onOpenProjectHome(project) : undefined}
-                onCreate={() => onCreateInProject(project)}
-                onTogglePin={project.projectPath === shellOnlyProjectPath
-                  ? undefined
-                  : () => void togglePin('project', project.projectKey)}
-                onRenameProject={onRenameProject ? () => setRenameProject(project) : undefined}
-                onRemoveProject={() => openProjectRemoval(project)}
-                onToggleThreadPin={(thread) => void togglePin('camp', thread.id, thread)}
-                onCopyThreadId={(thread) => void copyThreadId(thread)}
-                threadReadStates={threadReadStates}
-                onSetThreadUnread={onSetThreadUnread ? setThreadUnread : undefined}
-                platform={platform}
-                onRevealProject={onRevealProject ? () => { void onRevealProject(project).catch(onError) } : undefined}
-                onCopyProjectPath={() => void copyProjectPath(project)}
-                onThread={onThread}
-                onAction={openAction}
-              />
-            })}
+            {pinnedProjects.map(project => renderProjectTree(project, true))}
           </section>
         )}
         <section className="navigation-projects" aria-labelledby="projects-heading">
-          <div className="sidebar-group-title navigation-section-title"><span id="projects-heading"><UiText zh={"项目"} /></span><button className="section-create-button" type="button" aria-label={uiAttribute("选择工作目录")} title={uiAttribute("选择工作目录")} onClick={onOpenProject} disabled={state !== 'ready'}>＋</button></div>
-          {navigation?.projects.map((project) => {
-            const groupKey = projectKey(project)
-            if (pins.some((pin) => pin.kind === 'project' && pin.targetKey === project.projectKey)) return null
-            const window = groupWindow(groupKey, project)
-            return (
-              <ThreadGroup
-                key={project.projectKey}
-                groupKey={groupKey}
-                pinTargetKey={project.projectKey}
-                label={project.name}
-                totalCount={project.totalCount}
-                threads={window.threads}
-                hasMore={window.hasMore}
-                projectExpanded={!collapsedProjectGroups.has(groupKey)}
-                loadingMore={loadingGroups.has(groupKey)}
-                activeThreadId={activeThreadId}
-                firstRunThreadId={firstRunThreadId}
-                openingThreadId={openingThreadId}
-                currentProject={currentProjectKey === project.projectKey}
-                createDisabled={creatingConversation}
-                pinned={pins.some((pin) => pin.kind === 'project' && pin.targetKey === project.projectKey)}
-                onShowMore={() => void showMore(groupKey)}
-                onCollapseThreads={() => collapseGroupThreads(groupKey)}
-                onToggleExpanded={() => toggleProjectGroup(groupKey)}
-                onSelectProject={() => onSelectProject(project)}
-                onOpenProjectHome={onOpenProjectHome ? () => onOpenProjectHome(project) : undefined}
-                onCreate={() => onCreateInProject(project)}
-                onTogglePin={project.projectPath === shellOnlyProjectPath
-                  ? undefined
-                  : () => void togglePin('project', project.projectKey)}
-                onRenameProject={onRenameProject ? () => setRenameProject(project) : undefined}
-                onRemoveProject={() => openProjectRemoval(project)}
-                onToggleThreadPin={(thread) => void togglePin('camp', thread.id, thread)}
-                onCopyThreadId={(thread) => void copyThreadId(thread)}
-                threadReadStates={threadReadStates}
-                onSetThreadUnread={onSetThreadUnread ? setThreadUnread : undefined}
-                platform={platform}
-                onRevealProject={onRevealProject ? () => { void onRevealProject(project).catch(onError) } : undefined}
-                onCopyProjectPath={() => void copyProjectPath(project)}
-                onThread={onThread}
-                onAction={openAction}
-              />
-            )
-          })}
+          <div className="sidebar-group-title navigation-section-title navigation-project-section-title"><span id="projects-heading"><UiText zh={"项目"} /></span><div className="navigation-project-actions">
+            {onManageProjectGroups && <button className="section-create-button" type="button" aria-label={uiAttribute('管理项目分组')} title={uiAttribute('管理项目分组')} onClick={() => onManageProjectGroups()} disabled={state !== 'ready'}>⋯</button>}
+            <button className="section-create-button" type="button" aria-label={uiAttribute("选择工作目录")} title={uiAttribute("选择工作目录")} onClick={onOpenProject} disabled={state !== 'ready'}>＋</button></div></div>
+          {navigation && navigationProjectSidebarLayout(projectTrees.map(tree => tree.project), resolvedFolderGroups, projectOrder).map(entry => entry.kind === 'project' ? renderProjectTree(entry.project) : (
+            <section key={entry.key} className="navigation-folder-group" data-color={entry.group.color ?? undefined}>
+              <ProjectFolderGroupHeader group={entry.group} expanded={!collapsedFolderGroups.has(entry.group.id)} complete={entry.group.relationshipsComplete && entry.projects.every(project => projectTrees.find(tree => tree.project === project)?.complete)}
+                activity={navigationActivityForGroups(activity, entry.projects.flatMap(projectActivityKeys), entry.group.relationshipsComplete && entry.projects.every(project => projectTrees.find(tree => tree.project === project)?.complete))}
+                onToggle={() => setCollapsedFolderGroups(current => toggleNavigationGroup(current, entry.group.id))} onManage={onManageProjectGroups} />
+              {!collapsedFolderGroups.has(entry.group.id) && <div className="navigation-folder-group-members">{entry.projects.map(project => renderProjectTree(project))}</div>}
+            </section>
+          ))}
           {navigation && navigation.projects.length === 0 && <p className="sidebar-empty"><UiText zh={"选择工作目录后，对话会在这里成组显示。"} /></p>}
           {navigation && <ThreadGroup
             groupKey="quick-chat"
             label={uiAttribute("快速对话")}
+            activity={navigationActivityForGroups(activity, ['quick-chat'])}
             totalCount={quickChatTotalCount}
             threads={quickChatWindow.threads}
             hasMore={quickChatWindow.hasMore}
@@ -931,6 +959,26 @@ function CommandPalette({
   )
 }
 
+function ProjectFolderGroupHeader({ group, expanded, complete, onToggle, onManage, activity }: {
+  group: NavigationProjectGroup; expanded: boolean; complete: boolean; onToggle(): void
+  onManage?(groupId?: string, action?: 'edit' | 'delete'): void
+  activity: { count: number | null; complete: boolean }
+}): JSX.Element {
+  const mobile = useMobileLayout(), menu = useNavigationPressMenu(Boolean(onManage))
+  const items: SidebarActionMenuItem[] = onManage ? [
+    { key: 'edit', label: uiAttribute('编辑分组名称、颜色与成员'), icon: 'edit', onSelect: () => onManage(group.id, 'edit') },
+    { key: 'delete', label: uiAttribute('删除分组'), icon: 'trash', danger: true, separatorBefore: true, onSelect: () => onManage(group.id, 'delete') }
+  ] : []
+  return <div className="navigation-folder-group-heading" onContextMenu={event => { if (!event.defaultPrevented) menu.rowProps.onContextMenu?.(event) }}>
+    <button {...menu.rowProps} type="button" className="navigation-folder-group-toggle" aria-expanded={expanded} onClick={onToggle}>
+      <span aria-hidden="true">{expanded ? '▾' : '▸'}</span><span>{group.name}</span>{!complete && <small><UiText zh="关系待核对" /></small>}
+      <NavigationActivityBadge {...activity} />
+    </button>
+    {onManage && <SidebarActionMenu target={`folder-group:${group.id}`} label={uiAttribute('管理分组“{0}”', group.name)} triggerClassName="group-menu-trigger"
+      items={items} pressMenu={menu} mobile={mobile} />}
+  </div>
+}
+
 function ThreadGroup({
   groupKey,
   pinTargetKey,
@@ -945,6 +993,11 @@ function ThreadGroup({
   openingThreadId,
   currentProject,
   createDisabled,
+  worktree,
+  parentProjectPath,
+  relationComplete,
+  worktreeChildren,
+  activity,
   pinned = false,
   onShowMore,
   onCollapseThreads,
@@ -978,6 +1031,11 @@ function ThreadGroup({
   openingThreadId: string | null
   currentProject: boolean
   createDisabled: boolean
+  worktree?: WorkspaceWorktree
+  parentProjectPath?: string
+  relationComplete?: boolean
+  worktreeChildren?: React.ReactNode
+  activity?: { count: number | null; complete: boolean }
   pinned?: boolean
   onShowMore(): void
   onCollapseThreads(): void
@@ -1058,6 +1116,13 @@ function ThreadGroup({
             </g>
           </svg>
           <span className="truncate">{label}</span>
+          {activity && <NavigationActivityBadge {...activity} />}
+          {(worktree || parentProjectPath) && <small className="navigation-worktree-label" title={parentProjectPath ? uiAttribute('主工程：{0}', parentProjectPath) : undefined}>
+            {(parentProjectPath || worktree?.isMain === false) && <UiText zh="工作树" />}
+            {worktree?.branch && <span>{worktree.branch}</span>}{worktree?.detached && <UiText zh="游离 HEAD" />}
+            {worktree?.locked && <UiText zh="已锁定" />}{worktree?.available === false && <UiText zh="目录不可用" />}{worktree?.prunable && <UiText zh="待清理" />}
+          </small>}
+          {relationComplete === false && <small><UiText zh="关系待核对" /></small>}
         </button>
         {pinTargetKey && projectMenuItems.length > 0 && (
           <SidebarActionMenu
@@ -1095,6 +1160,7 @@ function ThreadGroup({
             {paginationControls.showCollapse && <button className="collapse-camps" type="button" onClick={onCollapseThreads} disabled={loadingMore}><UiText zh={"收起"} /></button>}
           </div>
         )}
+        {worktreeChildren}
       </div>
     </section>
   )

@@ -24,6 +24,18 @@ function snapshot(fileName: string): FilePreviewSessionSnapshot {
 }
 
 describe('file preview session identity', () => {
+  it('keeps private card, pending lease and retained input resources distinct', () => {
+    const scope = { kind: 'canvas' as const, boardId: 'board', nodeId: 'card-a' }
+    const base = { threadId: 'thread', conversationId: 'conversation', attachmentRefId: 'file', composerScope: scope }
+    const key = (locator: import('@contracts').LocalAttachmentOwnerLocator) => filePreviewSourceKey({ kind: 'attachment', threadId: base.threadId, locator })
+    const active = { ...base, owner: 'single_chat_scoped_composer' as const }
+    const pending = { ...base, owner: 'single_chat_scoped_pending_edit' as const, pendingInputId: 'pending', editToken: 'lease-a' }
+    const retained = { ...base, owner: 'single_chat_retained' as const, retainedInputId: 'retained-a' }
+    const keys = [key(active), key({ ...active, composerScope: { ...scope, nodeId: 'card-b' } }), key(pending),
+      key({ ...pending, editToken: 'lease-b' }), key(retained), key({ ...retained, retainedInputId: 'retained-b' }), key({ ...retained, composerScope: null })]
+    expect(new Set(keys).size).toBe(keys.length)
+    expect(key(active)).toBe(key({ ...active, composerScope: { nodeId: 'card-a', boardId: 'board', kind: 'canvas' } }))
+  })
   it('deduplicates source locations without collapsing same-name files in different directories', () => {
     expect(filePreviewSourceKey({
       kind: 'message_reference',

@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C03",
+  "status": "implementation_ready_for_stage_verification",
+  "recorded_at": "2026-10-15T23:54:12.725146+00:00",
+  "source_binding": {
+    "base_commit": "28315126c4c92f119ae31e495c7a1862f1db83bf",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "apps/desktop/src/file-preview-reference.test.ts": "228ff686165f445b130063e7c57878759ecaca2f9c4ecd4fb39e318cbbca15ec",
+      "apps/desktop/src/file-preview-reference.ts": "7463017c138c751fafa837337b3144e226af062f5080beb01657913479362a3f",
+      "apps/desktop/src/renderer/src/BusinessApp.tsx": "06dcbbb323704f6bdf74246b2d96e238870ed80e053173f716375f07994330b2",
+      "apps/desktop/src/renderer/src/CanvasNodeEditor.tsx": "d0423c0af4f6e32778e51fdd08bc8941b16379f4e951d94b03abf47db7a87e95",
+      "apps/desktop/src/renderer/src/CanvasSurface.tsx": "b1a147aad00e34291bdb3ac7bba76f258128b80c8a579ec2a5768ce03bbf42f1",
+      "apps/desktop/src/renderer/src/FilePreviewContext.tsx": "104ee0b793b3af738e97137a5dc2942932f701c10eebad3c31cf33f632807e20",
+      "apps/desktop/src/renderer/src/FilePreviewPane.tsx": "4bfffd557acc198eb162a809e13b5a21576a3f3a9f4e3e2b14e784cf84944e87",
+      "apps/desktop/src/renderer/src/canvas.css": "08fb47b9514c7466e5eb3bfdaf44a020b02cd50cd5a4b86157127358bace6a3f",
+      "apps/desktop/src/renderer/src/file-preview-controller.ts": "28b948fadc6a98670c162c34679d91e82f36f1e7421ec3a63181e9e362554d28",
+      "apps/desktop/src/renderer/src/file-preview-resources.test.ts": "a8b29f8d9b851aba967077000b5c60b46aedb9ae100ee17aa2b3245963dd20a7",
+      "apps/desktop/src/renderer/src/file-preview-resources.ts": "ba1312b14779899501aa95fd2fa7a68adfc29e75043a2fa3c75bd6680549025b",
+      "apps/desktop/src/renderer/src/locales/en.json": "2c229fd666dd767a7c240a9e2e68d6f8e03514c0108b094e95d9d3f6151b5658",
+      "docs/architecture/canvas.md": "a1d0500f6110e47e200307a02cea57b1c4554f355adf74e908c7cfaf55bcaa9a",
+      "docs/architecture/file-preview.md": "86d13953ed1308e08f6e32292032c4d0e7c35b658fd6f7c9dff8dd9c95f587ed",
+      "docs/contracts/canvas-nodes-v1.md": "fe18a42160c760643ce63f41bbe47cab0d40553befe0593bdc24850540500772",
+      "docs/development/testing.md": "d464cfed53452bd644b08c572a734aed5dc127c6595756670968a6d863a6dc15",
+      "apps/desktop/src/renderer/src/CanvasFilePreview.tsx": "b00528813966b06f15c34402ac8aec398f88ab210149d6dbaefe6d4f85b72a17",
+      "apps/desktop/src/renderer/src/canvas-file.test.ts": "e047170b1f3ff1ed2b83b63356c59756f4e5ba6f05588213e964234cbad810c3",
+      "apps/desktop/src/renderer/src/canvas-file.ts": "d66dfa3d201c45bd46c0530217f85bc8b2a349f1e99fd82e1381429b57dd17a1"
+    }
+  },
+  "previous_source_binding_evidence": {
+    "path": "integration/execution/i03-file-binding-result.json",
+    "sha256": "954b6900d726f5c8a3f28168d3dfbf46e053adc0b5c581cd8aadc800551459a6"
+  },
+  "implemented": [
+    "Explicit original directory Thread selection for new file and one-time legacy binding; no current Thread default, unknown receipt freezes original form",
+    "Literal absolute path encoding to original FilePreviewApi; percent/hash/query/space/colon safety and Windows/UNC separator handling without granting file rights",
+    "Fixed original file reader reuses Thread session and window resource owner; independent tab ID, DOM/find scope and local Markdown source toggle",
+    "First visible read and fresh source validation; cached body cannot replace denied source, explicit update preserves prior body until refresh",
+    "Collapse/delete revoke presentation owner without closing other shared readers; reexpand/reload preserve original file and source",
+    "Original workspace/link callback forwards target and presentation; navigation intent fences late link responses; full App navigation remains unqualified",
+    "Background opens preserve original active tab; cold fixed recovery uses preview-only restore; fixed owners do not automatically restore neighboring session tabs",
+    "HTML mirrors count as separate presentations within original window limit; duplicate background handle released after source revalidation",
+    "Delete confirmation freezes exact IDs and displays targets; toolbar reads current Flow selection and file header deletes its own row"
+  ],
+  "verified": {
+    "low_cost_checks": {
+      "files": 8,
+      "passed": 108,
+      "failed": 0,
+      "skipped": 1,
+      "skip_reason": "existing Main service colon filename test conditionally skips Windows"
+    },
+    "targeted_types": "pass_terminal_exit_0_dedicated_config_including_new_owner",
+    "documentation_governance": "pass_version_v1.72_and_diff_base_28315126",
+    "mounted_ui": {
+      "kind": "production Canvas/editor/original readers with simulated Core and file API; no actual filesystem/Host/full BusinessApp",
+      "process_records": 17,
+      "records_are_not_formal_case_pass_count": true,
+      "console_errors": 0,
+      "historical_console_warnings": 3,
+      "warning_scope": "three initial fixture missing-dimension warnings before corrected fixture flex layout; retained in witness",
+      "covered": [
+        "same Thread distinct file bodies",
+        "per-card source display",
+        "external update and explicit refresh",
+        "original link callback preserves pinned root",
+        "legacy unknown receipt and exact reconcile",
+        "unavailable source refuses cached body and retry recovers",
+        "new literal path with explicit source",
+        "current selection and exact row deletion",
+        "collapsed persistence/reexpand after reload"
+      ]
+    },
+    "prior_typecheck_artifact": "restored byte-for-byte to bound hash; dedicated new config prevents rewriting old evidence"
+  },
+  "self_review_fixes": [
+    "Encoded URI colon must remain literal filename; only unescaped URI line suffix is parsed before decoding",
+    "Clear stale transport error after successful original receipt reconciliation",
+    "Delayed selection callback deleted an earlier selected node during rapid switching; use current Flow selection and show frozen confirmation targets",
+    "Restrict fresh duplicate-content reuse to background opens so existing interactive target/focus behavior is preserved",
+    "Forward original link location arguments; automatic fixed-file recovery must not call interactive system-open path",
+    "Initial two unit assumptions and locale gaps repaired; failed/intermediate logs retained, final counts not summed"
+  ],
+  "not_run": [
+    "current158/208 Rust compilation and original2 canvas/3 private lifecycle owners",
+    "actual Core/Host/Native IPC migration and file authorization",
+    "full BusinessApp workspace/focus/navigation and actual filesystem file-node end-to-end",
+    "real HTML/native presentation, cold route/scale and actual cross-platform/UNC qualification",
+    "formal324/fullPC01-PC24/real model and device matrices"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "artifacts": {
+    "i03/canvas-file-ui-tests-01.log": "43a3f0b03df77d86550a092f228f04a355567142b246a48a09950b2b01b87d2e",
+    "i03/canvas-file-ui-tests-02.log": "57f03de33a9c880eb6ffc0deace0c08512fafe31e901a86fa8c240eb7a2dda4c",
+    "i03/canvas-file-ui-tests-final.log": "c6a9e5c6959d28ee53c557074c3142227fd4b4d32fb704fd6de295ad99b1ee4b",
+    "i03/canvas-file-ui-locale-01.log": "cc240a18419fd061cc27cfc92b04ee6aa185129526292503a71c3a8350dd5b30",
+    "i03/canvas-file-ui-types-01.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-file-ui-types-02.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-file-ui-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-file-ui-types-final-checked.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-file-ui-types-final-dedicated.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-file-typecheck.json": "a3114620db33885e324e4034d807f4ecb4d8fe47345bac5aec1529df08accae5",
+    "i03/canvas-file-ui-fixture.log": "5e08b793d4890c2088d8143e4f35020ca5a8fa060f29477cfbc976a9031de58e",
+    "i03/canvas-file-ui-browser-witness.json": "2b2437a80252c83d81e12e25a11601928a70fcc55cdb2f8f92ef62bd63866cce",
+    "i03/canvas-file-ui-final.png": "9f4fe90d21834b7a02560ea1f8563a6804cd5895ddb3436febc6e00fc84f3dd1",
+    "i03/file-ui-fixture/entry.tsx": "df60e19208caaf28dc9c0cf6bd1d0f4b5c21be87258871e6b07da47c068ab4c6",
+    "i03/file-ui-fixture/index.html": "62d748bec45974cca42b78fbb6384b2124f3701ece51ccacf681d224769e633d",
+    "i03/file-ui-fixture/server.mjs": "858dba1894a33d8459cff2b2c6d27fd6d628539d45a7070f4aa783b47cec94d3",
+    "i03/canvas-file-ui-docs-final.log": "6eb03e1b66af4f3a2ae337d42e11ddb5a595f11fc6e89cd079e7d49f34c7f9e8",
+    "i03/record-canvas-file-ui.py": "a0a2be744d9e35839fa1cf7fb34e2f87b42bb1af4564220fdd8fc5f8aae768de"
+  },
+  "boundaries": {
+    "source_projection_schema": 158,
+    "source_last_migration": 208,
+    "actual_user_database_migrated": false,
+    "host_protocol": 4,
+    "public_core_methods": 180,
+    "rust_changed": false,
+    "model_source_changed": false,
+    "new_dependencies": false,
+    "cargo_push_actions_model": false,
+    "customer_action_required_now": false,
+    "formal324": "not_run"
+  },
+  "next_actions": [
+    "Continue I03-C04 isolated PTY lifecycle without waiting for customer stage acceptance",
+    "C05 cold route/multi-card/scale and real workspace navigation; C06 frozen candidate concentrated compile/integration",
+    "Actual verification failures return to their owning group; keep full I00-I12+BUF scope"
+  ]
+}

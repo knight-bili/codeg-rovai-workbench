@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T02:30:57.094Z",
+  "stage": "I03",
+  "source_commit": "f7d7a1b0d1cddb984310bef7710003dbdf7300df",
+  "status": "worktree_tree_branch_metadata_and_group_menus_coded_targeted_checks_passed_actual_UI_Host_Rust_pending",
+  "goal_status": "active_live_verified",
+  "previous_goal_turn": "progress: local commits 0efe96e0 and da42f6c7",
+  "donor": {
+    "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "files": [
+      "src/components/conversations/sidebar-conversation-list.tsx",
+      "src/components/conversations/sidebar-folder-group-header.tsx"
+    ],
+    "license": "Apache-2.0 retained under integration/licenses/codeg; no new dependency"
+  },
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/App.test.ts",
+      "sha256": "4f4f703f00eb998d4764fe3e75859cf2b3aea98985dfa7256ed0c285ad0bfee6"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "06bd8428ed277049de2dd93b39a3dc6dfaceac72baadbce8b95626060476623e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ProjectGroupsDialog.tsx",
+      "sha256": "267c483cedbdf17de54b311d89592b37341b2e80edfaebd6103245a2bf64db98"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ThreadNavigation.tsx",
+      "sha256": "a99b2192cfafdccde43573357179175878fa7a80220ba51514e3fe9c42b3a271"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-folder-controller.test.ts",
+      "sha256": "5cfe61019a53c2d14e68310b075890eef1444f370b8c7dbcfed57a898d4aa1b2"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-folder-controller.ts",
+      "sha256": "790d5a01e9315be9e9e68b95f12b7fe416ff27a405ac1d3ea0f3b32b2bdd0815"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-reference-model.ts",
+      "sha256": "070567a4a0e35e33b165b3fe8d9418643d55d03276147f68ebb17a22bac40d8c"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "63eb60f5c62b2961b173d1f1a719b6d56a047b7edb0ce006b78b3553a243e882"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "b59505b38dbafcb611c51ec2eedee03f88b182c4384fb72fb8bacbcf86424293"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/navigation-project-tree.test.ts",
+      "sha256": "86b4d41996b3f4cf3efbf11fa8ac1d495428de0d8957000602b51442e9fbbba3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/navigation-project-tree.ts",
+      "sha256": "87c6f728a6aa9ff4c9685aa91ff00137fe17243722d8894cc91c26c615d85c9f"
+    },
+    {
+      "path": "crates/rovai-core/src/git/worktrees.rs",
+      "sha256": "30cee13957c48d4163f5518b75f1eb40212a47ac4177da509c89e66c60dd33bc"
+    },
+    {
+      "path": "docs/contracts/navigation-project-groups-v1.md",
+      "sha256": "b1e9368c5da1e5168916977764ff4cb76ff20c9d3aef0248d9b0e593b1edd8f7"
+    },
+    {
+      "path": "docs/contracts/workspace-worktrees-v1.md",
+      "sha256": "9c59bbbeae451ed059adc7ad416e1c02d5370870ee3aa1a1d812bb20f9ed72a9"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "cde6ded0c149a876798f47dd1d5877d0c355bac8a74b4defd7b6280555fccb03"
+    },
+    {
+      "path": "docs/ui/components/app-shell-navigation.md",
+      "sha256": "d5073c53f0763e553980a30613baa549c3a0fd79a68ed80b9d3de360401d7652"
+    },
+    {
+      "path": "integration/licenses/README.md",
+      "sha256": "5fff7c39dada0c3ae0cec6c6e70e0c405de820b99dbaf7dd3d7183d1267695f1"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "9624aa0a85b32c2df539e088b73768bc3166af16c3215a4ee1fa5d0c51c3c61b"
+    }
+  ],
+  "implementation": [
+    "workspaces.worktrees现有只读响应增加真实branch/detached；不新增Git命令、访问范围、Core操作、数据库迁移或模型输入。",
+    "沿现有NUL owner增加分支与冲突断言，格式检查通过但Rust编译/测试未执行；旧Host省略新增字段仍可读，不猜分支。",
+    "CanvasFolderController保留拓扑与工作树元数据副本，失败缓存保持已知事实且complete=false；侧栏/画布/管理沿共享4-worker读取。",
+    "navigation-project-tree仅按真实父关系嵌套，主工程未登记时linked checkout独立保留；普通子目录、前缀相似项不归入。",
+    "不显示bare子仓库，未登记或失效worktree只显示元数据；矛盾/循环/不完整缓存不隐藏已登记工程。",
+    "侧栏主工程展开承载子项既有会话/菜单/分页，置顶主工程携子项，置顶子项不重复；缺失checkout仍能定位原历史。",
+    "未登记工作树只有显式打开后才先workspaces.inspect、再保存登记/恢复和选择；失效/待清理/未完整禁开，元数据不授文件或执行权限。",
+    "打开操作串行、保护其他离开与退出，Host/Owner切换阻迟到回填；分组菜单携原始分组/版本进入既有编辑/删除确认，不把派生成员写回。"
+  ],
+  "checks": [
+    {
+      "name": "tree_layout_preferences_and_relations",
+      "log": "project-tree-owners-final.log",
+      "files": 8,
+      "passed": 42,
+      "failed": 0,
+      "path": "../i03/project-tree-owners-final.log",
+      "sha256": "cdaaea29056326154c0dbe13970f129a6f2a033ed6988add54bef24ff9b82b46"
+    },
+    {
+      "name": "filtered_navigation_static_render",
+      "log": "project-tree-navigation-final.log",
+      "files": 1,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 180,
+      "total_owner_cases": 185,
+      "path": "../i03/project-tree-navigation-final.log",
+      "sha256": "ccfc6e548375bfdd0ab0e2643c76e10c2318587965767b71daa0525f9eacb12f"
+    },
+    {
+      "name": "scoped_types_including_new_tree_and_existing_folder_tests",
+      "log": "project-tree-types-final.log",
+      "exit_code": 0,
+      "config": "project-tree-typecheck.json",
+      "path": "../i03/project-tree-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ui_copy",
+      "log": "project-tree-copy-final.log",
+      "duplicate_keys": 0,
+      "missing": 0,
+      "path": "../i03/project-tree-copy-final.log",
+      "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078"
+    },
+    {
+      "name": "rust_format_only",
+      "log": "project-tree-rustfmt-final.log",
+      "exit_code": 0,
+      "compiled": false,
+      "tests_run": false,
+      "path": "../i03/project-tree-rustfmt-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "documentation_versions",
+      "log": "project-tree-docs-version-final.log",
+      "exit_code": 0,
+      "path": "../i03/project-tree-docs-version-final.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d"
+    },
+    {
+      "name": "documentation_decisions",
+      "log": "project-tree-docs-decisions-final.log",
+      "exit_code": 0,
+      "path": "../i03/project-tree-docs-decisions-final.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+    }
+  ],
+  "self_review": [
+    "固定行和原导航语义保留，消除41行重复置顶渲染，统一树与普通项目的操作接线。",
+    "实际分支只能来自Git字段，重复分支/branch与detached并存拒绝；主工程存在但元数据不足时保留子入口。",
+    "修正初次旧plain目录测试精确期望值，新增元数据完整断言并复验；原失败project-tree-folders-01.log保留。",
+    "分组菜单补鼠标悬停、焦点和触控可见性，失效元数据行不再提示可以点击打开。",
+    "本批翻译检查覆盖整个ThreadNavigation，补本批新标签与6条原有缺译短标签，最终缺译/重复均0。"
+  ],
+  "not_run": [
+    "当前Rust新增分支解析与既有Git扩展owner的编译/执行；真实Host当前源码响应",
+    "Electron/Web真实挂载、工作树打开与登记失败、原生/浏览器互斥、Host/Owner切换和退出恢复",
+    "实际右键/长按/更多菜单、颜色与删除交互、视觉/辅助技术验收",
+    "完整App185项、完整仓库回归、全平台/真机、真实模型以及324产品场景"
+  ],
+  "next": [
+    "完整项目/分组活动统计与徽章：不能把schema3前缀内loading数冒充全组；需要Core完整只读聚合，并保持普通行读取不扩展其他组。",
+    "成员拖放、展开对话与Composer、Mission/Task/Thread/Diff定位、授权文件、真实PTY与Desktop冷启动",
+    "I02剩余SP/真实Gate、I04–I12/BUF和全部阶段资格仍保留"
+  ],
+  "execution": {
+    "branch": "phase/i03-canvas-nodes",
+    "local_commit": true,
+    "push": false,
+    "actions_triggered": false,
+    "candidate_frozen": false,
+    "main_merged": false,
+    "codegraph": "当前项目无匹配索引；未初始化或伪称同步",
+    "cadence": "多次本地commit；阶段代码集齐后冻结同一候选、集中编译/回归/平台与少量推送"
+  }
+}

@@ -126,7 +126,7 @@ pub async fn upload(
     // A replay discards its unbound spool through the guard; it never rebinds it.
     if let Ok(reply) = state
         .core
-        .request_for_editor("host.upload.reconcile", json!(intent), client.clone())
+        .request_for_editor("host.upload.receipt", json!(intent), client.clone())
         .await
     {
         if reply.error.is_some() {
@@ -137,6 +137,13 @@ pub async fn upload(
             .as_ref()
             .is_some_and(|result| !result["receipt"].is_null())
         {
+            if reply
+                .result
+                .as_ref()
+                .is_some_and(|result| result["receipt"]["status"] == "rejected")
+            {
+                return error(StatusCode::CONFLICT, "upload_rejected");
+            }
             return upload_draft(&state, &intent, &client).await;
         }
     } else {
@@ -174,6 +181,10 @@ pub async fn upload(
             match reply {
                 Ok(reply) if reply.error.is_none() => {
                     let result = reply.result.context("upload binding result missing")?;
+                    if result["receipt"]["status"] == "rejected" {
+                        temporary.retain = false;
+                        return Ok(error(StatusCode::CONFLICT, "upload_rejected"));
+                    }
                     // A replay belongs to its original file, so this duplicate
                     // never became a source and can be cleaned.
                     if result["replayed"] == true {
@@ -189,7 +200,7 @@ pub async fn upload(
                     // receipt before deciding whether the file is still unbound.
                     if let Ok(receipt) = state
                         .core
-                        .request_for_editor("host.upload.reconcile", json!(intent), client.clone())
+                        .request_for_editor("host.upload.receipt", json!(intent), client.clone())
                         .await
                     {
                         if receipt.error.is_none()
@@ -202,6 +213,14 @@ pub async fn upload(
                             return Ok(error(StatusCode::CONFLICT, "draft_changed"));
                         }
                         if receipt.error.is_none() {
+                            if receipt
+                                .result
+                                .as_ref()
+                                .is_some_and(|value| value["receipt"]["status"] == "rejected")
+                            {
+                                temporary.retain = false;
+                                return Ok(error(StatusCode::CONFLICT, "upload_rejected"));
+                            }
                             return Ok(upload_draft(&state, &intent, &client).await);
                         }
                     }
@@ -247,7 +266,7 @@ pub async fn reconcile(
     let client = DraftClient::verified_web(&session.client_id).expect("Host editor identity");
     match state
         .core
-        .request_for_editor("host.upload.reconcile", json!(intent), client.clone())
+        .request_for_editor("host.upload.receipt", json!(intent), client.clone())
         .await
     {
         Ok(reply) if reply.error.is_none() => {
@@ -256,12 +275,102 @@ pub async fn reconcile(
                 .as_ref()
                 .is_some_and(|value| !value["receipt"].is_null())
             {
+                if reply
+                    .result
+                    .as_ref()
+                    .is_some_and(|value| value["receipt"]["status"] == "rejected")
+                {
+                    return error(StatusCode::CONFLICT, "upload_rejected");
+                }
                 upload_draft(&state, &intent, &client).await
             } else {
                 Json(json!({"state":"unknown"})).into_response()
             }
         }
         _ => error(StatusCode::CONFLICT, "upload_conflict"),
+    }
+}
+
+/// 只返回原请求的安全结果字段，不查询当前草稿或泄漏旧公开上传的 sourcePath。
+pub async fn receipt(
+    State(state): State<WebState>,
+    Extension(session): Extension<Arc<Session>>,
+    Json(intent): Json<UploadIntent>,
+) -> Response {
+    if matches!(&intent.target, rovai_core::web_upload::UploadTarget::Camp) {
+        return error(StatusCode::BAD_REQUEST, "invalid_upload");
+    }
+    let client = DraftClient::verified_web(&session.client_id).expect("Host editor identity");
+    match state
+        .core
+        .request_for_editor("host.upload.receipt", json!(intent), client)
+        .await
+    {
+        Ok(reply) if reply.error.is_none() => {
+            let value = reply.result.unwrap_or_default()["receipt"].take();
+            receipt_response(value, "unknown")
+        }
+        _ => error(StatusCode::SERVICE_UNAVAILABLE, "upload_binding_unknown"),
+    }
+}
+
+pub async fn retry(
+    State(state): State<WebState>,
+    Extension(session): Extension<Arc<Session>>,
+    Json(intent): Json<UploadIntent>,
+) -> Response {
+    resolve_preparation(state, session, intent, false).await
+}
+
+pub async fn finish(
+    State(state): State<WebState>,
+    Extension(session): Extension<Arc<Session>>,
+    Json(intent): Json<UploadIntent>,
+) -> Response {
+    resolve_preparation(state, session, intent, true).await
+}
+
+async fn resolve_preparation(
+    state: WebState,
+    session: Arc<Session>,
+    intent: UploadIntent,
+    finish: bool,
+) -> Response {
+    if matches!(&intent.target, rovai_core::web_upload::UploadTarget::Camp) {
+        return error(StatusCode::BAD_REQUEST, "invalid_upload");
+    }
+    let client = DraftClient::verified_web(&session.client_id).expect("Host editor identity");
+    let method = if finish {
+        "host.upload.finish"
+    } else {
+        "host.upload.retry"
+    };
+    match state
+        .core
+        .request_for_editor(method, json!(intent), client)
+        .await
+    {
+        Ok(reply) if reply.error.is_none() => receipt_response(
+            reply.result.unwrap_or_default()["receipt"].take(),
+            if finish { "unknown" } else { "needs_source" },
+        ),
+        _ => error(StatusCode::SERVICE_UNAVAILABLE, "upload_binding_unknown"),
+    }
+}
+
+fn receipt_response(value: serde_json::Value, empty_state: &str) -> Response {
+    if value.is_null() {
+        Json(json!({"state":empty_state})).into_response()
+    } else {
+        let payload = if value["status"] == "rejected" {
+            json!({})
+        } else {
+            json!({"attachmentRefId":value["payload"]["attachmentRefId"],"revision":value["payload"]["revision"]})
+        };
+        Json(json!({"state":"recorded","receipt":{
+                    "commandId":value["commandId"],"commandType":value["commandType"],"status":value["status"],
+                    "code":value["code"],"payload":payload,"resultEntity":null,"recordedAt":value["recordedAt"]
+                }})).into_response()
     }
 }
 

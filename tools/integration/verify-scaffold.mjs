@@ -50,8 +50,16 @@ for (const f of features) {
 }
 for (const c of cases) {
   assert(ids.has(c.feature) && phases.has(c.phase) && c.steps && c.expected && c.platforms.length, `场景不完整 ${c.id}`);
-  assert(['not_run', 'passed', 'failed', 'blocked'].includes(c.status), `场景状态错误 ${c.id}`);
-  assert(c.status !== 'passed' || c.evidence, `通过用例缺少证据 ${c.id}`);
+  assert(['not_run', 'passed', 'failed', 'blocked', 'local_engineering_verified_environment_validation_pending'].includes(c.status), `场景状态错误 ${c.id}`);
+  assert(!['passed', 'local_engineering_verified_environment_validation_pending'].includes(c.status) || c.evidence, `已核定用例缺少证据 ${c.id}`);
+  if (c.status === 'local_engineering_verified_environment_validation_pending') {
+    const [file, id] = c.evidence.split('#');
+    assert(!path.isAbsolute(file) && !file.includes('..') && id === c.id, `本机证据路径或场景归属错误 ${c.id}`);
+    const evidence = read(file).formal_cases?.find(row => row.id === c.id);
+    assert(evidence?.status === c.status && evidence.remaining?.length > 0, `本机资格未保留待验证范围 ${c.id}`);
+    assert(c.platforms.every(platform => typeof evidence.platform_state?.[platform] === 'string'), `本机资格缺少平台状态 ${c.id}`);
+    assert(existsSync(path.join(root, 'integration/execution', evidence.current_candidate_evidence)), `本机资格缺少当前候选记录 ${c.id}`);
+  }
 }
 assert(runtime.runtimes.length >= 21 && runtime.custom_acp, 'Runtime并集缺失');
 assert(new Set(runtime.runtimes.map((x) => x.id)).size === runtime.runtimes.length, 'Runtime重复');
@@ -83,4 +91,4 @@ for (const file of changed) {
     assert(!sensitiveContent.some((pattern) => pattern.test(content)), `新增文件疑似包含秘密 ${file}`);
   }
 }
-console.log(JSON.stringify({status:'passed', features:features.length, cases:cases.length, workPackages:tasks.length, sourceEntrypoints:entries.count, runtimeKinds:runtime.runtimes.length, totalDays:schedule.total_days, productExecution:'not_run'}));
+console.log(JSON.stringify({status:'passed', features:features.length, cases:cases.length, workPackages:tasks.length, sourceEntrypoints:entries.count, runtimeKinds:runtime.runtimes.length, totalDays:schedule.total_days, fullyPassedCases:cases.filter(c => c.status === 'passed').length, localCasesPendingEnvironment:cases.filter(c => c.status === 'local_engineering_verified_environment_validation_pending').length, productExecution:'see_per_case_evidence'}));

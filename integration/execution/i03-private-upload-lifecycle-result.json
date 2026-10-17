@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "status": "coded_client_checks_passed_runtime_pending",
+  "recorded_at": "2026-10-15T21:11:17.693747+00:00",
+  "source_binding": {
+    "base_commit": "a6b918c8ee51182cb601c7e8a76e642c7a90ae7d",
+    "kind": "exact_worktree_sha256_before_local_commit",
+    "files": {
+      "apps/desktop/src/main/index.ts": "b599f03ad740fd13e0c327e12b317ffad40dc55b6111ccfc5000a337980a5059",
+      "apps/desktop/src/main/private-attachment-preparation.test.ts": "d35025266e3daaa8aceaa22d9f1450dcd42ce79ab35b04952a0645885c28678b",
+      "apps/desktop/src/main/private-attachment-preparation.ts": "adc4c550cb8761f0c9592c5a04cd995e3729fdb4d78ef3d88b8fbd2ea0ff446a",
+      "apps/desktop/src/preload/index.ts": "6e967337ab894d853dab1bcd459af6106f749de76fdc93e6b414de85b34ab1c8",
+      "apps/desktop/src/renderer/src/PrivateUploadRecoveryPanel.tsx": "0dac465c1b3554186e03de0dcab6e0c7f9acc41a0ac3d173a829cb744843d77e",
+      "apps/desktop/src/renderer/src/SingleChatPanel.tsx": "cbd7f8dd2e3da643937921e8915001b4eb45e5924950527b8a0a1e4bc9525fcc",
+      "apps/desktop/src/renderer/src/locales/en.json": "14e90b24c73deb5a6dd95b90c6dc057f99c72215b10dd26f4548847d2712bbca",
+      "apps/desktop/src/renderer/src/private-upload-controller.test.ts": "b509375c31538588695e33610d686a28daf2ab83b989578896be583fea8580ff",
+      "apps/desktop/src/renderer/src/private-upload-controller.ts": "bddcc03969e5d213db7d4033cef61b025c8e8c928f9124614544c2556ca07449",
+      "apps/web/src/camp-adapter.test.ts": "e046e0d0349b68894afb48d765b3f3e8b7478ee7dbd0c375a649d01d2d800747",
+      "apps/web/src/camp-adapter.ts": "d7013841e42cb101c7dea5ae66c27750c35e07fc6038ec66c9d7afe9ca4a147a",
+      "apps/web/src/client.ts": "550c1df5c7cd5c23706cd9087117922b7834ec083f610f78610ef3e02559f181",
+      "apps/web/src/private-upload-preparations.test.ts": "164186de06346b596fab7f0ff894f669ab795f0fa725f701860755369476d060",
+      "apps/web/src/private-upload-preparations.ts": "b89dcc5e82fe35e6741add48e502cc809a5d2ff356d0b23a7c977e8d5aaf92bd",
+      "crates/rovai-core/src/application.rs": "4a76928769420a1110d5d3a05e4833c46baaad6d5de219945b11cf3aa7bd349a",
+      "crates/rovai-core/src/single_chat_composer_tests.rs": "d9d68fc87de42cc65e9667b8c4b1115dca7299985c5a5bdf0619a25bcaa00023",
+      "crates/rovai-core/src/web_upload.rs": "7266c11c9a4cf610649c46676320f1629a548a8567e3c5bdba4b8ad0d17b239f",
+      "crates/rovai-web/src/lib.rs": "d449d107ab72fb38ec638d5151629f606ddb3dc8e1083c01dc7b68afd07adb38",
+      "crates/rovai-web/src/uploads.rs": "38d233cd20997b30b8f2783241a19d7de5220779124d56f64f80049aee0b93bd",
+      "docs/contracts/host-web-v5.md": "90bfbffd7b889013fcba2e14a06d73d8df34ffbb7288e1d362e32dd6253cd871",
+      "docs/contracts/single-chat-composer-scope-v1.md": "10c1e3fe88270ae82d403f4473a7e782065f315182cacc758815c7862c740861",
+      "docs/development/testing.md": "516ad2a3566dfcd6355584899be17dcc23bce92d91755502015877177ce9b557",
+      "docs/versions/v1.72/README.md": "0e9e0d09059dab5a117467f867dccb28a3d920b96a6feb57e6e7bbdea634e416",
+      "packages/contracts/src/index.ts": "52f51df7f806df5c4891750639e5939d381a2bffdf0e8b3d3c56723ee8b0e63f",
+      "scripts/lib/host-web.test.mjs": "70dca8fdd0fd8ded2a514fcb475e1e9fea3ea61a37288800a5ba0f1941b6927b",
+      "apps/desktop/src/renderer/src/PrivateUploadHistoryPanel.tsx": "29116c7d419d125ec2c4841f4c3fc41f8d144f439ab24991ad379ce736e7bb2e"
+    }
+  },
+  "implemented": [
+    "原UUID metadata-only explicit retry; ready sentinel rolls transaction back without receipt; business rejection uses original Gateway result",
+    "Explicit finish records original terminal rejection only when no prior result; applied result/source/body/materials retained",
+    "Native Main/Preload and capability-gated Web routes/adapters preserve original request and first-result recovery",
+    "Same-card inactive Pending/token history keeps exact owner and original location; query-only load, stale owner/API render fence"
+  ],
+  "verified": {
+    "client_tests": {
+      "files": 5,
+      "passed": 71,
+      "failed": 0,
+      "kind": "isolated Main FS plus mocked Core, Browser mocked HTTP, pure controller/static React"
+    },
+    "typescript": "targeted_no_emit_pass",
+    "locale_catalog": {
+      "passed": 2,
+      "fixed_missing_phrases": 7
+    },
+    "changed_rust_files_format": "pass_no_compilation",
+    "http_script_syntax": "pass_not_executed",
+    "documentation_version_and_decisions": "pass",
+    "diff_check": "pass"
+  },
+  "failures_preserved": [
+    {
+      "artifact": "upload-lifecycle-tests-01.log",
+      "passed": 40,
+      "failed": 1,
+      "reason": "test expected terminal journal deletion; corrected to retain recorded history; production behavior unchanged"
+    },
+    {
+      "artifact": "upload-lifecycle-copy-final.log",
+      "passed": 1,
+      "failed": 1,
+      "reason": "7 prior phrases in same upload module missing translation; supplied and reran catalog"
+    },
+    {
+      "artifact": "upload-lifecycle-rust-format.log",
+      "status": "failed_existing_untouched_sources",
+      "files": [
+        "crates/rovai-core/src/lib.rs",
+        "crates/rovai-core/src/single_chat.rs"
+      ],
+      "resolution": "changed five files pass; baseline full-workspace format debt remains for stage candidate"
+    }
+  ],
+  "not_run": [
+    "new Rust lifecycle source/extended-tests compilation and execution",
+    "actual authenticated HTTP routes",
+    "Native IPC and mounted history/finish UI",
+    "full PC01-PC24 and formal324",
+    "model/runtime/cross-platform/physical-device qualification"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "artifacts": {
+    "i03/upload-lifecycle-tests-01.log": "382fbba5fa1bf39535ce702afa1fcfbccb2b28a62c7d75630f4acad565176e34",
+    "i03/upload-lifecycle-tests-final.log": "790d66e3518142c8fc6193111515003bdae7a014cf95e217e0e81fd8fdedeafa",
+    "i03/upload-lifecycle-types-01.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/upload-lifecycle-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/upload-lifecycle-copy-final.log": "4a4ee7fe47967cdaeba17f267a95957e1386c73a5705544b05767d1420abe2e4",
+    "i03/upload-lifecycle-copy-fixed.log": "d67b05c2241cad4c574f892d4ebd14907e4d0c3f41e81b0587d4eb0d57a185a0",
+    "i03/upload-lifecycle-doc-version.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "i03/upload-lifecycle-doc-decisions.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "i03/upload-lifecycle-rust-format.log": "c382499a1dcd7e0cecefcec9be229e3e743d2b0f9b2e2bf323b1e4829c4820e9",
+    "i03/upload-lifecycle-rust-files-format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/upload-lifecycle-http-syntax.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/upload-lifecycle-diff-check.log": "d260ebc380d9e5334dd6c769d120ee6f3c7d0f8a556e6c3229b4b8a552ef798a"
+  },
+  "boundaries": {
+    "schema": 156,
+    "last_migration": 206,
+    "host_protocol": 4,
+    "public_core_methods": 180,
+    "model_inputs_changed": false,
+    "customer_action_required_now": false,
+    "full_build_push_actions_model": false,
+    "formal324": "not_run"
+  }
+}

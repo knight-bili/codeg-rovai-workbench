@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "implemented_pending_batched_native_verification",
+  "source_reference": {
+    "codeg": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "note": "src/components/canvas/nodes/note-node.tsx:30-155",
+    "terminal": "src/components/canvas/nodes/terminal-node.tsx:56-129"
+  },
+  "changes": [
+    "便笺整纸拖动、双击/键盘行内编辑，失焦/Escape保存；安全Markdown与可选标题保留，元信息编辑移入选中工具条",
+    "只提交content与捕获版本；冲突明确核对，未知结果仍由原graph命令恢复，保存失败保留正文",
+    "每次输入先同步保存本机草稿，Host/Core/板/便笺四重归属，视口偏好与模型输入不包含便笺副本；未保存时正常离开/退出受保护",
+    "终端六项原操作改24px图标，原处理函数、状态和输入异常恢复全部保留；路径通过标题悬停展示"
+  ],
+  "source_hashes": [
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasNote.tsx",
+      "sha256": "01721d20e36f8a998ae9843544f47ed0e487d0946a20d25f70fef11a97678606"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-note-draft.ts",
+      "sha256": "1af82e365a73c82b69e5129df7fdebe099bb8c62534cde1deee34209322a74c6"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "b39dd0bc12153de9267beeb760273d02e2416e60941ef387c0154faa5bf74125"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasTerminal.tsx",
+      "sha256": "56a2624614d3e013a1aa7038cd1556c80b66646b4d0d2d0fa4d96d195f6a6b32"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "43af71fac44e116ef6dc1e7d253b59db6af34e8d3533775522a8b630eae2a454"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-note-draft.test.ts",
+      "sha256": "36d162a2e5d055e5031404ae1875700c40b1dd214dad38e0415efa9c46e71834"
+    },
+    {
+      "path": "scripts/fixtures/canvas-native-input.mjs",
+      "sha256": "cc1a0c19711c4c3efe0ee18fbd2f05a7d3b04ad689ee8c95b5807b16413e9cef"
+    }
+  ],
+  "checks": {
+    "types_exit": 0,
+    "types_log": "../i03/canvas-note-terminal-types-final.log",
+    "tests_files": 2,
+    "tests_passed": 24,
+    "tests_log": "../i03/canvas-note-related-tests.log",
+    "tests_scope": "便笺本机草稿存储与既存graph命令恢复；没有挂载UI或验证鼠标/输入法",
+    "docs_tests_passed": 10,
+    "docs_test_log": "../i03/canvas-note-docs-test.log",
+    "docs_check_exit": 0,
+    "docs_check_log": "../i03/canvas-note-docs-check.log"
+  },
+  "native_verification": {
+    "status": "pending_next_batch",
+    "builds": 0,
+    "runs": 0,
+    "actions": 0,
+    "required": [
+      "正文拖动后Core几何准确变化，链接/编辑器不误拖",
+      "真实双击/键盘/输入法/末字符/失焦及Escape保存",
+      "版本冲突两份文字保留，明确核对后保存且无额外几何写入",
+      "断线原命令核实和冷启动副本恢复，不发新命令替代未知请求",
+      "便笺未保存离开/退出保护，强制卸载仅保留副本",
+      "终端最窄260px全部操作可达、原可信输入/输出/停止回收继续通过",
+      "长文本/标题、最小尺寸、两种主题与缩放截图"
+    ]
+  },
+  "remaining_boundary": "实际Native与全画布视觉尚未通过；本机存储失败会提示并保护普通离开，不能宣称强制崩溃时仍有持久副本。节点外部删除后不重建Core节点；遗留本机草稿的发现入口仍待核对。",
+  "customer_action_now": null
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "customer_action_required_now": false,
+  "items": [
+    {
+      "id": "I03-ENV-01",
+      "status": "pending",
+      "owner": "Codex",
+      "work": "macOS/Linux当前融合构建和实际运行逐场景核定；Windows浏览器结果不外推Safari、移动端或其他操作系统。",
+      "next": "阶段集中推送后复用公开仓库标准runner；真实设备缺项沿I10/I12保留。"
+    },
+    {
+      "id": "I03-UI-RO-01",
+      "status": "open",
+      "owner": "Codex",
+      "followup_stage": "BUF及后续UI集成",
+      "previous_evidence": "i03-ui-diagnostic-followups.json",
+      "current_observation": "R10 Native prepare记录4条ResizeObserver告警，resume为0；两个进程实际检查均通过。Web完整CDP异常为0，windowErrors只记录最终撤销后的登录文档，不冒称之前所有文档无尺寸告警。",
+      "next": "保留原来源诊断。出现持续重排、命中/输入失败或卡顿时定点修复；最终一期交付前仍须结算，不过滤报错或宣称根因消失。"
+    },
+    {
+      "id": "I04-C08-CANVAS-RETURN",
+      "status": "pending",
+      "owner": "Codex",
+      "work": "原生父子会话及异步委派在I04实现并回接画布；私聊数量不是子会话证据。"
+    }
+  ]
+}

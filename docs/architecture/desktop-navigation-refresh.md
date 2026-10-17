@@ -17,7 +17,7 @@ Navigation Preferences 拥有客户端目录清单、移除记录、项目顺序
 | --- | --- |
 | Core Navigation Read Model | 从 camp 摘要与现有业务表读取；目标行按 ID、分组按索引前缀；同一事务取得窗口与总数 |
 | Core mutation boundary | 事件序号确定后，同事务维护所属 Camp 的活动/完成摘要；提交后发带 scope 的失效提示 |
-| Electron Main | 原样转发，不组装业务状态；schema 6 私有原子 JSON 保存目录、一次性完成标记与其他导航偏好 |
+| Electron Main | 原样转发，不组装业务状态；schema7私有原子JSON保存目录、一次性完成标记、展示分组及其他导航偏好 |
 | Renderer window reader + refresh coordinator | 一处合并行/组/完整范围，串行执行、trailing、退避与窗口旧响应保护 |
 | Foreground safety refresh | 保留前台约 20 秒与聚焦完整性兜底，从摘要取完整快照；隐藏时停止 |
 | Overview loader | 首次建立完整导航与其他页面基础；普通 Camp 切换不调用 Overview |

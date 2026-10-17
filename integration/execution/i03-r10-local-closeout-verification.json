@@ -1,0 +1,392 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R10",
+  "status": "engineering_verified_within_declared_local_scope",
+  "checked_at": "2026-10-17T01:26:47.212096+00:00",
+  "candidate": "fusion-i03-rc.25",
+  "core_source": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01",
+  "desktop_source": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+  "web_source": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+  "current_test_owner_revision": "fd5ae8bbd9458c36694b0ebe1a2e45360946ec84",
+  "runs": [
+    {
+      "kind": "native_prepare",
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r12-prepare",
+      "checks": [
+        {
+          "name": "current_candidate_real_core_creates_all_eight_bound_types_and_independent_second_board_rendering_original_file_and_note",
+          "passed": true
+        },
+        {
+          "name": "current_candidate_original_start_button_launches_real_pty_with_exact_output_then_explicit_stop_reaps_before_cold_restart",
+          "passed": true
+        },
+        {
+          "name": "two_board_switch_keeps_own_nodes_and_persists_exact_primary_board_selection_camera_and_bindings_for_next_app",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "kind": "native_cold_resume",
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r12-resume",
+      "checks": [
+        {
+          "name": "fresh_app_core_preserve_both_board_metadata_all_eight_exact_nodes_original_file_bytes_and_device_project_group",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_original_canvas_entry_restores_selected_board_and_camera_without_test_reselection_or_fit",
+          "passed": true
+        },
+        {
+          "name": "fresh_core_does_not_fabricate_a_restored_ephemeral_shell_or_replay_old_input_or_start_any_model_run",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_can_reopen_both_original_boards_and_resolve_the_same_file_and_conversation_bindings",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "kind": "actual_host_chrome_web",
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r5",
+      "checks": [
+        {
+          "name": "current_host_http_reads_same_eight_native_created_nodes_both_boards_and_immutable_bindings_without_copying_authority",
+          "passed": true
+        },
+        {
+          "name": "production_web_entry_real_login_renders_eight_types_and_exact_original_file_with_device_scoped_group_boundary",
+          "passed": true
+        },
+        {
+          "name": "real_web_board_rename_node_move_and_stale_revision_rejection_preserve_other_nodes_and_original_body",
+          "passed": true
+        },
+        {
+          "name": "production_web_reload_preserves_same_board_nodes_file_binding_and_independent_second_board",
+          "passed": true
+        },
+        {
+          "name": "actual_web_ui_creates_board_http_creates_edits_deletes_all_eight_types_and_original_arrange_fit_keyboard_move_preserve_bindings",
+          "passed": true
+        },
+        {
+          "name": "actual_web_current_board_confirmed_delete_selects_existing_fallback_without_deleting_or_mutating_the_two_original_boards",
+          "passed": true
+        },
+        {
+          "name": "actual_web_reload_missing_source_shows_original_file_error_without_foreign_fallback_and_explicit_retry_recovers_restored_bytes",
+          "passed": true
+        },
+        {
+          "name": "actual_host_web_pty_generation_and_exact_output_reach_the_original_browser_terminal",
+          "passed": true
+        },
+        {
+          "name": "actual_web_pty_natural_exit_is_explicit_in_original_card_and_restart_uses_new_generation_without_thread_or_input_replay",
+          "passed": true
+        },
+        {
+          "name": "revoked_real_browser_session_cannot_read_or_mutate_boards_nodes_files_or_active_pty_while_independent_session_remains_valid",
+          "passed": true
+        },
+        {
+          "name": "revoked_production_web_returns_to_real_login_and_remaining_authorized_owner_reaps_only_its_terminal",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "kind": "original_main_development_preview",
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r6",
+      "checks": [
+        {
+          "name": "original_package_main_starts_current_frozen_native_host_with_exact_isolated_data_and_skill_library",
+          "passed": true
+        },
+        {
+          "name": "original_onboarding_deferral_and_canvas_creation_prepare_one_clean_development_preview_board_without_models",
+          "passed": true
+        },
+        {
+          "name": "original_main_remote_connection_resolves_packaged_web_directory_and_serves_exact_frozen_asset_then_stops_its_listener",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "formal_matrix": "i03-formal-platform-matrix.json",
+  "retained_followups": "i03-r10-retained-followups.json",
+  "source_reuse": {
+    "Core": {
+      "baseline": "1e840216a1af1f93da1371db545579889e42d4da",
+      "unchanged_paths": [
+        "crates/rovai-core/src/canvas_board.rs",
+        "crates/rovai-core/src/canvas_node.rs",
+        "crates/rovai-core/src/canvas_terminal.rs",
+        "crates/rovai-web/src/resources",
+        "crates/rovai-web/src/lib.rs"
+      ]
+    },
+    "Desktop": {
+      "baseline": "a2bd333284649abc1352e70e5078780adaaaca6f",
+      "unchanged_paths": [
+        "apps/desktop/src/renderer/src/CanvasFilePreview.tsx",
+        "apps/desktop/src/renderer/src/CanvasTerminal.tsx",
+        "apps/desktop/src/renderer/src/canvas-file-controller.ts",
+        "apps/desktop/src/renderer/src/canvas-terminal-controller.ts",
+        "apps/desktop/src/main/file-preview"
+      ]
+    },
+    "rule": "按精确未变模块复用旧文件/终端资格；其他Frontend变化由R09当前组件及R10当前装配检查核定，不把旧整批报告改名成新产物。"
+  },
+  "preview": {
+    "launcher": "scripts/start-i03-preview.mjs",
+    "user_entry": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I03_开发预览\\final\\启动预览.cmd",
+    "files": 297,
+    "standalone_installer": false,
+    "input_check_boundary": "预览原Main冒烟使用原DOM点击，不授予可信鼠标测试资格；可信输入资格见R09 Native与R10真实Chrome。",
+    "first_use_boundary": "原onboarding完成/暂缓Runtime仅为夹具准备，不授予首次引导全流程资格。"
+  },
+  "failed_attempts_preserved": [
+    "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r11-prepare\\result.json",
+    "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r1\\result.json",
+    "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r3\\result.json",
+    "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r4\\result.json",
+    "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r1\\result.json",
+    "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r2\\result.json",
+    "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r3\\result.json",
+    "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r4\\result.json",
+    "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r5\\result.json"
+  ],
+  "failure_resolution": [
+    "r11 Node REPL收到错误echo语法，改为实际REPL输入。",
+    "Web r1把全局事件游标错当内容变化；r3外部刷新等待短于原20秒轮询且批量删除合同待纠正；r4文件移动函数被改名结果遮蔽。最终r5整批11项通过，未拼接失败批次的局部结果。",
+    "预览r1发现受保护目录准备时机问题，启动脚本先调用原生helper；r2/r3 Electron CDP点击准备失败，r4误用Core请求调用本机hostWeb入口，r5未考虑已保存画板视图。r6原Main整批3项通过。"
+  ],
+  "no_unqualified_claims": [
+    "Mac/Linux/移动真机/其他浏览器未由Windows替代",
+    "无真实外部模型推理",
+    "ResizeObserver诊断未解决",
+    "应用预览不是完整MVP或独立安装包",
+    "一期81功能簇/48工作包/324场景和私聊24项均保留"
+  ],
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I03_开发预览\\final\\使用说明.md",
+      "sha256": "54e5db940db1e4e072cdf77d1a6527584d53858ea61bb7ba558a11439ee6582a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I03_开发预览\\final\\启动预览.cmd",
+      "sha256": "61674f460dea5aa27c8f5450f562e4896fc257f29f8fc2ad7f895f21137fdf2e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I03_开发预览\\final\\预览首页.png",
+      "sha256": "f9486110b85b4db282a5cdd2dfd4915db76ed0a44cf4449ab1ee3cdc149fd2f8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\app-assembly.json",
+      "sha256": "2f9db89e6fd178105dffd9afebb0df23d4a6b098a410ed727f99aae1919723bd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\build-artifacts.json",
+      "sha256": "c549a1bf750c5b33d5a77af9e17245a33175db58f5b6d748146c89bff53b093a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\desktop-output-inventory.json",
+      "sha256": "56b782d16376a3690165ddb42b66153688d6dc3057b30d6056028156eb4d9dec"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\freeze.json",
+      "sha256": "455e3244a4af8d30b59a49f481b38f91ea49089805209472f6cf3b4f78be0726"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-build-result.json",
+      "sha256": "d7ef6b56a1b0249506b9f5341f7251ded423c03370c1bf0f91d9905eeb5d3efe"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r11-prepare\\result.json",
+      "sha256": "ae9f088839ea659a251b972fbead587b53ec30c5ad1d64d87c10dae3657fd1f0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r12-prepare\\driver-exit.json",
+      "sha256": "9ae4e73c7fbac735103c37067596392ccf15cacccac88571c1bedf7add32c4eb"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r12-prepare\\prepare-all-eight.png",
+      "sha256": "7dd58591a3268e52b117bb4421ffe69c3d4c20edc0d4b253a8e23f10fc1bb1d4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r12-prepare\\recovery-context.json",
+      "sha256": "b4e97cbb4126a1b8219f243ea4e7b58094366411823586121534612217f3d98d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r12-prepare\\result.json",
+      "sha256": "9a2299d7680a3ea19ba35ca7243a68e992f7d244606d2d8d749e00949c7a36e4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r12-prepare-config.json",
+      "sha256": "5afc69aee54fc80f149629aed96ae72376d08cd59b57ae4d6124bd4f3aad6c4c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r12-resume\\driver-exit.json",
+      "sha256": "d1a3ce1f3c10f2c26636969a7e0aa6eb593746c56d6bba8ce4eb202c9fed676e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r12-resume\\result.json",
+      "sha256": "07e9e9aabcd332ca509a393160c24d89dad75b506d0904470dca07cc831ff647"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r12-resume\\resumed-all-eight.png",
+      "sha256": "4389796c0d624cc9760906dfe604dbad41c7a0289082aaf4707fb2739648e457"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\native-final-recovery-r12-resume-config.json",
+      "sha256": "3bc93405980558a9e6b6718b221e1b8f40c06cecdcd54ab1ecb14b7cdf00d4ce"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.25\\web-output-verification.json",
+      "sha256": "cacac864e0133756ce25e17d37fecea8f7cce52aff4be9807c60052187c16774"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\check-r10-preview.mjs",
+      "sha256": "4ad6660d509c229379681d260f8a08f357b641c71dff4cfb0cfe215f6778195d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r1\\result.json",
+      "sha256": "d0fa6b8bcebd852e366c41dc2ba3a666cfaeab47eba502b151c7b845270ab5d8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r3\\result.json",
+      "sha256": "36188de38eeb6090bef099560f95883e76d2ab4938c5d4bc7e80dc55e333d448"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r4\\result.json",
+      "sha256": "18340758c9be59ca571e4b796934c4ccd616d7006837aa013cd54f8e079b7012"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r5\\manifest.json",
+      "sha256": "bc3186e99ee46672a1848e01e062d21a9b7d491883f9ef1b1b72df5f1b817a7c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r5\\progress.json",
+      "sha256": "db069dc547da337a1f3751f084b9ce6139c6d0c6cc31fe57bf9a70e881790c6e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r5\\result.json",
+      "sha256": "b25f85681c3a52b9fdeedcf54a5b54fac820c015b39b564c96af61530426476b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r5\\source-before-missing.json",
+      "sha256": "3ccdb6cd822cff7cff358d53143978037da78204b157c31a07d490b9a25060e5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r5\\web-all-eight.png",
+      "sha256": "2add8714a7d35c1d25b84d27ef2e8b21f969cfd04f3854cb5f158325ae9c4d1e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r5\\web-created-eight.png",
+      "sha256": "65ee6a90a654420476ac4c917b8c9b67cd7e123f75a68957158ec3ae4e299675"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-final-web-r5\\web-revoked-login.png",
+      "sha256": "bb3e0c563db5b8f3dc406d1ee23a945d4fb9a8abf54b4fc67d77008ca14282c1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-owned-process-audit.json",
+      "sha256": "10893930b6b597e65f9d476f63057423b070e93433ecd403de14cf64994301bd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r1\\result.json",
+      "sha256": "3d0cdcddd0cdd6e88420cb7e3b28bdca331236c246abd1a51f778edf8dc5ca99"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r2\\result.json",
+      "sha256": "58c90e5b02814980202756bd8969766fb2a3fe25deb9af415287be551d403f8d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r3\\result.json",
+      "sha256": "59746f4e973c2fc62c648c0941d40da6086bbb8f1f62b03c2c0e1573ac3d95e3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r4\\result.json",
+      "sha256": "43c6753c671204807ea153e8d76027a4bb87e4fc4a2a7a4476e28b1ec6418ca5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r5\\result.json",
+      "sha256": "15b3493977fff06df6fad759c18e01c427fba95477ec53c464d9f0911e331c7f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r10-preview-smoke-r6\\result.json",
+      "sha256": "7f3e8d009dfb955414f55e83ba3ba7888a91f3c7ba487f2db595609a4fc45bd8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r10-final-web.mjs",
+      "sha256": "87693f7f3b71f0fd0f2c0dc735a9aa7027712d24ff325dd7710273366531564c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r10-rc25-final-recovery.mjs",
+      "sha256": "2baa3e4aa8f6ecc2333ffa606b18174522f0234f166d7c0a033e5044e495ff02"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-formal-platform-matrix.json",
+      "sha256": "021c9f8f85561f9118bd53be0b52beb5619f6e4f44f60817cc117aa620f3b10a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-r03-host-private-verification.json",
+      "sha256": "08275a36ca150ab5dcbd1948de478dff651e09e3f7fda426e60cda01b6958ebc"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-r04-process-interruption-verification.json",
+      "sha256": "8fc65120b3cc844875ff80d4af74ba3f2b0c71ca71ed6d23ea19166a8bd502ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-r05-object-cold-diff-verification.json",
+      "sha256": "6eedb3631fd237ad4c3c88d576ea3e0dc83a06e2aa25936da87cf24d03b3eb4a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-r06-file-html-verification.json",
+      "sha256": "9fb946e68eb5e43b661299aaeb4a6b70cff3cb3a790bb3747f609c22c59d5ba2"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-r07-core-terminal-capacity-verification.json",
+      "sha256": "70dc7ab204e20f53bf7ecf919dd66f0dfc754bb01d123aeb2aa1d4db247c674d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-r07-native-input-verification.json",
+      "sha256": "a4bc941455f4a1dc0d94db824f1e37eb47a29614b812e2b9e5dba699a3b50585"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-r09-complete-local-verification.json",
+      "sha256": "8570a3b923454271595fbe901380ca0bc3bfc98c18a4408afc58bbc5c124713a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-r09-source-ui-progress.json",
+      "sha256": "082509234f99744440f4546d1e6af64406746e18c14021770affa121793fe987"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\execution\\i03-r10-retained-followups.json",
+      "sha256": "e8567e1336ed36524d9ce4b99458469a73563315d38d14c384cf176e7c92af79"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-preview-rc25\\manifest.json",
+      "sha256": "657261c502141b4217cf070393523f52150dd2d4f9ea75b8ec58e5918f0d8d00"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-final-recovery-workflow.mjs",
+      "sha256": "e785c2a65af7f7b2ae0d2f217e9be43395d7632e30ff0f6f5489b1f62fbe8ecf"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-final-web-workflow.mjs",
+      "sha256": "22d78b7dba24eda95b9420c2110f5feb5b99aa3b71879d070767f671b24866c0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\start-i03-preview.mjs",
+      "sha256": "4c57e1e57f001c5b78dffaa3bf4127ea600b8c4cc32dcbe35f575bb948047874"
+    }
+  ]
+}

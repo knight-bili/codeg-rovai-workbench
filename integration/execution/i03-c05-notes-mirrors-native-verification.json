@@ -1,0 +1,458 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "notes_and_private_mirrors_verified_with_remaining_stage_scope",
+  "candidate": "fusion-i03-rc.14",
+  "production_source": "c44638135b8e06d34456bdc50657707404a6045c",
+  "native_source": "2158df02e793fc2eb3a01297b4921de214cdbe61",
+  "product_diff_since_candidate": [],
+  "new_builds": 0,
+  "runs": [
+    {
+      "mode": "notes",
+      "revision": "r4",
+      "status": "failed",
+      "checks": [],
+      "error": "Error: Native condition timed out: window.rovai.request('canvas.nodes.snapshot',{boardId:\"dc211ba3-f5c2-4afe-9159-a04c6f4bcd8f\"}).then(graph=>graph.nodes.find(node=>node.id===\"d7a268d1-0635-4b25-b60a-06b6d54461bb\")?.data.x===72)\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r4.mjs:38:163)\n    at async qualifyNotes (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r4.mjs:636:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r4.mjs:82:4)",
+      "renderer_errors": [],
+      "runtime_errors": [],
+      "test_owner_revision": "7dfacfa62972b5f5485ddb1523e05179217d7ee9",
+      "fixture_sha256": "bd290d8bcfa36880fc3f4d9076f62477eff06c05edd448a21c012730fe4d96e2",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "mode": "notes",
+      "revision": "r5",
+      "status": "failed",
+      "checks": [],
+      "error": "Error: Native condition timed out: document.querySelector('.canvas-zoom-readout').textContent==='100%'\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r5.mjs:38:163)\n    at async qualifyNotes (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r5.mjs:607:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r5.mjs:82:4)",
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "runtime_errors": [
+        {
+          "message": "ResizeObserver loop completed with undelivered notifications.",
+          "stack": ""
+        }
+      ],
+      "test_owner_revision": "8f909336b0b9ee9811e3c850380f9d0e74d7061f",
+      "fixture_sha256": "a079a331a4d242de9d3abf4db777ec92f2b2c3a96ac2b1ceeeb193194dad37b1",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "mode": "notes",
+      "revision": "r6",
+      "status": "failed",
+      "checks": [],
+      "error": "Error: Native condition timed out: window.rovai.request('canvas.nodes.snapshot',{boardId:\"de99ee6d-4dcc-49ba-8bb8-afde7d55ad45\"}).then(graph=>graph.nodes.find(node=>node.id===\"5b184edf-12a0-4fc0-94f8-73cd90a9fc35\")?.data.x===72)\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r6.mjs:38:163)\n    at async qualifyNotes (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r6.mjs:643:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r6.mjs:82:4)",
+      "renderer_errors": [],
+      "runtime_errors": [],
+      "test_owner_revision": "9e83a0c0353f20ab4ffedf179fec3361e10c83fc",
+      "fixture_sha256": "64e0873253b00129e3067c08c87f5d66eed4b34cb324f4e12916e8e49008a8bc",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "mode": "notes",
+      "revision": "r7",
+      "status": "passed",
+      "checks": [
+        {
+          "name": "whole_note_body_native_drag_updates_exact_core_geometry_and_retains_edge_alignment",
+          "passed": true
+        },
+        {
+          "name": "native_double_click_and_trusted_last_character_blur_save_only_note_content",
+          "passed": true
+        },
+        {
+          "name": "native_f2_edit_and_escape_save_preserve_original_note_exit_semantics",
+          "passed": true
+        },
+        {
+          "name": "remote_note_revision_keeps_saved_text_and_local_draft_without_silent_overwrite",
+          "passed": true
+        },
+        {
+          "name": "dirty_note_prevents_ordinary_navigation_until_explicit_resolution",
+          "passed": true
+        },
+        {
+          "name": "explicit_review_saves_local_note_and_clears_only_its_draft_preserving_other_note",
+          "passed": true
+        }
+      ],
+      "error": null,
+      "renderer_errors": [],
+      "runtime_errors": [],
+      "test_owner_revision": "2212143bdda692f9b92906b67e1a9a3388a9b8cd",
+      "fixture_sha256": "f832a25fc99d987cb1f415af38d931814f4304283cbbf3e19d3c52354139e9e5",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "mode": "mirrors",
+      "revision": "r1",
+      "status": "passed",
+      "checks": [
+        {
+          "name": "opening_same_private_conversation_twice_preserves_first_editor_and_mounts_a_distinct_second_editor",
+          "passed": true
+        },
+        {
+          "name": "trusted_input_in_each_same_thread_private_pin_remains_in_its_own_composer",
+          "passed": true
+        },
+        {
+          "name": "actual_core_keeps_distinct_canvas_material_scopes_for_same_private_conversation",
+          "passed": true
+        },
+        {
+          "name": "moving_one_private_mirror_keeps_both_editor_instances_and_other_composer_scroll_position",
+          "passed": true
+        },
+        {
+          "name": "closing_and_reopening_one_private_pin_recovers_its_draft_without_replacing_the_other_editor",
+          "passed": true
+        },
+        {
+          "name": "mirror_edit_and_recovery_does_not_send_messages_or_start_agent_runs",
+          "passed": true
+        }
+      ],
+      "error": null,
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "runtime_errors": [],
+      "test_owner_revision": "a611003b488a06245e5635452a65ca6103c6b22f",
+      "fixture_sha256": "d0292e95de1a91f58eadf837f9cc778fd742e4de3d7b3c28885afad6cd98a241",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "mode": "mirrors-reopen",
+      "revision": "r1",
+      "status": "passed",
+      "checks": [
+        {
+          "name": "cold_native_route_restores_both_exact_private_pins_and_independent_draft_bodies",
+          "passed": true
+        },
+        {
+          "name": "cold_mirror_recovery_keeps_original_private_identity_instead_of_creating_replacements",
+          "passed": true
+        },
+        {
+          "name": "mirror_edit_and_recovery_does_not_send_messages_or_start_agent_runs",
+          "passed": true
+        }
+      ],
+      "error": null,
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "runtime_errors": [],
+      "test_owner_revision": "a611003b488a06245e5635452a65ca6103c6b22f",
+      "fixture_sha256": "d0292e95de1a91f58eadf837f9cc778fd742e4de3d7b3c28885afad6cd98a241",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    }
+  ],
+  "passed_counts": {
+    "notes": 6,
+    "warm_private_mirrors": 6,
+    "cold_private_mirrors": 3,
+    "distinct_new_assertions": 14,
+    "distinct_candidate_assertions": 41,
+    "duplicate_rule": "mirror_edit_and_recovery_does_not_send_messages_or_start_agent_runs在暖/冷两个运行只计一个不同断言"
+  },
+  "drag_resolution": {
+    "basis": "已安装@xyflow/system 0.0.81 XYDrag.startDrag与生产computeAlignment，均未改动",
+    "measured": {
+      "zoomFactor": 1,
+      "start": {
+        "x": 656,
+        "y": 510
+      },
+      "layout": {
+        "window": {
+          "width": 1440,
+          "height": 920,
+          "dpr": 1.5
+        },
+        "node": {
+          "x": 495.707275390625,
+          "y": 365,
+          "width": 320,
+          "height": 260,
+          "top": 365,
+          "right": 815.707275390625,
+          "bottom": 625,
+          "left": 495.707275390625
+        },
+        "offset": {
+          "width": 320,
+          "height": 260
+        },
+        "viewportTransform": "translate(225.707px, 295px) scale(1)",
+        "computedTransform": "matrix(1, 0, 0, 1, 225.707, 295)",
+        "bodyZoom": "1",
+        "rootZoom": "1",
+        "readout": "100%"
+      }
+    },
+    "activation": "越过阈值的首mousemove成为拖动起点；原owner把激活前的8/8也计入预期",
+    "alignment": "激活后72/48使第一卡右缘392距邻卡左缘400为8，满足既有吸附；最终x80/y48",
+    "validated_path": {
+      "pressed": {
+        "x": 656,
+        "y": 510
+      },
+      "activated": {
+        "x": 664,
+        "y": 518
+      },
+      "ended": {
+        "x": 736,
+        "y": 566
+      },
+      "drag_delta": {
+        "x": 72,
+        "y": 48
+      },
+      "expected_final_position": {
+        "x": 80,
+        "y": 48
+      },
+      "alignment": "right edge snaps to the neighbouring note at x=400 within the existing 8px tolerance"
+    },
+    "boundary": "修正测试预期和准备动画顺序；没有关闭吸附、放宽断言或修改产品拖动代码。旧r1-r6失败保留。"
+  },
+  "mirrors": {
+    "context": {
+      "boardId": "04ba73e7-5657-4cc8-9326-f51eca787d23",
+      "threadId": "rvcamp_01m51k9yxpej9skre0ybc5m82g",
+      "conversationId": "1ff90468-44f0-4b1e-b8bc-0246f9c03417",
+      "nodeIds": [
+        "435dfaf3-0d0a-40ad-9db9-d0fc78f66b63",
+        "9933c37c-3943-4e5b-8fa1-d1c9b20f185f"
+      ],
+      "texts": [
+        "甲卡独立未发送输入",
+        "乙卡独立长输入第1行\n乙卡独立长输入第2行\n乙卡独立长输入第3行\n乙卡独立长输入第4行\n乙卡独立长输入第5行\n乙卡独立长输入第6行\n乙卡独立长输入第7行\n乙卡独立长输入第8行\n乙卡独立长输入第9行\n乙卡独立长输入第10行\n乙卡独立长输入第11行\n乙卡独立长输入第12行\n乙卡独立长输入第13行\n乙卡独立长输入第14行\n乙卡独立长输入第15行\n乙卡独立长输入第16行\n乙卡独立长输入第17行\n乙卡独立长输入第18行\n乙卡独立长输入第19行\n乙卡独立长输入第20行\n乙卡独立长输入第21行\n乙卡独立长输入第22行\n乙卡独立长输入第23行\n乙卡独立长输入第24行\n乙卡独立长输入第25行\n乙卡独立长输入第26行\n乙卡独立长输入第27行\n乙卡独立长输入第28行\n乙卡独立长输入第29行\n乙卡独立长输入第30行\n乙卡独立长输入第31行\n乙卡独立长输入第32行\n乙卡独立长输入第33行\n乙卡独立长输入第34行\n乙卡独立长输入第35行\n乙卡独立长输入第36行\n乙卡独立长输入第37行\n乙卡独立长输入第38行\n乙卡独立长输入第39行\n乙卡独立长输入第40行"
+      ]
+    },
+    "distinct_material_scope_keys": [
+      "canvas:04ba73e7-5657-4cc8-9326-f51eca787d23:435dfaf3-0d0a-40ad-9db9-d0fc78f66b63",
+      "canvas:04ba73e7-5657-4cc8-9326-f51eca787d23:9933c37c-3943-4e5b-8fa1-d1c9b20f185f"
+    ],
+    "stable_editors_during_second_open_and_mode_roundtrip": true,
+    "other_composer_scroll_preserved_during_mode_roundtrip": true,
+    "single_pin_close_reopen_preserves_both_drafts": true,
+    "fresh_app_cold_route_restores_both_exact_pins_and_bodies": true,
+    "model_messages_sent": 0,
+    "agent_runs_started": 0
+  },
+  "screenshots": [
+    {
+      "path": "native-notes-r7/01-note-paper-after-conflict.png",
+      "pixel_width": 2160,
+      "pixel_height": 1380,
+      "actually_viewed": true
+    },
+    {
+      "path": "native-mirrors-r1/01-same-private-conversation-two-cards.png",
+      "pixel_width": 2520,
+      "pixel_height": 1500,
+      "actually_viewed": true
+    },
+    {
+      "path": "native-mirrors-reopen-r1/01-same-private-conversation-two-cards.png",
+      "pixel_width": 2520,
+      "pixel_height": 1500,
+      "actually_viewed": true
+    }
+  ],
+  "remaining": [
+    "完整硬崩溃/未知命令恢复与Windows IME组合输入尚未运行；本次可信中文字符插入不能代替IME资格",
+    "C05多Thread/公开卡、原生焦点、实际规模/资源释放/窗口上限，以及ready Git Diff仍待补齐",
+    "新进程恢复正文和精确pin已通过，不授予滚动位置跨进程持久化或所有恢复语义资格",
+    "原便笺正文文档字号、完整双主题与八类错误状态/所有画布视觉仍按有限清单核对",
+    "保留既有ResizeObserver/作者HTML CSP诊断限制；当前三次成功运行console单列，不宣告全应用零错误"
+  ],
+  "evidence": [
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r4/result.json",
+      "sha256": "f708c5e650c3d46f0b4a73ab44d66ad00c5c8d681a6de7d54ab9ce09a3030e53"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r4-config.json",
+      "sha256": "e17858fb2ae3e6b0fd08000904a970866a3c4d58fc8a39186da4cfd6490aea7c"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/notes-r4-run.log",
+      "sha256": "4b8d983baf7656604928e899798c459a168fbca131ac91d031bf2ddd978d7306"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r5/result.json",
+      "sha256": "fe5df15421c6fa89effb13eb99725ea2c654da6832e76e6b3248a92cb4d509ca"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r5-config.json",
+      "sha256": "c54b305a86800bc87345b69afd1ef657d427aed2af79548ba3b1d2b27610de7c"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/notes-r5-run.log",
+      "sha256": "10da04ccc972e0bce061f7b92e6e00ee81701fac2a1ef62a09192e619328ff5a"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r6/result.json",
+      "sha256": "f92efd70cf023fb605d74aa7e2288ee28f3f4e66168d61d0addb20ae090252e4"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r6-config.json",
+      "sha256": "7c693343457513491d410d5331cc1ba563542caf45cd5822a20b98e900bc6289"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/notes-r6-run.log",
+      "sha256": "e52d4e6683f482db0b24a6f4c4b35afc00832b2f4e31dd9b485ad5d411e2a28f"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r7/result.json",
+      "sha256": "0a7ea6f664e0903529f30cc57ba9bfbccb58bd2c2bf11d97445f40eba0da309a"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r7-config.json",
+      "sha256": "70ae1539ea829cb38eaa365c37a4ed966d0a95c0d1fb1ef47a3bd4a8b9265a64"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/notes-r7-run.log",
+      "sha256": "4e4b1e24b43b8e75a4aad3b68b1937845759e3ce818709210de5dfd822f77ed7"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-mirrors-r1/result.json",
+      "sha256": "6ce9bd258bfbc580c16e6fb0eb695844b180184793b963c992f5edc83b81a242"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-mirrors-r1-config.json",
+      "sha256": "f9e5bd9f6f8b10f3ac80bbb08afcc67d6f13da2c8958150382864a1c4bf98039"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/mirrors-r1-run.log",
+      "sha256": "5e4a88bcd1d80cb9c3acc5d9ba2af901e80abf160d6567d3e7ed78b07a43b321"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-mirrors-reopen-r1/result.json",
+      "sha256": "0b49e7de9d58066b8dd6c7d488f255cd9b050606f5955fdafd0c5274e22742cd"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-mirrors-reopen-r1-config.json",
+      "sha256": "064d3032765793036efbf5ce4342795433c5cc4643b70c809822dfe1da314444"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/mirrors-reopen-r1-run.log",
+      "sha256": "5d85078ddbe207bcc1b7ad816da621770b8d176f72ad393cc056a2c17a414087"
+    },
+    {
+      "path": "integration/execution/i03-c06-source-card-group-verification.json",
+      "sha256": "fedef8b054f58ad27920316227dc597c023047fe4b8e604f0a642fef39243e4d"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r7/01-note-paper-after-conflict.png",
+      "sha256": "68cc3f0ef7814f333d009fe12fa6d9d766a3140c6f31a410453cd6e15bf6f1e8"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-mirrors-r1/01-same-private-conversation-two-cards.png",
+      "sha256": "7fb83e2bd9c9fff35b5c87b8e3d4d2e0d148b21499ced7b8a40acc7b9358347b"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-mirrors-reopen-r1/01-same-private-conversation-two-cards.png",
+      "sha256": "1a4986d9469d26290dcbfac6d60bb485ce16c0a45678ce0842e0e388f5ed72fb"
+    }
+  ],
+  "customer_action_now": null,
+  "pushes": 0,
+  "actions": 0,
+  "paid_models": 0
+}

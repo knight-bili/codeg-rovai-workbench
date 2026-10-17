@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T06:00:41.356Z",
+  "stage": "I03",
+  "source_commit": "4c35cf3c82c606c393a0af0230cd8448bef20661",
+  "goal_status": "active",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "source": "53aecaf3abd8aa7ca5f6c51a1893e14c92baf289",
+    "checkpoint": "395ab0ef695880664098eeb4d6cf0762bbad4d1a"
+  },
+  "status": "shared_private_body_store_send_exclusion_retained_input_recovery_used_by_existing_panel_41_checks_passed_multi_UI_pending",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "sha256": "6dad7ba1a4521a4af0d4925f9ca9ef49b8da8c73c2845e779f564ae45858dc7b",
+      "git_blob": "a41de9abd95710db1c0c7e8f7a8f658370e39ed6"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "a63ad842b8822a31211a9ccfea44190629839ef71c40bdc36102f01e46bbbe84",
+      "git_blob": "db25375670301054c6cfdb9d564033f6889b2328"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/single-chat-composer-store.test.ts",
+      "sha256": "3ad356b305877dad6606a45b8d5c57016c2486dfb5e61be17497e70a7fd2bd10",
+      "git_blob": "e70b3a817ae812b24f23f3e350a4ecb6bce4a974"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/single-chat-composer-store.ts",
+      "sha256": "5d195b93f8dd2b1169559fa4ce486b00ae8b6e020a8ee388326b670bb6775896",
+      "git_blob": "ce67a2ad390260a76f4a4680a0cdf75dd2ec2d94"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/styles.css",
+      "sha256": "65a2f94119c6e3e597b9d5df6f97fe83a07cc6bdb8c9c3222a11b801f094beea",
+      "git_blob": "5b8467f48b66db0664771e1bbc95fa2ed64f65ef"
+    },
+    {
+      "path": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "df9802360f7a79070a5988acfd315f524109f183e9879d4bebd6929f5b57d97f",
+      "git_blob": "60994e0f0fdb4db036a1353c283f4a91977835f8"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "586d66e507368db4df51677efed24ef8104dfb5864995a314d56c6461eecdc06",
+      "git_blob": "5be58e711a455937775ea2766a0b3d2037abd345"
+    }
+  ],
+  "implementation": [
+    "原SingleChatPanel改用按ThreadClient对象/Thread共享的正文store与useSyncExternalStore，更新基于最新整表，不以每个面板的旧副本覆盖其他Conversation。恢复键single-chat:<Thread>及字符串表保持；不写Core Draft或模型上下文。",
+    "同正文key的发送互斥在await前取得，旧release不解除新请求；其他Conversation可独立取得发送权。失败/未知不由store自动重发，Core原结果/幂等保持。",
+    "发送前从共享表冻结原文，原singleChat.send表达式未改；成功仅清仍等于冻结原文的内容，较新输入保留。accepted清空保存失败时保留内存清空，阻止离开，只重试保存。",
+    "首次恢复读取失败不允许输入/发送或移回操作；失败保存保留最新内存正文并阻止发送/离开。Core invalidation回读不能覆盖未保存或正在提交的输入；同Thread只一条正文回读订阅，最后观察者退出解除订阅。",
+    "pending key迁移等待对应发送结束；目标非空且内容不同保留两份，空目标采用保留文本。中性恢复面板允许选取并交换正文，不丢弃另一份。",
+    "待发送移回基于最新共享表接纳：存在其他正文时保留返回文本，并按Core commandId写客户端returned字符串条目，空条目代表已应用收据；原收据重复不会覆盖较新输入。存储形状仍全为字符串，不改Core回执。"
+  ],
+  "checks": [
+    {
+      "name": "private_shared_store_existing_panel_Canvas_and_Thread_commands",
+      "path": "../i03/single-chat-shared-owners-final.log",
+      "sha256": "9e11bbb8b1804d206fb8e2b10cc845e74c0c843fc1b7ff140149aa3b49777113",
+      "files": 4,
+      "passed": 41,
+      "failed": 0,
+      "new_pure_tests": 11
+    },
+    {
+      "name": "scoped_TypeScript_including_new_tests",
+      "path": "../i03/single-chat-shared-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0,
+      "config": "../i03/single-chat-shared-typecheck.json",
+      "config_sha256": "d0dbc7f9f66a37f0d05d33aac79b8fa6c66da6dbcf0b8b7e8c6faab77cd3ff3c"
+    },
+    {
+      "name": "literal_copy_normalized_as_translateUi_and_duplicate_keys",
+      "path": "../i03/single-chat-shared-copy-final.log",
+      "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078",
+      "missing": 0,
+      "duplicate": 0
+    },
+    {
+      "name": "documentation_version",
+      "path": "../i03/single-chat-shared-docs-version-final.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+      "exit_code": 0
+    },
+    {
+      "name": "documentation_governance",
+      "path": "../i03/single-chat-shared-docs-decisions-final.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+      "exit_code": 0
+    },
+    {
+      "name": "RPC_expressions_against_original_Git_source",
+      "path": "../i03/single-chat-shared-transport-proof.json",
+      "sha256": "132d7e20b2349ac294a3854b849d5dd3a20c07d367461bb85f3dd15ba78c9648"
+    }
+  ],
+  "transport_proof": {
+    "source_commit": "395ab0ef695880664098eeb4d6cf0762bbad4d1a",
+    "method": "singleChat.send",
+    "request_calls": 1,
+    "request_expression_unchanged": true,
+    "request_sha256": "a5730e1374333b1b9b8779b50c4e8171d0b219b7e101a0808ba81888efd34377",
+    "pending_return_calls_unchanged": 2,
+    "recovery_key": "single-chat:<Thread>",
+    "recovery_shape": "Record<string,string>",
+    "new_Core_fields": 0
+  },
+  "self_review": [
+    "发现原整表副本会互相覆盖、pending迁移会丢非空正文、移回回执会覆盖较新输入，已在共享store和既有面板接线，增加11个纯用例。",
+    "核对准备脚本时修复零参数AST节点访问，重新对Git原源码验证；1个send及2个pending edit表达式原文不变。",
+    "扫描既有面板发现5个带前后空白的旧UI片段；实际translateUi以trim键查询，临时检查器按同一规则核对，未给旧片段添加无用翻译。",
+    "恢复状态使用中性Token与可缩放的select/按钮，不用危险错误样式标记正常保留输入；读取/保存失败仍用原错误呈现。",
+    "无既有CodeGraph索引，按仓库规则使用文件查询，不初始化、不声称同步。"
+  ],
+  "not_run": [
+    "当前画布仍单聚焦，完整多卡/同引用镜像尚未挂载接完；公开DraftMutationCoordinator共享、Lexical实时镜像、输入及发送锁继续。",
+    "公开StructuredMentionComposer明确忽略普通document prop更新，现有replaceDocument会选择光标并清undo；不能只共享coordinator或重挂组件来假装镜像完成。",
+    "私有附件/quote/Core Draft revision、真实pending返回未知结果、强退重启、原生editingRecovery能力与跨客户端接管尚未验；模拟store重建不等于真实进程重启。未提供editingRecovery时只保证当前client生命周期的内存。",
+    "实际挂载、IME/焦点、双主题、触控、恢复选择器、流式/审批/停止、真实Host/Runtime/模型与设备矩阵待阶段候选；41项是纯/静态/模拟检查。",
+    "无Rust/全工作区构建/完整回归/打包/push/Actions/候选/合入，全部324融合场景仍not_run。"
+  ],
+  "protocol": {
+    "schema": 154,
+    "Host": 4,
+    "contract": "v1.72",
+    "current_operations": 178,
+    "historical_operations": 161,
+    "added_operations": 0,
+    "new_dependencies": 0,
+    "Core_database_or_model_context_changed": false,
+    "client_recovery_shape": "Record<string,string> with returned receipt keys"
+  },
+  "next": [
+    "继续公开Thread草稿的共享coordinator/工作中正文及发送互斥，镜像均完整可编辑；需保留Lexical焦点/IME/撤销，不能退成只读镜像或唯一卡。",
+    "接每Thread读取/刷新及精确引用多呈现实例、全部leave准备、各Thread文件预览、稳定portal、Host/Core/board展开恢复与可见通知。",
+    "随后Mission/Task/Thread/Diff、授权文件、真实PTY/Desktop冷路由；I02余下SP/真实Gate与I04–I12/BUF均保留。"
+  ],
+  "execution": {
+    "branch": "phase/i03-canvas-nodes",
+    "local_commit": true,
+    "push": false,
+    "Actions": false,
+    "stage_candidate": false,
+    "main_merge": false,
+    "cadence": "小切片自审/低成本检查和中文本地commit；阶段编码/review齐后集中编译/集成及少量push/Actions"
+  }
+}

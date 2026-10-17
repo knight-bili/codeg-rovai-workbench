@@ -171,10 +171,15 @@ pub enum QuoteStorage<'a> {
 impl QuoteStorage<'_> {
     fn client_filter(self) -> String {
         match self {
-            Self::CampDraft | Self::PrivateDraft => " AND client_id = 'desktop'".to_owned(),
-            Self::ClientCampDraft(client) | Self::ClientPrivateDraft(client) => {
+            Self::CampDraft => " AND client_id = 'desktop'".to_owned(),
+            Self::PrivateDraft => " AND client_id = 'desktop' AND scope_key = ''".to_owned(),
+            Self::ClientCampDraft(client) => {
                 format!(" AND client_id = '{}'", client.sql_key())
             }
+            Self::ClientPrivateDraft(client) => {
+                format!(" AND client_id = '{}' AND scope_key = ''", client.sql_key())
+            }
+            Self::PrivateEdit => " AND scope_key = ''".to_owned(),
             _ => String::new(),
         }
     }
@@ -788,26 +793,16 @@ struct RemovedQuote {
 }
 
 /// The caller owns its draft revision or Pending edit-token fence and the surrounding transaction.
-pub fn mutate_quotes(
+pub(crate) fn prepare_quote_mutation(
     transaction: &Transaction<'_>,
-    storage: QuoteStorage,
-    id: &str,
     camp_id: &str,
     conversation_id: Option<&str>,
+    mut quotes: Vec<MessageQuoteSnapshot>,
+    trash_json: &str,
     action: &QuoteAction,
-) -> Result<()> {
-    let mut quotes = load_quotes(transaction, storage, id)?;
-    let trash_json: String = transaction.query_row(
-        &format!(
-            "SELECT quote_trash_json FROM {} WHERE {}=?1{}",
-            storage.table(),
-            storage.key(),
-            storage.client_filter()
-        ),
-        [id],
-        |row| row.get(0),
-    )?;
-    let mut trash: Vec<RemovedQuote> = serde_json::from_str(&trash_json)?;
+) -> Result<(Vec<MessageQuoteSnapshot>, String)> {
+    let mut trash: Vec<RemovedQuote> =
+        serde_json::from_str(trash_json).context("quote.invalid_snapshot")?;
     match action {
         QuoteAction::Add { selection } => quotes.push(capture_quote(
             transaction,
@@ -838,6 +833,37 @@ pub fn mutate_quotes(
         quote_scalar_count(&quotes) <= MAX_QUOTE_SCALARS,
         "quote.limit_exceeded"
     );
+    parse_quotes(&serde_json::to_string(&quotes)?)?;
+    Ok((quotes, serde_json::to_string(&trash)?))
+}
+
+pub fn mutate_quotes(
+    transaction: &Transaction<'_>,
+    storage: QuoteStorage,
+    id: &str,
+    camp_id: &str,
+    conversation_id: Option<&str>,
+    action: &QuoteAction,
+) -> Result<()> {
+    let quotes = load_quotes(transaction, storage, id)?;
+    let trash_json: String = transaction.query_row(
+        &format!(
+            "SELECT quote_trash_json FROM {} WHERE {}=?1{}",
+            storage.table(),
+            storage.key(),
+            storage.client_filter()
+        ),
+        [id],
+        |row| row.get(0),
+    )?;
+    let (quotes, trash_json) = prepare_quote_mutation(
+        transaction,
+        camp_id,
+        conversation_id,
+        quotes,
+        &trash_json,
+        action,
+    )?;
     store_quotes(transaction, storage, id, &quotes)?;
     transaction.execute(
         &format!(
@@ -846,7 +872,7 @@ pub fn mutate_quotes(
             storage.key(),
             storage.client_filter()
         ),
-        params![id, serde_json::to_string(&trash)?],
+        params![id, trash_json],
     )?;
     Ok(())
 }

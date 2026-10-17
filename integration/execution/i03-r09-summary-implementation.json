@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R09",
+  "status": "source_implemented_candidate_pending",
+  "checked_at": "2026-10-16T20:28:49.218124+00:00",
+  "committed_test_owner_source": "5e21f0f24c94e6a953199048d2541e8f96f8c2cf",
+  "source_baseline": {
+    "codeg": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "rovai": "cc465dda562536b94f23787759e3206324baa29e"
+  },
+  "implemented": [
+    "Codeg14px元信息/6px活动点/左右紧凑页脚；四行标题不变",
+    "精确active成员的明确模型配置；默认模型与缺失观测不生成名称",
+    "已有四并发worktree读取的精确分支；失败/旧字段/游离HEAD/缺失均保留未知",
+    "Core只读公开活动计数和精确私聊活动，原同一目录事务与失效合并，不增加逐卡轮询",
+    "Native桥接错误对象保留具体附件缺失/源变化指引；输入和恢复语义不变"
+  ],
+  "low_cost_checks": {
+    "typescript_tests": 33,
+    "test_files": 4,
+    "typescript_exit_code": 0,
+    "original_sql_fixture": "passed",
+    "actual_read_only_migrated_schema": "passed; 9 existing private conversations; no Runtime",
+    "rustfmt_edition": 2024,
+    "rustfmt_exit_code": 0,
+    "docs_tests": 10,
+    "docs_gates_exit_code": 0,
+    "diff_check_exit_code": 0,
+    "codegraph_sync_exit_code": 0
+  },
+  "test_owner_repair": "首轮既有静态面板owner在无window环境触发Native存储getter；测试明确注入内存编辑恢复后整批通过。不修改生产Native存储，也不授予Native恢复资格。",
+  "pending_in_same_group": [
+    "新增Core活动只读投影与原Rust owner尚未编译/运行；真实Host多Thread/公开与私聊交错状态仍待候选",
+    "模型配置与原生会话实际观测的展示适用性继续核对，不把配置冒充观测",
+    "八类创建/编辑/排列/折叠/错误态、画板CRUD、菜单键/旧Host提示的完整当前候选运行",
+    "日夜主题、小窗口/缩放/末项可达和四行长标题的实际同场景对照；尺寸告警须定位并登记影响"
+  ],
+  "dependency_retained": {
+    "source_feature": "C08",
+    "planned_stage": "I04",
+    "work": "Codeg真实父子会话/异步委派完成后补child_count画布投影和回归，不能拿私聊数量替代；功能仍在完整一期"
+  },
+  "qualification_limit": "当前只完成源码与局部检查。R06修复和本批新Renderer/新Core均未构建，rc20旧二进制不能冒充新投影或新HTML资格。下一候选须实际构建所改Core及Desktop/Web。",
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\CanvasSurface.tsx",
+      "sha256": "398fa4a36dc2d1f0ed0c84a3222c12ab26156a13d24d55ccaea51b739d299434"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\PrivateInputRecoveryPanel.tsx",
+      "sha256": "bee6249a4fde11840a3f7811c3382abb87721d0848dee68c85ee2d223178b6ca"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\SingleChatPanel.test.ts",
+      "sha256": "06e9792d04a288c277e9fb181aafd8d89b4d130a9a250bc1986f0f661f8dbe32"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\canvas-reference-controller.test.ts",
+      "sha256": "bb1299a0dceb960a2b7ad2773e6250de2cc0b667a6a4bae5981b6a036febe0fb"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\canvas-reference-controller.ts",
+      "sha256": "3c93784f6a902a9e7a8cb58c111ea95bf22bf51a3f60908edcc91fd17fbcf85f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\canvas-reference-model.test.ts",
+      "sha256": "347c03bff8dd4cc43545fbe410604349e63d8743cbcef1f533de7f2b9492249d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\canvas-reference-model.ts",
+      "sha256": "f5d3031bec1af1f3ee1e0c81e9ba539f6599424260441ae11f9016745aa22bf5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\apps\\desktop\\src\\renderer\\src\\canvas.css",
+      "sha256": "cd34abe6b8561193d524eeed070d2cfa457ddfbc343f46b1f698feed4b1335b4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\crates\\rovai-core\\src\\read_model\\canvas_references.rs",
+      "sha256": "0cf5839e5e9f7fabd9cc9cb1378ee6beba25df648b4956e6f6ce3d2c11cfcef0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\docs\\contracts\\canvas-references-v1.md",
+      "sha256": "7b08f4d4aa4eba75526edab8f5749760809f1d64d3298e916490445ef7a19d94"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\docs\\development\\testing.md",
+      "sha256": "ec7169e8b8ff20a93afd5da8880a704f6633bf2ebdff2abc20d89ea886122d89"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\inventory\\canvas-ui-reference.md",
+      "sha256": "0924adf9ff3e7e7acd28239453aaccb4515d7de33a1e45e03e5581af5a363dd6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\packages\\contracts\\src\\index.ts",
+      "sha256": "b7bded7e6d87c96242efb193d081f3834e95c27cfc4964cf2ec1d2e31f0c3214"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-summary-tests.log",
+      "sha256": "2d67f250407810f8bfef6465e8df1115f6844ac35b24d717ca3e40e4f93df596"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-summary-tests-r2.log",
+      "sha256": "50fdffe0326d2e0ecfd432abd1f33521ecafd411d5b6cd8050d0f5fb6cd177ab"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-summary-tests-r3.log",
+      "sha256": "cb2e26a5aabb85864e418ab3f022c9e67d2fb6af6da4a48f5fd2809e0052cd96"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-summary-types-r2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-reference-sql-r2.json",
+      "sha256": "d3d28861f619df06237c29d02ce604cdf5eaf562b9a0028829a23a2e2ebe7192"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-reference-sql-r2.log",
+      "sha256": "62b1edce7ed51027575e2d53e24ab0518191ffc6a89a3795f0037bc4f1d508c8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\check-r09-reference-sql.mjs",
+      "sha256": "edac36997fe275d5c82570e9f8cab1ff98327189da7c46cc9263f63f39911cb6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-docs-test.log",
+      "sha256": "6755f00ee6ec14ac7beb96150c6cabfd099c7069c267eb4c7c4ebd6413d65414"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-docs-version.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-docs-decisions.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r09-codegraph-sync-final.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\record-r09-summary.py",
+      "sha256": "61828701a2a0a9608cbc2519a0eb3577728dbc8cee8c439d46e095c8a1aa207e"
+    }
+  ],
+  "counts_unchanged": {
+    "settled_obligations": 17,
+    "open_work_groups": 5,
+    "private_cases_verified": 24,
+    "private_cases_open": 0,
+    "verified_work_groups": 5
+  },
+  "builds_added": 0,
+  "actions_triggered": 0,
+  "pushes": 0,
+  "external_model_calls": 0,
+  "customer_action_required_now": false
+}

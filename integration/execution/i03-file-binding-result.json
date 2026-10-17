@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C03",
+  "status": "source_binding_ready_preview_ui_and_actual_core_pending",
+  "recorded_at": "2026-10-15T23:05:28.762221+00:00",
+  "source_binding": {
+    "base_commit": "d004a5fcb16c706982abdc6ebcb0f91f42cd4b40",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "apps/desktop/src/renderer/src/canvas-graph-controller.test.ts": "abeca58549d906896464787630d3f1a6c03bc08a062d379dc588ea8144ec7346",
+      "apps/desktop/src/renderer/src/canvas-graph-controller.ts": "e14f5870ebb4d8f4db791f8a8959f5d9e545f39a15b693fb7187865db1afacb4",
+      "crates/rovai-core/src/canvas_node.rs": "fcb33c44165c9d83a7008bc284c5c830b2ad55368c984704cfb38bf13c363c6f",
+      "crates/rovai-core/src/db.rs": "4514402dec91c8c37e5b6cf7046913242df2e0fc08a9915b303fe6b1621a7f49",
+      "crates/rovai-core/src/db_canvas_objects.rs": "ff6615fbdc6aa0f8bb13efc31ec25ec078c8f022f7c9ddcc831a91c60fec7569",
+      "crates/rovai-core/src/db_private_source_observation.rs": "2393cc7f8cf1050e6b321632ec9a76dcc9c8b8352b58913c78587031daa08a94",
+      "crates/rovai-core/src/lib.rs": "1d6832edc034705ae80e8b65d6d436c93629b4024ca6a3b83b0940a312c67298",
+      "docs/architecture/canvas.md": "2ff26910bcdfa81a1357f637913f36eeb9c30298387d2411ce38cb961dc170d8",
+      "docs/contracts/canvas-nodes-v1.md": "9c5a3bba42b4580b937e896f5f9ed3a0a21b09efd6537839f4ddaf7f5b83ad62",
+      "docs/development/testing.md": "bfd5a5433a2d2828d7f22be43ded0c5c54f5b908cefcd7d81547e8435c16ba75",
+      "packages/contracts/src/index.ts": "36799ff53ac59d2e8677c4221536f70e1b04ba0a21cc536345371df8c720ebe2",
+      "crates/rovai-core/src/canvas_file_reference.rs": "90acb4a2ac51b34351a54663c3ee03881954ffe19ec581fdd23c45e8cdf5c64e",
+      "crates/rovai-core/src/db_canvas_files.rs": "65d0afd345dc4a26bc012c54c34bac778c23cb6e84df627b2bb36b72f3e4a36e"
+    }
+  },
+  "previous_stage_evidence": {
+    "path": "integration/execution/i03-object-reference-ui-result.json",
+    "sha256": "54ba9f0b41bedd27e390af076e9ed2952361f0d42c73cb6303c1c0a5522d1ece"
+  },
+  "implemented": [
+    "Optional immutable fileReference original Thread identity; legacy None omitted from canonical command data",
+    "Source158/Migration208 appends file-reference table plus owner/immutable triggers; exact157 source, atomic marker/receipt, no rewrite of old paths or object refs",
+    "New file create validates active directory Thread; explicit bind_file attaches legacy node once in original board CAS/Gateway transaction without changing its path",
+    "Missing original Thread preserves soft owner and ordinary layout operations; deleting node/board removes only reference metadata",
+    "Original23 plus4 object-reference plus1 file-owner columns use one28-column JOIN across all graph query paths",
+    "Both database upgrade chains and earlier source fixtures restore208; old157 explicitly maps to207 receipt rather than the new current receipt",
+    "Snapshot fileReferenceVersion1 gates first create/bind before pending UUID allocation; unknown retry freezes source Thread/node/path/version/UUID"
+  ],
+  "verified": {
+    "client_and_original_main_checks": {
+      "files": 4,
+      "passed": 76,
+      "failed": 0,
+      "skipped": 1,
+      "skip_reason": "original Main service colon filename case is conditionally skipped on Windows; not counted as passed",
+      "scope": "GraphController original-request recovery and capability gate; unchanged Main access/authority/service on owned temporary FS including symlink checks, not actual Host/IPC or new end-to-end file node"
+    },
+    "literal_sql": {
+      "passed": 42,
+      "failed": 0,
+      "scope": "actual Rust DDL/source SQL/marker and28-column JOIN in owned minimal SQLite fixture, not Rust classifier/Gateway/migration execution"
+    },
+    "targeted_types": "pass_including_original_controller_owner",
+    "changed_rust_format": "pass_six_modules_not_full_workspace",
+    "rust_owner_count": {
+      "before": 2,
+      "after": 2,
+      "new_assertions_executed": false
+    },
+    "documentation_governance": "pass_version_and_diff_aware_decisions_base_d004a5fc",
+    "diff_check": "pass"
+  },
+  "self_review": [
+    "Path alone lacked Thread provenance; added persisted original source instead of borrowing active Thread or bypassing FilePreviewApi",
+    "Preserve exact new bound file path rather than trimming a different Unix file; keep old unbound canonical behavior",
+    "Extend existing Rust type and graph/migration owner instead of new full-database owner",
+    "First client/type pass found a missing UI helper in new rejection path; restored existing Promise.reject convention and reran successfully"
+  ],
+  "not_run": [
+    "new current158/208 Rust compilation and original2 canvas/3 private lifecycle owners",
+    "actual Core/Host/Native IPC migration and file node authorization",
+    "new bound-file chooser/legacy bind/preview UI not implemented yet",
+    "mounted file card closing/restoration/update lifecycle",
+    "formal324/fullPC01-PC24/real model/platform matrices"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "artifacts": {
+    "i03/canvas-file-binding-tests-01.log": "a00b60517c09c0eb7e6aea8e26247c14a763839535bee9f5a2639ee11b066104",
+    "i03/canvas-file-binding-tests-final.log": "433567ea4f2470e854d30d31443c342114c2b0bf44cad1cb0a6773f20a6d90cd",
+    "i03/canvas-file-binding-types-01.log": "85d42f17fe9017e75956c0ccae2fd19c45b2d4a6f5ffa71bedce64d7b434e008",
+    "i03/canvas-file-binding-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-object-typecheck.json": "918d6d802deef618b81e16fbed1864bc2c50d4f7e3ede48a2b767a864a97c418",
+    "i03/canvas-file-binding-format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-file-binding-sql-01.log": "6085ecc109e3b7224d9ef8b6149787f3e055632fd17c3296db332721c0e23953",
+    "i03/canvas-file-sql-v1/result.json": "862e3794d0eb0cf585b3a73779fdf29afeb875a195da9bebe72b904ba7cd31e3",
+    "i03/canvas-file-sql-v1/fixture.sqlite": "0701a1a047f6d40b3d8e497f92d4283448bf3270ba3889c76527ed27354259a8",
+    "i03/verify-canvas-file-sql.py": "09d4b9c451627d3fcd413abae18f75917fbaee794453b053af62db8af555f0db",
+    "i03/record-canvas-file-binding.py": "1cfa36beb352e2258cf8920fc8641e58ee8b67d2a8b6febf9a4358c94efe1958",
+    "i03/canvas-file-binding-docs-final.log": "6eb03e1b66af4f3a2ae337d42e11ddb5a595f11fc6e89cd079e7d49f34c7f9e8"
+  },
+  "boundaries": {
+    "source_projection_schema": 158,
+    "source_last_migration": 208,
+    "actual_user_database_migrated": false,
+    "host_protocol": 4,
+    "public_core_methods": 180,
+    "new_dependencies": false,
+    "model_source_changed": false,
+    "cargo_push_actions_model": false,
+    "customer_action_required_now": false,
+    "formal324": "not_run"
+  },
+  "next_actions": [
+    "Implement file chooser/explicit legacy binding UI using persisted original source",
+    "Open through existing FilePreviewApi/real canonical access and shared window budget; never bind to current page implicitly",
+    "Complete card close/delete/reopen/changed content/unavailable source lifecycle, then C04 PTY; actual current Rust and Host remain consolidated stage verification"
+  ]
+}

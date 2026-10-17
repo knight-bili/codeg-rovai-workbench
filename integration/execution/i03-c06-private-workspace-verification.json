@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "status": "private_canvas_workspace_repair_passed_full_stage_partial",
+  "recorded_at": "2026-10-16T09:27:30.715Z",
+  "candidate": "fusion-i03-rc.13",
+  "production_source_commit": "caa03f67d9cf11f3ec8c608ab8f5b5c3b530c549",
+  "native_source_commit": "2158df02e793fc2eb3a01297b4921de214cdbe61",
+  "artifact_binding": {
+    "work/i03/c06/fusion-i03-rc.13/freeze.json": "18fe8f28f0190b2ee0384ce6978b111a886cffcdd2bfbc1f91e267cce5f687f0",
+    "work/i03/c06/fusion-i03-rc.13/desktop-build-result.json": "542ede37e18bcb787042e14b7559f142c55a967699b4c48c9405b3dd6b3fd91f",
+    "work/i03/c06/fusion-i03-rc.13/web-build-result.json": "0eee6b6803d4bf3bccd6c96f965be0e7f83cdd044203ceff7ebf15a159e9dde2",
+    "work/i03/c06/fusion-i03-rc.13/desktop-output-inventory.json": "6db92f9d846eed52e303e2df95fdd9a418b93500e96f9904db5d07c3517669b4",
+    "work/i03/c06/fusion-i03-rc.13/web-output-verification.json": "feb56efa9c3ab536175773e32394ab64ddd0c8c68d737b20aed466c47805b6f9",
+    "work/i03/c06/fusion-i03-rc.13/native-private-ui-r2/result.json": "7488d46bbbc9c5c4d1b7dd74158bd010f7db6d574fc5ee843482e2324cdd059b",
+    "work/i03/c06-rc13-private-ui-r2.log": "06507d67e9eaaf92d439d2c6406a7373345ebfed1c080976c5927e57f4440a60",
+    "work/i03/c06/fusion-i03-rc.13/native-objects-r1/result.json": "bfa8fffe6a98f1445b4e2e6e9ed1fcd9cd30ee0f04b937e61210d2a4e0d58d79",
+    "work/i03/c06-rc13-objects-r1.log": "b5ba46b7c709ca7bfdf4d858f21af11a0d207b9154856b535b81ab4ce99b1761",
+    "work/i03/c06/fusion-i03-rc.13/native-files-r2/result.json": "d74a1c2dbe68e8a0171fadfd6e88c765d23bc765e7922f6921d380fe127563d4",
+    "work/i03/c06-rc13-files-r2.log": "bd1e010b452d85d0386693c0d8f362f6628a5a5a15835f6e22f93d0c16ecf0de",
+    "work/i03/c06/fusion-i03-rc.13/native-visual-r2/result.json": "ddb2553e27188d1457ff7f16257d96c115c3e6cc0b4210fac8ad30d71c8a8b56",
+    "work/i03/c06-rc13-visual-r2.log": "9819bb4670319a4930ca55a776000855544a498715c56915d32a2fc171a397d8",
+    "work/i03/c06/fusion-i03-rc.13/native-private-ui-r1/result.json": "a009fe777392b1f3e31ce785e2028eb3da4a08ddfb49984162ccc6a3084c6bb1",
+    "work/i03/c06/fusion-i03-rc.13/native-private-ui-r2/01-private-attachment-preview.png": "23773a831c64b57ac7b9edb7b8ec185321ed38d46565773dfae5ce245b41feb6",
+    "work/i03/c06/fusion-i03-rc.13/native-private-ui-r2/02-private-conversation-returned.png": "c2728add4060ceba4eb3ca17ecb68962cc09712f01ac7b774517047b1b88edb0",
+    "work/i03/c06/fusion-i03-rc.12/native-private-ui-r5/result.json": "c100772ec171ff98ed97c024cbd46949d82ce4801bbb2b68c6ac4235007c050b",
+    "work/i03/run-c06-rc13-native.mjs": "eae7a6389d3f0318241b15136604212da8796693080a75cdf50e41c518856f8f",
+    "work/i03/canvas-selection-owner-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "work/i03/canvas-inline-related-tests.log": "cf2898927c9cc2a8f6f7d6b27fe56f60fd9bb68ab257d4cf207bd32e2fc4f304"
+  },
+  "validation": {
+    "types_exit": 0,
+    "related_tests_passed": 39,
+    "related_test_files": 3,
+    "related_test_scope": "未变的会话/恢复/控制器规则检查；鼠标与可见性由本批Native直接验证",
+    "desktop_exit": 0,
+    "web_exit": 0,
+    "native": {
+      "private-ui": {
+        "revision": "r2",
+        "status": "passed",
+        "checks": [
+          {
+            "name": "actual_scoped_composer_renders_only_its_own_attachment_card",
+            "passed": true
+          },
+          {
+            "name": "inline_card_has_one_drag_header_and_private_preview_is_visible_above_compact_conversation",
+            "passed": true
+          },
+          {
+            "name": "real_mouse_moves_private_card_between_inline_and_drawer_without_remounting_composer",
+            "passed": true
+          },
+          {
+            "name": "actual_scoped_attachment_button_opens_authorized_file_without_sending_or_consuming_input",
+            "passed": true
+          }
+        ],
+        "renderer_errors": [
+          "ResizeObserver loop completed with undelivered notifications."
+        ],
+        "controlled_shutdown": "completed",
+        "forced_signal": null
+      },
+      "objects": {
+        "revision": "r1",
+        "status": "passed",
+        "checks": [
+          {
+            "name": "codeg_canvas_dock_viewport_keyboard_menus_and_minimap_toggle",
+            "passed": true
+          },
+          {
+            "name": "actual_canvas_task_pin_reads_exact_cancelled_task",
+            "passed": true
+          },
+          {
+            "name": "actual_history_task_pin_opens_original_workspace_and_exact_task_detail",
+            "passed": true
+          },
+          {
+            "name": "actual_mission_pin_reads_original_mission_id",
+            "passed": true
+          },
+          {
+            "name": "actual_mission_pin_opens_original_mission_workspace",
+            "passed": true
+          },
+          {
+            "name": "mission_delivery_uses_canonical_thread_identity",
+            "passed": true
+          },
+          {
+            "name": "diff_pin_without_prepared_workspace_reports_unavailability_without_substituting_a_file",
+            "passed": true
+          },
+          {
+            "name": "actual_file_pin_opens_its_original_thread_and_exact_file_tab",
+            "passed": true
+          }
+        ],
+        "renderer_errors": [
+          "ResizeObserver loop completed with undelivered notifications.",
+          "ResizeObserver loop completed with undelivered notifications.",
+          "ResizeObserver loop completed with undelivered notifications.",
+          "ResizeObserver loop completed with undelivered notifications.",
+          "ResizeObserver loop completed with undelivered notifications."
+        ],
+        "controlled_shutdown": "completed",
+        "forced_signal": null
+      },
+      "files": {
+        "revision": "r2",
+        "status": "passed",
+        "checks": [
+          {
+            "name": "actual_canvas_text_card_preserves_unicode_and_literal_hash_file_name",
+            "passed": true
+          },
+          {
+            "name": "actual_html_card_loads_author_css_js_and_keeps_csp_without_native_bridge",
+            "passed": true
+          },
+          {
+            "name": "author_html_interaction_executes_in_actual_preview",
+            "passed": true
+          },
+          {
+            "name": "author_document_has_confirmed_loaded_state_and_connected_host_channel",
+            "passed": true
+          },
+          {
+            "name": "file_card_uses_one_header_and_keeps_exact_path_available_on_hover",
+            "passed": true
+          },
+          {
+            "name": "html_source_preview_toggle_preserves_live_document_and_author_state",
+            "passed": true
+          },
+          {
+            "name": "reloading_one_actual_file_card_preserves_other_html_document",
+            "passed": true
+          },
+          {
+            "name": "file_card_more_menu_is_reachable_with_native_keyboard",
+            "passed": true
+          },
+          {
+            "name": "core_node_deletion_removes_only_pin_and_preserves_file_and_other_html_view",
+            "passed": true
+          }
+        ],
+        "renderer_errors": [
+          "Connecting to 'http://preview-a8ffee6d-ea76-4c58-83dc-b00ae99552d7.localhost:10513/__rovai-preview/events?documentId=f0775d42-d25f-4bf3-8019-3d23e4e2e284' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked.",
+          "Fetch API cannot load http://preview-a8ffee6d-ea76-4c58-83dc-b00ae99552d7.localhost:10513/__rovai-preview/events?documentId=f0775d42-d25f-4bf3-8019-3d23e4e2e284. Refused to connect because it violates the document's Content Security Policy.",
+          "ResizeObserver loop completed with undelivered notifications.",
+          "Connecting to 'http://preview-a8ffee6d-ea76-4c58-83dc-b00ae99552d7.localhost:10513/__rovai-preview/events?documentId=640a3de4-a7df-4332-86dc-8a3b12a136fb' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked.",
+          "Fetch API cannot load http://preview-a8ffee6d-ea76-4c58-83dc-b00ae99552d7.localhost:10513/__rovai-preview/events?documentId=640a3de4-a7df-4332-86dc-8a3b12a136fb. Refused to connect because it violates the document's Content Security Policy."
+        ],
+        "controlled_shutdown": "completed",
+        "forced_signal": null
+      },
+      "visual": {
+        "revision": "r2",
+        "status": "passed",
+        "checks": [
+          {
+            "name": "real_canvas_home_keeps_existing_boards_and_opens_creation",
+            "passed": true,
+            "boards": 19
+          },
+          {
+            "name": "small_window_keeps_one_real_scroll_owner_and_last_board_reachable",
+            "passed": true,
+            "viewport": {
+              "width": 1040,
+              "height": 702
+            },
+            "outerExtraX": 0,
+            "outerExtraY": 0,
+            "listExtraY": 928,
+            "listScrollTop": 928,
+            "lastVisible": true
+          },
+          {
+            "name": "real_creation_form_has_twelve_swatches_and_repicking_clears_color",
+            "passed": true
+          },
+          {
+            "name": "real_creation_persists_one_empty_board_and_displays_codeg_canvas_chrome",
+            "passed": true,
+            "board_id": "75039751-7689-4577-aaf7-2b556f60739c"
+          }
+        ],
+        "renderer_errors": [
+          "Connecting to 'http://preview-c6d33ea9-b6d1-4bed-b544-5685a5c6076e.localhost:51121/__rovai-preview/events?documentId=8be86f7a-08ec-4cf4-9614-6ef620bdcb12' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked.",
+          "Fetch API cannot load http://preview-c6d33ea9-b6d1-4bed-b544-5685a5c6076e.localhost:51121/__rovai-preview/events?documentId=8be86f7a-08ec-4cf4-9614-6ef620bdcb12. Refused to connect because it violates the document's Content Security Policy.",
+          "ResizeObserver loop completed with undelivered notifications."
+        ],
+        "controlled_shutdown": "completed",
+        "forced_signal": null
+      }
+    },
+    "unique_native_checks": 25,
+    "private_cold_repeat": "r1/r2两个独立App进程均通过，同owner断言不重复累计"
+  },
+  "actual_private_layout": {
+    "header": {
+      "duplicateHeading": false,
+      "edgeGap": 0.6670816733067729,
+      "widthGap": 1.3341863315966902,
+      "actions": true
+    },
+    "preview": {
+      "width": 689.528564453125,
+      "height": 604.015625,
+      "inViewport": true,
+      "visibleAtCenter": true,
+      "loadingVisible": false
+    },
+    "opening": "restored_exact_node"
+  },
+  "resolved": [
+    "行内私聊复用原节点36px拖动标题栏，侧边保留独立标题，避免叠两层标题；操作仍完整",
+    "目标对象按会话和队员身份稳定，避免本地渲染触发反复打开单聊",
+    "绑定私聊复用原timeline-pane紧凑文件替换，正文可见且鼠标命中，不只DOM存在",
+    "节点标题和正文采用统一层级，相邻折叠卡片不再盖住当前操作；选中抬高仍保留",
+    "rc12原生鼠标触发React#185：两条selection写回交替；改由onNodesChange同批维护选中状态，原失败鼠标用例通过",
+    "真实鼠标行内/侧边往返，textarea仍同一DOM实例；原乙材料草稿保留，无消息或AgentRun产生"
+  ],
+  "failure_history": [
+    {
+      "candidate": "rc11",
+      "evidence": "native-private-ui-r1",
+      "finding": "3项通过且文件可见；截图自审仍发现相邻卡片盖住标题操作，不授予完整交互资格"
+    },
+    {
+      "candidate": "rc12",
+      "evidence": "native-private-ui-r1/r2/r3/r4/r5",
+      "finding": "真实鼠标切换页面空白；r5调试记录selected在[]和原nodeId间交替及React185，保留失败；r4断点误选分块无有效trace，不作为定位依据"
+    },
+    {
+      "candidate": "rc13",
+      "evidence": "native-files-r1/native-visual-r1",
+      "finding": "验证调度失误导致同一隔离目录重叠运行，两次均排除产品结论；确认进程退出后给入口加入wx独占锁，files-r2/visual-r2串行通过"
+    }
+  ],
+  "console_review": "原始console消息完整保留。作者HTML的connect-src none确实阻止诊断SSE，这是原安全策略的预期限制，不能放宽；浏览器ResizeObserver延迟通知仍需定位，不宣告零控制台问题。原React185空白故障在成功鼠标流程中未再出现。",
+  "remaining": [
+    "空私聊在恢复材料入口占位较多时仍有局部滚动；应按原内容布局继续核对空状态和恢复入口高度",
+    "缩放/尺寸切换有ResizeObserver延迟通知，继续定位；功能断言通过不授予零控制台问题资格",
+    "Codeg列表真实缩略预览/节点数、日主题与完整八类创建/错误状态仍未取得全部资格",
+    "C05同Thread多卡、焦点/编辑器/崩溃、规模与资源释放；本批只补了冷启动单卡及模式往返",
+    "已准备Git工作区的真实Diff与PC01-PC24适用流程继续补证",
+    "Mac/移动适用平台和真实模型流程仍按专用环境/身份/预算待办，最终MVP不豁免"
+  ],
+  "scope_note": "本批修复与必要回归通过，I03及完整MVP仍在工程验证中；用户无需阶段技术验收",
+  "customer_action_required_now": false,
+  "actions": false,
+  "release": false,
+  "paid_models": false
+}

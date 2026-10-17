@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "status": "implementation_ready_for_stage_verification",
+  "recorded_at": "2026-10-15T21:40:16.908733+00:00",
+  "source_binding": {
+    "base_commit": "da58eeb11905d012a41cec32c4edb99e791e21ea",
+    "kind": "worktree_exact_file_sha256_before_commit",
+    "files": {
+      "apps/desktop/src/renderer/src/PrivateInputRecoveryPanel.tsx": "42ae7fb4a2f2fec648563fafab5a11edcd6e7f921ff8c9861c192ad6b0742ae1",
+      "apps/desktop/src/renderer/src/SingleChatPanel.tsx": "fa5c8d3ae36ff8a4a7648e75e8e569617ceebfa27c6385502fecc85d76ed839d",
+      "apps/desktop/src/renderer/src/locales/en.json": "c0ae6f6cc615beb3b786d7aa85bf5ba84765051815a72e0b6dc15498d1c30046",
+      "apps/desktop/src/renderer/src/private-input-controller.test.ts": "f912c36e182d8e299f1facd5a05cec7615d15d3d102d886a2b100b2c9c689b90",
+      "apps/desktop/src/renderer/src/private-input-controller.ts": "640863ce5a2b9dca51a13509ac39ed78997168ef76ecfbe5b453422fce4b9b3f",
+      "apps/desktop/src/renderer/src/styles.css": "53813bf857ffd1766cf5b63968b672c50f02e31d111710c7dbbc092fef160af2",
+      "docs/contracts/single-chat-composer-scope-v1.md": "cdc8f6a8d6f1fc09028085040fdfd8d418f6b19be1a7b0b7dff01e41e78d6118",
+      "docs/development/testing.md": "c6f8431b14b13bcff549369fd00932f6ea815957748edb2784456d6f788ba14c",
+      "docs/versions/v1.72/README.md": "b17b626b031dc443544e0dc3dc59ddce68826f45a0561d0c5ec3ab237dcc63d4",
+      "apps/desktop/src/renderer/src/PrivateInputRecoveryBrowser.tsx": "2f28f4a571b7b9c005572c6cd74cae8ae288cb81a3bd23825473b27fa99f7d6a",
+      "apps/desktop/src/renderer/src/PrivateLegacyMaterialsPanel.tsx": "59581862d1a320c3905a995e168c0e78ca6120d0d4acd9f935a6270f4ae614cd",
+      "apps/desktop/src/renderer/src/private-input-recovery-catalog.test.ts": "aa3d95651cb0ede8ce89891c6923487962cb7e42f5a228c9c0eba6d20645500d",
+      "apps/desktop/src/renderer/src/private-input-recovery-catalog.ts": "08bd418bd93c8c75c564bf2cc94e3cfee52f62a374d923ea60a28110ff8cce00"
+    }
+  },
+  "implemented": [
+    "Default materials preview and explicit adopt reuse Core; target body lock and source/target revisions frozen, default body retained",
+    "Readonly recovery catalog joins original Conversation scope metadata and exact local body index; Host/Core/owner/storage fences and incomplete-page preservation",
+    "Registered orphan inputs reuse original SingleChatPanel and scope; no new conversation, scope rebinding or runtime authority",
+    "Unregistered and old-working local text copies explicitly exclude attachments/quotes; new retained copy never replaces either input",
+    "Recovery editor participates in parent leave transaction; no nested forms or recursive recovery browser",
+    "Per-context dictionary cache and key sets avoid repeated parse/linear duplicate scan per local copy"
+  ],
+  "verified": {
+    "typescript": "targeted_no_emit_with_new_test_owner_passed",
+    "unit_static_client_checks": {
+      "files": 5,
+      "passed": 61,
+      "failed": 0,
+      "skipped": 0
+    },
+    "copy_catalog": "no_duplicate_keys_or_missing_literals",
+    "browser": {
+      "steps": 9,
+      "kind": "mounted_production_components_mock_Core",
+      "original_scope_sends": 2,
+      "each_submitted_once": true,
+      "nested_forms": 0,
+      "console_errors": 0,
+      "unknown_close_blocked_then_recorded_lookup_settled": true,
+      "visual_columns": "single_column_verified"
+    },
+    "source_authorities_unchanged": true,
+    "documentation_version_and_decisions": "passed"
+  },
+  "browser_evidence_scope": "Nine interaction steps precede final copy/layout edits; final visual recheck covers those edits. Last catalog-only dictionary dedup and null presentation-context handling is covered by final 61 checks (32-copy read bound); full current-source Host/platform integration is pending stage candidate.",
+  "self_review_fixes": [
+    "Keyed asynchronous preview/launch to original client/controller to reject late owner results",
+    "Recovery browser placed outside parent form; production mounted send check found exactly one original-scope command",
+    "Visual review caught two-column inherited grid stretching a button; scoped single-column rule and themed launcher added",
+    "Text-only local copies renamed without claiming legacy origin or full-material recovery",
+    "Preserve null Conversation presentation identity for local Thread-card text; exact origin remains authoritative, another non-null Conversation is rejected"
+  ],
+  "not_run": [
+    "actual Host/Core/Native IPC and final private file UI enablement",
+    "full PC01-PC24/final324",
+    "large actual application pressure and cross-platform/physical devices/models",
+    "new Rust lifecycle compiled/actual HTTP from previous batch"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "artifacts": {
+    "i03/private-recovery-tests-01.log": "b8e4dd4115ef11bca2b18636e760ccf05a1e3944297549ce52beff4913f61038",
+    "i03/private-recovery-tests-final.log": "a1ba36c3d9062c6e49fe286d8b53975ee2076439a78c998e69b6d77265e89f4c",
+    "i03/private-recovery-tests-verified.log": "6dc1b9c584a56c0eeee4c1700d041bb5ec957ae5bdb0cb06d5617fdc331e7c12",
+    "i03/private-recovery-types-01.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/private-recovery-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/private-recovery-types-verified.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/private-recovery-copy-01.log": "679cd49f89c8a6a232e0873dcdb73eb28abf06f427e974b5a2140d8175a066ae",
+    "i03/private-recovery-copy-final.log": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078",
+    "i03/private-recovery-browser-witness.json": "dbbfb546b71b65dbf5c37a7e75d0a4b8f12b453d28759d75e6333514f8ff83df",
+    "i03/private-recovery-visual-final.json": "32074c84dbb1840d038674759110e34df52d89be81869b128d9a6a8aab994ea9",
+    "i03/private-recovery-final.png": "69fdf84b3e887cfb296300dbdb8bd3474995830b09a4d1088ec5bf0b7769110c",
+    "i03/private-recovery-copy.png": "d332f5b90c123ea8a1b272424abd9f744b9bfa4d6c1a90b73a46716adc14ff7c",
+    "i03/private-recovery-fixture/entry.tsx": "0471c45c5ba5c0677dfd2cc250714fbe1c3000a62dcf67db15c7c5449ae91cfc",
+    "i03/private-recovery-fixture/server.mjs": "a288af62545069f24e16da343b36d4c72e1f0c1023527c7d5c2d0ed22530f0e1",
+    "i03/private-recovery-fixture/index.html": "62d748bec45974cca42b78fbb6384b2124f3701ece51ccacf681d224769e633d",
+    "i03/private-recovery-tests-final-checked.log": "623e25e1f7c8b34ec747951b9c92609ee54556ec00d8585bdcd4c56d2ee7aa67",
+    "i03/private-recovery-types-final-checked.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/private-recovery-doc-version-final.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "i03/private-recovery-doc-decisions-final.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "i03/private-recovery-typecheck.json": "afde89646ebe6f70ca27eb9de8f8431b7d6d4faa643aaf54b361dc06e4969cee"
+  },
+  "boundaries": {
+    "schema": 156,
+    "last_migration": 206,
+    "host_protocol": 4,
+    "public_core_methods": 180,
+    "new_dependencies": false,
+    "new_model_inputs": false,
+    "cargo_full_build_push_actions_model": false,
+    "customer_action_required_now": false,
+    "formal324": "not_run"
+  }
+}

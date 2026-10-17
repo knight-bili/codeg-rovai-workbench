@@ -7,6 +7,7 @@ import {
   type RestoreFilePreviewRequest
 } from '@contracts'
 import { isAttachmentId } from '../attachment-desktop'
+import { parsePrivateAttachmentLocator } from '../../shared/private-attachment-locator'
 
 function record(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
@@ -38,6 +39,11 @@ function positiveInteger(value: unknown): number {
 }
 
 function attachmentLocator(value: unknown, expectedThreadId: string): LocalAttachmentOwnerLocator {
+  const privateLocator = parsePrivateAttachmentLocator(value)
+  if (privateLocator) {
+    if (privateLocator.threadId !== expectedThreadId) throw new Error('Unsupported Attachment')
+    return privateLocator
+  }
   const input = record(value)
   const ownerThreadId = threadId(input.threadId)
   const attachmentRefId = string(input.attachmentRefId, 128)

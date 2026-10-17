@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R01",
+  "at": "2026-10-16T15:50:28.409362+00:00",
+  "status": "native_roundtrip_failed_undo_baseline_remaining_modes_not_run",
+  "product_candidate": "fusion-i03-rc.16",
+  "product_source": "c82cf7f735d87caa0d5f12f39dc04bbbd1309c30",
+  "latest_harness_source": "1e4a512ced93ef8a827fc385c157f2473790036b",
+  "core_source_reused": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+  "builds": {
+    "desktop": {
+      "result": {
+        "source_commit": "c82cf7f735d87caa0d5f12f39dc04bbbd1309c30",
+        "exit_code": 0,
+        "started_at": "2026-10-16T15:34:12.004Z",
+        "finished_at": "2026-10-16T15:34:23.508Z",
+        "output": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\desktop"
+      },
+      "evidence": {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\desktop-build-result.json",
+        "sha256": "5716f273908bd8e223744cef8929ea568d1bd8ad4728a9d3367af26a20436093"
+      }
+    },
+    "web": {
+      "result": {
+        "source_commit": "c82cf7f735d87caa0d5f12f39dc04bbbd1309c30",
+        "exit_code": 0,
+        "started_at": "2026-10-16T15:34:12.004Z",
+        "finished_at": "2026-10-16T15:34:22.569Z",
+        "output": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\web-ui"
+      },
+      "evidence": {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\web-build-result.json",
+        "sha256": "d07e9b4d78d7f33d681590cf20dfa1199b2ef657c50367a73ffff94877828b79"
+      }
+    }
+  },
+  "runs": [
+    {
+      "id": "native-private-roundtrip-r1",
+      "status": "failed",
+      "source_commit": "c82cf7f735d87caa0d5f12f39dc04bbbd1309c30",
+      "checks": [],
+      "error": "Error: Native condition timed out: window.rovai&&document.querySelector('button[aria-label=\"无限画布\"]')?.disabled===false\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/c06-native-private-roundtrip-r1.mjs:46:163)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/c06-native-private-roundtrip-r1.mjs:63:3)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T15:37:21.830Z"
+      },
+      "evidence": [
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r1\\driver-exit.json",
+          "sha256": "537ad75ed9e30199e3c6459d3d29abf2e4d7c4e143791a4d921887b0737594f5"
+        },
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r1\\failure.png",
+          "sha256": "67ca76051feb60f5fda4eacd8617975988042a23f3be4b01aba46201a0dccc19"
+        },
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r1\\result.json",
+          "sha256": "fbd0f2a3f739b0c4c724f3155dd0f1dbb24b1f4ab9c930f508576629ab35d67a"
+        }
+      ],
+      "console": {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\rc16-private-roundtrip-r1-console.log",
+        "sha256": "f8739d1f612592063d0acab67f7d1477a65de354c14ed4f731100bf6f2d77645"
+      }
+    },
+    {
+      "id": "native-private-roundtrip-r2",
+      "status": "failed",
+      "source_commit": "c82cf7f735d87caa0d5f12f39dc04bbbd1309c30",
+      "checks": [],
+      "error": "Error: Renderer requested an unsupported method: camps.create\n    at evaluate (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/c06-native-private-roundtrip-r2.mjs:43:23)\n    at async preparePrivateWorkflow (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/private-roundtrip-r2-canvas-private-workflow.mjs:31:19)\n    at async qualifyCanvasPrivateWorkflow (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/private-roundtrip-r2-canvas-private-workflow.mjs:84:19)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/c06-native-private-roundtrip-r2.mjs:79:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T15:40:41.049Z"
+      },
+      "evidence": [
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r2\\driver-exit.json",
+          "sha256": "00612b6b97c7a9d393e64b22c3f02bb674805520c185cd11e21a45d243fbae4a"
+        },
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r2\\failure.png",
+          "sha256": "1f5611db388f7c9ecf471f1db9fa594cf866c249ae3e55ecad36bd2adb5f6338"
+        },
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r2\\result.json",
+          "sha256": "7010ecff3d9ef4ff9809293bc31bf62cbda23a67380e68eb054699d93315cbd7"
+        }
+      ],
+      "console": {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\rc16-private-roundtrip-r2-console.log",
+        "sha256": "23cb9643c0899106eb5fd7283d85b045bd8703f05c9d42795554916e1bf6cad0"
+      }
+    },
+    {
+      "id": "native-private-roundtrip-r3",
+      "status": "failed",
+      "source_commit": "c82cf7f735d87caa0d5f12f39dc04bbbd1309c30",
+      "checks": [
+        {
+          "name": "controlled_local_acp_creates_real_private_history_and_three_unregistered_pins_without_database_seeding",
+          "passed": true
+        },
+        {
+          "name": "actual_empty_pin_open_reads_history_without_scope_registration_enter_or_execution",
+          "passed": true
+        },
+        {
+          "name": "owned_private_workflow_ends_its_conversation_and_settles_only_its_controlled_run",
+          "passed": true
+        }
+      ],
+      "error": "Error: Native condition timed out: document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"9143ab25-4910-4062-ab8a-8beea7c18037\"]')?.querySelector('.single-chat-composer textarea').value!==\"甲卡保持的未发送正文\\n撤销与重做探针\"\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/c06-native-private-roundtrip-r3.mjs:46:163)\n    at async qualifyCanvasPrivateWorkflow (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/private-roundtrip-r3-canvas-private-workflow.mjs:160:7)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/c06-native-private-roundtrip-r3.mjs:79:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T15:42:57.285Z"
+      },
+      "evidence": [
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r3\\controlled-runtime-input.jsonl",
+          "sha256": "e389cb7d19bdfb82ab99eca2943f7f28ef8bed21d05e167a892c8e3467b33121"
+        },
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r3\\driver-exit.json",
+          "sha256": "b8919eb470f0af03f493aefec29509549e69e26b8f8a709ee185d4537d87904b"
+        },
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r3\\failure.png",
+          "sha256": "4cac8078940b8ad8733268539d9619459691c363bcceafdeadf38561ee774b3d"
+        },
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r3\\result.json",
+          "sha256": "32f82a1d2bc2f35c37a1c4b06d088b483c29ca7b21c492d6f43907e5a2148c09"
+        }
+      ],
+      "console": {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\rc16-private-roundtrip-r3-console.log",
+        "sha256": "173c92de12c0e7d062086a03585a20609ee3d207542c44e7710dc780b96fa90b"
+      }
+    },
+    {
+      "id": "native-private-roundtrip-r4",
+      "status": "failed",
+      "source_commit": "c82cf7f735d87caa0d5f12f39dc04bbbd1309c30",
+      "checks": [
+        {
+          "name": "controlled_local_acp_creates_real_private_history_and_three_unregistered_pins_without_database_seeding",
+          "passed": true
+        },
+        {
+          "name": "actual_empty_pin_open_reads_history_without_scope_registration_enter_or_execution",
+          "passed": true
+        },
+        {
+          "name": "owned_private_workflow_ends_its_conversation_and_settles_only_its_controlled_run",
+          "passed": true
+        }
+      ],
+      "error": "Error: Native condition timed out: document.querySelector('.canvas-conversation-frame[data-canvas-conversation-key*=\"41b55e39-7c37-4728-b562-2cc2fa596211\"]')?.querySelector('.single-chat-composer textarea').value===\"甲卡保持的未发送正文\\n撤销与重做探针\"\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/c06-native-private-roundtrip-r4.mjs:46:163)\n    at async qualifyCanvasPrivateWorkflow (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/private-roundtrip-r4-canvas-private-workflow.mjs:173:34)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc16/app/c06-native-private-roundtrip-r4.mjs:79:4)",
+      "driver_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T15:45:40.071Z"
+      },
+      "evidence": [
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r4\\controlled-runtime-input.jsonl",
+          "sha256": "71f0be00b6a291c0db672d4348056c1584b32c2049aa38ba1e456eb073a2e939"
+        },
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r4\\driver-exit.json",
+          "sha256": "ca85459e558cd176d3cc8a3a64536a98ab1fcc5fb1d2bfff90cf389756e1c4e1"
+        },
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r4\\failure.png",
+          "sha256": "90d2855b0b588dfe9eea04b2190a354cbc632dacfdb4b9ac09a5bd044c0e26f6"
+        },
+        {
+          "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\native-private-roundtrip-r4\\result.json",
+          "sha256": "6a63dc456decdc3fb1c6558d581cf58ee82be9958bc8423ca3ce0d40f4c52e9f"
+        }
+      ],
+      "console": {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\rc16-private-roundtrip-r4-console.log",
+        "sha256": "ae844fe6c99a7fd05c626092554901e1a7c02ae792862ae7506dedc9ca99f347"
+      }
+    }
+  ],
+  "scope": [
+    "四次运行均未整体通过；没有关闭R01或新增完整PC资格",
+    "r3/r4实际空卡只读无登记/enter/执行检查通过，其余检查不能外推",
+    "r1首次引导、r2旧接口名为测试准备缺陷，后续仅修测试脚本，不重编产品",
+    "r3/r4撤销基线仍失败，产品或测试原因未定，不写为已修复",
+    "队列、换绑及迟到上传模式已编码但本批尚未运行",
+    "实际Core和固定本地ACP运行不等于外部模型推理，外部模型调用为零",
+    "没有新Rust编译、push、Actions、付费、main合入或发布"
+  ],
+  "remaining_counts_unchanged": {
+    "settled_obligations": 17,
+    "open_work_groups": 9,
+    "private_cases_verified": 6,
+    "private_cases_open": 18,
+    "verified_work_groups": 1
+  },
+  "schedule_estimate": {
+    "remaining_workdays": [
+      "2026-10-19",
+      "2026-10-20",
+      "2026-10-21",
+      "2026-10-22",
+      "2026-10-23"
+    ],
+    "buffer_workdays": [
+      "2026-10-26",
+      "2026-10-27"
+    ],
+    "condition": "日期为估计；本机阻断缺陷必须修复，外部未验单列且最终一期补齐"
+  },
+  "next": "先定位撤销失败；保留失败产物，复用当前构建，其他独立组按固定清单推进"
+}

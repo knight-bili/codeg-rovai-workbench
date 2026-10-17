@@ -4,7 +4,7 @@ contract: domain-command-result-v1
 authority: command-result-persistence-replay-and-event-projection
 status: accepted
 version: 1
-last_updated: 2026-10-08
+last_updated: 2026-10-16
 ---
 
 # Domain Command Result v1 Contract
@@ -14,10 +14,13 @@ last_updated: 2026-10-08
 
 ## 1. 命令结果与事务
 
-Core 使用 `command_id + command_type + request_digest_version + request_digest` 判断重放。相同身份和相同
-语义请求返回第一次已提交的结果，不再次执行 Handler、业务写入或事件写入；相同 ID 对应不同语义请求
-稳定返回幂等冲突。`applied | accepted | rejected` 都是已提交的业务结果，Handler 执行错误则回滚业务写入
-与回执，不能伪造成 `rejected`。
+当前 Gateway 以 command ID 定位首次结果，并核对命令类型、Actor、来源 Run、可信编辑端和 Thread 归属。
+同编号在相同可信归属下返回首次已提交结果，即使重试载荷发生变化，也不重新执行 Handler、改绑对象或覆盖首次结果。
+不同命令类型或可信归属返回幂等冲突；新的业务操作必须使用新编号。调用方仍须冻结原参数，不能用改变同编号载荷来发起另一操作。
+历史请求摘要列不是当前重放的比较条件，既有摘要和回执不回写。此处按当前 `command.rs::replay_or_conflict`
+和其首次结果 owner 更正文档，未改变 Gateway 实现或历史行为。
+
+`applied | accepted | rejected` 都是已提交的业务结果，Handler 执行错误则回滚业务写入与回执，不能伪造成 `rejected`。
 
 业务变化、领域事件与唯一 `command.result` 在原有同一 SQLite 事务提交。持久回放必须保留第一次提交的
 完整结果、状态、code、结果实体和 `recorded_at`，不得查询当前业务对象重建旧结果。

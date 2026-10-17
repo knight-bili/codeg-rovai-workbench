@@ -23,6 +23,9 @@ import {
   shell
 } from 'electron'
 import { isThreadId } from '@contracts'
+import { parsePrivateAttachmentLocator } from '../shared/private-attachment-locator'
+import { PrivateAttachmentPreparations } from './private-attachment-preparation'
+import { NativePrivateInputRecovery } from './private-input-recovery'
 import type {
   AppearancePreferences,
   AppearanceSnapshot,
@@ -189,6 +192,7 @@ const mainStartupStartedAt = performance.now()
 console.info('[startup] stage=main_module_loaded elapsed_ms=0.0')
 
 const allowedMethods = new Set<CoreMethod>([
+  'commands.reconcile',
   'health.check',
   'diagnostics.check',
   'monitoring.snapshot',
@@ -234,6 +238,26 @@ const allowedMethods = new Set<CoreMethod>([
   'runtime.installations.refresh',
   'skills.list',
   'skills.get',
+  'skillPacks.list',
+  'skillPacks.read',
+  'skillPacks.installations.list',
+  'skillPacks.install',
+  'skillPacks.uninstall',
+  'skillPacks.members.list',
+  'skillPacks.members.set',
+  'canvas.boards.list',
+  'canvas.boards.get',
+  'canvas.boards.create',
+  'canvas.boards.update',
+  'canvas.boards.delete',
+  'canvas.nodes.snapshot',
+  'canvas.nodes.apply',
+  'canvas.references.page',
+  'canvas.terminals.start',
+  'canvas.terminals.snapshot',
+  'canvas.terminals.write',
+  'canvas.terminals.resize',
+  'canvas.terminals.stop',
   'toolbox.list',
   'toolbox.read',
   'toolbox.setMembers',
@@ -268,6 +292,7 @@ const allowedMethods = new Set<CoreMethod>([
   'app.info',
   'threads.creationPreflight',
   'workspaces.inspect',
+  'workspaces.worktrees',
   'navigation.snapshot',
   'navigation.threads',
   'navigation.groupThreads',
@@ -311,6 +336,8 @@ const allowedMethods = new Set<CoreMethod>([
   'singleChat.send',
   'singleChat.end',
   'singleChat.pendingInputs.edit',
+  'singleChat.composerDraft.mutate',
+  'singleChat.composerDraft.recovery',
   'agentRuns.cancel',
   'agentRuns.continue',
   'threads.snapshot',
@@ -408,6 +435,7 @@ if (windowsBootstrap?.kind === 'blocked') {
 }
 let appUpdates: AppUpdatesService | null = null
 let mainWindow: BrowserWindow | null = null
+const closedFilePreviewSenders = new WeakSet<Electron.WebContents>()
 let appearanceStore: AppearancePreferencesStore | null = null
 let appearanceFilePath = ''
 let lastDiagnosticsExportPath: string | null = null
@@ -536,6 +564,19 @@ executionView.onChanged((snapshot) => {
 })
 const localComposerAttachments = new LocalComposerAttachmentRegistry(
   join(app.getPath('userData'), 'local-composer-attachments-v1.json')
+)
+const privateInputRecovery = coreDataPath === null ? null : new NativePrivateInputRecovery(
+  join(app.getPath('userData'), 'private-input-recovery-v1')
+)
+ipcMain.on('rovai:private-input-recovery', (event, action: unknown, identity: unknown, value: unknown) => {
+  try {
+    if (!privateInputRecovery || event.sender !== mainWindow?.webContents || event.senderFrame !== event.sender.mainFrame
+      || typeof identity !== 'string' || (action !== 'get' && action !== 'set')) throw new Error('Private editor unavailable')
+    event.returnValue = {ok:true, value:action === 'get' ? privateInputRecovery.get(identity) : privateInputRecovery.set(identity, value)}
+  } catch { event.returnValue = {ok:false, error:'私聊输入未可靠保存或无法读取，请保留原文后重试。'} }
+})
+const privateAttachmentPreparations = coreDataPath === null ? null : new PrivateAttachmentPreparations(
+  join(coreDataPath, 'private-attachment-preparations-v1'), core
 )
 const filePreview = new FilePreviewService(
   new CoreFilePreviewSourceAuthority(core, async (locator) =>
@@ -802,7 +843,8 @@ function createWindow(): void {
       zoomFactor: pageZoomFactor(appearanceSnapshot().zoomPercentage)
     }
   })
-  const webContentsId = window.webContents.id
+  const webContents = window.webContents
+  const webContentsId = webContents.id
   installFilePreviewProtocol(window)
   if (process.platform === 'win32') window.setMenuBarVisibility(false)
   mainWindow = window
@@ -891,6 +933,7 @@ function createWindow(): void {
     }
   })
   window.on('closed', () => {
+    closedFilePreviewSenders.add(webContents)
     if (pageZoomFeedbackTimer !== null) clearTimeout(pageZoomFeedbackTimer)
     pageZoomFeedbackTimer = null
     desktopSessions.delete(webContentsId)
@@ -1255,8 +1298,11 @@ ipcMain.handle('rovai:supervisor-retry', () => {
   return core.retryFullCore()
 })
 
-ipcMain.handle('rovai:file-preview-retention', (event, value: unknown) =>
-  filePreview.updateRetention(requireFilePreviewSender(event), parseRetentionState(value)))
+ipcMain.handle('rovai:file-preview-retention', (event, value: unknown) => {
+  // 已关闭主窗口的资源由releaseWindow回收，丢弃它迟到的保留状态，避免重建已释放会话。
+  if (closedFilePreviewSenders.has(event.sender)) return
+  return filePreview.updateRetention(requireFilePreviewSender(event), parseRetentionState(value))
+})
 
 ipcMain.handle('rovai:file-preview-bind-camp', (event, value: unknown) =>
   filePreview.bindThread(requireFilePreviewSender(event), parseFilePreviewThread(value)))
@@ -1652,6 +1698,10 @@ ipcMain.handle('rovai:navigation-preferences-get', () =>
   projectAccessTransactions.run(() => requireNavigationPreferences().reload())
 )
 
+ipcMain.handle('rovai:navigation-preferences-apply-project-layout', (_event, expectedRevision: number, mutation: unknown) =>
+  projectAccessTransactions.run(() => requireNavigationPreferences().applyProjectLayout(expectedRevision, mutation).then(publishNavigationPreferences))
+)
+
 ipcMain.handle('rovai:navigation-preferences-replace-pins', (_event, pins: NavigationPin[]) =>
   projectAccessTransactions.run(() => requireNavigationPreferences().replacePins(pins).then(publishNavigationPreferences))
 )
@@ -1802,6 +1852,8 @@ function attachmentAvailabilityFromError(error: unknown): LocalAttachmentAvailab
 }
 
 function requireAttachmentOwnerLocator(value: unknown): LocalAttachmentOwnerLocator {
+  const privateLocator = parsePrivateAttachmentLocator(value)
+  if (privateLocator) return privateLocator
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     throw new Error('Attachment Owner 无效。')
   }
@@ -2185,6 +2237,23 @@ ipcMain.handle(
   }
 )
 
+function privateUploadService(event: Electron.IpcMainInvokeEvent): PrivateAttachmentPreparations {
+  if (!privateAttachmentPreparations || event.sender !== mainWindow?.webContents) {
+    throw new Error('私聊上传工作区不可用。')
+  }
+  return privateAttachmentPreparations
+}
+ipcMain.handle('rovai:private-attachment-prepare', (event, request: unknown, input: unknown) =>
+  privateUploadService(event).prepare(request, input))
+ipcMain.handle('rovai:private-attachment-reconcile', (event, request: unknown) =>
+  privateUploadService(event).reconcile(request))
+ipcMain.handle('rovai:private-attachment-retry', (event, request: unknown) =>
+  privateUploadService(event).retry(request))
+ipcMain.handle('rovai:private-attachment-finish', (event, request: unknown) =>
+  privateUploadService(event).finish(request))
+ipcMain.handle('rovai:private-attachment-list', (event, owner: unknown) =>
+  privateUploadService(event).list(owner))
+
 ipcMain.handle(
   'rovai:single-chat-attachment-prepare-path',
   async (
@@ -2225,24 +2294,19 @@ ipcMain.handle(
       throw new Error('Core is not available for attachment references')
     }
     const temporaryPath = temporarySourceAttachmentPath(resolvedDisplayName)
-    let referenced = false
-    try {
-      await writeFile(temporaryPath, input, { flag: 'wx', mode: 0o600 })
-      const snapshot = await core.request(
-        'singleChat.sourceAttachments.addFromPath' as CoreMethod,
-        {
-          conversationId: resolvedConversationId,
-          expectedDraftRevision: resolvedRevision,
-          sourcePath: temporaryPath,
-          displayName: resolvedDisplayName,
-          mediaType: typeof mediaType === 'string' && mediaType.trim() ? mediaType : null
-        }
-      )
-      referenced = true
-      return snapshot
-    } finally {
-      if (!referenced) await unlink(temporaryPath).catch(() => undefined)
-    }
+    // 请求已交给 Core 后，异常可能只是回执丢失。保留源文件，避免删除已提交的附件。
+    // 原请求持久化与明确拒绝后的安全回收由后续上传恢复链路统一处理。
+    await writeFile(temporaryPath, input, { flag: 'wx', mode: 0o600 })
+    return core.request(
+      'singleChat.sourceAttachments.addFromPath' as CoreMethod,
+      {
+        conversationId: resolvedConversationId,
+        expectedDraftRevision: resolvedRevision,
+        sourcePath: temporaryPath,
+        displayName: resolvedDisplayName,
+        mediaType: typeof mediaType === 'string' && mediaType.trim() ? mediaType : null
+      }
+    )
   }
 )
 
@@ -2283,23 +2347,18 @@ ipcMain.handle(
       throw new Error('Core is not available for attachment references')
     }
     const temporaryPath = temporarySourceAttachmentPath(resolvedDisplayName)
-    let referenced = false
-    try {
-      await writeFile(temporaryPath, input, { flag: 'wx', mode: 0o600 })
-      const snapshot = await core.request(
-        'singleChat.pendingInputs.addSourceAttachmentFromPath' as CoreMethod,
-        {
-          ...resolvedOwner,
-          sourcePath: temporaryPath,
-          displayName: resolvedDisplayName,
-          mediaType: typeof mediaType === 'string' && mediaType.trim() ? mediaType : null
-        }
-      )
-      referenced = true
-      return snapshot
-    } finally {
-      if (!referenced) await unlink(temporaryPath).catch(() => undefined)
-    }
+    // 请求已交给 Core 后，异常可能只是回执丢失。保留源文件，避免删除已提交的附件。
+    // 原请求持久化与明确拒绝后的安全回收由后续上传恢复链路统一处理。
+    await writeFile(temporaryPath, input, { flag: 'wx', mode: 0o600 })
+    return core.request(
+      'singleChat.pendingInputs.addSourceAttachmentFromPath' as CoreMethod,
+      {
+        ...resolvedOwner,
+        sourcePath: temporaryPath,
+        displayName: resolvedDisplayName,
+        mediaType: typeof mediaType === 'string' && mediaType.trim() ? mediaType : null
+      }
+    )
   }
 )
 

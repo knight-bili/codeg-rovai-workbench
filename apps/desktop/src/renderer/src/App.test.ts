@@ -1,4 +1,7 @@
 import { RemoteConnectionStatus } from './RemoteConnectionStatus'
+import { CanvasFolderContext } from './CanvasFolderProvider'
+import { canvasFolderResolution } from './canvas-folder-controller'
+import { NavigationActivityBadge } from './NavigationActivityBadge'
 import { VISIBLE_PRODUCT_RUNTIMES } from './runtime-products'
 import { DEFAULT_APPEARANCE } from '../../shared/appearance'
 import { DEFAULT_GENERAL_PREFERENCES } from '../../shared/general-preferences-model'
@@ -68,6 +71,7 @@ import {
   navigationWithoutDeletedThreads,
   optimisticThreadMessage,
   prepareActiveAutomationForAppQuit,
+  prepareActiveCanvasForAppQuit,
   prepareActiveThreadForAppQuit,
   rectanglesIntersect,
   recentThreadSnapshot,
@@ -78,6 +82,7 @@ import {
   requestAuthoritativeThreadOpenProjection,
   runtimeRecoveryFromCommandResult,
   runAutomationLeaveTransition,
+  runCanvasLeaveTransition,
   selectProjectDirectory,
   SettingsView,
   shouldRefreshNavigationForCoreEvent,
@@ -2107,6 +2112,9 @@ describe('task event projections', () => {
     expect(activeThreadSurfaceNeedsLeaveGuard('compose', 'camp-a')).toBe(false)
     expect(activeThreadSurfaceNeedsLeaveGuard('members', 'camp-a')).toBe(false)
     expect(activeThreadSurfaceNeedsLeaveGuard('camp', null)).toBe(false)
+    expect(activeThreadSurfaceNeedsLeaveGuard('canvas', 'camp-a', 'camp-a')).toBe(true)
+    expect(activeThreadSurfaceNeedsLeaveGuard('canvas', 'camp-a', 'camp-b')).toBe(false)
+    expect(activeThreadSurfaceNeedsLeaveGuard('canvas', 'camp-a')).toBe(false)
   })
 
   it('prepares only the matching mounted Thread before App quit', async () => {
@@ -2124,6 +2132,11 @@ describe('task event projections', () => {
     await prepareActiveThreadForAppQuit('camp', 'camp-b', registration)
     await prepareActiveThreadForAppQuit('camp', null, registration)
     expect(guard).toHaveBeenCalledOnce()
+    await prepareActiveThreadForAppQuit('canvas', 'camp-a', registration, 'camp-b')
+    expect(guard).toHaveBeenCalledOnce()
+    await prepareActiveThreadForAppQuit('canvas', 'camp-a', registration, 'camp-a')
+    expect(guard).toHaveBeenCalledTimes(2)
+    expect(complete).toHaveBeenCalledTimes(2)
   })
 
   it('propagates App quit Draft preparation failures without completing a leave', async () => {
@@ -2137,6 +2150,65 @@ describe('task event projections', () => {
       guard
     })).rejects.toBe(failure)
     expect(guard).toHaveBeenCalledOnce()
+  })
+
+  it('blocks Canvas navigation and App quit while edits or unknown commands still own the page', async () => {
+    const transition = vi.fn(), guard = { isBlocked: () => true, canLeave: vi.fn(async () => false) }
+    expect(await runCanvasLeaveTransition('canvas', guard, transition)).toBe(false)
+    expect(transition).not.toHaveBeenCalled()
+    await expect(prepareActiveCanvasForAppQuit('canvas', guard)).rejects.toThrow('画布操作或编辑尚未处理完成')
+    await prepareActiveCanvasForAppQuit('memory', guard)
+    expect(guard.canLeave).toHaveBeenCalledTimes(2)
+    const events: string[] = []
+    expect(await runCanvasLeaveTransition('canvas', { isBlocked: () => false, canLeave: async () => { events.push('checked'); return true } }, () => { events.push('left') })).toBe(true)
+    expect(events).toEqual(['checked', 'left'])
+  })
+
+  it('resumes remembered Canvas expansions when later navigation rejects or refuses the transition', async () => {
+    const resume = vi.fn(), guard = { isBlocked: () => false, canLeave: async () => true, resume }
+    const failure = new Error('navigation failed')
+    await expect(runCanvasLeaveTransition('canvas', guard, async () => { throw failure })).rejects.toBe(failure)
+    expect(resume).toHaveBeenCalledTimes(1)
+    expect(await runCanvasLeaveTransition('canvas', guard, async () => false)).toBe(false)
+    expect(resume).toHaveBeenCalledTimes(2)
+    await expect(runCanvasLeaveTransition('memory', guard, async () => { throw failure })).rejects.toBe(failure)
+    expect(resume).toHaveBeenCalledTimes(2)
+  })
+
+  it('prepares Canvas input before navigation and commits only after the actual destination is observed', async () => {
+    const events: string[] = [], complete = vi.fn(async (left: boolean) => { events.push(`complete:${left}`) })
+    const guard = { isBlocked: () => false, canLeave: vi.fn(), prepareLeave: async () => { events.push('prepare'); return { complete } } }
+    expect(await runCanvasLeaveTransition('canvas', guard, () => { events.push('navigate') }, async () => { events.push('destination'); return true })).toBe(true)
+    expect(events).toEqual(['prepare', 'navigate', 'destination', 'complete:true'])
+    expect(guard.canLeave).not.toHaveBeenCalled()
+  })
+
+  it('rolls Canvas input back on navigation failure, refusal or a superseded no-op', async () => {
+    const complete = vi.fn(async (_left: boolean) => undefined), resume = vi.fn()
+    const guard = { isBlocked: () => false, canLeave: vi.fn(), prepareLeave: async () => ({ complete }), resume }
+    const failure = new Error('navigation failed')
+    await expect(runCanvasLeaveTransition('canvas', guard, async () => { throw failure })).rejects.toBe(failure)
+    expect(await runCanvasLeaveTransition('canvas', guard, () => false)).toBe(false)
+    expect(await runCanvasLeaveTransition('canvas', guard, () => undefined, () => false)).toBe(true)
+    expect(complete.mock.calls).toEqual([[false], [false], [false]])
+    expect(resume).not.toHaveBeenCalled()
+  })
+
+  it('does not navigate if Canvas input preparation rejects', async () => {
+    const transition = vi.fn(), failure = new Error('save failed')
+    await expect(runCanvasLeaveTransition('canvas', { isBlocked: () => false, canLeave: vi.fn(), prepareLeave: async () => { throw failure } }, transition)).rejects.toBe(failure)
+    expect(transition).not.toHaveBeenCalled()
+  })
+
+  it('keeps the Canvas quit preparation reversible until all other quit guards succeed', async () => {
+    const complete = vi.fn(async (_left: boolean) => undefined), prepared = { complete }, prepareLeave = vi.fn(async () => prepared)
+    const guard = { isBlocked: () => false, canLeave: vi.fn(), prepareLeave }
+    const result = await prepareActiveCanvasForAppQuit('canvas', guard)
+    expect(result).toBe(prepared); expect(complete).not.toHaveBeenCalled()
+    await result?.complete(false)
+    expect(complete).toHaveBeenCalledExactlyOnceWith(false)
+    expect(await prepareActiveCanvasForAppQuit('memory', guard)).toBeNull()
+    expect(prepareLeave).toHaveBeenCalledOnce()
   })
 
   it('waits for Automation save before leaving and stays when saving fails', async () => {
@@ -2608,6 +2680,7 @@ describe('task event projections', () => {
     expect(windowDragStripPage('settings')).toBe('settings')
     expect(windowDragStripPage('members')).toBe('members')
     expect(windowDragStripPage('memory')).toBe('memory')
+    expect(windowDragStripPage('canvas')).toBe('canvas')
     expect(windowDragStripPage('camp')).toBeNull()
   })
 
@@ -3079,6 +3152,74 @@ describe('task event projections', () => {
     expect(markup).not.toContain('最近任务')
     expect(markup).not.toContain('Lumen AI')
     expect(markup).not.toContain('Horizonward')
+  })
+
+  it('keeps presentation folder groups ordered and preserves the existing project rows and pin behavior', () => {
+    const id = '11111111-1111-4111-8111-111111111111'
+    const props: ComponentProps<typeof ThreadNavigation> = {
+      view: 'canvas', state: 'ready', activeThreadId: null,
+      navigation: { schemaVersion: 3, throughGlobalSequence: 0, quickChat: { totalCount: 0, recentThreads: [] },
+        projects: ['/a', '/b'].map(projectPath => ({ projectKey: `directory:${projectPath}`, name: projectPath, projectPath,
+          totalCount: 0, recentThreads: [], lastActivityAt: '2026-10-15T00:00:00Z', lastActivityGlobalSequence: 0 })) },
+      folderGroups: [{ id, name: '工作分组', color: 'blue', projectPaths: ['/a'] }],
+      projectOrder: ['directory:/b', `folder-group:${id}`],
+      onManageProjectGroups() {},
+      onNewConversation() {}, onMembers() {}, onMemory() {}, pendingMemoryCount: 0, onSettings() {}, onOpenProject() {},
+      onThread() {}, onRemoveProject: async () => undefined, onRename: async () => undefined,
+      onDelete: async () => undefined, onError() {}
+    }
+    const markup = renderToStaticMarkup(createElement(ThreadNavigation, props))
+    expect(markup).toContain('class="navigation-folder-group" data-color="blue"')
+    expect(markup).toContain('aria-label="管理项目分组"')
+    expect(markup).toContain(`data-sidebar-menu-target="folder-group:${id}"`)
+    expect(markup.indexOf('data-group="directory:/b"')).toBeLessThan(markup.indexOf('工作分组'))
+    expect(markup.indexOf('工作分组')).toBeLessThan(markup.indexOf('data-group="directory:/a"'))
+    expect(markup.indexOf('data-group="directory:/a"')).toBeLessThan(markup.indexOf('data-group="quick-chat"'))
+    const pinned = renderToStaticMarkup(createElement(ThreadNavigation, { ...props,
+      pins: [{ kind: 'project', targetKey: 'directory:/a', pinnedAt: '2026-10-15T00:00:00Z' }] }))
+    expect(pinned.match(/data-group="directory:\/a"/g)).toHaveLength(1)
+  })
+
+  it('renders real worktree hierarchy once across pinned parents and children without turning missing checkouts into openable projects', () => {
+    const entry = (projectPath: string, isMain: boolean, available = true) => ({ projectPath, isMain, available, bare: false, locked: false, prunable: !available, branch: isMain ? 'main' : 'feature/test', detached: false })
+    const topology = { schemaVersion: 1 as const, requestedPath: '/main', projectPath: '/main', repositoryRoot: '/main', mainWorktreePath: '/main',
+      worktrees: [entry('/main', true), { ...entry('/linked', false), locked: true }, entry('/missing', false, false), { ...entry('/bare', false), bare: true }] }
+    const resolutions = new Map([
+      ['/main', canvasFolderResolution('/main', topology)],
+      ['/linked', canvasFolderResolution('/linked', { ...topology, requestedPath: '/linked', projectPath: '/linked', repositoryRoot: '/linked' })]
+    ])
+    const props: ComponentProps<typeof ThreadNavigation> = {
+      view: 'canvas', state: 'ready', activeThreadId: null,
+      navigation: { schemaVersion: 3, throughGlobalSequence: 0, quickChat: { totalCount: 0, recentThreads: [] },
+        projects: ['/main', '/linked', '/main-sibling'].map(projectPath => ({ projectKey: `directory:${projectPath}`, name: projectPath, projectPath,
+          totalCount: 0, recentThreads: [], lastActivityAt: '2026-10-15T00:00:00Z', lastActivityGlobalSequence: 0 })) },
+      onNewConversation() {}, onMembers() {}, onMemory() {}, pendingMemoryCount: 0, onSettings() {}, onOpenProject() {}, onOpenWorktree() {},
+      onThread() {}, onRemoveProject: async () => undefined, onRename: async () => undefined, onDelete: async () => undefined, onError() {}
+    }
+    const render = (pin?: string) => renderToStaticMarkup(createElement(CanvasFolderContext.Provider, {
+      value: { resolutions, register: () => () => undefined, refresh: async () => undefined }
+    }, createElement(ThreadNavigation, { ...props, pins: pin ? [{ kind: 'project', targetKey: `directory:${pin}`, pinnedAt: '2026-10-15T00:00:00Z' }] : [] })))
+    for (const pin of [undefined, '/main', '/linked']) {
+      const markup = render(pin)
+      expect(markup.match(/data-group="directory:\/main"/g)).toHaveLength(1)
+      expect(markup.match(/data-group="directory:\/linked"/g)).toHaveLength(1)
+      expect(markup).toContain('data-worktree-path="/missing"')
+      expect(markup).toMatch(/data-worktree-path="\/missing"[\s\S]*?<button[^>]*disabled=""/)
+      expect(markup).not.toContain('data-worktree-path="/bare"')
+      expect(markup).toContain('feature/test'); expect(markup).toContain('已锁定')
+      expect(markup).toContain('data-group="directory:/main-sibling"')
+      expect(markup).toContain('navigation-worktrees')
+    }
+  })
+
+  it('renders complete, unknown and stale activity totals without relabeling unknown as zero', () => {
+    expect(renderToStaticMarkup(createElement(NavigationActivityBadge, { count: 0, complete: true }))).toBe('')
+    const complete = renderToStaticMarkup(createElement(NavigationActivityBadge, { count: 16, complete: true }))
+    expect(complete).toContain('16 个对话正在处理'); expect(complete).toContain('>16</span>')
+    const stale = renderToStaticMarkup(createElement(NavigationActivityBadge, { count: 2, complete: false }))
+    expect(stale).toContain('~2'); expect(stale).toContain('上次统计 2 个对话正在处理，等待更新')
+    const unknown = renderToStaticMarkup(createElement(NavigationActivityBadge, { count: null, complete: false }))
+    expect(unknown).toContain('活动统计尚未核对'); expect(unknown).toContain('>…</span>'); expect(unknown).not.toContain('>0</span>')
   })
 
   it('renders the current empty workspace without inventing a pinnable Core project', () => {
@@ -7890,7 +8031,7 @@ describe('task event projections', () => {
       onOpenRuntimeSettings: () => undefined
     }))
 
-    expect(VISIBLE_PRODUCT_RUNTIMES).toEqual(['claude-code-cli', 'codex-cli', 'copilot-cli', 'opencode-cli', 'kiro-cli', 'qoder-cli', 'codebuddy-cli', 'qwen-code', 'trae-cn-cli', 'kimi-code-cli', 'grok-build', 'deepseek-harness', 'zcode-app', 'antigravity-app', 'pi'])
+    expect(VISIBLE_PRODUCT_RUNTIMES).toEqual(['claude-code-cli', 'codex-cli', 'copilot-cli', 'opencode-cli', 'kiro-cli', 'qoder-cli', 'codebuddy-cli', 'qwen-code', 'gemini-cli', 'hermes-cli', 'openclaw-cli', 'trae-cn-cli', 'kimi-code-cli', 'grok-build', 'deepseek-harness', 'zcode-app', 'antigravity-app', 'pi'])
     expect(markup).toContain('member-runtime-picker')
     expect(markup).toContain('aria-label="智能体类型，暂不配置"')
     expect(markup).toContain('aria-haspopup="menu"')
@@ -8342,6 +8483,9 @@ function runtimeAdmissionRows(
     'qoder-cli',
     'codebuddy-cli',
     'qwen-code',
+    'gemini-cli',
+    'hermes-cli',
+    'openclaw-cli',
     'trae-cn-cli',
     'cursor-agent',
     'kimi-code-cli',
@@ -8352,6 +8496,7 @@ function runtimeAdmissionRows(
     'zcode-app',
     'antigravity-app'
   ]
+  // Synthetic UI branch data, never evidence of actual platform or model qualification.
   return runtimeKinds.map((runtimeKind) => {
     const effectiveStatus = ['cursor-agent', 'cline-cli', 'command-code-cli'].includes(runtimeKind) && status === 'qualified'
         ? 'not_qualified'

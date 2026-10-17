@@ -78,10 +78,14 @@ interface FilePreviewViewRollback {
 export interface FilePreviewOpenOptions {
   commitOnSuccess?: boolean
   previewOnly?: boolean
+  revalidateSource?: boolean
+  background?: boolean
 }
 
 export interface FilePreviewContextValue {
   isCurrentThread?: boolean
+  domScope?: string
+  isFocusedSurface?: boolean
   tabs: PreviewTabModel[]
   activeTab: PreviewTabModel | null
   activeTabId: string | null
@@ -112,7 +116,7 @@ export interface FilePreviewContextValue {
   copyPath(tabId: string): Promise<FilePreviewOperationResult<{ copied: true }>>
   toggleHtmlSource(tabId: string): void
   reload(tabId: string): Promise<void>
-  reopen(tabId: string): Promise<void>
+  reopen(tabId: string, previewOnly?: boolean): Promise<void>
   retry(tabId: string): Promise<void>
   changePage(tabId: string, direction: -1 | 1): Promise<void>
   saveReading(tabId: string, state: Partial<FilePreviewReadingState>): void
@@ -721,7 +725,8 @@ export function createFilePreviewSession(api: FilePreviewApi, threadId: string, 
     request: OpenFilePreviewRequest,
     target: FileLocationTarget | undefined,
     presentationHint: FilePreviewPresentationHint | undefined,
-    previewOnly: boolean
+    previewOnly: boolean,
+    background = false
   ): Promise<FilePreviewOpenOutcome> => {
     const interaction = session.lastUsed
     const scopeGeneration = scopeGenerationRef.current
@@ -751,6 +756,23 @@ export function createFilePreviewSession(api: FilePreviewApi, threadId: string, 
       }
 
       const file = target ? { ...result.value.file, target } : result.value.file
+      const duplicate = background ? tabsRef.current.find(tab => tab.kind === 'file' && tab.file && tab.content
+        && filePreviewTabMatchesResolvedFile(tab, file, resolvedFilePreviewSource(request, file).sourceKey)) as FilePreviewTabModel | undefined : undefined
+      if (duplicate) {
+        if (disposed || scopeGenerationRef.current !== scopeGeneration || !owner.isCurrent(threadId)) {
+          void api.release({ handleId: file.handleId })
+          return { kind: 'error', error: unavailableSourceError() }
+        }
+        if (duplicate.file?.handleId !== file.handleId) void api.release({ handleId: file.handleId })
+        const previousFile = duplicate.file
+        const changed = !previousFile || previousFile.contentVersion.size !== file.contentVersion.size
+          || previousFile.contentVersion.mtimeMs !== file.contentVersion.mtimeMs
+          || previousFile.contentVersion.fileId !== file.contentVersion.fileId
+        setTabs(tabs => tabs.map(tab => tab.id === duplicate.id ? { ...duplicate,
+          sourceAliases: [...new Set([...(duplicate.sourceAliases ?? []), filePreviewSourceKey(request)])],
+          hasExternalUpdate: duplicate.hasExternalUpdate || changed || file.hasExternalUpdate } : tab))
+        return { kind: 'preview', tabId: duplicate.id }
+      }
       const reservation = file.kind === 'html' ? await owner.reserveHtml(session, '') : () => undefined
       if (!reservation) { void api.release({ handleId: file.handleId }); return { kind: 'error', error: { code: 'too_many_open_files', message: uiAttribute('预览资源不足'), retryable: true } } }
       const loaded = await loadContent(file)
@@ -786,7 +808,7 @@ export function createFilePreviewSession(api: FilePreviewApi, threadId: string, 
         pageIndex: 0
       }
       setTabs((entries) => [...entries, tab])
-      if (owner.isCurrent(threadId) && session.lastUsed === interaction) showOpenedTab(tabId, true)
+      if (!background && owner.isCurrent(threadId) && session.lastUsed === interaction) showOpenedTab(tabId, true)
       return installResolvedFile(
         tabId,
         request,
@@ -795,7 +817,7 @@ export function createFilePreviewSession(api: FilePreviewApi, threadId: string, 
         0,
         true,
         Boolean(document.activeElement?.closest('.file-preview-pane')),
-        owner.isCurrent(threadId) && session.lastUsed === interaction,
+        !background && owner.isCurrent(threadId) && session.lastUsed === interaction,
         loaded
       )
     } catch {
@@ -814,10 +836,10 @@ export function createFilePreviewSession(api: FilePreviewApi, threadId: string, 
     if (!threadId || !owner.isCurrent(threadId)) return { kind: 'error', error: unavailableSourceError() }
     const cached = tabsRef.current.find(tab => tab.kind === 'file' && (tab.sourceKey === filePreviewSourceKey(request) || tab.sourceAliases?.includes(filePreviewSourceKey(request))))
     owner.touch(session, cached?.id)
-    if (cached?.kind === 'file' && (cached.content || cached.loadState === 'opening')) {
+    if (!options?.revalidateSource && cached?.kind === 'file' && (cached.content || cached.loadState === 'opening')) {
       if (target && cached.file) setTabs(tabs => tabs.map(tab => tab.id === cached.id
         ? { ...cached, file: { ...cached.file!, target }, reading: undefined } : tab))
-      showOpenedTab(cached.id, false)
+      if (!options?.background) showOpenedTab(cached.id, false)
       return { kind: 'preview', tabId: cached.id }
     }
     if (request.kind === 'run_evidence' && request.action === 'review') {
@@ -835,10 +857,10 @@ export function createFilePreviewSession(api: FilePreviewApi, threadId: string, 
       }
     }
     if (options?.commitOnSuccess === true) {
-      const key = `${filePreviewSourceKey(request)}:${options.previewOnly === true}`
+      const key = `${filePreviewSourceKey(request)}:${options.previewOnly === true}:${options.background === true}:${options.revalidateSource === true}`
       const pending = committedRequests.get(key)
       if (pending) return pending
-      const operation = performCommittedOpen(request, target, presentationHint, options.previewOnly === true)
+      const operation = performCommittedOpen(request, target, presentationHint, options.previewOnly === true, options.background === true)
         .finally(() => committedRequests.delete(key))
       committedRequests.set(key, operation)
       return operation
@@ -899,7 +921,7 @@ export function createFilePreviewSession(api: FilePreviewApi, threadId: string, 
     )
   }
 
-  const reopen = async (tabId: string): Promise<void> => {
+  const reopen = async (tabId: string, previewOnly = false): Promise<void> => {
     const tab = tabsRef.current.find((entry) => entry.id === tabId)
     if (tab?.kind !== 'file') return
     if (!tab.sourceRequest) {
@@ -913,9 +935,10 @@ export function createFilePreviewSession(api: FilePreviewApi, threadId: string, 
       tabId,
       tab.sourceRequest,
       undefined,
-      'interactive',
+      previewOnly ? 'restore' : 'interactive',
       false,
-      Boolean(document.activeElement?.closest('.file-preview-pane'))
+      !previewOnly && Boolean(document.activeElement?.closest('.file-preview-pane')),
+      !previewOnly
     )
   }
 
@@ -1008,6 +1031,7 @@ export function createFilePreviewSession(api: FilePreviewApi, threadId: string, 
     return result.ok && result.value.kind === 'file_preview' ? result.value.file : null
   }
   const withActionFile = async <T>(tabId: string, action: (file: ResolvedFilePreview) => Promise<FilePreviewOperationResult<T>>): Promise<FilePreviewOperationResult<T>> => {
+    await bindingPromiseRef.current
     const tab = tabsRef.current.find(entry => entry.id === tabId)
     if (tab?.kind !== 'file') return { ok: false, error: unavailableSourceError() }
     const file = tab.file ?? await restoreHandle(tab)

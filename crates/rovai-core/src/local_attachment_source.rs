@@ -199,6 +199,42 @@ pub enum LocalAttachmentOwnerLocator {
         #[serde(rename = "attachmentRefId")]
         attachment_ref_id: String,
     },
+    SingleChatScopedComposer {
+        #[serde(rename = "threadId", alias = "campId")]
+        camp_id: String,
+        #[serde(rename = "conversationId")]
+        conversation_id: String,
+        #[serde(rename = "composerScope")]
+        composer_scope: crate::single_chat_composer_scope::SingleChatComposerScope,
+        #[serde(rename = "attachmentRefId")]
+        attachment_ref_id: String,
+    },
+    SingleChatScopedPendingEdit {
+        #[serde(rename = "threadId", alias = "campId")]
+        camp_id: String,
+        #[serde(rename = "conversationId")]
+        conversation_id: String,
+        #[serde(rename = "composerScope")]
+        composer_scope: crate::single_chat_composer_scope::SingleChatComposerScope,
+        #[serde(rename = "pendingInputId")]
+        pending_input_id: String,
+        #[serde(rename = "editToken")]
+        edit_token: String,
+        #[serde(rename = "attachmentRefId")]
+        attachment_ref_id: String,
+    },
+    SingleChatRetained {
+        #[serde(rename = "threadId", alias = "campId")]
+        camp_id: String,
+        #[serde(rename = "conversationId")]
+        conversation_id: String,
+        #[serde(rename = "composerScope")]
+        composer_scope: Option<crate::single_chat_composer_scope::SingleChatComposerScope>,
+        #[serde(rename = "retainedInputId")]
+        retained_input_id: String,
+        #[serde(rename = "attachmentRefId")]
+        attachment_ref_id: String,
+    },
 }
 
 impl LocalAttachmentOwnerLocator {
@@ -212,7 +248,10 @@ impl LocalAttachmentOwnerLocator {
             | Self::SingleChatComposer { camp_id, .. }
             | Self::SingleChatPending { camp_id, .. }
             | Self::SingleChatPendingEdit { camp_id, .. }
-            | Self::SingleChatMessage { camp_id, .. } => camp_id,
+            | Self::SingleChatMessage { camp_id, .. }
+            | Self::SingleChatScopedComposer { camp_id, .. }
+            | Self::SingleChatScopedPendingEdit { camp_id, .. }
+            | Self::SingleChatRetained { camp_id, .. } => camp_id,
         }
     }
 
@@ -243,6 +282,15 @@ impl LocalAttachmentOwnerLocator {
                 attachment_ref_id, ..
             }
             | Self::SingleChatMessage {
+                attachment_ref_id, ..
+            }
+            | Self::SingleChatScopedComposer {
+                attachment_ref_id, ..
+            }
+            | Self::SingleChatScopedPendingEdit {
+                attachment_ref_id, ..
+            }
+            | Self::SingleChatRetained {
                 attachment_ref_id, ..
             } => attachment_ref_id,
         }
@@ -579,6 +627,7 @@ pub fn load_source_attachment_for_client(
                 WHERE conversation.camp_id = ?1
                   AND conversation.id = ?2
                   AND conversation.kind = 'single_chat' AND draft.client_id = ?3
+                  AND draft.scope_key = ''
                 "#,
                 params![camp_id, conversation_id, client.id()],
                 |row| row.get::<_, String>(0),
@@ -623,11 +672,36 @@ pub fn load_source_attachment_for_client(
                   AND edit.conversation_id = conversation.id
                   AND edit.pending_input_id = ?3
                   AND edit.edit_token = ?4 AND edit.client_id = ?5
+                  AND edit.scope_key = ''
                 "#,
                 params![camp_id, conversation_id, pending_input_id, edit_token, client.id()],
                 |row| row.get::<_, String>(0),
             )
             .optional()?,
+        LocalAttachmentOwnerLocator::SingleChatScopedComposer { camp_id, conversation_id, composer_scope, .. } => {
+            let key = crate::single_chat_composer_scope::PrivateComposerKey::for_scope(Some(composer_scope))?;
+            connection.query_row("SELECT draft.source_attachments_json
+                FROM single_chat_composer_draft AS draft JOIN conversation ON conversation.id=draft.conversation_id
+                WHERE conversation.camp_id=?1 AND conversation.id=?2 AND conversation.kind='single_chat'
+                  AND draft.client_id=?3 AND draft.scope_key=?4",
+                params![camp_id,conversation_id,client.id(),key.sql_key()],|row| row.get::<_,String>(0)).optional()?
+        }
+        LocalAttachmentOwnerLocator::SingleChatScopedPendingEdit { camp_id, conversation_id, composer_scope, pending_input_id, edit_token, .. } => {
+            let key = crate::single_chat_composer_scope::PrivateComposerKey::for_scope(Some(composer_scope))?;
+            connection.query_row("SELECT edit.working_source_attachments_json
+                FROM single_chat_pending_input_edit_session AS edit JOIN conversation ON conversation.id=edit.conversation_id
+                WHERE conversation.camp_id=?1 AND conversation.id=?2 AND conversation.kind='single_chat'
+                  AND edit.client_id=?3 AND edit.scope_key=?4 AND edit.pending_input_id=?5 AND edit.edit_token=?6",
+                params![camp_id,conversation_id,client.id(),key.sql_key(),pending_input_id,edit_token],|row| row.get::<_,String>(0)).optional()?
+        }
+        LocalAttachmentOwnerLocator::SingleChatRetained { camp_id, conversation_id, composer_scope, retained_input_id, .. } => {
+            let key = crate::single_chat_composer_scope::PrivateComposerKey::for_scope(composer_scope.as_ref())?;
+            connection.query_row("SELECT input.source_attachments_json
+                FROM single_chat_retained_input AS input JOIN conversation ON conversation.id=input.conversation_id
+                WHERE conversation.camp_id=?1 AND conversation.id=?2 AND conversation.kind='single_chat'
+                  AND input.client_id=?3 AND input.scope_key=?4 AND input.id=?5",
+                params![camp_id,conversation_id,client.id(),key.sql_key(),retained_input_id],|row| row.get::<_,String>(0)).optional()?
+        }
         LocalAttachmentOwnerLocator::SingleChatMessage {
             camp_id,
             conversation_id,

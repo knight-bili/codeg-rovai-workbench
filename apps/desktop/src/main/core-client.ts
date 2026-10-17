@@ -22,6 +22,7 @@ type CoreInternalMethod =
   | 'automations.schedulerControl'
 
 export type HostWebMethod = 'host.web.token' | 'host.web.status' | 'host.web.start' | 'host.web.stop' | 'host.web.rotate' | 'host.web.loginTicket' | 'host.channels.reply'
+  | 'host.upload.observe' | 'host.upload.bind' | 'host.upload.reconcile' | 'host.upload.receipt' | 'host.upload.retry' | 'host.upload.finish'
 
 export type AutomationSchedulerControl = {
   epoch: number

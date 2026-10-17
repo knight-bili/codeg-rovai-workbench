@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T01:42:48.757Z",
+  "source_commit": "dcd7becea9332dfa4a7eaaffc053bbc1ca6ea738",
+  "stage": "I03",
+  "status": "project_groups_persistence_management_sidebar_canvas_coded_targeted_checks_passed_runtime_qualification_pending",
+  "commits": {
+    "preferences": "94e2d59993f6a7a979257a65f4dc7a4616c2d0c4",
+    "restore_compatibility": "2ef93352cc03653acb44a19b77a8e4f871cd196c",
+    "UI_and_shared_reads": "dcd7becea9332dfa4a7eaaffc053bbc1ca6ea738"
+  },
+  "donor": {
+    "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "files": [
+      "src-tauri/src/db/entities/folder_group.rs",
+      "src-tauri/src/db/service/folder_group_service.rs"
+    ],
+    "license": "Apache-2.0, retained under integration/licenses/codeg"
+  },
+  "source_files": [
+    {
+      "path": "apps/desktop/src/main/index.ts",
+      "sha256": "f66e4fabf3ede35912bd3c32359df6872728fbb6375f5e7e9f96410972758ac0"
+    },
+    {
+      "path": "apps/desktop/src/main/navigation-preferences.test.ts",
+      "sha256": "32a5763d85e3d6997fb89a2cb67c48fb151d97401264129e4e562dc07fb15bd7"
+    },
+    {
+      "path": "apps/desktop/src/main/navigation-preferences.ts",
+      "sha256": "e9871e1d80866ba2afd40b4fba9f80ae065605177d23c89b8fbf216b1e67953c"
+    },
+    {
+      "path": "apps/desktop/src/preload/index.ts",
+      "sha256": "afb9c080e4c3c93b62fa156df5c13c7e9f0a1ef57d59d546d78036ef9611154f"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/App.test.ts",
+      "sha256": "a3e3393f4a685490a5bba43e0ca179a28179748595f54493abe13b13cae0a0de"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "6388e54a724cff2a74acc0faaa5dec0309992f5b433bf6ec2b591107add09de5"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasFolderProvider.tsx",
+      "sha256": "f1e37d5dea63277668ab35dc79f74c3bd0affd058ad4ef98bbb88d8a79aadbde"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasNodeEditor.tsx",
+      "sha256": "365700719baf8eb04fbb64801526a2f3826c14c86cfd555a4b1acf9c28035188"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "30f91a6d3cfdd0f3f261b376988fb130728eb564286ba3ff6b525c6e19795d4a"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+      "sha256": "d1f9841d6e71be628dd05bb413c5c5cfae3f4f2fa7c143b78793b45b6bddab95"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ProjectGroupsDialog.tsx",
+      "sha256": "a5dbba0a49803d7ea2553ee9e700e411b66de668b16095431499a17f0ca52dce"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ThreadNavigation.tsx",
+      "sha256": "f2c0c46c7fbdd3c87d89202f4545ea91a01ec3deb56b0bb21900cbeb2cfdf3df"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-folder-controller.test.ts",
+      "sha256": "51618df7c081b0b81ec53b42211cb5c299c7b4b4c547431570b25fa16697a01d"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-folder-controller.ts",
+      "sha256": "b0a08f37b98f02ac9fde3ca7aab3b7b15b2a82a9b2647a16790c597bc2d4cbe6"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-reference-model.test.ts",
+      "sha256": "4e9692bf181451e1dc096a40b5dcc819893a7451a59a45c8db7d3d90eca41a6e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-reference-model.ts",
+      "sha256": "f36a0f31427618be9a2d6f1924fbedf90cf0b9b0bf1b757cc1d76428a88ccbdd"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "0844b43e5dff12f24d54a7a8c5d94938a5df9c5b9e9dc3f751980860e5853aaf"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "676ee995504944a9edbc1c67f969fb1951327d0c8a5cd6d76a23cc83a70c2b93"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/project-group-presentation.test.ts",
+      "sha256": "6adaa9ee27bb6e92346e0a3811067435a8019be9e100f8a4ec28295f3509a202"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/project-group-presentation.ts",
+      "sha256": "6ef361ea44778a3780288a2d232b5e5caf6831c15b2a1c824af2c28109e75187"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/useCanvasFolders.ts",
+      "sha256": "0363949f8ab249bcc8bdb5272500bf580548f67aadc648fcfef9d67db94ffcf6"
+    },
+    {
+      "path": "apps/desktop/src/shared/navigation-preferences-model.ts",
+      "sha256": "97b893d555ff9695d2098f4c2ea23a9fafe6933df71170c2062f20c49baa0376"
+    },
+    {
+      "path": "apps/desktop/src/shared/navigation-project-groups.test.ts",
+      "sha256": "3ce39a15483c66f4df30d9b39a2e74407a85671570460b831500856904901661"
+    },
+    {
+      "path": "apps/desktop/src/shared/navigation-project-groups.ts",
+      "sha256": "0ce7f5672c32bf0a9e6cfad031c63d19e7531d12e9a6ae1843697e191fc24372"
+    },
+    {
+      "path": "apps/desktop/src/shared/navigation-project-path.ts",
+      "sha256": "a3f23de5899112fb549875dab4d1e255c24975f50176a561930a81a4452672f1"
+    },
+    {
+      "path": "apps/web/src/preferences.test.ts",
+      "sha256": "a25d06d6b00f00de849b83a950c3d848ed635ab3c8c41be915b58cac9c7cf5a2"
+    },
+    {
+      "path": "apps/web/src/preferences.ts",
+      "sha256": "671ba41200231404aa4886883c35a6aa3f949f0e1044055afa1c9d650e125024"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "31471b92df079aca8dacbbbde6cee4451e780871f5a08d051dd6c6275a51969d"
+    },
+    {
+      "path": "docs/architecture/desktop-navigation-refresh.md",
+      "sha256": "af2b8e57be6f3ba909b1fe0dda75822a449812081d26fbceacea68ac926cee98"
+    },
+    {
+      "path": "docs/contracts/README.md",
+      "sha256": "434d66f0a257ff9e1c257e7ed4292ab558500aeffb0793a231e6b6a1533acbde"
+    },
+    {
+      "path": "docs/contracts/navigation-project-groups-v1.md",
+      "sha256": "ace29a6b6b5a9f2cd820c70fec758ea928ac194f9dc1923a2f30779955be3dc1"
+    },
+    {
+      "path": "docs/contracts/navigation-read-v1.md",
+      "sha256": "8e7c73549871dd2e8dc0588274b9bfe602457da4e4f43a5aa1d4633cfe68c54d"
+    },
+    {
+      "path": "docs/contracts/workspace-worktrees-v1.md",
+      "sha256": "8fb4d8bf2e1e644076e73b8ca96af6f9a936cb390a158951ebee57c15325b9ca"
+    },
+    {
+      "path": "docs/ui/components/app-shell-navigation.md",
+      "sha256": "e9bd965541ec1a5bc6756815a360bc5ce61c9aadda48d65c7b95516d1eb22b10"
+    },
+    {
+      "path": "integration/licenses/README.md",
+      "sha256": "2201d54038f498cbb27d8d270e1097d8bdc18c84a7b4714b6fdf9ec294b50333"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "cb317e0b920fcff6ed7950d5fa1e48625ab1162f5588abb408970a665bdd3ed1"
+    }
+  ],
+  "implemented": [
+    "Navigation Preferences schema7 stores stable UUID groups, names, existing theme colors, unique ordered directory membership, a mixed top-level order and a group revision; old valid schemas read in memory without overwriting originals",
+    "Typed applyProjectLayout exposes create/update/delete/layout through Native Main/preload and Web existing preference transactions; strict input/CAS rejects stale edits, malformed layout and unregistered new members without changing business records",
+    "Deleting a group returns its visible projects to the top level; hiding/restoring a grouped project preserves membership without creating a duplicate top-level row",
+    "Canvas toolbar group manager, exact live group-node names/colors, explicit deletion confirmation, preserved form input, visible latest-state review and same-ID saved-result recovery are wired into shared Desktop/Web production source",
+    "Sidebar renders collapsible groups in mixed order while retaining the existing project-row, pin, paging and menu renderer; actual Git worktrees follow their main group and unknown relations remain visibly incomplete",
+    "One BusinessApp-owned CanvasFolderProvider merges sidebar, surface and dialog paths before one four-worker reader and one visible polling clock; stale cleanup cannot remove newer registrations or publish old Host data",
+    "New linked-worktree memberships require main-project grouping; incomplete new relationship checks block the added selection; existing removed membership/history remains explicit",
+    "Group identity stays in current client presentation JSON, not a second Core project registry; no Core schema, migration, new dependency, model input or release version change"
+  ],
+  "verification": {
+    "initial_store_owners": {
+      "status": "passed",
+      "passed": 22,
+      "failed": 0,
+      "log": "work/i03/project-groups-store-tests-final.log",
+      "qualification": "Preferences source commit before UI work, not an additional 22 unique final tests"
+    },
+    "related_six_owners": {
+      "status": "passed",
+      "files": 6,
+      "passed": 31,
+      "failed": 0,
+      "log": "work/i03/project-groups-ui-owners-tests-final.log",
+      "owners": [
+        "navigation-project-groups:2",
+        "native-navigation-preferences:17",
+        "browser-preferences:3",
+        "canvas-reference-model:4",
+        "canvas-folder-controller:4",
+        "project-group-presentation:1"
+      ]
+    },
+    "later_restore_owners": {
+      "status": "passed",
+      "files": 2,
+      "passed": 20,
+      "failed": 0,
+      "log": "work/i03/project-groups-restoration-tests-final.log",
+      "detail": "Retested the changed Native/Web owners after the restoration fix; reuse the other unchanged four owners and do not sum repeated tests or claim one later full run"
+    },
+    "legacy_read_owner": {
+      "status": "passed",
+      "passed": 17,
+      "log": "work/i03/project-groups-legacy-read-tests-final.log",
+      "detail": "Existing Native owner expanded with schema4 and actual schema6 raw-file preservation; subsequently included in the 20-test restore rerun"
+    },
+    "navigation_static_markup": {
+      "status": "passed_filtered",
+      "passed": 4,
+      "skipped_by_filter": 180,
+      "total_in_owner": 184,
+      "log": "work/i03/project-groups-navigation-tests-final.log",
+      "qualification": "Server markup/presentation only, not mounted click or browser history qualification"
+    },
+    "targeted_types": {
+      "status": "passed",
+      "exit_code": 0,
+      "log": "work/i03/project-groups-restore-typecheck-final.log",
+      "scope": "BusinessApp/Canvas, Native preferences/preload and Web preferences with dependencies; not all project configurations or Main index"
+    },
+    "copy": {
+      "status": "passed",
+      "duplicate_keys": 0,
+      "missing_literal_translations": 0,
+      "added_English_entries": 32,
+      "log": "work/i03/project-groups-ui-copy-check-final.log"
+    },
+    "generic_documentation": {
+      "status": "passed",
+      "logs": [
+        "work/i03/project-groups-ui-docs-version.log",
+        "work/i03/project-groups-ui-docs-decisions.log"
+      ]
+    },
+    "diff_check": "passed",
+    "actual_native_IPC_browser_lock_and_mounted_UI": "pending_stage_candidate",
+    "earlier_new_Rust_and_Host_routes": "remain_uncompiled_and_unrun_this_slice",
+    "real_model_device_and_platform_qualification": "pending"
+  },
+  "self_review": [
+    "The original failed model-capacity turn did not block independent coding; resumed work under the explicit human request, and get_goal subsequently confirmed active without recreating or falsely completing the goal",
+    "Keep presentation preferences local to the existing Desktop profile or Web Host/Owner scope; a missing group in another client stays unresolved instead of creating a replacement",
+    "Preserve old JSON and other navigation fields on schema upgrades, failed saves, corrupt data and future schemas",
+    "Current membership changes use latest JSON plus an explicit observed group revision; new directory registration is merged rather than discarded",
+    "Shared request ownership prevents duplicate per-surface readers; actual Provider/StrictMode lifecycle still needs mounted qualification beyond the pure request-scope owner",
+    "No path prefix inference or grant: metadata availability never authorizes file access, PTY or model execution",
+    "No matching CodeGraph index; use allowed exact source lookup and do not initialize an index"
+  ],
+  "remaining": [
+    "Folder/group drag-and-drop, complete worktree tree presentation, context-menu parity and group activity badges",
+    "Mounted group editing, conflict/latest-state review, save-outcome recovery and actual Native IPC/browser cross-tab lock verification",
+    "Member drag transfer, expanded conversation cards/Composer drafts, Mission/Task/Thread/Diff round trips, authorized files, actual PTY and Desktop cold start",
+    "Required I02 recovery/model gates and full I03 candidate compilation, current Host, platform and final fusion acceptance"
+  ],
+  "execution_policy": {
+    "stage_candidate": "fusion-i03-rc.1",
+    "frozen": false,
+    "pushed": false,
+    "new_action_runs": 0,
+    "phase_complete": false,
+    "customer_input_needed_for_current_coding": false
+  },
+  "system_goal": {
+    "status": "active",
+    "verified_live_in_this_turn": true,
+    "objective_scope_and_batch_policy_unchanged": true
+  }
+}

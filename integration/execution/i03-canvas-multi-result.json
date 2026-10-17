@@ -1,0 +1,516 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T08:48:47.819Z",
+  "stage": "I03",
+  "source_commit": "e7dd04495eb5b5e743bf4e4151a036c0e9370e23",
+  "goal_status": "active",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "source": "c5369a6796d333e564b7c47074975ce7e12af025",
+    "checkpoint": "43556511177ac8359fa62ca49e52aa144044ac0d"
+  },
+  "status": "actual_multi_card_UI_wired_296_scoped_checks_and_mock_mounted_three_card_browser_witness_full_I03_pending",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "59504e8c2e3bba332f40f4a96728b0d711b94e4bd436b66d09159c43de3d406b",
+      "git_blob": "b693e540c85d6f97189a0f72bcf053911b85a832"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasConversationFrame.tsx",
+      "sha256": "c42927a6d0ed94704b248cd9806217984b2dbff52c20c425d463b730d0829062",
+      "git_blob": "3e796f3b984860b0e917c4b73908257f37f8dcfb"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "5f05df17ca5566952cb016b582b36db5ef280373cb9eb7876a84ccb3070bb9e7",
+      "git_blob": "31fb26f8e0f6d53d50ce998285bd1f91a3b7e17c"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasThreadReader.tsx",
+      "sha256": "fce2c05e6b3bd73636437777104bfa3d9bf43d6643230edde90a12072ad75db7",
+      "git_blob": "44c31df5c505ae2e6f176050d3c56e381389562e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasThreadWorkspace.tsx",
+      "sha256": "c609b5ed02760da533d22c62398e9b9886a112bc139be0bb080df00988e318eb",
+      "git_blob": "d7083c25c0f08536fc46d3f0c2405ddc87841067"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+      "sha256": "3326d5ff60dec9ea88e50527d05d53d052a9b1710b2cffb37541c585aa13d37a",
+      "git_blob": "afb75d6b47cfea058627eded93d808b0344cf0fc"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/FilePreviewContext.tsx",
+      "sha256": "41ac7a2a0de4843d72108581c347e0e6873434d54316a8a30cd681716629a7c2",
+      "git_blob": "f2319d9d455fc56c4f51c77b4cbeb582e0f2f9d1"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/FilePreviewPane.tsx",
+      "sha256": "503a2751f56ac6457ef17ea11ed74aea1327a517f885ac5a9fbae7932c1caa76",
+      "git_blob": "b3935979a7c8c839a795183f24488d331f4f326e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/FilePreviewTabs.test.ts",
+      "sha256": "49aea657b3eb36bc569033f3446b781205401a28661d7c05d2e98168dee9afe8",
+      "git_blob": "710c0f079d91b0adf999d839cd51a86a8a91473a"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/FilePreviewTabs.tsx",
+      "sha256": "4303c485ad0b1040e9c2e5d0077a6ff202a2c2f43f5371bd0edae0f86bcaa878",
+      "git_blob": "84b74ba04c1d2dfc78f2f7f4555e4b1a3e768804"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "sha256": "a414e5cea0002a112fa94e895801bd28b623d361ebb5c1883710430947035122",
+      "git_blob": "292c38742071b5ca6388ec433a2d1c927b823ca3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+      "sha256": "325152c6a7b61df066a3df2c034ea2be6c47167b463e5cab243086fe49a64932",
+      "git_blob": "9b348499c940e1f9adcadbac2ff499a36feb937d"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversations-controller.test.ts",
+      "sha256": "a96913f53c63c45c1a45c769e519abea5694974e3597c578847edcf3a63986bb",
+      "git_blob": "dae21f6ef3090db41d1fa603602f442cf789dcfc"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversations-controller.ts",
+      "sha256": "762acb12b006dcffe789ac31cec9c7d08b7e5d2d6d74082566656ca5b8cf8bcc",
+      "git_blob": "975a76646a8ecf1ff0b647abe466148d86b63c03"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "7447bc8c54580518e9bc733e618de0cb3d1fdfcd2baf33f7c751b77af17e542b",
+      "git_blob": "e335a18a952997bafa5436559f815375d9658464"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/file-preview-controller.ts",
+      "sha256": "4bd2d1cb2607870f8479603b1e9ddebf8f7ab5f4d7ae9eac26e4e0be46611c14",
+      "git_blob": "4668ee0d3a44503d329134b0f2f78260791da8da"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/file-preview-resources.test.ts",
+      "sha256": "d8c44f8d8173ae0c227d0c915456c2a4009ba022fe699512ac3b7c712e37d81c",
+      "git_blob": "669afdb8dbed53cf9e3874ef2b3e8638e89140cb"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/file-preview-resources.ts",
+      "sha256": "4a432d3f0e795ed13832a19ccb93fb2b24238654bb8549bd3fde852990967484",
+      "git_blob": "44031adbfd0d4de845fb75104f4c5eed3e9d1f95"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "08b5cf7c737ab7aafdbe01a963e774a355d17cf0a70558d50cccc412a10acf44",
+      "git_blob": "69731128670e8b66df154abbf99b31bfd600320d"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-projection-events.ts",
+      "sha256": "c9857f3726e5cd9d272b53e5c0570fcd546b908cf0cce5074dbf6748a50356db",
+      "git_blob": "29e23c1d58cd2bd37d5fda7464efe3543ae070b1"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-run-cancellation.ts",
+      "sha256": "7ee3c45be85e19f035942c29d9083da1b0967edc66a417fdb646cd0d14c46b08",
+      "git_blob": "e65eeb8ed0edf9aca5d61197e476b2b9db9df48d"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-workspace-actions.test.ts",
+      "sha256": "7795ab4d16177bcca9cbc019ae2ec5c9929deaafc81a8d3d8f0ec14b0cc1e0c2",
+      "git_blob": "e787c5c831c5c0710b7289a48063c7d6daf2e335"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-workspace-actions.ts",
+      "sha256": "55c2cfac97077cda3a1e117a8d0a0858a460fb46d6206616fa1dad782294c00b",
+      "git_blob": "08f691a75e43428ff142a6fbf26690f4611e3fef"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/useCanvasConversations.ts",
+      "sha256": "7edeb89bb3ec50dd9144f8578c294bfb3c9ec64afceb3940b3d4225c245e5e16",
+      "git_blob": "602421308e5669dfffaed93d052a8ee4e878796f"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "f76494ac4918d5c92da985b5a120c5fda2f1c9cf6a884d1cca912ed76af12931",
+      "git_blob": "5c1999a47a819045e019464d7d2eca088cfab968"
+    },
+    {
+      "path": "docs/architecture/file-preview.md",
+      "sha256": "d6117559ca142717321536613a991f96318ae2c44f89e2b960390522f6c4d639",
+      "git_blob": "99d5d99c2c8b9baf95ea827644d0d858913de3ba"
+    },
+    {
+      "path": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "f2e95073903e65dbdb684ca61aadedc05e176b39daa38a33fa0d15b9858bb5ab",
+      "git_blob": "b5ccd99bddbd8a34c37f8fa66e7280312d7819ff"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "32b2d1bd81414770f11b5ca6029c263b2b7f01c9b59666a34d83373279ebff47",
+      "git_blob": "82b2e0fe46820c593128277d74f8ba64680cad98"
+    }
+  ],
+  "implementation": [
+    "BusinessApp实际多卡实例集合已接CanvasSurface稳定ViewportPortal；每卡复用生产ThreadWorkspace、独立草稿上下文和leave guard；同Thread镜像完整输入，原地/侧边移动不重建编辑器。固定Codeg单drawer行为保留，多张inline并存。",
+    "精确Host/Core/Board/pin/Thread/私有Conversation上下文；只读校验私有引用后open，不enter/创建Conversation/启动Runtime。批量关闭全部准备后移除，准备失败回滚；图写入只准备/解除相关输入，原pin消失保留孤立实例。",
+    "每唯一Thread一个CanvasThreadReader承接Core事件/Host失效及原有界poll，订阅后补读，所有卡片共享既有ThreadProjectionStore和原命令factory。",
+    "共享threadWorkspaceActions逐字提取8个原handler及8个停止声明、2个事件声明；thread-commands/thread-workspace-data未改，私聊send及2个pending edit表达式未改。",
+    "每API对象共用窗口文件资源池和所有挂载Thread保留并集，沿用预算；每卡contained deck、DOM scope、局部焦点和find；原系统动作等待绑定，不扩大Core/Main授权。",
+    "修复卡片contained布局宽度为0、预览缺返回/标签和同Thread镜像控件重复ID；保留主会话原ID行为，更新提示包含画布输入。"
+  ],
+  "source_preservation": {
+    "baseline": "43556511177ac8359fa62ca49e52aa144044ac0d",
+    "handlers": [
+      {
+        "name": "cancelAgentRun",
+        "declaration_sha256": "113226b37f6a1ee6951515c837bd99b24ef938e73cbdc6b9a113cdbdbe57a23f"
+      },
+      {
+        "name": "changeDefaultLead",
+        "declaration_sha256": "15adb9f8a0194d326d39d21c534c86d64a2de305750691412cac7066a3d5b19f"
+      },
+      {
+        "name": "addThreadMembers",
+        "declaration_sha256": "4494b788b99601291a06644b8689e62a79eed5a39a82a1282bc3cd83578d2062"
+      },
+      {
+        "name": "previewThreadMemberRemoval",
+        "declaration_sha256": "6596b8c9d7566530819e6bd498f0a951217f6a7f3a6a50692f49def60e5c0eac"
+      },
+      {
+        "name": "removeThreadMember",
+        "declaration_sha256": "d9229540da4df81176aff194359c2602c723f02063a86823b487973c3f6d54eb"
+      },
+      {
+        "name": "sendThreadMessage",
+        "declaration_sha256": "4c8b3ee52409b9ea4819d38f6a2694aef5c027b8290e6122b80e1906a22eed6c"
+      },
+      {
+        "name": "withdrawThreadMessage",
+        "declaration_sha256": "c2379702b7298ec026a18dbd18e5dbe2c02917344e0dafe4f8c213f9c62e8cb8"
+      },
+      {
+        "name": "resolveActionApproval",
+        "declaration_sha256": "ef6e2a3c407bfcaeaf2320c52b015cb080585749064c6aca897e64624da8e419"
+      }
+    ],
+    "cancellation_declarations": [
+      {
+        "name": "CANCELLABLE_TURN_STATUSES",
+        "declaration_sha256": "95e4601a263a63f1e419846f1a73b7b6cf455f7784be66b1150f0bbd2ad7365d"
+      },
+      {
+        "name": "CANCELLABLE_RUN_STATUSES",
+        "declaration_sha256": "b2c74be26f654d28dde6cc345e4cf99ad4dd90b2ee0fb7a5c34b28de0b7c00a6"
+      },
+      {
+        "name": "cancellableTurnIds",
+        "declaration_sha256": "e48da2a87890882d9ed20aed85cb1023ae0ca1f414ea36bf5dedc34b5ebe770a"
+      },
+      {
+        "name": "reconcileCancellingTurnIds",
+        "declaration_sha256": "101f2e7d56de09acf84fada09441fe205c5ea7f13eb1f4de32893b47d6a2e7e8"
+      },
+      {
+        "name": "effectiveCancellingTurnIds",
+        "declaration_sha256": "bbcbb95f6ed8fc3c6c79e0e6ab228b8ddf2a615a47b2498f227ab08e25cbdb5b"
+      },
+      {
+        "name": "reconcileRunCancellationIds",
+        "declaration_sha256": "239806a0d5348c5dbe4c81c6fe8b7763dedc5a6c90aff9378b101f6e20eab026"
+      },
+      {
+        "name": "effectiveCancellingRunIds",
+        "declaration_sha256": "eb7201d80b09717032328c7f07e747028b6d2d43a82aa29e8b829cace8694509"
+      },
+      {
+        "name": "applyCancellationResult",
+        "declaration_sha256": "5316d36c4e519f219331127793102629bcb02d2344f522fdeef02f2ce90fb79d"
+      }
+    ],
+    "handler_bodies_unchanged": true,
+    "input_format_or_RPC_changes": false,
+    "checked_handler_count": 8,
+    "checked_cancellation_declarations": 8,
+    "event_predicate_declarations_unchanged": 2,
+    "thread_commands_and_send_format_helpers_unchanged": true,
+    "removed_newly_unused_imports": [
+      "optimisticThreadMessage",
+      "membershipConflictCode",
+      "runtimeRecoveryFromCommandResult",
+      "stringArrayField",
+      "ActionApprovalView",
+      "ThreadMemberRemovalPreview",
+      "composerHasSendablePayload",
+      "ThreadMessageSendReceipt",
+      "ThreadMemberAddOutcome",
+      "ThreadMemberRemoveOutcome"
+    ],
+    "final_verified_at": "2026-10-15T08:45:39.882Z",
+    "private_send_and_pending_edit_expressions_unchanged": 3
+  },
+  "validation": {
+    "owner_files": 10,
+    "assertions_passed": 296,
+    "assertions_failed": 0,
+    "documentation_policy_tests_passed": 10,
+    "targeted_types": "passed_including_new_owner_tests",
+    "copy": "zero_duplicate_locale_keys_zero_missing_literals",
+    "documentation_version": "v1.72_passed",
+    "documentation_governance": "passed_with_baseline",
+    "diff_check": "passed",
+    "browser_witness": {
+      "schema_version": 1,
+      "verified_at": "2026-10-15T08:45:39.883Z",
+      "kind": "browser_mounted_production_components_with_mock_Core_and_files",
+      "components": [
+        "CanvasConversationFrame",
+        "CanvasThreadWorkspace",
+        "ThreadWorkspace",
+        "StructuredMentionComposer",
+        "FilePreviewProvider"
+      ],
+      "topology": {
+        "cards": 3,
+        "threads": 2,
+        "same_thread_mirrors": 2
+      },
+      "observed": [
+        "three_independent_drafts",
+        "same_card_inline_drawer_preserves_editor_id_and_undo",
+        "CtrlF_scoped_to_one_card",
+        "Escape_closes_find_not_cards",
+        "close_one_preserves_other_editors_and_text",
+        "reopen_exact_card_restores_memory_draft",
+        "A_and_B_file_text_in_correct_cards",
+        "shared_Thread_preview_tabs_with_unique_DOM_ids",
+        "preview_return_preserves_drafts",
+        "preview_bounds_inside_each_frame_at_0_6_and_1_scale",
+        "last_open_focus_stays_clicked_card",
+        "no_duplicate_DOM_ids",
+        "no_console_errors_in_final_snapshot"
+      ],
+      "fixtures": [
+        {
+          "path": "canvas-multi-fixture/entry.tsx",
+          "sha256": "8b68cca9e1653eb781eed667e6dbe6b386be92cdc26f169d87ea718e74967636"
+        },
+        {
+          "path": "canvas-multi-fixture/server.mjs",
+          "sha256": "72675204b9b376cb8681cc60a45f20658e8a94da1bc1326a5cb9b6ebf130ea9b"
+        },
+        {
+          "path": "canvas-multi-fixture/index.html",
+          "sha256": "23f89bab590317547eb4c96ff607b4fd2728ba27ea1c10e403d25d081205e2fb"
+        }
+      ],
+      "screenshots": [
+        {
+          "path": "canvas-multi-three-drafts.jpg",
+          "sha256": "b907b11dc8bc0d4f80de2b137f3ff47f8d5f11f289db5b0768d906d435c53864"
+        },
+        {
+          "path": "canvas-multi-preview.jpg",
+          "sha256": "9b35577f5de18c350bf86f58e49cbd9b4ab2af1045fac0128d5795bcab05b746"
+        }
+      ],
+      "correction": "Preview zero-height after tabs added came from omitted existing mission.css in fixture. Corrected fixture import; no production height workaround added.",
+      "limits": [
+        "not full BusinessApp or ReactFlow mount",
+        "no actual Core Host Main files model or Runtime",
+        "memory re-open not disk/process restart",
+        "no private attachments quotes CAS IME touch light theme HTML scale platform qualification"
+      ],
+      "cleanup": {
+        "tab_closed": true,
+        "loopback_server_stopped": true,
+        "paid_calls": 0,
+        "real_files_read": 0
+      },
+      "source_files": [
+        {
+          "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+          "sha256": "59504e8c2e3bba332f40f4a96728b0d711b94e4bd436b66d09159c43de3d406b"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/CanvasConversationFrame.tsx",
+          "sha256": "c42927a6d0ed94704b248cd9806217984b2dbff52c20c425d463b730d0829062"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+          "sha256": "5f05df17ca5566952cb016b582b36db5ef280373cb9eb7876a84ccb3070bb9e7"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/CanvasThreadReader.tsx",
+          "sha256": "fce2c05e6b3bd73636437777104bfa3d9bf43d6643230edde90a12072ad75db7"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/CanvasThreadWorkspace.tsx",
+          "sha256": "c609b5ed02760da533d22c62398e9b9886a112bc139be0bb080df00988e318eb"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+          "sha256": "3326d5ff60dec9ea88e50527d05d53d052a9b1710b2cffb37541c585aa13d37a"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/FilePreviewContext.tsx",
+          "sha256": "41ac7a2a0de4843d72108581c347e0e6873434d54316a8a30cd681716629a7c2"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/FilePreviewPane.tsx",
+          "sha256": "503a2751f56ac6457ef17ea11ed74aea1327a517f885ac5a9fbae7932c1caa76"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/FilePreviewTabs.test.ts",
+          "sha256": "49aea657b3eb36bc569033f3446b781205401a28661d7c05d2e98168dee9afe8"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/FilePreviewTabs.tsx",
+          "sha256": "4303c485ad0b1040e9c2e5d0077a6ff202a2c2f43f5371bd0edae0f86bcaa878"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+          "sha256": "a414e5cea0002a112fa94e895801bd28b623d361ebb5c1883710430947035122"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+          "sha256": "325152c6a7b61df066a3df2c034ea2be6c47167b463e5cab243086fe49a64932"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/canvas-conversations-controller.test.ts",
+          "sha256": "a96913f53c63c45c1a45c769e519abea5694974e3597c578847edcf3a63986bb"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/canvas-conversations-controller.ts",
+          "sha256": "762acb12b006dcffe789ac31cec9c7d08b7e5d2d6d74082566656ca5b8cf8bcc"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/canvas.css",
+          "sha256": "7447bc8c54580518e9bc733e618de0cb3d1fdfcd2baf33f7c751b77af17e542b"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/file-preview-controller.ts",
+          "sha256": "4bd2d1cb2607870f8479603b1e9ddebf8f7ab5f4d7ae9eac26e4e0be46611c14"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/file-preview-resources.test.ts",
+          "sha256": "d8c44f8d8173ae0c227d0c915456c2a4009ba022fe699512ac3b7c712e37d81c"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/file-preview-resources.ts",
+          "sha256": "4a432d3f0e795ed13832a19ccb93fb2b24238654bb8549bd3fde852990967484"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/locales/en.json",
+          "sha256": "08b5cf7c737ab7aafdbe01a963e774a355d17cf0a70558d50cccc412a10acf44"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/thread-projection-events.ts",
+          "sha256": "c9857f3726e5cd9d272b53e5c0570fcd546b908cf0cce5074dbf6748a50356db"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/thread-run-cancellation.ts",
+          "sha256": "7ee3c45be85e19f035942c29d9083da1b0967edc66a417fdb646cd0d14c46b08"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/thread-workspace-actions.test.ts",
+          "sha256": "7795ab4d16177bcca9cbc019ae2ec5c9929deaafc81a8d3d8f0ec14b0cc1e0c2"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/thread-workspace-actions.ts",
+          "sha256": "55c2cfac97077cda3a1e117a8d0a0858a460fb46d6206616fa1dad782294c00b"
+        },
+        {
+          "path": "apps/desktop/src/renderer/src/useCanvasConversations.ts",
+          "sha256": "7edeb89bb3ec50dd9144f8578c294bfb3c9ec64afceb3940b3d4225c245e5e16"
+        }
+      ]
+    },
+    "logs": [
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-multi-owners-final.log",
+        "sha256": "1cd1222ee7f8248db4a80802bd5f33d398f86337d377e84d79a40808634e6669"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-multi-types-final.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-multi-copy-final.log",
+        "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-multi-doc-version-final.log",
+        "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-multi-doc-decisions-final.log",
+        "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-multi-doc-policy-final.log",
+        "sha256": "de9961cd2e95758c508b1d552ff358b84e6ca04cee35c3332859fc46b3cdd5ba"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-multi-diff-final.log",
+        "sha256": "dc76a2e44b441b4ada3efca5ffad9b037cfb5cb5d417ec7fc0a8fceef88c82be"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-multi-source-proof.log",
+        "sha256": "d7e8f344fd681132e1a278fab6426c7ff1e37cfcb47ce78d6ba67550133578e7"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-multi-source-proof.json",
+        "sha256": "d5a160b6040b5d4ccf1e6d525dcf9c1eef2d78c56c9790cd61db6e4acea08cfe"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-multi-browser-witness.json",
+        "sha256": "9d0b58fa7e65fb4d33ad11f87d65f6f140e6879ea7136672f5c62d3df89e00c6"
+      }
+    ]
+  },
+  "failures_and_corrections": [
+    "初始类型检查发现readonly key参数、LiveRuntimeEvent导入、fixture Promise<void>/literal true等类型，已修；早期日志保留。",
+    "初始文案检查缺正在读取对话翻译，已补。",
+    "真实组件挂载发现contained flex子项宽度0，补最小布局规则；预览增加tabs后夹具漏载既有mission.css造成零高，修正夹具导入后返回/文本/尺寸通过，未添加生产高度绕过。",
+    "最终额外AST核对脚本首轮未处理无参数调用，补参数存在判断后通过；保留helper-initial日志。"
+  ],
+  "unchanged": {
+    "schema": 154,
+    "host": 4,
+    "data_contract": "v1.72",
+    "current_operation_count": 178,
+    "historical_operation_count": 161,
+    "dependency_or_migration_change": false,
+    "model_input_change": false,
+    "core_or_Main_API_change": false
+  },
+  "pending": [
+    "通知可见源按实际卡片并集与确认；原特殊事件展示需继续分发。",
+    "Host/Core/Board展开持久化与重开恢复，复杂导航失败后的实例恢复；只读open，不enter或启动Runtime。",
+    "私有附件/quotes按卡片隔离及原Core Draft revision/CAS/未知结果；当前仍按Conversation。",
+    "已关闭孤立卡片输入恢复选择/持久索引、跨编辑端接管、HTML/iframe多镜像资源规模。",
+    "完整BusinessApp/ReactFlow/Electron与真实Core/Host/文件能力、Runtime流式/审批/停止/未知结果/进程重启、IME/触控/主题/平台。",
+    "Mission/Task/Thread/Diff定位、授权文件、真实临时PTY、Desktop冷路由；I02剩余SP和真实Gate及I04-I12/BUF全部保留。"
+  ],
+  "fusion_acceptance": {
+    "total": 324,
+    "status": "all_not_run_not_replaced_by_source_or_component_checks"
+  },
+  "delivery": {
+    "push": false,
+    "actions": false,
+    "candidate": false,
+    "main_merge": false,
+    "release": false,
+    "paid_calls": 0,
+    "phase_batch_policy_unchanged": true
+  },
+  "codegraph": {
+    "indexed": false,
+    "action": "per_prior_explicit_tool_result_no_requery_no_initialization_no_sync_claim"
+  },
+  "customer_action_required_now": false
+}

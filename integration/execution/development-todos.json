@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "date": "2026-10-14",
+  "date": "2026-10-15",
   "policy": "研发可修问题由研发继续处理，不列为客户资源阻塞",
   "items": [
     {
@@ -95,18 +95,45 @@
     {
       "id": "DEV-SKILL-PACK-LIFECYCLE",
       "task": "I02-T03/I08/I12",
-      "status": "member_configuration_verified_model_delivery_pending_r1_confirmation",
+      "status": "r1_confirmed_context_and_controlled_recovery_slices_verified_actual_model_gate_pending",
       "owner": "研发",
-      "problem": "来源目录、安装/刷新/卸载、生产设置与队员配置保存已验；模型投递r1待确认后实施；自定义/导入、MCP市场、OfficeCLI、科研与UI渲染及历史GC继续研发",
-      "evidence": "i02-skill-members-result.json"
+      "problem": "客户已确认技能投递r1并已实施输入/冻结/受控恢复切片，旧待确认文字失效；其余SP及实际模型Gate待验。自定义/导入、MCP市场、OfficeCLI、科研与UI渲染及历史GC继续研发。",
+      "evidence": "i02-skill-delivery-context-result.json; i02-skill-process-recovery-result.json"
     },
     {
       "id": "DEV-CANVAS-NODES",
       "task": "I03-T01/I03-T02/I03-T03",
-      "status": "multi_board_API_verified_complete_interactions_pending",
+      "status": "multi_card_recovery_notifications_thread_linked_mission_diff_mock_UI_verified_complete_object_refs_and_runtime_pending",
       "owner": "研发",
-      "problem": "继续八类节点、共享布局、分组/分离、业务对象与真实文件、PTY管理和退出恢复；现有Runtime终态许可不是PTY启动能力",
-      "evidence": "i03-canvas-boards-result.json"
+      "problem": "多卡/通知/展开恢复/Renderer两阶段离开与Thread关联Mission说明/启动/交付/累计Diff已编码及mock前端验；独立持久Mission/Task/Diff引用、私有附件、授权文件、实际PTY、Native恢复/完整私有来源导航及真实运行/平台资格继续。",
+      "evidence": "i03-canvas-mission-result.json"
+    },
+    {
+      "id": "DEV-NOTIFICATION-SETTINGS-FAILURE-FOCUS",
+      "task": "I03/I12/BUF",
+      "status": "baseline_and_current_reproduced_pending_repair",
+      "owner": "研发",
+      "file": "scripts/fixtures/notification-attention/main.cjs:127",
+      "problem": "通知设置taskStatuses:in_progress保存失败后焦点期望控件，实际activeElement无该data属性。当前Controller与2f28cecc旧Controller配同Settings/driver均复现；不跳过测试、不改断言或超时。",
+      "evidence": "i03-canvas-notification-result.json"
+    },
+    {
+      "id": "DEV-CANVAS-ATOMIC-LEAVE",
+      "task": "I03/I12",
+      "status": "renderer_original_editor_undo_verified_native_quit_failure_pending",
+      "owner": "研发",
+      "file": "apps/desktop/src/renderer/src/canvas-conversations-controller.ts:prepareLeave",
+      "problem": "Renderer两阶段准备/提交/回滚与原DOM/undo已实现并mock浏览器验证，247相关检查通过；Native已经通过预检后的退出失败、真实Core停止/异常进程/Host与并发图资格仍需实测。",
+      "evidence": "i03-canvas-atomic-leave-result.json"
+    },
+    {
+      "id": "DEV-CANVAS-PRIVATE-MATERIALS",
+      "task": "I03-T03",
+      "owner": "研发",
+      "status": "r1_core_pending_edit_verified_Renderer_return_upload_and_intents_pending",
+      "problem": "I03私聊材料r1的Core单租约scope接管/旧token拒绝与完整移回已实现；17项Core和56项既存/模拟客户端检查通过。Renderer尚缺targetBody/placement/完整保留选择及本机意图，上传准备/授权仍待，不判端到端或产品验收通过。",
+      "confirmation": "i03-private-materials-proposal-result.json",
+      "evidence": "i03-private-pending-edit-result.json"
     }
   ]
 }

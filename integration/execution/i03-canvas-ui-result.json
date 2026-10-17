@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-14T16:48:04.507Z",
+  "source_commit": "e14fb7444e59d4522a41a9a539b56faa07cd7658",
+  "stage": "I03",
+  "status": "interactive_modules_coded_typechecked_not_mounted_or_stage_qualified",
+  "files": [
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "a09ccc8b0dbf0887f41b7253dbd2f1b63c3c9b8f58b47acf0db19b0f40c934a7"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasNodeEditor.tsx",
+      "sha256": "5af266a5d02e9e8722acba35ff9c8d0356a6fa205380e07140be3326959341f1"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "4986527a0e115befabda1db34bc92bec314f3476ab2c17cb5e8a55a03fdd6b35"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-graph-controller.ts",
+      "sha256": "47e93f3902eec69136ea71c5f36427d1a83f046bb023c7b922ed557b19cbb134"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/useCanvasGraph.ts",
+      "sha256": "18f820257d513e45f6631e956d88fb385eedfcd60dfa91d262141975316a0990"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-view-state.ts",
+      "sha256": "1152d756e672ab3a51fdf0ce2c12534dcc444065267aaf21f11b37302858a392"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "5a902ef7ef4b056ab7e71ff529b11ef369e0a2faad1b0fcb827c9c9cf9679ba5"
+    },
+    {
+      "path": "package.json",
+      "sha256": "434165aaa0e7cd7f184c2c08f41677b62f4622bcc8f4d33e4063acad71a4258f"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "6e967f745c59e636bcc2ef878fe71d7a308fc57d9a304ac05a23aa26013c49d1"
+    }
+  ],
+  "implemented": [
+    "ReactFlow board-unit canvas: node drag and box selection, object/grid alignment guides, resize, automatic packing, minimap and viewport",
+    "Eight-kind renderer and create/edit dialogs; immutable business binding and exact Thread/private-conversation reference choices",
+    "Core atomic pin grouping and detach; node delete confirmation warns about note prose and does not request business-object deletion",
+    "Note edits submit title/content/display fields without stale geometry; graph versions remain frozen from edit/drag/resize start",
+    "Pending results keep their original command identity and payload; recovery actions remain accessible inside modal dialogs",
+    "Host/Core/board ownership keys remount view state; denied localStorage access degrades to in-memory presentation only",
+    "Shared Day/Night CSS tokens and translated UI copy; SafeMarkdown notes receive no inherited Thread file-access callback"
+  ],
+  "verification": {
+    "targeted_tests": {
+      "status": "passed",
+      "files": 4,
+      "passed": 16,
+      "failed": 0,
+      "owners": {
+        "graph_command_and_read_races": 6,
+        "view_scope_and_storage": 4,
+        "source_geometry": 4,
+        "interface_language": 2
+      },
+      "log": "work/i03/canvas-ui-targeted-tests-final.log"
+    },
+    "targeted_types": {
+      "status": "passed",
+      "command": "pnpm exec tsc --noEmit -p ../i03/canvas-ui-typecheck.json",
+      "log": "work/i03/canvas-ui-typecheck-final.log",
+      "scope": "Canvas modules and imported dependencies, not the full repository typecheck"
+    },
+    "copy_check": {
+      "status": "passed",
+      "duplicate_locale_keys": 0,
+      "missing_new_module_literal_translations": 0,
+      "log": "work/i03/canvas-ui-copy-check.log"
+    },
+    "diff_check": "passed",
+    "self_review": "Reviewed command ownership, modal recovery, stale revisions, note geometry, cross-owner view state, partial business resolution and path authorization",
+    "earlier_failures": [
+      "canvas-ui-typecheck-1.log: external scratch config could not resolve inherited package type roots; corrected only the scratch config",
+      "canvas-ui-typecheck-2.log: invalidation loop narrowing and missing existing commands.reconcile CoreMethod fixed; NodeJS ambient types restored in scratch config"
+    ],
+    "mounted_renderer": "pending",
+    "real_current_host_reconciliation": "pending_stage_candidate",
+    "full_rust_compile": "deferred_stage_candidate",
+    "full_workspace_regression": "deferred_stage_candidate",
+    "platform_qualification": "pending",
+    "model_turn": "not_run"
+  },
+  "dependencies": {
+    "direct": "@xyflow/react@12.11.5",
+    "fixed_donor": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "newly_locked_packages": 20,
+    "install_scripts": "disabled",
+    "notices": "../licenses/canvas-dependencies/THIRD-PARTY-NOTICES.txt",
+    "license_inventory": "../licenses/canvas-dependencies/packages.json",
+    "release_license_qualification": "pending_I12"
+  },
+  "pending": [
+    "CanvasWorkspace multi-board list/create/rename/delete and production root/sidebar/navigation/quit leave guards",
+    "Complete paginated business resolution for folder/group/agent regions, real private conversation focus and Mission/Task/Thread/Diff round trip",
+    "Source member dragging across regions, expanded conversation cards and existing Composer draft integration",
+    "Actual authorized file preview and ephemeral PTY with shutdown/delete/reconnect lifecycle",
+    "Mounted UI, actual current Host recovery, full stage compilation/regression and required platform acceptance"
+  ],
+  "ci": {
+    "candidate_version": "fusion-i03-rc.1",
+    "candidate_status": "not_frozen",
+    "pushed": false,
+    "new_action_runs": 0,
+    "rule": "Multiple local commits, stage-batched validation, few pushes; no stage completion claim"
+  },
+  "customer_action_needed_for_this_slice": false
+}

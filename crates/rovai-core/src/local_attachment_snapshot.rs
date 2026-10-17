@@ -16,6 +16,209 @@ use std::{
 };
 use uuid::Uuid;
 
+#[derive(Debug, Clone, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub(crate) struct PrivateSourceObservation {
+    pub version: u32,
+    pub kind: crate::local_attachment_source::LocalAttachmentKind,
+    pub content_digest: String,
+    pub identity_digest: String,
+    pub byte_size: u64,
+    pub file_count: u64,
+}
+
+// 仅为私聊接受前观察，不复制文件，不改变公共/Agent live source 的含义。
+pub(crate) fn observe_private_source(path: &Path) -> Result<PrivateSourceObservation> {
+    anyhow::ensure!(path.is_absolute(), "private source path must be absolute");
+    let file = open_source_without_following(path)?;
+    let before = inspect_open_node(&file)?;
+    let mut state = DirectorySnapshotState {
+        hasher: Sha256::new(),
+        file_count: 0,
+        directory_count: 0,
+        entry_count: 0,
+        byte_size: 0,
+    };
+    state.hasher.update(b"rovai-private-source-tree-v1\0");
+    let (kind, digest) = if before.kind == OpenedNodeKind::RegularFile {
+        let (digest, bytes) = observe_private_file(&file)?;
+        state.file_count = 1;
+        state.byte_size = bytes;
+        (
+            crate::local_attachment_source::LocalAttachmentKind::File,
+            digest.iter().map(|byte| format!("{byte:02x}")).collect(),
+        )
+    } else {
+        anyhow::ensure!(
+            before.kind == OpenedNodeKind::Directory,
+            "attachment_kind_changed"
+        );
+        observe_private_directory(
+            &file,
+            Path::new(""),
+            0,
+            fingerprint_volume(&before.fingerprint),
+            &mut state,
+        )?;
+        (
+            crate::local_attachment_source::LocalAttachmentKind::Directory,
+            format!("{:x}", state.hasher.clone().finalize()),
+        )
+    };
+    let after = inspect_open_node(&file)?;
+    let current = inspect_open_node(&open_source_without_following(path)?)?;
+    anyhow::ensure!(
+        before.kind == after.kind
+            && before.fingerprint == after.fingerprint
+            && current.kind == before.kind
+            && current.fingerprint == before.fingerprint,
+        "attachment_source_changed"
+    );
+    Ok(PrivateSourceObservation {
+        version: 1,
+        kind,
+        content_digest: digest,
+        identity_digest: private_node_identity(&before),
+        byte_size: state.byte_size,
+        file_count: state.file_count,
+    })
+}
+
+fn observe_private_file(source: &File) -> Result<([u8; 32], u64)> {
+    let before = inspect_open_node(source)?;
+    anyhow::ensure!(
+        before.kind == OpenedNodeKind::RegularFile,
+        "attachment_kind_changed"
+    );
+    let expected = fingerprint_size(&before.fingerprint);
+    let mut reader = source.take(
+        expected
+            .checked_add(1)
+            .context("private source size overflow")?,
+    );
+    let mut digest = Sha256::new();
+    let mut count = 0u64;
+    let mut buffer = [0u8; 64 * 1024];
+    loop {
+        let length = reader.read(&mut buffer)?;
+        if length == 0 {
+            break;
+        }
+        count += length as u64;
+        digest.update(&buffer[..length]);
+    }
+    let after = inspect_open_node(source)?;
+    anyhow::ensure!(
+        count == expected && before.fingerprint == after.fingerprint,
+        "attachment_source_changed"
+    );
+    Ok((digest.finalize().into(), count))
+}
+
+fn observe_private_directory(
+    source: &File,
+    relative: &Path,
+    depth: usize,
+    volume: u64,
+    state: &mut DirectorySnapshotState,
+) -> Result<()> {
+    anyhow::ensure!(
+        depth <= MAX_DIRECTORY_DEPTH,
+        "attachment_directory_depth_exceeded"
+    );
+    let before = inspect_open_node(source)?;
+    anyhow::ensure!(
+        before.kind == OpenedNodeKind::Directory
+            && fingerprint_volume(&before.fingerprint) == volume,
+        "attachment_directory_changed"
+    );
+    hash_tree_entry(&mut state.hasher, b'D', relative, 0, None)?;
+    state
+        .hasher
+        .update(private_node_identity(&before).as_bytes());
+    let names = read_directory_names(source, MAX_DIRECTORY_ENTRIES as usize)?;
+    for name in &names {
+        state.entry_count += 1;
+        anyhow::ensure!(
+            state.entry_count <= MAX_DIRECTORY_ENTRIES,
+            "attachment_directory_entries_exceeded"
+        );
+        let child = open_child_without_following(source, name)?;
+        let metadata = inspect_open_node(&child)?;
+        anyhow::ensure!(
+            fingerprint_volume(&metadata.fingerprint) == volume,
+            "attachment_directory_volume_changed"
+        );
+        let child_relative = relative.join(name);
+        if metadata.kind == OpenedNodeKind::Directory {
+            observe_private_directory(&child, &child_relative, depth + 1, volume, state)?;
+        } else {
+            let (digest, bytes) = observe_private_file(&child)?;
+            anyhow::ensure!(
+                metadata.fingerprint == inspect_open_node(&child)?.fingerprint,
+                "attachment_source_changed"
+            );
+            state.file_count += 1;
+            anyhow::ensure!(
+                state.file_count <= MAX_DIRECTORY_FILES,
+                "attachment_directory_files_exceeded"
+            );
+            state.byte_size = state
+                .byte_size
+                .checked_add(bytes)
+                .context("private source size overflow")?;
+            hash_tree_entry(
+                &mut state.hasher,
+                b'F',
+                &child_relative,
+                bytes,
+                Some(&digest),
+            )?;
+            state
+                .hasher
+                .update(private_node_identity(&metadata).as_bytes());
+        }
+    }
+    let after = inspect_open_node(source)?;
+    anyhow::ensure!(
+        names == read_directory_names(source, MAX_DIRECTORY_ENTRIES as usize)?
+            && before.fingerprint == after.fingerprint,
+        "attachment_directory_changed"
+    );
+    Ok(())
+}
+
+fn private_node_identity(node: &OpenedNodeMetadata) -> String {
+    let mut digest = Sha256::new();
+    digest.update(b"rovai-private-source-identity-v1\0");
+    let value = &node.fingerprint;
+    #[cfg(unix)]
+    {
+        for item in [value.device, value.inode, value.link_count, value.size] {
+            digest.update(item.to_be_bytes());
+        }
+        for item in [
+            value.modified_seconds,
+            value.modified_nanoseconds,
+            value.changed_seconds,
+            value.changed_nanoseconds,
+        ] {
+            digest.update(item.to_be_bytes());
+        }
+    }
+    #[cfg(windows)]
+    {
+        digest.update(value.volume_serial_number.to_be_bytes());
+        digest.update(value.file_id);
+        digest.update(value.size.to_be_bytes());
+        digest.update(value.last_write_time.to_be_bytes());
+        digest.update(value.change_time.to_be_bytes());
+        digest.update(value.attributes.to_be_bytes());
+        digest.update(value.number_of_links.to_be_bytes());
+    }
+    format!("{:x}", digest.finalize())
+}
+
 pub const MAX_PREPARED_ATTACHMENTS: usize = 10;
 pub const MAX_ATTACHMENT_BYTES: u64 = 25 * 1024 * 1024;
 pub const MAX_DRAFT_ATTACHMENT_BYTES: u64 = 64 * 1024 * 1024;

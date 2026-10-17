@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "date": "2026-10-14",
-  "policy": "客户允许先登记待办并推进独立工作；不削减范围或假通过，最后补齐必要验收",
+  "date": "2026-10-16",
+  "policy": "用户在I12前只做方案审核与无法自行解决的环境协助；工程验证由Codex执行，最终用户软件使用验收在I12工程完成后。",
   "items": [
     {
       "id": "INPUT-MAC",
       "resource": "RES-MAC",
       "required_for": "I08及平台最终验收",
-      "need": "实际Mac的权限、硬件和安装交互验收方式",
+      "need": "可供研发验证的Mac或等效远程环境；安装、权限和交互测试由Codex负责执行",
       "status": "deferred",
       "software_workaround": "GitHub两款双架构源码编译已验证",
       "current_fusion_qualification": "not_run_source_baseline_only"
@@ -19,7 +19,8 @@
       "need": "iPhone/iPad实际安装、触控、后台和网络验收设备",
       "status": "deferred",
       "software_workaround": "iPhone模拟器源码构建及启动已验证，iPad和真机未验收",
-      "current_fusion_qualification": "not_run_source_baseline_only"
+      "current_fusion_qualification": "not_run_source_baseline_only",
+      "validation_executor": "Codex；用户仅协助提供设备或可用环境"
     },
     {
       "id": "INPUT-ANDROID",
@@ -28,7 +29,8 @@
       "need": "客户指定可使用的ADB连接及实际设备",
       "status": "deferred",
       "software_workaround": "API36 AOSP模拟器源码构建/176单测/启动已验证，不使用旧ADB设备",
-      "current_fusion_qualification": "not_run_source_baseline_only"
+      "current_fusion_qualification": "not_run_source_baseline_only",
+      "validation_executor": "Codex；用户仅协助提供设备或可用环境"
     },
     {
       "id": "INPUT-RUNTIME",
@@ -56,10 +58,10 @@
     },
     {
       "id": "INPUT-ACCEPTANCE",
-      "required_for": "main阶段合入及I12客户最终验收",
-      "need": "客户验收阶段PR与最终MVP",
-      "status": "deferred",
-      "software_workaround": "按依赖建立阶段分支和草稿PR继续开发；保持main人工验收控制"
+      "required_for": "I12工程完成后的最终用户软件使用验收及最终合入/发布授权",
+      "need": "取得可运行完整软件后，以真实用户身份使用和反馈；不逐阶段审PR或技术测试报告",
+      "status": "not_due_until_I12_engineering_complete",
+      "software_workaround": "Codex继续阶段分支、PR管理和工程验证，不等待客户阶段验收"
     },
     {
       "id": "INPUT-GITHUB-CI",
@@ -120,6 +122,26 @@
         "I02_技能包怎么用_客户确认版_r1.pdf"
       ],
       "formal_statement": "docs/versions/v1.72/model-context-change-skill-pack-member-delivery.md"
+    },
+    {
+      "id": "INPUT-PRIVATE-MATERIALS-R1",
+      "required_for": "I03私聊材料卡片隔离模型输入选择",
+      "status": "confirmed",
+      "need": "已阅读16页客户确认版r1并明确确认，继续实施，无需再次确认",
+      "proposal": "integration/proposals/canvas-private-materials-r1.md",
+      "formal_statement": "docs/versions/v1.72/model-context-change-canvas-private-materials.md",
+      "revision": 1,
+      "confirmed_revision": 1,
+      "confirmation_status": "confirmed",
+      "confirmed_by": "User",
+      "confirmed_at": "2026-10-15T11:58:42Z",
+      "human_reply": "确认，按私聊材料隔离 r1 实施",
+      "governance": "docs/development/model-context-change-governance.md:49-56",
+      "outputs": [
+        "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.docx",
+        "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.pdf"
+      ],
+      "software_workaround": "r1已确认，按阶段批量验证规则继续本地实现；真实模型身份/预算与设备仍另补，不自动付费"
     }
   ]
 }

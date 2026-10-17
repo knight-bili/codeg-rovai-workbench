@@ -1,0 +1,562 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "partial_pass_note_coordinate_verification_unresolved",
+  "candidate": "fusion-i03-rc.14",
+  "production_source": "c44638135b8e06d34456bdc50657707404a6045c",
+  "native_source": "2158df02e793fc2eb3a01297b4921de214cdbe61",
+  "builds": {
+    "desktop_exit": 0,
+    "web_exit": 0,
+    "new_core_builds": 0
+  },
+  "low_cost_checks": {
+    "types_exit": 0,
+    "related_files": 2,
+    "related_tests_passed": 24,
+    "docs_tests_passed": 10,
+    "docs_gate_exit": 0
+  },
+  "native": {
+    "unique_passed_assertions": 27,
+    "runs": [
+      {
+        "mode": "notes",
+        "revision": "r1",
+        "status": "failed",
+        "checks": [],
+        "error": "Error: Native condition timed out: window.rovai.request('canvas.nodes.snapshot',{boardId:\"4dc38945-ff27-4d27-959e-cdc6a68b46fc\"}).then(graph=>graph.nodes.find(node=>node.id===\"4304e710-92aa-4971-a06a-8a0f08350ef3\")?.data.x===72)\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r1.mjs:38:163)\n    at async qualifyNotes (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r1.mjs:622:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r1.mjs:82:4)",
+        "renderer_errors": [],
+        "runtime_errors": [],
+        "shutdown": {
+          "report": {
+            "activeExecutionsObserved": 0,
+            "cancelledAgentRunsSettled": 0,
+            "controlledShutdownCyclePersisted": true,
+            "deadlineExpired": false,
+            "protocolVersion": 3,
+            "status": "completed",
+            "stopRequestsIssued": 0,
+            "terminalExecutionsSettled": 0,
+            "unresolvedExecutions": 0,
+            "unsettledEffectAgentRuns": 0
+          },
+          "forcedSignal": null
+        },
+        "owner_revision": "c44638135b8e06d34456bdc50657707404a6045c",
+        "owner_sha256": "46e64af95b887f4c95671e35c4737f4ea062a9df9db6dce5fcf6d1280242555a"
+      },
+      {
+        "mode": "notes",
+        "revision": "r2",
+        "status": "failed",
+        "checks": [],
+        "error": "Error: Native condition timed out: window.rovai.request('canvas.nodes.snapshot',{boardId:\"2be856d9-5171-4a9d-8c75-f4929959fafa\"}).then(graph=>graph.nodes.find(node=>node.id===\"c3d917e3-5f35-4d0e-bb77-ed906ac1eac0\")?.data.x===72)\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r2.mjs:38:163)\n    at async qualifyNotes (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r2.mjs:627:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r2.mjs:82:4)",
+        "renderer_errors": [
+          "ResizeObserver loop completed with undelivered notifications."
+        ],
+        "runtime_errors": [
+          {
+            "message": "ResizeObserver loop completed with undelivered notifications.",
+            "stack": ""
+          }
+        ],
+        "shutdown": {
+          "report": {
+            "activeExecutionsObserved": 0,
+            "cancelledAgentRunsSettled": 0,
+            "controlledShutdownCyclePersisted": true,
+            "deadlineExpired": false,
+            "protocolVersion": 3,
+            "status": "completed",
+            "stopRequestsIssued": 0,
+            "terminalExecutionsSettled": 0,
+            "unresolvedExecutions": 0,
+            "unsettledEffectAgentRuns": 0
+          },
+          "forcedSignal": null
+        },
+        "owner_revision": "5570e4efb68fc672e0f9eff886ae504b7d8146b2",
+        "owner_sha256": "e250b77c2b46bd8f16556bf5d875867db75e49c9f206b0b91519d985653b207e"
+      },
+      {
+        "mode": "notes",
+        "revision": "r3",
+        "status": "failed",
+        "checks": [],
+        "error": "Error: Native condition timed out: window.rovai.request('canvas.nodes.snapshot',{boardId:\"d21630d8-6fa2-4f13-8843-ea5de50b0155\"}).then(graph=>graph.nodes.find(node=>node.id===\"af28f4f5-1a7b-42ae-80c8-db43639541a8\")?.data.x===72)\n    at wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r3.mjs:38:163)\n    at async qualifyNotes (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r3.mjs:635:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-notes-r3.mjs:82:4)",
+        "renderer_errors": [],
+        "runtime_errors": [],
+        "shutdown": {
+          "report": {
+            "activeExecutionsObserved": 0,
+            "cancelledAgentRunsSettled": 0,
+            "controlledShutdownCyclePersisted": true,
+            "deadlineExpired": false,
+            "protocolVersion": 3,
+            "status": "completed",
+            "stopRequestsIssued": 0,
+            "terminalExecutionsSettled": 0,
+            "unresolvedExecutions": 0,
+            "unsettledEffectAgentRuns": 0
+          },
+          "forcedSignal": null
+        },
+        "owner_revision": "762448204c1624155c4981dd9a57219ffa0f1188",
+        "owner_sha256": "209c1ee5e0dcd5b6c543c0bda1f37d9baa7d69ab5a4199ab88739f6f46429f67"
+      },
+      {
+        "mode": "terminal",
+        "revision": "r1",
+        "status": "passed",
+        "checks": [
+          {
+            "name": "production_canvas_route_and_persisted_nodes",
+            "passed": true,
+            "board_id": "d18f8065-b80f-419f-b9a4-4843c0d9cb15"
+          },
+          {
+            "name": "minimum_width_terminal_preserves_six_visible_named_controls_without_outer_scroll",
+            "passed": true
+          },
+          {
+            "name": "native_electron_keyboard_reaches_real_pty_and_calculates_five",
+            "passed": true,
+            "input_sequence": 2
+          },
+          {
+            "name": "real_pty_result_is_painted_in_production_terminal_reader",
+            "passed": true
+          },
+          {
+            "name": "native_terminal_stop_completes_process_cleanup",
+            "passed": true
+          }
+        ],
+        "error": null,
+        "renderer_errors": [
+          "ResizeObserver loop completed with undelivered notifications."
+        ],
+        "runtime_errors": [],
+        "shutdown": {
+          "report": {
+            "activeExecutionsObserved": 0,
+            "cancelledAgentRunsSettled": 0,
+            "controlledShutdownCyclePersisted": true,
+            "deadlineExpired": false,
+            "protocolVersion": 3,
+            "status": "completed",
+            "stopRequestsIssued": 0,
+            "terminalExecutionsSettled": 0,
+            "unresolvedExecutions": 0,
+            "unsettledEffectAgentRuns": 0
+          },
+          "forcedSignal": null
+        },
+        "owner_revision": "5570e4efb68fc672e0f9eff886ae504b7d8146b2",
+        "owner_sha256": "e250b77c2b46bd8f16556bf5d875867db75e49c9f206b0b91519d985653b207e"
+      },
+      {
+        "mode": "private-ui",
+        "revision": "r1",
+        "status": "passed",
+        "checks": [
+          {
+            "name": "actual_scoped_composer_renders_only_its_own_attachment_card",
+            "passed": true
+          },
+          {
+            "name": "inline_card_has_one_drag_header_and_private_preview_is_visible_above_compact_conversation",
+            "passed": true
+          },
+          {
+            "name": "real_mouse_moves_private_card_between_inline_and_drawer_without_remounting_composer",
+            "passed": true
+          },
+          {
+            "name": "actual_scoped_attachment_button_opens_authorized_file_without_sending_or_consuming_input",
+            "passed": true
+          },
+          {
+            "name": "empty_private_reading_area_fits_card_and_keeps_compact_recovery_entries",
+            "passed": true
+          }
+        ],
+        "error": null,
+        "renderer_errors": [],
+        "runtime_errors": [],
+        "shutdown": {
+          "report": {
+            "activeExecutionsObserved": 0,
+            "cancelledAgentRunsSettled": 0,
+            "controlledShutdownCyclePersisted": true,
+            "deadlineExpired": false,
+            "protocolVersion": 3,
+            "status": "completed",
+            "stopRequestsIssued": 0,
+            "terminalExecutionsSettled": 0,
+            "unresolvedExecutions": 0,
+            "unsettledEffectAgentRuns": 0
+          },
+          "forcedSignal": null
+        },
+        "owner_revision": "5570e4efb68fc672e0f9eff886ae504b7d8146b2",
+        "owner_sha256": "e250b77c2b46bd8f16556bf5d875867db75e49c9f206b0b91519d985653b207e"
+      },
+      {
+        "mode": "files",
+        "revision": "r1",
+        "status": "passed",
+        "checks": [
+          {
+            "name": "actual_canvas_text_card_preserves_unicode_and_literal_hash_file_name",
+            "passed": true
+          },
+          {
+            "name": "actual_html_card_loads_author_css_js_and_keeps_csp_without_native_bridge",
+            "passed": true
+          },
+          {
+            "name": "author_html_interaction_executes_in_actual_preview",
+            "passed": true
+          },
+          {
+            "name": "author_document_has_confirmed_loaded_state_and_connected_host_channel",
+            "passed": true
+          },
+          {
+            "name": "file_card_uses_one_header_and_keeps_exact_path_available_on_hover",
+            "passed": true
+          },
+          {
+            "name": "html_source_preview_toggle_preserves_live_document_and_author_state",
+            "passed": true
+          },
+          {
+            "name": "reloading_one_actual_file_card_preserves_other_html_document",
+            "passed": true
+          },
+          {
+            "name": "file_card_more_menu_is_reachable_with_native_keyboard",
+            "passed": true
+          },
+          {
+            "name": "core_node_deletion_removes_only_pin_and_preserves_file_and_other_html_view",
+            "passed": true
+          }
+        ],
+        "error": null,
+        "renderer_errors": [
+          "Connecting to 'http://preview-1209d9f2-e62c-4c51-bc3a-76c6d54b398b.localhost:59835/__rovai-preview/events?documentId=a2918604-9edd-4615-847a-6c23a8aef239' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked.",
+          "Fetch API cannot load http://preview-1209d9f2-e62c-4c51-bc3a-76c6d54b398b.localhost:59835/__rovai-preview/events?documentId=a2918604-9edd-4615-847a-6c23a8aef239. Refused to connect because it violates the document's Content Security Policy.",
+          "Connecting to 'http://preview-1209d9f2-e62c-4c51-bc3a-76c6d54b398b.localhost:59835/__rovai-preview/events?documentId=29b06bdd-005b-4fe3-ac55-37bb7c99f419' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked.",
+          "Fetch API cannot load http://preview-1209d9f2-e62c-4c51-bc3a-76c6d54b398b.localhost:59835/__rovai-preview/events?documentId=29b06bdd-005b-4fe3-ac55-37bb7c99f419. Refused to connect because it violates the document's Content Security Policy."
+        ],
+        "runtime_errors": [],
+        "shutdown": {
+          "report": {
+            "activeExecutionsObserved": 0,
+            "cancelledAgentRunsSettled": 0,
+            "controlledShutdownCyclePersisted": true,
+            "deadlineExpired": false,
+            "protocolVersion": 3,
+            "status": "completed",
+            "stopRequestsIssued": 0,
+            "terminalExecutionsSettled": 0,
+            "unresolvedExecutions": 0,
+            "unsettledEffectAgentRuns": 0
+          },
+          "forcedSignal": null
+        },
+        "owner_revision": "5570e4efb68fc672e0f9eff886ae504b7d8146b2",
+        "owner_sha256": "e250b77c2b46bd8f16556bf5d875867db75e49c9f206b0b91519d985653b207e"
+      },
+      {
+        "mode": "objects",
+        "revision": "r1",
+        "status": "passed",
+        "checks": [
+          {
+            "name": "codeg_canvas_dock_viewport_keyboard_menus_and_minimap_toggle",
+            "passed": true
+          },
+          {
+            "name": "actual_canvas_task_pin_reads_exact_cancelled_task",
+            "passed": true
+          },
+          {
+            "name": "actual_history_task_pin_opens_original_workspace_and_exact_task_detail",
+            "passed": true
+          },
+          {
+            "name": "actual_mission_pin_reads_original_mission_id",
+            "passed": true
+          },
+          {
+            "name": "actual_mission_pin_opens_original_mission_workspace",
+            "passed": true
+          },
+          {
+            "name": "mission_delivery_uses_canonical_thread_identity",
+            "passed": true
+          },
+          {
+            "name": "diff_pin_without_prepared_workspace_reports_unavailability_without_substituting_a_file",
+            "passed": true
+          },
+          {
+            "name": "actual_file_pin_opens_its_original_thread_and_exact_file_tab",
+            "passed": true
+          }
+        ],
+        "error": null,
+        "renderer_errors": [
+          "Connecting to 'http://preview-d75dadcd-1591-4683-b0c5-ab7bd569a1e7.localhost:19823/__rovai-preview/events?documentId=dd4c6927-dd59-430b-bd3f-a4a20d520917' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked.",
+          "Fetch API cannot load http://preview-d75dadcd-1591-4683-b0c5-ab7bd569a1e7.localhost:19823/__rovai-preview/events?documentId=dd4c6927-dd59-430b-bd3f-a4a20d520917. Refused to connect because it violates the document's Content Security Policy.",
+          "ResizeObserver loop completed with undelivered notifications.",
+          "ResizeObserver loop completed with undelivered notifications."
+        ],
+        "runtime_errors": [],
+        "shutdown": {
+          "report": {
+            "activeExecutionsObserved": 0,
+            "cancelledAgentRunsSettled": 0,
+            "controlledShutdownCyclePersisted": true,
+            "deadlineExpired": false,
+            "protocolVersion": 3,
+            "status": "completed",
+            "stopRequestsIssued": 0,
+            "terminalExecutionsSettled": 0,
+            "unresolvedExecutions": 0,
+            "unsettledEffectAgentRuns": 0
+          },
+          "forcedSignal": null
+        },
+        "owner_revision": "5570e4efb68fc672e0f9eff886ae504b7d8146b2",
+        "owner_sha256": "e250b77c2b46bd8f16556bf5d875867db75e49c9f206b0b91519d985653b207e"
+      }
+    ]
+  },
+  "verified": {
+    "private_empty_layout": {
+      "extraY": 0,
+      "emptyMinHeight": "0px",
+      "legacyExpanded": "false",
+      "legacyHeight": 37.40006637573242
+    },
+    "terminal_toolbar": {
+      "width": 259,
+      "extraX": 0,
+      "buttons": [
+        {
+          "name": "启动终端",
+          "visible": true
+        },
+        {
+          "name": "停止终端",
+          "visible": true
+        },
+        {
+          "name": "重新读取",
+          "visible": true
+        },
+        {
+          "name": "快捷键",
+          "visible": true
+        },
+        {
+          "name": "复制选区",
+          "visible": true
+        },
+        {
+          "name": "粘贴",
+          "visible": true
+        }
+      ]
+    },
+    "private_composer_identity_preserved": true,
+    "private_materials_not_sent_or_consumed": true,
+    "files_author_csp_preserved": true,
+    "object_navigation": "原Task/Mission/文件工作区，未准备Git的Diff明确不可用；不授予ready Git Diff资格"
+  },
+  "notes_unresolved": {
+    "passed_assertions": 0,
+    "latest_observed_nodes": [
+      {
+        "id": "af28f4f5-1a7b-42ae-80c8-db43639541a8",
+        "x": 48,
+        "y": 24
+      },
+      {
+        "id": "8ea947bd-0246-4941-8204-3903638f4572",
+        "x": 400,
+        "y": 0
+      }
+    ],
+    "latest_observed_mouse_events": [
+      {
+        "type": "mousemove",
+        "buttons": 0,
+        "trusted": true,
+        "x": 573,
+        "y": 516
+      },
+      {
+        "type": "mousedown",
+        "buttons": 1,
+        "trusted": true,
+        "x": 573,
+        "y": 516
+      }
+    ],
+    "expected_delta": {
+      "x": 72,
+      "y": 48
+    },
+    "observed_first_note": {
+      "x": 48,
+      "y": 24
+    },
+    "boundary": "r3已有Core几何变化，但与断言不一致；尚未测全WebContents缩放/DOM矩阵/真实mousemove坐标及对齐结果，不能认定为产品或夹具根因，更不能授予便笺六项资格。后续编辑/冲突/导航检查因首断言未通过尚未执行。"
+  },
+  "visual_review": {
+    "actually_viewed": [
+      "native-notes-r1/failure.png",
+      "native-terminal-r1/native-output.png",
+      "native-private-ui-r1/02-private-conversation-returned.png"
+    ],
+    "remaining": [
+      "便笺正文仍受原文档字号影响，继续按Codeg便笺13px对照；未经新候选不改当前构建",
+      "各类完整状态/长标题、日主题、冷恢复/规模与既定I03场景仍未完成"
+    ]
+  },
+  "console_review": {
+    "boundary": "原始日志保留：部分场景有ResizeObserver延迟通知；作者HTML的connect-src none继续阻止诊断SSE。私聊此次无renderer error，不外推全部场景零错误。"
+  },
+  "evidence": [
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/desktop-build-result.json",
+      "sha256": "341dee427aae66201162f73c1ca196757d3d623fc64f26145266c2ee8076789a"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/web-build-result.json",
+      "sha256": "d5a7d423a825680090129fcb2665359abdcf1bdc4c710c94693cb3d57115e9cf"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r1/result.json",
+      "sha256": "177af9c76431c07c3bbbdd1a18b761f00aa38a9173c5947bc5986bb26b44b0d3"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r1-config.json",
+      "sha256": "b617b0b72b94db11e3ee73717ceabccc8a091112ec743ca8d87002825c4448f3"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/notes-r1-run.log",
+      "sha256": "702d88e2dfb6739b3f99030a06387242ceee38a5a5aea4efacb07fe488677388"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r2/result.json",
+      "sha256": "8fbe3acdd489beddd923f65b928f0fcc849bad9344299d33f09a116c46d78e8c"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r2-config.json",
+      "sha256": "6fdfe54dbfe10a83e268d14080ea1ffdfce046dad084ff46046b317292501e31"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/notes-r2-run.log",
+      "sha256": "4056d472fdcbb63f53cea53c0109435fc9ef169d2e243dd8ab0d380e6910ba03"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r3/result.json",
+      "sha256": "dade890d42001ad9628dc33c620ff2f30373af45448d461c6c73754c809c79f1"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r3-config.json",
+      "sha256": "c16e47b13233ab4ff31837ddb2049bfebe839dacfe3e291121467678e69a5e0c"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/notes-r3-run.log",
+      "sha256": "2352b9590e49f1860a5bcceb180e97ff8779b0fab42ffffc9a10df95ae8b283e"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-terminal-r1/result.json",
+      "sha256": "2dd4eb14c59cfd4e1041cebf14006554702865146125489f7bb6ec29925f5d62"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-terminal-r1-config.json",
+      "sha256": "420a25421b50c69ce5695e82f1acb5baed6b4f923ff1aab5f59fb4545e8e59e5"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/terminal-r1-run.log",
+      "sha256": "ef1f4ee4320ba824fb39b4586661441b0c255e926a9391f32b1af23b17d7c60a"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-private-ui-r1/result.json",
+      "sha256": "c209ffdd9bbc2c4ba2f04f7d70e5fb26c95ea2c0db78fdbd4f82216b3317ac75"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-private-ui-r1-config.json",
+      "sha256": "5c4f068e86e377af92522ef0bf095a9a00cd011f2825bbe541193a7a903a58ed"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/private-ui-r1-run.log",
+      "sha256": "26b339370e1e6d64cb6e5c65f2ebf7916bc17b5c9856828bc40b2d584e9194db"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-files-r1/result.json",
+      "sha256": "f7cbfb94b5f176f671234adfde47f8513274c0635d91f1dccacd013289e8b33b"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-files-r1-config.json",
+      "sha256": "33a238b485d66b5d484608f91ea07f4e1153029bc04d0f92e637692718d8cc8b"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/files-r1-run.log",
+      "sha256": "a17e5ce14a0926ef7113fadd1ef7d6e67b2e65530c5a88082b232ebb38cf97dd"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-objects-r1/result.json",
+      "sha256": "a4733e48bdb44d072d2fbabac899f4346df9b2324840b9eeb8ca085b8467b120"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-objects-r1-config.json",
+      "sha256": "81acb9c02dcc7571bcbdef4305a52846afc538876912badc0a0164d15760815c"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/objects-r1-run.log",
+      "sha256": "315e28875b542281f2b0868665133f5210d0b6a4346c4efed5d9acd27bd63162"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r1/failure.png",
+      "sha256": "1e10a86dca8050d8a61d50b9e03e46f748af54d1fd2be942402e178afa16562c"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-notes-r3/failure.png",
+      "sha256": "85b4ae03ab12186481694184fa4e9e84c3df6be5f6115578e8399fd017f1b62f"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-terminal-r1/native-output.png",
+      "sha256": "4184f1725525eab327f3107cb2e4c7e7db489c5598e17c164680c76d17a1bba9"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-private-ui-r1/02-private-conversation-returned.png",
+      "sha256": "8059e0b45b1f9b11681ab0167790cf34c210f83e2405de15c5e23f1421bf510a"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/freeze.json",
+      "sha256": "b969e5a47a959932718c1c716770d43cb789385897263e01b07e8110e89b5c77"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/desktop-output-inventory.json",
+      "sha256": "d6dafb2b122f4aba2a508d14fe3ccb539fae9d57eeaa4157159c034362cac156"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/web-output-verification.json",
+      "sha256": "dd9cde4d91fdea5254b48fc4cd892d5f172c02516e5748eaa825592e734bb131"
+    }
+  ],
+  "customer_action_now": null,
+  "actions": 0,
+  "pushes": 0,
+  "paid_models": 0
+}

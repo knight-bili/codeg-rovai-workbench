@@ -1,10 +1,11 @@
+import { canvasComposerContextKey, canvasComposerDraftStorage, canvasComposerDraftCopies, type CanvasComposerContext } from './canvas-composer-drafts'
 import { groupExecutionEventsByRunId } from './execution-events'
 export { groupExecutionEventsByRunId } from './execution-events'
 import { MemberSessionReset } from './MemberSessionReset'
 import { ContinueAgentRunButton } from './ContinueAgentRunButton'
 import { ConversationRunPresence } from './ConversationRunPresence'
 import { conversationRunPresenceTimeline } from './conversation-run-presence'
-import { PendingThreadDraftPersistence } from './pending-thread-draft'
+import { PendingThreadDraftPersistence, retainPendingThreadDraftSurface } from './pending-thread-draft'
 import { MessageModelSummary, ModelSummaryText, ProfileModelFields } from './ThreadModelInformation'
 import { memberRuntimeConfigurationPresentation, modelSummary, runtimeAdapterLabel } from './runtime-model-presentation'
 export { memberRuntimeConfigurationPresentation, type MemberRuntimeConfigurationPresentation } from './runtime-model-presentation'
@@ -47,6 +48,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import * as Popover from '@radix-ui/react-popover'
 import { ThreadDetailPopover } from './ThreadDetailPopover'
 import { SingleChatPanel } from './SingleChatPanel'
+import { canvasNotificationNodeVisible, observeCanvasNotificationVisibility } from './canvas-notification-visibility'
 import {
   CompactionEventRow, ExecutionToolGroupStateContext, FileOperationRow, ModifiedFileRow, RuntimeRetryNotice,
   ToolActivityGroup, ToolCallRow, selectCompletePresentableExecutionEvidence, type ToolCallStep
@@ -1613,8 +1615,17 @@ function RevealNotificationConversation({ active, onHidePreview }: { active: boo
   return null
 }
 
-export function ThreadWorkspace({
+export function ThreadWorkspace(props: Parameters<typeof ThreadWorkspaceContent>[0]): JSX.Element {
+  const client = useThreadClient(), owner = useRef({ client, generation: 0 })
+  if (props.composerContext && props.composerContext.threadId !== props.snapshot.thread.id) throw new Error('Canvas draft belongs to another Thread.')
+  if (owner.current.client !== client) owner.current = { client, generation: owner.current.generation + 1 }
+  const key = JSON.stringify([owner.current.generation, props.snapshot.thread.id, props.composerContext ? canvasComposerContextKey(props.composerContext) : null])
+  return <ThreadWorkspaceContent key={key} {...props} />
+}
+
+function ThreadWorkspaceContent({
   snapshot,
+  composerContext,
   userAnchorNavigation,
   missionBoard = null,
   previewTabsInPane = false,
@@ -1666,6 +1677,7 @@ export function ThreadWorkspace({
   onVisibleNotificationSources,
   onVisibleSingleChatSources,
   singleChatTarget,
+  singleChatBoundConversationId,
   runtimeRecovery = null,
   firstRunThread = null,
   firstRunThreadId = null,
@@ -1676,6 +1688,7 @@ export function ThreadWorkspace({
   onNotifyError
 }: {
   snapshot: ThreadSnapshot
+  composerContext?: CanvasComposerContext
   userAnchorNavigation?: ThreadUserAnchorNavigation
   missionBoard?: React.ReactNode
   previewTabsInPane?: boolean
@@ -1728,7 +1741,8 @@ export function ThreadWorkspace({
   onNotificationFocusPresented?(requestId: number): void
   onVisibleNotificationSources?(sources: VisibleNotificationSources): void
   onVisibleSingleChatSources?(sources: VisibleNotificationSources): void
-  singleChatTarget?: import("@contracts").NotificationSingleChatSource & { requestId: number } | null
+  singleChatTarget?: import('./SingleChatPanel').SingleChatPanelTarget | null
+  singleChatBoundConversationId?: string
   runtimeRecovery?: ThreadRuntimeRecovery | null
   firstRunThread?: FirstRunThreadContext | null
   firstRunThreadId?: string | null
@@ -1739,6 +1753,7 @@ export function ThreadWorkspace({
   onNotifyError?(message: string): void
 }): JSX.Element {
   const client = useThreadClient()
+  useLayoutEffect(() => retainPendingThreadDraftSurface(client, snapshot.thread.id), [client, snapshot.thread.id])
   const interfaceLanguage = useInterfaceLanguage()
   const { profile: currentUserProfile } = useCurrentUserProfile()
   const currentUserName = currentUserDisplayName(currentUserProfile)
@@ -1817,17 +1832,20 @@ export function ThreadWorkspace({
   const activationStateRef = useRef(snapshot.thread.activationState)
   const memberCreationRef = useRef(memberCreation)
   memberCreationRef.current = memberCreation
-  const composerStorage = useMemo(() => threadComposerDraftStorage(client.editingRecovery), [client.editingRecovery])
-  const legacyComposerDraft = useMemo(() => client.editingRecovery && !memberCreation
+  const contextIdentity = composerContext ? canvasComposerContextKey(composerContext) : null
+  const composerDomId = useId()
+  const composerStorage = useMemo(() => composerContext ? canvasComposerDraftStorage(client, composerContext) : threadComposerDraftStorage(client.editingRecovery), [client, contextIdentity])
+  const legacyComposerDraft = useMemo(() => !composerContext && client.editingRecovery && !memberCreation
     ? loadLocalThreadComposerDraft(snapshot.thread.id) : null,
-  [client.editingRecovery, snapshot.thread.id, memberCreation])
+  [client.editingRecovery, snapshot.thread.id, memberCreation, contextIdentity])
   const [legacyDraftRecoveryError, setLegacyDraftRecoveryError] = useState<string | null>(null)
   const [savedDraftDialogOpen, setSavedDraftDialogOpen] = useState(false)
   const [draftCopyRevision, setDraftCopyRevision] = useState(0)
   const savedDraftIdentity = `${THREAD_COMPOSER_STORAGE_PREFIX}${snapshot.thread.id}`
-  const savedDraftCopies = useMemo(() => client.editingRecovery?.draftCopies?.(savedDraftIdentity)
-    .filter(copy => { const draft = parseLocalThreadComposerDraft(copy.value, snapshot.thread.id); return draft && !localThreadComposerDraftIsEmpty(draft) }) ?? [],
-  [client.editingRecovery, savedDraftIdentity, snapshot.thread.id, draftCopyRevision])
+  const readSavedDraftCopies = () => composerContext ? canvasComposerDraftCopies(client, composerContext) : client.editingRecovery?.draftCopies?.(savedDraftIdentity) ?? []
+  const savedDraftCopies = useMemo(() => readSavedDraftCopies()
+    .filter(copy => { const draft = parseLocalThreadComposerDraft(copy.value, snapshot.thread.id); return draft && !localThreadComposerDraftIsEmpty(draft) }),
+  [client.editingRecovery, savedDraftIdentity, snapshot.thread.id, draftCopyRevision, contextIdentity])
   useEffect(() => {
     if (!client.editingRecovery?.draftCopies) return
     const changed = (event: StorageEvent): void => {
@@ -1837,7 +1855,7 @@ export function ThreadWorkspace({
     return () => window.removeEventListener('storage', changed)
   }, [client.editingRecovery])
   const pendingDraftPersistence = useRef<PendingThreadDraftPersistence | null>(null)
-  if (!pendingDraftPersistence.current) pendingDraftPersistence.current = new PendingThreadDraftPersistence(client)
+  if (!pendingDraftPersistence.current) pendingDraftPersistence.current = new PendingThreadDraftPersistence(client, composerContext ? draft => saveLocalThreadComposerDraft(draft, composerStorage) : undefined, composerContext)
   const pendingThreadLeaveRef = useRef(onPendingThreadLeave)
   const pendingDraftChangeRef = useRef(onPendingDraftChange)
   pendingDraftChangeRef.current = onPendingDraftChange
@@ -1850,7 +1868,7 @@ export function ThreadWorkspace({
   if (!draftCoordinatorRef.current) {
     draftCoordinatorRef.current = new DraftMutationCoordinator({
       load: async (threadId) => {
-        const initial = initialComposerDraftRef.current?.threadId === threadId
+        const initial = !composerContext && initialComposerDraftRef.current?.threadId === threadId
           ? initialComposerDraftRef.current
           : null
         let draft = (activationStateRef.current === 'active' || !memberCreationRef.current
@@ -3145,6 +3163,7 @@ export function ThreadWorkspace({
   useEffect(() => {
     const handleFindShortcut = (event: globalThis.KeyboardEvent): void => {
       if (event.defaultPrevented || event.isComposing || isFileFindTarget(event.target)) return
+      if (composerContext && !workspaceShellRef.current?.contains(document.activeElement)) return
       if (
         event.altKey
         || (!event.metaKey && !event.ctrlKey)
@@ -3155,7 +3174,7 @@ export function ThreadWorkspace({
     }
     window.addEventListener('keydown', handleFindShortcut)
     return () => window.removeEventListener('keydown', handleFindShortcut)
-  }, [openConversationFind])
+  }, [openConversationFind, contextIdentity])
 
   useLayoutEffect(() => {
     const timeline = timelineScrollRef.current
@@ -3216,6 +3235,7 @@ export function ThreadWorkspace({
   }
 
   const recoverLegacyComposerDraft = async (copy?: SavedDraftCopy): Promise<void> => {
+    if (composerContext && !copy) return
     if (!composerStorage || composerSubmittingRef.current || routingMutatingRef.current) return
     const threadId = snapshot.thread.id
     const epoch = draftCoordinator.getEpoch()
@@ -3224,7 +3244,7 @@ export function ThreadWorkspace({
       await mutateRoutingDraft(async () => {
         await attachmentPreparationQueue.current
         const current = await draftCoordinator.waitForIdle()
-        const latestCopy = copy ? client.editingRecovery?.draftCopies?.(savedDraftIdentity).find(candidate => candidate.id === copy.id && candidate.value === copy.value) : null
+        const latestCopy = copy ? readSavedDraftCopies().find(candidate => candidate.id === copy.id && candidate.value === copy.value) : null
         const legacy = copy ? parseLocalThreadComposerDraft(latestCopy?.value ?? null, threadId) : loadLocalThreadComposerDraft(threadId)
         if (draftCoordinator.getEpoch() !== epoch || current?.threadId !== threadId || !legacy) {
           throw new Error(uiAttribute('旧草稿暂不可恢复，请重新打开此对话。'))
@@ -3580,7 +3600,7 @@ export function ThreadWorkspace({
       }
       if (notificationFocus.kind === 'task' || notificationFocus.kind === 'mission') {
         const id = notificationFocus.subjectId
-        const target = id ? document.querySelector<HTMLElement>(notificationFocus.kind === 'task'
+        const target = id ? workspaceShellRef.current?.querySelector<HTMLElement>(notificationFocus.kind === 'task'
           ? `.task-detail[data-task-id="${CSS.escape(id)}"]`
           : `.mission-intro[data-mission-id="${CSS.escape(id)}"]`) : null
         if (target && target.getClientRects().length > 0) presentTarget(target)
@@ -3926,6 +3946,7 @@ export function ThreadWorkspace({
         && conversationView === 'conversation'
         && timeline !== null
         && !timeline.hidden
+        && (!composerContext || canvasNotificationNodeVisible(timeline))
       const messageIds = new Set<string>()
       const campTurnIds = new Set<string>()
       const agentRunIds = new Set<string>()
@@ -3934,6 +3955,7 @@ export function ThreadWorkspace({
         const viewport = timeline.getBoundingClientRect()
         for (const node of timeline.querySelectorAll<HTMLElement>('[data-message-id]')) {
           if (!node.getClientRects().length || !rectanglesOverlap(node.getBoundingClientRect(), viewport)) continue
+          if (composerContext && !canvasNotificationNodeVisible(node, timeline)) continue
           const messageId = node.dataset.messageId
           const threadTurnId = node.dataset.threadTurnId
           if (messageId) messageIds.add(messageId)
@@ -3942,7 +3964,7 @@ export function ThreadWorkspace({
         const approvalNode = approvalDockRef.current?.querySelector<HTMLElement>(
           '[data-approval-id]'
         ) ?? null
-        if (approvalNode && approvalNode.getClientRects().length > 0 && rectanglesOverlap(approvalNode.getBoundingClientRect(), {
+        if (approvalNode && (!composerContext || canvasNotificationNodeVisible(approvalNode)) && approvalNode.getClientRects().length > 0 && rectanglesOverlap(approvalNode.getBoundingClientRect(), {
           top: 0,
           right: window.innerWidth,
           bottom: window.innerHeight,
@@ -3959,6 +3981,7 @@ export function ThreadWorkspace({
           const viewport = node.closest<HTMLElement>('.execution-drawer-body')
           if (!viewport || !node.getClientRects().length || viewport.hidden) continue
           if (!rectanglesOverlap(node.getBoundingClientRect(), viewport.getBoundingClientRect())) continue
+          if (composerContext && !canvasNotificationNodeVisible(node, viewport)) continue
           const agentRunId = node.dataset.agentRunId
           if (agentRunId) agentRunIds.add(agentRunId)
         }
@@ -3983,6 +4006,7 @@ export function ThreadWorkspace({
     }
     const timeline = timelineScrollRef.current
     const workspace = workspaceShellRef.current
+    const stopCanvasObservation = composerContext ? observeCanvasNotificationVisibility(workspace, schedule) : () => undefined
     const resizeObserver = new ResizeObserver(schedule)
     const observeExecutionDrawer = (): void => {
       if (!executionDrawerPortal) return
@@ -4017,6 +4041,7 @@ export function ThreadWorkspace({
       if (frame !== null) window.cancelAnimationFrame(frame)
       observer.disconnect()
       resizeObserver.disconnect()
+      stopCanvasObservation()
       timeline?.removeEventListener('scroll', schedule)
       workspace?.removeEventListener('scroll', schedule, true)
       executionDrawerPortal?.removeEventListener('scroll', schedule, true)
@@ -4036,6 +4061,7 @@ export function ThreadWorkspace({
     inspectorVisible,
     singleChatVisible,
     onVisibleNotificationSources,
+    contextIdentity,
     snapshot.approvals,
     snapshot.thread.id,
     snapshot.messages,
@@ -4798,6 +4824,36 @@ export function ThreadWorkspace({
   ) : null
   const rightExecutionVisible = executionPlacement === 'right'
     && Boolean(filePreview?.paneVisible && filePreview.activeTab?.kind === 'execution')
+
+  const singleChatPanel = <SingleChatPanel
+    onLeaveGuardChange={bindSingleChatLeaveGuard}
+    target={singleChatTarget}
+    boundConversationId={singleChatBoundConversationId}
+    composerContext={composerContext}
+    notificationFocus={notificationFocus?.kind === 'single_chat' ? notificationFocus : null}
+    onNotificationFocusPresented={onNotificationFocusPresented}
+    onVisibleNotificationSources={onVisibleSingleChatSources}
+    profileById={profileById}
+    busy={busy}
+    onResolveApproval={onResolveApproval}
+    threadId={snapshot.thread.id}
+    members={snapshot.members}
+    entryHost={detailEntryHost}
+    visible={singleChatVisible}
+    onOpen={onOpenSingleChat}
+    onClose={singleChatBoundConversationId ? onCloseSingleChat : mobile ? closeMobileSecondaryPanel : onCloseSingleChat}
+    onNotify={onNotify}
+  />
+  // A pinned private reference owns only its exact transcript; the public Composer is not mounted underneath.
+  if (singleChatBoundConversationId) return <section ref={workspaceShellRef} className="workspace-shell camp-workspace">
+    <FilePreviewWorkspace>
+      <section className="timeline-pane canvas-bound-single-chat">{singleChatPanel}</section>
+      {filePreview && <>
+        <FilePreviewResizeHandle onClose={filePreview.hidePane} />
+        <FilePreviewPane tabsInPane={previewTabsInPane} />
+      </>}
+    </FilePreviewWorkspace>
+  </section>
 
   return (
     <section ref={workspaceShellRef} className="workspace-shell camp-workspace" data-mobile-panel={mobile && inspectorVisible ? inspectorSurfaceTab : undefined} data-mobile-execution-maximized={mobile && mobileExecutionMaximized || undefined} aria-label={uiAttribute("会话：{0}", String(formatThreadTitle(snapshot.thread, firstRunThreadId)))}>
@@ -5697,23 +5753,7 @@ export function ThreadWorkspace({
             </section>
             </ThreadDetailPopover>}
             {snapshot.thread.activationState === 'active' && (
-              <SingleChatPanel
-                onLeaveGuardChange={bindSingleChatLeaveGuard}
-                target={singleChatTarget}
-                notificationFocus={notificationFocus?.kind === 'single_chat' ? notificationFocus : null}
-                onNotificationFocusPresented={onNotificationFocusPresented}
-                onVisibleNotificationSources={onVisibleSingleChatSources}
-                profileById={profileById}
-                busy={busy}
-                onResolveApproval={onResolveApproval}
-                threadId={snapshot.thread.id}
-                members={snapshot.members}
-                entryHost={detailEntryHost}
-                visible={singleChatVisible}
-                onOpen={onOpenSingleChat}
-                onClose={mobile ? closeMobileSecondaryPanel : onCloseSingleChat}
-                onNotify={onNotify}
-              />
+              singleChatPanel
             )}
           </div>
           {executionPlacement === 'bottom' && (
@@ -6019,8 +6059,8 @@ export function ThreadWorkspace({
               onMutate={async (action) => { await mutateRoutingDraft(() => draftCoordinator.mutateQuote(action)) }} />
             <StructuredMentionComposer
               ref={composerHandleRef}
-              id="camp-message"
-              draftIdentity={`${snapshot.thread.id}:composer`}
+              id={composerContext ? `camp-message-${composerDomId}` : 'camp-message'}
+              draftIdentity={contextIdentity ? `${snapshot.thread.id}:composer:${contextIdentity}` : `${snapshot.thread.id}:composer`}
               document={composerDraft?.threadId === snapshot.thread.id
                 ? composerDraft.content
                 : emptyComposerDocument()}

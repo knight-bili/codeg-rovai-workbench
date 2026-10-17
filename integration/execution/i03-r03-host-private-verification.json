@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R03",
+  "at": "2026-10-16T14:51:36.448056+00:00",
+  "source_base": "36d33a94",
+  "status": "engineering_verified_within_declared_scope",
+  "customer_stage_gate": false,
+  "qualification": {
+    "PC05": {
+      "verified": [
+        "真实Host两个独立登录身份访问同Conversation同pin，只读到各自材料与完整保留正文；跨端retained ID、回执拒绝，Desktop默认身份也读不到Web材料",
+        "原生产本机正文存储接Web编辑端隔离层，单测验证同pin正文/保留副本/位置索引分离、各自重载和复制标签页换身份后不采纳原私聊"
+      ],
+      "layer": "Windows真实Host/Core HTTP和客户端存储逻辑；不宣称浏览器页面、编辑器undo或多窗口UI已运行"
+    },
+    "PC06": {
+      "verified": [
+        "真实HTTP的Session/Proof身份错配、无Bearer恢复、伪造draftClient字段和顶层身份拒绝，前后材料不变",
+        "真实Host分页恢复游标跨编辑端和篡改拒绝，原编辑端合法游标仍可读取"
+      ],
+      "layer": "Windows真实Host/Core网络准入；不是仅Core反序列化或模拟HTTP"
+    },
+    "PC24": {
+      "verified": [
+        "真实Host原身份重登保留完整输入，旧默认get形状不增加scope字段，旧命令回执保持，错误revision不改原草稿",
+        "复用rc4实际迁移owner：注入Migration205回执失败保持旧schema/材料，成功升级逐值保留默认行、编辑会话和原回执；当前迁移及相关DB/私聊依赖源码不变",
+        "共享客户端能力owner实际执行，旧Core/错误版本/错卡/错私聊拒绝且无写入或自动降级"
+      ],
+      "layer": "真实Host兼容、已运行同源Core迁移回滚、当前客户端能力逻辑；不宣称所有历史安装包或平台运行通过"
+    }
+  },
+  "actual_host": {
+    "run_id": "r03-host-private-r1",
+    "cases": [
+      {
+        "name": "two actual logins isolate same-pin materials and complete retained bodies",
+        "status": "passed"
+      },
+      {
+        "name": "foreign retained ids and command receipts cannot adopt another editor input",
+        "status": "passed"
+      },
+      {
+        "name": "forged editing proofs and identity fields reject without changing materials",
+        "status": "passed"
+      },
+      {
+        "name": "recovery cursors reject tampering and cross-editor use",
+        "status": "passed"
+      },
+      {
+        "name": "proof-bound relogin restores own input and the legacy default shape",
+        "status": "passed"
+      }
+    ],
+    "duration_boundary": [
+      "2026-10-16T14:44:34.023Z",
+      "2026-10-16T14:44:43.703Z"
+    ],
+    "exit": {
+      "code": 0,
+      "signal": null
+    },
+    "compiled_core_source": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+    "host_binary_sha256": "d0988301d00a6bb3cf8733ded78bfe85cf8b3cf5a30683e47d01982bf0468928",
+    "renderer": false,
+    "agent_runs_created": 0
+  },
+  "client_logic": {
+    "files": 3,
+    "passed": 22,
+    "failed": 0,
+    "actual_ui": false
+  },
+  "historical_migration_reuse": {
+    "reference": "b43416d3b2d161868cb0aa4204a4fc92de550942",
+    "owner": "db::private_composer_scope::tests::migration_preserves_default_materials_fences_scopes_and_rolls_back_receipts",
+    "passed": 1,
+    "newly_executed_this_batch": false,
+    "module": "crates/rovai-core/src/db_private_composer_scope.rs",
+    "compiled_blob": "efae6a4974c3cd8d18b11bc1732a102f2468a4d3",
+    "current_blob": "efae6a4974c3cd8d18b11bc1732a102f2468a4d3",
+    "related_source_changes": []
+  },
+  "sources": [
+    {
+      "path": "scripts/lib/host-web.test.mjs",
+      "sha256": "252800d36d2f41b1a8c7aacfba5941cb80b4d9f3c5633090830baa6054d698ce"
+    },
+    {
+      "path": "scripts/lib/host-test-client.mjs",
+      "sha256": "89e0071deced57443ff12eccf3d8d3a48e920a3421b0eaba20077078eeb758d0"
+    },
+    {
+      "path": "scripts/lib/runtime-camp-files-root.mjs",
+      "sha256": "0f3a1f9d24bf402e11d4fb54fcb7768803f86888167521d9341ab853aabfdc31"
+    },
+    {
+      "path": "crates/rovai-web/src/lib.rs",
+      "sha256": "d449d107ab72fb38ec638d5151629f606ddb3dc8e1083c01dc7b68afd07adb38"
+    },
+    {
+      "path": "crates/rovai-web/src/auth.rs",
+      "sha256": "4abdd780c6e9afc5cb67429b1eeb4e8ab3e779050fe3632928b4d4f054fd9d73"
+    },
+    {
+      "path": "crates/rovai-core/src/application/private_composer.rs",
+      "sha256": "e5ad05571e64d81d137ecff7f4e249dab702fcaf364b23f933630ef8fdb51123"
+    },
+    {
+      "path": "crates/rovai-core/src/application/web_commands.rs",
+      "sha256": "55318880e3f3f5fb9a4e7b9f348a3451e59ff0bdfec33bbdc788234b6267ec88"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat_composer.rs",
+      "sha256": "ff754e70aec31bd970751664dff2d9331e1fa3cf19c434172dcc6c71e8dba88d"
+    },
+    {
+      "path": "crates/rovai-core/src/draft_client.rs",
+      "sha256": "651d61c4788d6205f11abbe5979dd21f9a08c4e3378d2cb889ee2598dac2ed1e"
+    },
+    {
+      "path": "crates/rovai-core/src/command.rs",
+      "sha256": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+    },
+    {
+      "path": "crates/rovai-core/src/db_private_composer_scope.rs",
+      "sha256": "a4775f9a5760d92d3a73f7c61d6c5b7ede2a45e71539ffc9f66abb1769aec250"
+    },
+    {
+      "path": "apps/web/src/editing-recovery.ts",
+      "sha256": "d83a64e6b6d02a1c65cc8e6c8cb46d59834c7e510143b5d6bd755774ba9fdc92"
+    },
+    {
+      "path": "apps/web/src/editing-recovery.test.ts",
+      "sha256": "e2fdea5d9465869c2370acbd9823de1817b6de2af7afd7ac10b06da75636fee3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/single-chat-composer-store.ts",
+      "sha256": "7f77add1b686316b32dfb4488ccb9f2b2298cafaab6cbb9276e8703c0c9933e2"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/single-chat-composer-store.test.ts",
+      "sha256": "f17043cae78e7c4c26b9e8f724cf61f927e4018ed639c29791a1e01a90156b52"
+    },
+    {
+      "path": "apps/desktop/src/shared/private-composer-scope.ts",
+      "sha256": "3c409d383f93cf48e6c5f4d249842dafd91a0d54e80444f7835ee52801cd5612"
+    },
+    {
+      "path": "apps/desktop/src/shared/private-composer-scope.test.ts",
+      "sha256": "f1c8d1de11143043950fcf03a57092e77469126e926fd3ef145631fb9e9b4ddb"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-host-private-r1\\manifest.json",
+      "sha256": "01eda05a03f3c2504e602c46196e7eb6f61aa39e47859b61bff7fc2dbe37ba0f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-host-private-r1\\driver.mjs",
+      "sha256": "262b26b0fb805ae92d8d7310db671d6eefa0b21e566a4b8d99429d53303f5231"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-host-private-r1\\host-web-owner.mjs",
+      "sha256": "252800d36d2f41b1a8c7aacfba5941cb80b4d9f3c5633090830baa6054d698ce"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-host-private-r1\\stdout.log",
+      "sha256": "5302f52abfd50dc37c7fa38f9d0ddb8b275541607d511eb092525dce4f60e317"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-host-private-r1\\stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-host-private-r1\\result.json",
+      "sha256": "72f27efcb8bd4c1d4a4f1972dcb210c0d7a863b21aae80ede0ed2f4e1926eaf3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-host-private-r1\\client-tests.log",
+      "sha256": "6a4b1adc014e5025625214cb811a28ef360f7c55170bc354266960ff91b64064"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-host-private-r1\\client-tests-final.log",
+      "sha256": "26a2fffe1c34554aca5001cc204946774dabc6f2cdd30b442b920b2e23d247f3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-host-private-Ru2rYc\\private-scope-result.json",
+      "sha256": "1be2b3c9f911a4492fafa79e78c5ae798a61a22e1fbd29261f36ddddc6f95af6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.4\\freeze.json",
+      "sha256": "813937d27ebec1895707977a02309c99c585a79a0188a23f904ac9c18a384129"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.4\\selected-rust-results.json",
+      "sha256": "711b4a7dda75b441e76c331d62aa3ec0d61892bef66a025421ffbebea156df8f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.4\\rust-owner-12.log",
+      "sha256": "2e5d980a462278fe4a0f0cd5e6f30a05b6ae905c823daea417c7fb9e3e608c5e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-host-private-r1\\docs-test.log",
+      "sha256": "7f6bb7f51616f479fe4394c6cafab4b48832a90a98e5df9f643111739a056137"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-host-private-r1\\docs-check.log",
+      "sha256": "7e54a2eb2e65eba06e11bac67a5deed3c8842ffdfc06f6a077e61bfa432f0c90"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-host-private-r1\\codegraph-sync.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    }
+  ],
+  "boundaries": [
+    "不同层级不相加为完整场景数",
+    "真实Renderer/卡片往返/undo仍归R01/R09",
+    "最终Runtime输入及整App/Core中断仍归R02/R04",
+    "其他平台及最终候选仍归R10"
+  ],
+  "guardrails": {
+    "production_code_changed": false,
+    "new_builds": 0,
+    "push": false,
+    "actions": false,
+    "model_calls": 0,
+    "full_i03_passed": false
+  },
+  "next": "I03-R01实际页面完整输入恢复；优先同次原地/侧边往返的引用、revision与undo观测",
+  "before_snapshot": {
+    "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r03-closeout-before-36d33a94",
+    "manifest_sha256": "164faae8e67341ed0180fb769d6cbeb15a60277a2f60528c6a35e734c055d47d"
+  },
+  "validation": {
+    "docs_test": {
+      "passed": 10,
+      "failed": 0
+    },
+    "docs_check_exit": 0,
+    "codegraph_sync_exit": 0,
+    "diff_check_exit": 0
+  }
+}

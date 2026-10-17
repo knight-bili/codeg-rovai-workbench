@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16T12:54:11.782Z",
+  "status": "implemented_local_checks_passed_pending_core_compile_and_native",
+  "base_commit": "4af9017e592f3eba2986f806d16a53b3e60fc40d",
+  "scope": "I03原Codeg画板列表真实轮廓、节点总数、编辑时间与独立操作菜单；Rovai Core同事务只读投影，无数据库迁移或模型输入变化",
+  "sources": {
+    "codeg": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "rovai": "cc465dda562536b94f23787759e3206324baa29e"
+  },
+  "source_mapping": "integration/inventory/canvas-ui-reference.md",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+      "sha256": "b30df178ba066a1a338c93652ae4b4b38757d17e22ba75754154693a884d412b"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-boards-controller.test.ts",
+      "sha256": "e35ce4de40d056ce9ecacfa7828fd9719fe4773a75bed6a87d58741225ed8a29"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-boards-controller.ts",
+      "sha256": "fef5dd325074887bf41674cab97aa4ee2c7606cb0b61cbaccf6b72e78e50dd53"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "fa0dc95c830f69f480cd194a6256cb60628e6f980dfc04fd21f60f654ee21b03"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "905a21d71324b2dd252d436c8f82c25ab7886209d92fddd0725a34c493920c66"
+    },
+    {
+      "path": "crates/rovai-core/src/canvas_board.rs",
+      "sha256": "2acc61eaa28f0095f7732bdc6c7e4cd55976eabc71a9945173d9c097b11fb89a"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "fb6b5ea8f04b000ae71b372e3207b07f4f10a96f4d189498ce488634f9904998"
+    },
+    {
+      "path": "docs/contracts/canvas-boards-v1.md",
+      "sha256": "8b0daaf6213b67c66f1d90813c5a0ebbb62a759f3da368171080a3e0152bcabf"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "81f84d7f2dd0a5d4b8e36ef810b6d272fbe71da2f7e0747e62187c79936b572e"
+    },
+    {
+      "path": "integration/inventory/canvas-ui-reference.md",
+      "sha256": "00df43f3849e931f4ca41314bd86ca2fc4bf03ac20057256f45ce5aee23f7a28"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "4f2fb779b84be1eb88cbc655ab2e9c40c760d2bc97b1fc4ac7859cdd1928fd25"
+    },
+    {
+      "path": "scripts/fixtures/canvas-native-input.mjs",
+      "sha256": "96a0c4abc604d9876087ba841449e2d5efdba4bc9377bea211ef956b71dea81d"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasBoardPreview.tsx",
+      "sha256": "c718fff26a242ab6ed81ba15089c3cd0cb2671580a8f635060e74cd8df27cc5c"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasBoardPreview.test.ts",
+      "sha256": "3cffce604b4dc823d79350a5ef18075b99c741361d57e39511f4679419b8a743"
+    }
+  ],
+  "implementation": [
+    "保留boards字段，追加同画板/版本summaries；全量真实节点/终端卡计数与最多200个面积优先轮廓在原事务读取",
+    "查询只选择几何和kind/color，窗口函数限制返回数量；不加载正文、成员表、文件内容或PTY",
+    "旧服务缺统计字段明确不可用；错板/错版本/缺失/越界统计拒绝替换最后有效快照",
+    "适配原SVG视框最小范围和8%留白，16:10轮廓、12px列表卡片、节点数量/相对编辑时间、独立打开/编辑/删除入口",
+    "保留原画板选择/离开/确认处理；滚动移至单独列表容器，网格按内容排布，避免单行卡片撑满窗口",
+    "新增英文文案；Native小窗口owner改为真实列表滚动容器，并保留旧布局读取兼容"
+  ],
+  "checks": {
+    "typescript": {
+      "exit_code": 0
+    },
+    "unit": {
+      "files": 2,
+      "passed": 8,
+      "scope": "控制器读取/兼容及SVG视框/预设色；模拟request，不是Core或真实列表UI"
+    },
+    "sqlite": {
+      "status": "passed",
+      "checks": [
+        "201 nodes keep exact counts and 200 largest footprints",
+        "stable area and ID ordering",
+        "board and terminal count isolation",
+        "deleted boards excluded; empty geometry emits no rows",
+        "query-only zero writes and no private column reads"
+      ],
+      "source_sha256": "2acc61eaa28f0095f7732bdc6c7e4cd55976eabc71a9945173d9c097b11fb89a",
+      "boundary": "SQLite executes current Rust SQL constant against source DDL in memory; no Rust compilation or Core/Host/Native qualification"
+    },
+    "rust_syntax_and_format": {
+      "exit_code": 0,
+      "boundary": "rustfmt only; no type or execution qualification"
+    },
+    "docs_test": {
+      "passed": 10
+    },
+    "docs_check": {
+      "exit_code": 0
+    },
+    "native_owner_syntax": {
+      "exit_code": 0
+    },
+    "codegraph": {
+      "exit_code": 0,
+      "note": "活锁182340失败后重试成功，未删除活锁"
+    }
+  },
+  "rust_owner": {
+    "name": "canvas_board::tests::board_migration_and_command_lifecycle_preserve_replay_and_atomic_snapshot",
+    "new_owner": false,
+    "status": "assertions_added_not_compiled_or_run",
+    "command": "cargo test -p rovai-core --features extended-tests --lib canvas_board::tests::board_migration_and_command_lifecycle_preserve_replay_and_atomic_snapshot"
+  },
+  "pending": [
+    "新Core/Rust/Host编译及既有owner实际执行，真实Core/Host/Native统计接口和读取无副作用资格",
+    "原版右键菜单及删除前终端数量提示，保留完整原有操作保护后集齐候选",
+    "当前列表日夜/长文案/空板/旧服务/键盘菜单与小窗口最后卡片可达性实际截图；源码不代证视觉",
+    "下个候选显式开启既有多会话ResizeObserver来源观察；C05原有限剩余继续"
+  ],
+  "preserved": {
+    "rc14_distinct_native_scenarios": 60,
+    "boundary": "本批没有增加真实Native场景；新Core源码已不同于2158df02，下一候选不能复用旧Core二进制冒充新投影"
+  },
+  "frequency": {
+    "core_builds": 0,
+    "desktop_builds": 0,
+    "web_builds": 0,
+    "renderer_bundles": 0,
+    "native_runs": 0,
+    "pushes": 0,
+    "github_actions": 0,
+    "external_models": 0
+  },
+  "evidence": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-preview-unit-final.log",
+      "sha256": "dd01287b7a99d5801e22516e53fdbb3635d590846cf62e5e043303d14066f9ff"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-preview-types.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-preview-sql-result.json",
+      "sha256": "2c0f96defd0abab7cd2be5164e3399fde09a5a426f1da09f3f2921929c43e798"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\check-board-preview-sql.py",
+      "sha256": "a8459e822f3db8a4f88de31fb88320d42945f345d240453eb16586805b2150f2"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-preview-docs-test.log",
+      "sha256": "f738751a19947303078f86168a092c7488e720d90741cbba9e787f68d1488bb3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-preview-docs-check.log",
+      "sha256": "7e54a2eb2e65eba06e11bac67a5deed3c8842ffdfc06f6a077e61bfa432f0c90"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-preview-final-sync.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "../i03/canvas-board-preview-docs-test-final.log",
+      "sha256": "06ce73e6d5abc255b29a599e9a88629f5b961f87885426430ec2651b7d0b10bc"
+    },
+    {
+      "path": "../i03/canvas-board-preview-docs-check-final.log",
+      "sha256": "7e54a2eb2e65eba06e11bac67a5deed3c8842ffdfc06f6a077e61bfa432f0c90"
+    }
+  ],
+  "customer_action_now": null
+}

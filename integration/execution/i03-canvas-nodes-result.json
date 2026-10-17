@@ -1,0 +1,231 @@
+{
+  "recordedAt": "2026-10-14T15:28:09.473Z",
+  "baseline": "2b5f6fcf846238025a549bda4054235da2029645",
+  "branch": "phase/i03-canvas-nodes",
+  "status": "Core_node_graph_locally_verified_Linux_deferred_to_I03_stage_candidate",
+  "donor": {
+    "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "audit": "i03-node-source-audit-result.json"
+  },
+  "sourceFiles": [
+    {
+      "file": ".github/workflows/core-integration.yml",
+      "sha256": "7855a3ce5c0fdd7d290b754c1d844d92ca1db6d89d18452c4a5c9d89647c8631"
+    },
+    {
+      "file": "crates/rovai-core/src/application.rs",
+      "sha256": "a221326e4e9c477de2c1af8fe20c0da2ebff64cf82b8b56268d447c588211961"
+    },
+    {
+      "file": "crates/rovai-core/src/canvas_board.rs",
+      "sha256": "41cba9e65379ca6cec41c19896aec65b3273e47858704aa85bf23d9c4841660a"
+    },
+    {
+      "file": "crates/rovai-core/src/canvas_node.rs",
+      "sha256": "73778abbba0e36e0faee3bbf9a84c339636ab6f3d475bdc234de24b41afe84a9"
+    },
+    {
+      "file": "crates/rovai-core/src/db.rs",
+      "sha256": "6636f8b32de177428a1b640d0367e532ebbfcf6476c88441680a38f90a2a8425"
+    },
+    {
+      "file": "crates/rovai-core/src/db_skill_pack_context.rs",
+      "sha256": "ea5d2e96cbf05483262ad63d6a52a0da3e6a18ba9401dc6893c9d79692055c17"
+    },
+    {
+      "file": "crates/rovai-core/src/lib.rs",
+      "sha256": "a0a4bc177022f651d579ac0cd888b3a7c3efcfe110fc83b021e55fe2a74d3747"
+    },
+    {
+      "file": "crates/rovai-web/src/operations.rs",
+      "sha256": "86831685634dca13b8bafef6c5e614ab7f62e75f4d1c1c86db541497fc09a39c"
+    },
+    {
+      "file": "docs/architecture/canvas.md",
+      "sha256": "2eb42948d351ec6f4f2bfd414ebb697c73b1eb7bd88df51fe2faf4bc75d0c909"
+    },
+    {
+      "file": "docs/contracts/README.md",
+      "sha256": "3a2f8b798ef0bd1336d44f34014afbc196f4802449ee5f3af7a0580982e3aef1"
+    },
+    {
+      "file": "docs/contracts/canvas-boards-v1.md",
+      "sha256": "f1297db0975b1d946fc06618dec5c39004b80b11f72dd086999428a3e6405262"
+    },
+    {
+      "file": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "164517811a8d44e247e2daee1e5a3355f1aa5773e7d7ed9852ae1e194fcfdfc7"
+    },
+    {
+      "file": "docs/development/testing.md",
+      "sha256": "1e17afd0b44a3f6069991c8d69b1e611142832f23945f87359ab37579a79ed5d"
+    },
+    {
+      "file": "integration/README.md",
+      "sha256": "debcdb6deef86c076a1928c762e8f3ae7151b57815c6a217af9d7109af432e8c"
+    },
+    {
+      "file": "integration/foundation/current-protocol.json",
+      "sha256": "0daf33b40416a17f309680e043329a90e30c4315f2c8af69ad4bc72e7e3b65a9"
+    },
+    {
+      "file": "integration/licenses/README.md",
+      "sha256": "c6e2c38f1ddd218d3b464e195ebf0eff072536ee092af393e0aa98e9f1feb3f9"
+    },
+    {
+      "file": "packages/contracts/src/index.ts",
+      "sha256": "935b9362da13dea316f4dfcb43d4e52095449ad466df0092b1e32f29aa769dd3"
+    },
+    {
+      "file": "tools/integration/smoke-canvas-nodes.mjs",
+      "sha256": "da1e5692260d69abd61216fe0a8f6900c647bfd15137cc66ed774863068f718d"
+    }
+  ],
+  "API": [
+    "canvas.nodes.snapshot",
+    "canvas.nodes.apply"
+  ],
+  "schema": 154,
+  "migration": 204,
+  "implementation": [
+    "eight_source_node_kinds",
+    "flat_owned_storage_layout_only_move",
+    "shared_board_revision_CAS",
+    "atomic_graph_invalidation_and_first_result",
+    "scoped_group_detach_delete_prune",
+    "typed_Rust_and_TypeScript_contracts"
+  ],
+  "actualHost": {
+    "result": "work/i03/nodes-evidence/nodes-BRvk7h/result.json",
+    "checks": [
+      {
+        "id": "real153_board_thread_single_chat_skill_installation_selection_and_receipts",
+        "status": "passed"
+      },
+      {
+        "id": "153_to154_migration_preserves_real_objects_skill_bytes_and_original_command_results",
+        "status": "passed"
+      },
+      {
+        "id": "authenticated_HTTP_creates_all_eight_kinds_with_distinct_thread_and_private_conversation_refs",
+        "status": "passed"
+      },
+      {
+        "id": "scoped_batch_move_clamps_last_duplicate_preserves_note_and_replays_without_reapplying",
+        "status": "passed"
+      },
+      {
+        "id": "group_only_consumes_adopted_pins_and_detach_preserves_exact_reference_and_source_pin_size",
+        "status": "passed"
+      },
+      {
+        "id": "real154_Host_restart_preserves_graph_revision_note_bytes_and_historical_result",
+        "status": "passed"
+      },
+      {
+        "id": "board_delete_cleans_own_graph_without_deleting_business_history_or_starting_any_Run",
+        "status": "passed"
+      }
+    ],
+    "scope": "real153_to154_Host_HTTP_node_graph_without_renderer_or_PTY",
+    "oldBinarySha256": "9640d9f48c940a4417f57cb70a753f66f3c38c56f09a9da10407b16718dd35ae",
+    "currentBinarySha256": "6481ccfde5709f88b44596101559392f0104a7bef5c8e83be8741fe0be7aa153",
+    "cliSha256": "8858fe3b23106bb5e6714de2b0d1f5b5a6a95fba268d7375a958186805aa9fbb",
+    "platform": "win32",
+    "isolation": "New native-private root; explicit owned Skills/MCP; fake HOME/APPDATA/TEMP and restricted PATH; no daily credentials",
+    "zeroAgentRun": true,
+    "zeroContextManifest": true,
+    "modelCalls": 0,
+    "PTY": false,
+    "Renderer": false
+  },
+  "validation": {
+    "defaultWorkspace": {
+      "passed": 502,
+      "failed": 0,
+      "ignored": 8
+    },
+    "staged": {
+      "plan": {
+        "route": "full",
+        "reason": "crates/rovai-core/src/lib.rs changed",
+        "scripts": [
+          "test:rust:workspace-default"
+        ]
+      },
+      "executed": [
+        "test:rust:workspace-default",
+        "extended:canvas_",
+        "extended:database_contract_preflight_admits_current_and_rejects_future_store",
+        "extended:legacy_feishu_migration_marker_collision_reconciles_without_quarantine",
+        "fmt"
+      ],
+      "result": "work/i03/nodes-staged-result.json",
+      "log": "work/i03/nodes-staged.log"
+    },
+    "extended": {
+      "canvas_": {
+        "passed": 3,
+        "failed": 0,
+        "ignored": 0
+      },
+      "database_contract_preflight_admits_current_and_rejects_future_store": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      "legacy_feishu_migration_marker_collision_reconciles_without_quarantine": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      }
+    },
+    "windowsFullDBBeforeRepair": {
+      "passed": 107,
+      "failed": 2,
+      "ignored": 0,
+      "log": "work/i03/nodes-db-regression.log"
+    },
+    "repair": "The cfg(test/slow-tests) admissibility helper omitted schema154; production classification already included it. Existing owner now also rejects missing node columns/index. Both original failed owners rerun after repair.",
+    "windowsFullDBAfterRepair": "not_rerun_as_complete_roster; two_owners_passed; latest_full_roster_deferred_to_I03_stage_candidate",
+    "format": "passed",
+    "allTargets": "passed",
+    "typecheck": "passed",
+    "docsVersion": "passed",
+    "docsDecisions": "passed",
+    "scaffold": "passed_81_clusters_48_packages_324_cases",
+    "foundation": "passed_source_and_current_contract_consistency",
+    "preservedFailures": [
+      "work/i03/nodes-owner-first.log",
+      "work/i03/nodes-owner-second.log",
+      "work/i03/nodes-db-preflight-failure.log",
+      "work/i03/nodes-db-preflight-fixed.log"
+    ],
+    "environmentFailure": "A targeted retry linked while the old Windows test exe was running: LNK1104. Retained and fixed by serializing before relink; no tests disabled.",
+    "LinuxCurrent": {
+      "status": "cancelled_not_qualified_deferred_to_I03_stage_candidate",
+      "runId": 38589903091,
+      "sourceCommit": "5a34d69c7e5bf3fd0046e873b0a71b64c7b2b124",
+      "url": "https://github.com/knight-bili/codeg-rovai-workbench/actions/runs/38589903091",
+      "reason": "客户要求阶段编码集齐再集中验证，已取消本次按小切片启动的Linux完整回归；不重启、不把取消当通过"
+    }
+  },
+  "boundary": {
+    "I03Accepted": false,
+    "MVPComplete": false,
+    "canvasUI": false,
+    "modelInference": false,
+    "platformQualification": false
+  },
+  "remaining": [
+    "interactive_board_list_and_all_eight_node_renderers",
+    "shared_types_to_actual_UI_and_reconnect_CAS",
+    "live_folder_group_agent_and_business_object_resolution",
+    "Mission_Task_Thread_Diff_navigation_and_real_execution_roundtrip",
+    "shared_geometry_vs_client_local_viewport_and_drafts",
+    "business_deletion_funnel_and_file_preview_authorization",
+    "real_interactive_PTY_ownership_resize_reconnect_and_shutdown",
+    "required_platform_and_customer_acceptance"
+  ],
+  "sourceCommit": "5a34d69c7e5bf3fd0046e873b0a71b64c7b2b124"
+}

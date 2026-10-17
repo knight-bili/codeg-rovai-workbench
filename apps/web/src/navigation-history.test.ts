@@ -24,6 +24,20 @@ const thread = (threadId: string): NavigationTarget => ({ kind: 'camp', threadId
 const settle = () => new Promise(resolve => setTimeout(resolve, 0))
 
 describe('browser navigation adapter', () => {
+  it('restores the Canvas page and rolls back Forward when its leave guard refuses', async () => {
+    const host = browser(); let blocked = false
+    const navigation = createDesktopNavigation(async (_target, tx) => { if (!blocked) tx.commit() }, createBrowserNavigationHistory('canvas', host))
+    const stop = navigation.connect()
+    navigation.reset({ kind: 'canvas' }); await navigation.push(thread('A')); await navigation.back()
+    expect(createBrowserNavigationHistory('canvas', host).initial?.entries[0]).toEqual({ kind: 'canvas' })
+    blocked = true
+    expect(await navigation.forward()).toBe(false)
+    expect(navigation.getSnapshot().entries[navigation.getSnapshot().index]).toEqual({ kind: 'canvas' })
+    blocked = false
+    expect(await navigation.forward()).toBe(true)
+    expect(navigation.getSnapshot().entries[navigation.getSnapshot().index]).toEqual(thread('A'))
+    stop()
+  })
   it('restores project home context after refresh and rejects invalid stored project paths', async () => {
     const host = browser()
     const target = { kind: 'quick_chat', projectPath: '/work/project' } as NavigationTarget

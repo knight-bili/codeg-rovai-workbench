@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T05:10:22.809Z",
+  "stage": "I03",
+  "source_commit": "b07fb4a0aba7df486b3dc967e61b885386fda15b",
+  "status": "inline_drawer_shared_workspace_and_bound_private_reference_coded_targeted_checks_passed_mounted_UI_Runtime_pending",
+  "goal_status": "active",
+  "donor": {
+    "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "paths": [
+      "src/components/canvas/canvas-conversation-surface.tsx",
+      "src/components/canvas/canvas-conversation-drawer.tsx"
+    ],
+    "license": "Apache-2.0"
+  },
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/App.test.ts",
+      "sha256": "4857f4406d4f2671978542ecb64016815c5bc0649b01c158f56eedc6957c02b0",
+      "git_blob": "572bfb864192c67709a99735f3a1729629765cd2"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "455f9097dbaa1441920506a60e40a65ca89f1a1567cb01680f5bf98af8b6baf2",
+      "git_blob": "a602a8d6c7cc8d6a860cc81e3510ec87876f13e2"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasConversationFrame.tsx",
+      "sha256": "b429fdfe221c05314585e061c2c3c5c172aa2515292e3ff246174029e10bfca8",
+      "git_blob": "4e3621dbfd399e75500bbbdcb17ca35b0e9dc710"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "a43f40adfffb77a2a757931f007388dd3801b477c5bf54c1b0f57dbedfa64d07",
+      "git_blob": "b3e66b549c79e2967fbf652b425bbc3a93eeec02"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+      "sha256": "ca673893080b9d2bcef17e752def304c51759189e517215fb2294931a50d1391",
+      "git_blob": "b6960c83aa0390c68aaf20763474113f4ae60671"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.test.ts",
+      "sha256": "0294c7b7947624238ff79034c573b1be5c0dcb1500581a5b7caf824279e11474",
+      "git_blob": "54157c81ba9871b4891212d2c136a466976e40d3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "sha256": "7f3d404f3927ea76213d3b05a246351b525e6785b13ceaa1342f46e61a770fc9",
+      "git_blob": "7687006709e6da12625fb2dac5cc3ff612ac650e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+      "sha256": "2441a1f57ba279de087a0d579bf1edd90b2009e3e9ae815b8a76a1ac6d1d0446",
+      "git_blob": "8e437f9c47dce9ef90a009d4149297df7aae09b6"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversation.test.ts",
+      "sha256": "65040a8edcd828fdd87debdcd587cbc22752d8fd8b25bd39afe11aa2dd945dad",
+      "git_blob": "71c506ca18e1a2960fe2bf4f788f64252150de45"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversation.ts",
+      "sha256": "65a5630cf10bc3e2611ae8cf074fa7041553b8b0de538ba732a9ff04d822a6d0",
+      "git_blob": "3baa23dc4a584b29d3a9b92bc196e78e83d3ffc5"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "7021dfad4327fb3605d03533865f286da1ceb4c6ca482d32b3542e322774c700",
+      "git_blob": "0be84978bfdb4a24cbcad7db2360e53ae0bd87c6"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "3ac7d0b6ccb1d8dbc963279466c35cc0fd5fa3398c362827f0db6be200b6121c",
+      "git_blob": "b3a2fe50284332d697afd03ea9ae6395c71b8efb"
+    },
+    {
+      "path": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "7ce0539436a3dc8957801594b9037564ba26c8d7609ba501f6420d123d7c57aa",
+      "git_blob": "e81753acc3ffc3cf03932d957e9d20c4a7846164"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "f4fc1653be378286dd70bce8bc89c09dc09a6a62979896fa96f2b22331572ce5",
+      "git_blob": "0b895b3456dc84151a82d1d1b2a35583352bebfc"
+    },
+    {
+      "path": "integration/licenses/README.md",
+      "sha256": "b7d4e99188a1f858ee3fb44aa6752dc805685cdb06f4996ae3794493e4c38c24",
+      "git_blob": "a304da9fd8fbecf7011a4bb9496c24fa0e2a705b"
+    }
+  ],
+  "implementation": [
+    "BusinessApp保留一份ThreadWorkspace JSX与既有Thread读取/刷新、发送/撤回/审批/停止/草稿回调；画布使用threads.open，不另起模型或会话执行权威。",
+    "Canvas成员先收Core detach真实pin收据再展开；未知命令不推断成功，原编号/恢复owner保持。",
+    "单一ViewportPortal子树以几何切换原地/侧边，平移缩放和节点移动不更换会话宿主；远端pin消失/引用变化时保留原对话侧边，不静默卸载。",
+    "同Thread内换呈现后解锁原输入；换Thread/关闭/切板/消费当前pin/退出沿用ThreadLeavePreparation。保存失败保留当前输入，读取保存中旧内容inert。",
+    "私有引用精确核对Thread/Conversation/active；Host或请求失效不提交。bound ID阻止换队员、丢失/结束后发送及singleChat.open替代；私有宿主不挂公开Composer，保留既有文件预览宿主。",
+    "实际会话查找快捷键继续冒泡，画布移动/删除键隔离，Esc沿草稿guard收起；新文案已补英文。"
+  ],
+  "checks": [
+    {
+      "name": "conversation_identity_private_binding_members_graph_layout",
+      "path": "../i03/canvas-conversation-owners-final.log",
+      "sha256": "a2381bddedd2e3f5392592919f5e7e4c877d41f190b2c85f50596dab4b4a483d",
+      "files": 5,
+      "passed": 40,
+      "failed": 0
+    },
+    {
+      "name": "existing_App_leave_and_quit_guards_filtered",
+      "path": "../i03/canvas-conversation-guards-final.log",
+      "sha256": "9dd1f443dcbb8d65ea2287654677a85fd00ca7b98259ab392fa980611dac504c",
+      "files": 1,
+      "passed": 4,
+      "filtered_not_run": 182,
+      "failed": 0
+    },
+    {
+      "name": "scoped_TypeScript_including_new_tests",
+      "path": "../i03/canvas-conversation-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0,
+      "config": "../i03/canvas-conversation-typecheck.json",
+      "config_sha256": "40910bd8025cff5622ebee0940c09abadef6b313382650184ddc7a107601666e"
+    },
+    {
+      "name": "literal_copy_and_duplicate_locale_keys",
+      "path": "../i03/canvas-conversation-copy-final.log",
+      "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078",
+      "missing": 0,
+      "duplicate": 0
+    },
+    {
+      "name": "documentation_version",
+      "path": "../i03/canvas-conversation-docs-version-final.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+      "exit_code": 0
+    },
+    {
+      "name": "documentation_governance",
+      "path": "../i03/canvas-conversation-docs-decisions-final.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+      "exit_code": 0
+    }
+  ],
+  "self_review": [
+    "检查类型时发现submit改返回收据与editor Promise<void>不匹配，已用显式await包装；早期日志保留，最终类型exit0。",
+    "检查实例生命周期时避免切呈现重挂Composer及同Thread complete(true)锁住编辑器；远端画板删除不自动丢弃活跃输入。",
+    "检查私有面板默认可新建行为，增加仅画布绑定场景启用的精确ID准入；旧非绑定调用保持默认兼容。",
+    "移除契约不允许的conversation patch假设及测试；几何/标题更新不关闭输入，删除/消费才走关闭保护。",
+    "CodeGraph无匹配已有索引，按项目规则使用文件查询，不初始化、不伪称同步。"
+  ],
+  "not_run": [
+    "没有启动真实App/Core/模型或付费请求，没有全工作区回归、Rust编译、打包、push或Actions。",
+    "真实挂载的草稿保持/附件入站/输入模式/流式回复/问题/权限审批/停止、异常与重启恢复仍需阶段候选。",
+    "portal/触控/双主题/焦点/弹层/缩放/文件预览与设备平台资格未完成；纯检查不替代这些验收。",
+    "当前仅一个聚焦交互实例；Codeg多卡同时展开、展开状态重开恢复、实际可见通知确认与规模性能继续I03，不删一期范围。",
+    "此前I03 Rust sourceMembers/navigation.activity/worktree新断言仍未编译执行，既有实际Host证据不能覆盖本次新源码。",
+    "全部324融合产品场景仍not_run；44为组件/纯函数定向检查，不计产品验收通过。"
+  ],
+  "protocol": {
+    "schema": 154,
+    "Host": 4,
+    "contract": "v1.72",
+    "current_operations": 178,
+    "historical_locked_operations": 161,
+    "added_operations": 0,
+    "database_or_model_input_changed": false,
+    "new_dependencies": 0
+  },
+  "next": [
+    "继续I03多卡展开、展开状态重开恢复与可见通知确认，再接Mission/Task/Thread/Diff精确定位。",
+    "授权文件、真实临时PTY、Desktop冷路由、I02余下SP/真实Gate及I04–I12/BUF保持完整。"
+  ],
+  "execution": {
+    "branch": "phase/i03-canvas-nodes",
+    "local_commit": true,
+    "push": false,
+    "Actions": false,
+    "candidate": false,
+    "main_merge": false,
+    "cadence": "多次本地commit，阶段集齐后集中编译/集成/少量push与Actions"
+  }
+}

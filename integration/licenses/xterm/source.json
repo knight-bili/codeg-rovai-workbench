@@ -1,0 +1,27 @@
+{
+  "source": "https://github.com/xtermjs/xterm.js",
+  "packages": [
+    {
+      "name": "@xterm/xterm",
+      "version": "6.0.0",
+      "license": "MIT",
+      "licenseSha256": "b569f629d00f2626a8100df2a1798210535621e42164dfd426a6fe5aac7b0ccd",
+      "packageSha256": "f5a0dde40a146d6c7a86b22daf6e5740517e5d708ec1d162197e0445431d8f4f"
+    },
+    {
+      "name": "@xterm/addon-fit",
+      "version": "0.11.0",
+      "license": "MIT",
+      "licenseSha256": "e256f01188af527e4d06d21d06fbf785ae9c50d4b328bf03cbe0ba7f0aa4228f",
+      "packageSha256": "2f1016c5683f76ac1250c466afc29164bc82da7c2ef224c7d5ab83397edf1637"
+    },
+    {
+      "name": "@xterm/addon-web-links",
+      "version": "0.12.0",
+      "license": "MIT",
+      "licenseSha256": "689ceb10716bd7a87a804c14951d7c2b818cbd60aab83d540902470ce3b13444",
+      "packageSha256": "7795b7d952457ad5c7ee2e529ada66eb084581646d7791e6bfaaf242dd474d1f"
+    }
+  ],
+  "releaseQualification": "source_notices_retained_not_complete_release_audit"
+}

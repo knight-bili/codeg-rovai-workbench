@@ -3,7 +3,7 @@ document_type: architecture
 architecture: camp-composer-draft
 authority: desktop-local-public-camp-composer
 status: accepted
-last_updated: 2026-10-08
+last_updated: 2026-10-15
 ---
 
 # Public Camp Composer
@@ -11,6 +11,12 @@ last_updated: 2026-10-08
 公开 Camp Composer 的内容权威是客户端本机、按 Camp 隔离的轻量状态。Active 与普通一键 Pending
 都保存本机快照；Core 仅为普通 Pending 保存客户端 presence，拥有侧栏可见性与清理保护。合同见
 [Camp Composer Draft v16](../contracts/camp-composer-draft-v16.md)。Single Chat 的私有 Draft/Pending 不在本架构范围。
+
+融合画布的额外呈现上下文见[Canvas Nodes v1](../contracts/canvas-nodes-v1.md#renderer-内嵌会话接线)：每卡独立输入，
+同卡原地与抽屉复用，消息和执行仍共享 Core Thread。既有主会话 key/格式及 v16 发送边界保留；画布公开快照仍是本机数据，
+以 Host/Owner、Core、画板、真实 pin 和精确引用隔离，不向 Core 增加正文或编辑租约。同 Thread 的上下文索引与内容写在同一值中；
+Pending presence 串行提交主会话及当前 Host/Core 全部卡片的非空并集，收起不丢输入，清空单卡不撤销其他卡片的保护。
+旧/破损 bundle 读取失败阻止覆盖；context 切换重建编辑器和 coordinator，同卡几何/模式变化不重建 Lexical。
 
 ## 组件边界
 

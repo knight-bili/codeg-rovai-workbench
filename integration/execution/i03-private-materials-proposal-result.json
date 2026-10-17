@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T12:00:20.468496+00:00",
+  "stage": "I03",
+  "goal_status": "active",
+  "proposal_commit": "e1284e8898cc7543ab1e95d7b80d00f0fc4b5f23",
+  "baseline": "e671ed204aacb8f56c4470a1c8f6e98bd325ba25",
+  "status": "proposal_self_reviewed_and_human_confirmed_r1_implementation_starting",
+  "confirmation": {
+    "artifact_id": "I03-PRIVATE-MATERIALS-R1",
+    "revision": 1,
+    "confirmed_revision": 1,
+    "confirmation_status": "confirmed",
+    "confirmed_by": "User",
+    "confirmed_at": "2026-10-15T11:58:42Z",
+    "confirmed_at_basis": "first_clock_read_after_direct_human_reply",
+    "human_reply": "确认，按私聊材料隔离 r1 实施",
+    "approved_proposal_commit": "e1284e8898cc7543ab1e95d7b80d00f0fc4b5f23",
+    "approved_proposal_sha256": "3c5a3dcb12a37e8239c23ad9a94aba9361bac72bd57bde1710e11c74b77dd587",
+    "approved_artifacts": [
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.docx",
+        "bytes": 53543,
+        "sha256": "87565f57fa0e994f676139e3376fe14e556ac9862c08f1573798d985f4dcecf7"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.pdf",
+        "bytes": 516820,
+        "sha256": "4b3446c0d97f2c6b8529a206d965a60229dcc1e5966e280647856fc88576e8df"
+      }
+    ],
+    "implementation_baseline": "e671ed204aacb8f56c4470a1c8f6e98bd325ba25",
+    "scope": "私聊材料隔离 r1；不包含付费模型、main合入或发布；既有完整一期及阶段集中验证规则保持",
+    "source_body_sha256": "343159a47be6c619df50ba15d6b8528ada216913782aa12d7c830d95b7cc05bb"
+  },
+  "validation": {
+    "pages": 16,
+    "visual_review": "all_16_pages",
+    "source_fidelity": "all_blocks_per_page_in_order",
+    "source_references_hash_checked": 12,
+    "document_bounds": "pass",
+    "document_gates": "version_and_decisions_passed_against_e671ed20",
+    "proposed_cases": 24,
+    "proposed_case_status": "all_not_run",
+    "production_tests_builds_actions_this_proposal_slice": "not_run_document_only",
+    "formal_registration_gate_first_attempt": "missing_required_unchanged_and_validation_headings",
+    "formal_registration_gate_repair": "added_explicit_unchanged_and_validation_sections_from_approved_r1_then_version_and_decisions_passed"
+  },
+  "self_review": [
+    "现有 DraftClient 是 Host 验证的编辑端身份，卡片 scope 不伪装客户端或授权",
+    "旧默认材料保留原处，旧 get 省略 scope 保持旧结构，新能力显式协商",
+    "返回与交换保留正文附件引用整份输入，单一 Conversation FIFO 与编辑租约保持",
+    "未知结果保存原 UUID 和冻结请求，多窗口在途围栏，不静默重发",
+    "本机正文索引与 Core scope 注册共同恢复孤立输入，不自动重绑",
+    "已发布消息和冻结模型证据保持，格式版本及预算不改",
+    "提案不修改当前 Schema、合同或生产实现，批准具体 r1 后实施"
+  ],
+  "source_findings": [
+    "Core原草稿已有Host验证的编辑端隔离，缺口是同一编辑端多卡及默认输入的材料归属",
+    "ReturnToComposer覆盖材料与Renderer正文独立可形成错配，需保存两份完整输入",
+    "原send每次生成UUID，未知结果恢复必须保留原命令冻结请求"
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.docx",
+      "bytes": 53543,
+      "sha256": "87565f57fa0e994f676139e3376fe14e556ac9862c08f1573798d985f4dcecf7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.pdf",
+      "bytes": 516820,
+      "sha256": "4b3446c0d97f2c6b8529a206d965a60229dcc1e5966e280647856fc88576e8df"
+    }
+  ],
+  "document_sources": [
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "line": 774,
+      "symbol": "send",
+      "sha256": "d280ca7180e6d24f52bd7fc34b9d460f005164bc471828bdc0553c445a4ce660",
+      "current_sha256_matches": true
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/single-chat-composer-store.ts",
+      "line": 23,
+      "symbol": "SingleChatComposerStore",
+      "sha256": "1dc457eff0242581c4ccaf3298e9bee0bb77c24f9ed4251bb85c4bcf6c496931",
+      "current_sha256_matches": true
+    },
+    {
+      "path": "crates/rovai-core/src/draft_client.rs",
+      "line": 21,
+      "symbol": "verified_web",
+      "sha256": "651d61c4788d6205f11abbe5979dd21f9a08c4e3378d2cb889ee2598dac2ed1e",
+      "current_sha256_matches": true
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat.rs",
+      "line": 628,
+      "symbol": "load_single_chat_draft_refs",
+      "sha256": "098d540d33d36983ffbbbcb929af1bb08c74ff602f65600a14e5728f9ed28e8e",
+      "current_sha256_matches": true
+    },
+    {
+      "path": "crates/rovai-core/src/message_quote.rs",
+      "line": 159,
+      "symbol": "QuoteStorage",
+      "sha256": "84a1974469c8aa1ce4aa27c7f30aa357dea608aeab06a832cb13997ddc8b6bc6",
+      "current_sha256_matches": true
+    },
+    {
+      "path": "crates/rovai-core/src/context.rs",
+      "line": 693,
+      "symbol": "load_current_input",
+      "sha256": "3cc5ac1391dece1cad82f5dce7397723a6c99bd04cdea562568e17040e821fd9",
+      "current_sha256_matches": true
+    },
+    {
+      "path": "crates/rovai-core/src/context_contract.rs",
+      "line": 7,
+      "symbol": "AGENT_RUN_CONTEXT_FORMATTER_VERSION",
+      "sha256": "d69fc337182fdab43feb84435c852ca92bf9a4ae57b9e532cb73ad350ccd736c",
+      "current_sha256_matches": true
+    },
+    {
+      "path": "crates/rovai-core/src/db.rs",
+      "line": 4687,
+      "symbol": "single_chat_composer_draft_client",
+      "sha256": "6636f8b32de177428a1b640d0367e532ebbfcf6476c88441680a38f90a2a8425",
+      "current_sha256_matches": true
+    },
+    {
+      "path": "apps/desktop/src/main/index.ts",
+      "line": 2311,
+      "symbol": "rovai:single-chat-attachment-remove",
+      "sha256": "f66e4fabf3ede35912bd3c32359df6872728fbb6375f5e7e9f96410972758ac0",
+      "current_sha256_matches": true
+    },
+    {
+      "path": "apps/web/src/camp-adapter.ts",
+      "line": 57,
+      "symbol": "singleChatAttachments",
+      "sha256": "47a517cfa7958ac5abd62aaf6a63d078d58aa2712684a747cd07312fc91d3658",
+      "current_sha256_matches": true
+    },
+    {
+      "path": "crates/rovai-web/src/operations.rs",
+      "line": 96,
+      "symbol": "singleChat.get",
+      "sha256": "e7d2b203700f888676aa122c8c5cd5c5d4520ac6c92a8c83e2a5881a223c62d3",
+      "current_sha256_matches": true
+    },
+    {
+      "path": "docs/development/model-context-change-governance.md",
+      "line": 47,
+      "symbol": "二次确认门槛",
+      "sha256": "058feaed2ef7e7bb1ddd79626a2af0453c3e93460dde5ad036ac5ff9149ffa4d",
+      "current_sha256_matches": true
+    }
+  ],
+  "proposed_database_next": "Schema155/Migration205_only_if_latest_tail_still154_204",
+  "actual_current_at_proposal": {
+    "schema": 154,
+    "migration": 204,
+    "host": 4,
+    "version": "v1.72",
+    "current_ops": 178
+  },
+  "implementation_changed_in_proposal_commit": false,
+  "paid_models_used": false,
+  "push_or_actions": false,
+  "formal_324_acceptance": "all_not_run",
+  "remaining": [
+    "按批准r1实施并执行PC01-PC24",
+    "持久Mission/Task/Diff pin、授权文件及真实PTY",
+    "I02剩余、I03其他缺项及I04-I12/BUF和最终客户验收"
+  ]
+}

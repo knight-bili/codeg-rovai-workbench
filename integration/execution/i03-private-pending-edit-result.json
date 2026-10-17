@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T15:10:36.563261+00:00",
+  "stage": "I03",
+  "goal_status": "active",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "source": "b4589f74",
+    "checkpoint": "b3317a07"
+  },
+  "baseline": "b3317a07",
+  "source_commit": "68be7548c64110e3840a400b63b82b39cf2b06ca",
+  "status": "core_scoped_pending_edit_takeover_and_complete_return_locally_verified_Renderer_upload_and_intents_pending",
+  "approved_revision": 1,
+  "confirmation_status": "confirmed",
+  "approved_files": [
+    {
+      "path": "outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.docx",
+      "sha256": "87565f57fa0e994f676139e3376fe14e556ac9862c08f1573798d985f4dcecf7"
+    },
+    {
+      "path": "outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.pdf",
+      "sha256": "4b3446c0d97f2c6b8529a206d965a60229dcc1e5966e280647856fc88576e8df"
+    }
+  ],
+  "implementation": [
+    "编辑命令可选composerScope省略旧None；单Conversation租约的client+scope+token+Pending revision同时校验",
+    "Begin不覆盖已有租约；明确Takeover只接管相同排队项/版本，从已保存Pending重开并旋转token，旧位置/编辑端迟到写拒绝",
+    "工作副本附件/quote/trash按同一归属处理；quote复用原捕获/预算；保存后仍为原FIFO项，不生成新执行队列",
+    "Return必须targetBody并核对draft CAS，未完成编辑先保存/取消；空目标完整返回活动，占用目标另存完整retained且活动材料不动",
+    "Pending取消、完整材料、变更事件和回执同事务；原UUID回放首次结果，未知不得换编号；正在删除的Thread拒绝新编辑",
+    "移除Application pending edit变更提示中的完整result，仅保留Thread/Conversation，避免完整返回正文或令牌外泄",
+    "TS编辑/返回DTO同步targetBody/composerScope/placement；Renderer旧入口尚未升级，不能宣称界面可用"
+  ],
+  "validation": {
+    "build": "Core_lib_extended_compiled_not_workspace_or_Host_Web_build",
+    "core_owners": [
+      {
+        "path": "work\\i03\\private-pending-edit-core-final.log",
+        "sha256": "476dbe807e64dbd7031071106f28c82ad5ecdb5abb3bc0bfe655c5dd154d26de",
+        "bytes": 2190,
+        "passed": 3,
+        "names": [
+          "single_chat_composer::tests::recovery_pages_are_read_only_context_bound_bounded_and_incomplete_after_changes",
+          "single_chat_composer::tests::commands_keep_complete_inputs_separate_preserve_receipts_and_rollback_both_sides",
+          "single_chat_composer::tests::send_consumes_only_the_registered_scope_and_keeps_one_private_fifo_and_legacy_shape"
+        ]
+      },
+      {
+        "path": "work\\i03\\private-pending-edit-final-message_quote-tests.log",
+        "sha256": "af7d605a0a2c8671b8f048b5d89730c9b2c9fcddd2154bf99dab6e6adf49a6e7",
+        "bytes": 430,
+        "passed": 3,
+        "names": [
+          "message_quote::tests::camp_quote_projection_rechecks_source_visibility_for_each_agent",
+          "message_quote::tests::readable_projection_preserves_selected_text_without_markdown_wrappers",
+          "message_quote::tests::capture_fences_source_identity_and_keeps_literal_instruction_snapshots"
+        ]
+      },
+      {
+        "path": "work\\i03\\private-pending-edit-final-single_chat-tests.log",
+        "sha256": "e5761ad36043b18a67121235a224d56f526d7694142c34c55a27f34233915e99",
+        "bytes": 1079,
+        "passed": 9,
+        "names": [
+          "single_chat::tests::single_chat_skill_filter_uses_official_bundled_source_identity",
+          "single_chat::tests::source_attachments_are_consumed_by_one_message_and_keep_their_path_for_its_run",
+          "single_chat::tests::built_in_policy_is_a_closed_allowlist_and_restart_cancels_only_the_reply",
+          "single_chat::tests::unavailable_queue_head_needs_repair_and_blocks_later_single_chat_inputs",
+          "single_chat::tests::history_reads_only_messages_before_current_input_with_exclusive_pagination",
+          "single_chat::tests::returning_pending_input_restores_private_draft_and_releases_the_next_input",
+          "single_chat::tests::pending_input_preserves_source_refs_and_publishes_after_the_active_run",
+          "single_chat::tests::send_uses_current_state_and_end_uses_exact_identity_without_fencing_a_successor",
+          "single_chat::tests::successful_final_is_private_and_a_cancelled_run_cannot_append_late_output"
+        ]
+      },
+      {
+        "path": "work\\i03\\private-pending-edit-final-single_chat_composer_scope-tests.log",
+        "sha256": "e52daeec0aa5c6c614eb2293ed71541f9f6ac62e3f6d3b3128c0273b5e833fcc",
+        "bytes": 362,
+        "passed": 2,
+        "names": [
+          "single_chat_composer_scope::tests::scope_codec_preserves_legacy_omission_and_requires_explicit_closed_identity",
+          "single_chat_composer_scope::tests::pin_binding_requires_the_exact_live_private_reference_without_writing"
+        ]
+      }
+    ],
+    "core_unique_passed": 17,
+    "core_failed": 0,
+    "core_ignored": 0,
+    "client_checks": {
+      "path": "work\\i03\\private-pending-edit-client-tests.log",
+      "sha256": "83baf5810338fd9bd99a4e553bacc4306702b4bf6348fc12ae59a8ce9315459a",
+      "bytes": 286,
+      "files": 4,
+      "passed": 56,
+      "failed": 0,
+      "scope": "existing_consumer_store_and_mock_transport_not_new_return_UI"
+    },
+    "types": {
+      "path": "work\\i03\\private-pending-edit-types.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "status": "passed_targeted"
+    },
+    "takeover": "same_editor_cross_scope_then_other_verified_editor_rotate_token_old_late_saves_rejected",
+    "materials": "working_quote_remove_restore_and_ref_reorder_preserved_complete_refs_quotes_in_saved_and_retained_input",
+    "return": "active_default_path_keeps_original_FIFO_checks_occupied_canvas_path_keeps_both_complete_inputs",
+    "rollback": "receipt_tail_trigger_failure_preserves_pending_queued_state_retained_count_and_target_draft_revision",
+    "replay": "same_return_UUID_exact_first_result_then_complete_swap_preserves_current_body",
+    "legacy": "None_scope_and_missing_targetBody_serialize_exact_old_fields_new_missing_body_rejected_complete_historical_upgrade_replay_still_pending",
+    "rustfmt": "passed",
+    "diff": "passed_after_SQL_trailing_space_cleanup",
+    "docs": "version_diff_aware_governance_and_10_policy_tests_passed",
+    "foundation": "passed_source_contract_fixture_only",
+    "scaffold": "passed_81_clusters_48_packages_324_cases_product_not_run",
+    "actual_Renderer_return": "not_implemented_targetBody_and_placement_still_required",
+    "actual_HTTP_native_IPC": "not_run_this_slice",
+    "actual_model_runtime": "not_run",
+    "final_manifest_Blob": "not_run",
+    "PC01_PC24": "complete_scenarios_pending_partial_Core_evidence_only",
+    "formal_324": "all_not_run",
+    "post_test_cleanup": "one_trailing_space_inside_SQL_literal_removed_after_tests_no_semantic_change_no_recompile_for_whitespace"
+  },
+  "policy_exception": "租约跨scope隐私与完整移回回滚是客户端安全接线的前提，限定Core lib和原owner最小验证；全仓/Host/平台集中阶段候选",
+  "retained_failures": [
+    {
+      "path": "work/i03/private-pending-edit-gate-diff.log",
+      "exit_code": 2,
+      "reason": "新增SQL行末一处空格；移除后diff门禁通过，无语义改动"
+    },
+    {
+      "kind": "evidence_aggregation_script",
+      "exit_code": 1,
+      "reason": "初次最终汇总把final-doc日志当成Rust测试；限定owner日志后修复，不改变源码或重复执行测试"
+    }
+  ],
+  "self_review": [
+    "未完成编辑不直接移回，先保存或取消，避免丢弃working材料",
+    "接管不能要求读取别位置token；明确Takeover核对同Pending/版本并轮换，原Owner/client仍由Host提供",
+    "编辑已登记scope也要校验原Thread活跃且未删除，避免孤立登记绕过生命周期",
+    "回执中完整body/retained不进入跨客户端普通变更提示；复制quote函数变为孤儿后删除自己的unused import",
+    "旧客户端新移回缺targetBody会拒绝；当前Renderer因此仍待接，原56测试不作为新版按钮资格"
+  ],
+  "current_contract": {
+    "schema": 155,
+    "migration": 205,
+    "host": 4,
+    "version": "v1.72",
+    "current_operations": 180,
+    "historical_operations": 161
+  },
+  "source_files": [
+    {
+      "path": "crates/rovai-core/src/application.rs",
+      "sha256": "adf914833242db20a0a745d09191045f305cf2f7967a88369a81507eabd0d6fa"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat.rs",
+      "sha256": "69c1dbb56c56181bbd0e90ef0239a855894b4a9e864119155d1a2da4de6c2569"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat_composer.rs",
+      "sha256": "fde43ac80b4f741152ac87a960d19b021774e64a0a4ee728fdec1f8d0d2b54c1"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat_composer_tests.rs",
+      "sha256": "51cd82add20b85498b837d0c7381f1bfbbbd6978d988cd0337de558d1a07a26e"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "8f4c0f573a358335056d6f667abb4705ad4af6256ff21c0429fcf23ceb904f84"
+    },
+    {
+      "path": "docs/contracts/single-chat-composer-scope-v1.md",
+      "sha256": "1e3c8b56d646ed711a5ef73433b2895b78d102e31aaf74f05e1419693867d024"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "4ad257d896e5de23c4a046a1b9832eec8a7ae6ee66cfdce917541c75bb4018fe"
+    },
+    {
+      "path": "docs/versions/v1.72/README.md",
+      "sha256": "3badaea036fa671c8c64443ae944ce8653bedab082b05caf181b9e06883e0024"
+    },
+    {
+      "path": "docs/versions/v1.72/model-context-change-canvas-private-materials.md",
+      "sha256": "9add6cfdb6c005a4c8f39dd5852d9823bcd6f5bec2f8f8bf12caa2f0e420d83d"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "5252198e3a09187357ffa352f89f2e3bb80d81d92b4df1334fd32212cc036349"
+    }
+  ],
+  "preserved_authorities": [
+    {
+      "path": "crates/rovai-core/src/draft_client.rs",
+      "git_blob": "8745a0ed10f868be9f728e63f951f7142124bdce",
+      "sha256": "651d61c4788d6205f11abbe5979dd21f9a08c4e3378d2cb889ee2598dac2ed1e"
+    },
+    {
+      "path": "crates/rovai-core/src/command.rs",
+      "git_blob": "7529d3242563423d1901001b75693c31f5f889ca",
+      "sha256": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+    },
+    {
+      "path": "crates/rovai-core/src/context.rs",
+      "git_blob": "6c336da3c1a68d0f76d2b3d7bcd072cb89c20730",
+      "sha256": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784"
+    },
+    {
+      "path": "crates/rovai-core/src/context_contract.rs",
+      "git_blob": "97498ae4617bf94fbce2d5a68e6c459fe0c2df90",
+      "sha256": "d69fc337182fdab43feb84435c852ca92bf9a4ae57b9e532cb73ad350ccd736c"
+    },
+    {
+      "path": "crates/rovai-core/src/message_quote.rs",
+      "git_blob": "cae8847c28e3f605eb6a8b3b31918d723a9ea4e1",
+      "sha256": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e"
+    },
+    {
+      "path": "crates/rovai-core/src/db_private_composer_scope.rs",
+      "git_blob": "62db5aca02597157baddfa59e4ba37f43cb0470f",
+      "sha256": "acc376d5fd4df8f6c141d755ea0e515398235d4545503b5827a1297d3b7b32bc"
+    },
+    {
+      "path": "crates/rovai-core/src/web_upload.rs",
+      "git_blob": "7a0e491b554f1b5f4ada7642a5ca8bbfafdb7c91",
+      "sha256": "3e959a557ab84e56b1c5151240ff958a91681890076122f9b3e771e5114583b8"
+    },
+    {
+      "path": "crates/rovai-core/src/application/private_composer.rs",
+      "git_blob": "5be38cf30a2ebb0c8fe11ff6c008013b6d912910",
+      "sha256": "e05ba85ce6c90c107364f5bf24800140cf483b25afe35b127030cb868903569d"
+    },
+    {
+      "path": "crates/rovai-web/src/operations.rs",
+      "git_blob": "c06aeaf508aa05fca4f67fdb1bc5e26613877d53",
+      "sha256": "e264b1e8f890c5c5723750bf1841594c94096058aa07e2533dc7806c904ead47"
+    },
+    {
+      "path": "integration/foundation/current-protocol.json",
+      "git_blob": "8bf1531ca7b42782b04db2d92f2ad985786a2929",
+      "sha256": "04063f89c5cb900d89d21fbd96a588e5e87883825b80ce7344b0ccd8b6dd0e67"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "git_blob": "fee636a91320aec476ff10fbf959670c2a7a368e",
+      "sha256": "d280ca7180e6d24f52bd7fc34b9d460f005164bc471828bdc0553c445a4ce660"
+    }
+  ],
+  "preserved_send_method_sha256": "0ae19e7958599dc6bf350050ba4bc1aca42344c075693cb9821341aaa5e30929",
+  "binary": {
+    "path": "work\\integration\\target\\debug\\deps\\rovai_core-8a00e4a485931fa6.exe",
+    "sha256": "fde457cc9eee4b1c0e714ee02a5bf6b039bca1ce3989fc15cf7f4fccf0e04f03",
+    "bytes": 87768064
+  },
+  "artifacts": [
+    {
+      "path": "work\\i03\\private-pending-edit-client-tests.log",
+      "sha256": "83baf5810338fd9bd99a4e553bacc4306702b4bf6348fc12ae59a8ce9315459a",
+      "bytes": 286
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-core-final.log",
+      "sha256": "476dbe807e64dbd7031071106f28c82ad5ecdb5abb3bc0bfe655c5dd154d26de",
+      "bytes": 2190
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-core-list.log",
+      "sha256": "99de0b27d84b7bf52833898403f02f871325ec52d26c9c2192136692d3fe3879",
+      "bytes": 2077
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-final-doc-decisions.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+      "bytes": 170
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-final-doc-version.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+      "bytes": 79
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-final-message_quote-tests-list.log",
+      "sha256": "558defab274dd7328833609935942761ac2215cf03eaf255f7ee3b455ca1ef82",
+      "bytes": 317
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-final-message_quote-tests.log",
+      "sha256": "af7d605a0a2c8671b8f048b5d89730c9b2c9fcddd2154bf99dab6e6adf49a6e7",
+      "bytes": 430
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-final-single_chat-tests-list.log",
+      "sha256": "fbbc0f6304b8e1b5adf6fc252ff9c6192e7f7a937727039ee64d7d8ebb7c4d3f",
+      "bytes": 930
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-final-single_chat-tests.log",
+      "sha256": "e5761ad36043b18a67121235a224d56f526d7694142c34c55a27f34233915e99",
+      "bytes": 1079
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-final-single_chat_composer_scope-tests-list.log",
+      "sha256": "1d74379ec3b505828fa6c137522f57d4e319eb28d881ceb184d263972eb04f0d",
+      "bytes": 255
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-final-single_chat_composer_scope-tests.log",
+      "sha256": "e52daeec0aa5c6c614eb2293ed71541f9f6ac62e3f6d3b3128c0273b5e833fcc",
+      "bytes": 362
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-gate-diff-final.log",
+      "sha256": "25653db314d5c253033236f50a7eead161c30cdc50e31621b5b88bf8e36f5460",
+      "bytes": 545
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-gate-diff.log",
+      "sha256": "6cdf26cecd6dfa671f75f1cb775532c08aa94458b2390127a235f7cb1d82fa00",
+      "bytes": 665
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-gate-docs-decisions.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+      "bytes": 170
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-gate-docs-policy.log",
+      "sha256": "de7ef2ac4e044b31cdd5db61b771f8ce2f21dd10a273ceb0063c634124efd8f7",
+      "bytes": 927
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-gate-docs-version.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+      "bytes": 79
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-gate-foundation.log",
+      "sha256": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+      "bytes": 182
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-gate-rustfmt.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-gate-scaffold.log",
+      "sha256": "53366338dfe03abb6a9c0dde87186284a1c7d6b3c7d6883e7182dd104fe42c69",
+      "bytes": 536
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-rustfmt-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-rustfmt-first.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-rustfmt.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-single_chat-tests-first.log",
+      "sha256": "b63cd6feb482acbd1cdf1ce67d60584e28b9ec121813ce1c2f5b06a5b7777e01",
+      "bytes": 1079
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-single_chat_composer-tests-first.log",
+      "sha256": "034781f33f34cca7af7ea70a87cda51c57f968e8470eb01d78ae96ef946874ba",
+      "bytes": 491
+    },
+    {
+      "path": "work\\i03\\private-pending-edit-types.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "push": false,
+  "actions": false,
+  "paid_models": false,
+  "daily_data_access": false,
+  "model_input_changed": "approved_r1_preaccept_edit_only_no_projection_budget_or_frozen_Blob_change",
+  "codegraph": "existing_index_missing_not_initialized_no_sync_claim",
+  "remaining": [
+    "优先Renderer targetBody冻结/placement/完整保留选择与原UUID本机意图恢复；当前旧按钮仍缺新版参数",
+    "上传prepare原UUID/内容摘要、源变化/替换检查及scope/retained资源授权",
+    "新卡片材料/显式迁入/orphan界面、实际Host/Native、最终Blob/Runtime及PC01-PC24完整场景",
+    "其余I03引用/文件/PTY/冷路由及I02剩余、I04-I12/BUF全部范围"
+  ]
+}

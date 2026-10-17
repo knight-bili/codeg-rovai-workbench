@@ -50,6 +50,7 @@ jobs:
         run: |
           cargo test -p rovai-core --features extended-tests --lib native_mode_catalogs_preserve_choices_and_platform_qualification
           cargo test -p rovai-core --features extended-tests --lib db:: -- --test-threads=4
+          cargo test -p rovai-core --features extended-tests --lib canvas_ -- --test-threads=4
           cargo test -p rovai-core --features extended-tests --lib acp::route_policy_tests::
           cargo test -p rovai-core --features extended-tests --lib health::launch_policy_tests::
           cargo test -p rovai-core --features extended-tests --lib runtime_parsers_emit_sparse_usage_without_antigravity_inference

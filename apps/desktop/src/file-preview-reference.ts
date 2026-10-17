@@ -91,17 +91,21 @@ function fileUriParts(reference: string): {
   path: string
   query?: string
   fragment?: string
+  target?: FileLocationTarget
 } | null {
   try {
     const url = new URL(reference)
     if (url.protocol !== 'file:' || (url.hostname && url.hostname !== 'localhost')) return null
-    const decoded = decodeOnce(url.pathname)
+    // An encoded colon belongs to the literal filename; only an unescaped suffix is a location.
+    const suffix = url.hash ? { path: url.pathname } : splitLineSuffix(url.pathname)
+    const decoded = decodeOnce(suffix.path)
     if (decoded === null) return null
     const windowsPath = /^\/[a-z]:\//i.test(decoded) ? decoded.slice(1) : decoded
     return {
       path: windowsPath,
       query: url.search ? url.search.slice(1) : undefined,
-      fragment: url.hash ? url.hash.slice(1) : undefined
+      fragment: url.hash ? url.hash.slice(1) : undefined,
+      target: suffix.target
     }
   } catch {
     return null
@@ -122,7 +126,8 @@ export function parseFileReference(input: string): ParsedFileReference | null {
     return null
   }
 
-  const parts = isFileUri ? fileUriParts(reference) : splitQueryAndFragment(reference)
+  const uri = isFileUri ? fileUriParts(reference) : null
+  const parts = isFileUri ? uri : splitQueryAndFragment(reference)
   if (!parts || !parts.path) return null
   const decodedPath = isFileUri ? parts.path : decodeOnce(parts.path)
   if (decodedPath === null || !decodedPath.trim()) return null
@@ -133,9 +138,12 @@ export function parseFileReference(input: string): ParsedFileReference | null {
   let target = parseFragment(decodedFragment)
   if (decodedFragment && /^L/i.test(decodedFragment) && target?.heading !== undefined) return null
   if (!decodedFragment) {
-    const suffix = splitLineSuffix(pathPart)
-    pathPart = suffix.path
-    target = suffix.target
+    if (isFileUri) target = uri?.target
+    else {
+      const suffix = splitLineSuffix(pathPart)
+      pathPart = suffix.path
+      target = suffix.target
+    }
   }
   if (target && (
     [target.line, target.column, target.endLine, target.endColumn]

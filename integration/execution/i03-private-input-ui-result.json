@@ -1,0 +1,485 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T16:39:52.644144+00:00",
+  "stage": "I03",
+  "goal_status": "active",
+  "baseline": "f51b1ef7",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "source": "68be7548c64110e3840a400b63b82b39cf2b06ca",
+    "checkpoint": "f51b1ef7"
+  },
+  "source_commit": "e7ab2aab3d144bbde52d58d39d20d8d8f063dd66",
+  "status": "renderer_complete_return_swap_pending_edit_and_original_intent_locally_verified_scoped_upload_orphans_and_real_Host_pending",
+  "approved_revision": 1,
+  "confirmation_status": "confirmed",
+  "approved_files": [
+    {
+      "path": "outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.docx",
+      "sha256": "87565f57fa0e994f676139e3376fe14e556ac9862c08f1573798d985f4dcecf7"
+    },
+    {
+      "path": "outputs\\I03_私聊材料隔离_r1\\final\\I03_私聊材料怎么分开用_客户确认版_r1.pdf",
+      "sha256": "4b3446c0d97f2c6b8529a206d965a60229dcc1e5966e280647856fc88576e8df"
+    }
+  ],
+  "implementation": [
+    "SingleChatPanel冻结targetBody/材料revision/原编号，区分活动与完整保留；选择/交换整份正文附件引用，旧正文副本明确标注",
+    "卡片精确get回显，发送/引用/移除按scope，不使用默认材料替代；只读不登记，有意义编辑先落盘正文和位置索引再register",
+    "Native默认/卡片共用现有隔离本机恢复存储；版本化原意图及原结果，正文与回执空标记同string-map写入，然后清意图",
+    "移回/交换锁同位置所有镜像，其他位置仍能编辑；发送成功只清原匹配正文，保留后来新输入",
+    "重载只读核对原UUID/全参数；unknown才提供明确重试；存储失败或晚回执材料变化保留意图，不重发不拼材料",
+    "排队工作副本正文/附件移除、保存、放弃、从已保存版本明确接管；别卡仅布尔提示不显示令牌与未保存正文",
+    "Web三类私有命令按Thread/Conversation/scope分组；手工记录核对结清原运输Promise，明确重试使用原entry",
+    "Controller查询到已存结果可独立结清原调用，即使Native样式原连接永久等待，也能解除原按钮/发送等待",
+    "卡片上传仍未接，文件添加禁用且卡片活动附件只显示文件名/移除；不借旧默认locator访问或预览卡片材料"
+  ],
+  "validation": {
+    "client_checks": {
+      "files": 5,
+      "passed": 76,
+      "failed": 0,
+      "log": {
+        "path": "work/i03/private-input-ui-owners-final.log",
+        "sha256": "4f28add3f1a1c24fc29fac4c498e0ab93920f50d8d0d6f85b3f9f08873f2e012",
+        "bytes": 286
+      },
+      "scope": "TypeScript_owners_static_presentation_mock_RPC_not_product_acceptance"
+    },
+    "types": {
+      "status": "passed_targeted",
+      "log": {
+        "path": "work/i03/private-input-ui-types-final.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    "mounted_UI": {
+      "status": "passed_scoped_component_fixture",
+      "mock_Core": true,
+      "actual_Host": false,
+      "observations": 9,
+      "evidence": {
+        "path": "work/i03/private-input-ui-artifacts/observations.json",
+        "sha256": "950e338adbc3a25f50b4c997f01747ba7f774eede26317be2e040651953ffffd",
+        "bytes": 26723
+      },
+      "checks": [
+        "empty_target_complete_return",
+        "occupied_target_retained_complete_bundle",
+        "full_swap_with_mirror_and_other_card_isolation",
+        "recorded_reply_loss_reload_zero_posts",
+        "unknown_explicit_same_UUID_parameters_retry",
+        "pending_save_cancel_takeover",
+        "unique_DOM_ids",
+        "no_scoped_default_preview",
+        "hung_original_transport_receipt_settles_original_UI"
+      ]
+    },
+    "copy": {
+      "duplicateLocaleKeys": [],
+      "missingLiteralTranslations": []
+    },
+    "docs": "version_diff_aware_governance_and_10_policy_tests_passed",
+    "diff": "passed",
+    "foundation": "passed_source_contract_and_fixture_only",
+    "scaffold": "81_clusters_48_packages_324_cases_unchanged_product_not_run",
+    "new_Rust_compilation": false,
+    "new_Host_or_app_build": false,
+    "full_workspace_regression": "deferred_stage_candidate",
+    "PC01_PC24": "complete_scenarios_not_run_partial_Core_and_mock_Renderer_evidence_only",
+    "formal_324": "all_not_run",
+    "actual_HTTP_Native_IPC_Runtime_final_model_Blob": "not_run",
+    "platform_and_multiwindow_crash_scale": "pending"
+  },
+  "self_review": [
+    "不把旧按钮原文测试当新按钮可用；迁入生产Panel并实际挂载",
+    "default omit send保持旧四字段，显式能力检查失败不借default材料给卡片写入",
+    "未知请求持久原编号和参数；回执/正文两步幂等；旧结果不覆盖后来新正文或拼接新材料",
+    "自审发现只读成功仍等待永不返回的原连接，补Controller completion和return/send两case及实际挂载验证",
+    "仅完整分页才剔除缺席输入；不同scope只展示自身retained和working session",
+    "本机索引无正文与凭据；working key精确入册；坏版本保留阻断不覆盖",
+    "源附件摘要、scoped/retained资源授权尚未实现，明确禁用缺授权访问而非冒充PC15通过"
+  ],
+  "retained_failures": [
+    {
+      "log": "work/i03/private-input-ui-types-first.log",
+      "reason": "初始测试fixture缺完整合同字段，已补齐"
+    },
+    {
+      "log": "work/i03/private-input-ui-editor-types.log",
+      "reason": "基类pending view没有editingElsewhere，改受检属性守卫"
+    },
+    {
+      "log": "work/i03/private-input-ui-panel-owners-first.log",
+      "reason": "迁移sender后的源码断言及Windows换行，保留展示/发送revision约束并修正"
+    },
+    {
+      "kind": "browser_fixture_setup",
+      "reason": "首次模拟适配漏context host/core及attachments capability，另有不稳定target造成fixture重读；仅修夹具，随后重载验证"
+    }
+  ],
+  "pending": [
+    "prepare原请求编号/源内容摘要与替换检查，scope/retained文件资源授权及卡片/工作副本上传预览",
+    "默认材料显式迁入、孤立卡片/正文/Core恢复统一界面及有冲突的旧正文人工恢复路径",
+    "真实Host HTTP/Native IPC、原进程/多窗口/崩溃及关闭重开完整工作流、模型最终Blob与24项完整PC场景",
+    "HTML规模、IME/触控/键盘和全平台资格；I02剩余及I03其余Mission/Task/Diff pin、授权文件/PTY/冷路由",
+    "I04-I12及BUF完整范围和324正式验收，客户专用模型身份/预算、设备/签名/渠道最后补齐"
+  ],
+  "versions": {
+    "schema": 155,
+    "migration": 205,
+    "Host_protocol": 4,
+    "current_version": "v1.72",
+    "current_operations": 180,
+    "historical_operations": 161
+  },
+  "policy": {
+    "multiple_local_commits": true,
+    "phase_batches": 12,
+    "candidate_frozen": false,
+    "pushed": false,
+    "new_action_runs": 0,
+    "new_paid_model_runs": 0,
+    "main_merged": false,
+    "published": false,
+    "daily_data_used": false
+  },
+  "CodeGraph": "工具实时确认本仓未建立可用索引；用户目录.codegraph仅daemon/telemetry缓存，不初始化、不声称sync",
+  "resources": {
+    "temporary_IAB_tab_closed": true,
+    "fixture_exec_session": 71013,
+    "fixture_stop": "explicit_interrupt_exit_1_expected",
+    "port_43131_listening": false
+  },
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/PrivateInputRecoveryPanel.tsx",
+      "sha256": "a4d6fabbb54f9825534baeeef3611d320fb7e1e3fd547580a1512fb3ecf10dde"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/PrivatePendingEditor.tsx",
+      "sha256": "a32febb7e4281068a94ed0e589487296765005c7fb30276609421de99536ed16"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.test.ts",
+      "sha256": "84ccdceea6b179ddc9172b8e3583ca5d5514cd9efb41913d6fa0efb34c02f2dc"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "sha256": "d74e43b44730746018eb671567398e2325a5d1a8fd6b73a9fbf941aa3458ec4b"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/camp-client.tsx",
+      "sha256": "aaf8d2237893007e6579d8a131c3fdc5862b47a76aa1b66b8c2aabbd15e048da"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "cce09a642f0e9c3cd0aefa8168ecbe397ac92d976e4860f90252ffaf26ea50db"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/private-input-controller.test.ts",
+      "sha256": "2deec660051871be594c6d4278fa0e8b5d804abb2d77bb59babe497495682ea5"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/private-input-controller.ts",
+      "sha256": "b5130fe241aae3a54d7cb02521ccde7da311bda7e341ca0d0c0bd8a8f4a6cd14"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/single-chat-composer-store.test.ts",
+      "sha256": "f17043cae78e7c4c26b9e8f724cf61f927e4018ed639c29791a1e01a90156b52"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/single-chat-composer-store.ts",
+      "sha256": "7f77add1b686316b32dfb4488ccb9f2b2298cafaab6cbb9276e8703c0c9933e2"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/styles.css",
+      "sha256": "d24d9d77450fa2b0506e05b2bb138863689414e36d1aac3dc973e574c725a021"
+    },
+    {
+      "path": "apps/web/src/camp-adapter.ts",
+      "sha256": "2b3a00a57799c5358066fd152372b82d87d13e6bfc2de6c09978e71e816979cf"
+    },
+    {
+      "path": "apps/web/src/client.test.ts",
+      "sha256": "634786f783af49f6b41154ebabe98d8dd877a2d8927e5baae2040de711ddd9bb"
+    },
+    {
+      "path": "apps/web/src/client.ts",
+      "sha256": "219352e013daec06284f079806fb3f44f69ba0d2f3dc5db5ab6e63da4d68ab68"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "18d733730e9cd56acbac21869ffa2bfb92ff1ad894acf140b03df0af9c98cab9"
+    },
+    {
+      "path": "docs/contracts/single-chat-composer-scope-v1.md",
+      "sha256": "4c6ff49c1898c03283ea29c4ab1c5a0ed2e921c6c02ea5688af9aa201111d20d"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "5c89af8553e558ceafd0eb3531ce095bee342f4344d8714e88ef9a1fb7637487"
+    },
+    {
+      "path": "docs/versions/v1.72/README.md",
+      "sha256": "d3e360c13c805292d62e6d676203d72d8a9e286db4d5055060d2401706913389"
+    }
+  ],
+  "preserved_authorities": [
+    {
+      "path": "crates/rovai-core/src/draft_client.rs",
+      "git_blob": "8745a0ed10f868be9f728e63f951f7142124bdce",
+      "sha256": "651d61c4788d6205f11abbe5979dd21f9a08c4e3378d2cb889ee2598dac2ed1e"
+    },
+    {
+      "path": "crates/rovai-core/src/command.rs",
+      "git_blob": "7529d3242563423d1901001b75693c31f5f889ca",
+      "sha256": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+    },
+    {
+      "path": "crates/rovai-core/src/context.rs",
+      "git_blob": "6c336da3c1a68d0f76d2b3d7bcd072cb89c20730",
+      "sha256": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784"
+    },
+    {
+      "path": "crates/rovai-core/src/context_contract.rs",
+      "git_blob": "97498ae4617bf94fbce2d5a68e6c459fe0c2df90",
+      "sha256": "d69fc337182fdab43feb84435c852ca92bf9a4ae57b9e532cb73ad350ccd736c"
+    },
+    {
+      "path": "crates/rovai-core/src/message_quote.rs",
+      "git_blob": "cae8847c28e3f605eb6a8b3b31918d723a9ea4e1",
+      "sha256": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e"
+    },
+    {
+      "path": "crates/rovai-core/src/db.rs",
+      "git_blob": "ea881a48487b11f0b99e5aba293d38102c0b4458",
+      "sha256": "539bf9eff6d85004f462852d4317bcfe6cd5c88c0f485dcde3656a7a3d3809c6"
+    },
+    {
+      "path": "crates/rovai-core/src/db_private_composer_scope.rs",
+      "git_blob": "62db5aca02597157baddfa59e4ba37f43cb0470f",
+      "sha256": "acc376d5fd4df8f6c141d755ea0e515398235d4545503b5827a1297d3b7b32bc"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat.rs",
+      "git_blob": "c24d792c985ae08c2e159903e86552684be5cb96",
+      "sha256": "69c1dbb56c56181bbd0e90ef0239a855894b4a9e864119155d1a2da4de6c2569"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat_composer.rs",
+      "git_blob": "ecba6911d9ace38d2fa945bf81edb078db5ba09c",
+      "sha256": "fde43ac80b4f741152ac87a960d19b021774e64a0a4ee728fdec1f8d0d2b54c1"
+    },
+    {
+      "path": "crates/rovai-core/src/web_upload.rs",
+      "git_blob": "7a0e491b554f1b5f4ada7642a5ca8bbfafdb7c91",
+      "sha256": "3e959a557ab84e56b1c5151240ff958a91681890076122f9b3e771e5114583b8"
+    },
+    {
+      "path": "crates/rovai-core/src/application/private_composer.rs",
+      "git_blob": "5be38cf30a2ebb0c8fe11ff6c008013b6d912910",
+      "sha256": "e05ba85ce6c90c107364f5bf24800140cf483b25afe35b127030cb868903569d"
+    },
+    {
+      "path": "crates/rovai-web/src/operations.rs",
+      "git_blob": "c06aeaf508aa05fca4f67fdb1bc5e26613877d53",
+      "sha256": "e264b1e8f890c5c5723750bf1841594c94096058aa07e2533dc7806c904ead47"
+    },
+    {
+      "path": "integration/foundation/current-protocol.json",
+      "git_blob": "8bf1531ca7b42782b04db2d92f2ad985786a2929",
+      "sha256": "04063f89c5cb900d89d21fbd96a588e5e87883825b80ce7344b0ccd8b6dd0e67"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "git_blob": "a96da94f6636e96c7b0df085f0b63e0a958a9493",
+      "sha256": "5252198e3a09187357ffa352f89f2e3bb80d81d92b4df1334fd32212cc036349"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "work/i03/private-input-ui-copy-final.log",
+      "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078",
+      "bytes": 72
+    },
+    {
+      "path": "work/i03/private-input-ui-diff-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work/i03/private-input-ui-editor-types.log",
+      "sha256": "afa23bc51ef886e1518f00fbe378f1d1ca1cb57ae62ca0f48b98640890dd024c",
+      "bytes": 156
+    },
+    {
+      "path": "work/i03/private-input-ui-gate-docs-decisions.log",
+      "sha256": "ee47569c353f8114ff1c752ddb26fa908f413560a39d77a50e7694c7edef977f",
+      "bytes": 232
+    },
+    {
+      "path": "work/i03/private-input-ui-gate-docs-policy.log",
+      "sha256": "b917fd3d50a2db737e996141a8d15765760d0822c633382739fca122dfc6303f",
+      "bytes": 972
+    },
+    {
+      "path": "work/i03/private-input-ui-gate-docs-version.log",
+      "sha256": "8600a1ee61738be69f52443298d9b90d5a5862d63ea7205a38a69bad473f107d",
+      "bytes": 117
+    },
+    {
+      "path": "work/i03/private-input-ui-gate-foundation.log",
+      "sha256": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+      "bytes": 182
+    },
+    {
+      "path": "work/i03/private-input-ui-gate-scaffold.log",
+      "sha256": "2f82011834174c6eacb0d6742620d100058b128f364966a3950fc33f22407f05",
+      "bytes": 153
+    },
+    {
+      "path": "work/i03/private-input-ui-owner-first.log",
+      "sha256": "8db53759e15d5eba3a585580bb92aa311903401e7d6860a5aba42fa52bea27ff",
+      "bytes": 286
+    },
+    {
+      "path": "work/i03/private-input-ui-owners-client.log",
+      "sha256": "d512911ec27afbcdab534e8c44bda5fa1e0097df660ff13fc54815bf73d5e886",
+      "bytes": 286
+    },
+    {
+      "path": "work/i03/private-input-ui-owners-final.log",
+      "sha256": "4f28add3f1a1c24fc29fac4c498e0ab93920f50d8d0d6f85b3f9f08873f2e012",
+      "bytes": 286
+    },
+    {
+      "path": "work/i03/private-input-ui-owners-fixed.log",
+      "sha256": "b622422389db3163d66a0ac619204aa1a8704474b8c5ef72b8d1f0328926cc66",
+      "bytes": 286
+    },
+    {
+      "path": "work/i03/private-input-ui-owners-web-final.log",
+      "sha256": "cedfcdfee614b4f282cedda08161e57b5f628e1ffee07206d81264cf45b741a0",
+      "bytes": 286
+    },
+    {
+      "path": "work/i03/private-input-ui-panel-owners-first.log",
+      "sha256": "4b41b7869d525166089f41fc6cb5f20608fbf4446ded74b70e4c70d8622ed3a4",
+      "bytes": 186067
+    },
+    {
+      "path": "work/i03/private-input-ui-panel-owners-fixed.log",
+      "sha256": "4979609bebd691e5eb4d2a9c175efa0d74e5b31d42431cb85f0d1876f9ed58d3",
+      "bytes": 286
+    },
+    {
+      "path": "work/i03/private-input-ui-panel-types-first.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work/i03/private-input-ui-panel-types-materials.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work/i03/private-input-ui-panel-types-second.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work/i03/private-input-ui-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work/i03/private-input-ui-types-first.log",
+      "sha256": "53e591a6cc257b3af2c8ab14ee7c61eef6f263d518974328727c15b41b3c0369",
+      "bytes": 1701
+    },
+    {
+      "path": "work/i03/private-input-ui-types-fixed.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work/i03/private-input-ui-artifacts/complete-swap.png",
+      "sha256": "3bbf579f3009830ef66bf66d4315c151fff36b34c1754fc5075ab18096c76dda",
+      "bytes": 76997
+    },
+    {
+      "path": "work/i03/private-input-ui-artifacts/hung-transport-recovered.png",
+      "sha256": "8a78d2efe19d59853b0c4e47b3ef5a98fb8335986a9e0b967dee4b6f31775731",
+      "bytes": 76269
+    },
+    {
+      "path": "work/i03/private-input-ui-artifacts/observations.json",
+      "sha256": "950e338adbc3a25f50b4c997f01747ba7f774eede26317be2e040651953ffffd",
+      "bytes": 26723
+    },
+    {
+      "path": "work/i03/private-input-ui-artifacts/pending-takeover.png",
+      "sha256": "03544515f59cc8d8e4323c44b89148f290904f8ec71cfa9cdd4cf15c450c4ee2",
+      "bytes": 80699
+    },
+    {
+      "path": "work/i03/private-input-fixture/entry.tsx",
+      "sha256": "93079451cc92cbbdaef9b674adab4736e51aa2add865a45e944992f3867c7294",
+      "bytes": 11196
+    },
+    {
+      "path": "work/i03/private-input-fixture/server.mjs",
+      "sha256": "8d8c9b1586b24424cd47b204296e8a8c1cd8834b99263ad79c492dc3a48d41ab",
+      "bytes": 1216
+    },
+    {
+      "path": "work/i03/private-input-fixture/index.html",
+      "sha256": "23f89bab590317547eb4c96ff607b4fd2728ba27ea1c10e403d25d081205e2fb",
+      "bytes": 227
+    },
+    {
+      "path": "work/i03/record_private_input_ui.py",
+      "sha256": "246a6d05315c3a24dc37e0a6f8331b34255be636990b19a8147862906c449952",
+      "bytes": 13111
+    },
+    {
+      "path": "work/i03/check-private-input-copy.mjs",
+      "sha256": "6412fbaa8241f39f25ecad0a37b41559cd0c3bb7c07b60d4ba000ff72d672a51",
+      "bytes": 1325
+    },
+    {
+      "path": "work/i03/private-input-ui-typecheck.json",
+      "sha256": "850c88d28ddbd2092e0fcceb55f5d8aeb26889b252aa8fa9ff3dca7b030537c4",
+      "bytes": 615
+    },
+    {
+      "path": "work/i03/canvas-ui-typecheck.json",
+      "sha256": "2f7a250c2966b24ffd6d8ec6acd60350c78c750191f7cd3a6f3043e5f86ca70e",
+      "bytes": 680
+    },
+    {
+      "path": "work/i03/private-input-fixture-server.log",
+      "sha256": "697d91191949e91b9a98f89603023b411d4aa87b34c4e906ba376c1408bf3e23",
+      "bytes": 1208
+    },
+    {
+      "path": "outputs/I03_私聊输入界面_本轮验证/final/complete-swap.png",
+      "sha256": "3bbf579f3009830ef66bf66d4315c151fff36b34c1754fc5075ab18096c76dda",
+      "bytes": 76997
+    },
+    {
+      "path": "outputs/I03_私聊输入界面_本轮验证/final/hung-transport-recovered.png",
+      "sha256": "8a78d2efe19d59853b0c4e47b3ef5a98fb8335986a9e0b967dee4b6f31775731",
+      "bytes": 76269
+    },
+    {
+      "path": "outputs/I03_私聊输入界面_本轮验证/final/pending-takeover.png",
+      "sha256": "03544515f59cc8d8e4323c44b89148f290904f8ec71cfa9cdd4cf15c450c4ee2",
+      "bytes": 80699
+    }
+  ],
+  "customer_action_required_now": false,
+  "next_action": "继续scope上传prepare与源摘要/资源授权，再完成默认材料显式迁入和孤立输入恢复；不缩减r1或一期范围"
+}

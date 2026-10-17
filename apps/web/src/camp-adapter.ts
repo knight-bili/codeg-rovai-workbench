@@ -20,6 +20,8 @@ export function browserPlatform(): ThreadClient['platform'] {
 export function createThreadAdapter(transport: ConsoleClient, selectWorkspaceDirectory: BusinessEnvironment['selectWorkspaceDirectory']) {
   if (!transport.editingScope || !transport.presentationScope) throw new Error('必须先认证才能建立编辑作用域。')
   const listeners = new Set<(change?: ThreadReadInvalidation) => void>()
+  const editingRecovery = browserEditingRecovery(transport.editingScope, sessionStorage, { ownerScope: transport.presentationScope, storage: localStorage })
+  const preparations = transport.supportsPrivateUploadRecovery ? transport.privateUploadPreparations(editingRecovery) : null
   const unimplemented = async (): Promise<never> => { throw new Error('此操作的 Web 适配尚未接通。') }
   const channelAdapter: NonNullable<ThreadClient['channels']> = {
     native: null,
@@ -32,9 +34,12 @@ export function createThreadAdapter(transport: ConsoleClient, selectWorkspaceDir
     selectPublicationApprover: (agentId, userId, kind = 'feishu') => transport.channel({ operation: 'selectApprover', agentId, userId, kind })
   }
   const client: ThreadClient = {
+    presentationScope: transport.presentationScope,
+    canvasCoreIdentity: () => transport.canvasCoreIdentity(),
     platform: browserPlatform(),
     missionAttachments: null,
-    editingRecovery: browserEditingRecovery(transport.editingScope, sessionStorage, { ownerScope: transport.presentationScope, storage: localStorage }),
+    editingRecovery,
+    retryPendingCommand: (method, params) => transport.retryPendingCommand(method, params),
     exportDiagnostics: async () => downloadJson(await transport.request('diagnostics.export'), 'rovai-diagnostics.json'),
     exportMonitoring: async filter => downloadJson({ exportedAt: new Date().toISOString(), ...await transport.request<object>('monitoring.snapshot', filter) }, 'rovai-runtime-monitoring.json'),
     revealMonitoringExport: null,
@@ -54,6 +59,13 @@ export function createThreadAdapter(transport: ConsoleClient, selectWorkspaceDir
     },
     onInvalidated: listener => { listeners.add(listener); return () => { listeners.delete(listener) } },
     singleChatAttachments: {
+      ...(preparations ? {
+        prepareInput: (request, file) => preparations.prepareInput(request, file),
+        reconcileInput: request => preparations.reconcileInput(request),
+        retryInput: (request, originalFile) => preparations.retryInput(request, originalFile),
+        ...(transport.supportsPrivateUploadLifecycle ? { finishInput: request => preparations.finishInput(request) } : {}),
+        pendingPreparations: owner => preparations.pendingPreparations(owner)
+      } satisfies Pick<ThreadClient['singleChatAttachments'], 'prepareInput' | 'reconcileInput' | 'retryInput' | 'finishInput' | 'pendingPreparations'> : {}),
       prepare: async (conversationId, revision, file) => {
         const snapshot = await transport.request<SingleChatSnapshot | null>('singleChat.get', { conversationId })
         if (!snapshot) throw new Error('单聊已不在当前会话中。')

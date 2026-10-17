@@ -1,5 +1,5 @@
 import { usePreviewHost } from './FilePreviewContext'
-import { FilePreviewTabs } from './FilePreviewTabs'
+import { FilePreviewTabs, tabDomId, panelDomId } from './FilePreviewTabs'
 import { useOptionalFilePreviewLayout } from './FilePreviewLayout'
 import { useCallback, useEffect, useLayoutEffect, useId, useMemo, useRef, useState } from 'react'
 import { MarkdownFilePreview } from './MarkdownFilePreview'
@@ -340,13 +340,13 @@ function Viewer({ tab }: { tab: FilePreviewTabModel }): React.JSX.Element {
   return <SourceViewer tab={tab} />
 }
 
-function FilePreviewDocument({ tab }: { tab: FilePreviewTabModel }): React.JSX.Element {
+function FilePreviewDocument({ tab, hidePath = false }: { tab: FilePreviewTabModel; hidePath?: boolean }): React.JSX.Element {
   const { reload, retry, changePage, revealInFolder, displayed } = useFilePreview()
   const [pathActionError, setPathActionError] = useState<string | null>(null)
   useEffect(() => setPathActionError(null), [tab.file?.handleId, tab.id])
   useEffect(() => { if (tab.file && tab.content && tab.content.kind !== 'html') displayed(tab.id, tab.file.handleId) }, [tab.file?.handleId, tab.content, tab.id, displayed])
   const page = tab.content?.kind === 'page' ? tab.content.page : null
-  const showPath = tab.loadState === 'ready' && previewPathIsVisible(tab.presentation)
+  const showPath = !hidePath && tab.loadState === 'ready' && previewPathIsVisible(tab.presentation)
   const showUpdate = tab.loadState === 'ready' && Boolean(tab.file)
     && (tab.hasExternalUpdate || tab.isRefreshing)
   const updateAction = showUpdate ? (
@@ -481,10 +481,10 @@ export function FilePreviewPaneContent({ visible, missionActivity, executionHost
   executionHostRef?(element: HTMLDivElement | null): void
 }): React.JSX.Element {
   const language = useInterfaceLanguage()
-  const { tabs, activeTabId, paneVisible } = useFilePreview()
+  const { tabs, activeTabId, paneVisible, domScope } = useFilePreview()
   const tabLabels = useMemo(() => previewTabLabels(tabs, language), [tabs, language])
   return (
-    <section id={visible ? "file-preview-pane" : undefined} className="file-preview-pane" hidden={!paneVisible} aria-label={uiAttribute("文件预览")}>
+    <section id={visible ? `file-preview-pane${domScope ? `-${domScope}` : ''}` : undefined} className="file-preview-pane" hidden={!paneVisible} aria-label={uiAttribute("文件预览")}>
       {tabs.length === 0 && <div className="file-preview-empty">
         <FilePreviewTabIcon kind="text" />
         <h2><UiText zh={"选择一个文件预览"} /></h2>
@@ -492,13 +492,13 @@ export function FilePreviewPaneContent({ visible, missionActivity, executionHost
       </div>}
       {tabs.map((tab) => <section
         key={tab.id}
-        id={`file-preview-panel-${tab.id}`}
+        id={panelDomId(tab.id, domScope)}
         className="file-preview-tab-panel"
         hidden={!visible || tab.id !== activeTabId}
         role="tabpanel"
         tabIndex={0}
         aria-label={tabLabels.get(tab.id) ?? previewTabLabel(tab, language)}
-        aria-labelledby={`file-preview-tab-${tab.id}`}
+        aria-labelledby={tabDomId(tab.id, domScope)}
       >
         {tab.kind === 'execution'
           ? <div ref={executionHostRef} className="execution-preview-host" />
@@ -506,4 +506,11 @@ export function FilePreviewPaneContent({ visible, missionActivity, executionHost
       </section>)}
     </section>
   )
+}
+
+/** The pinned card uses the original reader without inheriting another card's active tab. */
+export function FilePreviewSingleContent({ tab }: { tab: FilePreviewTabModel }): React.JSX.Element {
+  return <section className="file-preview-pane" aria-label={uiAttribute('文件预览')}>
+    <div className="file-preview-tab-panel"><ReadingPanel tab={tab}><FileFindScope id={tab.id}><FilePreviewDocument tab={tab} hidePath /></FileFindScope></ReadingPanel></div>
+  </section>
 }

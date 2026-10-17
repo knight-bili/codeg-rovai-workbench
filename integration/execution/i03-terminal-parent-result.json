@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C04",
+  "status": "parent_lifecycle_coded_rpc_ui_and_actual_process_pending",
+  "recorded_at": "2026-10-16T00:57:05.903272+00:00",
+  "previous_turn_classification": "progress_97274ea1_terminal_foundation_and_narrow_state_checks_committed",
+  "source_binding": {
+    "base_commit": "97274ea12c300d31157bb134d7c9690dfa9a7b0a",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "crates/rovai-core/src/application.rs": "1f6c47f5f025e85bfd31d20576bf0c2cf5c1d5624b3d5a2148487efc1e86e56f",
+      "crates/rovai-core/src/canvas_terminal.rs": "3e53563e841a584d12a53be79d590d22ad82bb1c697c42408e5621b85d1332fa",
+      "crates/rovai-core/src/canvas_terminal/helper.rs": "c265b9af1f15cfb3b1ca7c10daf3bbaff4661425fa5c8f83a2108322146fac4e",
+      "crates/rovai-core/src/canvas_terminal/state.rs": "85b8ef4a9f11356074a0e742c3fbfd4c08b4afaf7917591801c7626391a43f40",
+      "crates/rovai-core/src/main.rs": "89b2e81bdd30c39da293a620838946b81c9c6b77f89331bc368f4eae8aa3da86",
+      "crates/rovai-core/src/managed_process.rs": "e60ec364e179a894f0f84fb94912092b6b4b87e2933ac44c3414e23f25db9d12",
+      "crates/rovai-host/src/bin/rovai-server.rs": "c54d92b7d3f88b53458e1ce41a53678816fa438cb6e3820ff260ee155586751a",
+      "crates/rovai-host/src/main.rs": "0cd4c8ee56b7395f2db7887d1508deb841d1f72fe1ed35e260fe5e4d84fe0909",
+      "docs/architecture/canvas.md": "f9c1a15eb062637400f7b4b455ed0969b5ab40a7f3f23df635af87498ec02ab9",
+      "docs/contracts/canvas-nodes-v1.md": "5c471851ac086b6dbc886f6805006daf2c40fe60c584553936296d8d95798b8c",
+      "docs/development/testing.md": "de05e0c32e567e0108c1bdc09a32b4d61883e4f8793baeff4d2ea973c8c2d158",
+      "crates/rovai-core/src/application/canvas_terminal.rs": "dce0435909e573d01aa438219cfcfaaad4c8c9104b43b6e79ab2c0fac6111735",
+      "crates/rovai-core/src/canvas_terminal/manager.rs": "fe440a4d606acfacf6d1c0a33d8b8178b2bcd5ccf279ef2b02df6d0125813592",
+      "crates/rovai-core/src/canvas_terminal/manager/tests.rs": "1d76f7a80a8199de698f27c0eb933905927331239f2782e644394385c19833fe"
+    }
+  },
+  "previous_foundation": {
+    "path": "integration/execution/i03-terminal-foundation-result.json",
+    "sha256": "7abf126b8df71c524eaf4b989072ac39997fcc219e536e4d1695eafcf25d4b64"
+  },
+  "implemented": [
+    "Core-owned registry and detached actor, original request fingerprint/Core epoch/generation admission; late stop and shutdown fencing",
+    "Maximum16 running/starting/cleanup entries;64 completed output snapshots, compact original metadata retained for live nodes to prevent duplicate launch after output eviction",
+    "Input CAS sequence, UUID and digest with64 bounded receipts; original retry queries receipt, pending blocks later delivery and expired sequence never redelivers",
+    "Bounded helper pipe readers and independent fair actor selection; write/resize waits release board lifecycle and DB locks",
+    "Same captured RuntimeSearchEnvironment resolves shell and PATH; bounded4 read-only admission threads/3s timeout keep slow filesystem outside DB and Tokio blocking pool",
+    "ManagedProcess owns helper/tree; actor captures, kills, waits and verifies empty tree before marking finished; errors retain owner for retries",
+    "Dedicated helper bootstrap before ordinary Core/Host/server config; no helper business database",
+    "Node/board deletion checks actual post-command facts under lifecycle gate; resource failures do not reverse stored command result",
+    "Planned Core shutdown closes terminal admission and includes terminal cleanup in deadlineExpired without changing AgentRun fence prerequisites",
+    "Linux repeated force termination signals already-captured descendants despite prior root termination marker"
+  ],
+  "verified": {
+    "standalone_state": {
+      "owners_listed": 2,
+      "passed": 2,
+      "failed": 0,
+      "scope": "current production std-only state.rs, including cold-output discard cursor; not manager/helper/full Core"
+    },
+    "syntax": "Core application parsed by rustfmt emit stdout; no source reformat or typecheck",
+    "format": "10 changed Rust modules except legacy application whole-file debt; pass",
+    "docs": "pass_v1.72_diff_base_97274ea1",
+    "source_sql_reuse": {
+      "sql_sha256": "e536f3064547c2c103ee8a73d96ccb301fe0f24a75d9a49f35a832b5fc38f524",
+      "unchanged": true,
+      "prior_result_sha256": "154bba234fcc7e010830e55127a2657c9851969f9eca894a790cb861df15c4d0",
+      "scope": "prior11 literal-SQL checks reused only for identical predicate; no new SQL/FS/Host pass claimed"
+    }
+  },
+  "new_or_extended_tests_not_run": [
+    "two new manager admission and async frame owners; no DB/real child fixture",
+    "existing closed-request codec now requires Core epoch and input sequence",
+    "existing detached-process owner injects Linux prior-root-stop state and retains unrelated control child checks"
+  ],
+  "self_review_fixes": [
+    "Moved receipt waits outside lifecycle/DB locks",
+    "Removed shutdown short-circuit that could skip terminal wait; preserved independent AgentRun settlement prerequisites",
+    "Rechecked manager closing while holding registry admission lock",
+    "Used fair actor selection so output flood cannot starve stdin/maintenance by fixed priority",
+    "Drained bounded output and late acknowledgements after actual tree cleanup",
+    "Retired forgotten entries even when process spawn fails",
+    "Moved slow metadata work out of DB lock and bounded unresolved work after timeout",
+    "Retained original launch metadata when completed output is cooled instead of permitting replay to launch again"
+  ],
+  "not_run": [
+    "manager/helper/full Core/Host compilation and new manager/codec owners",
+    "actual PTY/input/resize/output flood and process tree reclamation",
+    "actual deletion/unknown recovery/Core restart/planned exit and Unix hard-crash behavior",
+    "Native/Web public admission/capability and terminal UI not implemented yet",
+    "actual platform/UNC directory/ConPTY/macOS qualification and formal324/fullPC01-PC24"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "artifacts": {
+    "i03/check-canvas-terminal-parent-state.ps1": "dc599022756be84a5d8f9b8968acc38ff47372eb8376826306bd929fafc6c4f1",
+    "i03/canvas-terminal-parent-state-compile-checked.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-terminal-parent-state-list-checked.log": "d2b60ddd957dc3c2dfab918d8a5b57d2906c2a29b0ed9d26d8d62e575cb29a5b",
+    "i03/canvas-terminal-parent-state-tests-checked.log": "f0b903b5c00078a0d5fb9005c3fa6210936b753801f3fb1cd81eacdb272147fd",
+    "i03/canvas-terminal-parent-state-tests.exe": "a8cd852da2ec1c44342b0a62128eb6c216028e72b9f2016c0052f58e0d83bb1b",
+    "i03/canvas-terminal-parent-format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03/canvas-terminal-parent-application-syntax.txt": "cb838fc6854962f57b66f7c037aa07a29bc265b0ed191e956d68ec13803a3443",
+    "i03/canvas-terminal-parent-docs.log": "6eb03e1b66af4f3a2ae337d42e11ddb5a595f11fc6e89cd079e7d49f34c7f9e8",
+    "i03/record-canvas-terminal-parent.py": "889f1da55ec802d337ef4fade3bcdf42cde3b92e5408954733cf01247ba421da"
+  },
+  "boundaries": {
+    "source_schema": 158,
+    "last_migration": 208,
+    "host_protocol": 4,
+    "public_core_methods": 180,
+    "new_public_rpc_capability": false,
+    "helper_cli_source_wired": true,
+    "actual_pty_started": false,
+    "cargo_build_or_test": false,
+    "push_actions_model": false,
+    "customer_action_required_now": false,
+    "formal324": "not_run"
+  },
+  "next_actions": [
+    "Wire public RPC/Core capability plus typed Native/Web admission/client with original epoch and input receipt recovery",
+    "Port original terminal viewer/card lifecycle and actual lowest process owner; C04 stays in progress",
+    "C05 cold route/scale and C06 concentrated candidate build, existing process regressions and actual platform qualification"
+  ]
+}

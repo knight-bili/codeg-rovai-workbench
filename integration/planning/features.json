@@ -389,7 +389,7 @@
     "phase": "I03",
     "scope": "一期必须",
     "implementation_status": "in_progress",
-    "acceptance_status": "not_run",
+    "acceptance_status": "engineering_verification_in_progress",
     "source_sha256": "aa36e89d029a6b647cf0d0dd61bd38ce667f296e13a6abce65eb5344f5994645",
     "primary_work_packages": [
       "I03-T01",
@@ -422,8 +422,8 @@
     "url": "https://github.com/spacering-net/codeg/blob/aff1e6c278453ed8d0b96a5f664edcdca621aa3f/src-tauri/src/db/entities/canvas_node.rs#L14",
     "phase": "I03",
     "scope": "一期必须",
-    "implementation_status": "not_started",
-    "acceptance_status": "not_run",
+    "implementation_status": "in_progress",
+    "acceptance_status": "engineering_verification_in_progress",
     "source_sha256": "24378e4f86ee6ea6a8b2ea1d4af8c3d83271294301a72382ef7daf51a16480dd",
     "primary_work_packages": [
       "I03-T01",
@@ -456,8 +456,8 @@
     "url": "https://github.com/spacering-net/codeg/blob/aff1e6c278453ed8d0b96a5f664edcdca621aa3f/src-tauri/src/db/entities/canvas_node.rs#L35",
     "phase": "I03",
     "scope": "一期必须",
-    "implementation_status": "not_started",
-    "acceptance_status": "not_run",
+    "implementation_status": "in_progress",
+    "acceptance_status": "engineering_verification_in_progress",
     "source_sha256": "24378e4f86ee6ea6a8b2ea1d4af8c3d83271294301a72382ef7daf51a16480dd",
     "primary_work_packages": [
       "I03-T01",

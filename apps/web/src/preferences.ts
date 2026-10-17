@@ -8,6 +8,7 @@ import { DEFAULT_APPEARANCE, parseAppearancePatch } from '../../desktop/src/shar
 import { DEFAULT_GENERAL_PREFERENCES, parseGeneralPreferences } from '../../desktop/src/shared/general-preferences-model'
 import { EMPTY_SNAPSHOT, sanitizeSnapshot, sourceMatchesSupportedSnapshot, registerNavigationProjects, isNavigationThreadReadState } from '../../desktop/src/shared/navigation-preferences-model'
 import { normalizeProjectDisplayName, projectDisplayNameError } from '../../desktop/src/shared/project-display-name'
+import { applyNavigationProjectLayout } from '../../desktop/src/shared/navigation-project-groups'
 
 /** Browser presentation preferences only. No drafts, domain facts or credentials enter storage. */
 export function browserPreferences(scope: string, transport: ConsoleClient): {
@@ -97,6 +98,7 @@ export function browserPreferences(scope: string, transport: ConsoleClient): {
         invalidateNewConversationDefaults: () => commitGeneral({ newConversationDefaultsRequireConfirmation: general.newConversationDefaults !== null })
       }, (method, params) => transport.request(method, params)),
       navigationPreferences: {
+        applyProjectLayout: (expectedRevision, mutation) => commitNavigation(current => applyNavigationProjectLayout(current, expectedRevision, mutation)),
         get: async () => { refreshNavigation(); return structuredClone(navigation) },
         onChanged: listener => {
           navigationListeners.add(listener)
@@ -134,7 +136,8 @@ export function browserPreferences(scope: string, transport: ConsoleClient): {
         })),
         restoreProject: key => commitNavigation(current => ({
           registeredProjects: [...new Set([...current.registeredProjects, key.slice('directory:'.length)])],
-          projectOrder: [...new Set([...(current.projectOrder ?? []), key])],
+          projectOrder: current.projectGroups.some(group => group.projectPaths.includes(key.slice('directory:'.length)))
+            ? current.projectOrder : [...new Set([...(current.projectOrder ?? []), key])],
           removedProjects: current.removedProjects.filter(p => p.targetKey !== key)
         }))
       }

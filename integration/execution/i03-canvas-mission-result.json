@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T11:19:37.785Z",
+  "stage": "I03",
+  "source_commit": "ceb728602b329cf0cb22e971cd6e810a519af15a",
+  "goal_status": "active",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "source": "5a297921701ec1f94f04fcb6510b665bd00ce570",
+    "checkpoint": "8414d46b"
+  },
+  "status": "thread_linked_mission_actions_delivery_cumulative_diff_mock_UI_verified_durable_object_pins_and_actual_runtime_pending",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "e24dd54fc095b90efe18c4f4087ea78545118184c54ab4adbe5c8914201f77ed",
+      "git_blob": "12e4b9c01e87c369643ddde35b6a12b7e5084724"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasThreadWorkspace.tsx",
+      "sha256": "2542ad69d83e99bde560ae388a74a5112da6cdbe6ae652a98cac5ab4be795b48",
+      "git_blob": "70abb0c4977a1e6286c020d6b65798caae9b0b4b"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/MissionDelivery.tsx",
+      "sha256": "811d628745ae001ee3e7c2957c58408460ff0a0d2086ea39dba35c5749d65f3c",
+      "git_blob": "b9e1ffd6bbe863abb2f687c1bc00a5cf2f8591d6"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+      "sha256": "07a20e0428c5962a84ae4c351e3225ef54f499999c931dbdeb1e2e686424f6e5",
+      "git_blob": "9d23d5299d6affe692b47ce47f2fbae90cd77daf"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversation.test.ts",
+      "sha256": "2b183e22dfa4978105d9623736e211eadaa7992251893c4a149ccef415e9f79e",
+      "git_blob": "9019e0527090486578db233aaff6000c4843024a"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversation.ts",
+      "sha256": "f6220f080b02d2c862772555384be300513ccaf7ef066319da6e0f89c1c8d3f3",
+      "git_blob": "48ba5b69b17dfe01a0dd70790195c82270c06452"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "04cea50e5681aaa81a65ff04e3c1f11c57fea14b4e630c070932656a47813d66",
+      "git_blob": "841557bfd5290866c3834cc58103750ea4adbcbb"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "9b58acb342e316bdfad7ffe3cd1154a493ea46566a5595109e3c4a53e2acc188",
+      "git_blob": "a718d362f9379607c90dbeae4082f6ab3acf8343"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "8a048eb4793220bec00d4b8279bc82e0cdf4ab7f040aac2fdc4746ae03d8aa2c",
+      "git_blob": "75242b11c9ca7d076cf7fdf7963abc50408bd7b2"
+    },
+    {
+      "path": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "7b520c527fb40554ad18b96d4ab150dd0bc5e11630562c275dabee2d389803a5",
+      "git_blob": "d7b4d1414fdf4c371cd8fb41711f8e8a325afcf8"
+    },
+    {
+      "path": "docs/ui/components/mission-board.md",
+      "sha256": "a578352d586650439f19f58604c5bfa7237891a996e912b839d0613d29798b54",
+      "git_blob": "03971f1602258bf5c9bc906cbd827e74f6c22956"
+    }
+  ],
+  "implementation": [
+    "从根Mission list向卡片传当前记录；Thread/Mission双向标识匹配才显示原MissionIntro/启动与交付累计变更入口，复用现有全窗口Mission action owner，不建第二套状态或命令。",
+    "各卡片FilePreviewProvider接原MissionActivityDocument/MissionDeliveryPanel/MissionChanges，精确missionId/fileId/viewId运输不变；Mission缺失或错绑时原活动标签显示不可用。公开来源回到发起卡片原消息；私有卡的公开来源通过原完整工作区离开保护导航，成功后才定位（此私有完整路径未做实际集成）。",
+    "Task/Mission通知目标查询限定workspaceShellRef；Mission累计变更折叠/树/弹窗ID使用useId，防止镜像关联串位。实际选中节点覆盖会话卡片导致开始使命按钮点不到，已将ViewportPortal置于节点之上的独立呈现层，保留节点选择/提升。"
+  ],
+  "validation": {
+    "tests": {
+      "files": 6,
+      "passed": 228,
+      "failed": 0,
+      "log": "work/i03/canvas-mission-owners-final.log"
+    },
+    "types": {
+      "exit_code": 0,
+      "no_emit": true,
+      "log": "work/i03/canvas-mission-typecheck-final.log"
+    },
+    "copy": {
+      "duplicates": 0,
+      "missing": 0
+    },
+    "docs": {
+      "version": "v1.72",
+      "governance": "passed",
+      "base": "8414d46b"
+    },
+    "browser": {
+      "observations": 11,
+      "failed_initial_observations": 1,
+      "final_console_errors": 0,
+      "source_focus": "public message-a in mirror card, not first mirror",
+      "exact_diff": {
+        "method": "missions.fileDiff",
+        "params": {
+          "missionId": "rvm-fixture-a",
+          "fileId": "mission-file",
+          "viewId": "mission-view-1"
+        }
+      },
+      "scope": "production canvas/cards/MissionIntro/MissionActivityDocument/MissionChanges and shared Mission action owner with mock Core",
+      "steps": [
+        "双镜像独立正文与原Mission启动，启动结果共享",
+        "原活动/交付/累计Diff目录树与具体文件patch",
+        "来源准确回到发起镜像卡",
+        "另一Thread不接纳外来Mission",
+        "错绑/删除后保留活动标签但显示不可用",
+        "返回后同DOM编辑器和真实Ctrl+Z",
+        "多实例控件ID唯一及精确Diff关联"
+      ]
+    },
+    "preserved_failures": [
+      "canvas-mission-browser-initial.json：节点选中层截获首次开始按钮，未发命令；修复后原正常click实际命中并成功。",
+      "canvas-mission-diff-initial-log-observation.json：纯读取后fixture日志未更新，未捕获fileDiff；打开日志时刷新显示后原精确字段断言通过，未放宽生产或检查。"
+    ],
+    "formal_acceptance": "all_324_not_run"
+  },
+  "unchanged": [
+    {
+      "path": "apps/desktop/src/renderer/src/thread-workspace-actions.ts",
+      "unchanged": true,
+      "sha256": "55c2cfac97077cda3a1e117a8d0a0858a460fb46d6206616fa1dad782294c00b"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-commands.ts",
+      "unchanged": true,
+      "sha256": "9d11152a14b5b091d77d9bbabb0048c71469dc9545c018ba216c89378cebe2ae"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-workspace-data.ts",
+      "unchanged": true,
+      "sha256": "301d8c422a3656d065ca762735d8685d6ce8b5622d4b4a26cc5a083fd22318e3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-run-cancellation.ts",
+      "unchanged": true,
+      "sha256": "7ee3c45be85e19f035942c29d9083da1b0967edc66a417fdb646cd0d14c46b08"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-projection-events.ts",
+      "unchanged": true,
+      "sha256": "c9857f3726e5cd9d272b53e5c0570fcd546b908cf0cce5074dbf6748a50356db"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-composer-drafts.ts",
+      "unchanged": true,
+      "sha256": "35889b5214832da77fb9d1ef7719a249cafdce2d2d075918445d5357bdaab40f"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "unchanged": true,
+      "sha256": "d280ca7180e6d24f52bd7fc34b9d460f005164bc471828bdc0553c445a4ce660"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/MissionBoard.tsx",
+      "unchanged": true,
+      "sha256": "25c8be2e20effca66abe28df300b3179d35dbf47d32a92fa1569b825b3df3e35"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/useMissions.ts",
+      "unchanged": true,
+      "sha256": "5fff34d16adb3ae76133f87fe5e4ed6086d866665681796312be474a94677200"
+    }
+  ],
+  "thread_workspace_change": "scope Task/Mission DOM query to current workspaceShellRef",
+  "model_input_changed": false,
+  "authority": {
+    "schema": 154,
+    "host": 4,
+    "current_contract": "v1.72",
+    "current_operations": 178,
+    "historical_operations": 161,
+    "new_api_or_migration": false,
+    "codegraph": "no_existing_index_no_implicit_initialization"
+  },
+  "pending": [
+    "独立持久Mission/Task/Diff引用及创建/定位入口，不能把当前Thread关联展示当全部对象绑定完成",
+    "私有卡公开来源完整BusinessApp/Native导航，Task/Mission通知定位的多卡实际覆盖",
+    "真实Core/Runtime使命启动到交付和Diff、断连/异常恢复、平台与规模资格",
+    "私有附件/quotes隔离提案和实现、文件节点真实授权/PTY/Desktop冷路由、旧通知焦点整改及I02剩余/I04-I12/BUF"
+  ],
+  "artifacts": [
+    {
+      "path": "canvas-mission-browser-initial.json",
+      "sha256": "d93ee3bfeb648f39002eb5cde3465efdbc53d05b2916afb4089511f8fe276938"
+    },
+    {
+      "path": "canvas-mission-browser-witness.json",
+      "sha256": "22fb3b05a1ded1345ebb3930126f1ebd1df69649212a77bc95070639e913d5a2"
+    },
+    {
+      "path": "canvas-mission-diff-initial-log-observation.json",
+      "sha256": "0f23b15f212c6c8cf0c5cc8538d234ac582744a2d35173fdf298c98aaa7c9807"
+    },
+    {
+      "path": "canvas-mission-diff-final.json",
+      "sha256": "a7f46bfa7119bb74f5cd1e73322abf45b5d79162be7ef75fe3685f42b74ab69e"
+    },
+    {
+      "path": "canvas-mission-diff.jpg",
+      "sha256": "adaaf0be86f287914f85833f8a92564781afd1b3d10fa0787b4bee2335f45ab2"
+    },
+    {
+      "path": "canvas-mission-diff-final.jpg",
+      "sha256": "78386b657323444e803cd375b0cd197155a6b6c85ffb879ce98f3fb68d55b6ba"
+    },
+    {
+      "path": "canvas-mission-delivery.jpg",
+      "sha256": "c0df127182cdff56896de3f5cdabd3c7139d1f65cc1531254b04626bb67eb8e5"
+    },
+    {
+      "path": "canvas-mission-owners-final.log",
+      "sha256": "5d98bd6b0fa25b3f2b36d795469768c531f09278827bd8e8db532def72af9c8d"
+    },
+    {
+      "path": "canvas-mission-typecheck-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "canvas-mission-copy.log",
+      "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078"
+    },
+    {
+      "path": "canvas-mission-docs.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+    },
+    {
+      "path": "canvas-mission-version.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d"
+    },
+    {
+      "path": "canvas-mission-fixture/entry.tsx",
+      "sha256": "32ad205801a4099608b7527854c8a9935a678e6441fa49678ac372995a1bdc8a"
+    },
+    {
+      "path": "canvas-mission-fixture/server.mjs",
+      "sha256": "f777fa384c3b177c7ff84046c25f003ab269222c94dbfb4f26d11248fac1be19"
+    },
+    {
+      "path": "canvas-mission-fixture/index.html",
+      "sha256": "23f89bab590317547eb4c96ff607b4fd2728ba27ea1c10e403d25d081205e2fb"
+    }
+  ],
+  "source_proof": {
+    "path": "work/i03/canvas-mission-source-proof.json",
+    "sha256": "02c07cf5d83f3df5454e93efc1ea37e5df60202efa06e7b292a7b2059cc0f2bf"
+  },
+  "cleanup": {
+    "fixture_server_21263": "stopped",
+    "loopback43127": "no_listener_verified",
+    "tabs10_11": "closed",
+    "test_handles": "finished"
+  },
+  "push": false,
+  "actions": false,
+  "complete_build": false,
+  "paid_model": false,
+  "customer_immediate_action": false
+}

@@ -2,6 +2,7 @@
 use super::*;
 
 const GROUP_KEY: &str = "CASE WHEN camp.project_binding_kind = 'directory' THEN 'directory:' || camp.project_path ELSE 'quick-chat' END";
+const ACTIVE_RUN_STATUSES: &str = "'queued', 'running', 'waiting'";
 const VISIBLE: &str = r#"
     camp.deletion_operation_id IS NULL
     AND NOT EXISTS(SELECT 1 FROM mission WHERE mission.camp_id = camp.id)
@@ -12,6 +13,101 @@ const VISIBLE: &str = r#"
       OR EXISTS(SELECT 1 FROM prepared_attachment WHERE camp_id = camp.id AND client_id = ?1))
 "#;
 const ORDER: &str = "COALESCE(camp.navigation_activity_at, camp.created_at) DESC, camp.navigation_activity_sequence DESC, camp.id";
+
+const ACTIVITY_SQL: &str = r#"
+    WITH requested(group_key) AS (SELECT value FROM json_each(?2)),
+    active_camp_ids(camp_id) AS (
+        SELECT camp_id FROM agent_run WHERE camp_id IS NOT NULL AND status IN ({ACTIVE_RUN_STATUSES})
+        UNION
+        SELECT t.camp_id FROM camp_turn t JOIN agent_run r ON r.camp_turn_id = t.id
+        WHERE r.camp_id IS NULL AND r.status IN ({ACTIVE_RUN_STATUSES})
+    ), counts AS (
+        SELECT {GROUP_KEY} AS group_key, COUNT(*) AS active_thread_count
+        FROM camp JOIN active_camp_ids active ON active.camp_id = camp.id
+        WHERE {VISIBLE} AND {GROUP_KEY} IN (SELECT group_key FROM requested)
+        GROUP BY {GROUP_KEY}
+    )
+    SELECT requested.group_key, COALESCE(counts.active_thread_count, 0)
+    FROM requested LEFT JOIN counts ON counts.group_key = requested.group_key
+    ORDER BY requested.group_key
+"#;
+
+pub(super) fn load_navigation_activity(
+    tx: &Transaction<'_>,
+    client: &crate::draft_client::DraftClient,
+    keys: &[String],
+    thread_ids: Option<&[String]>,
+) -> Result<Vec<NavigationGroupActivity>> {
+    anyhow::ensure!(
+        !keys.is_empty() && keys.len() <= 200,
+        "navigation activity requires 1 to 200 groups"
+    );
+    let mut seen = std::collections::HashSet::new();
+    for key in keys {
+        anyhow::ensure!(
+            seen.insert(key)
+                && (key == "quick-chat"
+                    || key.strip_prefix("directory:").is_some_and(|path| {
+                        let bytes = path.as_bytes();
+                        let drive = bytes
+                            .first()
+                            .is_some_and(|value| value.is_ascii_alphabetic())
+                            && bytes.get(1) == Some(&b':')
+                            && bytes
+                                .get(2)
+                                .is_some_and(|value| matches!(*value, b'/' | b'\\'));
+                        !path.is_empty()
+                            && path.encode_utf16().count() <= 8192
+                            && !path.contains('\0')
+                            && (path.starts_with('/') || path.starts_with("\\\\") || drive)
+                            && !path
+                                .split(['/', '\\'])
+                                .any(|part| matches!(part, "." | ".."))
+                    })),
+            "invalid or duplicate navigation activity group"
+        );
+    }
+    let mut selected = keys.to_vec();
+    if let Some(ids) = thread_ids {
+        let mut unique = std::collections::HashSet::new();
+        anyhow::ensure!(
+            !ids.is_empty()
+                && ids.len() <= 200
+                && ids
+                    .iter()
+                    .all(|id| !id.is_empty() && !id.contains('\0') && unique.insert(id)),
+            "invalid navigation activity thread ids"
+        );
+        let mut lookup = tx.prepare(&format!(
+            "SELECT {GROUP_KEY} FROM camp WHERE id IN (SELECT value FROM json_each(?1))"
+        ))?;
+        let groups = lookup
+            .query_map([serde_json::to_string(ids)?], |row| row.get::<_, String>(0))?
+            .collect::<rusqlite::Result<Vec<_>>>()?;
+        // A physically removed Thread no longer has an owner to resolve; reconcile the caller's bounded metadata scope.
+        if groups.len() == ids.len() {
+            selected.retain(|key| groups.contains(key));
+            if selected.is_empty() {
+                return Ok(Vec::new());
+            }
+        }
+    }
+    let sql = ACTIVITY_SQL
+        .replace("{GROUP_KEY}", GROUP_KEY)
+        .replace("{VISIBLE}", VISIBLE)
+        .replace("{ACTIVE_RUN_STATUSES}", ACTIVE_RUN_STATUSES);
+    let mut statement = tx.prepare(&sql)?;
+    let rows = statement.query_map(
+        params![client.id(), serde_json::to_string(&selected)?],
+        |row| {
+            Ok(NavigationGroupActivity {
+                group_key: row.get(0)?,
+                active_thread_count: row.get::<_, i64>(1)? as usize,
+            })
+        },
+    )?;
+    Ok(rows.collect::<rusqlite::Result<Vec<_>>>()?)
+}
 
 fn load_rows(
     tx: &Transaction<'_>,
@@ -27,9 +123,9 @@ fn load_rows(
             lead.id, lead.display_name, camp.navigation_activity_sequence,
             COALESCE(camp.navigation_activity_at, camp.created_at), camp.navigation_completion_sequence,
             COALESCE(v.last_seen_global_sequence, 0),
-            (EXISTS(SELECT 1 FROM agent_run r WHERE r.camp_id = camp.id AND r.status IN ('queued', 'running', 'waiting'))
+            (EXISTS(SELECT 1 FROM agent_run r WHERE r.camp_id = camp.id AND r.status IN ({ACTIVE_RUN_STATUSES}))
              OR EXISTS(SELECT 1 FROM camp_turn t JOIN agent_run r ON r.camp_turn_id = t.id
-                       WHERE t.camp_id = camp.id AND r.camp_id IS NULL AND r.status IN ('queued', 'running', 'waiting'))),
+                       WHERE t.camp_id = camp.id AND r.camp_id IS NULL AND r.status IN ({ACTIVE_RUN_STATUSES}))),
             camp.version, camp.activation_state, channel.provider, channel.conversation_kind
         FROM camp
         LEFT JOIN agent_profile lead ON lead.id = camp.default_lead_agent_id
@@ -207,6 +303,131 @@ mod tests {
         Arc,
         atomic::{AtomicUsize, Ordering},
     };
+
+    #[test]
+    fn activity_counts_complete_visible_threads_once_and_resolves_external_window_owners() {
+        const ACTIVITY_TEST_SCHEMA: &str = r#"
+            CREATE TABLE camp(id TEXT PRIMARY KEY, project_binding_kind TEXT, project_path TEXT, deletion_operation_id TEXT, activation_state TEXT);
+            CREATE TABLE agent_run(id TEXT PRIMARY KEY, camp_id TEXT, camp_turn_id TEXT, status TEXT);
+            CREATE TABLE camp_turn(id TEXT PRIMARY KEY, camp_id TEXT);
+            CREATE TABLE mission(camp_id TEXT);
+            CREATE TABLE pending_camp_draft_presence(camp_id TEXT, client_id TEXT);
+            CREATE TABLE camp_composer_draft(camp_id TEXT, client_id TEXT, body TEXT, source_attachments_json TEXT);
+            CREATE TABLE prepared_attachment(camp_id TEXT, client_id TEXT);
+        "#;
+        const ACTIVITY_TEST_ROWS: &str = r#"
+            INSERT INTO camp VALUES
+            ('a1','directory','/a',NULL,'active'), ('a2','directory','/a',NULL,'active'),
+            ('b1','directory','/b',NULL,'active'), ('deleted','directory','/a','delete','active'),
+            ('mission','directory','/a',NULL,'active'), ('own','directory','/a',NULL,'pending'),
+            ('foreign','directory','/a',NULL,'pending'), ('empty','directory','/a',NULL,'pending'),
+            ('attachment','directory','/a',NULL,'pending'), ('terminal','directory','/a',NULL,'active'),
+            ('q1','managed','/quick',NULL,'active'), ('wrong-turn','directory','/a',NULL,'active');
+            INSERT INTO camp_turn VALUES ('t2','a2'),('wrong','wrong-turn');
+            INSERT INTO agent_run VALUES
+            ('r1','a1',NULL,'running'),('r2','a1',NULL,'queued'),('r3','a1','wrong','waiting'),
+            ('private',NULL,'t2','running'),('private2',NULL,'t2','waiting'),('b','b1',NULL,'queued'),
+            ('deleted','deleted',NULL,'running'),('mission','mission',NULL,'running'),
+            ('own','own',NULL,'running'),('foreign','foreign',NULL,'running'),('empty','empty',NULL,'running'),
+            ('attachment','attachment',NULL,'waiting'),('terminal','terminal',NULL,'succeeded'),('q','q1',NULL,'waiting');
+            INSERT INTO mission VALUES ('mission');
+            INSERT INTO pending_camp_draft_presence VALUES ('foreign','another-client');
+        "#;
+        let mut connection = Connection::open_in_memory().unwrap();
+        connection.execute_batch(ACTIVITY_TEST_SCHEMA).unwrap();
+        connection.execute_batch(ACTIVITY_TEST_ROWS).unwrap();
+        let client = crate::draft_client::DraftClient::default();
+        connection
+            .execute(
+                "INSERT INTO pending_camp_draft_presence VALUES ('own',?1)",
+                [client.id()],
+            )
+            .unwrap();
+        connection
+            .execute(
+                "INSERT INTO camp_composer_draft VALUES ('empty',?1,'   ','[]')",
+                [client.id()],
+            )
+            .unwrap();
+        connection
+            .execute(
+                "INSERT INTO prepared_attachment VALUES ('attachment',?1)",
+                [client.id()],
+            )
+            .unwrap();
+        let tx = connection.transaction().unwrap();
+        let keys = vec![
+            "directory:/a".into(),
+            "directory:/b".into(),
+            "quick-chat".into(),
+            "directory:/outside".into(),
+        ];
+        let before: i64 = tx
+            .query_row("SELECT total_changes()", [], |row| row.get(0))
+            .unwrap();
+        let counts = load_navigation_activity(&tx, &client, &keys, None)
+            .unwrap()
+            .into_iter()
+            .map(|group| (group.group_key, group.active_thread_count))
+            .collect::<BTreeMap<_, _>>();
+        assert_eq!(
+            counts,
+            BTreeMap::from([
+                ("directory:/a".into(), 4),
+                ("directory:/b".into(), 1),
+                ("directory:/outside".into(), 0),
+                ("quick-chat".into(), 1)
+            ])
+        );
+        let scoped = load_navigation_activity(&tx, &client, &keys, Some(&["a1".into()])).unwrap();
+        assert_eq!(scoped.len(), 1);
+        assert_eq!(scoped[0].group_key, "directory:/a");
+        assert_eq!(scoped[0].active_thread_count, 4);
+        assert!(
+            load_navigation_activity(&tx, &client, &["directory:/a".into()], Some(&["b1".into()]))
+                .unwrap()
+                .is_empty()
+        );
+        assert_eq!(
+            load_navigation_activity(&tx, &client, &keys, Some(&["physically-absent".into()]))
+                .unwrap()
+                .len(),
+            4
+        );
+        let after: i64 = tx
+            .query_row("SELECT total_changes()", [], |row| row.get(0))
+            .unwrap();
+        assert_eq!(before, after);
+        let legacy = vec![
+            "directory:C:\\old\\project".into(),
+            "directory:\\\\server\\share".into(),
+            "directory:/空间".into(),
+        ];
+        assert!(
+            load_navigation_activity(&tx, &client, &legacy, None)
+                .unwrap()
+                .iter()
+                .all(|group| group.active_thread_count == 0)
+        );
+        for invalid in [
+            vec![],
+            vec!["directory:relative".into()],
+            vec!["directory:C:relative".into()],
+            vec!["directory:/a/../b".into()],
+            vec!["quick-chat".into(), "quick-chat".into()],
+            vec!["quick-chat".into(); 201],
+        ] {
+            assert!(load_navigation_activity(&tx, &client, &invalid, None).is_err());
+        }
+        for invalid in [
+            vec![],
+            vec!["".into()],
+            vec!["a1".into(), "a1".into()],
+            vec!["a1".into(); 201],
+        ] {
+            assert!(load_navigation_activity(&tx, &client, &keys, Some(&invalid)).is_err());
+        }
+    }
 
     fn metered(database: &mut Database, row_only: bool) -> usize {
         database

@@ -2,10 +2,17 @@
 document_type: architecture
 authority: file-preview-components-and-boundaries
 status: accepted
-last_updated: 2026-09-22
+last_updated: 2026-10-16
 ---
 
 # File Preview Architecture
+
+融合画布的多个 Provider 使用同一个 `FilePreviewApi` 对象对应的窗口资源池，向 Main 提交所有挂载 Thread 的保留并集，
+继续使用原窗口预算与既有权限方法。每个 Thread 只有一个资源会话；同 Thread 镜像共享预览标签与阅读状态，
+其输入框草稿仍属于各自卡片。最后一个窗口呈现 owner 退出才释放资源；焦点 owner 退出后下次聚焦重新绑定。
+卡片内保留 deck 使用容器本地坐标和独立 DOM scope，查找及打开反馈仅处理当前焦点表面；系统打开/定位/复制等待绑定完成。
+这些变化只涉及 Renderer 生命周期和展示，不扩大 Main/Core 文件授权或增加 API 字段。
+模拟文件与真实组件已验证基础文本、多卡归属及缩放边界；真实 Main 能力、HTML/iframe 多镜像预算和规模资格仍需阶段验证。
 
 ## 组件与权威
 
@@ -145,6 +152,9 @@ Renderer 的 `file-preview-session.ts` 保存最多 24 个 Camp 的轻量快照�
 切 Camp 只切显示。热命中直接复用标签内容、Blob URL 和 iframe，不重读、不重验、不重新准备站点；冷恢复仅加载
 当前需要显示的标签。原请求继续归原 Camp/session/tab/generation，关闭、淘汰、代次替代才拒绝并释放迟到资源。
 HTML 保留页面和站点，隐藏时退出交互与焦点范围，接受有限实例继续执行作者脚本，不增加冻结或监控系统。
+实际 HTML 文档名额由同一个窗口资源 owner 管理，完整文件区与固定卡片共同计数；从未显示的隐藏文件区不创建作者 iframe 副本。
+已有可见读者优先，名额不足时先回收不可见文档，不能替换仍在使用的页面；有余量的隐藏文档继续保留。
+四个实际文档都可见时，新 HTML 加载或刷新候选必须失败并保留旧预览；关闭释放后可重试，不以共享文件句柄数量代替实际文档数量。
 
 Main 将 `{campId, previewSessionId, bindingGeneration}` 与当前导航分开。来源读取检查存活 session；系统打开、
 目录选择等原生效果仍检查发起时导航。session 结束释放自己的 handle、Grant、challenge、token 与 watcher。
@@ -229,3 +239,13 @@ Markdown 继续使用 `rovai-preview://asset/<tab-token>/<segments>`，在 app.r
 - webContents 销毁/应用退出：幂等释放对应或全部资源。
 
 不支持格式在来源与本地文件校验后直接交给系统默认应用，并在返回前释放一次性解析材料；它不进入上述长期资源图。
+
+## 画布固定文件展示（2026-10-16）
+
+`PinnedFilePreview` 复用原 Thread session、具体文件句柄和窗口资源预算，独立保存展示 tab ID，不切换同 Thread 的活动工作区 tab。
+声明固定展示的 owner 不自动恢复该 session 的其他活动文件；首次可见及冷恢复使用 preview-only 原来源验证，系统打开仅限用户显式操作。
+同一规范文件的后台重复打开在来源重新验证后可复用已打开正文，释放多余新句柄，并按内容版本提示变化；不能拿旧缓存替代失败的来源校验。
+字节、热 Thread、快照与句柄沿原上限，HTML 还按实际展示数计算，同文件镜像也占展示容量。收起/删除撤销该 owner，其他展示保留。
+原工作区交互打开与定位逻辑保持；画布关联链接把完整 request、target 和 presentation 交回原工作区，根文件不会随链接被替换。
+文件 URI 的未转义 `:行号` 在解码前解析，编码的 `%3A` 属于字面文件名；已有 fragment 优先级保持。该解析修复没有增加 wire 字段或文件能力，合同仍为v21。
+实际 Host/Native/HTML/跨平台及完整应用导航随I03阶段候选运行；当前隔离界面不是实际文件服务资格证据。

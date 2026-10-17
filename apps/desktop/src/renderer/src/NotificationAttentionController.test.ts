@@ -18,6 +18,7 @@ import {
   readNotificationChangePages,
   shouldPollForNotificationEvent,
   visibleAcknowledgementIntent,
+  groupVisibleNotificationSources,
   filterVisibleNotificationHeadsUp,
   shouldShowHeadsUp,
   NotificationHeadsUp
@@ -46,6 +47,18 @@ it('localizes the identified first-run notification title while retaining the ep
   } finally {
     await changeInterfaceLanguage(languageApi, 'zh-CN')
   }
+})
+
+it('unions exact visible identities per Thread without adopting hidden card sources or private successors', () => {
+  const base = { threadId: 'a', surfaceVisible: true, snapshotSequence: 10, messageIds: ['m1'], campTurnIds: [], agentRunIds: [], approvalIds: [] }
+  const sources = [base, { ...base, messageIds: ['m2', 'm1'], snapshotSequence: 20 },
+    { ...base, conversationId: 'private-original', messageIds: [], campTurnIds: ['private-turn'], approvalIds: ['private-approval'] },
+    { ...base, threadId: 'b', messageIds: ['other-thread'] }, { ...base, surfaceVisible: false, messageIds: ['hidden'], snapshotSequence: 900 }]
+  expect(groupVisibleNotificationSources(sources)).toEqual([
+    { threadId: 'a', snapshotSequence: 20, messageIds: ['m1', 'm2'], campTurnIds: ['private-turn'], agentRunIds: [], approvalIds: ['private-approval'] },
+    { threadId: 'b', snapshotSequence: 10, messageIds: ['other-thread'], campTurnIds: [], agentRunIds: [], approvalIds: [] }
+  ])
+  expect(sources[0].messageIds).toEqual(['m1'])
 })
 
 it('does not create visible ack commands for global cursor churn, and freezes uncertain retries', () => {
@@ -515,6 +528,9 @@ it('suppresses every transient reminder from the attentive current Thread withou
   const quiet = filterVisibleNotificationHeadsUp(queued, [], true, 'camp-1')
   expect(quiet).toEqual({ entries: [], overflowEntries: [] })
   expect([...queued.entries, ...queued.overflowEntries].every((entry) => entry.episode.unread)).toBe(true)
+  expect(filterVisibleNotificationHeadsUp(queued, [], true, ['camp-1', 'camp-2'])).toEqual(quiet)
+  expect(filterVisibleNotificationHeadsUp(queued, [], false, ['camp-1', 'camp-2'])).toBe(queued)
+  expect(filterVisibleNotificationHeadsUp(queued, [], true, ['camp-2'])).toBe(queued)
 })
 
 it('retains exact urgent occurrences when completion arrives, then advances only on request', () => {

@@ -1,0 +1,1119 @@
+{
+  "schema_version": 1,
+  "policy_revision": "2026-10-14-stage-batch-v1",
+  "policy": "../ci-cost-policy.md#阶段版本与验证频率",
+  "status": "planned_candidates_not_releases",
+  "normal_phase_batches": 12,
+  "version_semantics": "融合阶段候选标识；不更改源架构current_version或应用包版本，不自动创建Git发布标签/Release。阶段代码与review集齐后才冻结commit和开启首批验证。",
+  "excluded": {
+    "I00": "初始化已完成，不重跑凑次数",
+    "BUF": "按缺陷/兼容整改补验并记录原因"
+  },
+  "stages": [
+    {
+      "stage_id": "I01",
+      "name": "基线构建与融合契约",
+      "candidate_version": "fusion-i01-rc.1",
+      "status": "planned_not_frozen",
+      "frozen_commit": null,
+      "validation_batch": null,
+      "validation_runs": [],
+      "engineering_validation": "pending_evidence_for_frozen_candidate",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
+    },
+    {
+      "stage_id": "I02",
+      "name": "统一工作台 队员与能力配置",
+      "candidate_version": "fusion-i02-rc.1",
+      "status": "planned_not_frozen",
+      "frozen_commit": null,
+      "validation_batch": null,
+      "validation_runs": [],
+      "engineering_validation": "pending_evidence_for_frozen_candidate",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
+    },
+    {
+      "stage_id": "I03",
+      "name": "完整无限画布与对象绑定",
+      "candidate_version": "fusion-i03-rc.25",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "frozen_commit": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01",
+      "validation_batch": "I03-R09-nullable-private-activity-repair",
+      "validation_runs": [
+        {
+          "kind": "local_windows_cargo_build",
+          "source_commit": "f2630de05ed69cef3d49db1dcf0e5f141299b047",
+          "exit_code": 0
+        },
+        {
+          "kind": "local_full_types",
+          "source_commit": "f2630de05ed69cef3d49db1dcf0e5f141299b047",
+          "exit_code": 2
+        },
+        {
+          "kind": "local_full_types",
+          "source_commit": "9a2eaef5d8000371c69ca30283ab6daa539802a8",
+          "exit_code": 0
+        },
+        {
+          "kind": "local_web_build",
+          "source_commit": "9a2eaef5d8000371c69ca30283ab6daa539802a8",
+          "exit_code": 0
+        },
+        {
+          "kind": "local_rust_test_owner_list_compile",
+          "source_commit": "9a2eaef5d8000371c69ca30283ab6daa539802a8",
+          "exit_code": 101
+        },
+        {
+          "kind": "windows-build",
+          "source_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+          "exit_code": 0
+        },
+        {
+          "kind": "rust-owner-list",
+          "source_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+          "exit_code": 0
+        },
+        {
+          "kind": "private-material-tests",
+          "source_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+          "exit_code": 0
+        },
+        {
+          "kind": "host-lifecycle",
+          "source_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+          "exit_code": 1
+        },
+        {
+          "kind": "windows-build",
+          "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+          "exit_code": 0
+        },
+        {
+          "kind": "rust-owner-list",
+          "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+          "exit_code": 0
+        },
+        {
+          "kind": "selected-rust-7",
+          "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+          "exit_code": 0
+        },
+        {
+          "kind": "actual-host-pty",
+          "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+          "exit_code": 0
+        },
+        {
+          "kind": "web-public-projection-1",
+          "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+          "exit_code": 0
+        },
+        {
+          "kind": "native-desktop-keyboard-visible-4",
+          "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+          "exit_code": 0
+        },
+        {
+          "kind": "native-file-api-7-plus-fixture",
+          "source_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+          "exit_code": 0
+        },
+        {
+          "kind": "desktop-build",
+          "source_commit": "72048c73f9736a85ee1550cdc12dd1e3b45b6c79",
+          "exit_code": 0
+        },
+        {
+          "kind": "web-build",
+          "source_commit": "72048c73f9736a85ee1550cdc12dd1e3b45b6c79",
+          "exit_code": 0
+        },
+        {
+          "kind": "native-file-cards-html-ui-9",
+          "source_commit": "72048c73f9736a85ee1550cdc12dd1e3b45b6c79",
+          "exit_code": 0
+        },
+        {
+          "kind": "native-private-materials-8",
+          "source_commit": "72048c73f9736a85ee1550cdc12dd1e3b45b6c79",
+          "core_source": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+          "exit_code": 0
+        },
+        {
+          "kind": "native-private-materials-cold-file-reader-5",
+          "source_commit": "72048c73f9736a85ee1550cdc12dd1e3b45b6c79",
+          "core_source": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+          "exit_code": 0
+        },
+        {
+          "kind": "native-private-roundtrip-r5",
+          "candidate_version": "fusion-i03-rc.16",
+          "source_commit": "c82cf7f735d87caa0d5f12f39dc04bbbd1309c30",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T15:57:51.114Z"
+          }
+        },
+        {
+          "kind": "native-private-roundtrip-r1",
+          "candidate_version": "fusion-i03-rc.17",
+          "source_commit": "286312f4d47b2282494a21fa1b28dcc573132e88",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T16:01:31.652Z"
+          }
+        },
+        {
+          "kind": "native-private-roundtrip-r2",
+          "candidate_version": "fusion-i03-rc.17",
+          "source_commit": "286312f4d47b2282494a21fa1b28dcc573132e88",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T16:02:57.847Z"
+          }
+        },
+        {
+          "kind": "native-private-queue-r1",
+          "candidate_version": "fusion-i03-rc.17",
+          "source_commit": "286312f4d47b2282494a21fa1b28dcc573132e88",
+          "status": "failed",
+          "driver_exit": {
+            "code": null,
+            "signal": "SIGKILL",
+            "deadline_terminated": true,
+            "at": "2026-10-16T16:08:05.689Z"
+          }
+        },
+        {
+          "kind": "native-private-queue-r2",
+          "candidate_version": "fusion-i03-rc.17",
+          "source_commit": "286312f4d47b2282494a21fa1b28dcc573132e88",
+          "status": "failed",
+          "driver_exit": {
+            "code": null,
+            "signal": "SIGKILL",
+            "deadline_terminated": true,
+            "at": "2026-10-16T16:12:42.433Z"
+          }
+        },
+        {
+          "kind": "native-private-rebind-r1",
+          "candidate_version": "fusion-i03-rc.17",
+          "source_commit": "286312f4d47b2282494a21fa1b28dcc573132e88",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T16:14:51.015Z"
+          }
+        },
+        {
+          "kind": "native-private-late-upload-r1",
+          "candidate_version": "fusion-i03-rc.17",
+          "source_commit": "286312f4d47b2282494a21fa1b28dcc573132e88",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T16:16:12.392Z"
+          }
+        },
+        {
+          "kind": "native-private-queue-r1",
+          "candidate_version": "fusion-i03-rc.18",
+          "source_commit": "4fb189c5eb0d52f8b890bd369f6cd289ffc74923",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T16:20:18.004Z"
+          }
+        },
+        {
+          "kind": "native-private-queue-r2",
+          "candidate_version": "fusion-i03-rc.18",
+          "source_commit": "4fb189c5eb0d52f8b890bd369f6cd289ffc74923",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T16:22:13.873Z"
+          }
+        },
+        {
+          "kind": "native-private-rebind-r1",
+          "candidate_version": "fusion-i03-rc.18",
+          "source_commit": "4fb189c5eb0d52f8b890bd369f6cd289ffc74923",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T16:23:49.304Z"
+          }
+        },
+        {
+          "kind": "native-private-late-upload-r1",
+          "candidate_version": "fusion-i03-rc.18",
+          "source_commit": "4fb189c5eb0d52f8b890bd369f6cd289ffc74923",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T16:24:47.777Z"
+          }
+        },
+        {
+          "kind": "real-Web-cross-Core-upload",
+          "candidate_version": "fusion-i03-rc.19",
+          "source_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+          "status": "passed",
+          "evidence": "i03-r01-cross-core-upload-verification.json"
+        },
+        {
+          "kind": "native-private-roundtrip-r1",
+          "candidate_version": "fusion-i03-rc.19",
+          "source_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T17:10:42.001Z"
+          }
+        },
+        {
+          "kind": "native-private-send-r3",
+          "candidate_version": "fusion-i03-rc.19",
+          "source_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+          "status": "passed",
+          "evidence": "i03-r02-native-send-verification.json",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T17:21:50.128Z"
+          }
+        },
+        {
+          "kind": "native-private-send-boundaries-r1",
+          "candidate_version": "fusion-i03-rc.19",
+          "source_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T17:38:13.938Z"
+          },
+          "evidence": "i03-r02-complete-send-boundaries-verification.json"
+        },
+        {
+          "kind": "native-private-send-boundaries-r2",
+          "candidate_version": "fusion-i03-rc.19",
+          "source_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T17:41:03.203Z"
+          },
+          "evidence": "i03-r02-complete-send-boundaries-verification.json"
+        },
+        {
+          "kind": "native-private-send-boundaries-r3",
+          "candidate_version": "fusion-i03-rc.19",
+          "source_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T17:42:26.558Z"
+          },
+          "evidence": "i03-r02-complete-send-boundaries-verification.json"
+        },
+        {
+          "kind": "native-private-send-boundaries-r4",
+          "candidate_version": "fusion-i03-rc.19",
+          "source_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T17:44:19.130Z"
+          },
+          "evidence": "i03-r02-complete-send-boundaries-verification.json"
+        },
+        {
+          "kind": "private-core-interruption-r1",
+          "candidate_version": "fusion-i03-rc.19",
+          "status": "no_full_result",
+          "driver_exit": {
+            "code": null,
+            "signal": "SIGKILL",
+            "deadline_terminated": true,
+            "at": "2026-10-16T18:10:17.292Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-core-interruption-r2",
+          "candidate_version": "fusion-i03-rc.19",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:13:14.728Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-core-interruption-r3",
+          "candidate_version": "fusion-i03-rc.19",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:15:45.891Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-core-interruption-r4",
+          "candidate_version": "fusion-i03-rc.19",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:17:12.494Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-core-interruption-r5",
+          "candidate_version": "fusion-i03-rc.19",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:19:36.844Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-app-interruption-r1-prepare",
+          "candidate_version": "fusion-i03-rc.19",
+          "status": "no_full_result",
+          "driver_exit": {
+            "code": 1,
+            "signal": null,
+            "deadline_terminated": false,
+            "intentional_whole_app_loss": true,
+            "at": "2026-10-16T18:21:33.594Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-app-interruption-r2-prepare",
+          "candidate_version": "fusion-i03-rc.19",
+          "status": "no_full_result",
+          "driver_exit": {
+            "code": 1,
+            "signal": null,
+            "deadline_terminated": false,
+            "intentional_whole_app_loss": true,
+            "at": "2026-10-16T18:23:04.438Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-app-interruption-r2-resume",
+          "candidate_version": "fusion-i03-rc.19",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "intentional_whole_app_loss": false,
+            "at": "2026-10-16T18:23:49.712Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-app-interruption-r1-prepare",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "no_full_result",
+          "driver_exit": {
+            "code": 1,
+            "signal": null,
+            "deadline_terminated": false,
+            "intentional_whole_app_loss": true,
+            "at": "2026-10-16T18:33:08.391Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-app-interruption-r1-resume",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "intentional_whole_app_loss": false,
+            "at": "2026-10-16T18:33:47.911Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-core-interruption-r1",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:34:28.342Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-roundtrip-r1",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:35:19.603Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-roundtrip-r2",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:36:28.671Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "private-send-boundaries-r1",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:37:14.508Z"
+          },
+          "evidence": "i03-r04-process-interruption-verification.json"
+        },
+        {
+          "kind": "desktop-build",
+          "candidate_version": "fusion-i03-rc.20",
+          "source_commit": "4585a9289f028b55a7b5449b3585fc144c7f372b",
+          "exit_code": 0,
+          "started_at": "2026-10-16T18:31:57.812Z",
+          "finished_at": "2026-10-16T18:32:10.194Z",
+          "output": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\desktop"
+        },
+        {
+          "kind": "web-build",
+          "candidate_version": "fusion-i03-rc.20",
+          "source_commit": "4585a9289f028b55a7b5449b3585fc144c7f372b",
+          "exit_code": 0,
+          "started_at": "2026-10-16T18:31:57.818Z",
+          "finished_at": "2026-10-16T18:32:08.891Z",
+          "output": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.20\\web-ui"
+        },
+        {
+          "kind": "object-cold-r1-prepare",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:54:47.263Z"
+          },
+          "evidence": "i03-r05-object-cold-diff-verification.json"
+        },
+        {
+          "kind": "object-cold-r1-resume",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:56:10.446Z"
+          },
+          "evidence": "i03-r05-object-cold-diff-verification.json"
+        },
+        {
+          "kind": "object-cold-r2-prepare",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:57:18.301Z"
+          },
+          "evidence": "i03-r05-object-cold-diff-verification.json"
+        },
+        {
+          "kind": "object-cold-r2-resume",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "failed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T18:58:31.962Z"
+          },
+          "evidence": "i03-r05-object-cold-diff-verification.json"
+        },
+        {
+          "kind": "object-cold-r3-prepare",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T19:00:07.008Z"
+          },
+          "evidence": "i03-r05-object-cold-diff-verification.json"
+        },
+        {
+          "kind": "object-cold-r3-resume",
+          "candidate_version": "fusion-i03-rc.20",
+          "status": "passed",
+          "driver_exit": {
+            "code": 0,
+            "signal": null,
+            "deadline_terminated": false,
+            "at": "2026-10-16T19:10:44.757Z"
+          },
+          "evidence": "i03-r05-object-cold-diff-verification.json"
+        },
+        {
+          "kind": "r07-actual-core-16-17-capacity-http-reconnect",
+          "core_source": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+          "status": "core_host_boundaries_verified_native_input_pending",
+          "evidence": "i03-r07-core-terminal-capacity-verification.json"
+        },
+        {
+          "kind": "r08-actual-core-source-io-and-pty-log-load",
+          "core_source": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+          "status": "core_source_io_and_terminal_load_verified_native_pending",
+          "evidence": "i03-r08-source-load-verification.json"
+        },
+        {
+          "kind": "r09-summary-source-types-sql",
+          "source": "5e21f0f24c94e6a953199048d2541e8f96f8c2cf",
+          "status": "source_implemented_candidate_pending",
+          "evidence": "i03-r09-summary-implementation.json"
+        },
+        {
+          "kind": "r06-file-html-three-processes-and-interactive-regression",
+          "source": "1e840216a1af1f93da1371db545579889e42d4da",
+          "status": "engineering_verified_within_declared_local_scope",
+          "evidence": "i03-r06-file-html-verification.json"
+        },
+        {
+          "kind": "r09-last-model-source-owners-build",
+          "source": "1e840216a1af1f93da1371db545579889e42d4da",
+          "status": "source_and_build_verified_native_ui_remaining",
+          "evidence": "i03-r09-model-build-verification.json"
+        },
+        {
+          "kind": "r07-windows-physical-ime-clipboard-remount-and-read-error-ui",
+          "source": "0cd981afcfe8b1dc856f0f2e032b7a5fba3c6970",
+          "status": "engineering_verified_within_declared_local_scope",
+          "evidence": "i03-r07-native-input-verification.json"
+        },
+        {
+          "kind": "r08-native-mebibyte-private-input-cold-restore-and-existing-core-worker-owner",
+          "source": "f2327d3c1ead2fa7591e7e4d7558380e50d1e82c",
+          "status": "partial_engineering_verification",
+          "evidence": "i03-r08-native-large-input-verification.json"
+        },
+        {
+          "kind": "r08-real-public-notification-4-and-private-source-repair",
+          "source": "809a3d0bc42b8607f2337ad45f7fa4265b0541e4",
+          "status": "partial_engineering_verification_with_source_repair_pending_candidate",
+          "evidence": "i03-r08-notification-progress.json"
+        },
+        {
+          "kind": "desktop-build",
+          "source_commit": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+          "exit_code": 0
+        },
+        {
+          "kind": "web-build",
+          "source_commit": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+          "exit_code": 0
+        },
+        {
+          "kind": "native-eight-card-ui-25",
+          "source_commit": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+          "exit_code": 0
+        },
+        {
+          "kind": "native-board-ui-windows-menu-6",
+          "source_commit": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+          "exit_code": 0
+        },
+        {
+          "kind": "windows-core-host-cli-build",
+          "source_commit": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01",
+          "exit_code": 0
+        },
+        {
+          "kind": "native-interleaved-summary-frame-input-5",
+          "source_commit": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01",
+          "exit_code": 0
+        },
+        {
+          "kind": "native-old-contract-eight-card-theme-fit-5",
+          "source_commit": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01",
+          "exit_code": 0
+        },
+        {
+          "kind": "native-final-recovery-prepare-resume",
+          "candidate_version": "fusion-i03-rc.25",
+          "status": "passed",
+          "evidence": "i03-r10-local-closeout-verification.json",
+          "source_commit": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01"
+        },
+        {
+          "kind": "actual-host-chrome-final-eleven",
+          "candidate_version": "fusion-i03-rc.25",
+          "status": "passed",
+          "evidence": "i03-r10-local-closeout-verification.json",
+          "source_commit": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01"
+        },
+        {
+          "kind": "original-main-isolated-preview",
+          "candidate_version": "fusion-i03-rc.25",
+          "status": "passed",
+          "evidence": "i03-r10-local-closeout-verification.json",
+          "source_commit": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01"
+        }
+      ],
+      "engineering_validation": "Windows/Desktop及本机Host/Chrome适用面已核定；其他平台与诊断保留",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false,
+      "previous_candidates": [
+        {
+          "candidate_version": "fusion-i03-rc.1",
+          "frozen_commit": "f2630de05ed69cef3d49db1dcf0e5f141299b047",
+          "windows_production_build": "passed",
+          "full_types": "failed",
+          "repair_reason": "Main Native upload retry/finish type declaration omission"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.2",
+          "frozen_commit": "9a2eaef5d8000371c69ca30283ab6daa539802a8",
+          "full_types": "passed",
+          "web_build": "passed",
+          "rust_test_compilation": "failed",
+          "repair_reason": "Two cfg(test) canvas helpers used Database instead of OwnedTestDatabase"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.3",
+          "frozen_commit": "18984d69134a7314939ca13b0e114bbd2ceece6d",
+          "windows_build": "passed",
+          "rust_test_compilation": "passed",
+          "private_material_owners": "3_passed",
+          "actual_host_lifecycle": "failed_bad_test_probe"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.4",
+          "frozen_commit": "b43416d3b2d161868cb0aa4204a4fc92de550942",
+          "actual_host_lifecycle": "passed",
+          "desktop_build": "passed",
+          "rust_related": {
+            "selected": 26,
+            "passed": 23,
+            "failed": 3
+          }
+        },
+        {
+          "candidate_version": "fusion-i03-rc.5",
+          "frozen_commit": "391e21fe62ade0ed5eade33c7b8335df84c9cca3",
+          "state": "native_keyboard_and_file_api_passed_html_concurrent_entry_finding"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.6",
+          "frozen_commit": "b087607ead00efc874ef3253fd6c199fe7cb371f",
+          "full_types": "passed",
+          "desktop_build": "passed",
+          "native_file_cards": "6_checks_passed_then_new_host_state_assertion_failed"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.7",
+          "frozen_commit": "7376576084f699b8223b6b0ec17a1a151f5d21b4",
+          "desktop_build": "passed",
+          "web_build": "passed",
+          "native_file_cards": "9_passed",
+          "visual_review": "icon_baseline_alignment_repaired_in_rc8"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.8",
+          "frozen_commit": "72048c73f9736a85ee1550cdc12dd1e3b45b6c79",
+          "status": "frozen_with_partial_engineering_evidence",
+          "desktop_build": "passed",
+          "web_build": "passed"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.9",
+          "frozen_commit": "2158df02e793fc2eb3a01297b4921de214cdbe61",
+          "status": "historical_candidate_evidence_preserved_not_requalified_by_this_update",
+          "freeze": {
+            "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.9\\freeze.json",
+            "sha256": "05258848329b72f2733343e133fb3d1d232ca7103ae922e52a286fa711208fe5"
+          }
+        },
+        {
+          "candidate_version": "fusion-i03-rc.10",
+          "frozen_commit": "7eef4c6ca082f28f7a39ce78b1fcf9dd68cbe9c6",
+          "status": "historical_candidate_evidence_preserved_not_requalified_by_this_update",
+          "freeze": {
+            "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.10\\freeze.json",
+            "sha256": "f08fa6df6008b04580006632e66dc51796a8a56dcf41d7e6179af532631ce49d"
+          }
+        },
+        {
+          "candidate_version": "fusion-i03-rc.11",
+          "frozen_commit": "3c54d5d58350fa8b2fe1a638b403dd5cdc22288f",
+          "status": "historical_candidate_evidence_preserved_not_requalified_by_this_update",
+          "freeze": {
+            "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.11\\freeze.json",
+            "sha256": "9f8475c78c9ae96da0e1cfda0dc03c018345c979c1429a3d65c1949abc4ac6c5"
+          }
+        },
+        {
+          "candidate_version": "fusion-i03-rc.12",
+          "frozen_commit": "cebe5a698ab9476ce3c631bf4960a2cadde6ffa3",
+          "status": "historical_candidate_evidence_preserved_not_requalified_by_this_update",
+          "freeze": {
+            "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.12\\freeze.json",
+            "sha256": "34771f68af41505fc2a3c1e046ee34345e8d9619e1a0c362e112f71c7717091c"
+          }
+        },
+        {
+          "candidate_version": "fusion-i03-rc.13",
+          "frozen_commit": "caa03f67d9cf11f3ec8c608ab8f5b5c3b530c549",
+          "status": "historical_candidate_evidence_preserved_not_requalified_by_this_update",
+          "freeze": {
+            "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.13\\freeze.json",
+            "sha256": "18fe8f28f0190b2ee0384ce6978b111a886cffcdd2bfbc1f91e267cce5f687f0"
+          }
+        },
+        {
+          "candidate_version": "fusion-i03-rc.14",
+          "frozen_commit": "c44638135b8e06d34456bdc50657707404a6045c",
+          "status": "historical_candidate_evidence_preserved_not_requalified_by_this_update",
+          "freeze": {
+            "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.14\\freeze.json",
+            "sha256": "b969e5a47a959932718c1c716770d43cb789385897263e01b07e8110e89b5c77"
+          }
+        },
+        {
+          "candidate_version": "fusion-i03-rc.15",
+          "frozen_commit": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+          "status": "historical_candidate_evidence_preserved_not_requalified_by_this_update",
+          "freeze": {
+            "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\freeze.json",
+            "sha256": "ed6d832e4e94a702bd23ee4195f3383e5bed097875e9b3d48e2bf348f4e66e68"
+          }
+        },
+        {
+          "candidate_version": "fusion-i03-rc.16",
+          "frozen_commit": "c82cf7f735d87caa0d5f12f39dc04bbbd1309c30",
+          "status": "historical_candidate_evidence_preserved_not_requalified_by_this_update",
+          "freeze": {
+            "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.16\\freeze.json",
+            "sha256": "de64ef25f57c3748673a8b5bdc9a47c7cbeb7d02071850dc9740aed917fb6459"
+          }
+        },
+        {
+          "candidate_version": "fusion-i03-rc.17",
+          "frozen_commit": "286312f4d47b2282494a21fa1b28dcc573132e88",
+          "status": "historical_candidate_evidence_preserved_not_requalified_by_this_update",
+          "freeze": {
+            "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.17\\freeze.json",
+            "sha256": "c48cdb90ce9a1b0f3390c2037b3ee1f267dd75c2eeca41c1997451692cdb4e47"
+          }
+        },
+        {
+          "candidate_version": "fusion-i03-rc.18",
+          "frozen_commit": "4fb189c5eb0d52f8b890bd369f6cd289ffc74923",
+          "status": "historical_candidate_evidence_preserved_not_requalified_by_this_update"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.19",
+          "frozen_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+          "status": "historical_candidate_preserved"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.20",
+          "frozen_commit": "4585a9289f028b55a7b5449b3585fc144c7f372b",
+          "status": "historical_candidate_r01_to_r05_verified"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.21",
+          "frozen_commit": "a2bd333284649abc1352e70e5078780adaaaca6f",
+          "status": "desktop_web_passed_rust_compile_failed"
+        }
+      ],
+      "repair_reason": "真实Native交错执行复现私聊活动漏计；仅Core查询修复并编译，前端输入与24相同按SHA复用。",
+      "windows_build": "passed_new_core25_frontend24_identical_inputs",
+      "related_rust_unique_owners": 26,
+      "related_rust": "two_original_owners_compiled_and_executed_rc22_historical_owners_retained_separately",
+      "actual_host_pty": "passed",
+      "native_app_scale_platform": "full_flows_scale_and_platform_pending",
+      "native_desktop": "R01_to_R09_local_boundaries_verified_R10_open",
+      "full_types": "passed_current_tree",
+      "desktop_build": "reused_passed_rc24_identical_inputs",
+      "web_build": "reused_passed_rc24_identical_inputs",
+      "next_renderer_batch": "R09本机边界已核定；R10集中核对正式场景和开发预览，前端未变不重编。",
+      "rust_evidence_scope": "本候选新增运行两个既有owner，不将历史owner数量机械相加为当前结果。",
+      "candidate_history": [
+        {
+          "candidate_version": "fusion-i03-rc.19",
+          "frozen_commit": "8bc026f9c0f116e85a92949c06716fb761e1cd96",
+          "status": "historical_candidate_preserved_with_r04_red_and_core_evidence"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.22",
+          "frozen_commit": "1e840216a1af1f93da1371db545579889e42d4da",
+          "status": "historical_candidate_preserved_with_r06_r07_and_r08_red"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.23",
+          "frozen_commit": "30d1e0e0453a814f20fe4ec141453cd92b147cbf",
+          "status": "historical_candidate_preserved_with_r08_complete_and_r09_red"
+        },
+        {
+          "candidate_version": "fusion-i03-rc.24",
+          "frozen_commit": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+          "status": "historical_frontend_preserved_and_reused_with_native_card_board_qualification"
+        }
+      ],
+      "repair_candidates": 24,
+      "pending_renderer_repair": {
+        "commit": "809a3d0bc42b8607f2337ad45f7fa4265b0541e4",
+        "evidence": "i03-r08-notification-progress.json",
+        "status": "native_verified_rc23",
+        "previous_completed_repair": {
+          "commit": "afee4415",
+          "evidence": "i03-r06-file-html-progress.json",
+          "status": "native_verified_rc22",
+          "verification": "i03-r06-file-html-verification.json"
+        },
+        "verification": "i03-r08-complete-local-verification.json"
+      },
+      "pending_native_terminal_verification": [],
+      "pending_summary_projection_verification": [],
+      "artifact_sources": {
+        "core": "af544d3e0765b735c8e1e3eb74f0af71f1de0a01",
+        "desktop": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+        "web": "94dc225f0be8889808f76ec46ae6ec1c16f3947a",
+        "evidence": "i03-r09-complete-local-verification.json"
+      },
+      "native_terminal_verification": {
+        "status": "engineering_verified_within_declared_local_scope",
+        "evidence": "i03-r07-native-input-verification.json"
+      },
+      "r08_complete_local_verification": "i03-r08-complete-local-verification.json",
+      "r09_source_ui_progress": "i03-r09-source-ui-progress.json",
+      "pending_core_repair": {
+        "status": "native_verified_rc25",
+        "source_file": "crates/rovai-core/src/read_model/canvas_references.rs",
+        "source_sha256": "d78cee9719072b8cc00158f0f0bf142c6b58d5566ecea2c20280a496675064cf",
+        "defect": "真实single_chat运行通过camp_turn归属原Thread，直接camp_id为null；PRIVATE_SQL漏计活动，RUN_MODELS原有轮次关联正确。",
+        "repair": "活动投影沿原camp_turn核对归属，保留直接Thread归属优先及跨Thread拒绝；不改模型输入、数据库或API。",
+        "red": "r09-nullable-private-red.log",
+        "green": "r09-nullable-private-green.log",
+        "native_red": "fusion-i03-rc.24/native-source-ui-r7-prepare/result.json",
+        "next": "只构建Core25，复用24相同前端；重跑完整摘要交错与视觉观察。",
+        "verification": "i03-r09-complete-local-verification.json"
+      },
+      "r09_complete_local_verification": "i03-r09-complete-local-verification.json",
+      "latest_verification": "i03-r10-local-closeout-verification.json",
+      "formal_platform_matrix": "i03-formal-platform-matrix.json"
+    },
+    {
+      "stage_id": "I04",
+      "name": "完整协作执行 Runtime 记忆与自动化",
+      "candidate_version": "fusion-i04-rc.1",
+      "status": "planned_not_frozen",
+      "frozen_commit": null,
+      "validation_batch": null,
+      "validation_runs": [],
+      "engineering_validation": "pending_evidence_for_frozen_candidate",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
+    },
+    {
+      "stage_id": "I05",
+      "name": "文件 编辑 终端与完整 Git 工程工作区",
+      "candidate_version": "fusion-i05-rc.1",
+      "status": "planned_not_frozen",
+      "frozen_commit": null,
+      "validation_batch": null,
+      "validation_runs": [],
+      "engineering_validation": "pending_evidence_for_frozen_candidate",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
+    },
+    {
+      "stage_id": "I06",
+      "name": "原生会话聚合与项目启动器",
+      "candidate_version": "fusion-i06-rc.1",
+      "status": "planned_not_frozen",
+      "frozen_commit": null,
+      "validation_batch": null,
+      "validation_runs": [],
+      "engineering_validation": "pending_evidence_for_frozen_candidate",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
+    },
+    {
+      "stage_id": "I07",
+      "name": "完整 Forge 与议题 PR 工作流",
+      "candidate_version": "fusion-i07-rc.1",
+      "status": "planned_not_frozen",
+      "frozen_commit": null,
+      "validation_batch": null,
+      "validation_runs": [],
+      "engineering_validation": "pending_evidence_for_frozen_candidate",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
+    },
+    {
+      "stage_id": "I08",
+      "name": "完整共享浏览器与电脑操作",
+      "candidate_version": "fusion-i08-rc.1",
+      "status": "planned_not_frozen",
+      "frozen_commit": null,
+      "validation_batch": null,
+      "validation_runs": [],
+      "engineering_validation": "pending_evidence_for_frozen_candidate",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
+    },
+    {
+      "stage_id": "I09",
+      "name": "Office 科研技能与生成式交互",
+      "candidate_version": "fusion-i09-rc.1",
+      "status": "planned_not_frozen",
+      "frozen_commit": null,
+      "validation_batch": null,
+      "validation_runs": [],
+      "engineering_validation": "pending_evidence_for_frozen_candidate",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
+    },
+    {
+      "stage_id": "I10",
+      "name": "Desktop Web Server 渠道与原生移动端",
+      "candidate_version": "fusion-i10-rc.1",
+      "status": "planned_not_frozen",
+      "frozen_commit": null,
+      "validation_batch": null,
+      "validation_runs": [],
+      "engineering_validation": "pending_evidence_for_frozen_candidate",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
+    },
+    {
+      "stage_id": "I11",
+      "name": "完整备份 WebDAV 主题语言与宠物",
+      "candidate_version": "fusion-i11-rc.1",
+      "status": "planned_not_frozen",
+      "frozen_commit": null,
+      "validation_batch": null,
+      "validation_runs": [],
+      "engineering_validation": "pending_evidence_for_frozen_candidate",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
+    },
+    {
+      "stage_id": "I12",
+      "name": "高可用 扩展性 全量工程验证与交付准备",
+      "candidate_version": "fusion-i12-rc.1",
+      "status": "planned_not_frozen",
+      "frozen_commit": null,
+      "validation_batch": null,
+      "validation_runs": [],
+      "engineering_validation": "pending_evidence_for_frozen_candidate",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
+    }
+  ],
+  "acceptance_definition": {
+    "revision": "2026-10-16-engineering-vs-user-acceptance",
+    "authority": "用户明确：I12之前只审核方案和提供无法自行解决的环境帮助；验收是I12之后真实使用软件",
+    "engineering_owner": "Codex",
+    "engineering_stages": "I00-I12及BUF",
+    "customer_before_I12": [
+      "必要方案审核",
+      "确实无法自行解决的环境/身份/预算/设备协助"
+    ],
+    "customer_phase_acceptance_required": false,
+    "customer_PR_or_test_report_review_required": false,
+    "formal_324_executor": "Codex",
+    "customer_acceptance": "after_I12_engineering_completion_real_user_software_use",
+    "customer_acceptance_is_not": [
+      "逐阶段技术验收",
+      "逐条执行324技术场景",
+      "PR审查",
+      "审阅测试或数据库报告"
+    ],
+    "environment_deferral": "未验证项明确保留，继续独立研发，不假通过；最终MVP仍必须补齐",
+    "main_and_release": "保留最终授权，阶段分支持续推进，不增加阶段客户验收等待",
+    "effective_immediately": true,
+    "wait_for_app_goal_text_update": false
+  },
+  "customer_final_acceptance": {
+    "after": "I12_engineering_complete",
+    "kind": "real_user_software_trial",
+    "status": "not_due",
+    "owner": "User"
+  }
+}

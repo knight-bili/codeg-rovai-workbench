@@ -3,6 +3,8 @@ import {runMissionMentionAcceptance,runMissionAcceptance,runMissionCheckoutViewA
 import React from 'react'
 import {createRoot} from 'react-dom/client'
 import {BusinessApp} from '../../../apps/desktop/src/renderer/src/BusinessApp'
+import {CanvasObjectDialog} from '../../../apps/desktop/src/renderer/src/CanvasObjectDialog'
+import {CanvasSourceFixture, instrumentCanvasResize} from './canvas-source'
 import {ThreadClientProvider} from '../../../apps/desktop/src/renderer/src/camp-client'
 import {CurrentUserProfileContext} from '../../../apps/desktop/src/renderer/src/CurrentUserProfile'
 import {createReviewModel} from '../../../scripts/fixtures/host-web-parity/model'
@@ -131,6 +133,7 @@ const client={...model.client,onInvalidated:undefined,onEvent:(fn:any)=>{events.
  }
 },request:async(method:string,p:any={})=>{
  calls.push({method,p});const c=p.command??p,m=items.find(m=>m.missionId===c.missionId||m.threadId===c.threadId)
+ if(method==='missions.get'&&query.has('canvasDiff'))return m?structuredClone(m):null
  if(method==='missions.list'){
   if(failNextMissionRefresh){failNextMissionRefresh=false;missionRefreshPending=true;await new Promise(resolve=>setTimeout(resolve,150));missionRefreshPending=false;throw new Error('fixture mission refresh failed')}
   return structuredClone(items)
@@ -232,4 +235,7 @@ const environment:any={client,files:{...model.fileApi,open:async(req:any)=>{call
  refreshCamp:(threadId:string)=>events.forEach(fn=>fn({method:'camp.pendingInputs.changed',params:{threadId,reason:'published'}}))}
 window.addEventListener('error',e=>(window as any).missionQA.errors.push(String(e.error?.stack??e.message)))
 window.addEventListener('unhandledrejection',e=>(window as any).missionQA.errors.push(String(e.reason)))
-createRoot(document.getElementById('root')!).render(<ThreadClientProvider client={client as any}><CurrentUserProfileContext.Provider value={{profile:{displayName:'维护者',avatarDataUrl:null},update:async()=>{}} as any}><BusinessApp environment={environment}/></CurrentUserProfileContext.Provider></ThreadClientProvider>)
+if(query.has('canvasResize'))instrumentCanvasResize()
+createRoot(document.getElementById('root')!).render(<ThreadClientProvider client={client as any}><CurrentUserProfileContext.Provider value={{profile:{displayName:'维护者',avatarDataUrl:null},update:async()=>{}} as any}>{query.has('canvasDiff')
+ ? <CanvasObjectDialog target={{threadId:items[0].threadId,object:{kind:'mission_diff',missionId:items[0].missionId,path:'missing-original-file.txt'}}} onClose={()=>{}}/>
+ : query.has('canvasResize')||query.has('canvasBoards') ? <CanvasSourceFixture client={client as any} theme={theme} list={query.has('canvasBoards')}/> : <BusinessApp environment={environment}/>}</CurrentUserProfileContext.Provider></ThreadClientProvider>)

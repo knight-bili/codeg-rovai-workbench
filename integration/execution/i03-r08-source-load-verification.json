@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R08",
+  "status": "core_source_io_and_terminal_load_verified_native_pending",
+  "checked_at": "2026-10-16T20:13:38.494077+00:00",
+  "committed_test_owner_source": "72cc043d449869794967b67803057809017c592c",
+  "core_source": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+  "binary": {
+    "sha256": "d0988301d00a6bb3cf8733ded78bfe85cf8b3cf5a30683e47d01982bf0468928",
+    "length": 85979648,
+    "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-bin\\rovai-host.exe",
+    "name": "rovai-host.exe",
+    "source_commit": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195"
+  },
+  "checks": [
+    {
+      "name": "real_directory_and_large_file_observations_exhaust_bounded_worker_capacity_without_blocking_an_independent_database_commit",
+      "passed": true
+    },
+    {
+      "name": "real_core_persists_complete_directory_file_counts_and_large_file_sha_after_busy_requests_can_be_retried",
+      "passed": true
+    },
+    {
+      "name": "actual_over_depth_source_is_rejected_without_mutating_materials_or_leaking_the_worker_slot",
+      "passed": true
+    },
+    {
+      "name": "recorded_original_uuid_replays_without_rescanning_an_unavailable_large_directory_or_moving_materials_again",
+      "passed": true
+    },
+    {
+      "name": "actual_stdout_flood_keeps_a_128kib_replay_gap_and_does_not_starve_database_commit_resize_or_stdin",
+      "passed": true
+    },
+    {
+      "name": "load_checks_preserve_all_original_source_bytes_and_create_no_messages_or_model_runs",
+      "passed": true
+    }
+  ],
+  "qualification": {
+    "directory_files": 1500,
+    "large_file_bytes": 20971520,
+    "concurrent_requests": 8,
+    "accepted_initial": 4,
+    "busy_initial": 4,
+    "latencies_ms": {
+      "independentCommitMs": 5.369599999999991,
+      "batchMs": 260.9295000000002,
+      "floodCommitMs": 4.522799999998824,
+      "floodResizeMs": 0.558100000000195
+    },
+    "flood": {
+      "producedBeforeRead": 1048576,
+      "producedAtStop": 1236992,
+      "retainedBytes": 130949,
+      "firstAvailableSeq": 11255,
+      "throughSeq": 12534,
+      "gap": true
+    },
+    "source_bytes_preserved": true,
+    "messages_and_model_runs_created": 0
+  },
+  "pending_in_same_group": [
+    "Native大正文可靠保存期间的实际键盘输入和界面响应",
+    "可见、遮挡、移出视口和关闭卡片的真实Core通知确认及监听释放",
+    "worker取消/超时期间名额不提前释放的适用运行边界；已有静态/单元资格不扩大为整App实测"
+  ],
+  "failed_attempts": [
+    {
+      "revision": "r1",
+      "checks_before_failure": 2,
+      "reason": "测试误用内部目录深度错误名；真实接口归一为single_chat.attachment_source_changed。源码核对后只修测试期望，r2整批重跑。",
+      "evidence": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r1\\result.json"
+    }
+  ],
+  "remaining_group_rule": "R08保持open；Core实际负载结果不替代Native输入/可见性、worker取消超时和完整I03。",
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r2\\driver.mjs",
+      "sha256": "9ed33ce3f16316142e9895808f28c983b90fa42c54f22c82687d990c092e5afd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r2\\flood-progress.json",
+      "sha256": "dbf73ea2e0d8b7b5049d4070976b6470e3cb5dc31d50419df1bdabc4b2e4f639"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r2\\flood-proof.json",
+      "sha256": "91b75435127f6ae0af92a7a2eed9a1396e329cdab09d0a168ee10cb391e7b4fd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r2\\flood-stopped.json",
+      "sha256": "af6a6a544c61d08d30f46cef63b84917304368b0244ff0fefb687d8719e137ee"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r2\\host-stderr.log",
+      "sha256": "b6304ae1f8b1e80de0874e29eab3d2bdd61d83d3252ae5d0d944014d3fac48d6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r2\\manifest.json",
+      "sha256": "0a09a8e2e5577c07f5da90c825ad4b2a419d885b63a56336c634a0b624344aa6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r2\\result.json",
+      "sha256": "f05b9d27967e18f4fc7772f3efede7ef7630b3e21a94dc0d9e12c68b7bd5fad1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r2\\source-before-temporary-move.json",
+      "sha256": "147786a1d14a4a114ffdaeb9f116272aa8ad6aaffaccc123c755d069e42bbdc3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r2\\source-fixture-before.json",
+      "sha256": "8b0305a03889ad159cb7b606e86c48fe9d7502f6e241efd4d78f40ba2d251912"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r2\\source-load.mjs",
+      "sha256": "b681f5b73cf54deef458c7dc92663789b672dc0cf82c97ae87041e913a03681e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r08-source-load.mjs",
+      "sha256": "9ed33ce3f16316142e9895808f28c983b90fa42c54f22c82687d990c092e5afd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r1.log",
+      "sha256": "082419f40d4fe61aa1e350e5c9a8d343a05c753deb98ffc14fb0a0f37f5b156e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r1\\result.json",
+      "sha256": "2576980252a92b6b84484bc462d0c199e0513fbda11c7377f0e22ff8702b82a2"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-source-load-r2.log",
+      "sha256": "f6077796e08396d65aaf808f9b87122ac2b5852ac19c53d98184f5f0f04893fc"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-final-processes.json",
+      "sha256": "b6ed42867c5467a31b73b9e9709c9a7f068a934b2a7dd1ecc08a035b4bcc965c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r08-codegraph-sync-final.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\record-r08-source-load.py",
+      "sha256": "d763709d6d14b72e3b62161ee34f8a43bbe541e585a8e77b3dbe844164bdbaab"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\lib\\host-test-client.mjs",
+      "sha256": "89e0071deced57443ff12eccf3d8d3a48e920a3421b0eaba20077078eeb758d0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\lib\\runtime-camp-files-root.mjs",
+      "sha256": "0f3a1f9d24bf402e11d4fb54fcb7768803f86888167521d9341ab853aabfdc31"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-source-load.mjs",
+      "sha256": "b681f5b73cf54deef458c7dc92663789b672dc0cf82c97ae87041e913a03681e"
+    }
+  ],
+  "counts_unchanged": {
+    "settled_obligations": 17,
+    "open_work_groups": 5,
+    "private_cases_verified": 24,
+    "private_cases_open": 0,
+    "verified_work_groups": 5
+  },
+  "builds_added": 0,
+  "actions_triggered": 0,
+  "pushes": 0,
+  "external_model_calls": 0,
+  "customer_action_required_now": false
+}

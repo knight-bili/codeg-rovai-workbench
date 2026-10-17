@@ -57,6 +57,8 @@ interface NotificationAttentionControllerProps {
   onError(message: string): void
   visibleSources: VisibleNotificationSources | null
   singleChatSources?: VisibleNotificationSources | null
+  canvasSources?: readonly VisibleNotificationSources[]
+  readCanvasSources?(): readonly VisibleNotificationSources[]
   onHeadsUpVisibleChange?(visible: boolean): void
 }
 
@@ -143,13 +145,13 @@ export function filterVisibleNotificationHeadsUp(
   current: NotificationHeadsUpState,
   sources: readonly VisibleNotificationSources[],
   attentive: boolean,
-  quietThreadId: string | null = null
+  quietThreadId: string | readonly string[] | null = null
 ): NotificationHeadsUpState {
   if (!attentive) return current
   const retain = (entry: NotificationHeadsUpEntry): boolean => {
     const action = entry.signal.action
     if (!action.available) return false
-    if (quietThreadId !== null && entry.episode.thread.id === quietThreadId) return false
+    if (typeof quietThreadId === 'string' ? entry.episode.thread.id === quietThreadId : quietThreadId?.includes(entry.episode.thread.id)) return false
     return !sources.some((source) => source.threadId === action.threadId
       && source.surfaceVisible !== false
       && (source.conversationId ?? null) === (action.singleChat?.conversationId ?? null)
@@ -308,7 +310,26 @@ export function visibleAcknowledgementIntent(
   } } }
 }
 
-export function NotificationAttentionController({
+export function groupVisibleNotificationSources(sources: readonly VisibleNotificationSources[]): VisibleNotificationSources[] {
+  const groups = new Map<string, VisibleNotificationSources[]>()
+  for (const source of sources) if (source.surfaceVisible !== false) groups.set(source.threadId, [...(groups.get(source.threadId) ?? []), source])
+  return [...groups].sort(([a], [b]) => a.localeCompare(b)).map(([threadId, items]) => ({ threadId,
+    snapshotSequence: Math.max(...items.map(item => item.snapshotSequence)),
+    messageIds: [...new Set(items.flatMap(item => item.messageIds))].sort(),
+    campTurnIds: [...new Set(items.flatMap(item => item.campTurnIds))].sort(),
+    agentRunIds: [...new Set(items.flatMap(item => item.agentRunIds))].sort(),
+    approvalIds: [...new Set(items.flatMap(item => item.approvalIds))].sort()
+  }))
+}
+
+export function NotificationAttentionController(props: NotificationAttentionControllerProps): React.JSX.Element {
+  const client = useThreadClient(), owner = useRef({ client, generation: 0 })
+  if (owner.current.client !== client) owner.current = { client, generation: owner.current.generation + 1 }
+  return <NotificationAttentionControllerContent key={owner.current.generation} {...props} />
+}
+
+const NO_CANVAS_SOURCES: readonly VisibleNotificationSources[] = []
+function NotificationAttentionControllerContent({
   enabled,
   activeThreadId,
   firstRunThreadId = null,
@@ -321,21 +342,19 @@ export function NotificationAttentionController({
   onError,
   visibleSources: publicSources,
   singleChatSources = null,
+  canvasSources = NO_CANVAS_SOURCES,
+  readCanvasSources,
   onHeadsUpVisibleChange
 }: NotificationAttentionControllerProps): React.JSX.Element {
   const client = useThreadClient()
-  const readingSources = useMemo(() => activeThreadVisible
+  const mainReadingSources = useMemo(() => activeThreadVisible
     ? [publicSources, singleChatSources].filter((source): source is VisibleNotificationSources => (
       source !== null && source.threadId === activeThreadId && source.surfaceVisible !== false
     )) : [], [activeThreadVisible, activeThreadId, publicSources, singleChatSources])
-  const visibleSources = useMemo(() => readingSources.length === 0 ? null : {
-    threadId: readingSources[0].threadId,
-    snapshotSequence: Math.max(...readingSources.map((source) => source.snapshotSequence)),
-    messageIds: [...new Set(readingSources.flatMap((source) => source.messageIds))].sort(),
-    campTurnIds: [...new Set(readingSources.flatMap((source) => source.campTurnIds))].sort(),
-    agentRunIds: [...new Set(readingSources.flatMap((source) => source.agentRunIds))].sort(),
-    approvalIds: [...new Set(readingSources.flatMap((source) => source.approvalIds))].sort()
-  }, [readingSources])
+  const readingSources = useMemo(() => [...mainReadingSources, ...canvasSources.filter(source => source.surfaceVisible !== false)], [mainReadingSources, canvasSources])
+  const visibleSourceGroups = useMemo(() => groupVisibleNotificationSources(readingSources), [readingSources])
+  const quietThreadIds = useMemo(() => [...new Set([...(activeThreadVisible && activeThreadId ? [activeThreadId] : []),
+    ...canvasSources.filter(source => source.surfaceVisible === true).map(source => source.threadId)])], [activeThreadVisible, activeThreadId, canvasSources])
   const [preference, setPreference] = useState<NotificationPreference | null>(null)
   const [headsUpState, setHeadsUpState] = useState<NotificationHeadsUpState>(
     emptyNotificationHeadsUpState
@@ -355,8 +374,8 @@ export function NotificationAttentionController({
   const pollRetryAt = useRef(0)
   const navigationGeneration = useRef(0)
   const visibleAcknowledgementKeys = useRef(new Map<string, string>())
-  const visibleAcknowledgementRunning = useRef(false)
-  const visibleRetryTimer = useRef<number | null>(null)
+  const visibleAcknowledgementRunning = useRef(new Set<string>())
+  const visibleRetryTimers = useRef(new Map<string, number>())
   const mounted = useRef(false)
   const visibleThreadAdmissions = useRef(new Map<string, number>())
   const visibleCommands = useRef(new Map<string, VisibleAcknowledgementIntent>())
@@ -365,7 +384,7 @@ export function NotificationAttentionController({
     mounted.current = true
     return () => {
       mounted.current = false
-      if (visibleRetryTimer.current !== null) window.clearTimeout(visibleRetryTimer.current)
+      for (const timer of visibleRetryTimers.current.values()) window.clearTimeout(timer)
     }
   }, [])
 
@@ -459,6 +478,7 @@ export function NotificationAttentionController({
       || Date.now() < pollRetryAt.current
     ) return
     pollRunning.current = true
+    const generation = baselineGeneration.current
     try {
       const collected = await readNotificationChangePages(
         changeCursor.current,
@@ -467,6 +487,7 @@ export function NotificationAttentionController({
           { afterChangeSequence, limit: 100 }
         )
       )
+      if (!mounted.current || generation !== baselineGeneration.current) return
       if (collected.resetRequired) {
         await establishBaseline()
         return
@@ -481,6 +502,7 @@ export function NotificationAttentionController({
       const effectivePreference = hasHeadsUpSignal
         ? preference ?? await loadPreference()
         : preference
+      if (!mounted.current || generation !== baselineGeneration.current) return
       const headsUpChanges: NotificationEpisodeChange[] = []
 
       for (const change of changes) {
@@ -505,6 +527,7 @@ export function NotificationAttentionController({
           && readingSources.some((source) => !source.conversationId)
         if (exactSourceMayBeVisible) {
           const rendered = await onRefreshVisibleThread(episode, exactMentionAction)
+          if (!mounted.current || generation !== baselineGeneration.current) return
           if (rendered && document.visibilityState === 'visible' && document.hasFocus()) {
             try {
               await acknowledgeAction(episode, exactMentionAction)
@@ -515,9 +538,7 @@ export function NotificationAttentionController({
             }
           }
         }
-        const quietCurrentThread = activeThreadVisible
-          && windowAttentive
-          && episode.thread.id === activeThreadId
+        const quietCurrentThread = windowAttentive && quietThreadIds.includes(episode.thread.id)
         headsUpChanges.push(
           !quietCurrentThread
             && effectivePreference
@@ -560,6 +581,7 @@ export function NotificationAttentionController({
     onRefreshVisibleThread,
     preference,
     readingSources,
+    quietThreadIds,
     windowAttentive
   ])
 
@@ -607,9 +629,9 @@ export function NotificationAttentionController({
       current,
       readingSources,
       windowAttentive,
-      activeThreadVisible ? activeThreadId : null
+      quietThreadIds
     ))
-  }, [activeThreadId, activeThreadVisible, readingSources, windowAttentive, observedThroughChangeSequence])
+  }, [quietThreadIds, readingSources, windowAttentive, observedThroughChangeSequence])
 
   useEffect(() => {
     if (
@@ -617,53 +639,52 @@ export function NotificationAttentionController({
       || !baselineReady.current
       || !hasUnreadAttention
       || navigationActive
-      || !activeThreadVisible
-      || !visibleSources
-      || visibleSources.threadId !== activeThreadId
       || !windowAttentive
     ) return undefined
-    const sourceCount = visibleSources.messageIds.length
-      + visibleSources.campTurnIds.length
-      + visibleSources.agentRunIds.length
-      + visibleSources.approvalIds.length
-    if (sourceCount === 0) return undefined
-    const intent = visibleAcknowledgementIntent(visibleSources,
-      visibleThreadAdmissions.current.get(visibleSources.threadId) ?? 0,
-      observedThroughChangeSequence, visibleCommands.current.get(visibleSources.threadId) ?? null)
-    const key = intent.key
-    if (visibleAcknowledgementRunning.current
-      || visibleAcknowledgementKeys.current.get(visibleSources.threadId) === key) {
-      return undefined
+    const currentGroups = readCanvasSources ? groupVisibleNotificationSources([...mainReadingSources, ...readCanvasSources()]) : visibleSourceGroups
+    for (const visibleSources of currentGroups) {
+      const sourceCount = visibleSources.messageIds.length
+        + visibleSources.campTurnIds.length
+        + visibleSources.agentRunIds.length
+        + visibleSources.approvalIds.length
+      if (sourceCount === 0) continue
+      const intent = visibleAcknowledgementIntent(visibleSources,
+        visibleThreadAdmissions.current.get(visibleSources.threadId) ?? 0,
+        observedThroughChangeSequence, visibleCommands.current.get(visibleSources.threadId) ?? null)
+      const key = intent.key
+      if (visibleAcknowledgementRunning.current.has(visibleSources.threadId)
+        || visibleRetryTimers.current.has(visibleSources.threadId)
+        || visibleAcknowledgementKeys.current.get(visibleSources.threadId) === key) {
+        continue
+      }
+      visibleAcknowledgementRunning.current.add(visibleSources.threadId)
+      visibleCommands.current.set(visibleSources.threadId, intent)
+      const generation = baselineGeneration.current
+      let applied = false
+      void client.request<StoredCommandResult>(
+        'notifications.acknowledgeVisibleSources',
+        intent.request
+      ).then(async (result) => {
+        if (result.status !== 'applied') throw new Error(commandFailure(result))
+        applied = true
+        if (!mounted.current || generation !== baselineGeneration.current) return
+        visibleAcknowledgementKeys.current.set(visibleSources.threadId, key)
+        // A failed refresh does not make the already-acknowledged command uncertain.
+        await Promise.all([pollChanges(), readUnreadStatus()]).catch(() => undefined)
+      }).catch(() => {
+        // Keep the original UUID and frozen request for an uncertain-result retry.
+      }).finally(() => {
+        visibleAcknowledgementRunning.current.delete(visibleSources.threadId)
+        if (!mounted.current || generation !== baselineGeneration.current) return
+        visibleRetryTimers.current.set(visibleSources.threadId, window.setTimeout(() => {
+          visibleRetryTimers.current.delete(visibleSources.threadId)
+          setVisibleAcknowledgementRetry((value) => value + 1)
+        }, applied ? 0 : 2_500))
+      })
     }
-    visibleAcknowledgementRunning.current = true
-    visibleCommands.current.set(visibleSources.threadId, intent)
-    const generation = baselineGeneration.current
-    let applied = false
-    void client.request<StoredCommandResult>(
-      'notifications.acknowledgeVisibleSources',
-      intent.request
-    ).then(async (result) => {
-      if (result.status !== 'applied') throw new Error(commandFailure(result))
-      applied = true
-      if (!mounted.current || generation !== baselineGeneration.current) return
-      visibleAcknowledgementKeys.current.set(visibleSources.threadId, key)
-      // A failed refresh does not make the already-acknowledged command uncertain.
-      await Promise.all([pollChanges(), readUnreadStatus()]).catch(() => undefined)
-    }).catch(() => {
-      // Keep the original UUID and frozen request for an uncertain-result retry.
-    }).finally(() => {
-      visibleAcknowledgementRunning.current = false
-      if (!mounted.current) return
-      visibleRetryTimer.current = window.setTimeout(() => {
-        visibleRetryTimer.current = null
-        setVisibleAcknowledgementRetry((value) => value + 1)
-      }, applied ? 0 : 2_500)
-    })
     // Dependency churn must not cancel receipt handling or an uncertain retry.
     return undefined
   }, [
-    activeThreadId,
-    activeThreadVisible,
     enabled,
     hasUnreadAttention,
     navigationActive,
@@ -671,7 +692,9 @@ export function NotificationAttentionController({
     pollChanges,
     readUnreadStatus,
     visibleAcknowledgementRetry,
-    visibleSources,
+    visibleSourceGroups,
+    mainReadingSources,
+    readCanvasSources,
     windowAttentive
   ])
 
@@ -688,10 +711,12 @@ export function NotificationAttentionController({
       if (action.acknowledgementId) {
         await acknowledgeAction(episode, action)
         acknowledgementPersisted = true
+        if (!mounted.current) return
         void readUnreadStatus().catch(() => undefined)
       }
       if (action.kind === 'acknowledge_only') return
       const result = await onNavigate(episode, action)
+      if (!mounted.current) return
       if (generation !== navigationGeneration.current) {
         onCancelNavigation()
         return
@@ -704,6 +729,7 @@ export function NotificationAttentionController({
         return
       }
       const presented = await onPresentNavigation(episode, action)
+      if (!mounted.current) return
       if (generation !== navigationGeneration.current) {
         onCancelNavigation()
         return
@@ -715,6 +741,7 @@ export function NotificationAttentionController({
           :uiAttribute("已打开会话，但暂时无法定位到目标。"))
       }
     } catch (nextError) {
+      if (!mounted.current) return
       onCancelNavigation()
       if (generation !== navigationGeneration.current) return
       onError(acknowledgementPersisted
@@ -729,7 +756,7 @@ export function NotificationAttentionController({
     headsUpState,
     readingSources,
     windowAttentive,
-    activeThreadVisible ? activeThreadId : null
+    quietThreadIds
   )
   const currentHeadsUp = presentableState.entries[0] ?? null
   const headsUpOverflow = presentableState.overflowEntries.length

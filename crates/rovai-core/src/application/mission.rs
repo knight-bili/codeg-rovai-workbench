@@ -1147,7 +1147,7 @@ impl Core {
                         workspace
                     });
                     return Ok(
-                        json!({"campId":mission.camp_id,"workingDirectory":workspaces.first().map(|w|w.working_directory.as_str()).unwrap_or(&mission.project_path),"git":git_project,"workspace":workspace,"pullRequests":prs,"files":files}),
+                        json!({"threadId":mission.camp_id,"workingDirectory":workspaces.first().map(|w|w.working_directory.as_str()).unwrap_or(&mission.project_path),"git":git_project,"workspace":workspace,"pullRequests":prs,"files":files}),
                     );
                 }
                 let workspace = workspaces.first().context(

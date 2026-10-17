@@ -761,8 +761,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C12-N"
   },
   {
     "id": "C12-F",
@@ -770,7 +770,7 @@
     "phase": "I03",
     "kind": "异常流程",
     "precondition": "隔离数据根、测试工程及必要授权已准备",
-    "steps": "删除当前画板或重复名称冲突",
+    "steps": "删除当前画板或并发修改/删除触发版本冲突",
     "expected": "选择合理替代视图，不删除其他画板",
     "platforms": [
       "Windows Desktop",
@@ -778,8 +778,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C12-F"
   },
   {
     "id": "C12-R",
@@ -795,8 +795,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C12-R"
   },
   {
     "id": "C12-P",
@@ -812,8 +812,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C12-P"
   },
   {
     "id": "C13-N",
@@ -829,8 +829,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C13-N"
   },
   {
     "id": "C13-F",
@@ -846,8 +846,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C13-F"
   },
   {
     "id": "C13-R",
@@ -863,8 +863,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C13-R"
   },
   {
     "id": "C13-P",
@@ -880,8 +880,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C13-P"
   },
   {
     "id": "C14-N",
@@ -897,8 +897,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C14-N"
   },
   {
     "id": "C14-F",
@@ -914,8 +914,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C14-F"
   },
   {
     "id": "C14-R",
@@ -931,8 +931,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C14-R"
   },
   {
     "id": "C14-P",
@@ -948,8 +948,8 @@
       "Linux Desktop",
       "Web/Server按源适用面验证"
     ],
-    "status": "not_run",
-    "evidence": null
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-closeout-ledger.json#C14-P"
   },
   {
     "id": "C15-N",

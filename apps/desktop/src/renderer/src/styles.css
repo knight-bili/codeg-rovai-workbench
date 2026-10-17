@@ -1373,6 +1373,8 @@ html[data-rovai-platform="win32"] .bootstrap-shell-brand { padding-left: 20px; }
   box-shadow: var(--shadow-float);
 }
 .single-chat-popover[hidden] { display: none; }
+.private-input-recovery-editor > .single-chat-popover { position: relative; inset: auto; width: 100%; height: min(620px, 65vh); box-shadow: none; }
+.private-input-recovery-editor > .camp-detail-entry-fallback { display: none; }
 .single-chat-popover.is-dragging-attachments { border-color: var(--brand); }
 .single-chat-drop-layer { position: absolute; z-index: 70; inset: 8px; display: grid; place-items: center; border: 1.5px dashed color-mix(in srgb, var(--brand) 80%, var(--line-strong)); border-radius: 8px; background: color-mix(in srgb, var(--brand-soft) 72%, var(--inspector-surface)); pointer-events: none; animation: conversation-drop-enter 120ms ease-out; }
 .single-chat-drop-callout { display: grid; width: min(324px, calc(100% - 32px)); gap: 5px; padding: 15px 17px; border: 1px solid var(--line-strong); border-radius: 9px; color: var(--ink); background: var(--surface-raised); box-shadow: var(--shadow-float); text-align: center; }
@@ -1465,6 +1467,26 @@ html[data-rovai-platform="win32"] .bootstrap-shell-brand { padding-left: 20px; }
 .single-chat-error { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-top: 7px; padding: 6px 7px 6px 9px; border-left: 2px solid var(--danger); color: var(--danger); background: var(--danger-soft); font-size: 10.5px; line-height: 1.45; }
 .single-chat-error button { min-width: 32px; min-height: 24px; padding: 0 5px; border: 0; border-radius: 4px; color: var(--danger); background: transparent; cursor: pointer; font-size: 10px; }
 .single-chat-error button:hover { background: color-mix(in srgb, var(--danger) 9%, transparent); }
+.single-chat-retained-inputs { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px; margin-top: 7px; padding: 8px; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); background: var(--surface); font-size: 11px; line-height: 1.5; }
+.single-chat-retained-inputs > span { grid-column: 1 / -1; }
+.single-chat-retained-inputs select, .single-chat-retained-inputs button, .single-chat-recovery-trigger { min-width: 0; max-width: 100%; min-height: 28px; padding: 4px 6px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: var(--surface); font: inherit; }
+.single-chat-retained-inputs button:hover:not(:disabled), .single-chat-recovery-trigger:hover:not(:disabled) { background: var(--surface-hover); }
+.single-chat-retained-inputs button:disabled, .single-chat-recovery-trigger:disabled { opacity: .55; }
+.single-chat-recovery-trigger { margin: 6px 12px; font-size: 11px; }
+.private-input-recovery-location { grid-template-columns: minmax(0, 1fr); }
+.single-chat-retained-inputs[aria-label] { grid-template-columns: minmax(0, 1fr); max-height: min(240px, 32vh); overflow: auto; }
+.single-chat-retained-inputs[aria-label] > div { min-width: 0; }
+.single-chat-retained-inputs label { display: block; margin-bottom: 4px; }
+.single-chat-retained-inputs select { width: 100%; margin-bottom: 5px; }
+.single-chat-retained-inputs details { margin-top: 6px; }
+.single-chat-retained-inputs pre, .single-chat-retained-inputs blockquote { margin: 6px 0; white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; }
+.single-chat-retained-inputs .single-chat-error { flex-wrap: wrap; }
+.single-chat-pending-editor { grid-column: 1 / -1; min-width: 0; width: 100%; }
+.single-chat-pending-editor label { display: grid; gap: 4px; color: var(--muted); }
+.single-chat-pending-editor textarea { box-sizing: border-box; width: 100%; min-height: 70px; max-height: 180px; resize: vertical; padding: 7px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: var(--surface); font: inherit; }
+.single-chat-pending-editor > button, .single-chat-pending-editor > .pending-input-actions > button { padding: 4px 6px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: var(--surface); font: inherit; }
+.single-chat-pending-editor .pending-input-actions { margin-top: 6px; flex-wrap: wrap; }
+.single-chat-pending-editor blockquote { white-space: pre-wrap; overflow-wrap: anywhere; }
 .single-chat-footer { display: flex; min-height: 30px; flex: 0 0 auto; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 12px 4px 16px; border-top: 1px solid var(--line); color: var(--faint); font-size: 10.5px; }
 .single-chat-footer > span:last-child { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .single-chat-footer kbd { padding: 1px 5px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 4px; background: var(--surface-subtle); font: 500 9px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
@@ -8865,10 +8887,11 @@ html[lang="en"] .runtime-parameter-picker-menu:has(.permission-menu-guidance) { 
 :is(.app-dialog,.compact-dialog,.memory-review-drawer) :is(.danger-button,.compact-danger):hover:not(:disabled) { color:var(--danger); background:color-mix(in srgb,var(--danger) 10%,var(--danger-soft)); border-color:color-mix(in srgb,var(--danger) 22%,transparent); }
 :is(.app-dialog,.compact-dialog,.memory-review-drawer) :is(.danger-button,.compact-danger):active:not(:disabled) { background:color-mix(in srgb,var(--danger) 16%,var(--danger-soft)); }
 :root .app-dialog :is(.field-label,.task-field > span,.mcp-json-editor > span,.mcp-import-options label > span,.channel-dialog-fact > span,.channel-approver-select > span) { color:var(--dialog-field-label); font-weight:400; font-size:12.5px; }
-:root .app-dialog :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select) { color:var(--ink); font-weight:400; font-size:13px; line-height:1.5; border:1px solid var(--dialog-field-line); border-radius:7px; background:var(--input); box-shadow:none; }
-:root .app-dialog :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),select) { min-height:40px; }
-:root .app-dialog :is(input,textarea,select):hover:not(:disabled) { border-color:var(--dialog-field-line-hover); }
-:root .app-dialog :is(input,textarea,select)[aria-invalid=true] { border-color:var(--danger); }
+/* Mission's composite search owns its border and height, including inside object dialogs. */
+:root .app-dialog :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select):not(:where(.changes-tree-search > input)) { color:var(--ink); font-weight:400; font-size:13px; line-height:1.5; border:1px solid var(--dialog-field-line); border-radius:7px; background:var(--input); box-shadow:none; }
+:root .app-dialog :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),select):not(:where(.changes-tree-search > input)) { min-height:40px; }
+:root .app-dialog :is(input,textarea,select):not(:where(.changes-tree-search > input)):hover:not(:disabled) { border-color:var(--dialog-field-line-hover); }
+:root .app-dialog :is(input,textarea,select):not(:where(.changes-tree-search > input))[aria-invalid=true] { border-color:var(--danger); }
 .app-dialog-fact-grid { display:grid; gap:8px; margin:0; }
 .app-dialog-fact-grid > div { min-width:0; display:flex; align-items:baseline; justify-content:space-between; gap:20px; }
 .app-dialog-fact-grid dt { color:var(--dialog-field-label); font-size:12.5px; }

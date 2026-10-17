@@ -10,6 +10,7 @@ import test from 'node:test'
 import { DatabaseSync } from 'node:sqlite'
 import { setTimeout as pause } from 'node:timers/promises'
 import { coreDataDirectoryArguments, removeEphemeralRuntimeCampFilesRoot } from './runtime-camp-files-root.mjs'
+import { canvasTerminalProcessFixture } from './canvas-terminal-process.mjs'
 
 const repository = resolve(import.meta.dirname, '../..')
 const binary = process.env.ROVAI_HOST_BIN ?? join(repository, 'target/debug', process.platform === 'win32' ? 'rovai-host.exe' : 'rovai-host')
@@ -17,7 +18,7 @@ const uiDirectory = process.env.ROVAI_WEB_UI ?? join(repository, 'out/web')
 
 // Owns the real Desktop pipe + HTTP + unique Core lifetime seam. It uses only
 // isolated directories and public record mutations, never a model or daily data.
-test('Desktop and Web share one Core while listener failure, revocation and stop stay local', { timeout: 90_000 }, async () => {
+test('Desktop and Web share one Core while listener failure, revocation and stop stay local', { timeout: 180_000 }, async () => {
   const fixture = await realpath(await mkdtemp(join(tmpdir(), 'rovai-host-web-')))
   const builtUiDirectory = uiDirectory
   const ownedUiDirectory = join(fixture, 'web-ui')
@@ -32,10 +33,11 @@ test('Desktop and Web share one Core while listener failure, revocation and stop
   console.log(JSON.stringify({ channel: 'automatic_acceptance', dataDir, skillLibraryRoot: join(dataDir, 'skills'), mcpConfigPath: join(dataDir, 'mcp.json'), runtime: false }))
   const uploadScratch = join(fixture, 'uploads')
   await mkdir(uploadScratch)
+  const terminalProcesses = await canvasTerminalProcessFixture(fixture, uploadScratch, dataDir)
   const host = launchHost(binary, [
     ...coreDataDirectoryArguments(dataDir),
     '--skill-library-root', join(dataDir, 'skills'), '--mcp-config-path', join(dataDir, 'mcp.json')
-  ], { cwd: repository, env: { ...process.env, TMPDIR: uploadScratch, TMP: uploadScratch, TEMP: uploadScratch } })
+  ], { cwd: repository, env: terminalProcesses.environment, windowsHide: true })
   const controllers = []
   try {
     await within(host.ready)
@@ -234,7 +236,7 @@ test('Desktop and Web share one Core while listener failure, revocation and stop
     assert.equal('dataDir' in info, false)
     assert.equal(info.name, (await host.request('app.info')).name)
     assert.deepEqual(await call(second, 'navigation.snapshot'), await host.request('navigation.snapshot'))
-    for (const operation of ['preferences.newConversation.initialize', 'host.web.token', 'host.web.rotate', 'host.web.loginTicket', 'core.shutdown', 'host.editor.resolve', 'host.upload.bind', 'camp.composerDraft.get', 'camp.composerDraft.save', 'camp.sourceAttachments.addFromPath', 'camp.attachments.desktopOpenTarget', 'filePreview.resolveSource']) {
+    for (const operation of ['preferences.newConversation.initialize', 'host.web.token', 'host.web.rotate', 'host.web.loginTicket', 'core.shutdown', 'host.editor.resolve', 'host.upload.bind', 'host.upload.receipt', 'host.upload.retry', 'host.upload.finish', 'camp.composerDraft.get', 'camp.composerDraft.save', 'camp.sourceAttachments.addFromPath', 'camp.attachments.desktopOpenTarget', 'filePreview.resolveSource']) {
       const response = await authorized(first, 'request', { method: 'POST', body: JSON.stringify({ operation, params: {} }) })
       assert.equal(response.status, 400, operation)
     }
@@ -363,6 +365,40 @@ test('Desktop and Web share one Core while listener failure, revocation and stop
     const privateResponse = await sendPrivateUpload()
     assert.equal(privateResponse.status, 200, await privateResponse.clone().text())
     const privateSnapshot = (await privateResponse.json()).draft
+    const uploadReceipt = (session, original) => authorized(session, 'uploads/receipt', { method: 'POST', body: JSON.stringify(original) })
+    const originalReceiptResponse = await uploadReceipt(first, privateIntent)
+    assert.equal(originalReceiptResponse.status, 200)
+    const originalReceipt = await originalReceiptResponse.json()
+    const resolveUpload = (session, action, original) => authorized(session, `uploads/${action}`, { method: 'POST', body: JSON.stringify(original) })
+    const preparationSpools = (await spools()).length
+    for (const action of ['retry', 'finish']) {
+      assert.equal((await request(`uploads/${action}`, { method: 'POST', body: JSON.stringify(privateIntent) })).status, 401)
+      assert.deepEqual(await (await resolveUpload(first, action, privateIntent)).json(), originalReceipt, '已提交材料只返回原首次成功')
+      assert.equal((await resolveUpload(second, action, privateIntent)).status, 503)
+    }
+    const readyPreparation = { ...privateIntent, commandId: crypto.randomUUID(), expectedRevision: privateSnapshot.draft.revision }
+    assert.deepEqual(await (await resolveUpload(first, 'retry', readyPreparation)).json(), { state: 'needs_source' })
+    assert.deepEqual(await (await uploadReceipt(first, readyPreparation)).json(), { state: 'unknown' }, '就绪检查回滚，不落假成功')
+    const endedPreparation = await (await resolveUpload(first, 'finish', readyPreparation)).json()
+    assert.equal(endedPreparation.receipt.status, 'rejected')
+    assert.equal(endedPreparation.receipt.code, 'attachment.upload_preparation_ended')
+    assert.equal(JSON.stringify(endedPreparation).includes('sourcePath'), false)
+    const stalePreparation = { ...privateIntent, commandId: crypto.randomUUID() }
+    const metadataRefusal = await (await resolveUpload(first, 'retry', stalePreparation)).json()
+    assert.equal(metadataRefusal.receipt.status, 'rejected')
+    assert.equal(metadataRefusal.receipt.code, 'single_chat.draft_changed')
+    assert.deepEqual((await call(first, 'singleChat.get', { conversationId })).draft, privateSnapshot.draft)
+    assert.equal((await spools()).length, preparationSpools, '只含原意图的恢复不接收文件或创建spool')
+    assert.equal((await request('uploads/receipt', { method: 'POST', body: JSON.stringify(privateIntent) })).status, 401)
+    assert.equal(originalReceipt.state, 'recorded')
+    assert.equal(originalReceipt.receipt.commandId, privateIntent.commandId)
+    assert.equal(JSON.stringify(originalReceipt).includes('sourcePath'), false)
+    const foreignReceipt = await uploadReceipt(second, privateIntent)
+    assert.equal(foreignReceipt.status, 503)
+    assert.equal(JSON.stringify(await foreignReceipt.json()).includes('receipt'), false)
+    const projectedReplay = await uploadReceipt(first, { ...intent, target: privateIntent.target })
+    assert.equal(projectedReplay.status, 200)
+    assert.equal(JSON.stringify(await projectedReplay.json()).includes(bound.sourcePath), false)
     assert.equal(privateSnapshot.draft.attachments[0].id, privateIntent.commandId)
     assert.equal((await call(second, 'singleChat.get', { conversationId })).draft.attachments.length, 0)
     assert.equal((await host.request('singleChat.get', { conversationId })).draft.attachments.length, 0)
@@ -373,6 +409,20 @@ test('Desktop and Web share one Core while listener failure, revocation and stop
     assert.equal((await call(first, 'singleChat.get', { conversationId })).draft.attachments.length, 1)
     const privateRemove = await call(first, 'singleChat.composerDraft.removeAttachment', { conversationId, expectedDraftRevision: privateSnapshot.draft.revision, attachmentRefId: privateIntent.commandId })
     assert.equal(privateRemove.draft.attachments.length, 0)
+    assert.deepEqual(await (await uploadReceipt(first, privateIntent)).json(), originalReceipt, '原材料移除不影响原回执查回')
+    const refusedIntent = { ...privateIntent, commandId: crypto.randomUUID() }
+    const refusedSpools = (await spools()).length
+    const refusedBody = () => { const body = new FormData(); body.append('intent', JSON.stringify(refusedIntent)); body.append('file', new Blob([input]), 'refused.txt'); return body }
+    const refused = await postUpload(refusedBody())
+    assert.equal(refused.status, 409)
+    assert.equal((await refused.json()).error.code, 'upload_rejected')
+    const refusal = await (await uploadReceipt(first, refusedIntent)).json()
+    assert.equal(refusal.receipt.status, 'rejected')
+    assert.equal(refusal.receipt.code, 'single_chat.draft_changed')
+    assert.equal((await postUpload(refusedBody())).status, 409)
+    assert.equal((await authorized(first, 'uploads/reconcile', { method: 'POST', body: JSON.stringify(refusedIntent) })).status, 409)
+    assert.equal((await spools()).length, refusedSpools, '明确拒绝/回放的未绑定spool全部清理')
+    assert.deepEqual((await call(first, 'singleChat.get', { conversationId })).draft, privateRemove.draft)
     assert.equal((await call(second, 'singleChat.get', { conversationId })).draft.revision, 0)
     const sentParams = { commandId: crypto.randomUUID(), threadId,
       content: { version: 2, segments: [{ kind: 'text', text: 'Published from Web' }] },
@@ -410,7 +460,18 @@ test('Desktop and Web share one Core while listener failure, revocation and stop
     const replayed = await postPending(first)
     assert.equal(replayed.status, 200)
     assert.equal((await replayed.json()).draft.pendingInputs.editSession.workingAttachments.length, 1, 'replaying an unknown upload outcome must not duplicate the attachment')
+    const pendingReceipt = await (await uploadReceipt(first, pendingIntent)).json()
+    assert.equal(pendingReceipt.state, 'recorded')
     await call(first, operation, { commandId: crypto.randomUUID(), command: { ...command, editToken: edit.editToken, action: { type: 'cancel' } } })
+    assert.deepEqual(await (await uploadReceipt(first, pendingIntent)).json(), pendingReceipt, '编辑租约取消后仍按原请求读取回执')
+    const fencedIntent = { ...pendingIntent, commandId: crypto.randomUUID() }
+    const fencedBody = new FormData(); fencedBody.append('intent', JSON.stringify(fencedIntent)); fencedBody.append('file', new Blob([input]), 'fenced.txt')
+    const fencedSpools = (await spools()).length
+    assert.equal((await postUpload(fencedBody)).status, 409)
+    const fencedReceipt = await (await uploadReceipt(first, fencedIntent)).json()
+    assert.equal(fencedReceipt.receipt.status, 'rejected')
+    assert.equal(fencedReceipt.receipt.code, 'single_chat.pending_input_edit_fenced')
+    assert.equal((await spools()).length, fencedSpools)
     const html = await fetch(origin, { redirect: 'error' })
     assert.equal(html.status, 200)
     assert.match(html.headers.get('content-security-policy'), /frame-ancestors 'none'/)
@@ -631,16 +692,20 @@ test('Desktop and Web share one Core while listener failure, revocation and stop
     const beforeExitReply = await fetch(`${restarted.origin}/api/v1/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ protocolVersion: 4, administratorToken: restarted.administratorToken }) })
     assert.equal(beforeExitReply.status, 200, 'the retained credential permits a fresh login')
     const beforeExit = await beforeExitReply.json()
+    await terminalProcesses.exercise(host, restarted.origin, beforeExit)
     const reply = await host.request('core.shutdown', { protocolVersion: 3, deadlineMs: 10_000 })
     assert.equal(reply.controlledShutdownCyclePersisted, true)
+    assert.equal(reply.deadlineExpired, false)
     assert.equal((await within(host.closed)).code, 0)
+    await terminalProcesses.assertPlannedReaped()
     await assert.rejects(fetch(restarted.origin, { signal: AbortSignal.timeout(2000) }))
     assert.equal(host.unmatchedResponses.length, 0, 'Web correlation responses must never leak into Desktop stdout')
     assert.ok(!host.stderr().includes(administrator), 'management credentials must not enter logs')
     assert.ok(!host.stderr().includes(first.token), 'session credentials must not enter logs')
-    const reopened = launch([...coreDataDirectoryArguments(dataDir), '--skill-library-root', join(dataDir, 'skills'), '--mcp-config-path', join(dataDir, 'mcp.json')])
+    const reopened = launch([...coreDataDirectoryArguments(dataDir), '--skill-library-root', join(dataDir, 'skills'), '--mcp-config-path', join(dataDir, 'mcp.json')], terminalProcesses.environment)
     try {
       await within(reopened.ready)
+      await terminalProcesses.assertRestarted(reopened)
       const reopenedWeb = await reopened.request('host.web.start', { listen: '127.0.0.1:0', uiDirectory: ownedUiDirectory })
       assert.equal(reopenedWeb.administratorToken, restarted.administratorToken)
       const recoveredSession = await fetch(`${reopenedWeb.origin}/api/v1/session`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${beforeExit.token}` }, body: JSON.stringify({ editor: { clientId: beforeExit.clientId, proof: beforeExit.editorProof } }) })
@@ -654,10 +719,14 @@ test('Desktop and Web share one Core while listener failure, revocation and stop
       const path = join(dataDir, 'new-conversation-preferences.json')
       await writeFile(path, '{broken')
       await assert.rejects(reopened.request(defaultsMethod + 'get'), 'corrupt preferences cannot masquerade as an empty team')
+      await terminalProcesses.armCrash(reopened)
+      assert.equal(reopened.child.kill('SIGKILL'), true)
+      await within(reopened.closed)
     } finally { await reopened.close() }
-    const disabled = launch([...coreDataDirectoryArguments(dataDir), '--skill-library-root', join(dataDir, 'skills'), '--mcp-config-path', join(dataDir, 'mcp.json')])
+    const disabled = launch([...coreDataDirectoryArguments(dataDir), '--skill-library-root', join(dataDir, 'skills'), '--mcp-config-path', join(dataDir, 'mcp.json')], terminalProcesses.environment)
     try {
       await within(disabled.ready)
+      await terminalProcesses.assertRestarted(disabled)
       // Explicit stop also revokes persisted Sessions before the first listener
       // start in a reopened Desktop Host, where credentials are still lazy.
       await disabled.request('host.web.stop')
@@ -667,7 +736,8 @@ test('Desktop and Web share one Core while listener failure, revocation and stop
     } finally { await disabled.close() }
   } finally {
     controllers.forEach((controller) => controller.abort())
-    await host.close()
+    await host.close({ timeoutMs: 15_000 })
+    await terminalProcesses.cleanup()
     await removeEphemeralRuntimeCampFilesRoot(dataDir, { temporaryDirectory: fixture })
     await rm(fixture, { recursive: true, force: true })
   }
@@ -677,6 +747,199 @@ test('Desktop and Web share one Core while listener failure, revocation and stop
 // without a Renderer tick. The ordinary Delivery scheduler may leave the work
 // waiting, claim it into an AgentRun, or settle the missing Runtime configuration;
 // domain tests own execution and recovery.
+// Owns the real HTTP editor boundary for canvas materials and complete retained
+// inputs. Pending/Run rows are never seeded and no message is sent to a Runtime.
+test('Host private composer binds canvas inputs and recovery to verified editors', { timeout: 120_000 }, async t => {
+  const temporaryRoot = await realpath(tmpdir())
+  const fixture = await realpath(await mkdtemp(join(temporaryRoot, 'rovai-host-private-')))
+  assert.equal(resolve(fixture, '..'), temporaryRoot)
+  const dataDir = process.platform === 'win32'
+    ? JSON.parse(execFileSync(binary, ['--prepare-windows-data-root', join(fixture, 'formal')], { encoding: 'utf8', windowsHide: true })).core
+    : join(fixture, 'data')
+  const skillLibraryRoot = join(dataDir, 'skills')
+  const mcpConfigPath = join(dataDir, 'mcp.json')
+  await mkdir(skillLibraryRoot, { recursive: true })
+  await writeFile(mcpConfigPath, JSON.stringify({ mcpServers: {} }))
+  const report = { status: 'running', channel: 'automatic_acceptance', dataDir, skillLibraryRoot, mcpConfigPath,
+    runtime: false, renderer: false, cases: [], startedAt: new Date().toISOString() }
+  console.log(JSON.stringify({ fixture, dataDir, skillLibraryRoot, mcpConfigPath, runtime: false, renderer: false }))
+  const host = launchHost(binary, [...coreDataDirectoryArguments(dataDir), '--skill-library-root', skillLibraryRoot,
+    '--mcp-config-path', mcpConfigPath], { cwd: repository, windowsHide: true,
+    env: { ...process.env, TMPDIR: fixture, TMP: fixture, TEMP: fixture } })
+  console.log(JSON.stringify({ fixture, hostPid: host.child.pid }))
+  try {
+    await within(host.ready)
+    const started = await host.request('host.web.start', { listen: '127.0.0.1:0', uiDirectory })
+    const request = (session, path, body) => fetch(`${started.origin}/api/v1/${path}`, {
+      method: 'POST', redirect: 'error', signal: AbortSignal.timeout(10_000),
+      headers: { 'Content-Type': 'application/json', ...(session ? { Authorization: `Bearer ${session.token}` } : {}) },
+      body: JSON.stringify(body)
+    })
+    const callRaw = async (session, operation, params = {}) => {
+      const response = await request(session, 'request', { operation, params })
+      assert.equal(response.status, 200, operation)
+      return response.json()
+    }
+    const call = async (session, operation, params = {}) => {
+      const reply = await callRaw(session, operation, params)
+      assert.equal(reply.error, null, `${operation}: ${reply.error?.code}`)
+      return reply.result
+    }
+    const login = async editor => {
+      const response = await request(null, 'login', { protocolVersion: 4, administratorToken: started.administratorToken,
+        ...(editor ? { editor } : {}) })
+      assert.equal(response.status, 200)
+      return response.json()
+    }
+    const first = await login(), second = await login()
+    assert.notEqual(first.clientId, second.clientId)
+    const profiles = await call(first, 'members.list')
+    const created = await call(first, 'camps.create', { commandId: crypto.randomUUID(), name: 'Host 私聊隔离验证', workspace: null,
+      memberAgentIds: [profiles[0].agentId], defaultLeadAgentId: profiles[0].agentId, collaborationMode: 'peer' })
+    assert.equal(created.status, 'applied')
+    const threadId = created.payload.threadId
+    const opened = await call(first, 'singleChat.open', { commandId: crypto.randomUUID(), command: { threadId, agentId: profiles[0].agentId } })
+    assert.equal(opened.status, 'applied')
+    const conversationId = opened.payload.conversationId
+    const board = await host.request('canvas.boards.create', { commandId: crypto.randomUUID(), command: { name: 'Host 材料归属' } })
+    assert.equal(board.status, 'applied')
+    const boardId = board.payload.board.id
+    const graph = await host.request('canvas.nodes.snapshot', { boardId })
+    const pin = await host.request('canvas.nodes.apply', { commandId: crypto.randomUUID(), command: { boardId,
+      expectedRevision: graph.board.revision, mutation: { type: 'create', node: { kind: 'conversation',
+        conversation: { threadId, conversationId }, x: 0, y: 0, width: 360, height: 300 } } } })
+    assert.equal(pin.status, 'applied')
+    const composerScope = { kind: 'canvas', boardId, nodeId: pin.payload.nodeIds[0] }
+    const get = (session, scope = composerScope) => call(session, 'singleChat.get', { conversationId, ...(scope ? { composerScope: scope } : {}) })
+    const recovery = (session, extra = {}) => call(session, 'singleChat.composerDraft.recovery', { threadId, conversationId, ...extra })
+    const mutation = (revision, action, scope = composerScope) => ({ commandId: crypto.randomUUID(), command: {
+      threadId, conversationId, ...(scope ? { composerScope: scope } : {}), expectedDraftRevision: revision, action } })
+    const mutate = (session, params) => call(session, 'singleChat.composerDraft.mutate', params)
+    const names = draft => draft.attachments.map(file => file.displayName)
+    const upload = async (session, label, scope) => {
+      const snapshot = await get(session, scope)
+      const input = new TextEncoder().encode(label)
+      const sha256 = Buffer.from(await crypto.subtle.digest('SHA-256', input)).toString('hex')
+      const intent = { commandId: crypto.randomUUID(), threadId, expectedRevision: snapshot.draft.revision,
+        displayName: `${label}.txt`, byteSize: input.length, sha256,
+        target: { kind: 'single_chat', conversationId, ...(scope ? { composerScope: scope } : {}) } }
+      const body = new FormData(); body.append('intent', JSON.stringify(intent)); body.append('file', new Blob([input]), 'input.txt')
+      const response = await fetch(`${started.origin}/api/v1/uploads`, { method: 'POST', body,
+        headers: { Authorization: `Bearer ${session.token}` }, redirect: 'error', signal: AbortSignal.timeout(10_000) })
+      assert.equal(response.status, 200, `upload ${label}`)
+      return (await response.json()).draft
+    }
+    const qualified = async (name, fn) => t.test(name, async () => {
+      await fn(); report.cases.push({ name, status: 'passed' })
+    })
+    const retained = new Map(), receipts = new Map()
+    await qualified('two actual logins isolate same-pin materials and complete retained bodies', async () => {
+      for (const [session, label] of [[first, '甲'], [second, '乙']]) {
+        assert.equal((await mutate(session, mutation(0, { type: 'register_scope' }))).status, 'applied')
+        await upload(session, `${label}卡片材料`, composerScope)
+        const legacy = await upload(session, `${label}默认材料`, null)
+        const snapshot = await get(session)
+        const adoption = await mutate(session, mutation(snapshot.draft.revision, { type: 'adopt_legacy_materials',
+          expectedSourceRevision: legacy.draft.revision, targetBody: `${label}现有正文` }))
+        assert.equal(adoption.status, 'applied')
+        const saved = (await recovery(session)).items.find(item => item.kind === 'retained')?.input
+        assert.ok(saved)
+        assert.deepEqual(names(saved), [`${label}默认材料.txt`])
+        const swapParams = mutation((await get(session)).draft.revision, { type: 'swap_retained', retainedInputId: saved.id,
+          expectedRetainedRevision: saved.revision, currentBody: `${label}独立保留正文` })
+        const swapped = await mutate(session, swapParams)
+        assert.equal(swapped.status, 'applied')
+        assert.deepEqual(names((await get(session)).draft), [`${label}默认材料.txt`])
+        const savedBody = (await recovery(session)).items.find(item => item.kind === 'retained' && item.input.body === `${label}独立保留正文`)?.input
+        assert.ok(savedBody)
+        assert.deepEqual(names(savedBody), [`${label}卡片材料.txt`])
+        retained.set(label, savedBody); receipts.set(label, { params: swapParams, result: swapped })
+        assert.deepEqual(names((await get(session, null)).draft), [])
+      }
+      assert.ok(!JSON.stringify(await recovery(first)).includes('乙独立保留正文'))
+      assert.ok(!JSON.stringify(await recovery(second)).includes('甲独立保留正文'))
+      const desktop = await host.request('singleChat.get', { conversationId, composerScope })
+      assert.deepEqual(names(desktop.draft), [])
+    })
+    await qualified('foreign retained ids and command receipts cannot adopt another editor input', async () => {
+      const before = await recovery(first), secondBefore = await recovery(second)
+      const item = retained.get('甲')
+      const discarded = await mutate(second, mutation((await get(second)).draft.revision,
+        { type: 'discard_retained', retainedInputId: item.id, expectedRetainedRevision: item.revision }))
+      assert.equal(discarded.status, 'rejected')
+      assert.equal(discarded.code, 'single_chat.retained_not_found')
+      const reply = await callRaw(second, 'commands.reconcile', { operation: 'singleChat.composerDraft.mutate', params: receipts.get('甲').params })
+      assert.ok(reply.error, 'a known command UUID is not an editor credential')
+      assert.deepEqual((await recovery(first)).items, before.items)
+      assert.deepEqual((await recovery(second)).items, secondBefore.items)
+      assert.deepEqual(await mutate(first, receipts.get('甲').params), receipts.get('甲').result)
+    })
+    await qualified('forged editing proofs and identity fields reject without changing materials', async () => {
+      const before = await recovery(first), secondBefore = await recovery(second)
+      for (const editor of [{ clientId: first.clientId, proof: second.editorProof },
+        { clientId: second.clientId, proof: second.editorProof }]) {
+        assert.equal((await request(first, 'session', { editor })).status, 401)
+      }
+      assert.equal((await request(null, 'session', { editor: { clientId: first.clientId, proof: first.editorProof } })).status, 401)
+      const params = mutation((await get(second)).draft.revision, { type: 'register_scope' })
+      const forged = await callRaw(second, 'singleChat.composerDraft.mutate', { ...params,
+        command: { ...params.command, draftClient: first.clientId } })
+      assert.ok(forged.error)
+      const topLevel = await request(second, 'request', { operation: 'singleChat.get', params: { conversationId }, draftClient: first.clientId })
+      assert.equal(topLevel.status, 400)
+      assert.deepEqual((await recovery(first)).items, before.items)
+      assert.deepEqual((await recovery(second)).items, secondBefore.items)
+    })
+    await qualified('recovery cursors reject tampering and cross-editor use', async () => {
+      const firstPage = await recovery(first, { limit: 1 })
+      assert.ok(firstPage.nextCursor)
+      const foreign = await callRaw(second, 'singleChat.composerDraft.recovery', { threadId, conversationId, cursor: firstPage.nextCursor, limit: 1 })
+      assert.ok(foreign.error)
+      const badCursor = `${firstPage.nextCursor.slice(0, -1)}${firstPage.nextCursor.endsWith('a') ? 'b' : 'a'}`
+      const tampered = await callRaw(first, 'singleChat.composerDraft.recovery', { threadId, conversationId, cursor: badCursor, limit: 1 })
+      assert.ok(tampered.error)
+      const own = await recovery(first, { cursor: firstPage.nextCursor, limit: 1 })
+      assert.ok(own.items.length > 0)
+    })
+    await qualified('proof-bound relogin restores own input and the legacy default shape', async () => {
+      const before = await recovery(first), legacyBefore = await get(first, null)
+      const restored = await login({ clientId: first.clientId, proof: first.editorProof })
+      assert.equal(restored.clientId, first.clientId)
+      Object.assign(first, restored)
+      assert.deepEqual((await recovery(first)).items, before.items)
+      assert.deepEqual(await get(first, null), legacyBefore)
+      assert.equal(Object.hasOwn(legacyBefore, 'composerScope'), false)
+      assert.equal(Object.hasOwn(legacyBefore.draft, 'scopeKey'), false)
+      const badRevision = mutation((await get(first)).draft.revision + 1, { type: 'register_scope' })
+      const beforeFailure = await get(first)
+      assert.equal((await mutate(first, badRevision)).status, 'rejected')
+      assert.deepEqual(await get(first), beforeFailure)
+      assert.deepEqual(await mutate(first, receipts.get('甲').params), receipts.get('甲').result)
+    })
+    const database = new DatabaseSync(join(dataDir, 'rovai.sqlite'), { readOnly: true })
+    try { assert.equal(database.prepare('SELECT COUNT(*) AS count FROM agent_run').get().count, 0) }
+    finally { database.close() }
+    report.status = report.cases.length === 5 ? 'passed' : 'failed'
+    assert.equal(report.status, 'passed')
+  } catch (error) {
+    report.status = 'failed'; report.error = error.stack
+    throw error
+  } finally {
+    await host.close({ timeoutMs: 15_000 })
+    report.hostExit = { code: host.child.exitCode, signal: host.child.signalCode }
+    if (report.hostExit.code !== 0 || report.hostExit.signal !== null) report.status = 'failed'
+    report.finishedAt = new Date().toISOString()
+    await writeFile(join(fixture, 'private-scope-result.json'), JSON.stringify(report, null, 2) + '\n')
+    await removeEphemeralRuntimeCampFilesRoot(dataDir)
+    if (process.env.ROVAI_KEEP_HOST_PRIVATE_SCOPE_FIXTURE !== '1') {
+      assert.equal(resolve(fixture, '..'), temporaryRoot)
+      await rm(fixture, { recursive: true, force: true })
+    }
+    assert.equal(report.hostExit.code, 0, 'the owned Host must complete controlled shutdown')
+    assert.equal(report.hostExit.signal, null)
+  }
+})
+
 test('Host clock consumes scheduled occurrences with Web stopped and in standalone mode', { timeout: 180_000 }, async () => {
   const fixture = await realpath(await mkdtemp(join(tmpdir(), 'rovai-host-clock-')))
   const dataDir = join(fixture, 'data')
@@ -791,4 +1054,4 @@ test('Host clock consumes scheduled occurrences with Web stopped and in standalo
   }
 })
 
-function launch(args) { return launchHost(binary, args, { cwd: repository }) }
+function launch(args, env) { return launchHost(binary, args, { cwd: repository, ...(env ? { env } : {}), windowsHide: true }) }

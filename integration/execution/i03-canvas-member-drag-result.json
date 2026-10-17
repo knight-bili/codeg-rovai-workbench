@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T04:45:59.544Z",
+  "stage": "I03",
+  "source_commit": "226065bea84b600c4ca44356ef0137f56f44c1da",
+  "status": "derived_member_drag_and_atomic_source_grouping_coded_targeted_checks_passed_Rust_Host_mounted_UI_pending",
+  "goal_status": "active_live_verified",
+  "previous_goal_turn": "progress: 7326bc56 and 5feea2fd",
+  "donor": {
+    "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "files": [
+      "src/components/canvas/canvas-view.tsx",
+      "src/components/canvas/nodes/conversation-card-node.tsx"
+    ],
+    "license": "Apache-2.0 retained under integration/licenses/codeg; existing @xyflow/react 12.11.5 reused, no new dependency"
+  },
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "62872b508013c309d2c824070cf369b84ffb7b216092ff364af8a1416dd2b0b2"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-graph-controller.test.ts",
+      "sha256": "0a48d44a79c7b76f891d8d6bc1826b7e8963d11f776ece665a440414cde37817"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-layout.ts",
+      "sha256": "59157091a9f7c2adcd7fc01985b6b98dabe2c7e7bac1b13ae40df53c1e47ba77"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-member-interaction.test.ts",
+      "sha256": "3ffcd94c713067f5459f838edec620656dde5a4e6966429ecf479e165086b2d0"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-member-interaction.ts",
+      "sha256": "c62a5348d7ba5c21b6802bcf6ad3f00a60fc8e92479f296ec6224ff171a1b18e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "5e528b40bbe4374199f253e4c9626c0c996e25023ff6df8e0cfde554fedf61c5"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "dd1fd21d4a18ceb944d4f606aa2357c9d9a403b05cc35bef2dae84450dd1c850"
+    },
+    {
+      "path": "crates/rovai-core/src/canvas_node.rs",
+      "sha256": "75a59dc670136575fe65cd708c7d45911c74b3b238728b22f59f384709660f7f"
+    },
+    {
+      "path": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "febf051bac420734200be5bc4d03b1729050c2c2ec11cfa520641a1a2c55c9b3"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "d4f52fabcf6118273c6cac559bdc3f89fb58eb8fd6e17d54a979b91ae31b8487"
+    },
+    {
+      "path": "integration/licenses/README.md",
+      "sha256": "2e6c09904d988f28e21696a293c546aca932757b16bbc406ee87801ba0f98528"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "b4a7f7e9b27389b15915ca92588f71bac5541f765aaf2adcf8f3e1d97a7acd05"
+    },
+    {
+      "path": "tools/integration/smoke-canvas-nodes.mjs",
+      "sha256": "9680ebb4886b6e6a6a7dce2ff701d7e119f5f68926dbf39fdf3d31bde4c3190c"
+    }
+  ],
+  "contract": "docs/contracts/canvas-nodes-v1.md",
+  "implementation": [
+    "区域成员由嵌套HTML改为真实ReactFlow派生节点，按父区域固定网格坐标、224x132卡片、折叠/显示全部和当前渲染高度派生；临时显示ID不作为Core节点ID。",
+    "拖到空白用原detach；拖入custom/与独立pin合并用单次group，保留公开/私有精确引用。folder/group/agent绑定仅复制引用，不改变业务归属。",
+    "group新增最多200个sourceMembers精确选择器，校验同板源区域/入站引用/唯一性/源成员存在后，原子接纳目标、移出选中的custom实例及消费独立pin，未选镜像保留。",
+    "跨源成员与独立pin可多选分组；多选位置移动、删除、打包和对齐只持久化真实独立节点/区域，不写派生ID。键盘可通过卡片操作移出或固定后布局。",
+    "拖动冻结源名单、以起始revision提交、同区域无变化、实际z次序投放提示、镜像选中、失焦/Esc未发送取消；手势归属/代次与未知命令保护保持。",
+    "sourceMembers空默认序列化省略，旧Group字节/指纹兼容断言已补；新快照memberTransferVersion=1，旧Host未声明时不发送新字段，保留旧操作并提示升级。",
+    "节点、命令及回执仍Core唯一权威；无新操作/数据库迁移/模型输入/依赖，不发起Thread/Run/消息或实际模型调用。"
+  ],
+  "checks": [
+    {
+      "name": "member_intents_graph_recovery_layout_view_references_and_Web",
+      "log": "canvas-member-owners-final.log",
+      "files": 7,
+      "passed": 52,
+      "failed": 0,
+      "path": "../i03/canvas-member-owners-final.log",
+      "sha256": "0e5354ed3a2e064aa6b96cdcda4b8f580fe4c6e49759aef8408d197d503e7311"
+    },
+    {
+      "name": "scoped_types_including_new_member_tests",
+      "log": "canvas-member-types-final.log",
+      "exit_code": 0,
+      "config": "canvas-member-typecheck.json",
+      "path": "../i03/canvas-member-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ui_copy",
+      "log": "canvas-member-copy-final.log",
+      "duplicate_keys": 0,
+      "missing": 0,
+      "path": "../i03/canvas-member-copy-final.log",
+      "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078"
+    },
+    {
+      "name": "rust_format_only",
+      "log": "canvas-member-rustfmt-final.log",
+      "exit_code": 0,
+      "compiled": false,
+      "tests_run": false,
+      "path": "../i03/canvas-member-rustfmt-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "documentation_versions",
+      "log": "canvas-member-docs-version-final.log",
+      "exit_code": 0,
+      "path": "../i03/canvas-member-docs-version-final.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d"
+    },
+    {
+      "name": "documentation_decisions",
+      "log": "canvas-member-docs-decisions-final.log",
+      "exit_code": 0,
+      "path": "../i03/canvas-member-docs-decisions-final.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+    },
+    {
+      "name": "source_catalog_consistency_only",
+      "log": "canvas-member-foundation-final.log",
+      "current_operations": 178,
+      "historical_operations": 161,
+      "Host_execution": false,
+      "path": "../i03/canvas-member-foundation-final.log",
+      "sha256": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695"
+    }
+  ],
+  "self_review": [
+    "发现@xyflow/react内部直接把ID放入data-id选择器；临时成员ID改为编码JSON元组，保留防碰撞和公开/私有区分，补引号/反斜线往返断言。",
+    "派生成员不进入持久节点移动/删除/打包列表；父坐标、selected mirror、实际z排序与Footer空间同步适配，避免把父区域当作成员命令目标。",
+    "将原需两次请求的跨custom移出/接纳合成一次Core Group；源区进入原命令前指纹，未选镜像不删除。",
+    "旧服务deny_unknown_fields会拒新字段，因此用快照能力声明在发送前截断，避免原操作不明状态；旧Group可选字段默认不序列化。",
+    "拒绝读失败/在途/重复手势开始，所属节点与代次保护旧结束回调；未确认写入只能沿原命令核对/重试，不被Esc丢弃。"
+  ],
+  "Rust_owner_extensions_not_run": [
+    "canvas_node::tests::eight_kinds_preserve_source_geometry_text_and_reference_limits: 旧Group序列化无新空字段。",
+    "canvas_node::persistence_tests::migration_and_graph_gestures_preserve_scope_atomicity_replay_and_reopen: 跨源公开/私有选择器、未选镜像保留、无效源回滚、派生绑定不变和原回执重放。"
+  ],
+  "not_run": [
+    "新增Rust处理及上述owner编译/执行；rustfmt不是编译或事务运行证据。",
+    "扩展Host smoke的能力声明/私有转移/原回执回放已编码并语法检查，但当前Host/IPC未运行。",
+    "真实React挂载、鼠标/触控/键盘、多选/层叠/取消/缩放、长标题/主题/高密度网格与可访问性视觉验证。",
+    "跨窗口/Host/画板删除/断线/重启场景、完整UI/平台/真机/模型资格以及324产品验收。",
+    "原地展开对话、drawer、既有Composer草稿/附件/权限和流式交互尚未实现，不以现有打开工作区替代。"
+  ],
+  "protocol": {
+    "current_operations": 178,
+    "historical_operations": 161,
+    "host_protocol": 4,
+    "core_schema": 154,
+    "data_contract": "v1.72",
+    "member_transfer_version": 1
+  },
+  "next": [
+    "继续原地展开与侧抽屉，复用Rovai消息/权限/审批/停止/草稿附件及既有输入治理；不另建会话或模型权威。",
+    "随后Mission/Task/Thread/Diff、授权文件、真实临时PTY和Desktop冷启动；I02剩余SP/真实Gate与I04–I12/BUF不减。"
+  ],
+  "execution": {
+    "branch": "phase/i03-canvas-nodes",
+    "local_commit": true,
+    "push": false,
+    "actions_triggered": false,
+    "candidate_frozen": false,
+    "main_merged": false,
+    "cadence": "多次本地commit，阶段编码/review集齐后集中验证与少量push/Actions",
+    "codegraph": "当前项目无匹配索引，按仓库规则不新建。"
+  }
+}

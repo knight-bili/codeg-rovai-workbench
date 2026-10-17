@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "I03-UI-RO-01",
+      "status": "open_diagnostic_no_observed_functional_failure_in_declared_checks",
+      "owner": "Codex",
+      "followup_stage": "R10/BUF并持续关注后续UI集成",
+      "observations": "rc24八类真实CRUD记录6条ResizeObserver循环告警；此前完整App观察定位到XYFlow节点/父画布以及原工作区/文件页签尺寸回调邻域，时序不是因果证明。",
+      "impact_record": "八类实际创建/编辑/CAS/移动/折叠/删除整批通过；rc25摘要展开后12帧输入区均可命中、舞台尺寸稳定，随后真实输入到达原编辑器；本次摘要及兼容整批无告警。未复现输入丢失、错误绑定或外层滚动故障。",
+      "limits": "rc25无告警不覆盖rc24有告警路径；未证明根因或普遍无害。首帧timestamp与performance.now有不同采样时点，不作为耗时指标，也不宣称高负载帧率达标。",
+      "next": "R10保留原捕获与来源记录；后续若复现持续重排、命中/输入失败或卡顿，则连同具体操作和尺寸追踪定点修复。不能过滤报错、改通用调度或将此项丢弃。",
+      "not_resolved": true
+    }
+  ]
+}

@@ -19,7 +19,9 @@
       "day_start": 1,
       "day_end": 2,
       "acceptance": "主仓、固定 SHA、许可清单和一期完整待办可查；源仓不被改写，仓库中没有凭据。",
-      "status": "待实施"
+      "status": "工程完成",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     },
     {
       "id": "I01",
@@ -31,7 +33,9 @@
       "day_start": 3,
       "day_end": 10,
       "acceptance": "基线可启动、协议测试可复跑；各平台缺陷和外部依赖有负责人及修复任务，禁止把基线构建当成融合完成。",
-      "status": "待实施"
+      "status": "工程证据部分已备，待环境验证",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     },
     {
       "id": "I02",
@@ -43,7 +47,9 @@
       "day_start": 11,
       "day_end": 17,
       "acceptance": "队员、配置、技能和 MCP 能实际进入一次运行；源配置修改由显式用户动作触发，重新打开应用后配置一致。",
-      "status": "待实施"
+      "status": "研发中",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     },
     {
       "id": "I03",
@@ -55,7 +61,10 @@
       "day_start": 18,
       "day_end": 27,
       "acceptance": "八类节点全部可交互；从画布发起真实任务并回到 Mission、Thread、Diff，重启后布局和绑定不丢失。",
-      "status": "待实施"
+      "status": "本机工程已核定，待跨平台验证",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false,
+      "actual_local_closed_at": "2026-10-17T01:26:47.212096+00:00"
     },
     {
       "id": "I04",
@@ -67,7 +76,10 @@
       "day_start": 28,
       "day_end": 37,
       "acceptance": "至少两种可用 Runtime 完成真实协作作为早期检查点；最终所有约定平台可支持的 Runtime 均完成矩阵测试，不以两种通过替代全部准入。",
-      "status": "待实施"
+      "status": "实施中",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false,
+      "actual_start": "2026-10-17T01:26:47.212096+00:00"
     },
     {
       "id": "I05",
@@ -79,7 +91,9 @@
       "day_start": 38,
       "day_end": 51,
       "acceptance": "在隔离仓库复现提交、Stash、重置、冲突解决和远程交付；危险操作有准确影响预览和原有确认交互，失败后工程可恢复。",
-      "status": "待实施"
+      "status": "待实施",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     },
     {
       "id": "I06",
@@ -91,7 +105,9 @@
       "day_start": 52,
       "day_end": 59,
       "acceptance": "真实历史可导入和定位；分叉与插话通过支持该能力的 Runtime 实测；新项目生成后可立即进入 Git 和 Mission。",
-      "status": "待实施"
+      "status": "待实施",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     },
     {
       "id": "I07",
@@ -103,7 +119,9 @@
       "day_start": 60,
       "day_end": 67,
       "acceptance": "各 Forge 在专用测试仓完成其源能力对应的读写用例；议题到任务到 PR 到客户验收全过程可追溯。",
-      "status": "待实施"
+      "status": "待实施",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     },
     {
       "id": "I08",
@@ -115,7 +133,9 @@
       "day_start": 68,
       "day_end": 82,
       "acceptance": "三桌面平台分别完成网页和原生窗口操作、撤销和故障测试；保留上游 Preview 标识，说明目标应用的限制，不把预览功能伪装成普遍可靠。",
-      "status": "待实施"
+      "status": "待实施",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     },
     {
       "id": "I09",
@@ -127,7 +147,9 @@
       "day_start": 83,
       "day_end": 92,
       "acceptance": "三种 Office 格式修改后刷新；科研技能完成代表性真实任务；卡片交互返回同一执行上下文并可恢复。",
-      "status": "待实施"
+      "status": "待实施",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     },
     {
       "id": "I10",
@@ -139,7 +161,9 @@
       "day_start": 93,
       "day_end": 112,
       "acceptance": "Desktop Web、独立 Server、全部源渠道和 CLI 各完成真实收发；Android 和 iOS 可安装构建及真机主流程通过，不能用响应式 Web 代替原生客户端。",
-      "status": "待实施"
+      "status": "待实施",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     },
     {
       "id": "I11",
@@ -151,11 +175,13 @@
       "day_start": 113,
       "day_end": 122,
       "acceptance": "备份恢复后关键数据一致；WebDAV 中断不发布损坏清单；主题语言和宠物功能实际可用，升级和回滚演练通过。",
-      "status": "待实施"
+      "status": "待实施",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     },
     {
       "id": "I12",
-      "name": "高可用 扩展性 全量回归与一期最终验收",
+      "name": "高可用 扩展性 全量工程验证与交付准备",
       "days": 15,
       "depends": "I00 至 I11",
       "start": "2027-04-02",
@@ -163,7 +189,9 @@
       "day_start": 123,
       "day_end": 137,
       "acceptance": "所有一期必须用例通过，无阻断使用或造成数据丢失的缺陷；外部资源未到位的项仍为未完成，一期不得直接结项。",
-      "status": "待实施"
+      "status": "待实施",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     },
     {
       "id": "BUF",
@@ -175,9 +203,36 @@
       "day_start": 138,
       "day_end": 157,
       "acceptance": "预留不新增范围，也不代替日常测试；超过预留时调整日期并说明证据，完整一期终点不变。",
-      "status": "待实施"
+      "status": "待实施",
+      "engineering_owner": "Codex",
+      "customer_stage_gate": false
     }
   ],
   "actual_i00_start": "2026-10-13",
-  "note": "客户批准后提前启动I00，保留原基准，I01据实际结果校准。"
+  "note": "客户批准后提前启动I00，保留原基准，I01据实际结果校准。",
+  "acceptance_definition": {
+    "revision": "2026-10-16-engineering-vs-user-acceptance",
+    "authority": "用户明确：I12之前只审核方案和提供无法自行解决的环境帮助；验收是I12之后真实使用软件",
+    "engineering_owner": "Codex",
+    "engineering_stages": "I00-I12及BUF",
+    "customer_before_I12": [
+      "必要方案审核",
+      "确实无法自行解决的环境/身份/预算/设备协助"
+    ],
+    "customer_phase_acceptance_required": false,
+    "customer_PR_or_test_report_review_required": false,
+    "formal_324_executor": "Codex",
+    "customer_acceptance": "after_I12_engineering_completion_real_user_software_use",
+    "customer_acceptance_is_not": [
+      "逐阶段技术验收",
+      "逐条执行324技术场景",
+      "PR审查",
+      "审阅测试或数据库报告"
+    ],
+    "environment_deferral": "未验证项明确保留，继续独立研发，不假通过；最终MVP仍必须补齐",
+    "main_and_release": "保留最终授权，阶段分支持续推进，不增加阶段客户验收等待",
+    "effective_immediately": true,
+    "wait_for_app_goal_text_update": false
+  },
+  "baseline_calendar_note": "原日期保留为规划基线，不代表实时进度；实际已提前进入I03，状态和剩余工作以执行台账为准。"
 }

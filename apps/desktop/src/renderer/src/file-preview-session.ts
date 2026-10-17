@@ -1,4 +1,5 @@
 import { filePreviewRetentionLimits } from '../../file-preview-retention'
+import { privateAttachmentOwnerKey } from '../../shared/private-attachment-locator'
 import type {
   AgentRunFileChangesView,
   FilePreviewPathPresentation,
@@ -197,6 +198,10 @@ export function filePreviewSourceKey(request: OpenFilePreviewRequest): string {
     case 'attachment': {
       const locator = request.locator
       switch (locator.owner) {
+        case 'single_chat_scoped_composer':
+        case 'single_chat_scoped_pending_edit':
+        case 'single_chat_retained':
+          return `attachment:${privateAttachmentOwnerKey(locator)}:${locator.attachmentRefId}`
         case 'composer':
           return `attachment:composer:${locator.threadId}:${locator.attachmentRefId}`
         case 'message':

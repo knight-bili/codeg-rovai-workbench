@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "status": "partial_engineering_verification",
+  "recorded_at": "2026-10-15T20:02:50.384562+00:00",
+  "source_binding": {
+    "base_commit": "84214935c1e1224b6258719d276026315d16bdfa",
+    "kind": "exact_worktree_file_hashes_before_local_commit",
+    "files": {
+      "apps/desktop/src/main/private-attachment-preparation.ts": "430d7daf850c4247c29b34fec89d5496682e57e13c6bf04c9772000b432eb0cc",
+      "apps/desktop/src/renderer/src/PrivatePendingEditor.tsx": "1eeacd083aaff237702e7fceb2584a90954115e62ef49b4611befc800891327f",
+      "apps/desktop/src/renderer/src/PrivateUploadRecoveryPanel.tsx": "4c56dd552277a18403a9d9a0831bde896cbe46edf680791cd936e84457611ef5",
+      "apps/desktop/src/renderer/src/SingleChatPanel.tsx": "5d9510f158c5af8c985d98b91b9c753f757b76e188047c4e999f268471714cb6",
+      "apps/desktop/src/renderer/src/private-upload-controller.test.ts": "f0a5c056181fc7a61badf418112f1bfad2257b0199ce5f157f67eceff0f63865",
+      "apps/desktop/src/renderer/src/private-upload-controller.ts": "4107b6b19b42b98f3d93d0daf5e38f2b43ac27c155aab8e4bcc4d949ab2d8be8",
+      "apps/desktop/src/shared/private-upload-request.ts": "7d16aa6f048527504ccaa803023b9a2f93068c7170671932ed58a8a5bd6c4d76",
+      "apps/web/src/camp-adapter.test.ts": "0063db94a92d5d7e6424c3d30a6b7e598aa4a0803087e2b35b9f0b9e8f1884c2",
+      "apps/web/src/camp-adapter.ts": "bd46d34b2e6ae830d86390ed15076409157365232136d9cefda9b4dce0ec2aa5",
+      "apps/web/src/client.ts": "6bf6385a6771308c016cbe6e5206787bb47dc3633b841a610f4276a3935ad793",
+      "apps/web/src/private-upload-preparations.test.ts": "a53b4216b0732d6337732e9dba0a92f9d9afc91662041ddc4d6959692c793e95",
+      "apps/web/src/private-upload-preparations.ts": "09dd833848c3d98ce78fb9f04a0d3571a23a81d0e28fb5200dcf579e3f2457e1",
+      "crates/rovai-core/src/application.rs": "5c64ca87f3c6018f85400532702bfa9300e63fadfed9da275b5dc9229b3fdbaf",
+      "crates/rovai-web/src/lib.rs": "1e85d79bde4f275086484750e8ea768c733b1daeb7e0f6f5bd2ea4ec98e8fba1",
+      "crates/rovai-web/src/uploads.rs": "96407fcd6e17085afaf147318846e30ecf0047fb6119599a2d4468e637163411",
+      "docs/architecture/unified-rust-host.md": "227dc3fe7faad195625acf4804e140470b21fdb7cd1f9bb6c87bb5da2609a926",
+      "docs/contracts/host-web-v5.md": "5da9899a374d542c0dedd1890535038e56cfe136a54b642ed955937a095cdf54",
+      "docs/contracts/single-chat-composer-scope-v1.md": "e5a9f84e4ad771005e2c2c5861c8d0660919e15544ffeceba784a5b86a104137",
+      "docs/development/testing.md": "3b2671395e3a5b215bbacb525db24df0293e0481cdc001e71c1aaf2228e2e225",
+      "docs/versions/v1.72/README.md": "913a3e159bb15c6a5575eaf03ffa542d692be26c13c2afcb7c72930de1e1ac85",
+      "packages/contracts/src/index.ts": "a4a3653d2d4a037b5674299aeb0d08b6ab4193e887b6bd7ea667ff97dd5ee0ea",
+      "scripts/lib/host-web.test.mjs": "c669ea65f42f03e5e9a0c66bc63cfcf5cdab5b57805ea857da1817164d3236d5"
+    }
+  },
+  "implemented": [
+    "Web private upload prepare/reconcile/retry/list and shared original-file reselection, gated by optional session response privateUploadRecoveryVersion1",
+    "Original canonical UUID/Thread/Conversation/scope/Pending/lease/revision frozen before digest, metadata saved before HTTP; no bytes/path/credentials in preparation journal",
+    "Refresh and duplicate prepare only query; explicit retry verifies original filename/size/SHA and reuses exact intent, file cache capped16/40MiB",
+    "Independent authenticated uploads/receipt uses trusted editor and original Core receipt without current draft/lease/source; fixed safe projection excludes paths/draftId/internal entity",
+    "First explicit HTTP rejection is rejected rather than fake recorded; failed old-unknown retry stays unknown; independent lookup settles hung original request",
+    "Native/Web share unchanged closed request parser; public Core method allowlist/Gateway/SourceRef/model projection/frozen inputs unchanged"
+  ],
+  "validation": {
+    "distinct_typescript_tests": 57,
+    "test_files": 5,
+    "failed": 0,
+    "skipped": 0,
+    "transport": "Real ConsoleClient/file SHA/metadata store through simulated fetch; Native isolated filesystem uses simulated Core",
+    "shared_adapter": "Positive capability-gated four-interface wiring and old-Host fallback exercised",
+    "typecheck": "Final Web/Renderer/Main/contracts/test transitive TypeScript passed",
+    "rustfmt": "Final Application/Web lib/upload formatter check passed",
+    "host_http_owner": "Extended existing real-process host-web.test.mjs; syntax only, actual run not_run",
+    "core_and_web_rust_delta": "not_compiled_not_run; deferred to phase candidate, no old binary used",
+    "doc_version_and_decisions": "passed against84214935",
+    "doc_policy_tests": 10,
+    "foundation_and_scaffold": "passed"
+  },
+  "self_review": [
+    "Projected a field allowlist even when private intent replays an old public upload ID, avoiding SourceRef/sourcePath exposure",
+    "Independent receipt keeps old lease cancellation/material removal from hiding the result; actual owner assertions registered but not executed",
+    "Classified first HTTP rejection separately and preserved old unknown fate on retry rejection; no synthetic Core receipt",
+    "Added metadata-before-POST failure, same-length changed byte, wrong name, hung receipt, cached-owner forwarding and bounded file-cache evidence",
+    "Initial Rust format check found current receipt-line and prior same-feature observe formatting; fixed narrowly and retained failure log"
+  ],
+  "remaining": [
+    "Old unknown upload whose Core handler aborts on stale CAS/lease without recording a terminal result still needs explicit Core recovery finality; do not resolve by minting a new UUID",
+    "Old Pending/lease preparation records, legacy adoption/orphan/conflict unified recovery UI",
+    "New Core/Web Rust compilation and actual authenticated receipt/Host/Native/mounted UI cases, inherited directory Rust delta",
+    "Large-material/journal/transaction-lock scale, other I03 closeout groups and phase candidate",
+    "I02 remaining, I04-I12/BUF, full PC01-PC24 and formal324 qualification"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "approved_r1_files": {
+    "I03_私聊材料怎么分开用_客户确认版_r1.docx": "87565f57fa0e994f676139e3376fe14e556ac9862c08f1573798d985f4dcecf7",
+    "I03_私聊材料怎么分开用_客户确认版_r1.pdf": "4b3446c0d97f2c6b8529a206d965a60229dcc1e5966e280647856fc88576e8df"
+  },
+  "artifacts": {
+    "i03\\web-private-upload-doc-decisions.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "i03\\web-private-upload-doc-policy.log": "ee85f0068f0c5c8d8a5e2baf1da6650f095ccaa2711d6d24e4718363fe47e993",
+    "i03\\web-private-upload-doc-version.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "i03\\web-private-upload-foundation.log": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+    "i03\\web-private-upload-http-syntax.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\web-private-upload-owners-final.log": "97fdceace2fe78797fe607e27991c6b3ba24179d8c07659d20f10aec8e1ca7c0",
+    "i03\\web-private-upload-owners-first.log": "2b9aafc8ebcc792800471fa8bbd895c54f7653fdf7a82c95d7608c83fd7a220c",
+    "i03\\web-private-upload-owners-reviewed.log": "d84c9026250cd340a2ee437628f5a22ea9aedf4bf406a1d5cc1ce689a903f629",
+    "i03\\web-private-upload-rustfmt-final.log": "8899a1bef187e43069b7f36f0a2cdcb8333ec96c0293e9e4b33a20043c4cf661",
+    "i03\\web-private-upload-rustfmt-first.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\web-private-upload-rustfmt-verified.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\web-private-upload-scaffold.log": "062a244c0e49db99349d791474f49d0c649ecd21b076196bb7bb0bc7e129fc0e",
+    "i03\\web-private-upload-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\web-private-upload-types-first.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\web-private-upload-types-reviewed.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "boundaries": {
+    "schema": 156,
+    "last_migration": 206,
+    "host_protocol": 4,
+    "public_core_methods": 180,
+    "new_authenticated_http_endpoint": "POST /api/v1/uploads/receipt",
+    "internal_rpc_exposed_as_public_operation": false,
+    "source_ref_model_projection_frozen_inputs_changed": false,
+    "full_build_host_model_actions_push": false,
+    "customer_action_required_now": false,
+    "formal324": "not_run"
+  }
+}

@@ -130,7 +130,8 @@
       "C14"
     ],
     "acceptance": "八类节点全部可交互；从画布发起真实任务并回到 Mission、Thread、Diff，重启后布局和绑定不丢失。",
-    "status": "in_progress"
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-r10-local-closeout-verification.json"
   },
   {
     "id": "I03-T02",
@@ -143,7 +144,8 @@
       "C14"
     ],
     "acceptance": "八类节点全部可交互；从画布发起真实任务并回到 Mission、Thread、Diff，重启后布局和绑定不丢失。",
-    "status": "not_started"
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-r10-local-closeout-verification.json"
   },
   {
     "id": "I03-T03",
@@ -156,7 +158,8 @@
       "C14"
     ],
     "acceptance": "八类节点全部可交互；从画布发起真实任务并回到 Mission、Thread、Diff，重启后布局和绑定不丢失。",
-    "status": "in_progress"
+    "status": "local_engineering_verified_environment_validation_pending",
+    "evidence": "integration/execution/i03-r10-local-closeout-verification.json"
   },
   {
     "id": "I04-T01",
@@ -187,7 +190,7 @@
       "R35"
     ],
     "acceptance": "至少两种可用 Runtime 完成真实协作作为早期检查点；最终所有约定平台可支持的 Runtime 均完成矩阵测试，不以两种通过替代全部准入。",
-    "status": "not_started"
+    "status": "in_progress"
   },
   {
     "id": "I04-T02",

@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T10:16:59.765Z",
+  "stage": "I03",
+  "source_commit": "d5472c880e96b7843a54497070c849e1b28cf29e",
+  "goal_status": "active",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "sources": [
+      "f400a48fee1cc3b1cd9d6adb75eea1c13edada3b",
+      "3aae43b99074b8c0e5798776e039d2b4e6d7c2f6"
+    ],
+    "checkpoint": "544b588d36f5e396d5aec4b36d1a1631d6c1a9f2"
+  },
+  "status": "exact_scoped_expansion_persistence_readonly_restore_and_actual_ReactFlow_mock_UI_verified_atomic_leave_and_native_recovery_pending",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/App.test.ts",
+      "sha256": "5140b237ab64ba5b361315d6edbddb379270ab626da30ed7059b9f93b717b2fe",
+      "git_blob": "349bc6265af505087e7e6fbac50e2c05e35ebbb1"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "532a277a5fbb5ab545aa78f79325584830210b708a84500fc1e521ef61df1381",
+      "git_blob": "bad49ffbe35e498dd25d8e07140345601a6728e2"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasConversationFrame.tsx",
+      "sha256": "97376b47370bdfe30894ed446355ad0f4db5f12969ab4f44125966f8a86cbd82",
+      "git_blob": "1d6cbcd984727083bf53ebf96c4b406c086331a7"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "2864ed0a9bd2e53750157c7430e87391939b6a5c3a5dd33d95c5d3bd79b9247f",
+      "git_blob": "926ac09a602e2bf39c8d2fb4779fbbb46e60d764"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+      "sha256": "95f610f781e85ccf1ad6ea88fba155cab81989916384215a606de42649fc20d1",
+      "git_blob": "2da9b2d6b792346c901765fce0226635c0bfb42a"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversation-recovery.test.ts",
+      "sha256": "fca41884e3d4ee0cb593ee210db86cf3846fae0ed4069c34d8dda03f109fb115",
+      "git_blob": "b1e65f90226114ed74fecefe3a1286f970a81057"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversation-recovery.ts",
+      "sha256": "713ff15f995ede3831691964ce9ff13235d6d74287042f615f11cc916106c239",
+      "git_blob": "db9029edb8e37da15a6f1bbd169adc0c8c9a668e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversations-controller.test.ts",
+      "sha256": "4d4bb0c0a60aed2c14255cf6135f0a2c5d4552ae37ad8aab8da4eb395b1e1f34",
+      "git_blob": "cf5a1f1bebbd84d5d3fb7d3726d3538edbcd2fee"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-conversations-controller.ts",
+      "sha256": "0e1a767147d842357258c22dccd26adb5777b853d2df527133271529c0cf44db",
+      "git_blob": "ac761f84709f48d35072a2bd17148cedcf532cb2"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "be2deec02d5f78e84d0f3efe4995ad45e50063d530efc52ba7faa2e148a91b33",
+      "git_blob": "e9edecc8bee4cf2c519ef9a62f29a196ed13d97d"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/useCanvasConversations.ts",
+      "sha256": "bd089dd46c78fc3cbadb9290a0a0c57b4d63e496ed0e08e630fcbb20a70e0512",
+      "git_blob": "3a0cfb41090c629896640f3e87e0ffac45bb4cc4"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "972b89de8dc16a1391c727f3108dfd0a3d4467ab32c4ca297a9739509e358eef",
+      "git_blob": "f7d5d2a4cc3395897659597aa4415956702c6e1d"
+    },
+    {
+      "path": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "7f24417b892b0846904bfde6c6ffb4a70c5748974f2dc1a2a696583f868aeb59",
+      "git_blob": "e12f7f033e8d2479b766e7df9ada4dcbda09160a"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "4575137e3304a3d8e1cd5ee845a9c71e2b6d0255010fdf2abe8d5c5a2ebd5029",
+      "git_blob": "cf548eef001f0b148d6e966fcda021139d05cccd"
+    }
+  ],
+  "implementation": [
+    "CanvasConversationRecovery按Host/Owner+Core+Board保存规范卡片上下文；只保存精确引用，drawer位置和ACP/Runtime存活不恢复。没有正文、私有证明或执行token；旧本项目scoped expandedCards只经过有效图映射，未分后端的原Codeg key不采用。",
+    "实际hook/Controller/CanvasSurface/CanvasWorkspace已接：等待完整有效图后匹配节点和引用，核对Core dataDir，私有引用先读原Conversation；每Thread首次恢复refresh、镜像共享owner。失败/换绑/缺失/结束私聊保留原记录，不创建替代，不enter或启动Runtime。",
+    "suspend切页/切板保留展开意图，明确收起才删除该上下文；quota失败保留内存、读取失败或未来格式拒绝覆盖。恢复显示实际完成数量、可停止与显式重试，取消后迟到结果受代次限制。",
+    "编辑画板/分组对话框返回和后续导航失败可请求恢复已存展开及草稿；App quit后续检查失败也请求resume。现阶段会卸载/重建编辑器，不宣称原撤销栈及整个离开事务已保留。",
+    "实际ReactFlow展开首卡触发Maximum update depth白屏；修正节点派生几何只依赖稳定上下文/模式，以及Workspace分组投影memo化，阻断会话内容/呈现报告导致的节点重复更新。真实双卡输入/切板/切页/刷新后均无新错误。"
+  ],
+  "validation": {
+    "owners": 7,
+    "checks_passed": 230,
+    "checks_failed": 0,
+    "targeted_types": "passed_including_new_recovery_controller_App_tests",
+    "copy": "zero_duplicate_locale_keys_zero_missing_literals",
+    "docs_version": "v1.72_passed",
+    "docs_governance": "passed_with_544b588d_baseline",
+    "docs_policy_tests": 10,
+    "diff_check": "passed",
+    "source_preservation": {
+      "baseline": "544b588d",
+      "verified_at": "2026-10-15T10:13:53.891Z",
+      "unchanged_input_and_execution_modules": [
+        "thread-workspace-actions.ts",
+        "thread-commands.ts",
+        "thread-workspace-data.ts",
+        "thread-run-cancellation.ts",
+        "thread-projection-events.ts",
+        "canvas-composer-drafts.ts",
+        "SingleChatPanel.tsx",
+        "ThreadWorkspace.tsx"
+      ],
+      "readonly_restore_methods": [
+        "app.info",
+        "canvas.nodes.snapshot",
+        "canvas.boards.list",
+        "canvas.references.page",
+        "threads.open",
+        "thread.messages.anchors"
+      ],
+      "browser_steps": [
+        "two_actual_ReactFlow_mirrors_independent_drafts",
+        "board_2_has_no_foreign_cards",
+        "return_board_restores_both_exact_drafts",
+        "route_leave_unmounts_workspace",
+        "route_return_restores_exact_drafts",
+        "failed_navigation_resumes_saved_input",
+        "page_reload_restores_exact_drafts",
+        "explicit_collapse_keeps_mirror_only",
+        "collapsed_card_stays_closed_after_reload",
+        "explicit_reopen_recovers_collapsed_card_input",
+        "drawer_mode_before_reload",
+        "reload_restores_inline_not_drawer_or_Runtime"
+      ],
+      "final_keyed_drafts": [
+        {
+          "nodeId": "first",
+          "text": "甲卡自己的草稿"
+        },
+        {
+          "nodeId": "mirror",
+          "text": "乙卡自己的草稿"
+        }
+      ],
+      "donor": {
+        "commit": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+        "files": [
+          {
+            "path": "src/lib/canvas-view-storage.ts",
+            "sha256": "2d2b3882bce4b4244c889b92088d5bc82eb23c8929e2a672b4ab7da7fd614891",
+            "git_blob": "320d14dc62c42f083e6c956ced98b4e18e95de06"
+          },
+          {
+            "path": "src/components/canvas/canvas-view.tsx",
+            "sha256": "cd409b3fda49a8168db37fa48982af83dddf78ffc5400c7d5be737d0f7ed3d20",
+            "git_blob": "df791625cd88117439adda2fb013aad3cb089871"
+          }
+        ],
+        "behavior": "expanded_cards_persist_per_board_drawer_and_ACP_liveness_session_only",
+        "adaptation": "exact_Host_Owner_Core_Board_contexts_no_unscoped_donor_key_adoption_no_runtime_restore"
+      }
+    },
+    "browser": {
+      "scope": "real_CanvasWorkspace_Surface_ReactFlow_and_editors_mock_Core",
+      "steps": [
+        "two_actual_ReactFlow_mirrors_independent_drafts",
+        "board_2_has_no_foreign_cards",
+        "return_board_restores_both_exact_drafts",
+        "route_leave_unmounts_workspace",
+        "route_return_restores_exact_drafts",
+        "failed_navigation_resumes_saved_input",
+        "page_reload_restores_exact_drafts",
+        "explicit_collapse_keeps_mirror_only",
+        "collapsed_card_stays_closed_after_reload",
+        "explicit_reopen_recovers_collapsed_card_input",
+        "drawer_mode_before_reload",
+        "reload_restores_inline_not_drawer_or_Runtime"
+      ],
+      "final_keyed_drafts": [
+        {
+          "nodeId": "mirror",
+          "text": "乙卡自己的草稿"
+        },
+        {
+          "nodeId": "first",
+          "text": "甲卡自己的草稿"
+        }
+      ],
+      "final_errors": [],
+      "restore_methods": [
+        "app.info",
+        "canvas.nodes.snapshot",
+        "canvas.boards.list",
+        "canvas.references.page",
+        "threads.open",
+        "thread.messages.anchors"
+      ],
+      "persistence": "real_browser_localStorage_and_page_reload_with_mock_Core_and_fixture_editingRecovery_adapter",
+      "not_claimed": [
+        "not full BusinessApp root",
+        "no actual Core Host authorization or model Runtime",
+        "page reload localStorage not full Native process restart",
+        "private attachment quote CAS and retained-editor undo after failed transition pending"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-owners-initial.log",
+        "sha256": "2dd8558a2f05f97ed8c87856b50a9d0d211d9141bbbabb0f30ee06df766e0c8b"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-owners-second.log",
+        "sha256": "28999d3a40acf6b71a7f7843226cfb11ba3edda7e3c6599380c92ea9aa375648"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-owners-final.log",
+        "sha256": "b848ed8f6e0f95c0f0dc27fb6d22d2081c9f97fc85739631fe047fd533c96e39"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-types-initial.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-types-final.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-copy.log",
+        "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-diff.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-doc-version.log",
+        "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-doc-decisions.log",
+        "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-doc-policy.log",
+        "sha256": "62ddb4d35b69151ca3b6adc5ab36630125f2415ac09c6800e00bba0ed9eeaf63"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-source-proof.json",
+        "sha256": "18869550e6684efbb1ee2d4231ae3851e90d30257451d42b2ddcfd5bcaa84e32"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-source-proof.log",
+        "sha256": "7a8c559638e7e129791d381e1ba08c93ef5008a985d7cee45e04de1d14b011c8"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-source-proof-initial.log",
+        "sha256": "ab9ed7e031fb48791d953a5e8b692ac240d92749dfac17620d342b54930821cb"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-browser-witness.json",
+        "sha256": "f3398265864ceeecedc475c6a16bbafa4aae8ee0934cca4399e7c95c5c71b961"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-browser-witness-initial-mode.json",
+        "sha256": "878554f4597cb53f860d184f479622e4cc03a6b42cd9d680f5dee0e4cb6ffee4"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-browser-initial-errors.json",
+        "sha256": "b12d63802a6c8c3f6ba302ae1aa8f8cbf5b8f4ebac275295e817c00a6c86bd14"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-restored.jpg",
+        "sha256": "ce9a179c4c2055aa84e7f96a2379aa40c87e72bd6d11dfd1527144f4abcb065c"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-fixture\\entry.tsx",
+        "sha256": "caec41c91ef2cc845064d2dfd44e55a91898274a316a0cb931cf861227923459"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-fixture\\server.mjs",
+        "sha256": "ce6844156e124a74d461a196c5b7a9667dd0845fc4012fed59d7e3f076602fda"
+      },
+      {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-recovery-fixture\\index.html",
+        "sha256": "23f89bab590317547eb4c96ff607b4fd2728ba27ea1c10e403d25d081205e2fb"
+      }
+    ]
+  },
+  "failures_and_corrections": [
+    "初始controller刷新次数用例复用vi.fn(mock)导致open/refresh共享spy；改独立async wrapper后原一次fresh-per-Thread断言通过，未放宽断言。",
+    "首次真正挂载完整CanvasWorkspace/Surface/ReactFlow发现既有几何派生重复更新白屏，保留错误日志并修复稳定依赖；先前只挂卡片的检查不能证明该链路。",
+    "侧边进入状态首轮记录为0，machine proof拒绝通过；保留初始witness与失败日志，重新核对按钮enabled及DOM命中后先看到1个放回画布按钮，再reload并验证0个与两份精确输入，未删断言。"
+  ],
+  "unchanged": {
+    "schema": 154,
+    "host": 4,
+    "data_contract": "v1.72",
+    "current_operations": 178,
+    "historical_operations": 161,
+    "Core_or_Main_API_change": false,
+    "model_input_change": false,
+    "dependencies_or_migration": false
+  },
+  "pending": [
+    "完整离开事务：失败导航原组件/撤销栈保留、后续多层拒绝/取消和原子完成/回滚，不以当前saved-input重建替代。",
+    "Native完整进程/异常退出恢复、真实Host/Owner/Core切换、并发图变更/恢复和各平台/规模；当前是真实Canvas组件+假Core，不是完整BusinessApp或真实Core资格。",
+    "私有附件/quotes按卡片隔离及Core Draft revision/CAS/未知结果；孤立/关闭卡片输入恢复选择、跨编辑端接管和HTML/iframe规模。",
+    "原特殊事件呈现、Mission/Task/Thread/Diff定位、授权文件、真实临时PTY与Desktop冷路由；I02剩余SP/真实Gate及I04-I12/BUF完整保留。",
+    "DEV-NOTIFICATION-SETTINGS-FAILURE-FOCUS原桌面设置焦点失败保持待整改；本轮未修改通知设置/Controller或重跑该旧失败，不能称全部Desktop检查绿。"
+  ],
+  "fusion_acceptance": {
+    "total": 324,
+    "status": "all_not_run_component_evidence_not_product_acceptance"
+  },
+  "delivery": {
+    "push": false,
+    "Actions": false,
+    "candidate": false,
+    "main_merge": false,
+    "release": false,
+    "paid_calls": 0,
+    "full_workspace_or_Rust_build": false
+  },
+  "codegraph": {
+    "indexed": false,
+    "action": "prior_no_index_result_no_requery_no_initialization_no_sync_claim"
+  },
+  "customer_action_required_now": false
+}

@@ -49,6 +49,13 @@ pub(super) fn reconcile(
         }};
     }
     match query.operation.as_str() {
+        "singleChat.composerDraft.mutate" => {
+            private_composer::reconcile(database, client, query.params)
+        }
+        "canvas.boards.create" => user!(rovai_core::canvas_board::CreateCanvasBoardCommand),
+        "canvas.boards.update" => user!(rovai_core::canvas_board::UpdateCanvasBoardCommand),
+        "canvas.boards.delete" => user!(rovai_core::canvas_board::DeleteCanvasBoardCommand),
+        "canvas.nodes.apply" => user!(rovai_core::canvas_node::ApplyCanvasNodesCommand),
         "missions.create" => {
             let mut params: UserCommandParams<crate::mission::CreateMissionCommand> =
                 serde_json::from_value(query.params)?;

@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T07:14:32.377Z",
+  "stage": "I03",
+  "source_commit": "c5369a6796d333e564b7c47074975ce7e12af025",
+  "goal_status": "active",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "source": "2774006a607067cd537ca4ed0c20d77f767ba009",
+    "checkpoint": "c54527a0a438ef33ecd6528a81446a932411c9fa"
+  },
+  "status": "client_Thread_owned_read_projection_refresh_pagination_cache_used_by_existing_page_215_checks_passed_actual_multi_UI_pending",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "6a1c178f5d762c4b321eb71604641b0957c4870060596be09dcd45a3a41fada2",
+      "git_blob": "e4a8d88964bd3d2e237a6e72980b0d4256bfdd31"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "798aaf1857eea1a92ce07a2a82799f2c59dbeb362bad252b5f618fdd03e5bb3a",
+      "git_blob": "389f3a2bcee2518449ea4ba2f1d840226ca7dab3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-projection-store.test.ts",
+      "sha256": "2e067d9268f8a6fc1b3ce3bc319556916fc799ca4c6084c3915ab30cf508dad0",
+      "git_blob": "0bcc9d9483697df255f14d53f90842863d188d46"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-projection-store.ts",
+      "sha256": "6cb15336b6b683ddf7650b8c35326641a0ed415e64d5476daa8753f18954b1dd",
+      "git_blob": "92573eb49faf4fc38ca6e4c97e5a33fe704c7155"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "82d19a095e1ea6812e58f1970d1723e992285802a3674aafcf95091b435cc84f",
+      "git_blob": "26ef19d55f6229a313dc2c70e6d8183c8baad96f"
+    },
+    {
+      "path": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "adce65898c92c292c3e33046e098315ae25744cbf05f7f1a07c0a3c179731e23",
+      "git_blob": "fe1420f8c695354c04c40599edc4b5a3ab7e9e7b"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "fe812beeff7e343fa63646844161bf8eecc1ebc7b630a31d4bd3d42ebcaccf80",
+      "git_blob": "7da6ad0fe98d844c28ec06e949ee71a890503e75"
+    }
+  ],
+  "implementation": [
+    "ThreadProjectionStore按client实例/Thread拥有公开读取状态、水位、历史、错误和在途队列；BusinessApp现有readonly open、刷新、历史分页与缓存已接，不以全局选中Thread作为store地址。",
+    "同Thread普通open共用在途Promise；读取中的refresh置dirty，现有读取后补读，多个信号合并。失败保留最后有效快照，无新信号不自动重试。Core仍是业务/读取/权限权威，不从事件重建事实。",
+    "open验证schema8及精确Thread，旧水位不覆盖新快照；沿原campOpenProjectionAsSnapshot转换保留有效已载历史。page复用原Thread/游标/水位/limit50与schema1校验、排序和coverage，过期水位页丢弃，不把旧分页内容合入更新的投影。",
+    "五个空闲快照预算沿用原UI缓存大小；挂载租约、订阅或在途读取不因空闲LRU被驱逐。同Thread镜像将共用读状态，各卡草稿仍独立。",
+    "重启/reset推进epoch、清快照并保留挂载/订阅，forget精确删除资源；旧结果和旧错误不改新读取/新client状态。原生starting/restarting事件已接reset，显式enter回执核对client/epoch/删除围栏。",
+    "主入口显式enter仍由原导航发出，参数AST不变；store只调用原threads.open和thread.messages.page，不enter/创建Conversation/启动Runtime/确认通知。原命令、发送构造、ThreadWorkspace和SingleChatPanel源码逐字未改。"
+  ],
+  "checks": [
+    {
+      "name": "read_owner_existing_App_canvas_reference_and_command_owners",
+      "path": "../i03/thread-projection-owners-final.log",
+      "sha256": "b7f1dfc37b45cadb713dd3a4979c1d38d4e578482a8857b1715dacb21c7a82a3",
+      "files": 4,
+      "passed": 215,
+      "failed": 0,
+      "new_pure_cases": 15
+    },
+    {
+      "name": "scoped_TypeScript_including_read_owner_tests",
+      "path": "../i03/thread-projection-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0,
+      "config": "../i03/thread-projection-typecheck.json",
+      "config_sha256": "edf5b14f7b30cdfee8f5b4581a73698fb4d0129ece06940825f079eb537ad04c"
+    },
+    {
+      "name": "copy_and_duplicate_keys",
+      "path": "../i03/thread-projection-copy-final.log",
+      "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078",
+      "missing": 0,
+      "duplicate": 0
+    },
+    {
+      "name": "documentation_version",
+      "path": "../i03/thread-projection-docs-version-final.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+      "exit_code": 0
+    },
+    {
+      "name": "documentation_governance",
+      "path": "../i03/thread-projection-docs-decisions-final.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+      "exit_code": 0
+    },
+    {
+      "name": "diff_check",
+      "path": "../i03/thread-projection-diff-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0
+    },
+    {
+      "name": "enter_AST_and_unchanged_command_send_editor_sources",
+      "path": "../i03/thread-projection-source-proof.json",
+      "sha256": "35231c1ab345d36ad35a26f7b53364d0de182908639d65fae5ce3780b6a93338"
+    }
+  ],
+  "source_proof": {
+    "baseline": "c54527a0a438ef33ecd6528a81446a932411c9fa",
+    "enter_request_calls": 1,
+    "enter_call_AST_unchanged": true,
+    "unchanged_sources": [
+      "apps/desktop/src/renderer/src/thread-commands.ts",
+      "apps/desktop/src/renderer/src/thread-workspace-data.ts",
+      "apps/desktop/src/renderer/src/ThreadWorkspace.tsx",
+      "apps/desktop/src/renderer/src/SingleChatPanel.tsx"
+    ],
+    "enter_call_sha256": "4646e3836f0d06f22121a9aa647eb445f09621596cc2c2af1f84bd00dfa355ee",
+    "readonly_owner_methods": [
+      "threads.open via existing threadCommands.open",
+      "thread.messages.page"
+    ],
+    "new_Core_or_model_fields": 0
+  },
+  "self_review": [
+    "发现只合并open会漏掉读取途中到达的刷新信号，使用Thread内dirty尾读；替换现有活动刷新实现时避免再套一层相同队列。",
+    "发现旧分页可能晚于新水位结果，明确丢弃；原格式转换、主会话enter参数和模型发送源码保持，不借读取层重构输入协议。",
+    "发现简单reset会丢挂载租约/订阅且旧finally可能清掉新loading；改epoch围栏并保留当前挂载关系，新增重置交错用例。",
+    "旧代次的运输失败同样转换为明确的本机失效错误，主刷新/分页/导航不把它报告成新上下文的失败；原真实运输错误仍保留并可显式重试。",
+    "初次类型检查发现Vitest泛型Mock不满足Core request泛型签名；测试fixture改为真正泛型函数，初次失败日志保留，最终检查通过。"
+  ],
+  "limitations": [
+    "当前仍一次聚焦一个实际交互卡片。新读取store已经用于现有页面，但实际多卡渲染/订阅、各Thread预览、聚合leave guard、展开恢复和可见通知接线未完成，不标I03完成。",
+    "既有Core事件/Host invalidation/事件轮询目前仍从活动入口驱动；多卡事件分发和读取订阅交接要继续接实际实例，不能只依赖store纯测试。",
+    "私有附件/quotes的Conversation级Core Draft还需卡片隔离、CAS和未知结果验证；真实UI的IME/焦点/Undo/主题/触控/附件/流式/审批/停止、Core/Runtime重启及Host/Owner/DataRoot平台资格未验。",
+    "215项是纯/静态/mock；模拟重置/重建不是实际进程资格。无完整构建/Rust/工作区全量/打包/push/Actions/候选/合入，全部324融合产品场景仍not_run。"
+  ],
+  "protocol": {
+    "schema": 154,
+    "Host": 4,
+    "contract": "v1.72",
+    "current_operations": 178,
+    "historical_operations": 161,
+    "added_operations": 0,
+    "new_dependencies": 0,
+    "Core_database_or_model_context_changed": false,
+    "read_projection_schema": 8,
+    "history_page_schema": 1,
+    "history_page_limit": 50,
+    "idle_cache_limit": 5
+  },
+  "next": [
+    "直接接实际多卡界面：CanvasConversationBridge改精确卡片实例集合，使用现有ThreadProjectionStore/Thread命令工厂/独立草稿；每卡FilePreviewProvider、稳定portal与自己的leave guard，不再只挂一个全局activeThreadWorkspace。",
+    "继续把既有Core事件/Host invalidation/有界事件轮询、通知可见确认及读后订阅核对分发给实际卡片owner；全部leave准备失败应回滚、Host/Core/board展开恢复只能readonly open，不能enter或启动Runtime。",
+    "补私有附件/quotes卡片隔离及原Core Draft CAS/未知结果，核对卡片删除/换绑后的孤立输入恢复、跨编辑端接管及规模/配额。",
+    "继续Mission/Task/Thread/Diff精确定位、授权文件预览、真实临时PTY/Desktop冷路由；I02余下SP/真实模型Gate与I04–I12/BUF保留，阶段候选集中完整编译/集成/平台资格。"
+  ],
+  "execution": {
+    "branch": "phase/i03-canvas-nodes",
+    "local_commit": true,
+    "push": false,
+    "Actions": false,
+    "stage_candidate": false,
+    "main_merge": false,
+    "cadence": "小切片编码/自审/适当低成本检查后中文本地commit；阶段编码review集齐后集中验证和少量push/Actions"
+  }
+}

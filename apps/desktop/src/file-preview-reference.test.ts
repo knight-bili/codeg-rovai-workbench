@@ -2,6 +2,12 @@ import { describe, expect, it } from 'vitest'
 import { parseFileReference } from './file-preview-reference'
 
 describe('parseFileReference', () => {
+  it('treats URI-escaped colons as literal filenames while keeping unescaped locations and fragments', () => {
+    expect(parseFileReference('file:///tmp/file%3A44')).toMatchObject({ pathPart: '/tmp/file:44', target: undefined })
+    expect(parseFileReference('file:///tmp/a%3Ab.ts:12')).toMatchObject({ pathPart: '/tmp/a:b.ts', target: { line: 12 } })
+    expect(parseFileReference('file:///tmp/file%3A44#heading')).toMatchObject({ pathPart: '/tmp/file:44', target: { heading: 'heading' } })
+    expect(parseFileReference('file:///tmp/file:44#heading')).toMatchObject({ pathPart: '/tmp/file:44', target: { heading: 'heading' } })
+  })
   it('parses Unix, Windows, UNC, relative and file URI locations', () => {
     expect(parseFileReference('/Users/murray/project/app.ts:42:7')).toMatchObject({
       pathPart: '/Users/murray/project/app.ts',

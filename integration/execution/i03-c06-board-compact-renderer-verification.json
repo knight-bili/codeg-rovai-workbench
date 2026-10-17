@@ -1,0 +1,305 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16T13:44:40.450Z",
+  "status": "focused_renderer_passed_pending_next_native_integration",
+  "sources": {
+    "codeg": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "rovai": "cc465dda562536b94f23787759e3206324baa29e"
+  },
+  "scope": "实际CanvasWorkspace/BoardCard与原CSS；闭合内存投影，不含Core、Git、PTY或模型",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/styles.css",
+      "sha256": "79ba75808d800e50097873436c6304f91d92f58d21104dce8348982d10319957"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "e15030c6431f3f1496a52367fcb44179f14e0c65cfb3f9b177b7529f5e5141d5"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "b39dd0bc12153de9267beeb760273d02e2416e60941ef387c0154faa5bf74125"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasNote.tsx",
+      "sha256": "01721d20e36f8a998ae9843544f47ed0e487d0946a20d25f70fef11a97678606"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasObjectDialog.tsx",
+      "sha256": "e6bf4ff812c3d251584722e305226f6e4bc6626638ca4d5172c4f32f3b3591e7"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/MissionDelivery.tsx",
+      "sha256": "0ac668b8b3be532f2484055e26470cb4bf50c4653008a424c91adf3fd350b909"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasWorkspace.tsx",
+      "sha256": "9c2d8b84c55ce1bc79f8b9847773301311a90b15dca3cf4c2a6b8b78fa003f29"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasBoardPreview.tsx",
+      "sha256": "c718fff26a242ab6ed81ba15089c3cd0cb2671580a8f635060e74cd8df27cc5c"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-boards-controller.ts",
+      "sha256": "fef5dd325074887bf41674cab97aa4ee2c7606cb0b61cbaccf6b72e78e50dd53"
+    },
+    {
+      "path": "scripts/fixtures/mission-board/renderer.tsx",
+      "sha256": "f74d86eea7c065361c88c7c1a883c3b9c70589bf987bbd00885cac8ca600a6ef"
+    },
+    {
+      "path": "scripts/fixtures/mission-board/canvas-source.tsx",
+      "sha256": "cf89bf3edb7470b5f82d13b0a3ca33ce6acbd9c7df9084ac0e6d5bd515c6f63e"
+    },
+    {
+      "path": "scripts/fixtures/mission-board/canvas-source.cjs",
+      "sha256": "815d6e2eabe44d52101fa3e4c27224e924211ea7b7d48bd36f5d6c5949ba4f17"
+    },
+    {
+      "path": "scripts/lib/canvas-source-ui.test.mjs",
+      "sha256": "f487621204df41b21ec4c091f79407219e0c3d01528924622d7a3a662b8cdf45"
+    }
+  ],
+  "source_mapping": "integration/inventory/canvas-ui-reference.md",
+  "checks": [
+    {
+      "mode": "boards",
+      "theme": "day",
+      "code": 0,
+      "signal": null,
+      "deadline": false,
+      "status": "passed",
+      "checks": [
+        "original_board_cards_fit_their_content_and_keep_equal_rows_at_two_window_sizes",
+        "one_scroll_owner_keeps_the_last_create_tile_reachable"
+      ]
+    },
+    {
+      "mode": "boards",
+      "theme": "night",
+      "code": 0,
+      "signal": null,
+      "deadline": false,
+      "status": "passed",
+      "checks": [
+        "original_board_cards_fit_their_content_and_keep_equal_rows_at_two_window_sizes",
+        "one_scroll_owner_keeps_the_last_create_tile_reachable"
+      ]
+    }
+  ],
+  "fixture_cases": [
+    "十个实际组件：纵向缩略图、普通轮廓、两行/单行/无描述、长标题、等高网格和新建尾卡",
+    "日夜各1040×700/1440×920，外层与横向额外滚动0，末尾新建可达"
+  ],
+  "root_cause": "SVG的百分比高度参与固有尺寸计算，纵向viewBox撑高16:10预览及整组fr行；非纵向首轮夹具未复现。文字flex增长和元信息auto margin进一步拉开空白。",
+  "fix": "轮廓SVG绝对贴合已有16:10预览框；文字区和元信息恢复原Codeg自然流紧凑排布，保留等高行和真实列表滚动，不全局隐藏滚动。",
+  "attempts": [
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-X7Tqf7",
+      "status": "passed_but_portrait_case_missing",
+      "boundary": "保留初次未复现结果，不用它证明纵向场景"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-uyGVCU",
+      "status": "failed_both_themes",
+      "boundary": "纵向轮廓复现断言；正常退出无超时/强杀"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-YmFq5S",
+      "status": "passed_both_themes",
+      "boundary": "每主题两个视口；2个不同布局场景，不累计重复主题为新业务场景"
+    }
+  ],
+  "dimensions_1040": {
+    "before": [
+      {
+        "height": 736.6666870117188,
+        "previewHeight": 642,
+        "copyHeight": 93.33333587646484,
+        "intrinsicCopy": 93.33333492279053
+      },
+      {
+        "height": 736.6666870117188,
+        "previewHeight": 200.4166717529297,
+        "copyHeight": 534.9166870117188,
+        "intrinsicCopy": 77.33333492279053
+      }
+    ],
+    "after": [
+      {
+        "height": 295.0833435058594,
+        "previewHeight": 200.4166717529297,
+        "copyHeight": 93.33333587646484,
+        "intrinsicCopy": 93.33333492279053
+      },
+      {
+        "height": 295.0833435058594,
+        "previewHeight": 200.4166717529297,
+        "copyHeight": 77.33333587646484,
+        "intrinsicCopy": 77.33333492279053
+      }
+    ]
+  },
+  "typecheck": {
+    "exit_code": 0,
+    "at": "2026-10-16T13:42:08.8897806Z",
+    "scope": "新增CanvasSource TSX及其实际组件依赖",
+    "initial_failure": "独立配置漏全局preload类型，初次日志/配置保留；补入原global.d.ts和vite-env.d.ts后通过，产品类型不作绕过"
+  },
+  "reviewed_screenshots": [
+    "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-YmFq5S\\boards-night\\final.png"
+  ],
+  "evidence": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-compact-renderer-red.log",
+      "sha256": "96b3b5ab548cad11153c850973e4d8f31b27219d184775af18620aac73f550f9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-compact-renderer-portrait-red.log",
+      "sha256": "5fc1505408c35f4df119c49be03d81ffa74f3bfd8694011ebbff0c5f1fd055ea"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-compact-renderer-final.log",
+      "sha256": "288c441e7e2e25088cdb4b607b72d0a6727779ad7b586dd75d06993ffc2d9afe"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-source-types.log",
+      "sha256": "f3d441aaf4c538a0d5f4ec56ad99a67be89e0e4e2fc7f240c30f89463d1d5535"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-source-types-result.json",
+      "sha256": "c356dcbe861bd1ebc5786e7469e6e2a0b157efe57c83f4612b231e4d4d2e48b5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-source-types-initial-config.json",
+      "sha256": "29e41d74684877805e49a5f9141764e6e5897a1eadc9498a9a3ab678c7acde7f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-source-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-source-types-final-result.json",
+      "sha256": "dcf83aa854f3cbf3d53ee2be294d3360c941ad543eb9e6e54f8a20e56e9e8bbc"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-board-compact-source-sync.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-board-source-tsconfig.json",
+      "sha256": "6479e319682e9ad1ba6fe02d6ac022948ecb6c6e51d5accf0c22492091218205"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-X7Tqf7\\source-files.json",
+      "sha256": "1972224e2ec4a9c4931eb84ac851c038e8fda444c331e9d5caad81e0f623b815"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-X7Tqf7\\summary.json",
+      "sha256": "95c4a0ba4e0e68381b2e3a806f7793df634596822d59a464218f1af31970383c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-X7Tqf7\\canvas-source.cjs",
+      "sha256": "815d6e2eabe44d52101fa3e4c27224e924211ea7b7d48bd36f5d6c5949ba4f17"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-X7Tqf7\\boards-day.log",
+      "sha256": "991b050f79878bbfa2be3d636eae6f3dc498774a95c9da6603a830caa896be90"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-X7Tqf7\\boards-day\\result.json",
+      "sha256": "8937615e487742c3120ec867c4bee5661f51803ac33088ada7d1b589eb38342f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-X7Tqf7\\boards-day\\final.png",
+      "sha256": "df3569822aeaf951dfac71e87264f4664b1e17a1ba4592f8c37354c116117009"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-X7Tqf7\\boards-night.log",
+      "sha256": "dcef0880b7501b9183d506e3107281a5d20d259d749fe129debe9f0ebaea6d30"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-X7Tqf7\\boards-night\\result.json",
+      "sha256": "2f5f3b8153b25e1c1b7721fb14382fe52e6bef2d8c56ca9a8cb50d87e97137aa"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-X7Tqf7\\boards-night\\final.png",
+      "sha256": "cf783b208141281f489c0eb6b1729e7451ec437c588da8cc940bfbb68cc17999"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-uyGVCU\\source-files.json",
+      "sha256": "f4c7a3e0b224f148f6fe79132412ac5e668944bf16b7d8f3e88d589f896a3f23"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-uyGVCU\\summary.json",
+      "sha256": "d950c179a9b640531b4dda298462203451eedf917a753b7d9bda684e85847f37"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-uyGVCU\\canvas-source.cjs",
+      "sha256": "815d6e2eabe44d52101fa3e4c27224e924211ea7b7d48bd36f5d6c5949ba4f17"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-uyGVCU\\boards-day.log",
+      "sha256": "d4ae83a15124cdc259da82c8ef23eef813adff7fcf354c709d1f1df1ff53e4e1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-uyGVCU\\boards-day\\result.json",
+      "sha256": "f48ee76e4ac36c6f03feadb02a927462d03856e64d5b03a4eccb0f3b154e3242"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-uyGVCU\\boards-day\\failure.png",
+      "sha256": "b0c84bdad9cc7c3d24baf295ee46459e350bdfed410973bc0d87c099ddbec9dd"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-uyGVCU\\boards-night.log",
+      "sha256": "b4dfc166f990c948db9cd93bb1e6c8ac28f401af86b0d28a5f989ca412a20443"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-uyGVCU\\boards-night\\result.json",
+      "sha256": "158e439295b8f5e64e628840955c423876466a545d139be74c523194a79813da"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-uyGVCU\\boards-night\\failure.png",
+      "sha256": "cf14831771405c6c4940a1162520d5dec43c3a61feabad168019a80414cfe60d"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-YmFq5S\\source-files.json",
+      "sha256": "0023f3eb152591f6eb1b24f6607000c218b49cd1b06281a4b331445c508d9e88"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-YmFq5S\\summary.json",
+      "sha256": "95c4a0ba4e0e68381b2e3a806f7793df634596822d59a464218f1af31970383c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-YmFq5S\\canvas-source.cjs",
+      "sha256": "815d6e2eabe44d52101fa3e4c27224e924211ea7b7d48bd36f5d6c5949ba4f17"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-YmFq5S\\boards-day.log",
+      "sha256": "991b050f79878bbfa2be3d636eae6f3dc498774a95c9da6603a830caa896be90"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-YmFq5S\\boards-day\\result.json",
+      "sha256": "1f2bff3ef5ff321782403879bac77fcd3ff2a6b728532120e2b483729dcd435f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-YmFq5S\\boards-day\\final.png",
+      "sha256": "ac7a89d54f6077b9a4058a04febf7cd45250ba94b9524e51f934bc99868d86e1"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-YmFq5S\\boards-night.log",
+      "sha256": "dcef0880b7501b9183d506e3107281a5d20d259d749fe129debe9f0ebaea6d30"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-YmFq5S\\boards-night\\result.json",
+      "sha256": "2db10589aa9a0792963d411800466a61c9a3084dced7aaac8af83d0cef019583"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-YmFq5S\\boards-night\\final.png",
+      "sha256": "82b6936afc4e36d7de22dd19909d004382585081334f4f7c38b8aed08b4fbde4"
+    }
+  ],
+  "native_boundary": "当前CSS已偏离rc15；下一Native driver应拒绝旧冻结hash。没有重建rc15或覆盖旧结果，不宣称此修复已在完整App/Core验证。",
+  "next": "与其余原样式和尺寸监听修复累计后冻结下一候选；保留完整阶段工程验证，不要求客户做技术验收"
+}

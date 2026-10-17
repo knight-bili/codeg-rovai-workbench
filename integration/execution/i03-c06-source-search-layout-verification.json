@@ -1,0 +1,338 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-16T12:31:51.503Z",
+  "status": "targeted_renderer_checks_passed_full_stage_pending",
+  "scope": "原Rovai Mission搜索放入画布对象弹窗后的CSS兼容修复，以及上轮Codeg卡片正文/便笺样式的Renderer回归；内存投影，无Core/Git/PTY/模型",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/styles.css",
+      "sha256": "79ba75808d800e50097873436c6304f91d92f58d21104dce8348982d10319957"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas.css",
+      "sha256": "9c8376062c0ebb7335f66d65854c6913a0e66e43aca942cb07f5d1e402f7b331"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "b39dd0bc12153de9267beeb760273d02e2416e60941ef387c0154faa5bf74125"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasNote.tsx",
+      "sha256": "01721d20e36f8a998ae9843544f47ed0e487d0946a20d25f70fef11a97678606"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasObjectDialog.tsx",
+      "sha256": "e6bf4ff812c3d251584722e305226f6e4bc6626638ca4d5172c4f32f3b3591e7"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/MissionDelivery.tsx",
+      "sha256": "0ac668b8b3be532f2484055e26470cb4bf50c4653008a424c91adf3fd350b909"
+    },
+    {
+      "path": "scripts/fixtures/mission-board/renderer.tsx",
+      "sha256": "ff166a2c88d16dc9351d224aedf9d34412382c2980c5ef742fe3b0176eab6d03"
+    },
+    {
+      "path": "scripts/fixtures/mission-board/canvas-source.tsx",
+      "sha256": "1d25c0428accfb50ee487013ac1eebc14cfc8ff0e5a77304c7da1fbd6f249fcf"
+    },
+    {
+      "path": "scripts/fixtures/mission-board/canvas-source.cjs",
+      "sha256": "6e2804e6e9cf44387c6deb52b8b213a1a32d76d24a32ca188c545864bd97d843"
+    },
+    {
+      "path": "scripts/lib/canvas-source-ui.test.mjs",
+      "sha256": "b6f2b4e430c663bf0604eb587f2748c5b3725b5dee4ef40066da365c3a0636b9"
+    }
+  ],
+  "native_diagnostic_owner": {
+    "path": "scripts/fixtures/canvas-native-input.mjs",
+    "sha256": "8897e5ad883e94d5b0fafa239766639aa20d5c6998140a82ed1b31036e63c6de",
+    "runtime_status": "opt-in hook syntax checked; not run against production App yet"
+  },
+  "source_reference": {
+    "codeg": "aff1e6c278453ed8d0b96a5f664edcdca621aa3f",
+    "rovai": "cc465dda562536b94f23787759e3206324baa29e",
+    "mapping": "integration/inventory/canvas-ui-reference.md",
+    "search": "Rovai MissionDelivery.tsx MissionFileTree and mission.css .changes-tree-search; keep original 29px composite search"
+  },
+  "regression": {
+    "before": {
+      "inputHeight": 39.680015563964844,
+      "shellHeight": 28.767986297607422,
+      "top": 448.9918212890625,
+      "innerTop": 455.4478454589844,
+      "bottom": 488.67183685302734,
+      "innerBottom": 483.4478454589844,
+      "border": "0.666667px",
+      "background": "rgb(255, 255, 255)",
+      "minHeight": "40px",
+      "fontSize": "13px"
+    },
+    "after": {
+      "inputHeight": 27.4453125,
+      "shellHeight": 28.767986297607422,
+      "top": 455.10919189453125,
+      "innerTop": 455.4478454589844,
+      "bottom": 482.55450439453125,
+      "innerBottom": 483.4478454589844,
+      "border": "0px",
+      "background": "rgba(0, 0, 0, 0)",
+      "minHeight": "auto",
+      "fontSize": "12px"
+    },
+    "focused": {
+      "inputHeight": 27.666667938232422,
+      "shellHeight": 29,
+      "top": 448.0052185058594,
+      "innerTop": 448.33856201171875,
+      "bottom": 475.6718864440918,
+      "innerBottom": 476.33856201171875,
+      "border": "0px",
+      "background": "rgba(0, 0, 0, 0)",
+      "minHeight": "auto",
+      "fontSize": "12px"
+    },
+    "ordinary_dialog_control": {
+      "border": "0.666667px",
+      "minHeight": "40px"
+    },
+    "input_height_delta": -12.235
+  },
+  "final_renderer_runs": [
+    {
+      "mode": "diff",
+      "theme": "day",
+      "code": 0,
+      "signal": null,
+      "deadline": false,
+      "status": "passed",
+      "checks": [
+        "composite_search_keeps_one_border_and_fits_dialog_at_rest_and_focus",
+        "ordinary_dialog_fields_keep_their_existing_border_and_height"
+      ]
+    },
+    {
+      "mode": "resize",
+      "theme": "day",
+      "code": 0,
+      "signal": null,
+      "deadline": false,
+      "status": "passed",
+      "checks": [
+        "source_card_density_selection_and_64_summaries_survive_window_and_zoom_changes"
+      ],
+      "resizeErrors": 0
+    },
+    {
+      "mode": "diff",
+      "theme": "night",
+      "code": 0,
+      "signal": null,
+      "deadline": false,
+      "status": "passed",
+      "checks": [
+        "composite_search_keeps_one_border_and_fits_dialog_at_rest_and_focus",
+        "ordinary_dialog_fields_keep_their_existing_border_and_height"
+      ]
+    },
+    {
+      "mode": "resize",
+      "theme": "night",
+      "code": 0,
+      "signal": null,
+      "deadline": false,
+      "status": "passed",
+      "checks": [
+        "source_card_density_selection_and_64_summaries_survive_window_and_zoom_changes"
+      ],
+      "resizeErrors": 0
+    }
+  ],
+  "resize_observer": {
+    "pure_canvas_day_errors": 0,
+    "pure_canvas_night_errors": 0,
+    "production_app_root_cause": "not_yet_located",
+    "next": "下一候选多会话运行显式启用capture_resize_observers，记录回调来源与元素；不屏蔽错误或盲目改监听调度"
+  },
+  "checks": {
+    "types": "标准typecheck范围加新增canvas-source.tsx通过；将整个原Mission演示夹具额外纳入时暴露旧严格类型缺项，未扩改无关夹具",
+    "syntax": "Native owner/CJS/test runner通过node --check",
+    "codegraph": "显式sync成功；首次活锁182340失败后正常重试，未删活锁"
+  },
+  "visual_review": [
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\diff-night\\final.png",
+      "reviewed": true,
+      "scope": "对象失效路径态原搜索框及原Mission文件树；内存数据，不是实际Git资格"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\resize-day\\final.png",
+      "reviewed": true,
+      "scope": "64摘要/画布控件；下排文件/终端为未绑定/不支持的占位态，不代表全部八类真实业务或布局已通过"
+    }
+  ],
+  "attempts": [
+    {
+      "root": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-yvsQGp",
+      "reason": "新对象入口缺missions.get内存响应；非产品失败"
+    },
+    {
+      "root": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-Wkzdpp",
+      "reason": "修复前真实CSS边框与40px高度冲突复现"
+    },
+    {
+      "root": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-HBxYG4",
+      "reason": "CSS已修复，夹具错误要求minHeight必须0px；原组件正确返回auto，改为检查实际容器贴合"
+    },
+    {
+      "root": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-AfWmau",
+      "reason": "四次Renderer运行通过；自审补类型字段和只聚焦不伪造输入后使用最终新批复核"
+    },
+    {
+      "root": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-vVXuf3",
+      "reason": "最终四次通过，源码及测试入口字节绑定"
+    }
+  ],
+  "frequency": {
+    "targeted_renderer_bundles": 5,
+    "production_desktop_builds": 0,
+    "production_web_builds": 0,
+    "production_core_native_runs": 0,
+    "renderer_process_runs": 20,
+    "pushes": 0,
+    "github_actions": 0,
+    "external_models": 0
+  },
+  "preserved_qualification": {
+    "rc14_native_distinct_scenarios": 60,
+    "boundary": "原rc14 Core/Native资格不增加；本次只授予当前源码Renderer布局检查，不代证完整App、八类或I03完成"
+  },
+  "evidence": [
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\source-files.json",
+      "sha256": "46bd9d234c2c43c24a6edc0578fd57f8354d50dc9fdb91b959149a8533901e77"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\canvas-source.cjs",
+      "sha256": "6e2804e6e9cf44387c6deb52b8b213a1a32d76d24a32ca188c545864bd97d843"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\summary.json",
+      "sha256": "e0eca381789627f6c2cfaa84e588d1922dca13c126772975b05656b6f91bf98c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\diff-day\\result.json",
+      "sha256": "f1d74c5aa4751140443c1152a10e472aaa9bdf76626627f0a908ff62c60c3f13"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\diff-day\\final.png",
+      "sha256": "69da68ad5c1b58f8449b7205a19b9ab6ac6c49226ba9f707df1074a5d88d3ce3"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\resize-day\\result.json",
+      "sha256": "a183a53a5b9268fb66e00a27f140f51bd2c3bbf62c32485a0413b8c9e275d415"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\resize-day\\final.png",
+      "sha256": "7035e92691649a3bd42a168348a2a7b8e3fa86afc343f04941ee49bab37dc56a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\diff-night\\result.json",
+      "sha256": "2d84515320b2b3aa634424e193e1b927ce4fec9c0eeb72fa41e240d06b38c6f2"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\diff-night\\final.png",
+      "sha256": "2b72578c09771a9036cbb664936313c7732c6754e6f161be171f3f05dfee8676"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\resize-night\\result.json",
+      "sha256": "5455d6f80b7d78944ab07caa314c3afc521e2b70d6ffc02e719c2c70ac8b04b0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-source-ui-vVXuf3\\resize-night\\final.png",
+      "sha256": "eea9d97bfeb8b33f9515a16b0e6d15513cc692cd4a18a7e8fe73f635dba32910"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-yvsQGp/summary.json",
+      "sha256": "9c5bfb489fb470237def5b231dc238cd46cf2d1bd91ae3b2a3b408389f0e9771"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-yvsQGp/diff-day/result.json",
+      "sha256": "34cdc14ffbd8b0edf620c809be052c15aed9bc093f7cd6a7f8029ac39b2cc8fa"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-yvsQGp/diff-night/result.json",
+      "sha256": "e54bb385beb42e844ea3273513ff0040e71c4dbfad5fb1e8e1f4eb6d56bf0372"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-Wkzdpp/summary.json",
+      "sha256": "9c5bfb489fb470237def5b231dc238cd46cf2d1bd91ae3b2a3b408389f0e9771"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-Wkzdpp/diff-day/result.json",
+      "sha256": "fdb62105b10e05b18d846ee49357d9092a7c4010af65a45a2948f204527eb35a"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-Wkzdpp/diff-night/result.json",
+      "sha256": "f9aee3b2177cb557afcc21e0c082f7f8036f9710f925800c5dec3d058c903080"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-HBxYG4/summary.json",
+      "sha256": "9c5bfb489fb470237def5b231dc238cd46cf2d1bd91ae3b2a3b408389f0e9771"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-HBxYG4/diff-day/result.json",
+      "sha256": "fad8bd7a22f4bd2dbca38b96fbfdca3033439bedf2c8019b6973cc7f8f555cc6"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-HBxYG4/diff-night/result.json",
+      "sha256": "e3efffe806d4b6a35c15d868de8561ab487b94bf3ca89e989ec26fda16fef30d"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-AfWmau/summary.json",
+      "sha256": "e0eca381789627f6c2cfaa84e588d1922dca13c126772975b05656b6f91bf98c"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-AfWmau/diff-day/result.json",
+      "sha256": "f1d74c5aa4751140443c1152a10e472aaa9bdf76626627f0a908ff62c60c3f13"
+    },
+    {
+      "path": "C:/Users/JiaLe/AppData/Local/Temp/rovai-canvas-source-ui-AfWmau/diff-night/result.json",
+      "sha256": "2d84515320b2b3aa634424e193e1b927ce4fec9c0eeb72fa41e240d06b38c6f2"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-source-ui-before.log",
+      "sha256": "2548d6426373a3cc23cc0f8bd69f462e52d033fc65a8b86b4b53a4fcca9caf58"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-source-ui-reproduction.log",
+      "sha256": "07ae7b88e5c9201c7d23f6e98684eb38d251c10b451f722946faa3696000ffc9"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-source-ui-after.log",
+      "sha256": "a6cee89ee63402baa8376a78b96744df2e4b3ba3f4054583614b426fd6948d46"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-source-ui-final.log",
+      "sha256": "e9c8cb15b2d6e999984bc0a81c0db4161d50f3f5120ef98d959770e42a34a27b"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-source-ui-reviewed.log",
+      "sha256": "aa3aa0f45d81a5018940b08c459ef710042bb502de73efd0040f58ff7bfe5c32"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-source-search-types.log",
+      "sha256": "c865091bece4a45cf26cefa9567cf95be5a66adba22fb1e4aab8d9692cbacd90"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-source-search-types-final.log",
+      "sha256": "1afb4db36946a445622ae3b6230925c9d5fa7834d26228e94660668474ff80a4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\canvas-source-search-resize-sync-final.log",
+      "sha256": "09694305183896479ae539b6f716f796fc836992802591caafe86071f0654e7f"
+    }
+  ],
+  "customer_action_now": null
+}

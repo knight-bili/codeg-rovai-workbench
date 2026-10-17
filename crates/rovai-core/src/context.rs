@@ -14016,6 +14016,7 @@ mod slow_tests {
                     expected_versions: Vec::new(),
                     execution_epoch: None,
                     payload: SendSingleChatMessageCommand {
+                        composer_scope: None,
                         draft_client: Default::default(),
                         camp_id: fixture.camp_id.clone(),
                         conversation_id,

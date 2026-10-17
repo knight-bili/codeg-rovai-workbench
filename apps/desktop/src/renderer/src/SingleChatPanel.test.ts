@@ -2,6 +2,9 @@ import { readFileSync } from 'node:fs'
 // Keep JSX explicit so this suite remains within the repository's discovered `.test.ts` pattern.
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
+import { privateInputErrorMessage } from './PrivateInputRecoveryPanel'
+import { ThreadClientProvider } from './camp-client'
+import { desktopThreadClient } from './desktop-camp-client'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type {
   AgentRunExecutionEvidenceView,
@@ -27,6 +30,14 @@ import {
 } from './SingleChatPanel'
 
 const source = readFileSync(new URL('./SingleChatPanel.tsx', import.meta.url), 'utf8')
+
+it('gives missing-file recovery guidance for native and bridge errors without interpreting unknown failures as missing files', () => {
+  const message = '附件文件已被移动或删除，请重新选择文件；当前输入已保留。'
+  expect(privateInputErrorMessage(new Error('attachment_missing'))).toBe(message)
+  expect(privateInputErrorMessage({ message: 'single_chat.attachment_missing' })).toBe(message)
+  expect(privateInputErrorMessage({ message: 'single_chat.attachment_source_changed' })).toContain('原材料文件已变化或不可读')
+  expect(privateInputErrorMessage({ message: 'unrelated_transport_failure' })).not.toBe(message)
+})
 
 function run(overrides: Partial<SingleChatRunView> = {}): SingleChatRunView {
   return {
@@ -134,6 +145,24 @@ afterEach(() => {
 })
 
 describe('Single Chat presentation', () => {
+  it('exposes the exact private Run on readable terminal summaries and final replies without a legacy turn ID', () => {
+    for (const status of ['succeeded', 'failed'] as const) {
+      const currentRun = run({ status, threadTurnId: undefined })
+      const markup = renderToStaticMarkup(createElement(SingleChatRunHistory, {
+        threadId: 'camp-1', conversationId: 'conversation-1', run: currentRun, evidence: [],
+        finalMessage: status === 'succeeded' ? {
+          id: 'message-2', sequence: 2, authorType: 'agent', authorId: member.agentId,
+          body: '已展示的私聊回复', quotes: [], attachments: [], agentRunId: currentRun.id,
+          createdAt: '2026-09-03T11:00:00.000Z'
+        } : null,
+        now: '2026-09-03T11:00:00.000Z'
+      }))
+      expect(markup).toContain('class="single-chat-run-summary" data-agent-run-id="run-1"')
+      expect(markup).not.toContain('data-notification-turn-id=')
+      if (status === 'succeeded') expect(markup).toContain('class="single-chat-final" data-agent-run-id="run-1"')
+    }
+  })
+
   it('uses the confirmed Chinese terminal summaries', () => {
     expect(formatSingleChatDuration(
       '2026-09-03T10:00:00.000Z',
@@ -225,13 +254,16 @@ describe('Single Chat presentation', () => {
   })
 
   it('puts avatars in the selector trigger while keeping the transcript avatar-free', () => {
-    const markup = renderToStaticMarkup(createElement(SingleChatPanel, {
+    const client = Object.create(desktopThreadClient) as typeof desktopThreadClient
+    client.editingRecovery = { get: () => undefined, set: () => undefined }
+    const panel = createElement(SingleChatPanel, {
       threadId: 'rvcamp_01m1jkkpkzfvgraw1p4r9zfb7v',
       members: [member],
       visible: true,
       onOpen: () => undefined,
       onClose: () => undefined
-    }))
+    })
+    const markup = renderToStaticMarkup(createElement(ThreadClientProvider, { client, children: panel }))
     expect(markup).toContain('single-chat-target-trigger')
     expect(markup).toContain('member-avatar')
     expect(source).not.toMatch(/single-chat-(?:user-message|agent-response)[\s\S]{0,180}<MemberAvatar/)
@@ -280,6 +312,10 @@ describe('Single Chat presentation', () => {
     expect(singleChatConversationReady(firstSnapshot, 'agent-1', false)).toBe(true)
     expect(singleChatConversationReady(firstSnapshot, 'agent-2', false)).toBe(false)
     expect(singleChatConversationReady(firstSnapshot, 'agent-1', true)).toBe(false)
+    expect(singleChatConversationReady(null, 'agent-1', false, firstSnapshot.conversation.id)).toBe(false)
+    expect(singleChatConversationReady(firstSnapshot, 'agent-1', false, firstSnapshot.conversation.id)).toBe(true)
+    expect(singleChatConversationReady(firstSnapshot, 'agent-1', false, 'other-private')).toBe(false)
+    expect(singleChatConversationReady({ ...firstSnapshot, conversation: { ...firstSnapshot.conversation, status: 'ended' } }, 'agent-1', false, firstSnapshot.conversation.id)).toBe(false)
 
     const chooseTargetStart = source.indexOf('const chooseTarget = async')
     const chooseTargetEnd = source.indexOf('\n  const prepareFiles =', chooseTargetStart)
@@ -331,7 +367,10 @@ describe('Single Chat presentation', () => {
     expect(source).toContain('shouldSubmitStructuredComposerOnEnter({')
     expect(source).toContain('shiftKey: event.shiftKey')
     expect(source).toContain('event.nativeEvent.isComposing')
-    expect(source).toContain('draftRevision: current.draft.revision')
+    expect(source).toContain('await owner.send(originalBody)')
+    const controller = readFileSync(new URL('./private-input-controller.ts', import.meta.url), 'utf8')
+    expect(controller).toContain('draftRevision: snapshot.draft.revision')
+    expect(controller).toContain("...(this.origin.scope ? { composerScope: this.origin.scope } : {})")
     expect(source).toContain('<AttachmentCard')
     expect(source).not.toContain('preparedAttachments')
     expect(source).toContain('className="single-chat-agent-response"')

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "status": "implementation_verified_pending_candidate",
+  "recorded_at": "2026-10-16T06:35:26.012889+00:00",
+  "source_binding": {
+    "base_commit": "b087607ead00efc874ef3253fd6c199fe7cb371f",
+    "files": {
+      "apps/desktop/src/renderer/src/CanvasSurface.tsx": "443fef29c90b741e5390ebabe6d6ac9c783c4ba7b3082904e668d242f9ae59dc",
+      "apps/desktop/src/renderer/src/CanvasFilePreview.tsx": "f6b32bea6ed757070789248fa4ae141105532eaca25ac9a6e1d5729abf8d815f",
+      "apps/desktop/src/renderer/src/FilePreviewContext.tsx": "bcde853d37d67a4ea8e72e50a965f61d68db7698430999f3e2dff3dea4ae0945",
+      "apps/desktop/src/renderer/src/FilePreviewPane.tsx": "a0c85443725374ab31414b9fd48701ee5c0cc4f35f3dff1bff6c965f83a1731e",
+      "apps/desktop/src/renderer/src/HtmlFileViewer.tsx": "6f72da9db9b9baa9fb4955f2b0d92e68c96bff7a4e71b0d83b5fb13c1bff8a74",
+      "apps/desktop/src/renderer/src/canvas.css": "8b6c4586fb5ec859922ab517fbdd81a01d8f65a11747074e134aab8d6f553d67",
+      "scripts/fixtures/canvas-native-input.mjs": "5eb84b3fb912058e47e8eea181e35b75e15c57a07785ffb7d5f31f0d27191d50",
+      "integration/execution/goal-state.json": "fb68276515ccf0fdafdfd16e737826ebbd617e78337984ee77416b5f7a3b9b70",
+      "integration/execution/i03-closeout.json": "bea99e41f753e5bedbdbeed137d8378372027cfd88c082948b8751357bac90f2",
+      "integration/planning/stage-versions.json": "48472459b27a70aa790a4166c70612d9df978271a2dcff8bd021749d0823b50f"
+    }
+  },
+  "artifact_binding": {
+    "work/i03/c06/fusion-i03-rc.6/native-file-cards-r2/result.json": "5920b9f525f3c078bd56765eb63cf3118db427bcfafff0e6a76f7779abba1aba",
+    "work/i03/c06/fusion-i03-rc.6/native-file-cards-r2/01-text-and-interactive-html.png": "e0ce37746eece03ab44dc3ee9debbdc7e25020c27f720c03edc851c08c0d2f50",
+    "work/i03/c06-html-channel-before.log": "07a4555cda8d3b04b7a0d99406be5a0215ffd00fe9c4f4955d329919f5c77617",
+    "work/i03/c06-file-card-tests.log": "2c847abeb8f9e988506fefa0ba20c981fc2b6950d86b4c9faf45fc9ed361c8f9",
+    "work/i03/c06-file-card-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "frozen_authority_files": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "reproduction": {
+    "candidate": "fusion-i03-rc.6",
+    "result": "failed",
+    "assertion": "document loaded and host channel connected",
+    "observed": {
+      "documentState": "loading",
+      "scriptState": "no-error-observed",
+      "resourceState": "no-error-observed",
+      "channelState": "waiting",
+      "serverDiagnosticsState": "waiting"
+    },
+    "controlled_shutdown": "completed_without_deadline_or_forced_signal"
+  },
+  "repair": [
+    "文件卡片共用原读者，操作通过Portal进入已有标题栏；移除重复路径行，完整路径保留title；编辑/移除保留在原Radix菜单",
+    "单卡读者隐藏重复路径标题，HTML错误/加载/诊断和更新提示保留，普通工作区路径行保持",
+    "HTML订阅依赖原preview/channel，通过现有current引用读取最新open回调，避免重绘重置通信"
+  ],
+  "review": {
+    "source_authority": "unchanged Core/source/context/quote/command",
+    "api_database_model_input": "unchanged",
+    "file_permissions": "unchanged",
+    "document_lifecycle": "source toggle retains iframe, errors and candidate refresh remain visible",
+    "original_assets": "Codeg aff1e6c source and workspace image verified; official canvas GIF is placeholder"
+  },
+  "validation": {
+    "full_types_exit": 0,
+    "full_types_tool_session": 43480,
+    "related_test_files": 4,
+    "related_tests_passed": 46,
+    "related_tests_skipped": 0,
+    "native_after": "not_run",
+    "desktop_build": "not_run",
+    "web_build": "not_run",
+    "paid_models": false,
+    "actions": false
+  },
+  "next": "冻结rc.7并集中构建共享Renderer两端，真实Native同owner复验后再记录结果；I03整体未完成，不设客户阶段测试门槛"
+}

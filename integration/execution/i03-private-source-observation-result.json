@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "status": "Core_source_observation_locally_verified_runtime_UI_and_scale_pending",
+  "recorded_at": "2026-10-15T18:49:29.300463+00:00",
+  "source_binding": {
+    "base_commit": "95a40646",
+    "kind": "exact_worktree_file_hashes_before_local_commit",
+    "files": {
+      "crates/rovai-core/src/db.rs": "f3c47fb73a8a42978da45920c9ce82507005e5a237fdc345927d0303c48e1628",
+      "crates/rovai-core/src/db_private_composer_scope.rs": "a4775f9a5760d92d3a73f7c61d6c5b7ede2a45e71539ffc9f66abb1769aec250",
+      "crates/rovai-core/src/db_private_source_observation.rs": "68a921dd267cb7f26ce87580f87c8f0575a731c3d8c1cc7391c05df3680cb540",
+      "crates/rovai-core/src/lib.rs": "ddd2844755da2e93ab7578049fd026f63b0eea341a8eebf568c62e95f911e109",
+      "crates/rovai-core/src/local_attachment_snapshot.rs": "77141c47a8e9e466cffc0627c1be2e3c035ac06051e5026077f3a6681591ee1c",
+      "crates/rovai-core/src/private_source_observation.rs": "878f46c369d477e6b3c80726decbb3861f9b3708a72611ab76daa13402b156c2",
+      "crates/rovai-core/src/single_chat.rs": "a674f9e3e4c383cf031f67c89d56b4941cb61e30e66bd67dfa6b6599fd0efda1",
+      "crates/rovai-core/src/single_chat_composer.rs": "d40d86f063828cc1bced4d90ff98cf6b8e0c84728148ceada5134e143d3c9fec",
+      "crates/rovai-core/src/single_chat_composer_tests.rs": "f26b8665c1c8414d01bb1be3665a7b315129ddca60f5653390d4156f476af649",
+      "crates/rovai-core/src/web_upload.rs": "b7604f0b3b57677e8810804e8e727ae8d26de264e22d3969f0fbb6c4a3cfdb27",
+      "docs/architecture/canvas.md": "2f1a1fc149b414a75af9a072b16dcf97579e6d869bb592011f6bd0c635697422",
+      "docs/contracts/domain-command-result-v1.md": "e03b07f57a02ed425a2945a591e8aab72f15859ba69e2db48f6b58762adb4423",
+      "docs/contracts/single-chat-composer-scope-v1.md": "befb3147360e2a591c6626467bb52e5791dcaa50cfa15e96fce429c2a9fbb1d4",
+      "docs/development/testing.md": "7a07971d1d654a0cac5c0c1ed0473b64469518d0ffcb8b039fe082b1c653b367",
+      "docs/versions/v1.72/README.md": "0ca2b452a5b4d343af7f3d0ada188d6fb9cb78fc44c85c1435d25cde30858609",
+      "integration/foundation/current-protocol.json": "5c2711b41b6a935e891a41dc3e473cb03fd4995806635490025da4e821e2844a"
+    }
+  },
+  "implemented": [
+    "Migration206 exact155-to156 atomic observation table; no filesystem backfill or old-material rewrite",
+    "Private source immutable proof by Conversation/sourceID, captured with material writes and original upload digest",
+    "File content and platform object/version fingerprint; directory paths, empty directories, content and identities",
+    "Before send and queue publication check, preserve original material and record rejection on invalid source",
+    "Queued source failure records needs_repair in the same transaction to prevent background retry loops",
+    "Historical default/pending inputs without observations retain old compatibility; new card sends require observation",
+    "Current Gateway first-result replay documented accurately; Native original-parameter freezing unchanged"
+  ],
+  "validation": {
+    "Core_lib_compile": "passed_with_extended_tests",
+    "Core_distinct_owners": 13,
+    "Core_passed": 13,
+    "Core_failed": 0,
+    "Core_ignored": 0,
+    "owners": {
+      "private_composer": 3,
+      "migration205_and206": 1,
+      "legacy_single_chat": 9
+    },
+    "Scope": "real_Core_library_with_isolated_SQLite_and_files_no_real_Host_or_models",
+    "docs_version_decisions_and_10_policy_tests": "passed",
+    "foundation_scaffold": "passed",
+    "targeted_rustfmt_and_diff": "passed",
+    "prior_upload_slices": "95a40646 and 9887c13c accumulated code now compiled/exercised by current Core owner"
+  },
+  "self_review": [
+    "Initial send-closure variable names failed compile; fixed and archived failure log.",
+    "Earlier uncompiled upload assertion assumed changed-payload conflict. Corrected to current Gateway first-result behavior and checked no rebind.",
+    "Queue failures now enter needs_repair atomically; test proves no second Run and no ready-head retry loop.",
+    "Missing Connection type qualifier failed queue build. A subsequent accidental old-binary run is retained as INVALID, excluded from results.",
+    "Final successful compile and all three current-owner logs are the only pass evidence for current code.",
+    "Same-byte replacement keeps the old object alive in the fixture, avoiding clock precision and deleted-ID reuse assumptions."
+  ],
+  "invalid_evidence": [
+    "source-observation-composer-test-stale-binary.log"
+  ],
+  "build_exception": "Migration safety blocked subsequent material integration; minimum Core-lib batch combines prior two slices, no workspace or Actions",
+  "remaining": [
+    "Native new preparation bridge directory request/intent support",
+    "Actual Host/Native resource authorization and preview for Core-owned byte sources",
+    "Shared Native/Web original-upload/reselect/rejection/recovery UI before enabling card attachment controls",
+    "Large-material hashing latency and database-lock impact in I03 scale checks",
+    "Legacy adoption/orphan/conflict UI, other I03 closeout groups and full stage candidate checks",
+    "Actual platform/model/full PC01-PC24 and formal324 qualification remain not_run"
+  ],
+  "preserved_authorities": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "public_snapshot_primitives_tail_unchanged": true,
+  "approved_r1_files": {
+    "I03_私聊材料怎么分开用_客户确认版_r1.docx": "87565f57fa0e994f676139e3376fe14e556ac9862c08f1573798d985f4dcecf7",
+    "I03_私聊材料怎么分开用_客户确认版_r1.pdf": "4b3446c0d97f2c6b8529a206d965a60229dcc1e5966e280647856fc88576e8df"
+  },
+  "artifacts": {
+    "i03\\source-observation-composer-test-current.log": "066dd271b967118580459fbb965a7f85af9cd554b295533742ad4e2fed701f88",
+    "i03\\source-observation-composer-test-final.log": "a06223074cb751d1380f92d87c404fd52442e31df63796f3e93051019a622adb",
+    "i03\\source-observation-composer-test-first.log": "88070de30cf180edaec5a52a774a8e58272b62e1de05e35219acc0cd0d92b7a2",
+    "i03\\source-observation-composer-test-stale-binary.log": "d554cb1977db0dd2c018f7bd1fadbcb35c5f0901292f8d7257cd28be1200dd53",
+    "i03\\source-observation-core-list-final.log": "6277faee899be5d1a5dffc3125e36304270ed32d5a0f64155878928c82644b9f",
+    "i03\\source-observation-core-list-first.log": "40a1631f135c96f34679083fd18d141c656ae4553fdf3ee5ec8b178be5213791",
+    "i03\\source-observation-core-list-fixed.log": "721679a1741f9d344088570c61af325fb375a6d05b49d88cf37ceebdd402eb15",
+    "i03\\source-observation-core-list-queue-fixed.log": "b8acc23a777f1771131c8332f0d9c542b24f74f2e278ad189d42f8c74e1932d3",
+    "i03\\source-observation-core-list-queue.log": "0ef95d5655bfde0539111a2866e14d9168c2e18541c30b44faf802b8a84eb637",
+    "i03\\source-observation-doc-decisions-final.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "i03\\source-observation-doc-decisions.log": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+    "i03\\source-observation-doc-policy.log": "eb0056f7bd8d76b955d160d8aba050bb1a2023f8bfd6a1941c1e2004b6c13c6b",
+    "i03\\source-observation-doc-version-final.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "i03\\source-observation-doc-version.log": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+    "i03\\source-observation-foundation.log": "044569df112d191be31ea876439bd2bd3294beb8d9fa469452c1bcc1ea893695",
+    "i03\\source-observation-legacy-list.log": "fbbc0f6304b8e1b5adf6fc252ff9c6192e7f7a937727039ee64d7d8ebb7c4d3f",
+    "i03\\source-observation-legacy-tests-current.log": "d83bbf4b6e345a5cd40d5aab75cefbc729915031a301f8f48c5aa182500bdb69",
+    "i03\\source-observation-legacy-tests.log": "a43c8811a2b85aba9b5cabd48403ef12f648cbcff4b8f9eaa67064a5abd7e093",
+    "i03\\source-observation-migration-list.log": "8520d662aa6e55122b98d8e2fbedda193502bf362fc5efcbfcdb5c690ec957c9",
+    "i03\\source-observation-migration-test-current.log": "91ae3620895c6340a4edea112a5951034faa0771155d7cdf31ae628cffb3ddd1",
+    "i03\\source-observation-migration-test-first.log": "091f1b0bd78e4681708b0ac58d8d5913f14b918e6e54df34344984d398934c3e",
+    "i03\\source-observation-rustfmt.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "i03\\source-observation-scaffold.log": "0d99a0a2ecdf3fc1eb15061e234bd58d0d076d8839658f7bcefe94356831c553",
+    "i03\\artifacts\\source-observation\\1ebb6fe6454495a3\\core-lib-tests.exe": "5399008f27b404fda03642c9b438d1c335e39f3e9654359a3d6242969a1d3209"
+  },
+  "boundaries": {
+    "schema": 156,
+    "migration": 206,
+    "Host_protocol": 4,
+    "public_operations": 180,
+    "new_Rust_owners": 0,
+    "push": false,
+    "Actions": false,
+    "paid_models": false,
+    "scoped_attachment_UI_enabled": false,
+    "customer_stage_gate": false,
+    "full_scope_81_48_324": true
+  }
+}

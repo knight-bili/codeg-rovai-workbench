@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "work_group": "I03-R07",
+  "status": "core_host_boundaries_verified_native_input_pending",
+  "checked_at": "2026-10-16T19:55:02.594747+00:00",
+  "committed_test_owner_source": "6876fb29b95ba299350ce964a7ee2324cc81ef8f",
+  "core_source": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195",
+  "binary": {
+    "sha256": "d0988301d00a6bb3cf8733ded78bfe85cf8b3cf5a30683e47d01982bf0468928",
+    "length": 85979648,
+    "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\c06\\fusion-i03-rc.15\\native-bin\\rovai-host.exe",
+    "name": "rovai-host.exe",
+    "source_commit": "e0c4fad7e7c7f20d4c7b5f83418d8237c4ff6195"
+  },
+  "qualification": [
+    "16 actual owned helper processes and 16 unique Node interactive TTY shells at the original directory",
+    "17th start rejected without extra helper/session; released slot admits another target; replayed old start never relaunches",
+    "real loopback Host listener stop, revoked old session, fresh Owner login and HTTP reconnect retain original Core, generation, process, cursor and exact input receipt; replay causes one side effect",
+    "actual UTF8 stdin split inside a Chinese character preserves original Chinese and emoji file bytes; explicit restart gives new generation and rejects late old input",
+    "planned shutdown reaps 16 terminal trees and leaves unrelated control process alive; fresh Core preserves canvas nodes without reopening shells or replaying old-Core launch"
+  ],
+  "checks": [
+    {
+      "name": "sixteen_actual_owned_helpers_have_unique_interactive_pty_shells_at_original_cwd",
+      "passed": true
+    },
+    {
+      "name": "seventeenth_actual_start_is_rejected_without_creating_an_extra_helper_or_session",
+      "passed": true
+    },
+    {
+      "name": "reclaimed_slot_admits_another_real_shell_and_replaying_a_finished_start_does_not_reopen_it",
+      "passed": true
+    },
+    {
+      "name": "real_listener_stop_new_login_and_http_reconnect_resume_original_shell_cursor_and_input_receipt_without_reexecution",
+      "passed": true
+    },
+    {
+      "name": "actual_pty_preserves_chinese_and_emoji_bytes_split_inside_a_utf8_character_not_an_ime_qualification",
+      "passed": true
+    },
+    {
+      "name": "explicit_reopen_uses_new_generation_and_late_old_generation_input_cannot_reach_it",
+      "passed": true
+    },
+    {
+      "name": "planned_shutdown_reaps_all_sixteen_terminal_trees_and_preserves_unrelated_control_process",
+      "passed": true
+    },
+    {
+      "name": "fresh_core_keeps_original_nodes_but_never_restarts_previous_shells_or_replays_old_core_start",
+      "passed": true
+    }
+  ],
+  "pending_in_same_group": [
+    "Native real Windows IME composition and clipboard/paste behavior",
+    "current final candidate terminal collapse/reopen and connection UI regression; old related Native evidence remains applicable only within its source scope"
+  ],
+  "remaining_group_rule": "R07 remains open until its applicable Native boundary is verified; current Core results do not qualify IME, clipboard, current Renderer or complete I03.",
+  "related_pending_renderer": "R06 afee4415 HTML repair is still not built or Native verified; accumulate remaining code before next candidate, then execute every R06 phase and affected HTML regression.",
+  "evidence_files": [
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\driver.mjs",
+      "sha256": "a264ccd3211797c8cce79cd1bd84059cbf4bfce91fa20c01d7f280bbaf37f256"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\first-host-stderr.log",
+      "sha256": "fa1c4e737bbc3e332a16336795575f21da47134b68c8b7ba6fab28acd3fa795e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\last-host-stderr.log",
+      "sha256": "65c5f579978957399f55e5a7dcc38999c22be336bec26293846a5ee8533ff138"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\manifest.json",
+      "sha256": "8ed4c118dd8ee88b798b4d50a35f3938ddb7ae89b11556533eb1676f7177328e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\once-counter.json",
+      "sha256": "25649b27b0090efe0388de49882819bb811c0b1c612a851d22e307fa0ccd0a0f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\reconnect-barrier.json",
+      "sha256": "28bccd3e37f850a47c760fd956ae948ef8ee1ec2d6c03ade45d5109ac2016954"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\result.json",
+      "sha256": "3cebc79083ff34957525fbb328bd41970829a506d66b303293a68db131375f36"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\sessions-before-shutdown.json",
+      "sha256": "0b56f238738720d2052a4f5d370e164ae3aabb389ce2ee76bc3f7b89ceb194e8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-0.json",
+      "sha256": "f9bac54bd2e18155a42ee672ae4f5ea2b1a7bccb2b1695736b761840b6aa5133"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-1.json",
+      "sha256": "a7db2945690308b3b3f5b22212b627dc6caecf561dbb68dfd2b2630908374115"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-10.json",
+      "sha256": "de65f5529a349153a41385aae618048afd4c278203ad66995b7f20f3f8ff39a4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-11.json",
+      "sha256": "fee7d9022f1b1f3ebd27bcd9da9c6724ab46d2f60350cf7546bd3354398d949e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-12.json",
+      "sha256": "06a5370f49ec958d89c8a2f9c4af9504a8e86e0dc952052b0f445cd488a9a9b0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-13.json",
+      "sha256": "dae4726e5c147e1e8c1651d2fa99d6aa9ed02a0dec41a388062eb23e431d2d3f"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-14.json",
+      "sha256": "d2aae1be06d0983c48805bbd18bdb97b213ee86db1198d2b10893bedf6f389b4"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-15.json",
+      "sha256": "1aabd7bf81a795e6d3a7e1c1bc1f41567db3b9f64e08090e931f37976c8a7329"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-16.json",
+      "sha256": "3d8bb9c7fb8bf16409ee2e5001b7b767a86d22c921cccecbfc77772342695825"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-17.json",
+      "sha256": "8ae4d16727e0b169a64110ec01723e4ed5176186b5c6db59128407708007709e"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-2.json",
+      "sha256": "390cb4fda3cc9548c86cd49d85ce77625d676eb8fac65685737cd684f1a570ca"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-3.json",
+      "sha256": "6c173f33c6eac1533eb7d432479a01da13a1bc79277fd1a17a2608dc5fdb18b7"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-4.json",
+      "sha256": "2ce873bb9801becc03f4b27639aba2ba62a7d5caa42f352f52506e09a63523a0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-5.json",
+      "sha256": "22355525d0a38eafd1384666af81071f955a4000409ea69294891375d48aaa91"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-6.json",
+      "sha256": "d4da764152ff4b9f26ecfe3a67a61849c0ed0f2ea5898c2e99c4d0410a9d29f6"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-7.json",
+      "sha256": "92a48bd257ddeacc4546908ea296d2f896ba1770e544ee73c5c0abe5b9a85080"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-8.json",
+      "sha256": "32cadd245c27881bb870bfaf03b7777f0df2275fc09522cec28203a30cdd021a"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\shell-9.json",
+      "sha256": "000e62f055023a086d05a4ec85a85064ae37da69cfc6c0f0f01b073761b1f4ec"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\terminal-capacity.mjs",
+      "sha256": "f60a1d38f8323ccd8ffc0dcf7b016b5be0b060438ca9a15d333324ac04968a10"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1\\utf8-split.txt",
+      "sha256": "dd5f6b61a53e4c3b1577493077ac17680bfc4f1d4e5b72918999e7dc64a66c7c"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\lib\\host-test-client.mjs",
+      "sha256": "89e0071deced57443ff12eccf3d8d3a48e920a3421b0eaba20077078eeb758d0"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\lib\\runtime-camp-files-root.mjs",
+      "sha256": "0f3a1f9d24bf402e11d4fb54fcb7768803f86888167521d9341ab853aabfdc31"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\scripts\\fixtures\\canvas-terminal-capacity.mjs",
+      "sha256": "f60a1d38f8323ccd8ffc0dcf7b016b5be0b060438ca9a15d333324ac04968a10"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\run-r07-capacity.mjs",
+      "sha256": "a264ccd3211797c8cce79cd1bd84059cbf4bfce91fa20c01d7f280bbaf37f256"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-capacity-r1-driver.log",
+      "sha256": "907dd04375574385254021a7aaf457fa9f3c3c740013193b5ea9d220d285cba5"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-final-processes.json",
+      "sha256": "38fb1fe36cbbeb77a8601f5384bc119d0fafa8bb75697676c002d93ca65384b8"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\r07-codegraph-sync.log",
+      "sha256": "4b5e6457c82b34383f70240f2de6ba2c4356069cd254d5755442097468fb99ef"
+    },
+    {
+      "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i03\\record-r07-capacity.py",
+      "sha256": "659e4434842951f9b22e761e60595a589f520900e007053d75d4dae0333b5f35"
+    }
+  ],
+  "counts_unchanged": {
+    "settled_obligations": 17,
+    "open_work_groups": 5,
+    "private_cases_verified": 24,
+    "private_cases_open": 0,
+    "verified_work_groups": 5
+  },
+  "builds_added": 0,
+  "actions_triggered": 0,
+  "pushes": 0,
+  "external_model_calls": 0,
+  "customer_action_required_now": false
+}

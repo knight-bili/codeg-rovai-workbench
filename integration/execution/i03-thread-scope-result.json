@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T05:30:15.935Z",
+  "stage": "I03",
+  "source_commit": "53aecaf3abd8aa7ca5f6c51a1893e14c92baf289",
+  "goal_status": "active",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "source": "b07fb4a0aba7df486b3dc967e61b885386fda15b",
+    "checkpoint": "a9529a1d74b52cb2b77342af53db70a8db5968c0"
+  },
+  "status": "shared_Thread_data_and_bound_Core_commands_used_by_existing_workspace_216_checks_passed_multi_instance_UI_pending",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/BusinessApp.tsx",
+      "sha256": "4abb8af30653084678df26b2f18aa445cb85fc70574eac248a84d720236aec75",
+      "git_blob": "260eee2ba25b67a2234b42c1f782677ade9cdeba"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-commands.test.ts",
+      "sha256": "75d8cfa626eb0c67970a18da853bbdef3b5f69603c6e52693ed0222ec2657378",
+      "git_blob": "cde6eb5d0c7ca8b082b7c87ece5638ebacb5cbd3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-commands.ts",
+      "sha256": "9d11152a14b5b091d77d9bbabb0048c71469dc9545c018ba216c89378cebe2ae",
+      "git_blob": "6df6b4c2158ab84de92374299162d80b42dc0761"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/thread-workspace-data.ts",
+      "sha256": "301d8c422a3656d065ca762735d8685d6ce8b5622d4b4a26cc5a083fd22318e3",
+      "git_blob": "1539594e9e9c6922ac896bd1e354492a1a30453a"
+    },
+    {
+      "path": "docs/contracts/canvas-nodes-v1.md",
+      "sha256": "aa6148e4f7b409f65b39c1008b5264116bb065b801f2ae5bc487f4069cb748e1",
+      "git_blob": "89af79f4f4e00f5e8334877e776ac72a66d9d185"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "4265b24b14884bb05353fd1b3d1998d6be42f8e279d4deb4bc3794c00bdb9499",
+      "git_blob": "a94ed25ee77eaea180b0087a5dc46017d4727f56"
+    }
+  ],
+  "implementation": [
+    "thread-workspace-data.ts提取12个原函数和1个类型；原始Git源逐声明比对未改函数体，BusinessApp原10个公开导出保留。后续会话实例可复用读取/投影/发送格式/错误呈现，不循环导入BusinessApp。",
+    "threadCommands捕获Core client+固定Thread ID，封装8个既有写/预览操作及readonly threads.open。既有BusinessApp按client/Thread memo共享，8个既有回调使用绑定实例而非写时重选侧栏地址。",
+    "发送先核对draft.Thread并复制原参数；原content/quotes/附件来源/reply/executionpurpose字节和选择逻辑不变。操作不重试、不伪造Core结果、不调用threads.enter/新建Conversation或Runtime。",
+    "名册预览和移除核对Thread；generation/version/replacement/reason和命令编号保留。Host/Core仍拥有授权、CAS和持久回执。",
+    "审批后刷新拒绝旧client/选择代次/Thread与较低水位，旧错误不覆盖新会话，busy只清匹配审批；requestThreadProjection的client依赖已修正，换client不沿旧闭包读取。"
+  ],
+  "checks": [
+    {
+      "name": "Thread_commands_and_existing_App_Canvas_private_owners",
+      "path": "../i03/thread-scope-owners-final.log",
+      "sha256": "68dd8778cd7db0af8a2d8d22ade917ef70682e2907ff6d85f35c120e9a9dacc8",
+      "files": 4,
+      "passed": 216,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 7,
+      "transport": "mock_only"
+    },
+    {
+      "name": "scoped_TypeScript_including_new_tests",
+      "path": "../i03/thread-scope-types-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0,
+      "config": "../i03/thread-scope-typecheck.json",
+      "config_sha256": "8465c31d44057cadcaf9bd9867cf87a7604d4288a0a472b3178278fc693cd5d9"
+    },
+    {
+      "name": "literal_copy_and_duplicate_keys",
+      "path": "../i03/thread-scope-copy-final.log",
+      "sha256": "10c82e5a4aa35363d76038119db88cea051e5981de74196e29cc4184dc5ed078",
+      "missing": 0,
+      "duplicate": 0
+    },
+    {
+      "name": "documentation_version",
+      "path": "../i03/thread-scope-docs-version-final.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+      "exit_code": 0
+    },
+    {
+      "name": "documentation_governance",
+      "path": "../i03/thread-scope-docs-decisions-final.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+      "exit_code": 0
+    },
+    {
+      "name": "exact_extraction_against_old_Git_source",
+      "path": "../i03/thread-workspace-extraction-final.json",
+      "sha256": "7f6843700afda3250ba5362c3bb5e74699226930ed295af5ceeb63520fa4b6a0",
+      "moved": 13,
+      "bodies_changed": 0,
+      "old_exports_retained": 10
+    }
+  ],
+  "extraction": {
+    "source_commit": "a9529a1d74b52cb2b77342af53db70a8db5968c0",
+    "moved_declarations": 13,
+    "bodies_changed": 0,
+    "old_public_exports_retained": 10,
+    "entries": [
+      {
+        "name": "requestAuthoritativeThreadOpenProjection",
+        "body_changed": false,
+        "sha256": "11767ebbd40ed7151e896d7a4fbb9f85fc4540de83543bd49e981099c7f8421d"
+      },
+      {
+        "name": "ThreadSurfaceSnapshot",
+        "body_changed": false,
+        "sha256": "a8cf59ff1f90312e56ed210d39d743589db56b4a19da7578ce07da8bf377d2ef"
+      },
+      {
+        "name": "campOpenProjectionAsSnapshot",
+        "body_changed": false,
+        "sha256": "aa52d462a050de3e156bb325c33bca4ffad8309b6e28717192913142e92186c5"
+      },
+      {
+        "name": "optimisticThreadMessage",
+        "body_changed": false,
+        "sha256": "ab44fbe1b448b27ce78f750844fa0c0bc8f2620a23d13fafb566cb6d3397ba90"
+      },
+      {
+        "name": "campMessageSendParams",
+        "body_changed": false,
+        "sha256": "eef85126eed276ba885821463951c9b886070b63dff1dddc7f6e9db78e667c53"
+      },
+      {
+        "name": "campMessageExecutionPurpose",
+        "body_changed": false,
+        "sha256": "8a8c0ab6302da01df2746450db5781f603ecc172fb18d4b917ff7e063111afeb"
+      },
+      {
+        "name": "commandFailureMessage",
+        "body_changed": false,
+        "sha256": "7232052cfbd192e9bb33727ea68fa9eaa150fc024a96eb65ca8bfc4183eda85c"
+      },
+      {
+        "name": "membershipConflictCode",
+        "body_changed": false,
+        "sha256": "7dcb393bbef972c69650850293cf60f55f30d8c89f80b9207f498e7e9303466e"
+      },
+      {
+        "name": "runtimeRecoveryFromCommandResult",
+        "body_changed": false,
+        "sha256": "fd68ed0027700544f3afbf63b6e9782398b7d5698dbdb9b0ef25d6ceb0488a31"
+      },
+      {
+        "name": "asRecord",
+        "body_changed": false,
+        "sha256": "e4137b9465b5893dd9da2ccdd185a57a527e9049e2982a8891c28b52a50fb7c4"
+      },
+      {
+        "name": "stringField",
+        "body_changed": false,
+        "sha256": "2deab3738c8aea6d2ca3fe37127f95edecb88f18f826dc93ce289f864cd7e8bd"
+      },
+      {
+        "name": "stringArrayField",
+        "body_changed": false,
+        "sha256": "58d226e4ae5c2578fefb327ef893f07da19dc83b101735913267db16846a034e"
+      },
+      {
+        "name": "errorMessage",
+        "body_changed": false,
+        "sha256": "d5ef32ae84a6ec9a123936a124cd0081a08ab6bee4bd40c8bb6bf2a2e2bce53d"
+      }
+    ]
+  },
+  "self_review": [
+    "真实移植需求需要多卡实例，不能复制依赖global activeThreadId的整页；本批先从现有生产页面抽出可复用且绑定Thread的读写代码，未把当前单焦点模式当终点。",
+    "移动的格式、投影、错误函数逐字核对，旧App owner186项全跑；连同新7项及画布/私有owner共216。与逐切片完整构建/CI不同，只跑有关低成本owner。",
+    "类型检查发现测试把可选sourcePath写成null，改为undefined来覆盖真实缺源情况；最终类型exit0，早期日志保留。",
+    "检查异步审批链后补client/代次/水位围栏及client依赖；实际挂载/切Host/并发UI仍未验，不以纯mock测试替代。",
+    "无匹配已有CodeGraph索引，按仓库规则不初始化、不声称同步。"
+  ],
+  "not_run": [
+    "多卡片实际同时展开尚未接完；当前画布仍单个聚焦实例。精确引用镜像的共享草稿/发送锁、Thread读取owner、展开重开恢复和可见通知继续I03。",
+    "实际挂载、离开/切Host、附件、问题权限/审批/停止、流式回复、真实Runtime和设备资格未运行；216为纯/静态/模拟运输检查。",
+    "没有Rust编译/全工作区构建/完整回归/打包/push/Actions/候选/合入；之前I03新Rust、实际Host及平台待阶段候选。",
+    "全部324融合场景仍not_run；本批组件结果不计产品验收。"
+  ],
+  "protocol": {
+    "schema": 154,
+    "Host": 4,
+    "contract": "v1.72",
+    "operations_current": 178,
+    "operations_historical_locked": 161,
+    "added_operations": 0,
+    "new_dependencies": 0,
+    "database_or_model_input_changed": false
+  },
+  "next": [
+    "接每Thread读取/刷新与每精确引用呈现实例，公共ThreadWorkspace及私有SingleChatPanel共享现成Core transport；公开/私有同Thread不能多挂公开草稿owner。",
+    "保留同引用镜像多处展开，需共享草稿及发送锁，不能静默缩成只读镜像或唯一卡片；固定供体源码继续核查其draft绑定。",
+    "稳定portal子树、多实例leave准备、Host/Core/board展开恢复、只读请求并发及可见通知继续；随后Mission/Task/Thread/Diff、授权文件、真实PTY及Desktop冷路由。",
+    "I02余下SP及真实模型Gate、I04–I12/BUF完整保留，缺资源先待办。"
+  ],
+  "execution": {
+    "branch": "phase/i03-canvas-nodes",
+    "local_commit": true,
+    "push": false,
+    "Actions": false,
+    "candidate_frozen": false,
+    "main_merge": false,
+    "cadence": "小步中文本地commit，阶段编码/review齐后集中编译/集成及少量push/Actions"
+  }
+}

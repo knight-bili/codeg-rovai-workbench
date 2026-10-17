@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-15T12:12:23.053433+00:00",
+  "stage": "I03",
+  "goal_status": "active",
+  "source_commit": "a360635da22905fed46e2e592a8c1ced88a03656",
+  "baseline": "0fa95fa4",
+  "status": "private_composer_scope_codec_and_exact_pin_foundation_written_production_wiring_pending",
+  "confirmation": {
+    "revision": 1,
+    "confirmed_revision": 1,
+    "confirmed_by": "User",
+    "confirmation_status": "confirmed",
+    "human_reply": "确认，按私聊材料隔离 r1 实施",
+    "evidence": "i03-private-materials-proposal-result.json"
+  },
+  "source_files": [
+    {
+      "path": "crates/rovai-core/src/lib.rs",
+      "sha256": "682eaa9abff321b83fe2d991489bd82053d6e0e4656b21c525055f8907bde379",
+      "git_blob": "4abf32cccbf4864619e0c1b9b029e249b51cbcee"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat_composer_scope.rs",
+      "sha256": "1942e14e2703f20eaa83e2d74b24b044a54d5a514a4e6e258457498b07f5034d",
+      "git_blob": "2fb8374449573dace492629ecf89a4935a489d1b"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "40a9ce5419ecc435a6c920796b84c435fee9164db96fda12f61dbe6658309036",
+      "git_blob": "8c03fa450fa39f517947abfe8e14099c17a32303"
+    },
+    {
+      "path": "docs/contracts/single-chat-composer-scope-v1.md",
+      "sha256": "bc4cfe7724ac4b2362b1d92825fd4a0ae90db163cbe04df6f105f1d09af4ddbd",
+      "git_blob": "ce230030db738887e5a83aa45a3aa4db129e4030"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "4f237311c636de75500110822ebebe25526e5788b11e6ca3e81f338ea5358525",
+      "git_blob": "0046fd868117127e981c089afdffd922d189f9ec"
+    },
+    {
+      "path": "docs/versions/v1.72/README.md",
+      "sha256": "82efc5458933979657d147faaacba7e80293a0b67651dbe2c72952bccab21551",
+      "git_blob": "a50511f38d9d00691a3196eeb69775933db3a377"
+    },
+    {
+      "path": "docs/versions/v1.72/model-context-change-canvas-private-materials.md",
+      "sha256": "2ffbc0d112a4977fab5e3ac8057232891392436750bd364f3be6add2e389cd87",
+      "git_blob": "129d32c699f590d75dbc5edfeda88c5e8b9f9d5c"
+    }
+  ],
+  "unchanged_authorities": [
+    {
+      "path": "crates/rovai-core/src/draft_client.rs",
+      "git_blob": "8745a0ed10f868be9f728e63f951f7142124bdce",
+      "sha256": "651d61c4788d6205f11abbe5979dd21f9a08c4e3378d2cb889ee2598dac2ed1e"
+    },
+    {
+      "path": "crates/rovai-core/src/single_chat.rs",
+      "git_blob": "d8b8ce5d23d8161e7a828ee2aede19e6b410ac37",
+      "sha256": "098d540d33d36983ffbbbcb929af1bb08c74ff602f65600a14e5728f9ed28e8e"
+    },
+    {
+      "path": "crates/rovai-core/src/message_quote.rs",
+      "git_blob": "27536401f7392abeb1739281a674484bfa691641",
+      "sha256": "84a1974469c8aa1ce4aa27c7f30aa357dea608aeab06a832cb13997ddc8b6bc6"
+    },
+    {
+      "path": "crates/rovai-core/src/local_attachment_source.rs",
+      "git_blob": "e786fd0408ffa7110679225e2061fc8e4dae7b6c",
+      "sha256": "fbb7d634bce16c7fd1dad7a804c1db922d1f4d5d04c7c3c86eff0f7e7310ddef"
+    },
+    {
+      "path": "crates/rovai-core/src/context.rs",
+      "git_blob": "cdd9fdef5b8ab841599ffa69b9a9184c4f4dabb8",
+      "sha256": "3cc5ac1391dece1cad82f5dce7397723a6c99bd04cdea562568e17040e821fd9"
+    },
+    {
+      "path": "crates/rovai-core/src/context_contract.rs",
+      "git_blob": "97498ae4617bf94fbce2d5a68e6c459fe0c2df90",
+      "sha256": "d69fc337182fdab43feb84435c852ca92bf9a4ae57b9e532cb73ad350ccd736c"
+    },
+    {
+      "path": "crates/rovai-core/src/db.rs",
+      "git_blob": "0da101c0774d08d8cf5b21347a5a61db2ec0a012",
+      "sha256": "6636f8b32de177428a1b640d0367e532ebbfcf6476c88441680a38f90a2a8425"
+    },
+    {
+      "path": "crates/rovai-web/src/operations.rs",
+      "git_blob": "9bbf410f9f40e10770912ea29b72d28fd960a680",
+      "sha256": "e7d2b203700f888676aa122c8c5cd5c5d4520ac6c92a8c83e2a5881a223c62d3"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/SingleChatPanel.tsx",
+      "git_blob": "fee636a91320aec476ff10fbf959670c2a7a368e",
+      "sha256": "d280ca7180e6d24f52bd7fc34b9d460f005164bc471828bdc0553c445a4ce660"
+    },
+    {
+      "path": "apps/desktop/src/main/index.ts",
+      "git_blob": "27eb525e18e151d8479bb49b05dd9731b4b1f5b9",
+      "sha256": "f66e4fabf3ede35912bd3c32359df6872728fbb6375f5e7e9f96410972758ac0"
+    },
+    {
+      "path": "apps/web/src/camp-adapter.ts",
+      "git_blob": "cc47e5c688a431a762ca0484cac0e49c872082e9",
+      "sha256": "47a517cfa7958ac5abd62aaf6a63d078d58aa2712684a747cd07312fc91d3658"
+    }
+  ],
+  "implementation": [
+    "闭合Canvas scope描述与规范UUID校验，Core派生非认证存储key，拒绝网络伪造scopeKey/client字段",
+    "get编码区分省略Legacy和显式null/描述，写命令仍要求Option默认省略以保持旧摘要",
+    "首次登记可复用真实pin与活跃私聊精确关系的只读查询；不分配草稿或作为Host认证"
+  ],
+  "validation": {
+    "source_review": "completed",
+    "rustfmt": "passed",
+    "diff_check": "passed",
+    "generic_document_gates": "version_and_decisions_passed_against_0fa95fa4",
+    "raw_sql_witness": {
+      "passed": 25,
+      "failed": 0,
+      "owner": "python_sqlite_executes_rust_original_query_minimal_fixture_only"
+    },
+    "rust_compilation": "not_run_deferred_i03_candidate",
+    "rust_new_owners": {
+      "count": 2,
+      "status": "written_not_compiled_not_executed"
+    },
+    "production_get_send_upload_quotes": "not_connected",
+    "pc01_pc24": "all_not_run",
+    "formal_324": "all_not_run"
+  },
+  "current_schema": 154,
+  "current_migration": 204,
+  "current_version": "v1.72",
+  "new_operations_admitted": 0,
+  "model_input_changed": false,
+  "push": false,
+  "actions": false,
+  "paid_model_calls": false,
+  "artifacts": [
+    {
+      "path": "work\\i03\\private-scope-sql-witness.json",
+      "sha256": "68b197b6384769c8cc7d7dd77c02e97d2590ac83ac2a8c3846b78f4daf517db9",
+      "bytes": 3687
+    },
+    {
+      "path": "work\\i03\\private-scope-sql.log",
+      "sha256": "8cb2cd1c9df3200c8beba7ee0376dcaa35c8d72629d1d89b8c2dddcfe1e7b7ea",
+      "bytes": 69
+    },
+    {
+      "path": "work\\i03\\private-scope-rustfmt.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "work\\i03\\private-scope-doc-version.log",
+      "sha256": "01dbc9daf44dff0600954e17b82ec917ad4998a3eb5eefa32505c4ca15a8552d",
+      "bytes": 79
+    },
+    {
+      "path": "work\\i03\\private-scope-doc-decisions.log",
+      "sha256": "d58168f462b9dd5bd281a72af820169f9a7e92d02aa34b1c51c5aef9e29aa77e",
+      "bytes": 170
+    },
+    {
+      "path": "work\\i03\\verify_private_scope_sql.py",
+      "sha256": "726918fbc8d13d65354f61f72673e886c86e0b13250f3020166f7b2587ad7609",
+      "bytes": 4196
+    }
+  ],
+  "limits": [
+    "原文SQL不替代Rust/Host/实际事务资格",
+    "类型存在不代表scopeVersion或新功能可用",
+    "首次pin校验不用于清理或重绑已登记orphan",
+    "Schema155/Migration205仍待追加和验证"
+  ],
+  "next": [
+    "原子迁移复合主键、scope注册与完整保留输入存储，默认路径全部加scope围栏",
+    "接材料CAS、发送/FIFO、编辑租约、完整返回/交换与未知原UUID恢复",
+    "保持其余I03、I02剩余及I04-I12/BUF全范围"
+  ]
+}

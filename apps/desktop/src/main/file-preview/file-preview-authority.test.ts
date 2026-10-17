@@ -1,5 +1,25 @@
-import { describe, expect, it } from 'vitest'
-import { parseCoreFilePreviewAuthorityResult } from './file-preview-authority'
+import { describe, expect, it, vi } from 'vitest'
+import { resolve } from 'node:path'
+import type { CoreMethod } from '@contracts'
+import { CoreFilePreviewSourceAuthority, parseCoreFilePreviewAuthorityResult } from './file-preview-authority'
+
+it('forwards the complete private locator to Core and separates authority identities across scopes', async () => {
+  const target = { attachmentId: '8b85752a-76a5-4b9d-92d8-a70b6285a0d0', displayName: 'file.txt', kind: 'file',
+    mediaType: 'text/plain', path: resolve('fixture.txt'), openRisk: 'normal', canShowPath: true }
+  const request = vi.fn<(method: CoreMethod, params?: unknown) => void>()
+  const authority = new CoreFilePreviewSourceAuthority({ async request<T>(method: CoreMethod, params?: unknown): Promise<T> {
+    request(method, params)
+    return target as T
+  } })
+  const locator = { owner: 'single_chat_scoped_composer' as const, threadId: 'thread', conversationId: 'conversation',
+    composerScope: { kind: 'canvas' as const, boardId: 'board', nodeId: 'card-a' }, attachmentRefId: target.attachmentId }
+  const a = await authority.resolve({ kind: 'attachment', threadId: 'thread', locator })
+  expect(request).toHaveBeenLastCalledWith('thread.attachments.desktopOpenTarget', locator)
+  const b = await authority.resolve({ kind: 'attachment', threadId: 'thread', locator: { ...locator, composerScope: { ...locator.composerScope, nodeId: 'card-b' } } })
+  if (a?.kind !== 'file_target' || b?.kind !== 'file_target') throw new Error('Missing attachment authority')
+  expect(a.sourceIdentity).not.toBe(b.sourceIdentity)
+  expect(a).toMatchObject({ candidatePath: target.path, displayName: 'file.txt' })
+})
 
 describe('parseCoreFilePreviewAuthorityResult', () => {
   it('accepts a matching authority receipt', () => {

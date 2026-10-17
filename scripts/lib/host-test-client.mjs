@@ -48,9 +48,9 @@ export function launchHost(binary, args, options = {}) {
         }))
       } finally { pending.delete(id) }
     },
-    async close() {
+    async close({ timeoutMs = 3000 } = {}) {
       if (child.exitCode === null && child.signalCode === null) child.stdin.end()
-      const timer = setTimeout(() => child.kill('SIGKILL'), 3000)
+      const timer = setTimeout(() => child.kill('SIGKILL'), timeoutMs)
       try { await closed } finally { clearTimeout(timer); lines.close() }
     }
   }

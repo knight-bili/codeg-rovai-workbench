@@ -105,6 +105,10 @@ pub enum Operation {
     SingleChatPendingEdit,
     #[serde(rename = "singleChat.composerDraft.removeAttachment")]
     SingleChatRemoveAttachment,
+    #[serde(rename = "singleChat.composerDraft.mutate")]
+    SingleChatComposerMutate,
+    #[serde(rename = "singleChat.composerDraft.recovery")]
+    SingleChatComposerRecovery,
 
     #[serde(rename = "skills.content.read")]
     SkillContent,
@@ -225,6 +229,8 @@ pub enum Operation {
     Member,
     #[serde(rename = "navigation.snapshot")]
     Navigation,
+    #[serde(rename = "navigation.activity")]
+    NavigationActivity,
     #[serde(rename = "navigation.threads", alias = "navigation.camps")]
     NavigationCamps,
     #[serde(rename = "navigation.groupThreads", alias = "navigation.groupCamps")]
@@ -285,6 +291,8 @@ pub enum Operation {
     SkillPackSetMembers,
     #[serde(rename = "canvas.boards.list")]
     CanvasBoardsList,
+    #[serde(rename = "canvas.references.page")]
+    CanvasReferencesPage,
     #[serde(rename = "canvas.boards.get")]
     CanvasBoardsGet,
     #[serde(rename = "canvas.boards.create")]
@@ -293,6 +301,20 @@ pub enum Operation {
     CanvasBoardsUpdate,
     #[serde(rename = "canvas.boards.delete")]
     CanvasBoardsDelete,
+    #[serde(rename = "canvas.nodes.snapshot")]
+    CanvasNodesSnapshot,
+    #[serde(rename = "canvas.nodes.apply")]
+    CanvasNodesApply,
+    #[serde(rename = "canvas.terminals.start")]
+    CanvasTerminalStart,
+    #[serde(rename = "canvas.terminals.snapshot")]
+    CanvasTerminalSnapshot,
+    #[serde(rename = "canvas.terminals.write")]
+    CanvasTerminalWrite,
+    #[serde(rename = "canvas.terminals.resize")]
+    CanvasTerminalResize,
+    #[serde(rename = "canvas.terminals.stop")]
+    CanvasTerminalStop,
     #[serde(rename = "toolbox.read")]
     ToolboxRead,
     #[serde(rename = "toolbox.setMembers")]
@@ -354,6 +376,8 @@ pub enum Operation {
     MemberClearRuntime,
     #[serde(rename = "workspaces.inspect")]
     WorkspaceInspect,
+    #[serde(rename = "workspaces.worktrees")]
+    WorkspaceWorktrees,
     #[serde(rename = "workspaces.validate")]
     WorkspaceValidate,
     #[serde(rename = "agentRunImages.read")]
@@ -391,6 +415,12 @@ impl Operation {
         use serde_json::json;
         match self {
             Self::AppInfo => json!({"name":value["name"],"version":value["version"]}),
+            Self::CanvasTerminalStart | Self::CanvasTerminalSnapshot => {
+                project_terminal_snapshot(value)
+            }
+            Self::CanvasTerminalWrite => select_fields(&value, &["sequence", "inputId", "status"]),
+            Self::CanvasTerminalResize => select_fields(&value, &["resized"]),
+            Self::CanvasTerminalStop => select_fields(&value, &["stopping"]),
             // Core owns credential redaction and digest-CAS. These projections
             // admit the fields used by the shared editor, never future fields.
             Self::Mcp | Self::McpRepair => project_mcp_config(value),
@@ -523,6 +553,8 @@ impl Operation {
             Self::SingleChatEnd => "singleChat.end",
             Self::SingleChatPendingEdit => "singleChat.pendingInputs.edit",
             Self::SingleChatRemoveAttachment => "singleChat.composerDraft.removeAttachment",
+            Self::SingleChatComposerMutate => "singleChat.composerDraft.mutate",
+            Self::SingleChatComposerRecovery => "singleChat.composerDraft.recovery",
 
             Self::MemoryCreate => "memory.create",
             Self::MemoryRevise => "memory.revise",
@@ -564,6 +596,7 @@ impl Operation {
             Self::MemberRuntime => "members.runtime.set",
             Self::MemberClearRuntime => "members.runtime.clear",
             Self::WorkspaceInspect => "workspaces.inspect",
+            Self::WorkspaceWorktrees => "workspaces.worktrees",
             Self::WorkspaceValidate => "workspaces.validate",
             Self::RunImages => "agentRunImages.read",
             Self::RunFiles => "agentRunFileChanges.get",
@@ -580,6 +613,7 @@ impl Operation {
             Self::Members => "members.list",
             Self::Member => "members.get",
             Self::Navigation => "navigation.snapshot",
+            Self::NavigationActivity => "navigation.activity",
             Self::NavigationCamps => "navigation.camps",
             Self::GroupCamps => "navigation.groupCamps",
             Self::CampExists => "camps.exists",
@@ -610,10 +644,18 @@ impl Operation {
             Self::SkillPackMembers => "skillPacks.members.list",
             Self::SkillPackSetMembers => "skillPacks.members.set",
             Self::CanvasBoardsList => "canvas.boards.list",
+            Self::CanvasReferencesPage => "canvas.references.page",
             Self::CanvasBoardsGet => "canvas.boards.get",
             Self::CanvasBoardsCreate => "canvas.boards.create",
             Self::CanvasBoardsUpdate => "canvas.boards.update",
             Self::CanvasBoardsDelete => "canvas.boards.delete",
+            Self::CanvasNodesSnapshot => "canvas.nodes.snapshot",
+            Self::CanvasNodesApply => "canvas.nodes.apply",
+            Self::CanvasTerminalStart => "canvas.terminals.start",
+            Self::CanvasTerminalSnapshot => "canvas.terminals.snapshot",
+            Self::CanvasTerminalWrite => "canvas.terminals.write",
+            Self::CanvasTerminalResize => "canvas.terminals.resize",
+            Self::CanvasTerminalStop => "canvas.terminals.stop",
             Self::ToolboxRead => "toolbox.read",
             Self::ToolboxSetMembers => "toolbox.setMembers",
             Self::NativeSkillsList => "nativeSkills.list",
@@ -622,6 +664,46 @@ impl Operation {
             Self::Mcp => "mcp.config.get",
         }
     }
+}
+
+fn project_terminal_snapshot(value: serde_json::Value) -> serde_json::Value {
+    let mut result = select_fields(
+        &value,
+        &[
+            "coreGeneration",
+            "exists",
+            "generation",
+            "launchRequestId",
+            "phase",
+            "cols",
+            "rows",
+            "exitCode",
+            "throughSeq",
+            "firstAvailableSeq",
+            "gap",
+            "inputSequence",
+            "issue",
+            "cleanupComplete",
+        ],
+    );
+    result["target"] = select_fields(&value["target"], &["boardId", "nodeId"]);
+    for (name, fields) in [
+        ("chunks", &["seq", "bytesBase64"][..]),
+        ("inputs", &["sequence", "inputId", "status"][..]),
+    ] {
+        result[name] = serde_json::Value::Array(
+            value[name]
+                .as_array()
+                .map(|items| {
+                    items
+                        .iter()
+                        .map(|item| select_fields(item, fields))
+                        .collect()
+                })
+                .unwrap_or_default(),
+        );
+    }
+    result
 }
 
 fn select_fields(value: &serde_json::Value, fields: &[&str]) -> serde_json::Value {
@@ -742,6 +824,14 @@ mod tests {
             .expect("User message withdrawal should be admitted by the Web Host");
         assert_eq!(withdraw.method(), "camp.messages.withdraw");
         for (public, internal) in [
+            (
+                "singleChat.composerDraft.mutate",
+                "singleChat.composerDraft.mutate",
+            ),
+            (
+                "singleChat.composerDraft.recovery",
+                "singleChat.composerDraft.recovery",
+            ),
             ("thread.messages.anchors", "camp.messages.anchors"),
             (
                 "thread.messages.anchorPreview",
@@ -758,5 +848,50 @@ mod tests {
         let continuation =
             serde_json::from_value::<Operation>(json!("agentRuns.continue")).unwrap();
         assert_eq!(continuation.method(), "agentRuns.continue");
+        // 终端只投影公开字节块及回执，不能扩散将来新增的进程内部字段。
+        let terminal = json!({"coreGeneration":"core", "target":{"boardId":"board", "nodeId":"node", "cwd":"private"},
+            "exists":true, "generation":"generation", "launchRequestId":"original", "phase":"running", "cols":80, "rows":24,
+            "exitCode":null, "throughSeq":1, "firstAvailableSeq":1, "gap":false, "inputSequence":1, "issue":null, "cleanupComplete":false,
+            "chunks":[{"seq":1, "bytesBase64":"ABv/", "future":"private"}],
+            "inputs":[{"sequence":1, "inputId":"original", "status":"written", "digest":"private", "bytesBase64":"private"}],
+            "pid":123, "environment":"private"});
+        for name in [
+            "canvas.terminals.start",
+            "canvas.terminals.snapshot",
+            "canvas.terminals.write",
+            "canvas.terminals.resize",
+            "canvas.terminals.stop",
+        ] {
+            let operation = serde_json::from_value::<Operation>(json!(name)).unwrap();
+            assert_eq!(operation.method(), name);
+        }
+        let mut expected = terminal.clone();
+        expected.as_object_mut().unwrap().remove("pid");
+        expected.as_object_mut().unwrap().remove("environment");
+        expected["target"] = json!({"boardId":"board", "nodeId":"node"});
+        expected["chunks"] = json!([{"seq":1, "bytesBase64":"ABv/"}]);
+        expected["inputs"] = json!([{"sequence":1, "inputId":"original", "status":"written"}]);
+        assert_eq!(
+            Operation::CanvasTerminalStart.project(terminal.clone()),
+            expected
+        );
+        assert_eq!(
+            Operation::CanvasTerminalSnapshot.project(terminal),
+            expected
+        );
+        assert_eq!(
+            Operation::CanvasTerminalWrite.project(
+                json!({"sequence":1, "inputId":"original", "status":"unknown", "digest":"private"})
+            ),
+            json!({"sequence":1, "inputId":"original", "status":"unknown"})
+        );
+        assert_eq!(
+            Operation::CanvasTerminalResize.project(json!({"resized":true, "pid":123})),
+            json!({"resized":true})
+        );
+        assert_eq!(
+            Operation::CanvasTerminalStop.project(json!({"stopping":true, "pid":123})),
+            json!({"stopping":true})
+        );
     }
 }

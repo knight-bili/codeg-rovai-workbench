@@ -1,0 +1,673 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-16",
+  "status": "ready_git_exact_diff_and_fresh_public_pin_recovery_verified_remaining_stage_scope",
+  "candidate": "fusion-i03-rc.14",
+  "production_source": "c44638135b8e06d34456bdc50657707404a6045c",
+  "native_source": "2158df02e793fc2eb3a01297b4921de214cdbe61",
+  "product_diff_since_candidate": [],
+  "new_builds": 0,
+  "runs": [
+    {
+      "mode": "ready-diff",
+      "revision": "r1",
+      "status": "failed",
+      "checks": [
+        {
+          "name": "owned_controlled_acp_passes_original_product_runtime_gate_without_external_model",
+          "passed": true
+        },
+        {
+          "name": "real_core_prepares_managed_git_worktree_at_recorded_base_and_settles_controlled_protocol_run",
+          "passed": true
+        },
+        {
+          "name": "actual_core_git_diff_includes_exact_unicode_path_and_untracked_file_without_writing_real_index_or_source_checkout",
+          "passed": true
+        }
+      ],
+      "error": "Error: TypeError: Cannot read properties of null (reading 'querySelectorAll')\n    at <anonymous>:1:131\n    at <anonymous>:1:322\n    at evaluate (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-ready-diff-r1.mjs:41:23)\n    at async wait (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-ready-diff-r1.mjs:44:106)\n    at async inspect (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-ready-diff-r1.mjs:1101:3)\n    at async qualifyReadyDiff (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-ready-diff-r1.mjs:1111:2)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-ready-diff-r1.mjs:112:4)",
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "test_owner_revision": "2f09faaec044b186206f043fa3ddad7f197674f8",
+      "fixture_sha256": "bfda0af51a9450b97aa02a7bf0d52c3e80ce01f17d36a3a730eecb17e168de2a",
+      "app_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T11:40:55.980Z"
+      },
+      "driver_rule": "App退出0还需result.status=passed；旧失败run的driver进程实际exit1，不能只看App退出码",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "mode": "ready-diff",
+      "revision": "r2",
+      "status": "failed",
+      "checks": [],
+      "error": "AssertionError [ERR_ASSERTION]: {\"code\":\"agent_profile.display_name_conflict\",\"commandId\":\"771cb5cd-7be0-4146-85d6-55766008225c\",\"commandType\":\"agent_profile.create\",\"payload\":{\"displayName\":\"C02 本地协议工作区队员\"},\"recordedAt\":\"2026-10-16T11:41:42.819619800+00:00\",\"resultEntity\":null,\"status\":\"rejected\"}\n+ actual - expected\n\n+ 'rejected'\n- 'applied'\n\n    at qualifyReadyDiff (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-ready-diff-r2.mjs:1066:9)\n    at async qualify (file:///C:/Users/JiaLe/Documents/Codex/2026-10-13/codeg-rovai-ai-rovai-core-codeg/work/integration/integration/local/i03-c06-rc14/app/c06-native-ready-diff-r2.mjs:112:4)",
+      "renderer_errors": [],
+      "test_owner_revision": "31806aeb9a954fcc5f41457d3723ad99ac27daed",
+      "fixture_sha256": "ddfff5bc7e31ae61b01809f83c54205a31c6ff4cfb8ae47c4198858e862d0df6",
+      "app_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T11:41:43.390Z"
+      },
+      "driver_rule": "App退出0还需result.status=passed；旧失败run的driver进程实际exit1，不能只看App退出码",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "mode": "ready-diff",
+      "revision": "r3",
+      "status": "passed",
+      "checks": [
+        {
+          "name": "owned_controlled_acp_passes_original_product_runtime_gate_without_external_model",
+          "passed": true
+        },
+        {
+          "name": "real_core_prepares_managed_git_worktree_at_recorded_base_and_settles_controlled_protocol_run",
+          "passed": true
+        },
+        {
+          "name": "actual_core_git_diff_includes_exact_unicode_path_and_untracked_file_without_writing_real_index_or_source_checkout",
+          "passed": true
+        },
+        {
+          "name": "actual_canvas_diff_pin_opens_original_mission_diff_view_and_exact_unicode_file_with_visible_before_after_lines",
+          "passed": true
+        },
+        {
+          "name": "formerly_changed_pinned_path_becoming_clean_keeps_original_pin_and_does_not_substitute_another_changed_file",
+          "passed": true
+        }
+      ],
+      "error": null,
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "test_owner_revision": "a3b9f9a5a1de001b46bcb1c4a776f44d36d8ec0e",
+      "fixture_sha256": "182a4ee0a720b79261926f7b892acc4a9ed5b7b01f84be7bdfdf8780d4f1f87c",
+      "app_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T11:42:49.595Z"
+      },
+      "driver_rule": "App退出0还需result.status=passed；旧失败run的driver进程实际exit1，不能只看App退出码",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "mode": "ready-diff",
+      "revision": "r4",
+      "status": "passed",
+      "checks": [
+        {
+          "name": "owned_controlled_acp_passes_original_product_runtime_gate_without_external_model",
+          "passed": true
+        },
+        {
+          "name": "real_core_prepares_managed_git_worktree_at_recorded_base_and_settles_controlled_protocol_run",
+          "passed": true
+        },
+        {
+          "name": "actual_core_git_diff_includes_exact_unicode_path_and_untracked_file_without_writing_real_index_or_source_checkout",
+          "passed": true
+        },
+        {
+          "name": "actual_canvas_diff_pin_opens_original_mission_diff_view_and_exact_unicode_file_with_visible_before_after_lines",
+          "passed": true
+        },
+        {
+          "name": "formerly_changed_pinned_path_becoming_clean_keeps_original_pin_and_does_not_substitute_another_changed_file",
+          "passed": true
+        }
+      ],
+      "error": null,
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "test_owner_revision": "3821db971a29269e8e0397a982cd890c897f6e40",
+      "fixture_sha256": "208c7cf02a2fc4255350c5181898c103b636908f879b5da4c62508f916dddec4",
+      "app_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T11:47:14.060Z"
+      },
+      "driver_rule": "App退出0还需result.status=passed；旧失败run的driver进程实际exit1，不能只看App退出码",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    },
+    {
+      "mode": "public-cold",
+      "revision": "r1",
+      "status": "passed",
+      "checks": [
+        {
+          "name": "fresh_app_restores_64_exact_persisted_summary_nodes_without_recreating_references",
+          "passed": true
+        },
+        {
+          "name": "fresh_app_explicitly_reopened_public_pins_restore_three_distinct_bodies_including_previous_native_focus_input",
+          "passed": true
+        },
+        {
+          "name": "public_cold_reopening_keeps_original_two_threads_without_sending_messages_or_starting_model_runs",
+          "passed": true
+        }
+      ],
+      "error": null,
+      "renderer_errors": [
+        "ResizeObserver loop completed with undelivered notifications."
+      ],
+      "test_owner_revision": "a3b9f9a5a1de001b46bcb1c4a776f44d36d8ec0e",
+      "fixture_sha256": "182a4ee0a720b79261926f7b892acc4a9ed5b7b01f84be7bdfdf8780d4f1f87c",
+      "app_exit": {
+        "code": 0,
+        "signal": null,
+        "deadline_terminated": false,
+        "at": "2026-10-16T11:43:40.546Z"
+      },
+      "driver_rule": "App退出0还需result.status=passed；旧失败run的driver进程实际exit1，不能只看App退出码",
+      "shutdown": {
+        "report": {
+          "activeExecutionsObserved": 0,
+          "cancelledAgentRunsSettled": 0,
+          "controlledShutdownCyclePersisted": true,
+          "deadlineExpired": false,
+          "protocolVersion": 3,
+          "status": "completed",
+          "stopRequestsIssued": 0,
+          "terminalExecutionsSettled": 0,
+          "unresolvedExecutions": 0,
+          "unsettledEffectAgentRuns": 0
+        },
+        "forcedSignal": null
+      }
+    }
+  ],
+  "passed_counts": {
+    "ready_diff_distinct": 5,
+    "public_cold_distinct": 3,
+    "new_distinct_scenarios": 8,
+    "candidate_distinct_scenarios": 60,
+    "rule": "r3/r4五个同名场景只计一次；r4增加索引物理文件证明，不累计运行次数或以60代替阶段完成"
+  },
+  "ready_git": {
+    "context": {
+      "missionId": "rvm_01a144898c757a00a464db3d03d05d60",
+      "threadId": "rvcamp_01m528k33nf80a8s6v880yjgvn",
+      "agentId": "agent_10",
+      "project": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\ready-diff-git-r4",
+      "relativePath": "src/精确 #变更.txt",
+      "otherPath": "src/另一处变更.txt",
+      "newPath": "src/未跟踪.txt",
+      "base": "7551ce85936a3b49c3e8f769c8bfdeeb13fb594e",
+      "workspace": {
+        "baseBranch": "main",
+        "baseSha": "7551ce85936a3b49c3e8f769c8bfdeeb13fb594e",
+        "cleanupBranchRemoved": false,
+        "cleanupWorktreeRemoved": false,
+        "diagnostic": null,
+        "executionHostId": "cb0a339e80bf94e4aabc992b19c2ebf3",
+        "gitCommonDir": "\\\\?\\C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\ready-diff-git-r4\\.git",
+        "id": "b7265b24-13eb-40ff-bb99-e43f83559836",
+        "managedBranch": "rovai/mission/008",
+        "missionId": "rvm_01a144898c757a00a464db3d03d05d60",
+        "repositoryRoot": "\\\\?\\C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\ready-diff-git-r4",
+        "sourceDirectory": "\\\\?\\C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\ready-diff-git-r4",
+        "state": "ready",
+        "threadId": "rvcamp_01m528k33nf80a8s6v880yjgvn",
+        "workingDirectory": "\\\\?\\C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\ready-diff-git-r4-mission-008\\",
+        "worktreePath": "\\\\?\\C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\ready-diff-git-r4-mission-008"
+      },
+      "boardId": "f727db6f-2c18-43d4-b7b7-83034c145e99",
+      "nodeId": "cecfd10e-9a21-4d4f-8f0c-3170a5bd7949"
+    },
+    "workspace_created_by": "真实Core missions.start后原调度及prepare_mission_workspace；未直接写SQLite",
+    "controlled_runtime": {
+      "kind": "owned_qwen_acp_protocol_fixture",
+      "launcher": {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\i02\\native-fixtures\\skill-recovery-launcher.exe",
+        "sha256": "2e3ff0a1583686f145107af9f41fe5cedc37f212107dade8c3c2dcc2fece234f"
+      },
+      "script": {
+        "path": "C:\\Users\\JiaLe\\Documents\\Codex\\2026-10-13\\codeg-rovai-ai-rovai-core-codeg\\work\\integration\\integration\\local\\i03-c06-rc14\\app\\c06-controlled-diff-runtime-r4.mjs",
+        "sha256": "9d724adbb896a11aefc433612e71ed995c351257cc2210861cc96babb34f4fd7"
+      },
+      "external_model_calls": 0,
+      "inference": false,
+      "agent_run_status": "succeeded"
+    },
+    "diff": {
+      "file": {
+        "additions": 1,
+        "binary": false,
+        "deletions": 1,
+        "id": "7477707d725881eb64aa71400766a3adc1c4aa730a2bb3b76f2e5c88a5c4e89d",
+        "kind": "modified",
+        "newMode": "100644",
+        "oldMode": "100644",
+        "oldPath": null,
+        "path": "src/精确 #变更.txt"
+      },
+      "hunks": [
+        {
+          "lines": [
+            {
+              "kind": "deletion",
+              "newLine": null,
+              "oldLine": 1,
+              "text": "原内容甲"
+            },
+            {
+              "kind": "addition",
+              "newLine": 1,
+              "oldLine": null,
+              "text": "新内容乙"
+            },
+            {
+              "kind": "context",
+              "newLine": 2,
+              "oldLine": 2,
+              "text": "保留行"
+            }
+          ],
+          "newStart": 1,
+          "oldStart": 1
+        }
+      ],
+      "patch": "diff --git \"a/src/\\347\\262\\276\\347\\241\\256 #\\345\\217\\230\\346\\233\\264.txt\" \"b/src/\\347\\262\\276\\347\\241\\256 #\\345\\217\\230\\346\\233\\264.txt\"\nindex f54b378..3b8ae76 100644\n--- \"a/src/\\347\\262\\276\\347\\241\\256 #\\345\\217\\230\\346\\233\\264.txt\"\t\n+++ \"b/src/\\347\\262\\276\\347\\241\\256 #\\345\\217\\230\\346\\233\\264.txt\"\t\n@@ -1,2 +1,2 @@\n-原内容甲\n+新内容乙\n 保留行\n"
+    },
+    "files": [
+      {
+        "additions": 1,
+        "binary": false,
+        "deletions": 1,
+        "id": "7dbab1e650bf6e1e65419afc549427640120764ac15c11c488c00f351f45f63e",
+        "kind": "modified",
+        "newMode": "100644",
+        "oldMode": "100644",
+        "oldPath": null,
+        "path": "src/另一处变更.txt"
+      },
+      {
+        "additions": 1,
+        "binary": false,
+        "deletions": 0,
+        "id": "4ad6c5bf2399a744940c49c85c2b000724712eff1373b23dcc14faa0e23e22f6",
+        "kind": "added",
+        "newMode": "100644",
+        "oldMode": "000000",
+        "oldPath": null,
+        "path": "src/未跟踪.txt"
+      },
+      {
+        "additions": 1,
+        "binary": false,
+        "deletions": 1,
+        "id": "7477707d725881eb64aa71400766a3adc1c4aa730a2bb3b76f2e5c88a5c4e89d",
+        "kind": "modified",
+        "newMode": "100644",
+        "oldMode": "100644",
+        "oldPath": null,
+        "path": "src/精确 #变更.txt"
+      }
+    ],
+    "index_before": {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\ready-diff-git-r4\\.git\\worktrees\\checkout\\index",
+      "sha256": "fecf4eac4d03b1d32c712eee73887397ef4688c236d88aa0ffb0dcf9bb5a2eeb",
+      "mtime_ns": "1792151228170328700"
+    },
+    "index_after": {
+      "path": "C:\\Users\\JiaLe\\AppData\\Local\\Temp\\rovai-canvas-native-190cf86d\\ready-diff-git-r4\\.git\\worktrees\\checkout\\index",
+      "sha256": "fecf4eac4d03b1d32c712eee73887397ef4688c236d88aa0ffb0dcf9bb5a2eeb",
+      "mtime_ns": "1792151228170328700"
+    },
+    "source_checkout_remained_clean": true,
+    "final_changed_paths": [
+      "src/另一处变更.txt",
+      "src/未跟踪.txt"
+    ],
+    "former_target_clean_has_explicit_notice_and_no_fallback": true
+  },
+  "public_cold": {
+    "boardId": "fa79936a-d8e9-4877-ae8a-ba3db28a4ba5",
+    "nodeIds": [
+      "5b90d4a9-0233-42d2-b8ac-5bab013fdd98",
+      "bce0b286-d7bd-4ce0-b3ab-afa1ffcb35e8",
+      "05c0d784-77c2-4f59-9d1a-8d6097d97cca"
+    ],
+    "threads": [
+      "rvcamp_01m51k9yxpej9skre0ybc5m82g",
+      "rvcamp_01m51k9yxpej9skre0ybc5m82g",
+      "rvcamp_01m51k9yy0fzrr8zqrx3jmcs50"
+    ],
+    "texts": [
+      "公开甲卡焦点仍在甲独立输入",
+      "同Thread公开乙卡独立输入",
+      "另一Thread公开丙卡独立输入"
+    ],
+    "main_pid": 311920,
+    "renderer_pid": 325028,
+    "recovery": "fresh App; explicit board and card reopening, not automatic expanded-pin restoration"
+  },
+  "screenshots": [
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r4/01-ready-git-exact-diff.png",
+      "width": 2520,
+      "height": 1500,
+      "actually_viewed": true
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r3/02-no-fallback-after-target-clean.png",
+      "width": 2520,
+      "height": 1500,
+      "actually_viewed": true
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r4/02-no-fallback-after-target-clean.png",
+      "width": 2520,
+      "height": 1500,
+      "actually_viewed": false
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-cold-r1/01-cold-public-pin-drafts.png",
+      "width": 2520,
+      "height": 1500,
+      "actually_viewed": true
+    }
+  ],
+  "failure_analysis": {
+    "ready_r1": "真实Core/Git前三项通过，夹具在节点挂载前访问null.querySelectorAll而中断；修wait准入，产品未改",
+    "ready_r2": "旧失败run已保存同显示名，Core正确拒绝重复名字；新run改仓库修订号专用队员，不覆盖旧队员",
+    "ready_r3": "五项通过，索引只比条目；保留通过记录，但不单凭它宣称物理文件未写",
+    "ready_r4": "同五项补齐实际索引sha256及纳秒mtime前后相同；原Diff窗口精确文件与恢复干净后的无替代通过",
+    "public_cold_r1": "新App/Core进程选择原画板并显式展开原三卡，64节点及三份正文恢复；无原Thread消息或AgentRun"
+  },
+  "boundaries": [
+    "这是实际Core/Host/Git/Native UI链路，执行端使用本地固定ACP协议脚本，没有真实模型推理/自主工具执行，不能替代完整Runtime或真实模型资格",
+    "公开卡新进程后显式打开，未宣称自动恢复展开卡；没有发送原公开Thread消息或启动其Run",
+    "Diff固定基准/中文精确路径/未跟踪与已变干净路径、真实索引指纹已验证，其他视图容量/过期及多查看器释放仍按原C02/C05清单",
+    "整App/Core硬中断、未知在途请求、五空闲投影/文件及终端资源预算、大材料IO、PC矩阵与适用平台仍待",
+    "源码UI整套未完成：便笺document字号与原13px差异、完整主题/八类状态、ResizeObserver；失效路径弹窗截图中搜索框双层边框不贴合，随下一组原源码CSS整改"
+  ],
+  "evidence": [
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/freeze.json",
+      "sha256": "b969e5a47a959932718c1c716770d43cb789385897263e01b07e8110e89b5c77"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r1/result.json",
+      "sha256": "a11c49aff046ce2a00c14588e11645298220440fee10b389268dca3a14958a2b"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r1-config.json",
+      "sha256": "10807ce89c3286c445ad5478b1f5af593a5c0ee647fc8e7815b22b0e24a60b64"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-ready-diff-r1.mjs",
+      "sha256": "bfda0af51a9450b97aa02a7bf0d52c3e80ce01f17d36a3a730eecb17e168de2a"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r1/driver-exit.json",
+      "sha256": "51707334ba49df9261a74e565d02ff7dd695308139ca869ba5392171cb550a4f"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/ready-diff-r1-run.log",
+      "sha256": "d9e2646b04c0eea7d6b4efacbc6eff51f7aee31ef508c86e03934774da3c3e97"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-controlled-diff-runtime-r1.mjs",
+      "sha256": "9d724adbb896a11aefc433612e71ed995c351257cc2210861cc96babb34f4fd7"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r1/controlled-runtime-input.jsonl",
+      "sha256": "3e7a26d4f007c66d295c811f23f8532f01e1f6a484a4fb3dd14174151a1ff881"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r1/git-fixture-before.json",
+      "sha256": "be6353ef1d01487f626bf918981fd7ea489f4984007c7e159d36e7a18e83a452"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r1/failure.png",
+      "sha256": "ab0ad087ddf42c639837ec057e91d82056c22eaa34525be4bef81d7cabb9af43"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r2/result.json",
+      "sha256": "20dc2e4a2088061ba1c2f27b1d746faace28093a6b0383d3b86e88ee42cee272"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r2-config.json",
+      "sha256": "50f5ec1289701ab57425972057ed79219ecb455d18d57cb811e797401915c568"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-ready-diff-r2.mjs",
+      "sha256": "ddfff5bc7e31ae61b01809f83c54205a31c6ff4cfb8ae47c4198858e862d0df6"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r2/driver-exit.json",
+      "sha256": "9caf2af22e6532a9c5b2e4de7800873c9ce67e59a9b493751ad481d6d046fc23"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/ready-diff-r2-run.log",
+      "sha256": "c9ea9aecc7affa81aea340dd73d116bf2749360198401ff066b813f300981bd5"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-controlled-diff-runtime-r2.mjs",
+      "sha256": "9d724adbb896a11aefc433612e71ed995c351257cc2210861cc96babb34f4fd7"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r2/failure.png",
+      "sha256": "c3434ff5bfc94e5d611386709a73b088553c26b5092fb8c2b53d9c184e518bd2"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r3/result.json",
+      "sha256": "fcbca08beb3107886a69b15a2dde634d8ce9831bee6a08c5fc72ea088c88b2b6"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r3-config.json",
+      "sha256": "5ad34023471162f88502f8f72c21ce97a9ee94b3f7ea5180eff157df29ba6a65"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-ready-diff-r3.mjs",
+      "sha256": "182a4ee0a720b79261926f7b892acc4a9ed5b7b01f84be7bdfdf8780d4f1f87c"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r3/driver-exit.json",
+      "sha256": "e0e593643c00a336daff8f19b8efdf0b58b558f4f2bbd5161d8045f6a799291e"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/ready-diff-r3-run.log",
+      "sha256": "4e44c6c5d4768a45ccc3c985c3cf0a54e649072fe8482109e87e95d02960810a"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-controlled-diff-runtime-r3.mjs",
+      "sha256": "9d724adbb896a11aefc433612e71ed995c351257cc2210861cc96babb34f4fd7"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r3/controlled-runtime-input.jsonl",
+      "sha256": "6a9b3e65f9cb01f28ad529154093906ab74d4c0bb299843e082ee02a4b987f1c"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r3/git-fixture-before.json",
+      "sha256": "9c8562c216ddfe9546903400a07833151874101347d209a0107c2a6801cdc505"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r3/git-fixture-before-restore.json",
+      "sha256": "b6a074a0f8605c092a76ab278b71a82e49b0454dfed909f0a3a771bedced39fc"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r4/result.json",
+      "sha256": "0b04cd82ecfab54a8c9612e5da2a5364d033931a27fadd93c4382a91fb8aaa56"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r4-config.json",
+      "sha256": "eba994ad0dc27d0c955c47a172efcd4ac63c2b8f263e5c102fb229909d79b869"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-ready-diff-r4.mjs",
+      "sha256": "208c7cf02a2fc4255350c5181898c103b636908f879b5da4c62508f916dddec4"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r4/driver-exit.json",
+      "sha256": "22dea8e0e64155be246d14f91e255ee0ae1c7685d9f4edc893a643edb5f63a42"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/ready-diff-r4-run.log",
+      "sha256": "c1faf9616269777783135ea0e74343197132ec98cb2c77ab93c79cc98620b23f"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-controlled-diff-runtime-r4.mjs",
+      "sha256": "9d724adbb896a11aefc433612e71ed995c351257cc2210861cc96babb34f4fd7"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r4/controlled-runtime-input.jsonl",
+      "sha256": "a46f3e78b08c53cf8276efc9f3ed054963b18ad3027938fff4f45a0ae837c85d"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r4/git-fixture-before.json",
+      "sha256": "de0e1daab14337e1eb09483cdfdb45e44377ece9032f03d34621711978c8049e"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r4/git-fixture-before-restore.json",
+      "sha256": "611dd1d111b0c9e5e53fcfab938e501c102594ecc81b4a81123d15bf7c7148a4"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r4/git-index-after.json",
+      "sha256": "a790784ad822e9902e9177377c9a0dcd4e8eee363d364c87291d62f6b77084e8"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-cold-r1/result.json",
+      "sha256": "9faf23abe4cafe2a06dd2b86f987984f3ebe76974a262c4bd7257c3bc585c488"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-cold-r1-config.json",
+      "sha256": "e4318be3b7174f64bbbdc89264f41a3e2350d126f433b6ef2dd910dc3494a9d8"
+    },
+    {
+      "path": "integration/local/i03-c06-rc14/app/c06-native-public-cold-r1.mjs",
+      "sha256": "182a4ee0a720b79261926f7b892acc4a9ed5b7b01f84be7bdfdf8780d4f1f87c"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-cold-r1/driver-exit.json",
+      "sha256": "ca77120769da1b6941d3606c85029244eca77cec34b7b33c2b44f5d1cf154630"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/public-cold-r1-run.log",
+      "sha256": "69f62b058ecf7eee845e37c103247fc8b1a7e96aa696807d6f088d18bc49c195"
+    },
+    {
+      "path": "integration/execution/i03-c06-source-card-group-verification.json",
+      "sha256": "fedef8b054f58ad27920316227dc597c023047fe4b8e604f0a642fef39243e4d"
+    },
+    {
+      "path": "integration/execution/i03-c05-notes-mirrors-native-verification.json",
+      "sha256": "b36ce293f169d98b05b6d2f609ac4282e4a380e1b36ca96598a542a0b9ed3fe8"
+    },
+    {
+      "path": "integration/execution/i03-c05-renderer-crash-native-verification.json",
+      "sha256": "64e4cc48c83eabff02aa4d44f496f89b5e571e6e0ea7e77ba84c7f3bcf748b14"
+    },
+    {
+      "path": "integration/execution/i03-c05-public-multi-native-verification.json",
+      "sha256": "72f921f2333c83ca9209a919200ee1024f108883877a149235a7e9518f1dac31"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r4/01-ready-git-exact-diff.png",
+      "sha256": "5fa7154fd2eb7ed965c1bf26b42082e3fe3384a421773da92672b1c311650a04"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r3/02-no-fallback-after-target-clean.png",
+      "sha256": "d95970b86513989a5fec490887e7a2a9db7ee2cce78b30e93cf626f4d1e47daf"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-ready-diff-r4/02-no-fallback-after-target-clean.png",
+      "sha256": "c082bdc9150bc0e012d790bd47993cecdd0cb393ab3ac76d46434cdd127ce216"
+    },
+    {
+      "path": "../i03/c06/fusion-i03-rc.14/native-public-cold-r1/01-cold-public-pin-drafts.png",
+      "sha256": "390afc15da3a6b20403cf05dc42514b68e35d45568be4ad4d40fa65cf4fb9344"
+    },
+    {
+      "path": "../i03/run-c06-rc14-diff-cold-native.mjs",
+      "sha256": "ff5f568667d449afe1281dddec0bdfa4401658ee3ea8e39bb1901cb91ecb3728"
+    },
+    {
+      "path": "../i03/c06/canvas-diff-cold-index-owner-sync.log",
+      "sha256": "2d7688a4211d00b051e3846da153f0e1ea40a8683a3acc47cb2d42a284295f6d"
+    },
+    {
+      "path": "scripts/configure-product-runtime.mjs",
+      "sha256": "f091f019b21e6d66cad91f43e325558d808d96cb5c5cb7b58d62634c79ffa55c"
+    },
+    {
+      "path": "../i02/native-fixtures/skill-recovery-launcher.exe",
+      "sha256": "2e3ff0a1583686f145107af9f41fe5cedc37f212107dade8c3c2dcc2fece234f"
+    }
+  ],
+  "customer_action_now": null,
+  "pushes": 0,
+  "actions": 0,
+  "external_model_calls": 0,
+  "paid_models": 0
+}

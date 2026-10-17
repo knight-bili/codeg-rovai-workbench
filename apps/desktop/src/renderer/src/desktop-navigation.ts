@@ -14,6 +14,7 @@ export type NavigationTarget = Exclude<RestorableLocation, { kind: 'memory' | 'q
   | { kind: 'settings'; section: SettingsSection; overview?: true }
   | { kind: 'automations' }
   | { kind: 'missions' }
+  | { kind: 'canvas' }
 
 export type NavigationState = { entries: readonly NavigationTarget[]; index: number }
 /** Platform history stores page locators only; the shared coordinator owns leave guards. */

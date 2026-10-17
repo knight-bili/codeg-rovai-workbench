@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "closeout_group": "I03-C04",
+  "status": "implementation_ready_for_stage_verification",
+  "recorded_at": "2026-10-16T03:12:40.187378+00:00",
+  "source_binding": {
+    "base_commit": "b22b772dc85b377c0f04e40c3baf3cb11f42145a",
+    "kind": "exact_worktree_sha256_before_commit",
+    "files": {
+      "crates/rovai-core/src/managed_process.rs": "d2d9eeb36d464383ff8ecc9ad2440ca2370b976c3a5fef9343f8390178f5263a",
+      "crates/rovai-core/src/managed_process/linux.rs": "f1d9683ac428c78d2309b3004e1640918168aacb79f81906a6190c16b51495b5",
+      "crates/rovai-core/src/canvas_terminal/helper.rs": "5bcbd7c3a00380fe27e95d4033b3c5525f7f1d3c2e7cd177d02d8fa02cf9db1e",
+      "crates/rovai-core/src/canvas_terminal/manager.rs": "707cdf6fd1026c92864a1c67ab54e97293d9ee13c79fe2a3518a47782d5cc78d",
+      "scripts/lib/canvas-terminal-process.mjs": "0af72a5391051edf236ccba01ef2a191162416e4576a29637d68e713efc2056e",
+      "scripts/lib/host-web.test.mjs": "75806a2061625c7658c4e808ea960bc4d500a74a293f6f519935a8732c2d2ecc",
+      "scripts/lib/host-test-client.mjs": "89e0071deced57443ff12eccf3d8d3a48e920a3421b0eaba20077078eeb758d0",
+      "docs/architecture/canvas.md": "daf0f4d65b96e6b20b96a42c3598bfb5d7a4c8cd267cd29449993d7e986cb10e",
+      "docs/contracts/canvas-nodes-v1.md": "9c2c9f4e3064cdb62097e4a15ad2e039a868eb17365c2d8201ff23d19311175b",
+      "docs/development/testing.md": "6c1cb4621b7f33f3af0c57ae7f09525435ba1dabed76857ec62d6cc1890759eb",
+      "integration/execution/goal-state.json": "e3bc20e6f3987e2e0c3882906783ab4a321d92e83e489eacc804b9b17bf6c8fb",
+      "integration/execution/goal-description.txt": "c6e1837d3a36d7796516a2ee8d6abf49b2495c80e95c901c120fe38be8368ddc",
+      "integration/execution/i03-closeout.json": "ab815ef448ecf8e20f2ee4556eaf7f5108b2bb0d1a38b9f0edcd03f5cb409d93"
+    }
+  },
+  "artifact_binding": {
+    "work/i03/record-terminal-process.py": "d53a6e84d698215575b814c583a9915c04f035b4c443c4750895714bc11e24b3",
+    "work/i03/verify-terminal-process-fixture.mjs": "f8687d2d2782f6bfb64fdfec541e4fa941239f2984960e03a5972cf96768862c",
+    "work/i03/terminal-process-fixture-final.log": "974a10614281d480c20e067f1cf08345d6aa2a4ab301b17760b4d2e1de8e9750",
+    "work/i03/terminal-process-rustfmt-final.log": "26b546188f87d60300830ab8ca930249353cf99bf8511e516735e3630283b595",
+    "work/i03/current-goal-objective.txt": "a5554e41075de780f295253b04afbf738bd4c695a5f02e8e12ab853b8e49606d",
+    "work/i03/terminal-process-docs-final.log": "6eb03e1b66af4f3a2ae337d42e11ddb5a595f11fc6e89cd079e7d49f34c7f9e8"
+  },
+  "frozen_authority_files": {
+    "crates/rovai-core/src/local_attachment_source.rs": "8830581e72fc103b2f359be17a0072c5ee0cedc6eb5fe58b179ae3d255dbc1ca",
+    "crates/rovai-core/src/context.rs": "329144f38675ebedeaf5652858d457d42369455eb26c6159af61d19c02218784",
+    "crates/rovai-core/src/message_quote.rs": "efb6e962946b85c089483bb1120fe92f32458bb3b3b5e5eb668e26f8aa96481e",
+    "crates/rovai-core/src/command.rs": "22258f81dc5b76040cd0fdba20074321b5be7104e648a8278412c0736ef0d85a"
+  },
+  "previous_evidence": {
+    "path": "integration/execution/i03-terminal-ui-result.json",
+    "sha256": "07df0e3b27c745ec8cebd05c3a91a18b5aced743dd8e1c1da464bcb0de387e48"
+  },
+  "implemented": [
+    "Extend existing real Desktop/Web unique-Core lifecycle test without another Core/DB fixture",
+    "Actual Node interactive PTY, nonce-authenticated owned process proofs, unrelated control and isolated environment",
+    "Original concurrent start/input deduplication, receipt/CAS/target fences, authenticated HTTP and actual resize/output/queue checks",
+    "Node/board deletion, exit code7 with detached child, explicit stop/restart, planned exit, hard Core exit and fresh Core no auto PTY",
+    "Linux dedicated helper parent pidfd watcher/subreaper; descendant-only pidfd kill/reap, spawn barrier, protected direct-child status and kernel no-child confirmation",
+    "macOS fixture requires persisted actual descendant capture before crash, then existing Core recovery; Windows existing Job unchanged",
+    "Sync project goal to current user-edited live objective; agent-owned engineering and after-I12 customer software use"
+  ],
+  "verified": {
+    "script_syntax": {
+      "files": 4,
+      "exit_code": 0
+    },
+    "worker_smoke": {
+      "status": "passed",
+      "scope": "generated worker and environment only",
+      "checks": [
+        "no inherited unrelated key or NODE_OPTIONS",
+        "isolated HOME and explicit Node executable",
+        "generated worker syntax",
+        "retained Child identity and readiness nonce",
+        "wrong nonce rejected",
+        "wrong stop path leaves worker alive",
+        "authenticated stop and actual exit"
+      ],
+      "core": false,
+      "host": false,
+      "pty": false,
+      "model": false
+    },
+    "rustfmt": {
+      "modules": 4,
+      "exit_code": 0,
+      "typecheck": false,
+      "execution": false
+    },
+    "docs": {
+      "exit_code": 0,
+      "diff_base": "b22b772dc85b377c0f04e40c3baf3cb11f42145a",
+      "version": "v1.72"
+    }
+  },
+  "not_run": [
+    "actual Core/helper/Host compilation or process test",
+    "real PTY/HTTP/native IPC",
+    "Linux parent-death watcher and adopted-child recovery",
+    "macOS persisted process recovery or Windows Job/ConPTY",
+    "actual UI/IME/clipboard/platform qualifications",
+    "full PC01-PC24 and324 engineering scenes"
+  ],
+  "self_review_fixes": [
+    "Linux Core hard exit previously lost in-memory ownership while detached descendants could survive helper direct-child kill",
+    "Parent identity frozen before spawn prevents accepting init as original Core after an early crash",
+    "Spawn/cleanup barrier prevents empty-tree completion racing a late Shell spawn",
+    "Kernel no-child check closes reparenting snapshot race; portable-pty owns direct-child wait result",
+    "Generated flood statement uses escaped newline rather than an invalid single-quoted newline",
+    "Generated PTY JS parsed before delivery; macOS actual ledger precondition replaces fixed delay",
+    "Owned stop requires nonce header and nonce path to avoid generic port-reuse stop authority",
+    "ConPTY may normalize application ANSI sequences; compare actual retained same-sequence HTTP/pipe bytes and runtime visible UTF8 instead"
+  ],
+  "candidate_command": "node --test --test-name-pattern=\"Desktop and Web share one Core\" scripts/lib/host-web.test.mjs",
+  "source_protocol": {
+    "core_schema": 158,
+    "migration": 208,
+    "host_protocol": 4,
+    "public_core_methods": 185,
+    "changed": false
+  },
+  "guardrails": {
+    "push": false,
+    "actions": false,
+    "full_build": false,
+    "paid_models": false,
+    "real_user_data_or_credentials": false,
+    "old_binary_used": false,
+    "new_rust_test_owner": false,
+    "customer_action_required_now": false
+  },
+  "cleanup": {
+    "worker": "authenticated stop confirmed actual retained Child exit0; verified temporary root removed",
+    "browser_or_real_core_started": false
+  },
+  "next": "推进I03-C05冷路由/多卡/规模：核对窗口资源、隐藏/恢复及原工作区精确定位，补当前阶段代码缺口；C01-C04代码已集齐待C06工程验证，失败回所属组修复。"
+}

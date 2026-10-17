@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-14T18:33:30.612Z",
+  "source_commit": "9a3995f05d53a827bbd6dbb370e23e6ddda629c2",
+  "stage": "I03",
+  "status": "worktree_topology_and_canvas_resolution_coded_targeted_checks_passed_not_rust_or_host_qualified",
+  "source_files": [
+    {
+      "path": "apps/desktop/src/renderer/src/CanvasSurface.tsx",
+      "sha256": "75c8a77936e03b75fce2bf91f3093b19599792846fe961f3b7e84b8499fc3f78"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-folder-controller.test.ts",
+      "sha256": "234c025d7e401e09e04725af7af2af2f9353880e6df55f30b35c3b19592fae4e"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/canvas-folder-controller.ts",
+      "sha256": "aa2da22041d791a0e84d92c1363a387ffe03bd14f579852a950e5baeb38364b8"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/locales/en.json",
+      "sha256": "5910a2ffdb9f7d78a74dfd66953fec172284d3ced5adc59775cb1d8ef8ab1f44"
+    },
+    {
+      "path": "apps/desktop/src/renderer/src/useCanvasFolders.ts",
+      "sha256": "2feb978a7d1ee639d0244ada7e4162292071edc4ac9e908c3f0fc2cb8e7536da"
+    },
+    {
+      "path": "apps/web/src/camp-adapter.test.ts",
+      "sha256": "25330d9b55167f6650d90654fdf656dc69837b0f2ceb8745ecf2db0652898c35"
+    },
+    {
+      "path": "apps/web/src/client.ts",
+      "sha256": "b7065d6effa1f70302039b89bf4471396d2b7bd3b43e981d2d7a1580c2ab058d"
+    },
+    {
+      "path": "crates/rovai-core/src/application.rs",
+      "sha256": "5619885abccd705ea6826377df859894fddc5dac81e287e581d69ddff6d70ac7"
+    },
+    {
+      "path": "crates/rovai-core/src/git.rs",
+      "sha256": "e7c03507257fe0d8facadfd293b8264c9549de14fdc0ac64d53c65348187dd9d"
+    },
+    {
+      "path": "crates/rovai-core/src/git/worktrees.rs",
+      "sha256": "7b5b993770ed5e3ef2204b44396c8b84647436ed8c91981d6b9d91015562c821"
+    },
+    {
+      "path": "crates/rovai-web/src/operations.rs",
+      "sha256": "d7c332e503b4307da6a899449f0897d86fe01e0c39b1bfb6ad707e097af6bcb1"
+    },
+    {
+      "path": "docs/architecture/canvas.md",
+      "sha256": "6b494dd411aee810b9af7666f4c5f9067f3179c182e6ad647b9d62159d4d38c9"
+    },
+    {
+      "path": "docs/contracts/README.md",
+      "sha256": "dc3af7dc288b9564bee95da983d19cc31bed42217a68c9cd81642fc32d1fd185"
+    },
+    {
+      "path": "docs/contracts/canvas-references-v1.md",
+      "sha256": "62b35990d763eeec3c73b14bd610486229a41c76075e6f6f9c3fdcb88769dde0"
+    },
+    {
+      "path": "docs/contracts/workspace-worktrees-v1.md",
+      "sha256": "2ee1bd96cba94ab228441e74f56da40e2af90cb8560531dd32a0a80528a6133d"
+    },
+    {
+      "path": "docs/development/testing.md",
+      "sha256": "d114137894de11b097be5a4216d5107f361efdba26be17160cb5f8f05cf894ca"
+    },
+    {
+      "path": "integration/foundation/current-protocol.json",
+      "sha256": "02c5656809cea6b77532968794569c70500d2efd8a584c2cdc868686a8fd48cc"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "sha256": "93e337321cd64681e07b6e0c4fc4545ca58ec29d7339dd928b3b7e3f101d6c4d"
+    },
+    {
+      "path": "tools/integration/smoke-canvas-nodes.mjs",
+      "sha256": "dc020d2e7b4f562e08b14f1f159be3983d1de7b182a024ed961098f630780c98"
+    }
+  ],
+  "implemented": [
+    "Native Core and authenticated Web workspaces.worktrees share one strict read-only path contract with existing canonical/managed-data/Git-metadata directory validation",
+    "Git NUL metadata preserves main/linked identity, bare/locked/prunable flags and missing checkout records; ordinary directories remain valid without Git",
+    "Core reuses the managed bounded-command executor with 10-second deadline, 2-second cleanup, 2MiB listing stdout and 64KiB stderr caps, no interactive prompt or optional locks, and no inherited Git repository override variables",
+    "Windows process arguments simplify verbatim paths while Core identities remain canonical; missing checkout paths retain equivalent verbatim/UNC representation",
+    "Canvas folders use actual saved region paths, four concurrent reads, deduplication and coalescing; main regions absorb explicit linked worktrees, linked roots and nested directories remain exact",
+    "Failed reads preserve known conversation paths as incomplete; changed path sets and disposed Host owners suppress late results and queued stale reads",
+    "Visible polling, foreground refresh and explicit Refresh links join the production Canvas surface without creating projects, business records, Run, model input or file authorization"
+  ],
+  "verification": {
+    "targeted_tests": {
+      "status": "passed",
+      "files": 3,
+      "passed": 11,
+      "failed": 0,
+      "owners": [
+        "canvas-folder-controller:3",
+        "canvas-reference-model:4",
+        "camp-adapter:4"
+      ],
+      "log": "work/i03/canvas-folders-tests-final.log"
+    },
+    "isolated_git_format_witness": {
+      "status": "passed",
+      "git_version": "git version 2.54.0.windows.1",
+      "checks": [
+        "empty repository NUL record",
+        "main first and exact linked path",
+        "newline lock reason remains one NUL attribute",
+        "nested directory reports checkout root with one LF",
+        "missing checkout metadata retained"
+      ],
+      "result": "work/i03/canvas-folders-git-result.json",
+      "log": "work/i03/canvas-folders-git-format.log",
+      "qualification": "Git binary format witness only; no current Rust function, Core/Host or UI executed"
+    },
+    "targeted_types": {
+      "status": "passed",
+      "exit_code": 0,
+      "log": "work/i03/canvas-folders-typecheck-final.log",
+      "scope": "BusinessApp/Canvas and Web adapter/history dependencies, not all repository configurations"
+    },
+    "rust_format": {
+      "status": "passed",
+      "exit_code": 0,
+      "log": "work/i03/canvas-folders-rustfmt-final.log",
+      "qualification": "Rust parser/format only, not compilation or test execution"
+    },
+    "generic_documentation_gates": {
+      "status": "passed",
+      "logs": [
+        "work/i03/canvas-folders-docs-version-final.log",
+        "work/i03/canvas-folders-docs-decisions-final.log"
+      ]
+    },
+    "copy_check": {
+      "status": "passed",
+      "duplicate_keys": 0,
+      "missing_literal_translations": 0,
+      "log": "work/i03/canvas-folders-copy-check.log"
+    },
+    "static_foundation_check": {
+      "status": "passed",
+      "log": "work/i03/canvas-folders-foundation-final.log",
+      "current_operations": 177,
+      "historical_source_operations": 161,
+      "qualification": "Static source/fixture consistency; listed HTTP/migration design cases are not live execution"
+    },
+    "checker_invocation_error_preserved": "canvas-folders-foundation.log called a nonexistent check-foundation.mjs; corrected to the existing verify-foundation.mjs. This was an invocation error, not a passing run.",
+    "diff_and_smoke_syntax": "passed",
+    "rust_test_owners": "coded_not_run: git::worktrees NUL parser and extensions of existing git::tests ordinary/empty/observation/malformed owners; minimum cargo test -p rovai-core --lib git::",
+    "current_core_host_smoke": "extended_existing_smoke_not_run",
+    "mounted_ui_platform_and_full_regression": "pending_stage_candidate"
+  },
+  "self_review": [
+    "Moved the new read from the unbounded outside-main classification to the existing independent bounded read queue; extended its existing classifier owner",
+    "Reused existing bounded-command infrastructure instead of accepting unbounded Command.output capture; this new Rust path is still uncompiled",
+    "Git relationships and directory availability are metadata observations, not an atomic filesystem snapshot or file/terminal/execution permission",
+    "No prefix-based project parent guesses, no missing-history prune, no implicit project registration or new group preferences",
+    "CodeGraph explicitly reported this project unindexed; used permitted direct source lookup without initializing an index"
+  ],
+  "unchanged_boundaries": {
+    "schema": 154,
+    "new_migration": false,
+    "new_dependency": false,
+    "model_input_change": false,
+    "core_business_authority": true
+  },
+  "remaining": [
+    "Real project folder-group identity, scoped preferences, editing/management and Desktop/Web joins",
+    "Member drag transfer, expanded conversation cards, authoritative Composer drafts and Mission/Task/Thread/Diff round trips",
+    "Authorized file preview, actual ephemeral PTY lifecycle and Desktop cold-start Canvas routing",
+    "Stage candidate Rust build/tests, current authenticated Host smoke, mounted UI/reconnect/recovery and required platforms"
+  ],
+  "execution_policy": {
+    "candidate": "fusion-i03-rc.1",
+    "frozen": false,
+    "pushed": false,
+    "new_action_runs": 0,
+    "phase_complete": false,
+    "immediate_customer_action_needed": false
+  }
+}

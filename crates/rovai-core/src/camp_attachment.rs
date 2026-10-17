@@ -451,6 +451,9 @@ pub fn legacy_attachment_belongs_to_owner(
         | LocalAttachmentOwnerLocator::SingleChatComposer { .. }
         | LocalAttachmentOwnerLocator::SingleChatPending { .. }
         | LocalAttachmentOwnerLocator::SingleChatPendingEdit { .. }
+        | LocalAttachmentOwnerLocator::SingleChatScopedComposer { .. }
+        | LocalAttachmentOwnerLocator::SingleChatScopedPendingEdit { .. }
+        | LocalAttachmentOwnerLocator::SingleChatRetained { .. }
         | LocalAttachmentOwnerLocator::SingleChatMessage { .. } => false,
     };
     Ok(belongs)

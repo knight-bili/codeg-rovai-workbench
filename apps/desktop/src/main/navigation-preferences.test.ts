@@ -16,36 +16,53 @@ afterEach(async () => {
 })
 
 describe('navigation preferences', () => {
-  it('upgrades valid schema 4 without a degradation or rewriting the old file', async () => {
+  it('upgrades valid legacy schemas without a degradation or rewriting the old file', async () => {
     const directory = await mkdtemp(join(tmpdir(), 'rovai-navigation-read-'))
     cleanup.push(directory)
     const path = join(directory, 'navigation.json')
-    const original = JSON.stringify({ schemaVersion: 4, pins: [], removedProjects: [], projectOrder: [], projectNames: {} })
-    await writeFile(path, original)
-    const store = await NavigationPreferencesStore.load(path)
-    expect(store.loadDegradation).toBeNull()
-    expect(store.get().threadReadStates).toEqual({})
-    expect(await readFile(path, 'utf8')).toBe(original)
+    for (const source of [
+      { schemaVersion: 4, pins: [], removedProjects: [], projectOrder: [], projectNames: {} },
+      { schemaVersion: 6, pins: [], removedProjects: [], projectOrder: ['directory:/old'], projectNames: { 'directory:/old': '旧工程' },
+        registeredProjects: ['/old'], legacyProjectsSynced: true, threadReadStates: { [CAMP_A]: { manualUnread: true, readThroughGlobalSequence: 12 } } }
+    ]) {
+      const original = JSON.stringify(source)
+      await writeFile(path, original)
+      const store = await NavigationPreferencesStore.load(path)
+      expect(store.loadDegradation).toBeNull()
+      expect(store.get().threadReadStates).toEqual(source.threadReadStates ?? {})
+      expect(store.get()).toMatchObject({ schemaVersion: 7, projectGroups: [], projectGroupsRevision: 0, registeredProjects: source.registeredProjects ?? [] })
+      expect(await readFile(path, 'utf8')).toBe(original)
+    }
   })
 
-  it('persists manual reminders, merges concurrent pin writes and keeps read boundaries monotonic', async () => {
+  it('persists reminders and groups, merges concurrent pin writes and keeps read boundaries monotonic', async () => {
     const directory = await mkdtemp(join(tmpdir(), 'rovai-navigation-read-'))
     cleanup.push(directory)
     const path = join(directory, 'navigation.json')
     const store = NavigationPreferencesStore.defaults(path)
+    const groupId = '11111111-1111-4111-8111-111111111111'
+    await store.registerProjects(['/work/a'])
     await Promise.all([
+      store.applyProjectLayout(0, { type: 'create', group: { id: groupId, name: '工作', color: 'blue', projectPaths: ['/work/a'] } }),
       store.setThreadReadState(CAMP_A, { manualUnread: true, readThroughGlobalSequence: 20 }),
       store.replacePins([{ kind: 'camp', targetKey: CAMP_A, pinnedAt: '2026-10-01T00:00:00Z' }]),
       store.setThreadReadState(CAMP_B, { manualUnread: false, readThroughGlobalSequence: 12 })
     ])
     const restarted = await NavigationPreferencesStore.load(path)
     expect(restarted.loadDegradation).toBeNull()
+    expect(restarted.get().projectGroups).toEqual([{ id: groupId, name: '工作', color: 'blue', projectPaths: ['/work/a'] }])
+    await expect(restarted.applyProjectLayout(0, { type: 'delete', groupId })).rejects.toThrow('已有新修改')
     expect(restarted.get().threadReadStates[CAMP_A].manualUnread).toBe(true)
     expect(restarted.get().pins).toHaveLength(1)
     await restarted.setThreadReadState(CAMP_A, { manualUnread: false, readThroughGlobalSequence: 3 })
     expect(restarted.get().threadReadStates[CAMP_A]).toEqual({ manualUnread: false, readThroughGlobalSequence: 20 })
     await restarted.setThreadReadState(CAMP_B, null)
     expect(restarted.get().threadReadStates[CAMP_B]).toBeUndefined()
+    await restarted.removeProject('directory:/work/a', [])
+    await restarted.restoreProject('directory:/work/a')
+    expect(restarted.get().projectGroups[0].projectPaths).toEqual(['/work/a'])
+    expect(restarted.get().projectOrder).not.toContain('directory:/work/a')
+    expect(restarted.get().projectGroupsRevision).toBe(1)
   })
 
   it('rejects invalid read state and retains the previous snapshot when saving fails', async () => {
@@ -73,7 +90,7 @@ describe('navigation preferences', () => {
     await writeFile(filePath, source)
     const store = await NavigationPreferencesStore.load(filePath)
     expect(store.loadDegradation).toBeNull()
-    expect(store.get()).toEqual({ schemaVersion: 6, registeredProjects: [], legacyProjectsSynced: false, pins: [], removedProjects: [], projectOrder: ['directory:/a/frontend'], projectNames: {}, threadReadStates: {} })
+    expect(store.get()).toEqual({ schemaVersion: 7, projectGroups: [], projectGroupsRevision: 0, registeredProjects: [], legacyProjectsSynced: false, pins: [], removedProjects: [], projectOrder: ['directory:/a/frontend'], projectNames: {}, threadReadStates: {} })
     expect(await readFile(filePath, 'utf8')).toBe(source)
   })
 
@@ -158,7 +175,7 @@ describe('navigation preferences', () => {
     const snapshot = await readNavigationPreferences(filePath)
 
     expect(snapshot).toEqual({
-      schemaVersion: 6, registeredProjects: [], legacyProjectsSynced: false,
+      schemaVersion: 7, projectGroups: [], projectGroupsRevision: 0, registeredProjects: [], legacyProjectsSynced: false,
       projectNames: {},
       threadReadStates: {},
       pins: [
@@ -194,7 +211,7 @@ describe('navigation preferences', () => {
     const snapshot = await store.removeProject('directory:/work/a', [CAMP_A])
 
     expect(snapshot).toEqual({
-      schemaVersion: 6, registeredProjects: ['/work/b'], legacyProjectsSynced: false,
+      schemaVersion: 7, projectGroups: [], projectGroupsRevision: 0, registeredProjects: ['/work/b'], legacyProjectsSynced: false,
       projectNames: {},
       threadReadStates: {},
       pins: [
@@ -228,7 +245,7 @@ describe('navigation preferences', () => {
     const snapshot = await store.restoreProject('directory:/work/a')
 
     expect(snapshot).toEqual({
-      schemaVersion: 6, registeredProjects: ['/work/a'], legacyProjectsSynced: false,
+      schemaVersion: 7, projectGroups: [], projectGroupsRevision: 0, registeredProjects: ['/work/a'], legacyProjectsSynced: false,
       projectNames: {},
       threadReadStates: {},
       pins: [{ kind: 'camp', targetKey: CAMP_B, pinnedAt: '2026-08-11T07:03:00Z' }],
@@ -261,7 +278,7 @@ describe('navigation preferences', () => {
     const snapshot = await store.reinstateRemovedProject(removedProject)
 
     expect(snapshot).toEqual({
-      schemaVersion: 6, registeredProjects: [], legacyProjectsSynced: false,
+      schemaVersion: 7, projectGroups: [], projectGroupsRevision: 0, registeredProjects: [], legacyProjectsSynced: false,
       projectNames: {},
       threadReadStates: {},
       pins: [{ kind: 'camp', targetKey: CAMP_B, pinnedAt: '2026-08-11T07:03:00Z' }],
@@ -343,7 +360,7 @@ describe('navigation preferences', () => {
 
     const synchronized = await store.removeProject('directory:/work/b', [])
     expect(synchronized).toEqual({
-      schemaVersion: 6, registeredProjects: ['/work/a', '/work/c'], legacyProjectsSynced: true,
+      schemaVersion: 7, projectGroups: [], projectGroupsRevision: 0, registeredProjects: ['/work/a', '/work/c'], legacyProjectsSynced: true,
       projectNames: {},
       threadReadStates: {},
       pins: [],

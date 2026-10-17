@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "at": "2026-10-17T01:31:44.307695+00:00",
+  "evidence_files": 53,
+  "production_source_files": 1314,
+  "formal_case_definitions_unchanged": 324,
+  "I03_formal_rows": 12,
+  "I04_cases_unchanged_not_run": 84,
+  "local_work_groups_verified": 10,
+  "owned_process_audit": {
+    "lock_exists": false,
+    "owned_processes": [],
+    "at": "2026-10-17T01:24:12.2829817+00:00"
+  },
+  "documentation_tests": 10,
+  "documentation_tests_failed": 0,
+  "version_gate": "passed",
+  "decision_gate": "passed",
+  "scope_guard": "81 features / 48 work packages / 324 cases / 21 runtimes preserved"
+}

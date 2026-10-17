@@ -10,7 +10,7 @@ last_updated: 2026-10-12
 [Runtime 兼容性](../runtime-compatibility.md)，不能由目标结构推断完成。
 现有准入、事务、Runtime 与关闭合同继续有效；新增 wire 合同随对应实现明确发布。
 原生 Server 数据根、初始 CLI 兼容、初始化准入和停止适配由[Host Lifecycle v2](../contracts/host-lifecycle-v2.md)拥有；
-当前受控网络入口由[Host Web v3](../contracts/host-web-v3.md)拥有；未变更的详细边界继续由其继承的 v2 章节定义。
+当前受控网络入口由[Host Web v5](../contracts/host-web-v5.md)拥有；未变更的详细边界继续由其继承的 v2 章节定义。
 
 当前已实现父进程匿名管道与进程内请求共用一个 Host/Core、共享生产 Camp 页面、客户端草稿、source 上传及
 逐项准入的 Camp 写入。以下 UDS/Named Pipe 身份握手与完整公共 DTO 生成仍是后续目标，
@@ -106,6 +106,8 @@ Agent Managed 与 legacy 机制不变，不建对象存储、附件目录库或�
 复用当前客户端的有界 File 缓存；刷新、内容变化或缓存淘汰恢复 Host 读取。空句柄不启动文件更新轮询。
 静态服务只挂应用构建产物。长期缓存只准入构建清单中带内容哈希且字节校验相符的文件，入口及私有响应仍不缓存。
 具体字段和边界由 [Host Web v2](../contracts/host-web-v2.md#workspaces-uploads-and-resources) 拥有。
+私聊上传恢复版本1使用独立认证回执查询，避免当前草稿或编辑租约失效阻断原结果读取；只投影安全字段，
+不把内部 RPC 开放为浏览器操作。增量字段见[Host Web v5](../contracts/host-web-v5.md#私聊上传原回执与恢复能力2026-10-16)。
 HTML/HTM 附件复用共享交互查看器，由认证 POST 读取后交给同来源静态预览壳。Desktop 托管 Web 和独立
 Server Web 共用该 Rust 路径；响应 CSP 与 iframe 均采用
 `sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"`，仅预览响应允许 HTTP(S)

@@ -1,0 +1,873 @@
+{
+  "schema_version": 1,
+  "stage": "I03",
+  "frozen_at": "2026-10-16T14:24:10.917969+00:00",
+  "audit_base": "04fc69bd",
+  "owner": "Codex",
+  "customer_stage_gate": false,
+  "scope": {
+    "source_clusters": 81,
+    "work_packages": 48,
+    "formal_cases": 324,
+    "i03_formal_cases": 12,
+    "private_material_cases": 24
+  },
+  "counts": {
+    "settled_obligations": 17,
+    "open_work_groups": 0,
+    "private_cases_verified": 24,
+    "private_cases_open": 0,
+    "verified_work_groups": 10
+  },
+  "count_boundary": "不同层级不相加；17条为限定范围旧待办，固定10组按状态计算剩余；私聊按原24场景逐项核定，不计算完成百分比",
+  "settled_obligations": [
+    {
+      "id": "S01",
+      "obligation": "便笺真实拖动、行内保存、冲突及离开保护",
+      "evidence": "i03-c05-notes-mirrors-native-verification.json",
+      "qualification_boundary": "六项rc14真实场景；当前新CSS最终集成另归R10",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S02",
+      "obligation": "同私聊双卡独立正文/编辑器、暖态及新App恢复",
+      "evidence": "i03-c05-notes-mirrors-native-verification.json",
+      "qualification_boundary": "不等于整App/Core硬中断或最终发送",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S03",
+      "obligation": "renderer两次硬中断保留私聊末字和便笺副本",
+      "evidence": "i03-c05-renderer-crash-native-verification.json",
+      "qualification_boundary": "只关闭renderer层旧待办；App/Core仍在R04",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S04",
+      "obligation": "公开双Thread三卡焦点、读者与监听释放",
+      "evidence": "i03-c05-public-multi-native-verification.json",
+      "qualification_boundary": "rc15相关回归通过；其他资源预算另列",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S05",
+      "obligation": "64摘要实际渲染和可信滚轮平移",
+      "evidence": "i03-c05-public-multi-native-verification.json",
+      "qualification_boundary": "不外推所有操作帧率、64实时输入或64PTY",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S06",
+      "obligation": "Mission/历史Task/具体文件进入原工作区",
+      "evidence": "i03-c06-source-card-group-verification.json",
+      "qualification_boundary": "真实对象8场景；新进程对象路由和过期容量仍在R05",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S07",
+      "obligation": "真实Git中文精确Diff、索引物理不变及变干净不替代",
+      "evidence": "i03-c02-ready-diff-public-cold-native-verification.json",
+      "qualification_boundary": "真实Core+固定本地ACP协议；无外部模型推理",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S08",
+      "obligation": "真实文本/HTML、作者交互、CSP、源码往返及跨卡重读",
+      "evidence": "i03-c06-source-card-group-verification.json",
+      "qualification_boundary": "真实文件9场景；跨Thread/HTML上限和冷恢复在R06",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S09",
+      "obligation": "临时PTY既有生命周期和真实键盘输入/绘制/停止",
+      "evidence": "i03-c06-rc15-list-native-verification.json",
+      "qualification_boundary": "rc15相关终端5场景；16/17真实上限、重连和IME在R07",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S10",
+      "obligation": "真实列表轮廓/节点数、右键/Shift+F10/回焦和删除提示",
+      "evidence": "i03-c06-rc15-list-native-verification.json",
+      "qualification_boundary": "7场景；后改纵向SVG样式须R10集成，菜单键和旧Host提示在R09",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S11",
+      "obligation": "原三个私聊材料Rust测试owner已编译并执行",
+      "evidence": "i03-c06-candidate-result.json",
+      "qualification_boundary": "只结算旧“尚未编译”记录，不宣告24场景全过",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S12",
+      "obligation": "五个空闲Thread快照的逻辑预算",
+      "evidence": "i03-thread-projection-result.json",
+      "qualification_boundary": "原源码/测试与日志匹配；挂载、监听、在途不淘汰，不是窗口实测性能",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S13",
+      "obligation": "64个窗口终端控制器的逻辑预算",
+      "evidence": "i03-terminal-ui-result.json",
+      "qualification_boundary": "原源码/测试与日志匹配；不可淘汰条目锁住第65个，释放后可替换，不是64真实PTY",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S14",
+      "obligation": "原HTML合法双入口403修复的真实界面复验",
+      "evidence": "i03-c06-card-refinement-verification.json",
+      "qualification_boundary": "原9场景及后续rc14文件回归；不扩大为全部浏览器/HTML预算通过",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S15",
+      "obligation": "PC04错误会话绑定边界",
+      "evidence": "i03-closeout-settlement.json",
+      "qualification_boundary": "Core真实SQLite绑定边界；不声称其他编辑端、Host认证或完整UI通过",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S16",
+      "obligation": "PC07伪造pin及登记回滚边界",
+      "evidence": "i03-closeout-settlement.json",
+      "qualification_boundary": "Core绑定/事务边界与实际Native伪造pin；不覆盖其余24场景",
+      "status": "settled_within_declared_scope"
+    },
+    {
+      "id": "S17",
+      "obligation": "PC13引用无正文准入边界",
+      "evidence": "i03-closeout-settlement.json",
+      "qualification_boundary": "Core真实SQLite发送准入；未运行模型，最终Runtime输入仍归PC14/PC22",
+      "status": "settled_within_declared_scope"
+    }
+  ],
+  "remaining_work": [
+    {
+      "id": "I03-R01",
+      "name": "私聊实际页面与完整输入恢复",
+      "status": "engineering_verified",
+      "private_cases": [
+        "PC03",
+        "PC08",
+        "PC09",
+        "PC10",
+        "PC17",
+        "PC18",
+        "PC19",
+        "PC20",
+        "PC23"
+      ],
+      "original_groups": [
+        "I03-C01"
+      ],
+      "done_when": "引用/revision/撤销在模式往返保持；空scope只读无登记；冲突保留本机输入；上传迟到不串入；租约接管、完整移回/交换及节点换绑恢复有实际界面证据。",
+      "next_action": "本组完成；继续R02实际发送、最终输入与R04整App/Core中断。已过且相关源码未变的场景复用。",
+      "owner": "Codex",
+      "external_condition": "none_confirmed_blocking_current_independent_work",
+      "latest_preparation": "i03-r01-private-workflow-preparation.json",
+      "prepared_native_cases": [
+        "PC03",
+        "PC08",
+        "PC17",
+        "PC18",
+        "PC19"
+      ],
+      "verified_private_cases": [
+        "PC03",
+        "PC08",
+        "PC09",
+        "PC10",
+        "PC17",
+        "PC18",
+        "PC19",
+        "PC20",
+        "PC23"
+      ],
+      "remaining_private_cases": [],
+      "latest_verification": "i03-r01-cross-core-upload-verification.json",
+      "current_candidate_regression": "i03-r04-process-interruption-verification.json#regressions"
+    },
+    {
+      "id": "I03-R02",
+      "name": "发送消费、源变化和最终输入交接",
+      "status": "engineering_verified",
+      "private_cases": [
+        "PC01",
+        "PC02",
+        "PC11",
+        "PC12",
+        "PC14",
+        "PC15",
+        "PC16"
+      ],
+      "original_groups": [
+        "I03-C01"
+      ],
+      "done_when": "双卡/默认位置的正文、附件和引用按所选scope消费；原FIFO、普通单聊与源变化保护保持；最终Blob与实际Runtime交接独立核验，不以材料API或模型清单替代。",
+      "next_action": "本组完成；继续R04实际App/Core中断、接受前/后及原UUID恢复，不重复已经核定的发送流程。",
+      "owner": "Codex",
+      "external_condition": "none_confirmed_blocking_current_independent_work",
+      "verified_private_cases": [
+        "PC01",
+        "PC02",
+        "PC11",
+        "PC12",
+        "PC14",
+        "PC15",
+        "PC16"
+      ],
+      "remaining_private_cases": [],
+      "latest_verification": "i03-r02-complete-send-boundaries-verification.json",
+      "current_candidate_regression": "i03-r04-process-interruption-verification.json#regressions"
+    },
+    {
+      "id": "I03-R03",
+      "name": "真实编辑端身份与兼容",
+      "status": "engineering_verified",
+      "private_cases": [
+        "PC05",
+        "PC06",
+        "PC24"
+      ],
+      "original_groups": [
+        "I03-C01"
+      ],
+      "done_when": "真实Host拒绝伪造身份/恢复证明；两个已验证编辑端互相隔离；默认材料/旧回执/失败回滚及旧能力缺失不绕过。",
+      "next_action": "本组工程边界已核定；同次页面往返、引用/revision/undo继续I03-R01，最终平台和候选归R10。",
+      "owner": "Codex",
+      "external_condition": "none_confirmed_blocking_current_independent_work",
+      "verification": "i03-r03-host-private-verification.json",
+      "verification_boundary": "真实Windows Host/Core API；本机正文/旧能力为客户端逻辑，迁移复用同源实际owner；完整UI与平台不在本组资格内"
+    },
+    {
+      "id": "I03-R04",
+      "name": "整个App/Core中断与未知在途请求",
+      "status": "engineering_verified",
+      "private_cases": [
+        "PC21",
+        "PC22"
+      ],
+      "original_groups": [
+        "I03-C01",
+        "I03-C05"
+      ],
+      "done_when": "覆盖实际App/Core进程退出、接受前/后和丢回执；按原UUID核对，不重复发送，不重选冻结材料；本机输入能恢复。",
+      "next_action": "本组当前本机工程边界完成；进入R05对象冷路由与Diff视图/资源。",
+      "owner": "Codex",
+      "external_condition": "none_confirmed_blocking_current_independent_work",
+      "verified_private_cases": [
+        "PC21",
+        "PC22"
+      ],
+      "remaining_private_cases": [],
+      "latest_verification": "i03-r04-process-interruption-verification.json"
+    },
+    {
+      "id": "I03-R05",
+      "name": "业务对象冷路由、Diff更新/容量与释放",
+      "status": "engineering_verified",
+      "private_cases": [],
+      "original_groups": [
+        "I03-C02"
+      ],
+      "done_when": "Mission/Task/具体文件在新进程仍回原工作区；过期/容量/视图更新和多查看器释放有证据。",
+      "next_action": "本组本机工程边界完成；进入R06跨Thread文件、HTML上限/释放与冷恢复。",
+      "owner": "Codex",
+      "external_condition": "none_confirmed_blocking_current_independent_work",
+      "latest_verification": "i03-r05-object-cold-diff-verification.json"
+    },
+    {
+      "id": "I03-R06",
+      "name": "跨Thread文件、HTML上限与冷恢复",
+      "status": "engineering_verified",
+      "private_cases": [],
+      "original_groups": [
+        "I03-C03",
+        "I03-C05"
+      ],
+      "done_when": "不同Thread的实际文件预览不串源，HTML窗口上限/关闭释放、冷恢复和文件失效状态有独立证据。",
+      "next_action": "本组本机文件/HTML边界完成；继续R07 Native输入及R08/R09，最终正式场景和平台仍归R10。",
+      "owner": "Codex",
+      "external_condition": "none_confirmed_blocking_current_independent_work",
+      "latest_partial_verification": "i03-r06-file-html-progress.json",
+      "latest_verification": "i03-r06-file-html-verification.json",
+      "production_repair_verified": {
+        "commit": "afee4415",
+        "reason": "four HTML resources create eight actual documents via hidden deck duplication",
+        "required": [
+          "actual document count <=4",
+          "same-source mirrors and close/retry",
+          "cold recovery and missing-file retry"
+        ],
+        "candidate": "fusion-i03-rc.22",
+        "evidence": "i03-r06-file-html-verification.json"
+      }
+    },
+    {
+      "id": "I03-R07",
+      "name": "真实PTY容量、重连和Windows输入边界",
+      "status": "engineering_verified",
+      "private_cases": [],
+      "original_groups": [
+        "I03-C04",
+        "I03-C05"
+      ],
+      "done_when": "真实Core16/17容量及释放重开、连接恢复、适用中文IME/剪贴板行为受控；窗口64控制器与真实PTY数量分开。",
+      "next_action": "本组Windows本机边界完成；继续R08大正文/真实通知/取消与超时，原跨平台和最终候选仍归R10。",
+      "owner": "Codex",
+      "external_condition": "none_confirmed_blocking_current_independent_work",
+      "latest_partial_verification": "i03-r07-core-terminal-capacity-verification.json",
+      "verified_core_boundaries": [
+        "16 actual owned helper processes and 16 unique Node interactive TTY shells at the original directory",
+        "17th start rejected without extra helper/session; released slot admits another target; replayed old start never relaunches",
+        "real loopback Host listener stop, revoked old session, fresh Owner login and HTTP reconnect retain original Core, generation, process, cursor and exact input receipt; replay causes one side effect",
+        "actual UTF8 stdin split inside a Chinese character preserves original Chinese and emoji file bytes; explicit restart gives new generation and rejects late old input",
+        "planned shutdown reaps 16 terminal trees and leaves unrelated control process alive; fresh Core preserves canvas nodes without reopening shells or replaying old-Core launch"
+      ],
+      "remaining_native_boundaries": [],
+      "latest_verification": "i03-r07-native-input-verification.json",
+      "verified_native_boundaries": [
+        "fresh_isolated_native_terminal_starts_real_pty_and_uses_original_generation",
+        "actual_windows_pinyin_composition_sends_no_uncommitted_bytes_and_commits_exact_chinese_once",
+        "actual_clipboard_button_pastes_exact_chinese_and_emoji_into_real_pty",
+        "native_terminal_selection_and_windows_copy_shortcut_write_exact_system_clipboard",
+        "controlled_native_read_transport_error_disables_input_then_explicit_refresh_recovers_same_shell_without_replay",
+        "collapse_reopen_and_explicit_refresh_keep_original_shell_and_do_not_replay_old_input",
+        "native_input_test_stops_and_reaps_its_owned_terminal"
+      ]
+    },
+    {
+      "id": "I03-R08",
+      "name": "实际规模、源IO与通知可见性",
+      "status": "engineering_verified",
+      "private_cases": [],
+      "original_groups": [
+        "I03-C05"
+      ],
+      "done_when": "大材料/目录/日志下响应、事务锁、取消/超时及worker名额正确；可见/被遮挡卡片的真实Core通知确认及清理正确。",
+      "next_action": "本机工程边界完成；继续R09八类原版UI/动态摘要/尺寸告警，再R10正式场景与开发预览。原平台待办仍保留。",
+      "owner": "Codex",
+      "external_condition": "none_confirmed_blocking_current_independent_work",
+      "native_private_storage_followup": "同步私聊落盘在大正文/真实输入压力下的响应归既有R08源IO与规模验证，不用小输入恢复测试代替性能资格。",
+      "latest_partial_verification": "i03-r08-notification-progress.json",
+      "verified_core_boundaries": {
+        "directory_files": 1500,
+        "large_file_bytes": 20971520,
+        "concurrent_requests": 8,
+        "accepted_initial": 4,
+        "busy_initial": 4,
+        "latencies_ms": {
+          "independentCommitMs": 5.369599999999991,
+          "batchMs": 260.9295000000002,
+          "floodCommitMs": 4.522799999998824,
+          "floodResizeMs": 0.558100000000195
+        },
+        "flood": {
+          "producedBeforeRead": 1048576,
+          "producedAtStop": 1236992,
+          "retainedBytes": 130949,
+          "firstAvailableSeq": 11255,
+          "throughSeq": 12534,
+          "gap": true
+        },
+        "source_bytes_preserved": true,
+        "messages_and_model_runs_created": 0
+      },
+      "remaining_runtime_boundaries": [],
+      "verified_native_large_input": {
+        "body_bytes": 1048707,
+        "keys": 16,
+        "real_paste_ms": 497.295900000001,
+        "key_p95_ms": 131.5,
+        "frame_max_ms": 374.9000000000001,
+        "main_max_ms": 76.67199999999866,
+        "independent_core_response_ms": 5,
+        "fresh_app_core_exact_restore": true
+      },
+      "latest_native_large_input_verification": "i03-r08-native-large-input-verification.json",
+      "verified_public_notification_scenarios": 4,
+      "pending_private_notification_repair": {
+        "source": "809a3d0bc42b8607f2337ad45f7fa4265b0541e4",
+        "tests": 48,
+        "types_exit": 0,
+        "native_verified": true,
+        "status": "native_verified_rc23",
+        "verification": "i03-r08-complete-local-verification.json"
+      },
+      "latest_verification": "i03-r08-complete-local-verification.json",
+      "verified_private_notification_scenarios": 4,
+      "verified_actual_file_io": {
+        "worker_limit": 4,
+        "os_file_breaks": 4,
+        "independent_database_commit_ms": 4.368800000000192,
+        "client_wait_abort": {
+          "name": "AbortError",
+          "message": "Owned client stopped waiting"
+        },
+        "client_wait_deadline": {
+          "name": "TimeoutError",
+          "message": "Owned client wait deadline"
+        },
+        "source_bytes_preserved": true,
+        "all_helpers_exit_0": true,
+        "host_exit": {
+          "code": 0,
+          "signal": null
+        },
+        "messages_created": 0,
+        "agent_runs_created": 0
+      }
+    },
+    {
+      "id": "I03-R09",
+      "name": "八类原版UI与缺少的真实摘要信息",
+      "status": "engineering_verified",
+      "private_cases": [],
+      "original_groups": [
+        "I03-C06"
+      ],
+      "done_when": "八类创建/编辑/排列/折叠/错误态、画板CRUD、原菜单键/旧Host提示、日夜小窗口和末项可达通过；源码参考中已登记的模型/分支/子会话/运行状态有真实Core投影或逐项有依据的适用性结论；尺寸告警形成定位及影响记录。",
+      "next_action": "本机工程边界完成；转R10正式12场景/平台矩阵和可运行开发预览。尺寸诊断按原计划保留跟进，不转客户技术验收。",
+      "owner": "Codex",
+      "external_condition": "none_confirmed_blocking_current_independent_work",
+      "known_ui_followups": [
+        "attachment_missing目前显示保留输入的通用错误指引；R09既定错误态应具体提示文件缺失与重新选择，不把本次通过写成全部文案/UI通过。"
+      ],
+      "latest_partial_verification": "i03-r09-source-ui-progress.json",
+      "implemented_source": [
+        "Codeg14px元信息/6px活动点/左右紧凑页脚；四行标题不变",
+        "精确active成员的明确模型配置；默认模型与缺失观测不生成名称",
+        "已有四并发worktree读取的精确分支；失败/旧字段/游离HEAD/缺失均保留未知",
+        "Core只读公开活动计数和精确私聊活动，原同一目录事务与失效合并，不增加逐卡轮询",
+        "Native桥接错误对象保留具体附件缺失/源变化指引；输入和恢复语义不变"
+      ],
+      "pending_candidate_verification": [],
+      "source_dependency": {
+        "source_feature": "C08",
+        "planned_stage": "I04",
+        "work": "Codeg真实父子会话/异步委派完成后补child_count画布投影和回归，不能拿私聊数量替代；功能仍在完整一期"
+      },
+      "verified_native_card_checks": 25,
+      "verified_native_board_checks": 6,
+      "pending_core_repair": {
+        "status": "native_verified_rc25",
+        "source_file": "crates/rovai-core/src/read_model/canvas_references.rs",
+        "source_sha256": "d78cee9719072b8cc00158f0f0bf142c6b58d5566ecea2c20280a496675064cf",
+        "defect": "真实single_chat运行通过camp_turn归属原Thread，直接camp_id为null；PRIVATE_SQL漏计活动，RUN_MODELS原有轮次关联正确。",
+        "repair": "活动投影沿原camp_turn核对归属，保留直接Thread归属优先及跨Thread拒绝；不改模型输入、数据库或API。",
+        "red": "r09-nullable-private-red.log",
+        "green": "r09-nullable-private-green.log",
+        "native_red": "fusion-i03-rc.24/native-source-ui-r7-prepare/result.json",
+        "next": "只构建Core25，复用24相同前端；重跑完整摘要交错与视觉观察。",
+        "verification": "i03-r09-complete-local-verification.json"
+      },
+      "latest_verification": "i03-r09-complete-local-verification.json",
+      "remaining_runtime_boundaries": [],
+      "known_diagnostics": [
+        "i03-ui-diagnostic-followups.json"
+      ]
+    },
+    {
+      "id": "I03-R10",
+      "name": "最终候选、正式场景与开发预览交接",
+      "status": "engineering_verified",
+      "private_cases": [],
+      "original_groups": [
+        "I03-C06"
+      ],
+      "done_when": "累计代码和自审集齐后冻结，当前Windows/Web适用面集中构建/运行；12个正式场景按平台登记；可运行开发预览及说明齐备。",
+      "next_action": "本机队列已收口；跨平台与诊断按独立编号继续，转I04。",
+      "owner": "Codex",
+      "external_condition": "none_confirmed_blocking_current_independent_work",
+      "latest_verification": "i03-r10-local-closeout-verification.json"
+    }
+  ],
+  "formal_cases": [
+    {
+      "id": "C12-N",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "创建、重命名、切换及删除画板",
+        "expected": "布局属于对应画板，重启保持一致",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "画板新建/改名/切换/删除及独立布局",
+      "evidence_scope": "R10 Web原UI创建和删除、HTTP改名；Native独立双板和新进程恢复。",
+      "shared_source_evidence": [
+        "i03-r09-source-ui-progress.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    },
+    {
+      "id": "C12-F",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "删除当前画板或并发修改/删除触发版本冲突",
+        "expected": "选择合理替代视图，不删除其他画板",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "删除当前板回退与并发版本冲突",
+      "evidence_scope": "R10 Web确认删除临时板后回退到真实现存板，原两板逐节点保持；旧版本命令拒绝，事件游标不误当布局。",
+      "shared_source_evidence": [
+        "i03-r09-source-ui-progress.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    },
+    {
+      "id": "C12-R",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "完成正常流程后重启或重连，再定位多画板相关对象、设置或工程",
+        "expected": "仍定位同一对象；持久事实、来源和配置一致；临时资源按源生命周期重建，不伪造恢复",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "双板与原对象/配置的进程恢复",
+      "evidence_scope": "Native两个App/Core进程原身份与摄像机精确恢复；Web刷新保持原绑定。浏览器设备分组明确独立。",
+      "shared_source_evidence": [
+        "i03-r04-process-interruption-verification.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    },
+    {
+      "id": "C12-P",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "在约定平台检查多画板及源支持的远程适用面；撤销Actor或目标授权",
+        "expected": "支持的平台行为一致；原生限制有具体依据；撤销后禁止越权，未实测保持未完成",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "源适用平台与撤销后的多板权限",
+      "evidence_scope": "实际浏览器Bearer撤销后板读取/更新401，独立健康会话仍可核对无变化；Mac/Linux保持未验。",
+      "shared_source_evidence": [
+        "i03-r03-host-private-verification.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    },
+    {
+      "id": "C13-N",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "创建八类节点并拖动、缩放、分组和布局",
+        "expected": "节点类型与对象绑定正确，布局可恢复",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "八类节点创建/编辑/布局/缩放/分组",
+      "evidence_scope": "原Native八类CRUD和键盘/布局资格；当前Native八类及Web原UI新建板、HTTP八类增改删、原排列/查看全部/键盘5px移动。Web不冒充八类均由弹窗创建。",
+      "shared_source_evidence": [
+        "i03-r09-source-ui-progress.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    },
+    {
+      "id": "C13-F",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "对象已删除或并发改布局",
+        "expected": "显示失效引用或冲突，不错误绑定其他对象",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "失效对象与并发布局不错误换绑",
+      "evidence_scope": "原对象失效、编辑器CAS保留；Web真实设备分组不可用提示、旧revision拒绝。已核定共享组件资格与实际HTTP接线组合，不冒称所有失败方式都重复运行。",
+      "shared_source_evidence": [
+        "i03-r05-object-cold-diff-verification.json",
+        "i03-r09-source-ui-progress.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    },
+    {
+      "id": "C13-R",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "完成正常流程后重启或重连，再定位画布区域与布局相关对象、设置或工程",
+        "expected": "仍定位同一对象；持久事实、来源和配置一致；临时资源按源生命周期重建，不伪造恢复",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "八类身份/布局/绑定冷恢复",
+      "evidence_scope": "当前Native全部八类与第二板独立精确核对，原入口自然恢复摄像机；Web重载及同一Core来源读回。",
+      "shared_source_evidence": [
+        "i03-r04-process-interruption-verification.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    },
+    {
+      "id": "C13-P",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "在约定平台检查画布区域与布局及源支持的远程适用面；撤销Actor或目标授权",
+        "expected": "支持的平台行为一致；原生限制有具体依据；撤销后禁止越权，未实测保持未完成",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "节点Actor/引用/授权边界",
+      "evidence_scope": "Web实际撤销会话节点snapshot/apply401；Native既有绑定/跨卡负例，其他平台未验。",
+      "shared_source_evidence": [
+        "i03-r03-host-private-verification.json",
+        "i03-r06-file-html-verification.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    },
+    {
+      "id": "C14-N",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "打开画布文件卡与终端卡并输入命令",
+        "expected": "文件指向真实路径，PTY输入回显正确",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "原文件与真实OS PTY输入输出",
+      "evidence_scope": "当前Native原启动按钮与精确输出；Web实际文件正文、真实PTY输出到原终端，非模型执行。",
+      "shared_source_evidence": [
+        "i03-r07-native-input-verification.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    },
+    {
+      "id": "C14-F",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "文件删除或PTY进程退出",
+        "expected": "卡片显示明确状态，终端不冒充持久Thread",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "源文件缺失及PTY自然退出",
+      "evidence_scope": "Web先保存原字节快照再移走隔离源，刷新后原卡错误、恢复后显式重试；真实PTY自然退出/新generation重开。",
+      "shared_source_evidence": [
+        "i03-r06-file-html-verification.json",
+        "i03-r07-core-terminal-capacity-verification.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    },
+    {
+      "id": "C14-R",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "完成正常流程后重启或重连，再定位画布文件与终端相关对象、设置或工程",
+        "expected": "仍定位同一对象；持久事实、来源和配置一致；临时资源按源生命周期重建，不伪造恢复",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "文件原绑定与临时资源生命周期",
+      "evidence_scope": "当前Native进程恢复原文件/节点，未伪造旧PTY；原重连生命周期沿未变模块复用，Web自然退出新代际不重放输入。",
+      "shared_source_evidence": [
+        "i03-r06-file-html-verification.json",
+        "i03-r07-core-terminal-capacity-verification.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    },
+    {
+      "id": "C14-P",
+      "status": "local_engineering_verified_environment_validation_pending",
+      "requirement": {
+        "steps": "在约定平台检查画布文件与终端及源支持的远程适用面；撤销Actor或目标授权",
+        "expected": "支持的平台行为一致；原生限制有具体依据；撤销后禁止越权，未实测保持未完成",
+        "platforms": [
+          "Windows Desktop",
+          "macOS Desktop",
+          "Linux Desktop",
+          "Web/Server按源适用面验证"
+        ]
+      },
+      "local_scope": "跨卡文件、CSP及终端撤权",
+      "evidence_scope": "原绑定/CSP负例沿未变文件模块；Web撤销实际曾获准的原文件请求及PTYwrite/stop均401，原文件SHA和输入序号保持。",
+      "shared_source_evidence": [
+        "i03-r03-host-private-verification.json",
+        "i03-r06-file-html-verification.json"
+      ],
+      "current_candidate_evidence": "i03-r10-local-closeout-verification.json",
+      "platform_state": {
+        "Windows Desktop": "engineering_verified_within_declared_local_scope",
+        "macOS Desktop": "not_verified_for_current_fusion",
+        "Linux Desktop": "not_verified_for_current_fusion",
+        "Web/Server按源适用面验证": "windows_host_chrome_web_verified_with_shared_component_evidence_other_hosts_browsers_pending"
+      },
+      "remaining": [
+        "macOS Desktop",
+        "Linux Desktop",
+        "其他Host操作系统/浏览器适用面按平台计划核定"
+      ]
+    }
+  ],
+  "known_environment_deferrals": [
+    "macOS/Linux桌面、其他Host操作系统与浏览器适用面仍未验；Windows桌面与本机Host/Chrome已按正式12条登记，不再写Web全部未验。",
+    "私聊24项当前Windows/Core本机边界已核定；标准ACP/整进程恢复不外推外部模型推理、其他平台或I02真正冻结后尚未投递窗口。其余环境和身份义务仍在原平台/阶段矩阵，不自动付费。",
+    "真实移动平台按I10推进；终端平台专属保护按相应平台阶段补齐，不能被Windows结果代替"
+  ],
+  "change_control": "剩余编号固定；发现缺陷归入已有组并说明影响。新增必需范围须有来源和编号变更记录；不能为减少数量合并隐藏未完成条件。",
+  "latest_verification": "i03-r10-local-closeout-verification.json",
+  "latest_partial_verification": "i03-r10-local-closeout-verification.json",
+  "retained_followups": "i03-r10-retained-followups.json"
+}
